@@ -489,10 +489,8 @@ body {
     <p class="subtitle">Old World Order &bull; Server #2013 &bull; <span id="grand-stats">Overall: 0/1380 (0%)</span></p>
     <div class="header-actions">
         <button class="header-btn export" id="btn-export">Export CSV</button>
-        <div style="position:relative;display:inline-block">
-            <button class="header-btn import" type="button" style="pointer-events:none">Import CSV</button>
-            <input type="file" id="csv-file-input" accept=".csv" style="position:absolute;top:0;left:0;width:100%;height:100%;opacity:0;cursor:pointer">
-        </div>
+        <label for="csv-file-input" class="header-btn import" style="cursor:pointer;display:inline-block">Import CSV</label>
+        <input type="file" id="csv-file-input" accept=".csv" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0);opacity:0">
         <button class="header-btn reset" id="btn-reset">Reset</button>
     </div>
 </div>
@@ -1833,8 +1831,8 @@ function importCSV(e) {
         // Show confirmation
         showImportMsg('Imported ' + updated + ' nodes');
 
-        // Reset file input so same file can be re-imported
-        e.target.value = '';
+        // Reset file input so same file can be re-imported (setTimeout avoids double-trigger)
+        setTimeout(() => { e.target.value = ''; }, 100);
     };
     reader.readAsText(file);
 }
