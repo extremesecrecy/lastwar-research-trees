@@ -1780,7 +1780,7 @@ def main():
     <p class="subtitle">Old World Order &bull; Server #2013 &bull; <span id="grand-stats">Overall: {grand_done}/{grand_total} ({grand_pct}%)</span></p>
     <div class="header-actions">
         <button class="header-btn export" id="btn-export">Export CSV</button>
-        <button class="header-btn import" id="btn-import">Import CSV</button>
+        <label class="header-btn import" id="btn-import" for="csv-file-input" style="cursor:pointer">Import CSV</label>
         <input type="file" id="csv-file-input" accept=".csv" style="display:none">
         <button class="header-btn reset" id="btn-reset">Reset</button>
     </div>
