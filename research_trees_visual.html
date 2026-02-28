@@ -1103,7 +1103,6 @@ document.addEventListener('DOMContentLoaded', () => {
         setTimeout(() => { clearAllLines(); drawAllLines(); }, 100);
     });
     document.getElementById('btn-export')?.addEventListener('click', exportCSV);
-    document.getElementById('btn-import')?.addEventListener('click', () => document.getElementById('csv-file-input')?.click());
     document.getElementById('csv-file-input')?.addEventListener('change', importCSV);
     document.getElementById('btn-reset')?.addEventListener('click', resetProgress);
 });
