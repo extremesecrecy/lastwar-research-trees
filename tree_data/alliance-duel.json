@@ -1,0 +1,1082 @@
+{
+  "name": "Alliance Duel",
+  "isComplete": true,
+  "rows": [
+    {
+      "id": "row-1",
+      "elements": [
+        {
+          "id": "incentive-radar",
+          "name": "Incentive - Radar",
+          "image": "/images/tech/alliance-duel/incentive-radar.png",
+          "maxLevel": 10,
+          "currentLevel": 0,
+          "levels": [
+            {
+              "level": 1,
+              "valor": 50,
+              "requirements": []
+            },
+            {
+              "level": 2,
+              "valor": 50,
+              "requirements": []
+            },
+            {
+              "level": 3,
+              "valor": 50,
+              "requirements": []
+            },
+            {
+              "level": 4,
+              "valor": 50,
+              "requirements": []
+            },
+            {
+              "level": 5,
+              "valor": 50,
+              "requirements": []
+            },
+            {
+              "level": 6,
+              "valor": 100,
+              "requirements": []
+            },
+            {
+              "level": 7,
+              "valor": 100,
+              "requirements": []
+            },
+            {
+              "level": 8,
+              "valor": 200,
+              "requirements": []
+            },
+            {
+              "level": 9,
+              "valor": 200,
+              "requirements": []
+            },
+            {
+              "level": 10,
+              "valor": 350,
+              "requirements": []
+            }
+          ]
+        },
+        {
+          "id": "incentive-speed-up",
+          "name": "Incentive - Speed-up",
+          "image": "/images/tech/alliance-duel/incentive-speed-up.png",
+          "maxLevel": 10,
+          "currentLevel": 0,
+          "levels": [
+            {
+              "level": 1,
+              "valor": 50,
+              "requirements": []
+            },
+            {
+              "level": 2,
+              "valor": 50,
+              "requirements": []
+            },
+            {
+              "level": 3,
+              "valor": 50,
+              "requirements": []
+            },
+            {
+              "level": 4,
+              "valor": 50,
+              "requirements": []
+            },
+            {
+              "level": 5,
+              "valor": 50,
+              "requirements": []
+            },
+            {
+              "level": 6,
+              "valor": 100,
+              "requirements": []
+            },
+            {
+              "level": 7,
+              "valor": 100,
+              "requirements": []
+            },
+            {
+              "level": 8,
+              "valor": 200,
+              "requirements": []
+            },
+            {
+              "level": 9,
+              "valor": 200,
+              "requirements": []
+            },
+            {
+              "level": 10,
+              "valor": 350,
+              "requirements": []
+            }
+          ]
+        },
+        {
+          "id": "incentive-recruitment",
+          "name": "Incentive - Recruitment",
+          "image": "/images/tech/alliance-duel/incentive-recruitment.png",
+          "maxLevel": 10,
+          "currentLevel": 0,
+          "levels": [
+            {
+              "level": 1,
+              "valor": 50,
+              "requirements": []
+            },
+            {
+              "level": 2,
+              "valor": 50,
+              "requirements": []
+            },
+            {
+              "level": 3,
+              "valor": 50,
+              "requirements": []
+            },
+            {
+              "level": 4,
+              "valor": 50,
+              "requirements": []
+            },
+            {
+              "level": 5,
+              "valor": 50,
+              "requirements": []
+            },
+            {
+              "level": 6,
+              "valor": 100,
+              "requirements": []
+            },
+            {
+              "level": 7,
+              "valor": 100,
+              "requirements": []
+            },
+            {
+              "level": 8,
+              "valor": 200,
+              "requirements": []
+            },
+            {
+              "level": 9,
+              "valor": 200,
+              "requirements": []
+            },
+            {
+              "level": 10,
+              "valor": 350,
+              "requirements": []
+            }
+          ]
+        }
+      ],
+      "connections": [
+        {
+          "from": "incentive-radar",
+          "to": [
+            "advanced-rewards"
+          ]
+        },
+        {
+          "from": "incentive-speed-up",
+          "to": [
+            "advanced-rewards"
+          ]
+        },
+        {
+          "from": "incentive-recruitment",
+          "to": [
+            "advanced-rewards"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "row-2",
+      "elements": [
+        {
+          "id": "advanced-rewards",
+          "name": "Advanced Rewards",
+          "image": "/images/tech/alliance-duel/advanced-rewards.png",
+          "maxLevel": 1,
+          "currentLevel": 0,
+          "levels": [
+            {
+              "level": 1,
+              "valor": 100,
+              "requirements": [
+                {
+                  "elementId": "incentive-radar",
+                  "minLevel": 6
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "connections": [
+        {
+          "from": "advanced-rewards",
+          "to": [
+            "duel-expert"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "row-3",
+      "elements": [
+        {
+          "id": "duel-expert",
+          "name": "Duel Expert",
+          "image": "/images/tech/alliance-duel/duel-expert.png",
+          "maxLevel": 20,
+          "currentLevel": 0,
+          "levels": [
+            {
+              "level": 1,
+              "valor": 100,
+              "requirements": [
+                {
+                  "elementId": "advanced-rewards",
+                  "minLevel": 1
+                }
+              ]
+            },
+            {
+              "level": 2,
+              "valor": 100,
+              "requirements": []
+            },
+            {
+              "level": 3,
+              "valor": 100,
+              "requirements": []
+            },
+            {
+              "level": 4,
+              "valor": 100,
+              "requirements": []
+            },
+            {
+              "level": 5,
+              "valor": 100,
+              "requirements": []
+            },
+            {
+              "level": 6,
+              "valor": 100,
+              "requirements": []
+            },
+            {
+              "level": 7,
+              "valor": 100,
+              "requirements": []
+            },
+            {
+              "level": 8,
+              "valor": 100,
+              "requirements": []
+            },
+            {
+              "level": 9,
+              "valor": 200,
+              "requirements": []
+            },
+            {
+              "level": 10,
+              "valor": 200,
+              "requirements": []
+            },
+            {
+              "level": 11,
+              "valor": 200,
+              "requirements": []
+            },
+            {
+              "level": 12,
+              "valor": 200,
+              "requirements": []
+            },
+            {
+              "level": 13,
+              "valor": 200,
+              "requirements": []
+            },
+            {
+              "level": 14,
+              "valor": 200,
+              "requirements": []
+            },
+            {
+              "level": 15,
+              "valor": 200,
+              "requirements": []
+            },
+            {
+              "level": 16,
+              "valor": 200,
+              "requirements": []
+            },
+            {
+              "level": 17,
+              "valor": 350,
+              "requirements": []
+            },
+            {
+              "level": 18,
+              "valor": 350,
+              "requirements": []
+            },
+            {
+              "level": 19,
+              "valor": 350,
+              "requirements": []
+            },
+            {
+              "level": 20,
+              "valor": 350,
+              "requirements": []
+            }
+          ]
+        }
+      ],
+      "connections": [
+        {
+          "from": "duel-expert",
+          "to": [
+            "incentive-building",
+            "incentive-research"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "row-4",
+      "elements": [
+        {
+          "id": "incentive-building",
+          "name": "Incentive - Building",
+          "image": "/images/tech/alliance-duel/incentive-building.png",
+          "maxLevel": 10,
+          "currentLevel": 0,
+          "levels": [
+            {
+              "level": 1,
+              "valor": 100,
+              "requirements": [
+                {
+                  "elementId": "duel-expert",
+                  "minLevel": 1
+                }
+              ]
+            },
+            {
+              "level": 2,
+              "valor": 100,
+              "requirements": []
+            },
+            {
+              "level": 3,
+              "valor": 200,
+              "requirements": []
+            },
+            {
+              "level": 4,
+              "valor": 200,
+              "requirements": []
+            },
+            {
+              "level": 5,
+              "valor": 350,
+              "requirements": []
+            },
+            {
+              "level": 6,
+              "valor": 450,
+              "requirements": []
+            },
+            {
+              "level": 7,
+              "valor": 750,
+              "requirements": []
+            },
+            {
+              "level": 8,
+              "valor": 1050,
+              "requirements": []
+            },
+            {
+              "level": 9,
+              "valor": 1400,
+              "requirements": []
+            },
+            {
+              "level": 10,
+              "valor": 1750,
+              "requirements": []
+            }
+          ]
+        },
+        {
+          "id": "incentive-research",
+          "name": "Incentive - Research",
+          "image": "/images/tech/alliance-duel/incentive-research.png",
+          "maxLevel": 10,
+          "currentLevel": 0,
+          "levels": [
+            {
+              "level": 1,
+              "valor": 100,
+              "requirements": [
+                {
+                  "elementId": "duel-expert",
+                  "minLevel": 1
+                }
+              ]
+            },
+            {
+              "level": 2,
+              "valor": 100,
+              "requirements": []
+            },
+            {
+              "level": 3,
+              "valor": 200,
+              "requirements": []
+            },
+            {
+              "level": 4,
+              "valor": 200,
+              "requirements": []
+            },
+            {
+              "level": 5,
+              "valor": 350,
+              "requirements": []
+            },
+            {
+              "level": 6,
+              "valor": 450,
+              "requirements": []
+            },
+            {
+              "level": 7,
+              "valor": 750,
+              "requirements": []
+            },
+            {
+              "level": 8,
+              "valor": 1050,
+              "requirements": []
+            },
+            {
+              "level": 9,
+              "valor": 1400,
+              "requirements": []
+            },
+            {
+              "level": 10,
+              "valor": 1750,
+              "requirements": []
+            }
+          ]
+        }
+      ],
+      "connections": [
+        {
+          "from": "incentive-building",
+          "to": [
+            "incentive-training"
+          ]
+        },
+        {
+          "from": "incentive-research",
+          "to": [
+            "incentive-enemy-kills"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "row-5",
+      "elements": [
+        {
+          "id": "incentive-training",
+          "name": "Incentive - Training",
+          "image": "/images/tech/alliance-duel/incentive-training.png",
+          "maxLevel": 10,
+          "currentLevel": 0,
+          "levels": [
+            {
+              "level": 1,
+              "valor": 100,
+              "requirements": [
+                {
+                  "elementId": "incentive-building",
+                  "minLevel": 1
+                }
+              ]
+            },
+            {
+              "level": 2,
+              "valor": 100,
+              "requirements": []
+            },
+            {
+              "level": 3,
+              "valor": 200,
+              "requirements": []
+            },
+            {
+              "level": 4,
+              "valor": 200,
+              "requirements": []
+            },
+            {
+              "level": 5,
+              "valor": 350,
+              "requirements": []
+            },
+            {
+              "level": 6,
+              "valor": 450,
+              "requirements": []
+            },
+            {
+              "level": 7,
+              "valor": 750,
+              "requirements": []
+            },
+            {
+              "level": 8,
+              "valor": 1050,
+              "requirements": []
+            },
+            {
+              "level": 9,
+              "valor": 1400,
+              "requirements": []
+            },
+            {
+              "level": 10,
+              "valor": 1750,
+              "requirements": []
+            }
+          ]
+        },
+        {
+          "id": "incentive-enemy-kills",
+          "name": "Incentive - Enemy Kills",
+          "image": "/images/tech/alliance-duel/incentive-enemy-kills.png",
+          "maxLevel": 10,
+          "currentLevel": 0,
+          "levels": [
+            {
+              "level": 1,
+              "valor": 100,
+              "requirements": [
+                {
+                  "elementId": "incentive-research",
+                  "minLevel": 1
+                }
+              ]
+            },
+            {
+              "level": 2,
+              "valor": 100,
+              "requirements": []
+            },
+            {
+              "level": 3,
+              "valor": 200,
+              "requirements": []
+            },
+            {
+              "level": 4,
+              "valor": 200,
+              "requirements": []
+            },
+            {
+              "level": 5,
+              "valor": 350,
+              "requirements": []
+            },
+            {
+              "level": 6,
+              "valor": 450,
+              "requirements": []
+            },
+            {
+              "level": 7,
+              "valor": 750,
+              "requirements": []
+            },
+            {
+              "level": 8,
+              "valor": 1050,
+              "requirements": []
+            },
+            {
+              "level": 9,
+              "valor": 1400,
+              "requirements": []
+            },
+            {
+              "level": 10,
+              "valor": 1750,
+              "requirements": []
+            }
+          ]
+        }
+      ],
+      "connections": [
+        {
+          "from": "incentive-training",
+          "to": [
+            "super-bonus"
+          ]
+        },
+        {
+          "from": "duel-expert",
+          "to": [
+            "super-bonus"
+          ]
+        },
+        {
+          "from": "incentive-enemy-kills",
+          "to": [
+            "super-bonus"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "row-6",
+      "elements": [
+        {
+          "id": "super-bonus",
+          "name": "Super Bonus",
+          "image": "/images/tech/alliance-duel/super-bonus.png",
+          "maxLevel": 1,
+          "currentLevel": 0,
+          "levels": [
+            {
+              "level": 1,
+              "valor": 450,
+              "requirements": [
+                {
+                  "elementId": "duel-expert",
+                  "minLevel": 20
+                },
+                {
+                  "elementId": "incentive-training",
+                  "minLevel": 6
+                },
+                {
+                  "elementId": "incentive-enemy-kills",
+                  "minLevel": 6
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "connections": [
+        {
+          "from": "super-bonus",
+          "to": [
+            "incentive-intercity-trade",
+            "incentive-secret-mobile-squad",
+            "incentive-survivor-recruit"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "row-7",
+      "elements": [
+        {
+          "id": "incentive-intercity-trade",
+          "name": "Incentive - Intercity Trade",
+          "image": "/images/tech/alliance-duel/incentive-intercity-trade.png",
+          "maxLevel": 10,
+          "currentLevel": 0,
+          "levels": [
+            {
+              "level": 1,
+              "valor": 100,
+              "requirements": [
+                {
+                  "elementId": "super-bonus",
+                  "minLevel": 2
+                }
+              ]
+            },
+            {
+              "level": 2,
+              "valor": 100,
+              "requirements": []
+            },
+            {
+              "level": 3,
+              "valor": 200,
+              "requirements": []
+            },
+            {
+              "level": 4,
+              "valor": 200,
+              "requirements": []
+            },
+            {
+              "level": 5,
+              "valor": 350,
+              "requirements": []
+            },
+            {
+              "level": 6,
+              "valor": 450,
+              "requirements": []
+            },
+            {
+              "level": 7,
+              "valor": 600,
+              "requirements": []
+            },
+            {
+              "level": 8,
+              "valor": 720,
+              "requirements": []
+            },
+            {
+              "level": 9,
+              "valor": 840,
+              "requirements": []
+            },
+            {
+              "level": 10,
+              "valor": 960,
+              "requirements": []
+            }
+          ]
+        },
+        {
+          "id": "incentive-secret-mobile-squad",
+          "name": "Incentive - Secret Mobile Squad",
+          "image": "/images/tech/alliance-duel/incentive-secret-mobile-squad.png",
+          "maxLevel": 10,
+          "currentLevel": 0,
+          "levels": [
+            {
+              "level": 1,
+              "valor": 100,
+              "requirements": [
+                {
+                  "elementId": "super-bonus",
+                  "minLevel": 2
+                }
+              ]
+            },
+            {
+              "level": 2,
+              "valor": 100,
+              "requirements": []
+            },
+            {
+              "level": 3,
+              "valor": 200,
+              "requirements": []
+            },
+            {
+              "level": 4,
+              "valor": 200,
+              "requirements": []
+            },
+            {
+              "level": 5,
+              "valor": 350,
+              "requirements": []
+            },
+            {
+              "level": 6,
+              "valor": 450,
+              "requirements": []
+            },
+            {
+              "level": 7,
+              "valor": 600,
+              "requirements": []
+            },
+            {
+              "level": 8,
+              "valor": 720,
+              "requirements": []
+            },
+            {
+              "level": 9,
+              "valor": 840,
+              "requirements": []
+            },
+            {
+              "level": 10,
+              "valor": 960,
+              "requirements": []
+            }
+          ]
+        },
+        {
+          "id": "incentive-survivor-recruit",
+          "name": "Incentive - Survivor Recruit",
+          "image": "/images/tech/alliance-duel/incentive-survivor-recruit.png",
+          "maxLevel": 10,
+          "currentLevel": 0,
+          "levels": [
+            {
+              "level": 1,
+              "valor": 100,
+              "requirements": [
+                {
+                  "elementId": "super-bonus",
+                  "minLevel": 2
+                }
+              ]
+            },
+            {
+              "level": 2,
+              "valor": 100,
+              "requirements": []
+            },
+            {
+              "level": 3,
+              "valor": 200,
+              "requirements": []
+            },
+            {
+              "level": 4,
+              "valor": 200,
+              "requirements": []
+            },
+            {
+              "level": 5,
+              "valor": 350,
+              "requirements": []
+            },
+            {
+              "level": 6,
+              "valor": 450,
+              "requirements": []
+            },
+            {
+              "level": 7,
+              "valor": 600,
+              "requirements": []
+            },
+            {
+              "level": 8,
+              "valor": 720,
+              "requirements": []
+            },
+            {
+              "level": 9,
+              "valor": 840,
+              "requirements": []
+            },
+            {
+              "level": 10,
+              "valor": 960,
+              "requirements": []
+            }
+          ]
+        }
+      ],
+      "connections": [
+        {
+          "from": "incentive-intercity-trade",
+          "to": [
+            "duel-master-2"
+          ]
+        },
+        {
+          "from": "incentive-secret-mobile-squad",
+          "to": [
+            "duel-master-2"
+          ]
+        },
+        {
+          "from": "incentive-survivor-recruit",
+          "to": [
+            "duel-master-2"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "row-9",
+      "elements": [
+        {
+          "id": "duel-master-2",
+          "name": "Duel Master II",
+          "image": "/images/tech/alliance-duel/duel-expert.png",
+          "maxLevel": 10,
+          "currentLevel": 0,
+          "levels": [
+            {
+              "level": 1,
+              "valor": 480,
+              "requirements": [
+                {
+                  "elementId": "incentive-intercity-trade",
+                  "minLevel": 1
+                }
+              ]
+            },
+            {
+              "level": 2,
+              "valor": 480,
+              "requirements": [
+                {
+                  "elementId": "incentive-intercity-trade",
+                  "minLevel": 2
+                }
+              ]
+            },
+            {
+              "level": 3,
+              "valor": 600,
+              "requirements": [
+                {
+                  "elementId": "incentive-intercity-trade",
+                  "minLevel": 3
+                }
+              ]
+            },
+            {
+              "level": 4,
+              "valor": 600,
+              "requirements": [
+                {
+                  "elementId": "incentive-intercity-trade",
+                  "minLevel": 4
+                }
+              ]
+            },
+            {
+              "level": 5,
+              "valor": 720,
+              "requirements": [
+                {
+                  "elementId": "incentive-intercity-trade",
+                  "minLevel": 5
+                }
+              ]
+            },
+            {
+              "level": 6,
+              "valor": 720,
+              "requirements": [
+                {
+                  "elementId": "incentive-intercity-trade",
+                  "minLevel": 6
+                }
+              ]
+            },
+            {
+              "level": 7,
+              "valor": 840,
+              "requirements": [
+                {
+                  "elementId": "incentive-intercity-trade",
+                  "minLevel": 7
+                }
+              ]
+            },
+            {
+              "level": 8,
+              "valor": 840,
+              "requirements": [
+                {
+                  "elementId": "incentive-intercity-trade",
+                  "minLevel": 8
+                }
+              ]
+            },
+            {
+              "level": 9,
+              "valor": 960,
+              "requirements": [
+                {
+                  "elementId": "incentive-intercity-trade",
+                  "minLevel": 9
+                }
+              ]
+            },
+            {
+              "level": 10,
+              "valor": 960,
+              "requirements": [
+                {
+                  "elementId": "incentive-intercity-trade",
+                  "minLevel": 10
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "connections": [
+        {
+          "from": "duel-master-2",
+          "to": [
+            "infinite-roulette"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "row-10",
+      "elements": [
+        {
+          "id": "infinite-roulette",
+          "name": "Infinite Roulette",
+          "image": "/images/tech/alliance-duel/infinite-roulette.png",
+          "maxLevel": 1,
+          "currentLevel": 0,
+          "levels": [
+            {
+              "level": 1,
+              "valor": 77,
+              "gold": 7777,
+              "food": 7777,
+              "iron": 7777,
+              "requirements": [
+                {
+                  "elementId": "duel-master-2",
+                  "minLevel": 10
+                },
+                {
+                  "elementId": "Becomes available later in the game",
+                  "minLevel": 0,
+                  "external": true
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "connections": []
+    }
+  ]
+}

@@ -1,0 +1,1875 @@
+{
+  "name": "Hero",
+  "isComplete": true,
+  "specialThanks": "Special thanks to #287 SGPxyz for helping to fill in the gaps in this research tree!",
+  "rows": [
+    {
+      "id": "row-1",
+      "elements": [
+        {
+          "id": "tank-mastery-1",
+          "name": "Tank Mastery I",
+          "image": "/images/tech/tank-mastery/tank-synergy-damage-1.png",
+          "maxLevel": 5,
+          "currentLevel": 0,
+          "levels": [
+            {
+              "level": 1,
+              "gold": 13700,
+              "food": 4600,
+              "iron": 4600,
+              "requirements": []
+            },
+            {
+              "level": 2,
+              "gold": 164000,
+              "food": 54700,
+              "iron": 54700,
+              "requirements": []
+            },
+            {
+              "level": 3,
+              "gold": 503900,
+              "food": 168000,
+              "iron": 168000,
+              "requirements": []
+            },
+            {
+              "level": 4,
+              "gold": 2300000,
+              "food": 785200,
+              "iron": 785200,
+              "requirements": []
+            },
+            {
+              "level": 5,
+              "gold": 8218400,
+              "food": 2700000,
+              "iron": 2700000,
+              "requirements": []
+            }
+          ]
+        }
+      ],
+      "connections": [
+        {
+          "from": "tank-mastery-1",
+          "to": [
+            "cannon-enhancement-1",
+            "armor-hardening-1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "row-2",
+      "elements": [
+        {
+          "id": "cannon-enhancement-1",
+          "name": "Cannon Enhancement I",
+          "image": "/images/tech/tank-mastery/tank-synergy-attack-1.png",
+          "maxLevel": 5,
+          "currentLevel": 0,
+          "levels": [
+            {
+              "level": 1,
+              "gold": 27300,
+              "food": 9100,
+              "iron": 9100,
+              "requirements": [
+                {
+                  "elementId": "tank-mastery-1",
+                  "minLevel": 1
+                }
+              ]
+            },
+            {
+              "level": 2,
+              "gold": 262400,
+              "food": 87500,
+              "iron": 87500,
+              "requirements": []
+            },
+            {
+              "level": 3,
+              "gold": 1200000,
+              "food": 419000,
+              "iron": 419000,
+              "requirements": [
+                {
+                  "elementId": "tank-mastery-1",
+                  "minLevel": 3
+                }
+              ]
+            },
+            {
+              "level": 4,
+              "gold": 3200000,
+              "food": 1000000,
+              "iron": 1000000,
+              "requirements": []
+            },
+            {
+              "level": 5,
+              "gold": 10684000,
+              "food": 3560000,
+              "iron": 3560000,
+              "requirements": []
+            }
+          ]
+        },
+        {
+          "id": "armor-hardening-1",
+          "name": "Armor Hardening I",
+          "image": "/images/tech/tank-mastery/tank-synergy-defense-1.png",
+          "maxLevel": 5,
+          "currentLevel": 0,
+          "levels": [
+            {
+              "level": 1,
+              "gold": 27300,
+              "food": 9100,
+              "iron": 9100,
+              "requirements": [
+                {
+                  "elementId": "tank-mastery-1",
+                  "minLevel": 1
+                }
+              ]
+            },
+            {
+              "level": 2,
+              "gold": 262400,
+              "food": 87500,
+              "iron": 87500,
+              "requirements": []
+            },
+            {
+              "level": 3,
+              "gold": 1200000,
+              "food": 419000,
+              "iron": 419000,
+              "requirements": [
+                {
+                  "elementId": "tank-mastery-1",
+                  "minLevel": 3
+                }
+              ]
+            },
+            {
+              "level": 4,
+              "gold": 3200000,
+              "food": 1000000,
+              "iron": 1000000,
+              "requirements": []
+            },
+            {
+              "level": 5,
+              "gold": 10684000,
+              "food": 3560000,
+              "iron": 3560000,
+              "requirements": []
+            }
+          ]
+        }
+      ],
+      "connections": [
+        {
+          "from": "cannon-enhancement-1",
+          "to": [
+            "track-fortification-1"
+          ]
+        },
+        {
+          "from": "armor-hardening-1",
+          "to": [
+            "track-fortification-1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "row-3",
+      "elements": [
+        {
+          "id": "track-fortification-1",
+          "name": "Track Fortification I",
+          "image": "/images/tech/tank-mastery/tank-synergy-hp-1.png",
+          "maxLevel": 5,
+          "currentLevel": 0,
+          "levels": [
+            {
+              "level": 1,
+              "gold": 82000,
+              "food": 27300,
+              "iron": 27300,
+              "requirements": [
+                {
+                  "elementId": "cannon-enhancement-1",
+                  "minLevel": 1
+                },
+                {
+                  "elementId": "armor-hardening-1",
+                  "minLevel": 1
+                }
+              ]
+            },
+            {
+              "level": 2,
+              "gold": 419900,
+              "food": 140000,
+              "iron": 140000,
+              "requirements": []
+            },
+            {
+              "level": 3,
+              "gold": 2100000,
+              "food": 713800,
+              "iron": 713800,
+              "requirements": [
+                {
+                  "elementId": "cannon-enhancement-1",
+                  "minLevel": 3
+                },
+                {
+                  "elementId": "armor-hardening-1",
+                  "minLevel": 3
+                }
+              ]
+            },
+            {
+              "level": 4,
+              "gold": 4600000,
+              "food": 1500000,
+              "iron": 1500000,
+              "requirements": []
+            },
+            {
+              "level": 5,
+              "gold": 18696900,
+              "food": 6180000,
+              "iron": 6180000,
+              "requirements": []
+            }
+          ]
+        }
+      ],
+      "connections": [
+        {
+          "from": "track-fortification-1",
+          "to": [
+            "aircraft-mastery-1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "row-4",
+      "elements": [
+        {
+          "id": "aircraft-mastery-1",
+          "name": "Aircraft Mastery I",
+          "image": "/images/tech/aircraft-mastery/aircraft-synergy-damage-1.png",
+          "maxLevel": 5,
+          "currentLevel": 0,
+          "levels": [
+            {
+              "level": 1,
+              "gold": 164000,
+              "food": 54700,
+              "iron": 54700,
+              "requirements": [
+                {
+                  "elementId": "track-fortification-1",
+                  "minLevel": 1
+                }
+              ]
+            },
+            {
+              "level": 2,
+              "gold": 503900,
+              "food": 168000,
+              "iron": 168000,
+              "requirements": []
+            },
+            {
+              "level": 3,
+              "gold": 2300000,
+              "food": 785200,
+              "iron": 785200,
+              "requirements": [
+                {
+                  "elementId": "track-fortification-1",
+                  "minLevel": 3
+                }
+              ]
+            },
+            {
+              "level": 4,
+              "gold": 8218400,
+              "food": 2700000,
+              "iron": 2700000,
+              "requirements": []
+            },
+            {
+              "level": 5,
+              "gold": 22436300,
+              "food": 7430000,
+              "iron": 7430000,
+              "requirements": []
+            }
+          ]
+        }
+      ],
+      "connections": [
+        {
+          "from": "aircraft-mastery-1",
+          "to": [
+            "airborne-weapon-1",
+            "reinforced-body-1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "row-5",
+      "elements": [
+        {
+          "id": "airborne-weapon-1",
+          "name": "Airborne Weapon I",
+          "image": "/images/tech/aircraft-mastery/aircraft-synergy-attack-1.png",
+          "maxLevel": 5,
+          "currentLevel": 0,
+          "levels": [
+            {
+              "level": 1,
+              "gold": 262400,
+              "food": 87500,
+              "iron": 87500,
+              "requirements": [
+                {
+                  "elementId": "aircraft-mastery-1",
+                  "minLevel": 1
+                }
+              ]
+            },
+            {
+              "level": 2,
+              "gold": 1200000,
+              "food": 419000,
+              "iron": 419000,
+              "requirements": []
+            },
+            {
+              "level": 3,
+              "gold": 3200000,
+              "food": 1000000,
+              "iron": 1000000,
+              "requirements": [
+                {
+                  "elementId": "aircraft-mastery-1",
+                  "minLevel": 3
+                }
+              ]
+            },
+            {
+              "level": 4,
+              "gold": 10684000,
+              "food": 3560000,
+              "iron": 3560000,
+              "requirements": []
+            },
+            {
+              "level": 5,
+              "gold": 40385400,
+              "food": 13461800,
+              "iron": 13461800,
+              "requirements": []
+            }
+          ]
+        },
+        {
+          "id": "reinforced-body-1",
+          "name": "Reinforced Body I",
+          "image": "/images/tech/aircraft-mastery/aircraft-synergy-defense-1.png",
+          "maxLevel": 5,
+          "currentLevel": 0,
+          "levels": [
+            {
+              "level": 1,
+              "gold": 262400,
+              "food": 87500,
+              "iron": 87500,
+              "requirements": [
+                {
+                  "elementId": "aircraft-mastery-1",
+                  "minLevel": 1
+                }
+              ]
+            },
+            {
+              "level": 2,
+              "gold": 1200000,
+              "food": 419000,
+              "iron": 419000,
+              "requirements": []
+            },
+            {
+              "level": 3,
+              "gold": 3200000,
+              "food": 1000000,
+              "iron": 1000000,
+              "requirements": [
+                {
+                  "elementId": "aircraft-mastery-1",
+                  "minLevel": 3
+                }
+              ]
+            },
+            {
+              "level": 4,
+              "gold": 10684000,
+              "food": 3560000,
+              "iron": 3560000,
+              "requirements": []
+            },
+            {
+              "level": 5,
+              "gold": 40385400,
+              "food": 13461800,
+              "iron": 13461800,
+              "requirements": []
+            }
+          ]
+        }
+      ],
+      "connections": [
+        {
+          "from": "airborne-weapon-1",
+          "to": [
+            "wingman-tactics-1"
+          ]
+        },
+        {
+          "from": "reinforced-body-1",
+          "to": [
+            "wingman-tactics-1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "row-6",
+      "elements": [
+        {
+          "id": "wingman-tactics-1",
+          "name": "Wingman Tactics I",
+          "image": "/images/tech/aircraft-mastery/aircraft-synergy-hp-1.png",
+          "maxLevel": 5,
+          "currentLevel": 0,
+          "levels": [
+            {
+              "level": 1,
+              "gold": 419900,
+              "food": 140000,
+              "iron": 140000,
+              "requirements": [
+                {
+                  "elementId": "airborne-weapon-1",
+                  "minLevel": 1
+                },
+                {
+                  "elementId": "reinforced-body-1",
+                  "minLevel": 1
+                }
+              ]
+            },
+            {
+              "level": 2,
+              "gold": 2100000,
+              "food": 713800,
+              "iron": 713800,
+              "requirements": []
+            },
+            {
+              "level": 3,
+              "gold": 4600000,
+              "food": 1500000,
+              "iron": 1500000,
+              "requirements": [
+                {
+                  "elementId": "airborne-weapon-1",
+                  "minLevel": 3
+                },
+                {
+                  "elementId": "reinforced-body-1",
+                  "minLevel": 3
+                }
+              ]
+            },
+            {
+              "level": 4,
+              "gold": 18696900,
+              "food": 6180000,
+              "iron": 6180000,
+              "requirements": []
+            },
+            {
+              "level": 5,
+              "gold": 56539500,
+              "food": 18846500,
+              "iron": 18846500,
+              "requirements": []
+            }
+          ]
+        }
+      ],
+      "connections": [
+        {
+          "from": "wingman-tactics-1",
+          "to": [
+            "missile-mastery-1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "row-7",
+      "elements": [
+        {
+          "id": "missile-mastery-1",
+          "name": "Missile Mastery I",
+          "image": "/images/tech/missile-vehicle-mastery/missile-vehicle-synergy-damage-1.png",
+          "maxLevel": 5,
+          "currentLevel": 0,
+          "levels": [
+            {
+              "level": 1,
+              "gold": 503900,
+              "food": 168000,
+              "iron": 168000,
+              "requirements": [
+                {
+                  "elementId": "wingman-tactics-1",
+                  "minLevel": 1
+                }
+              ]
+            },
+            {
+              "level": 2,
+              "gold": 2300000,
+              "food": 785200,
+              "iron": 785200,
+              "requirements": []
+            },
+            {
+              "level": 3,
+              "gold": 8218400,
+              "food": 2700000,
+              "iron": 2700000,
+              "requirements": [
+                {
+                  "elementId": "wingman-tactics-1",
+                  "minLevel": 3
+                }
+              ]
+            },
+            {
+              "level": 4,
+              "gold": 22436300,
+              "food": 7430000,
+              "iron": 7430000,
+              "requirements": []
+            },
+            {
+              "level": 5,
+              "gold": 73501400,
+              "food": 24500500,
+              "iron": 24500500,
+              "requirements": []
+            }
+          ]
+        }
+      ],
+      "connections": [
+        {
+          "from": "missile-mastery-1",
+          "to": [
+            "precision-targeting-1",
+            "metal-barricade-1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "row-8",
+      "elements": [
+        {
+          "id": "precision-targeting-1",
+          "name": "Precision Targeting I",
+          "image": "/images/tech/missile-vehicle-mastery/missile-vehicle-synergy-attack-1.png",
+          "maxLevel": 5,
+          "currentLevel": 0,
+          "levels": [
+            {
+              "level": 1,
+              "gold": 1200000,
+              "food": 419000,
+              "iron": 419000,
+              "requirements": [
+                {
+                  "elementId": "missile-mastery-1",
+                  "minLevel": 1
+                }
+              ]
+            },
+            {
+              "level": 2,
+              "gold": 3200000,
+              "food": 1000000,
+              "iron": 1000000,
+              "requirements": []
+            },
+            {
+              "level": 3,
+              "gold": 10684000,
+              "food": 3560000,
+              "iron": 3560000,
+              "requirements": [
+                {
+                  "elementId": "missile-mastery-1",
+                  "minLevel": 3
+                }
+              ]
+            },
+            {
+              "level": 4,
+              "gold": 40385400,
+              "food": 13461800,
+              "iron": 13461800,
+              "requirements": []
+            },
+            {
+              "level": 5,
+              "gold": 91876700,
+              "food": 30625600,
+              "iron": 30625600,
+              "requirements": []
+            }
+          ]
+        },
+        {
+          "id": "metal-barricade-1",
+          "name": "Metal Barricade I",
+          "image": "/images/tech/missile-vehicle-mastery/missile-vehicle-synergy-defense-1.png",
+          "maxLevel": 5,
+          "currentLevel": 0,
+          "levels": [
+            {
+              "level": 1,
+              "gold": 1200000,
+              "food": 419000,
+              "iron": 419000,
+              "requirements": [
+                {
+                  "elementId": "missile-mastery-1",
+                  "minLevel": 1
+                }
+              ]
+            },
+            {
+              "level": 2,
+              "gold": 3200000,
+              "food": 1000000,
+              "iron": 1000000,
+              "requirements": []
+            },
+            {
+              "level": 3,
+              "gold": 10684000,
+              "food": 3560000,
+              "iron": 3560000,
+              "requirements": [
+                {
+                  "elementId": "missile-mastery-1",
+                  "minLevel": 3
+                }
+              ]
+            },
+            {
+              "level": 4,
+              "gold": 40385400,
+              "food": 13461800,
+              "iron": 13461800,
+              "requirements": []
+            },
+            {
+              "level": 5,
+              "gold": 91876700,
+              "food": 30625600,
+              "iron": 30625600,
+              "requirements": []
+            }
+          ]
+        }
+      ],
+      "connections": [
+        {
+          "from": "precision-targeting-1",
+          "to": [
+            "missile-expansion-1"
+          ]
+        },
+        {
+          "from": "metal-barricade-1",
+          "to": [
+            "missile-expansion-1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "row-9",
+      "elements": [
+        {
+          "id": "missile-expansion-1",
+          "name": "Missile Expansion I",
+          "image": "/images/tech/missile-vehicle-mastery/missile-vehicle-synergy-hp-1.png",
+          "maxLevel": 5,
+          "currentLevel": 0,
+          "levels": [
+            {
+              "level": 1,
+              "gold": 2100000,
+              "food": 713800,
+              "iron": 713800,
+              "requirements": [
+                {
+                  "elementId": "precision-targeting-1",
+                  "minLevel": 1
+                },
+                {
+                  "elementId": "metal-barricade-1",
+                  "minLevel": 1
+                }
+              ]
+            },
+            {
+              "level": 2,
+              "gold": 4600000,
+              "food": 1500000,
+              "iron": 1500000,
+              "requirements": []
+            },
+            {
+              "level": 3,
+              "gold": 18696900,
+              "food": 6180000,
+              "iron": 6180000,
+              "requirements": [
+                {
+                  "elementId": "precision-targeting-1",
+                  "minLevel": 3
+                },
+                {
+                  "elementId": "metal-barricade-1",
+                  "minLevel": 3
+                }
+              ]
+            },
+            {
+              "level": 4,
+              "gold": 56539500,
+              "food": 18846500,
+              "iron": 18846500,
+              "requirements": []
+            },
+            {
+              "level": 5,
+              "gold": 114845900,
+              "food": 38282000,
+              "iron": 38282000,
+              "requirements": []
+            }
+          ]
+        }
+      ],
+      "connections": [
+        {
+          "from": "missile-expansion-1",
+          "to": [
+            "tank-mastery-2"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "row-10",
+      "elements": [
+        {
+          "id": "tank-mastery-2",
+          "name": "Tank Mastery II",
+          "image": "/images/tech/tank-mastery/tank-synergy-damage-1.png",
+          "maxLevel": 5,
+          "currentLevel": 0,
+          "levels": [
+            {
+              "level": 1,
+              "gold": 2300000,
+              "food": 785200,
+              "iron": 785200,
+              "requirements": [
+                {
+                  "elementId": "missile-expansion-1",
+                  "minLevel": 1
+                }
+              ]
+            },
+            {
+              "level": 2,
+              "gold": 8218400,
+              "food": 2700000,
+              "iron": 2700000,
+              "requirements": []
+            },
+            {
+              "level": 3,
+              "gold": 22436300,
+              "food": 7430000,
+              "iron": 7430000,
+              "requirements": [
+                {
+                  "elementId": "missile-expansion-1",
+                  "minLevel": 3
+                }
+              ]
+            },
+            {
+              "level": 4,
+              "gold": 73501400,
+              "food": 24500500,
+              "iron": 24500500,
+              "requirements": []
+            },
+            {
+              "level": 5,
+              "gold": 195140000,
+              "food": 64970000,
+              "iron": 64970000,
+              "requirements": []
+            }
+          ]
+        }
+      ],
+      "connections": [
+        {
+          "from": "tank-mastery-2",
+          "to": [
+            "cannon-enhancement-2",
+            "armor-hardening-2"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "row-11",
+      "elements": [
+        {
+          "id": "cannon-enhancement-2",
+          "name": "Cannon Enhancement II",
+          "image": "/images/tech/tank-mastery/tank-synergy-attack-1.png",
+          "maxLevel": 5,
+          "currentLevel": 0,
+          "levels": [
+            {
+              "level": 1,
+              "gold": 3200000,
+              "food": 1000000,
+              "iron": 1000000,
+              "requirements": [
+                {
+                  "elementId": "tank-mastery-2",
+                  "minLevel": 1
+                }
+              ]
+            },
+            {
+              "level": 2,
+              "gold": 10684000,
+              "food": 3560000,
+              "iron": 3560000,
+              "requirements": []
+            },
+            {
+              "level": 3,
+              "gold": 40385400,
+              "food": 13461800,
+              "iron": 13461800,
+              "requirements": [
+                {
+                  "elementId": "tank-mastery-2",
+                  "minLevel": 3
+                }
+              ]
+            },
+            {
+              "level": 4,
+              "gold": 91876700,
+              "food": 30625600,
+              "iron": 30625600,
+              "requirements": []
+            },
+            {
+              "level": 5,
+              "gold": 273260000,
+              "food": 91050000,
+              "iron": 91050000,
+              "requirements": []
+            }
+          ]
+        },
+        {
+          "id": "armor-hardening-2",
+          "name": "Armor Hardening II",
+          "image": "/images/tech/tank-mastery/tank-synergy-defense-1.png",
+          "maxLevel": 5,
+          "currentLevel": 0,
+          "levels": [
+            {
+              "level": 1,
+              "gold": 3200000,
+              "food": 1000000,
+              "iron": 1000000,
+              "requirements": [
+                {
+                  "elementId": "tank-mastery-2",
+                  "minLevel": 1
+                }
+              ]
+            },
+            {
+              "level": 2,
+              "gold": 10684000,
+              "food": 3560000,
+              "iron": 3560000,
+              "requirements": []
+            },
+            {
+              "level": 3,
+              "gold": 40385400,
+              "food": 13461800,
+              "iron": 13461800,
+              "requirements": [
+                {
+                  "elementId": "tank-mastery-2",
+                  "minLevel": 3
+                }
+              ]
+            },
+            {
+              "level": 4,
+              "gold": 91876700,
+              "food": 30625600,
+              "iron": 30625600,
+              "requirements": []
+            },
+            {
+              "level": 5,
+              "gold": 273260000,
+              "food": 91050000,
+              "iron": 91050000,
+              "requirements": []
+            }
+          ]
+        }
+      ],
+      "connections": [
+        {
+          "from": "cannon-enhancement-2",
+          "to": [
+            "track-fortification-2"
+          ]
+        },
+        {
+          "from": "armor-hardening-2",
+          "to": [
+            "track-fortification-2"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "row-12",
+      "elements": [
+        {
+          "id": "track-fortification-2",
+          "name": "Track Fortification II",
+          "image": "/images/tech/tank-mastery/tank-synergy-hp-1.png",
+          "maxLevel": 5,
+          "currentLevel": 0,
+          "levels": [
+            {
+              "level": 1,
+              "gold": 4600000,
+              "food": 1500000,
+              "iron": 1500000,
+              "requirements": [
+                {
+                  "elementId": "cannon-enhancement-2",
+                  "minLevel": 1
+                },
+                {
+                  "elementId": "armor-hardening-2",
+                  "minLevel": 1
+                }
+              ]
+            },
+            {
+              "level": 2,
+              "gold": 18696900,
+              "food": 6180000,
+              "iron": 6180000,
+              "requirements": []
+            },
+            {
+              "level": 3,
+              "gold": 56539500,
+              "food": 18846500,
+              "iron": 18846500,
+              "requirements": [
+                {
+                  "elementId": "cannon-enhancement-2",
+                  "minLevel": 3
+                },
+                {
+                  "elementId": "armor-hardening-2",
+                  "minLevel": 3
+                }
+              ]
+            },
+            {
+              "level": 4,
+              "gold": 114845900,
+              "food": 38282000,
+              "iron": 38282000,
+              "requirements": []
+            },
+            {
+              "level": 5,
+              "gold": 353370033,
+              "food": 117790011,
+              "iron": 117790011,
+              "requirements": []
+            }
+          ]
+        }
+      ],
+      "connections": [
+        {
+          "from": "track-fortification-2",
+          "to": [
+            "aircraft-mastery-2"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "row-13",
+      "elements": [
+        {
+          "id": "aircraft-mastery-2",
+          "name": "Aircraft Mastery II",
+          "image": "/images/tech/aircraft-mastery/aircraft-synergy-damage-1.png",
+          "maxLevel": 5,
+          "currentLevel": 0,
+          "levels": [
+            {
+              "level": 1,
+              "gold": 8218400,
+              "food": 2700000,
+              "iron": 2700000,
+              "requirements": [
+                {
+                  "elementId": "track-fortification-2",
+                  "minLevel": 1
+                }
+              ]
+            },
+            {
+              "level": 2,
+              "gold": 22436300,
+              "food": 7430000,
+              "iron": 7430000,
+              "requirements": []
+            },
+            {
+              "level": 3,
+              "gold": 73501400,
+              "food": 24500500,
+              "iron": 24500500,
+              "requirements": [
+                {
+                  "elementId": "track-fortification-2",
+                  "minLevel": 3
+                }
+              ]
+            },
+            {
+              "level": 4,
+              "gold": 195140000,
+              "food": 64970000,
+              "iron": 64970000,
+              "requirements": []
+            },
+            {
+              "level": 5,
+              "gold": 497466500,
+              "food": 165822200,
+              "iron": 165822200,
+              "requirements": []
+            }
+          ]
+        }
+      ],
+      "connections": [
+        {
+          "from": "aircraft-mastery-2",
+          "to": [
+            "airborne-weapon-2",
+            "reinforced-body-2"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "row-14",
+      "elements": [
+        {
+          "id": "airborne-weapon-2",
+          "name": "Airborne Weapon II",
+          "image": "/images/tech/aircraft-mastery/aircraft-synergy-attack-1.png",
+          "maxLevel": 5,
+          "currentLevel": 0,
+          "levels": [
+            {
+              "level": 1,
+              "gold": 10680000,
+              "food": 3560000,
+              "iron": 3560000,
+              "requirements": [
+                {
+                  "elementId": "aircraft-mastery-2",
+                  "minLevel": 1
+                }
+              ]
+            },
+            {
+              "level": 2,
+              "gold": 40310000,
+              "food": 13400000,
+              "iron": 13400000,
+              "requirements": []
+            },
+            {
+              "level": 3,
+              "gold": 91876700,
+              "food": 30625600,
+              "iron": 30625600,
+              "requirements": [
+                {
+                  "elementId": "aircraft-mastery-2",
+                  "minLevel": 3
+                }
+              ]
+            },
+            {
+              "level": 4,
+              "gold": 273260000,
+              "food": 91050000,
+              "iron": 91050000,
+              "requirements": []
+            },
+            {
+              "level": 5,
+              "gold": 692600000,
+              "food": 230830000,
+              "iron": 230830000,
+              "requirements": []
+            }
+          ]
+        },
+        {
+          "id": "reinforced-body-2",
+          "name": "Reinforced Body II",
+          "image": "/images/tech/aircraft-mastery/aircraft-synergy-defense-1.png",
+          "maxLevel": 5,
+          "currentLevel": 0,
+          "levels": [
+            {
+              "level": 1,
+              "gold": 10680000,
+              "food": 3560000,
+              "iron": 3560000,
+              "requirements": [
+                {
+                  "elementId": "aircraft-mastery-2",
+                  "minLevel": 1
+                }
+              ]
+            },
+            {
+              "level": 2,
+              "gold": 40310000,
+              "food": 13400000,
+              "iron": 13400000,
+              "requirements": []
+            },
+            {
+              "level": 3,
+              "gold": 91876700,
+              "food": 30625600,
+              "iron": 30625600,
+              "requirements": [
+                {
+                  "elementId": "aircraft-mastery-2",
+                  "minLevel": 3
+                }
+              ]
+            },
+            {
+              "level": 4,
+              "gold": 273260000,
+              "food": 91050000,
+              "iron": 91050000,
+              "requirements": []
+            },
+            {
+              "level": 5,
+              "gold": 692600000,
+              "food": 230830000,
+              "iron": 230830000,
+              "requirements": []
+            }
+          ]
+        }
+      ],
+      "connections": [
+        {
+          "from": "airborne-weapon-2",
+          "to": [
+            "wingman-tactics-2"
+          ]
+        },
+        {
+          "from": "reinforced-body-2",
+          "to": [
+            "wingman-tactics-2"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "row-15",
+      "elements": [
+        {
+          "id": "wingman-tactics-2",
+          "name": "Wingman Tactics II",
+          "image": "/images/tech/aircraft-mastery/aircraft-synergy-hp-1.png",
+          "maxLevel": 5,
+          "currentLevel": 0,
+          "levels": [
+            {
+              "level": 1,
+              "gold": 18640000,
+              "food": 6180000,
+              "iron": 6180000,
+              "requirements": [
+                {
+                  "elementId": "airborne-weapon-2",
+                  "minLevel": 1
+                },
+                {
+                  "elementId": "reinforced-body-2",
+                  "minLevel": 1
+                }
+              ]
+            },
+            {
+              "level": 2,
+              "gold": 56539500,
+              "food": 18846500,
+              "iron": 18846500,
+              "requirements": []
+            },
+            {
+              "level": 3,
+              "gold": 114845900,
+              "food": 38282000,
+              "iron": 38282000,
+              "requirements": [
+                {
+                  "elementId": "airborne-weapon-2",
+                  "minLevel": 3
+                },
+                {
+                  "elementId": "reinforced-body-2",
+                  "minLevel": 3
+                }
+              ]
+            },
+            {
+              "level": 4,
+              "gold": 353370033,
+              "food": 117790011,
+              "iron": 117790011,
+              "requirements": []
+            },
+            {
+              "level": 5,
+              "gold": 692600000,
+              "food": 230830000,
+              "iron": 230830000,
+              "requirements": []
+            }
+          ]
+        }
+      ],
+      "connections": [
+        {
+          "from": "wingman-tactics-2",
+          "to": [
+            "missile-mastery-2"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "row-16",
+      "elements": [
+        {
+          "id": "missile-mastery-2",
+          "name": "Missile Mastery II",
+          "image": "/images/tech/missile-vehicle-mastery/missile-vehicle-synergy-damage-1.png",
+          "maxLevel": 5,
+          "currentLevel": 0,
+          "levels": [
+            {
+              "level": 1,
+              "gold": 22410000,
+              "food": 7430000,
+              "iron": 7430000,
+              "requirements": [
+                {
+                  "elementId": "wingman-tactics-2",
+                  "minLevel": 1
+                }
+              ]
+            },
+            {
+              "level": 2,
+              "gold": 73501400,
+              "food": 24500500,
+              "iron": 24500500,
+              "requirements": []
+            },
+            {
+              "level": 3,
+              "gold": 114845900,
+              "food": 38282000,
+              "iron": 38282000,
+              "requirements": []
+            },
+            {
+              "level": 4,
+              "gold": 353370033,
+              "food": 117790011,
+              "iron": 117790011,
+              "requirements": []
+            },
+            {
+              "level": 5,
+              "gold": 692600000,
+              "food": 230830000,
+              "iron": 230830000,
+              "requirements": []
+            }
+          ]
+        }
+      ],
+      "connections": [
+        {
+          "from": "missile-mastery-2",
+          "to": [
+            "precision-targeting-2",
+            "metal-barricade-2"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "row-17",
+      "elements": [
+        {
+          "id": "precision-targeting-2",
+          "name": "Precision Targeting II",
+          "image": "/images/tech/missile-vehicle-mastery/missile-vehicle-synergy-attack-1.png",
+          "maxLevel": 5,
+          "currentLevel": 0,
+          "levels": [
+            {
+              "level": 1,
+              "gold": 40310000,
+              "food": 13400000,
+              "iron": 13400000,
+              "requirements": [
+                {
+                  "elementId": "missile-mastery-2",
+                  "minLevel": 1
+                }
+              ]
+            },
+            {
+              "level": 2,
+              "gold": 91876700,
+              "food": 30625600,
+              "iron": 30625600,
+              "requirements": []
+            },
+            {
+              "level": 3,
+              "gold": 195140000,
+              "food": 64970000,
+              "iron": 64970000,
+              "requirements": [
+                {
+                  "elementId": "missile-mastery-2",
+                  "minLevel": 3
+                }
+              ]
+            },
+            {
+              "level": 4,
+              "gold": 497466500,
+              "food": 165822200,
+              "iron": 165822200,
+              "requirements": []
+            },
+            {
+              "level": 5,
+              "gold": 692600000,
+              "food": 230830000,
+              "iron": 230830000,
+              "requirements": []
+            }
+          ]
+        },
+        {
+          "id": "metal-barricade-2",
+          "name": "Metal Barricade II",
+          "image": "/images/tech/missile-vehicle-mastery/missile-vehicle-synergy-defense-1.png",
+          "maxLevel": 5,
+          "currentLevel": 0,
+          "levels": [
+            {
+              "level": 1,
+              "gold": 40310000,
+              "food": 13400000,
+              "iron": 13400000,
+              "requirements": [
+                {
+                  "elementId": "missile-mastery-2",
+                  "minLevel": 1
+                }
+              ]
+            },
+            {
+              "level": 2,
+              "gold": 91876700,
+              "food": 30625600,
+              "iron": 30625600,
+              "requirements": []
+            },
+            {
+              "level": 3,
+              "gold": 195140000,
+              "food": 64970000,
+              "iron": 64970000,
+              "requirements": [
+                {
+                  "elementId": "missile-mastery-2",
+                  "minLevel": 3
+                }
+              ]
+            },
+            {
+              "level": 4,
+              "gold": 497466500,
+              "food": 165822200,
+              "iron": 165822200,
+              "requirements": []
+            },
+            {
+              "level": 5,
+              "gold": 692600000,
+              "food": 230830000,
+              "iron": 230830000,
+              "requirements": []
+            }
+          ]
+        }
+      ],
+      "connections": [
+        {
+          "from": "precision-targeting-2",
+          "to": [
+            "missile-expansion-2"
+          ]
+        },
+        {
+          "from": "metal-barricade-2",
+          "to": [
+            "missile-expansion-2"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "row-18",
+      "elements": [
+        {
+          "id": "missile-expansion-2",
+          "name": "Missile Expansion II",
+          "image": "/images/tech/missile-vehicle-mastery/missile-vehicle-synergy-hp-1.png",
+          "maxLevel": 5,
+          "currentLevel": 0,
+          "levels": [
+            {
+              "level": 1,
+              "gold": 55390000,
+              "food": 18740000,
+              "iron": 18740000,
+              "requirements": [
+                {
+                  "elementId": "precision-targeting-2",
+                  "minLevel": 1
+                },
+                {
+                  "elementId": "metal-barricade-2",
+                  "minLevel": 1
+                }
+              ]
+            },
+            {
+              "level": 2,
+              "gold": 91876700,
+              "food": 30625600,
+              "iron": 30625600,
+              "requirements": []
+            },
+            {
+              "level": 3,
+              "gold": 195140000,
+              "food": 64970000,
+              "iron": 64970000,
+              "requirements": [
+                {
+                  "elementId": "precision-targeting-2",
+                  "minLevel": 3
+                },
+                {
+                  "elementId": "metal-barricade-2",
+                  "minLevel": 3
+                }
+              ]
+            },
+            {
+              "level": 4,
+              "gold": 353370033,
+              "food": 117790011,
+              "iron": 117790011,
+              "requirements": []
+            },
+            {
+              "level": 5,
+              "gold": 692600000,
+              "food": 230830000,
+              "iron": 230830000,
+              "requirements": []
+            }
+          ]
+        }
+      ],
+      "connections": [
+        {
+          "from": "missile-expansion-2",
+          "to": [
+            "firepower-boost"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "row-19",
+      "elements": [
+        {
+          "id": "firepower-boost",
+          "name": "Firepower Boost",
+          "image": "/images/tech/hero/firepower-boost.png",
+          "maxLevel": 5,
+          "currentLevel": 0,
+          "levels": [
+            {
+              "level": 1,
+              "gold": 73501400,
+              "food": 24500500,
+              "iron": 24500500,
+              "requirements": [
+                {
+                  "elementId": "missile-expansion-2",
+                  "minLevel": 1
+                }
+              ]
+            },
+            {
+              "level": 2,
+              "gold": 114845900,
+              "food": 38282000,
+              "iron": 38282000,
+              "requirements": []
+            },
+            {
+              "level": 3,
+              "gold": 273260000,
+              "food": 91050000,
+              "iron": 91050000,
+              "requirements": [
+                {
+                  "elementId": "missile-expansion-2",
+                  "minLevel": 3
+                }
+              ]
+            },
+            {
+              "level": 4,
+              "gold": 497466500,
+              "food": 165822200,
+              "iron": 165822200,
+              "requirements": []
+            },
+            {
+              "level": 5,
+              "gold": 692600000,
+              "food": 230830000,
+              "iron": 230830000,
+              "requirements": []
+            }
+          ]
+        }
+      ],
+      "connections": [
+        {
+          "from": "firepower-boost",
+          "to": [
+            "weapons-upgrade",
+            "armor-enhancement"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "row-20",
+      "elements": [
+        {
+          "id": "weapons-upgrade",
+          "name": "Weapons Upgrade",
+          "image": "/images/tech/tactical-weapon/support-hero-attack-1.png",
+          "maxLevel": 5,
+          "currentLevel": 0,
+          "levels": [
+            {
+              "level": 1,
+              "gold": 91830000,
+              "food": 30580000,
+              "iron": 30580000,
+              "requirements": [
+                {
+                  "elementId": "firepower-boost",
+                  "minLevel": 1
+                }
+              ]
+            },
+            {
+              "level": 2,
+              "gold": 195140000,
+              "food": 64970000,
+              "iron": 64970000,
+              "requirements": []
+            },
+            {
+              "level": 3,
+              "gold": 353370033,
+              "food": 117790011,
+              "iron": 117790011,
+              "requirements": [
+                {
+                  "elementId": "firepower-boost",
+                  "minLevel": 3
+                }
+              ]
+            },
+            {
+              "level": 4,
+              "gold": 497466500,
+              "food": 165822200,
+              "iron": 165822200,
+              "requirements": []
+            },
+            {
+              "level": 5,
+              "gold": 692600000,
+              "food": 230830000,
+              "iron": 230830000,
+              "requirements": []
+            }
+          ]
+        },
+        {
+          "id": "armor-enhancement",
+          "name": "Armor Enhancement",
+          "image": "/images/tech/tactical-weapon/support-hero-defense-1.png",
+          "maxLevel": 5,
+          "currentLevel": 0,
+          "levels": [
+            {
+              "level": 1,
+              "gold": 91830000,
+              "food": 30580000,
+              "iron": 30580000,
+              "requirements": [
+                {
+                  "elementId": "firepower-boost",
+                  "minLevel": 1
+                }
+              ]
+            },
+            {
+              "level": 2,
+              "gold": 195140000,
+              "food": 64970000,
+              "iron": 64970000,
+              "requirements": []
+            },
+            {
+              "level": 3,
+              "gold": 353370033,
+              "food": 117790011,
+              "iron": 117790011,
+              "requirements": [
+                {
+                  "elementId": "firepower-boost",
+                  "minLevel": 3
+                }
+              ]
+            },
+            {
+              "level": 4,
+              "gold": 497466500,
+              "food": 165822200,
+              "iron": 165822200,
+              "requirements": []
+            },
+            {
+              "level": 5,
+              "gold": 692600000,
+              "food": 230830000,
+              "iron": 230830000,
+              "requirements": []
+            }
+          ]
+        }
+      ],
+      "connections": [
+        {
+          "from": "weapons-upgrade",
+          "to": [
+            "endurance-upgrade"
+          ]
+        },
+        {
+          "from": "armor-enhancement",
+          "to": [
+            "endurance-upgrade"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "row-21",
+      "elements": [
+        {
+          "id": "endurance-upgrade",
+          "name": "Endurance Upgrade",
+          "image": "/images/tech/tactical-weapon/support-hero-hp-1.png",
+          "maxLevel": 5,
+          "currentLevel": 0,
+          "levels": [
+            {
+              "level": 1,
+              "gold": 114760000,
+              "food": 38220000,
+              "iron": 38220000,
+              "requirements": [
+                {
+                  "elementId": "weapons-upgrade",
+                  "minLevel": 1
+                },
+                {
+                  "elementId": "armor-enhancement",
+                  "minLevel": 1
+                }
+              ]
+            },
+            {
+              "level": 2,
+              "gold": 273260000,
+              "food": 91050000,
+              "iron": 91050000,
+              "requirements": []
+            },
+            {
+              "level": 3,
+              "gold": 353370033,
+              "food": 117790011,
+              "iron": 117790011,
+              "requirements": [
+                {
+                  "elementId": "weapons-upgrade",
+                  "minLevel": 3
+                },
+                {
+                  "elementId": "armor-enhancement",
+                  "minLevel": 3
+                }
+              ]
+            },
+            {
+              "level": 4,
+              "gold": 497466500,
+              "food": 165822200,
+              "iron": 165822200,
+              "requirements": []
+            },
+            {
+              "level": 5,
+              "gold": 692600000,
+              "food": 230830000,
+              "iron": 230830000,
+              "requirements": []
+            }
+          ]
+        }
+      ],
+      "connections": []
+    }
+  ]
+}

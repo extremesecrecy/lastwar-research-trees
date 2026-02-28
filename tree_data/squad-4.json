@@ -1,0 +1,1223 @@
+{
+  "name": "Squad 4",
+  "isComplete": true,
+  "rows": [
+    {
+      "id": "row-1",
+      "elements": [
+        {
+          "id": "terminator-4",
+          "name": "Terminator IV",
+          "image": "/images/tech/squad/terminator.png",
+          "maxLevel": 5,
+          "currentLevel": 0,
+          "levels": [
+            {
+              "level": 1,
+              "gold": 136700,
+              "food": 45600,
+              "iron": 45600,
+              "requirements": []
+            },
+            {
+              "level": 2,
+              "gold": 218700,
+              "food": 72900,
+              "iron": 72900,
+              "requirements": []
+            },
+            {
+              "level": 3,
+              "gold": 349900,
+              "food": 116600,
+              "iron": 116600,
+              "requirements": []
+            },
+            {
+              "level": 4,
+              "gold": 419900,
+              "food": 140000,
+              "iron": 140000,
+              "requirements": []
+            },
+            {
+              "level": 5,
+              "gold": 1050000,
+              "food": 349900,
+              "iron": 349900,
+              "requirements": []
+            }
+          ]
+        }
+      ],
+      "connections": [
+        {
+          "from": "terminator-4",
+          "to": [
+            "virus-resistance-4"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "row-2",
+      "elements": [
+        {
+          "id": "virus-resistance-4",
+          "name": "Virus Resistance IV",
+          "image": "/images/tech/squad/virus-resistance.png",
+          "maxLevel": 5,
+          "currentLevel": 0,
+          "levels": [
+            {
+              "level": 1,
+              "gold": 136700,
+              "food": 45600,
+              "iron": 45600,
+              "requirements": [
+                {
+                  "elementId": "terminator-4",
+                  "minLevel": 1
+                }
+              ]
+            },
+            {
+              "level": 2,
+              "gold": 218700,
+              "food": 72900,
+              "iron": 72900,
+              "requirements": []
+            },
+            {
+              "level": 3,
+              "gold": 349900,
+              "food": 116600,
+              "iron": 116600,
+              "requirements": []
+            },
+            {
+              "level": 4,
+              "gold": 419900,
+              "food": 140000,
+              "iron": 140000,
+              "requirements": []
+            },
+            {
+              "level": 5,
+              "gold": 1050000,
+              "food": 349900,
+              "iron": 349900,
+              "requirements": []
+            }
+          ]
+        }
+      ],
+      "connections": [
+        {
+          "from": "virus-resistance-4",
+          "to": [
+            "assault-training-4",
+            "formation-training-4"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "row-3",
+      "elements": [
+        {
+          "id": "assault-training-4",
+          "name": "Assault Training IV",
+          "image": "/images/tech/squad/assault-training.png",
+          "maxLevel": 5,
+          "currentLevel": 0,
+          "levels": [
+            {
+              "level": 1,
+              "gold": 218700,
+              "food": 72900,
+              "iron": 72900,
+              "requirements": [
+                {
+                  "elementId": "virus-resistance-4",
+                  "minLevel": 2
+                }
+              ]
+            },
+            {
+              "level": 2,
+              "gold": 349900,
+              "food": 116600,
+              "iron": 116600,
+              "requirements": []
+            },
+            {
+              "level": 3,
+              "gold": 419900,
+              "food": 140000,
+              "iron": 140000,
+              "requirements": []
+            },
+            {
+              "level": 4,
+              "gold": 1050000,
+              "food": 349900,
+              "iron": 349900,
+              "requirements": []
+            },
+            {
+              "level": 5,
+              "gold": 1780000,
+              "food": 594900,
+              "iron": 594900,
+              "requirements": []
+            }
+          ]
+        },
+        {
+          "id": "formation-training-4",
+          "name": "Formation Training IV",
+          "image": "/images/tech/squad/formation-training.png",
+          "maxLevel": 5,
+          "currentLevel": 0,
+          "levels": [
+            {
+              "level": 1,
+              "gold": 218700,
+              "food": 72900,
+              "iron": 72900,
+              "requirements": [
+                {
+                  "elementId": "virus-resistance-4",
+                  "minLevel": 2
+                }
+              ]
+            },
+            {
+              "level": 2,
+              "gold": 349900,
+              "food": 116600,
+              "iron": 116600,
+              "requirements": []
+            },
+            {
+              "level": 3,
+              "gold": 419900,
+              "food": 140000,
+              "iron": 140000,
+              "requirements": []
+            },
+            {
+              "level": 4,
+              "gold": 1050000,
+              "food": 349900,
+              "iron": 349900,
+              "requirements": []
+            },
+            {
+              "level": 5,
+              "gold": 1780000,
+              "food": 594900,
+              "iron": 594900,
+              "requirements": []
+            }
+          ]
+        }
+      ],
+      "connections": [
+        {
+          "from": "assault-training-4",
+          "to": [
+            "survival-training-4"
+          ]
+        },
+        {
+          "from": "formation-training-4",
+          "to": [
+            "survival-training-4"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "row-4",
+      "elements": [
+        {
+          "id": "survival-training-4",
+          "name": "Survival Training IV",
+          "image": "/images/tech/squad/survival-training.png",
+          "maxLevel": 5,
+          "currentLevel": 0,
+          "levels": [
+            {
+              "level": 1,
+              "gold": 218700,
+              "food": 72900,
+              "iron": 72900,
+              "requirements": [
+                {
+                  "elementId": "assault-training-4",
+                  "minLevel": 2
+                },
+                {
+                  "elementId": "formation-training-4",
+                  "minLevel": 2
+                }
+              ]
+            },
+            {
+              "level": 2,
+              "gold": 349900,
+              "food": 116600,
+              "iron": 116600,
+              "requirements": []
+            },
+            {
+              "level": 3,
+              "gold": 419900,
+              "food": 140000,
+              "iron": 140000,
+              "requirements": []
+            },
+            {
+              "level": 4,
+              "gold": 1050000,
+              "food": 349900,
+              "iron": 349900,
+              "requirements": []
+            },
+            {
+              "level": 5,
+              "gold": 1780000,
+              "food": 594900,
+              "iron": 594900,
+              "requirements": []
+            }
+          ]
+        }
+      ],
+      "connections": [
+        {
+          "from": "survival-training-4",
+          "to": [
+            "resource-reaper-4",
+            "power-boost-4"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "row-5",
+      "elements": [
+        {
+          "id": "resource-reaper-4",
+          "name": "Resource Reaper IV",
+          "image": "/images/tech/squad/resource-reaper.png",
+          "maxLevel": 5,
+          "currentLevel": 0,
+          "levels": [
+            {
+              "level": 1,
+              "gold": 349900,
+              "food": 116600,
+              "iron": 116600,
+              "requirements": [
+                {
+                  "elementId": "survival-training-4",
+                  "minLevel": 2
+                }
+              ]
+            },
+            {
+              "level": 2,
+              "gold": 419900,
+              "food": 140000,
+              "iron": 140000,
+              "requirements": []
+            },
+            {
+              "level": 3,
+              "gold": 1050000,
+              "food": 349900,
+              "iron": 349900,
+              "requirements": []
+            },
+            {
+              "level": 4,
+              "gold": 1780000,
+              "food": 594900,
+              "iron": 594900,
+              "requirements": []
+            },
+            {
+              "level": 5,
+              "gold": 1880000,
+              "food": 654400,
+              "iron": 654400,
+              "requirements": []
+            }
+          ]
+        },
+        {
+          "id": "power-boost-4",
+          "name": "Power Boost IV",
+          "image": "/images/tech/squad/power-boost.png",
+          "maxLevel": 5,
+          "currentLevel": 0,
+          "levels": [
+            {
+              "level": 1,
+              "gold": 349900,
+              "food": 116600,
+              "iron": 116600,
+              "requirements": [
+                {
+                  "elementId": "survival-training-4",
+                  "minLevel": 2
+                }
+              ]
+            },
+            {
+              "level": 2,
+              "gold": 419900,
+              "food": 140000,
+              "iron": 140000,
+              "requirements": []
+            },
+            {
+              "level": 3,
+              "gold": 1050000,
+              "food": 349900,
+              "iron": 349900,
+              "requirements": []
+            },
+            {
+              "level": 4,
+              "gold": 1780000,
+              "food": 594900,
+              "iron": 594900,
+              "requirements": []
+            },
+            {
+              "level": 5,
+              "gold": 1880000,
+              "food": 654400,
+              "iron": 654400,
+              "requirements": []
+            }
+          ]
+        }
+      ],
+      "connections": [
+        {
+          "from": "resource-reaper-4",
+          "to": [
+            "zombie-radar-4",
+            "assault-tactics-4",
+            "fast-exploration-4"
+          ]
+        },
+        {
+          "from": "power-boost-4",
+          "to": [
+            "zombie-radar-4",
+            "assault-tactics-4",
+            "fast-exploration-4"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "row-6",
+      "elements": [
+        {
+          "id": "zombie-radar-4",
+          "name": "Zombie Radar IV",
+          "image": "/images/tech/squad/zombie-radar.png",
+          "maxLevel": 5,
+          "currentLevel": 0,
+          "levels": [
+            {
+              "level": 1,
+              "gold": 419900,
+              "food": 140000,
+              "iron": 140000,
+              "requirements": [
+                {
+                  "elementId": "resource-reaper-4",
+                  "minLevel": 2
+                },
+                {
+                  "elementId": "power-boost-4",
+                  "minLevel": 2
+                }
+              ]
+            },
+            {
+              "level": 2,
+              "gold": 1050000,
+              "food": 349900,
+              "iron": 349900,
+              "requirements": []
+            },
+            {
+              "level": 3,
+              "gold": 1780000,
+              "food": 594900,
+              "iron": 594900,
+              "requirements": []
+            },
+            {
+              "level": 4,
+              "gold": 1880000,
+              "food": 654400,
+              "iron": 654400,
+              "requirements": []
+            },
+            {
+              "level": 5,
+              "gold": 2670000,
+              "food": 916100,
+              "iron": 916100,
+              "requirements": []
+            }
+          ]
+        },
+        {
+          "id": "assault-tactics-4",
+          "name": "Assault Tactics IV",
+          "image": "/images/tech/squad/assault-tactics.png",
+          "maxLevel": 5,
+          "currentLevel": 0,
+          "levels": [
+            {
+              "level": 1,
+              "gold": 419900,
+              "food": 140000,
+              "iron": 140000,
+              "requirements": [
+                {
+                  "elementId": "resource-reaper-4",
+                  "minLevel": 2
+                },
+                {
+                  "elementId": "power-boost-4",
+                  "minLevel": 2
+                }
+              ]
+            },
+            {
+              "level": 2,
+              "gold": 1050000,
+              "food": 349900,
+              "iron": 349900,
+              "requirements": []
+            },
+            {
+              "level": 3,
+              "gold": 1780000,
+              "food": 594900,
+              "iron": 594900,
+              "requirements": []
+            },
+            {
+              "level": 4,
+              "gold": 1880000,
+              "food": 654400,
+              "iron": 654400,
+              "requirements": []
+            },
+            {
+              "level": 5,
+              "gold": 2670000,
+              "food": 916100,
+              "iron": 916100,
+              "requirements": []
+            }
+          ]
+        },
+        {
+          "id": "fast-exploration-4",
+          "name": "Fast Exploration IV",
+          "image": "/images/tech/squad/fast-exploration.png",
+          "maxLevel": 5,
+          "currentLevel": 0,
+          "levels": [
+            {
+              "level": 1,
+              "gold": 419900,
+              "food": 140000,
+              "iron": 140000,
+              "requirements": [
+                {
+                  "elementId": "resource-reaper-4",
+                  "minLevel": 2
+                },
+                {
+                  "elementId": "power-boost-4",
+                  "minLevel": 2
+                }
+              ]
+            },
+            {
+              "level": 2,
+              "gold": 1050000,
+              "food": 349900,
+              "iron": 349900,
+              "requirements": []
+            },
+            {
+              "level": 3,
+              "gold": 1780000,
+              "food": 594900,
+              "iron": 594900,
+              "requirements": []
+            },
+            {
+              "level": 4,
+              "gold": 1880000,
+              "food": 654400,
+              "iron": 654400,
+              "requirements": []
+            },
+            {
+              "level": 5,
+              "gold": 2670000,
+              "food": 916100,
+              "iron": 916100,
+              "requirements": []
+            }
+          ]
+        }
+      ],
+      "connections": [
+        {
+          "from": "zombie-radar-4",
+          "to": [
+            "rapid-march-4"
+          ]
+        },
+        {
+          "from": "assault-tactics-4",
+          "to": [
+            "rapid-march-4"
+          ]
+        },
+        {
+          "from": "fast-exploration-4",
+          "to": [
+            "rapid-march-4"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "row-7",
+      "elements": [
+        {
+          "id": "rapid-march-4",
+          "name": "Rapid March IV",
+          "image": "/images/tech/squad/rapid-march.png",
+          "maxLevel": 5,
+          "currentLevel": 0,
+          "levels": [
+            {
+              "level": 1,
+              "gold": 419900,
+              "food": 140000,
+              "iron": 140000,
+              "requirements": [
+                {
+                  "elementId": "zombie-radar-4",
+                  "minLevel": 1
+                },
+                {
+                  "elementId": "assault-tactics-4",
+                  "minLevel": 1
+                },
+                {
+                  "elementId": "fast-exploration-4",
+                  "minLevel": 1
+                }
+              ]
+            },
+            {
+              "level": 2,
+              "gold": 1050000,
+              "food": 349900,
+              "iron": 349900,
+              "requirements": []
+            },
+            {
+              "level": 3,
+              "gold": 1780000,
+              "food": 594900,
+              "iron": 594900,
+              "requirements": []
+            },
+            {
+              "level": 4,
+              "gold": 1880000,
+              "food": 654400,
+              "iron": 654400,
+              "requirements": []
+            },
+            {
+              "level": 5,
+              "gold": 2670000,
+              "food": 916100,
+              "iron": 916100,
+              "requirements": []
+            }
+          ]
+        }
+      ],
+      "connections": [
+        {
+          "from": "rapid-march-4",
+          "to": [
+            "fierce-assault-4",
+            "counter-defense-4"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "row-8",
+      "elements": [
+        {
+          "id": "fierce-assault-4",
+          "name": "Fierce Assault IV",
+          "image": "/images/tech/squad/fierce-assault.png",
+          "maxLevel": 5,
+          "currentLevel": 0,
+          "levels": [
+            {
+              "level": 1,
+              "gold": 1050000,
+              "food": 349900,
+              "iron": 349900,
+              "requirements": [
+                {
+                  "elementId": "rapid-march-4",
+                  "minLevel": 2
+                }
+              ]
+            },
+            {
+              "level": 2,
+              "gold": 1780000,
+              "food": 594900,
+              "iron": 594900,
+              "requirements": []
+            },
+            {
+              "level": 3,
+              "gold": 1880000,
+              "food": 654400,
+              "iron": 654400,
+              "requirements": []
+            },
+            {
+              "level": 4,
+              "gold": 2670000,
+              "food": 916100,
+              "iron": 916100,
+              "requirements": []
+            },
+            {
+              "level": 5,
+              "gold": 3780000,
+              "food": 1220000,
+              "iron": 1220000,
+              "requirements": []
+            }
+          ]
+        },
+        {
+          "id": "counter-defense-4",
+          "name": "Counter Defense IV",
+          "image": "/images/tech/squad/counter-defense.png",
+          "maxLevel": 5,
+          "currentLevel": 0,
+          "levels": [
+            {
+              "level": 1,
+              "gold": 1050000,
+              "food": 349900,
+              "iron": 349900,
+              "requirements": [
+                {
+                  "elementId": "rapid-march-4",
+                  "minLevel": 2
+                }
+              ]
+            },
+            {
+              "level": 2,
+              "gold": 1780000,
+              "food": 594900,
+              "iron": 594900,
+              "requirements": []
+            },
+            {
+              "level": 3,
+              "gold": 1880000,
+              "food": 654400,
+              "iron": 654400,
+              "requirements": []
+            },
+            {
+              "level": 4,
+              "gold": 2670000,
+              "food": 916100,
+              "iron": 916100,
+              "requirements": []
+            },
+            {
+              "level": 5,
+              "gold": 3780000,
+              "food": 1220000,
+              "iron": 1220000,
+              "requirements": []
+            }
+          ]
+        }
+      ],
+      "connections": [
+        {
+          "from": "fierce-assault-4",
+          "to": [
+            "vigilant-formation-4"
+          ]
+        },
+        {
+          "from": "counter-defense-4",
+          "to": [
+            "solid-defense-4"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "row-9",
+      "elements": [
+        {
+          "id": "vigilant-formation-4",
+          "name": "Vigilant Formation IV",
+          "image": "/images/tech/squad/vigilant-formation.png",
+          "maxLevel": 5,
+          "currentLevel": 0,
+          "levels": [
+            {
+              "level": 1,
+              "gold": 1050000,
+              "food": 349900,
+              "iron": 349900,
+              "requirements": [
+                {
+                  "elementId": "fierce-assault-4",
+                  "minLevel": 1
+                }
+              ]
+            },
+            {
+              "level": 2,
+              "gold": 1780000,
+              "food": 594900,
+              "iron": 594900,
+              "requirements": []
+            },
+            {
+              "level": 3,
+              "gold": 1880000,
+              "food": 654400,
+              "iron": 654400,
+              "requirements": []
+            },
+            {
+              "level": 4,
+              "gold": 2670000,
+              "food": 916100,
+              "iron": 916100,
+              "requirements": []
+            },
+            {
+              "level": 5,
+              "gold": 3780000,
+              "food": 1220000,
+              "iron": 1220000,
+              "requirements": []
+            }
+          ]
+        },
+        {
+          "id": "solid-defense-4",
+          "name": "Solid Defense IV",
+          "image": "/images/tech/squad/solid-defense.png",
+          "maxLevel": 5,
+          "currentLevel": 0,
+          "levels": [
+            {
+              "level": 1,
+              "gold": 1050000,
+              "food": 349900,
+              "iron": 349900,
+              "requirements": [
+                {
+                  "elementId": "counter-defense-4",
+                  "minLevel": 1
+                }
+              ]
+            },
+            {
+              "level": 2,
+              "gold": 1780000,
+              "food": 594900,
+              "iron": 594900,
+              "requirements": []
+            },
+            {
+              "level": 3,
+              "gold": 1880000,
+              "food": 654400,
+              "iron": 654400,
+              "requirements": []
+            },
+            {
+              "level": 4,
+              "gold": 2670000,
+              "food": 916100,
+              "iron": 916100,
+              "requirements": []
+            },
+            {
+              "level": 5,
+              "gold": 3780000,
+              "food": 1220000,
+              "iron": 1220000,
+              "requirements": []
+            }
+          ]
+        }
+      ],
+      "connections": [
+        {
+          "from": "vigilant-formation-4",
+          "to": [
+            "final-stand-4"
+          ]
+        },
+        {
+          "from": "solid-defense-4",
+          "to": [
+            "hold-the-line-4"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "row-10",
+      "elements": [
+        {
+          "id": "final-stand-4",
+          "name": "Final Stand IV",
+          "image": "/images/tech/squad/final-stand.png",
+          "maxLevel": 5,
+          "currentLevel": 0,
+          "levels": [
+            {
+              "level": 1,
+              "gold": 1050000,
+              "food": 349900,
+              "iron": 349900,
+              "requirements": [
+                {
+                  "elementId": "vigilant-formation-4",
+                  "minLevel": 1
+                }
+              ]
+            },
+            {
+              "level": 2,
+              "gold": 1780000,
+              "food": 594900,
+              "iron": 594900,
+              "requirements": []
+            },
+            {
+              "level": 3,
+              "gold": 1880000,
+              "food": 654400,
+              "iron": 654400,
+              "requirements": []
+            },
+            {
+              "level": 4,
+              "gold": 2670000,
+              "food": 916100,
+              "iron": 916100,
+              "requirements": []
+            },
+            {
+              "level": 5,
+              "gold": 3780000,
+              "food": 1220000,
+              "iron": 1220000,
+              "requirements": []
+            }
+          ]
+        },
+        {
+          "id": "hold-the-line-4",
+          "name": "Hold the Line IV",
+          "image": "/images/tech/squad/hold-the-line.png",
+          "maxLevel": 5,
+          "currentLevel": 0,
+          "levels": [
+            {
+              "level": 1,
+              "gold": 1050000,
+              "food": 349900,
+              "iron": 349900,
+              "requirements": [
+                {
+                  "elementId": "solid-defense-4",
+                  "minLevel": 1
+                }
+              ]
+            },
+            {
+              "level": 2,
+              "gold": 1780000,
+              "food": 594900,
+              "iron": 594900,
+              "requirements": []
+            },
+            {
+              "level": 3,
+              "gold": 1880000,
+              "food": 654400,
+              "iron": 654400,
+              "requirements": []
+            },
+            {
+              "level": 4,
+              "gold": 2670000,
+              "food": 916100,
+              "iron": 916100,
+              "requirements": []
+            },
+            {
+              "level": 5,
+              "gold": 3780000,
+              "food": 1220000,
+              "iron": 1220000,
+              "requirements": []
+            }
+          ]
+        }
+      ],
+      "connections": [
+        {
+          "from": "final-stand-4",
+          "to": [
+            "physical-suppression-4",
+            "energy-barrage-4"
+          ]
+        },
+        {
+          "from": "hold-the-line-4",
+          "to": [
+            "physical-suppression-4",
+            "energy-barrage-4"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "row-11",
+      "elements": [
+        {
+          "id": "physical-suppression-4",
+          "name": "Physical Suppression IV",
+          "image": "/images/tech/squad/physical-suppression.png",
+          "maxLevel": 5,
+          "currentLevel": 0,
+          "levels": [
+            {
+              "level": 1,
+              "gold": 1780000,
+              "food": 594900,
+              "iron": 594900,
+              "requirements": [
+                {
+                  "elementId": "final-stand-4",
+                  "minLevel": 2
+                },
+                {
+                  "elementId": "hold-the-line-4",
+                  "minLevel": 2
+                }
+              ]
+            },
+            {
+              "level": 2,
+              "gold": 1880000,
+              "food": 654400,
+              "iron": 654400,
+              "requirements": []
+            },
+            {
+              "level": 3,
+              "gold": 2670000,
+              "food": 916100,
+              "iron": 916100,
+              "requirements": []
+            },
+            {
+              "level": 4,
+              "gold": 3780000,
+              "food": 1220000,
+              "iron": 1220000,
+              "requirements": []
+            },
+            {
+              "level": 5,
+              "gold": 6780000,
+              "food": 2220000,
+              "iron": 2220000,
+              "requirements": []
+            }
+          ]
+        },
+        {
+          "id": "energy-barrage-4",
+          "name": "Energy Barrage IV",
+          "image": "/images/tech/squad/energy-barrage.png",
+          "maxLevel": 5,
+          "currentLevel": 0,
+          "levels": [
+            {
+              "level": 1,
+              "gold": 1780000,
+              "food": 594900,
+              "iron": 594900,
+              "requirements": [
+                {
+                  "elementId": "final-stand-4",
+                  "minLevel": 2
+                },
+                {
+                  "elementId": "hold-the-line-4",
+                  "minLevel": 2
+                }
+              ]
+            },
+            {
+              "level": 2,
+              "gold": 1880000,
+              "food": 654400,
+              "iron": 654400,
+              "requirements": []
+            },
+            {
+              "level": 3,
+              "gold": 2670000,
+              "food": 916100,
+              "iron": 916100,
+              "requirements": []
+            },
+            {
+              "level": 4,
+              "gold": 3780000,
+              "food": 1220000,
+              "iron": 1220000,
+              "requirements": []
+            },
+            {
+              "level": 5,
+              "gold": 6780000,
+              "food": 2220000,
+              "iron": 2220000,
+              "requirements": []
+            }
+          ]
+        }
+      ],
+      "connections": [
+        {
+          "from": "physical-suppression-4",
+          "to": [
+            "fatal-strike-4"
+          ]
+        },
+        {
+          "from": "energy-barrage-4",
+          "to": [
+            "fatal-strike-4"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "row-12",
+      "elements": [
+        {
+          "id": "fatal-strike-4",
+          "name": "Fatal Strike IV",
+          "image": "/images/tech/squad/fatal-strike.png",
+          "maxLevel": 5,
+          "currentLevel": 0,
+          "levels": [
+            {
+              "level": 1,
+              "gold": 1880000,
+              "food": 654400,
+              "iron": 654400,
+              "requirements": [
+                {
+                  "elementId": "physical-suppression-4",
+                  "minLevel": 2
+                },
+                {
+                  "elementId": "energy-barrage-4",
+                  "minLevel": 2
+                }
+              ]
+            },
+            {
+              "level": 2,
+              "gold": 2670000,
+              "food": 916100,
+              "iron": 916100,
+              "requirements": []
+            },
+            {
+              "level": 3,
+              "gold": 3780000,
+              "food": 1220000,
+              "iron": 1220000,
+              "requirements": []
+            },
+            {
+              "level": 4,
+              "gold": 6780000,
+              "food": 2220000,
+              "iron": 2220000,
+              "requirements": []
+            },
+            {
+              "level": 5,
+              "gold": 8890000,
+              "food": 2890000,
+              "iron": 2890000,
+              "requirements": []
+            }
+          ]
+        }
+      ],
+      "connections": []
+    }
+  ]
+}

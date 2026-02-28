@@ -1,0 +1,1604 @@
+{
+  "name": "Development",
+  "isComplete": false,
+  "rows": [
+    {
+      "id": "row-1",
+      "elements": [
+        {
+          "id": "fast-builder-1",
+          "name": "Fast Builder I",
+          "image": "/images/tech/development/fast-builder.png",
+          "maxLevel": 5,
+          "currentLevel": 0,
+          "levels": [
+            {
+              "level": 1,
+              "gold": 1500,
+              "food": 500,
+              "iron": 500,
+              "requirements": []
+            },
+            {
+              "level": 2,
+              "gold": 2300,
+              "food": 800,
+              "iron": 800,
+              "requirements": []
+            },
+            {
+              "level": 3,
+              "gold": 3400,
+              "food": 1100,
+              "iron": 1100,
+              "requirements": []
+            },
+            {
+              "level": 4,
+              "gold": 5100,
+              "food": 1700,
+              "iron": 1700,
+              "requirements": []
+            },
+            {
+              "level": 5,
+              "gold": 7600,
+              "food": 2500,
+              "iron": 2500,
+              "requirements": []
+            }
+          ]
+        }
+      ],
+      "connections": [
+        {
+          "from": "fast-builder-1",
+          "to": [
+            "infirmary-expansion-1",
+            "barrack-expansion-1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "row-2",
+      "elements": [
+        {
+          "id": "infirmary-expansion-1",
+          "name": "Infirmary Expansion I",
+          "image": "/images/tech/development/infirmary-expansion.png",
+          "maxLevel": 5,
+          "currentLevel": 0,
+          "levels": [
+            {
+              "level": 1,
+              "gold": 3400,
+              "food": 1100,
+              "iron": 1100,
+              "requirements": [
+                {
+                  "elementId": "fast-builder-1",
+                  "minLevel": 1
+                }
+              ]
+            },
+            {
+              "level": 2,
+              "gold": 5100,
+              "food": 1700,
+              "iron": 1700,
+              "requirements": []
+            },
+            {
+              "level": 3,
+              "gold": 7600,
+              "food": 2500,
+              "iron": 2500,
+              "requirements": []
+            },
+            {
+              "level": 4,
+              "gold": 15200,
+              "food": 5100,
+              "iron": 5100,
+              "requirements": []
+            },
+            {
+              "level": 5,
+              "gold": 45600,
+              "food": 15200,
+              "iron": 15200,
+              "requirements": []
+            }
+          ]
+        },
+        {
+          "id": "barrack-expansion-1",
+          "name": "Barrack Expansion I",
+          "image": "/images/tech/development/barrack-expansion.png",
+          "maxLevel": 5,
+          "currentLevel": 0,
+          "levels": [
+            {
+              "level": 1,
+              "gold": 3400,
+              "food": 1100,
+              "iron": 1100,
+              "requirements": [
+                {
+                  "elementId": "fast-builder-1",
+                  "minLevel": 1
+                }
+              ]
+            },
+            {
+              "level": 2,
+              "gold": 5100,
+              "food": 1700,
+              "iron": 1700,
+              "requirements": []
+            },
+            {
+              "level": 3,
+              "gold": 7600,
+              "food": 2500,
+              "iron": 2500,
+              "requirements": []
+            },
+            {
+              "level": 4,
+              "gold": 15200,
+              "food": 5100,
+              "iron": 5100,
+              "requirements": []
+            },
+            {
+              "level": 5,
+              "gold": 45600,
+              "food": 15200,
+              "iron": 15200,
+              "requirements": []
+            }
+          ]
+        }
+      ],
+      "connections": [
+        {
+          "from": "infirmary-expansion-1",
+          "to": [
+            "research-enhancement-1"
+          ]
+        },
+        {
+          "from": "barrack-expansion-1",
+          "to": [
+            "research-enhancement-1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "row-3",
+      "elements": [
+        {
+          "id": "research-enhancement-1",
+          "name": "Research Enhancement I",
+          "image": "/images/tech/development/research-enhancement.png",
+          "maxLevel": 5,
+          "currentLevel": 0,
+          "levels": [
+            {
+              "level": 1,
+              "gold": 7600,
+              "food": 2500,
+              "iron": 2500,
+              "requirements": [
+                {
+                  "elementId": "infirmary-expansion-1",
+                  "minLevel": 3
+                }
+              ]
+            },
+            {
+              "level": 2,
+              "gold": 15200,
+              "food": 5100,
+              "iron": 5100,
+              "requirements": []
+            },
+            {
+              "level": 3,
+              "gold": 45600,
+              "food": 15200,
+              "iron": 15200,
+              "requirements": []
+            },
+            {
+              "level": 4,
+              "gold": 91100,
+              "food": 30400,
+              "iron": 30400,
+              "requirements": []
+            },
+            {
+              "level": 5,
+              "gold": 145800,
+              "food": 48600,
+              "iron": 48600,
+              "requirements": []
+            }
+          ]
+        }
+      ],
+      "connections": [
+        {
+          "from": "research-enhancement-1",
+          "to": [
+            "rapid-field-dressing-1",
+            "focused-training-1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "row-4",
+      "elements": [
+        {
+          "id": "rapid-field-dressing-1",
+          "name": "Rapid Field Dressing I",
+          "image": "/images/tech/development/rapid-field-dressing.png",
+          "maxLevel": 5,
+          "currentLevel": 0,
+          "levels": [
+            {
+              "level": 1,
+              "gold": 7600,
+              "food": 2500,
+              "iron": 2500,
+              "requirements": [
+                {
+                  "elementId": "research-enhancement-1",
+                  "minLevel": 1
+                }
+              ]
+            },
+            {
+              "level": 2,
+              "gold": 15200,
+              "food": 5100,
+              "iron": 5100,
+              "requirements": []
+            },
+            {
+              "level": 3,
+              "gold": 45600,
+              "food": 15200,
+              "iron": 15200,
+              "requirements": []
+            },
+            {
+              "level": 4,
+              "gold": 91100,
+              "food": 30400,
+              "iron": 30400,
+              "requirements": []
+            },
+            {
+              "level": 5,
+              "gold": 145800,
+              "food": 48600,
+              "iron": 48600,
+              "requirements": []
+            }
+          ]
+        },
+        {
+          "id": "focused-training-1",
+          "name": "Focused Training I",
+          "image": "/images/tech/development/focused-training.png",
+          "maxLevel": 5,
+          "currentLevel": 0,
+          "levels": [
+            {
+              "level": 1,
+              "gold": 7600,
+              "food": 2500,
+              "iron": 2500,
+              "requirements": [
+                {
+                  "elementId": "research-enhancement-1",
+                  "minLevel": 1
+                }
+              ]
+            },
+            {
+              "level": 2,
+              "gold": 15200,
+              "food": 5100,
+              "iron": 5100,
+              "requirements": []
+            },
+            {
+              "level": 3,
+              "gold": 45600,
+              "food": 15200,
+              "iron": 15200,
+              "requirements": []
+            },
+            {
+              "level": 4,
+              "gold": 91100,
+              "food": 30400,
+              "iron": 30400,
+              "requirements": []
+            },
+            {
+              "level": 5,
+              "gold": 145800,
+              "food": 48600,
+              "iron": 48600,
+              "requirements": []
+            }
+          ]
+        }
+      ],
+      "connections": [
+        {
+          "from": "rapid-field-dressing-1",
+          "to": [
+            "master-craftsman"
+          ]
+        },
+        {
+          "from": "focused-training-1",
+          "to": [
+            "master-craftsman"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "row-5",
+      "elements": [
+        {
+          "id": "master-craftsman",
+          "name": "Master Craftsman",
+          "image": "/images/tech/development/fast-builder.png",
+          "maxLevel": 5,
+          "currentLevel": 0,
+          "levels": [
+            {
+              "level": 1,
+              "gold": 15200,
+              "food": 5100,
+              "iron": 5100,
+              "requirements": [
+                {
+                  "elementId": "rapid-field-dressing-1",
+                  "minLevel": 2
+                }
+              ]
+            },
+            {
+              "level": 2,
+              "gold": 91100,
+              "food": 30400,
+              "iron": 30400,
+              "requirements": []
+            },
+            {
+              "level": 3,
+              "gold": 233300,
+              "food": 77800,
+              "iron": 77800,
+              "requirements": []
+            },
+            {
+              "level": 4,
+              "gold": 699800,
+              "food": 233300,
+              "iron": 233300,
+              "requirements": []
+            },
+            {
+              "level": 5,
+              "gold": 1308600,
+              "food": 436200,
+              "iron": 436200,
+              "requirements": []
+            }
+          ]
+        }
+      ],
+      "connections": [
+        {
+          "from": "master-craftsman",
+          "to": [
+            "fast-builder-2"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "row-6",
+      "elements": [
+        {
+          "id": "fast-builder-2",
+          "name": "Fast Builder II",
+          "image": "/images/tech/development/fast-builder.png",
+          "maxLevel": 5,
+          "currentLevel": 0,
+          "levels": [
+            {
+              "level": 1,
+              "gold": 91100,
+              "food": 30400,
+              "iron": 30400,
+              "requirements": [
+                {
+                  "elementId": "master-craftsman",
+                  "minLevel": 2
+                }
+              ]
+            },
+            {
+              "level": 2,
+              "gold": 145800,
+              "food": 48600,
+              "iron": 48600,
+              "requirements": []
+            },
+            {
+              "level": 3,
+              "gold": 233300,
+              "food": 77800,
+              "iron": 77800,
+              "requirements": []
+            },
+            {
+              "level": 4,
+              "gold": 279900,
+              "food": 93300,
+              "iron": 93300,
+              "requirements": []
+            },
+            {
+              "level": 5,
+              "gold": 699800,
+              "food": 233300,
+              "iron": 233300,
+              "requirements": []
+            }
+          ]
+        }
+      ],
+      "connections": [
+        {
+          "from": "fast-builder-2",
+          "to": [
+            "infirmary-expansion-2",
+            "barrack-expansion-2"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "row-7",
+      "elements": [
+        {
+          "id": "infirmary-expansion-2",
+          "name": "Infirmary Expansion II",
+          "image": "/images/tech/development/infirmary-expansion.png",
+          "maxLevel": 5,
+          "currentLevel": 0,
+          "levels": [
+            {
+              "level": 1,
+              "gold": 233300,
+              "food": 77800,
+              "iron": 77800,
+              "requirements": [
+                {
+                  "elementId": "fast-builder-2",
+                  "minLevel": 3
+                }
+              ]
+            },
+            {
+              "level": 2,
+              "gold": 279900,
+              "food": 93300,
+              "iron": 93300,
+              "requirements": []
+            },
+            {
+              "level": 3,
+              "gold": 699800,
+              "food": 233300,
+              "iron": 233300,
+              "requirements": []
+            },
+            {
+              "level": 4,
+              "gold": 1189800,
+              "food": 396600,
+              "iron": 396600,
+              "requirements": []
+            },
+            {
+              "level": 5,
+              "gold": 1308600,
+              "food": 436200,
+              "iron": 436200,
+              "requirements": []
+            }
+          ]
+        },
+        {
+          "id": "barrack-expansion-2",
+          "name": "Barrack Expansion II",
+          "image": "/images/tech/development/barrack-expansion.png",
+          "maxLevel": 5,
+          "currentLevel": 0,
+          "levels": [
+            {
+              "level": 1,
+              "gold": 233300,
+              "food": 77800,
+              "iron": 77800,
+              "requirements": [
+                {
+                  "elementId": "fast-builder-2",
+                  "minLevel": 3
+                }
+              ]
+            },
+            {
+              "level": 2,
+              "gold": 279900,
+              "food": 93300,
+              "iron": 93300,
+              "requirements": []
+            },
+            {
+              "level": 3,
+              "gold": 699800,
+              "food": 233300,
+              "iron": 233300,
+              "requirements": []
+            },
+            {
+              "level": 4,
+              "gold": 1189800,
+              "food": 396600,
+              "iron": 396600,
+              "requirements": []
+            },
+            {
+              "level": 5,
+              "gold": 1308600,
+              "food": 436200,
+              "iron": 436200,
+              "requirements": []
+            }
+          ]
+        }
+      ],
+      "connections": [
+        {
+          "from": "infirmary-expansion-2",
+          "to": [
+            "research-enhancement-2"
+          ]
+        },
+        {
+          "from": "barrack-expansion-2",
+          "to": [
+            "research-enhancement-2"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "row-8",
+      "elements": [
+        {
+          "id": "research-enhancement-2",
+          "name": "Research Enhancement II",
+          "image": "/images/tech/development/research-enhancement.png",
+          "maxLevel": 5,
+          "currentLevel": 0,
+          "levels": [
+            {
+              "level": 1,
+              "gold": 279900,
+              "food": 93300,
+              "iron": 93300,
+              "requirements": [
+                {
+                  "elementId": "infirmary-expansion-2",
+                  "minLevel": 2
+                }
+              ]
+            },
+            {
+              "level": 2,
+              "gold": 699800,
+              "food": 233300,
+              "iron": 233300,
+              "requirements": []
+            },
+            {
+              "level": 3,
+              "gold": 1189800,
+              "food": 396600,
+              "iron": 396600,
+              "requirements": []
+            },
+            {
+              "level": 4,
+              "gold": 1308600,
+              "food": 436200,
+              "iron": 436200,
+              "requirements": []
+            },
+            {
+              "level": 5,
+              "gold": 1832100,
+              "food": 610700,
+              "iron": 610700,
+              "requirements": []
+            }
+          ]
+        }
+      ],
+      "connections": [
+        {
+          "from": "research-enhancement-2",
+          "to": [
+            "rapid-field-dressing-2",
+            "focused-training-2"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "row-9",
+      "elements": [
+        {
+          "id": "rapid-field-dressing-2",
+          "name": "Rapid Field Dressing II",
+          "image": "/images/tech/development/rapid-field-dressing.png",
+          "maxLevel": 5,
+          "currentLevel": 0,
+          "levels": [
+            {
+              "level": 1,
+              "gold": 699800,
+              "food": 233300,
+              "iron": 233300,
+              "requirements": [
+                {
+                  "elementId": "research-enhancement-2",
+                  "minLevel": 2
+                }
+              ]
+            },
+            {
+              "level": 2,
+              "gold": 1189800,
+              "food": 396600,
+              "iron": 396600,
+              "requirements": []
+            },
+            {
+              "level": 3,
+              "gold": 1308600,
+              "food": 436200,
+              "iron": 436200,
+              "requirements": []
+            },
+            {
+              "level": 4,
+              "gold": 1832100,
+              "food": 610700,
+              "iron": 610700,
+              "requirements": []
+            },
+            {
+              "level": 5,
+              "gold": 2539350,
+              "food": 846450,
+              "iron": 846450,
+              "requirements": []
+            }
+          ]
+        },
+        {
+          "id": "focused-training-2",
+          "name": "Focused Training II",
+          "image": "/images/tech/development/focused-training.png",
+          "maxLevel": 5,
+          "currentLevel": 0,
+          "levels": [
+            {
+              "level": 1,
+              "gold": 699800,
+              "food": 233300,
+              "iron": 233300,
+              "requirements": [
+                {
+                  "elementId": "research-enhancement-2",
+                  "minLevel": 2
+                }
+              ]
+            },
+            {
+              "level": 2,
+              "gold": 1189800,
+              "food": 396600,
+              "iron": 396600,
+              "requirements": []
+            },
+            {
+              "level": 3,
+              "gold": 1308600,
+              "food": 436200,
+              "iron": 436200,
+              "requirements": []
+            },
+            {
+              "level": 4,
+              "gold": 1832100,
+              "food": 610700,
+              "iron": 610700,
+              "requirements": []
+            },
+            {
+              "level": 4,
+              "gold": 2539350,
+              "food": 846450,
+              "iron": 846450,
+              "requirements": []
+            }
+          ]
+        }
+      ],
+      "connections": [
+        {
+          "from": "rapid-field-dressing-2",
+          "to": [
+            "extra-barracks"
+          ]
+        },
+        {
+          "from": "focused-training-2",
+          "to": [
+            "extra-barracks"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "row-10",
+      "elements": [
+        {
+          "id": "extra-barracks",
+          "name": "Extra Barracks",
+          "image": "/images/tech/development/extra-barracks.png",
+          "maxLevel": 1,
+          "currentLevel": 0,
+          "levels": [
+            {
+              "level": 1,
+              "gold": 1189800,
+              "food": 396600,
+              "iron": 396600,
+              "requirements": [
+                {
+                  "elementId": "rapid-field-dressing-2",
+                  "minLevel": 2
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "connections": [
+        {
+          "from": "extra-barracks",
+          "to": [
+            "fast-builder-3"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "row-11",
+      "elements": [
+        {
+          "id": "fast-builder-3",
+          "name": "Fast Builder III",
+          "image": "/images/tech/development/fast-builder.png",
+          "maxLevel": 5,
+          "currentLevel": 0,
+          "levels": [
+            {
+              "level": 1,
+              "gold": 1189800,
+              "food": 396600,
+              "iron": 396600,
+              "requirements": [
+                {
+                  "elementId": "extra-barracks",
+                  "minLevel": 1
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "connections": [
+        {
+          "from": "fast-builder-3",
+          "to": [
+            "infirmary-expansion-3",
+            "barrack-expansion-3"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "row-12",
+      "elements": [
+        {
+          "id": "infirmary-expansion-3",
+          "name": "Infirmary Expansion III",
+          "image": "/images/tech/development/infirmary-expansion.png",
+          "maxLevel": 5,
+          "currentLevel": 0,
+          "levels": [
+            {
+              "level": 1,
+              "gold": 1189800,
+              "food": 396600,
+              "iron": 396600,
+              "requirements": [
+                {
+                  "elementId": "fast-builder-3",
+                  "minLevel": 1
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "barrack-expansion-3",
+          "name": "Barrack Expansion III",
+          "image": "/images/tech/development/barrack-expansion.png",
+          "maxLevel": 5,
+          "currentLevel": 0,
+          "levels": [
+            {
+              "level": 1,
+              "gold": 1189800,
+              "food": 396600,
+              "iron": 396600,
+              "requirements": [
+                {
+                  "elementId": "fast-builder-3",
+                  "minLevel": 1
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "connections": [
+        {
+          "from": "infirmary-expansion-3",
+          "to": [
+            "research-enhancement-3"
+          ]
+        },
+        {
+          "from": "barrack-expansion-3",
+          "to": [
+            "research-enhancement-3"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "row-13",
+      "elements": [
+        {
+          "id": "research-enhancement-3",
+          "name": "Research Enhancement III",
+          "image": "/images/tech/development/research-enhancement.png",
+          "maxLevel": 5,
+          "currentLevel": 0,
+          "levels": [
+            {
+              "level": 1,
+              "gold": 1308600,
+              "food": 436200,
+              "iron": 436200,
+              "requirements": [
+                {
+                  "elementId": "infirmary-expansion-3",
+                  "minLevel": 1
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "connections": [
+        {
+          "from": "research-enhancement-3",
+          "to": [
+            "rapid-field-dressing-3",
+            "focused-training-3"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "row-14",
+      "elements": [
+        {
+          "id": "rapid-field-dressing-3",
+          "name": "Rapid Field Dressing III",
+          "image": "/images/tech/development/rapid-field-dressing.png",
+          "maxLevel": 5,
+          "currentLevel": 0,
+          "levels": [
+            {
+              "level": 1,
+              "gold": 1308600,
+              "food": 436200,
+              "iron": 436200,
+              "requirements": [
+                {
+                  "elementId": "research-enhancement-3",
+                  "minLevel": 1
+                }
+              ]
+            },
+            {
+              "level": 2,
+              "gold": 2539350,
+              "food": 846450,
+              "iron": 846450,
+              "requirements": []
+            },
+            {
+              "level": 3,
+              "gold": 5890000,
+              "food": 1890000,
+              "iron": 1890000,
+              "requirements": []
+            },
+            {
+              "level": 4,
+              "gold": 12440000,
+              "food": 4110000,
+              "iron": 4110000,
+              "requirements": []
+            },
+            {
+              "level": 5,
+              "gold": 31320000,
+              "food": 10440000,
+              "iron": 10440000,
+              "requirements": []
+            }
+          ]
+        },
+        {
+          "id": "focused-training-3",
+          "name": "Focused Training III",
+          "image": "/images/tech/development/focused-training.png",
+          "maxLevel": 5,
+          "currentLevel": 0,
+          "levels": [
+            {
+              "level": 1,
+              "gold": 1308600,
+              "food": 436200,
+              "iron": 436200,
+              "requirements": [
+                {
+                  "elementId": "research-enhancement-3",
+                  "minLevel": 1
+                }
+              ]
+            },
+            {
+              "level": 2,
+              "gold": 2539350,
+              "food": 846450,
+              "iron": 846450,
+              "requirements": []
+            },
+            {
+              "level": 3,
+              "gold": 5890000,
+              "food": 1890000,
+              "iron": 1890000,
+              "requirements": []
+            },
+            {
+              "level": 4,
+              "gold": 12440000,
+              "food": 4110000,
+              "iron": 4110000,
+              "requirements": []
+            },
+            {
+              "level": 5,
+              "gold": 31320000,
+              "food": 10440000,
+              "iron": 10440000,
+              "requirements": []
+            }
+          ]
+        }
+      ],
+      "connections": [
+        {
+          "from": "rapid-field-dressing-3",
+          "to": [
+            "efficient-healing"
+          ]
+        },
+        {
+          "from": "focused-training-3",
+          "to": [
+            "efficient-healing"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "row-15",
+      "elements": [
+        {
+          "id": "efficient-healing",
+          "name": "Efficient Healing",
+          "image": "/images/tech/development/efficient-healing.png",
+          "maxLevel": 5,
+          "currentLevel": 0,
+          "levels": [
+            {
+              "level": 1,
+              "gold": 1308600,
+              "food": 436200,
+              "iron": 436200,
+              "requirements": [
+                {
+                  "elementId": "rapid-field-dressing-3",
+                  "minLevel": 1
+                }
+              ]
+            },
+            {
+              "level": 2,
+              "gold": 4560000,
+              "food": 1440000,
+              "iron": 1440000,
+              "requirements": []
+            },
+            {
+              "level": 3,
+              "gold": 12440000,
+              "food": 4110000,
+              "iron": 4110000,
+              "requirements": []
+            },
+            {
+              "level": 4,
+              "gold": 31320000,
+              "food": 10440000,
+              "iron": 10440000,
+              "requirements": []
+            },
+            {
+              "level": 5,
+              "gold": 51000000,
+              "food": 17000000,
+              "iron": 17000000,
+              "requirements": []
+            }
+          ]
+        }
+      ],
+      "connections": [
+        {
+          "from": "efficient-healing",
+          "to": [
+            "fast-builder-4"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "row-16",
+      "elements": [
+        {
+          "id": "fast-builder-4",
+          "name": "Fast Builder IV",
+          "image": "/images/tech/development/fast-builder.png",
+          "maxLevel": 5,
+          "currentLevel": 0,
+          "levels": [
+            {
+              "level": 1,
+              "gold": 1832100,
+              "food": 610700,
+              "iron": 610700,
+              "requirements": [
+                {
+                  "elementId": "efficient-healing",
+                  "minLevel": 1
+                }
+              ]
+            },
+            {
+              "level": 2,
+              "gold": 4560000,
+              "food": 1440000,
+              "iron": 1440000,
+              "requirements": []
+            },
+            {
+              "level": 3,
+              "gold": 10330000,
+              "food": 3440000,
+              "iron": 3440000,
+              "requirements": []
+            },
+            {
+              "level": 4,
+              "gold": 0,
+              "food": 0,
+              "iron": 0,
+              "requirements": []
+            },
+            {
+              "level": 5,
+              "gold": 40780000,
+              "food": 13560000,
+              "iron": 13560000,
+              "requirements": []
+            }
+          ]
+        }
+      ],
+      "connections": [
+        {
+          "from": "fast-builder-4",
+          "to": [
+            "infirmary-expansion-4",
+            "barrack-expansion-4"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "row-17",
+      "elements": [
+        {
+          "id": "infirmary-expansion-4",
+          "name": "Infirmary Expansion IV",
+          "image": "/images/tech/development/infirmary-expansion.png",
+          "maxLevel": 5,
+          "currentLevel": 0,
+          "levels": [
+            {
+              "level": 1,
+              "gold": 1832100,
+              "food": 610700,
+              "iron": 610700,
+              "requirements": [
+                {
+                  "elementId": "fast-builder-4",
+                  "minLevel": 1
+                }
+              ]
+            },
+            {
+              "level": 2,
+              "gold": 4560000,
+              "food": 1440000,
+              "iron": 1440000,
+              "requirements": []
+            },
+            {
+              "level": 3,
+              "gold": 10330000,
+              "food": 3440000,
+              "iron": 3440000,
+              "requirements": []
+            },
+            {
+              "level": 4,
+              "gold": 0,
+              "food": 0,
+              "iron": 0,
+              "requirements": []
+            },
+            {
+              "level": 5,
+              "gold": 40780000,
+              "food": 13560000,
+              "iron": 13560000,
+              "requirements": []
+            }
+          ]
+        },
+        {
+          "id": "barrack-expansion-4",
+          "name": "Barrack Expansion IV",
+          "image": "/images/tech/development/barrack-expansion.png",
+          "maxLevel": 5,
+          "currentLevel": 0,
+          "levels": [
+            {
+              "level": 1,
+              "gold": 1832100,
+              "food": 610700,
+              "iron": 610700,
+              "requirements": [
+                {
+                  "elementId": "fast-builder-4",
+                  "minLevel": 1
+                }
+              ]
+            },
+            {
+              "level": 2,
+              "gold": 4560000,
+              "food": 1440000,
+              "iron": 1440000,
+              "requirements": []
+            },
+            {
+              "level": 3,
+              "gold": 10330000,
+              "food": 3440000,
+              "iron": 3440000,
+              "requirements": []
+            },
+            {
+              "level": 4,
+              "gold": 0,
+              "food": 0,
+              "iron": 0,
+              "requirements": []
+            },
+            {
+              "level": 5,
+              "gold": 40780000,
+              "food": 13560000,
+              "iron": 13560000,
+              "requirements": []
+            }
+          ]
+        }
+      ],
+      "connections": [
+        {
+          "from": "infirmary-expansion-4",
+          "to": [
+            "research-enhancement-4"
+          ]
+        },
+        {
+          "from": "barrack-expansion-4",
+          "to": [
+            "research-enhancement-4"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "row-18",
+      "elements": [
+        {
+          "id": "research-enhancement-4",
+          "name": "Research Enhancement IV",
+          "image": "/images/tech/development/research-enhancement.png",
+          "maxLevel": 5,
+          "currentLevel": 0,
+          "levels": [
+            {
+              "level": 1,
+              "gold": 2565000,
+              "food": 855000,
+              "iron": 855000,
+              "requirements": [
+                {
+                  "elementId": "infirmary-expansion-4",
+                  "minLevel": 1
+                }
+              ]
+            },
+            {
+              "level": 2,
+              "gold": 5890000,
+              "food": 1890000,
+              "iron": 1890000,
+              "requirements": []
+            },
+            {
+              "level": 3,
+              "gold": 12440000,
+              "food": 4110000,
+              "iron": 4110000,
+              "requirements": []
+            },
+            {
+              "level": 4,
+              "gold": 31320000,
+              "food": 10440000,
+              "iron": 10440000,
+              "requirements": []
+            },
+            {
+              "level": 5,
+              "gold": 51000000,
+              "food": 17000000,
+              "iron": 17000000,
+              "requirements": []
+            }
+          ]
+        }
+      ],
+      "connections": [
+        {
+          "from": "research-enhancement-4",
+          "to": [
+            "rapid-field-dressing-4",
+            "focused-training-4"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "row-19",
+      "elements": [
+        {
+          "id": "rapid-field-dressing-4",
+          "name": "Rapid Field Dressing IV",
+          "image": "/images/tech/development/rapid-field-dressing.png",
+          "maxLevel": 5,
+          "currentLevel": 0,
+          "levels": [
+            {
+              "level": 1,
+              "gold": 2565000,
+              "food": 855000,
+              "iron": 855000,
+              "requirements": [
+                {
+                  "elementId": "research-enhancement-4",
+                  "minLevel": 1
+                }
+              ]
+            },
+            {
+              "level": 2,
+              "gold": 5890000,
+              "food": 1890000,
+              "iron": 1890000,
+              "requirements": []
+            },
+            {
+              "level": 3,
+              "gold": 12440000,
+              "food": 4110000,
+              "iron": 4110000,
+              "requirements": []
+            },
+            {
+              "level": 4,
+              "gold": 31320000,
+              "food": 10440000,
+              "iron": 10440000,
+              "requirements": []
+            },
+            {
+              "level": 5,
+              "gold": 51000000,
+              "food": 17000000,
+              "iron": 17000000,
+              "requirements": []
+            }
+          ]
+        },
+        {
+          "id": "focused-training-4",
+          "name": "Focused Training IV",
+          "image": "/images/tech/development/focused-training.png",
+          "maxLevel": 5,
+          "currentLevel": 0,
+          "levels": [
+            {
+              "level": 1,
+              "gold": 2565000,
+              "food": 855000,
+              "iron": 855000,
+              "requirements": [
+                {
+                  "elementId": "research-enhancement-4",
+                  "minLevel": 1
+                }
+              ]
+            },
+            {
+              "level": 2,
+              "gold": 5890000,
+              "food": 1890000,
+              "iron": 1890000,
+              "requirements": []
+            },
+            {
+              "level": 3,
+              "gold": 12440000,
+              "food": 4110000,
+              "iron": 4110000,
+              "requirements": []
+            },
+            {
+              "level": 4,
+              "gold": 31320000,
+              "food": 10440000,
+              "iron": 10440000,
+              "requirements": []
+            },
+            {
+              "level": 5,
+              "gold": 51000000,
+              "food": 17000000,
+              "iron": 17000000,
+              "requirements": []
+            }
+          ]
+        }
+      ],
+      "connections": [
+        {
+          "from": "rapid-field-dressing-4",
+          "to": [
+            "drill-ground-expansion"
+          ]
+        },
+        {
+          "from": "focused-training-4",
+          "to": [
+            "drill-ground-expansion"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "row-20",
+      "elements": [
+        {
+          "id": "drill-ground-expansion",
+          "name": "Drill Ground Expansion",
+          "image": "/images/tech/development/drill-ground-expansion.png",
+          "maxLevel": 5,
+          "currentLevel": 0,
+          "levels": [
+            {
+              "level": 1,
+              "gold": 4500000,
+              "food": 1500000,
+              "iron": 1500000,
+              "requirements": [
+                {
+                  "elementId": "rapid-field-dressing-4",
+                  "minLevel": 1
+                }
+              ]
+            },
+            {
+              "level": 2,
+              "gold": 10330000,
+              "food": 3440000,
+              "iron": 3440000,
+              "requirements": []
+            },
+            {
+              "level": 3,
+              "gold": 0,
+              "food": 0,
+              "iron": 0,
+              "requirements": []
+            },
+            {
+              "level": 4,
+              "gold": 40780000,
+              "food": 13560000,
+              "iron": 13560000,
+              "requirements": []
+            },
+            {
+              "level": 5,
+              "gold": 0,
+              "food": 0,
+              "iron": 0,
+              "requirements": []
+            }
+          ]
+        }
+      ],
+      "connections": [
+        {
+          "from": "drill-ground-expansion",
+          "to": [
+            "survival-skills"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "row-21",
+      "elements": [
+        {
+          "id": "survival-skills",
+          "name": "Survival Skills",
+          "image": "/images/tech/development/survival-skills.png",
+          "maxLevel": 5,
+          "currentLevel": 0,
+          "levels": [
+            {
+              "level": 1,
+              "gold": 5800000,
+              "food": 1900000,
+              "iron": 1900000,
+              "requirements": [
+                {
+                  "elementId": "drill-ground-expansion",
+                  "minLevel": 1
+                }
+              ]
+            },
+            {
+              "level": 2,
+              "gold": 12440000,
+              "food": 4110000,
+              "iron": 4110000,
+              "requirements": []
+            },
+            {
+              "level": 3,
+              "gold": 31320000,
+              "food": 10440000,
+              "iron": 10440000,
+              "requirements": []
+            },
+            {
+              "level": 4,
+              "gold": 51000000,
+              "food": 17000000,
+              "iron": 17000000,
+              "requirements": []
+            },
+            {
+              "level": 5,
+              "gold": 108440000,
+              "food": 36110000,
+              "iron": 36110000,
+              "requirements": []
+            }
+          ]
+        }
+      ],
+      "connections": []
+    }
+  ]
+}

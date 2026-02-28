@@ -1,0 +1,732 @@
+{
+  "name": "Intercity Truck",
+  "isComplete": true,
+  "specialThanks": "Special thanks to neddrums2000 for helping to fill in the gaps in this research tree!",
+  "rows": [
+    {
+      "id": "row-1",
+      "elements": [
+        {
+          "id": "basic-goods",
+          "name": "Basic Goods",
+          "image": "/images/tech/intercity-truck/basic-goods.png",
+          "maxLevel": 5,
+          "currentLevel": 0,
+          "levels": [
+            {
+              "level": 1,
+              "iron": 15000000,
+              "food": 15000000,
+              "gold": 45000000,
+              "valor": 750,
+              "requirements": []
+            },
+            {
+              "level": 2,
+              "iron": 15000000,
+              "food": 15000000,
+              "gold": 45000000,
+              "valor": 750,
+              "requirements": []
+            },
+            {
+              "level": 3,
+              "iron": 15000000,
+              "food": 15000000,
+              "gold": 45000000,
+              "valor": 750,
+              "requirements": []
+            },
+            {
+              "level": 4,
+              "iron": 15000000,
+              "food": 15000000,
+              "gold": 45000000,
+              "valor": 750,
+              "requirements": []
+            },
+            {
+              "level": 5,
+              "iron": 15000000,
+              "food": 15000000,
+              "gold": 45000000,
+              "valor": 750,
+              "requirements": []
+            }
+          ]
+        }
+      ],
+      "connections": [
+        {
+          "from": "basic-goods",
+          "to": [
+            "attack-boost",
+            "defense-boost"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "row-2",
+      "elements": [
+        {
+          "id": "attack-boost",
+          "name": "Attack Boost",
+          "image": "/images/tech/intercity-truck/attack-boost.png",
+          "maxLevel": 10,
+          "currentLevel": 0,
+          "levels": [
+            {
+              "level": 1,
+              "iron": 17600000,
+              "food": 17600000,
+              "gold": 52800000,
+              "valor": 880,
+              "requirements": [
+                {
+                  "elementId": "basic-goods",
+                  "minLevel": 1
+                }
+              ]
+            },
+            {
+              "level": 2,
+              "iron": 17600000,
+              "food": 17600000,
+              "gold": 52800000,
+              "valor": 880,
+              "requirements": [
+                {
+                  "elementId": "basic-goods",
+                  "minLevel": 2
+                }
+              ]
+            },
+            {
+              "level": 3,
+              "iron": 17600000,
+              "food": 17600000,
+              "gold": 52800000,
+              "valor": 880,
+              "requirements": [
+                {
+                  "elementId": "basic-goods",
+                  "minLevel": 3
+                }
+              ]
+            },
+            {
+              "level": 4,
+              "iron": 17600000,
+              "food": 17600000,
+              "gold": 52800000,
+              "valor": 880,
+              "requirements": [
+                {
+                  "elementId": "basic-goods",
+                  "minLevel": 4
+                }
+              ]
+            },
+            {
+              "level": 5,
+              "iron": 17600000,
+              "food": 17600000,
+              "gold": 52800000,
+              "valor": 880,
+              "requirements": [
+                {
+                  "elementId": "basic-goods",
+                  "minLevel": 5
+                }
+              ]
+            },
+            {
+              "level": 6,
+              "iron": 20000000,
+              "food": 20000000,
+              "gold": 60000000,
+              "valor": 1000,
+              "requirements": [
+                {
+                  "elementId": "basic-goods",
+                  "minLevel": 5
+                }
+              ]
+            },
+            {
+              "level": 7,
+              "iron": 20000000,
+              "food": 20000000,
+              "gold": 60000000,
+              "valor": 1000,
+              "requirements": [
+                {
+                  "elementId": "basic-goods",
+                  "minLevel": 5
+                }
+              ]
+            },
+            {
+              "level": 8,
+              "iron": 20000000,
+              "food": 20000000,
+              "gold": 60000000,
+              "valor": 1000,
+              "requirements": [
+                {
+                  "elementId": "basic-goods",
+                  "minLevel": 5
+                }
+              ]
+            },
+            {
+              "level": 9,
+              "iron": 20000000,
+              "food": 20000000,
+              "gold": 60000000,
+              "valor": 1000,
+              "requirements": [
+                {
+                  "elementId": "basic-goods",
+                  "minLevel": 5
+                }
+              ]
+            },
+            {
+              "level": 10,
+              "iron": 20000000,
+              "food": 20000000,
+              "gold": 60000000,
+              "valor": 1000,
+              "requirements": [
+                {
+                  "elementId": "basic-goods",
+                  "minLevel": 5
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "defense-boost",
+          "name": "Defense Boost",
+          "image": "/images/tech/intercity-truck/defense-boost.png",
+          "maxLevel": 10,
+          "currentLevel": 0,
+          "levels": [
+            {
+              "level": 1,
+              "iron": 17600000,
+              "food": 17600000,
+              "gold": 52800000,
+              "valor": 880,
+              "requirements": [
+                {
+                  "elementId": "basic-goods",
+                  "minLevel": 1
+                }
+              ]
+            },
+            {
+              "level": 2,
+              "iron": 17600000,
+              "food": 17600000,
+              "gold": 52800000,
+              "valor": 880,
+              "requirements": [
+                {
+                  "elementId": "basic-goods",
+                  "minLevel": 2
+                }
+              ]
+            },
+            {
+              "level": 3,
+              "iron": 17600000,
+              "food": 17600000,
+              "gold": 52800000,
+              "valor": 880,
+              "requirements": [
+                {
+                  "elementId": "basic-goods",
+                  "minLevel": 3
+                }
+              ]
+            },
+            {
+              "level": 4,
+              "iron": 17600000,
+              "food": 17600000,
+              "gold": 52800000,
+              "valor": 880,
+              "requirements": [
+                {
+                  "elementId": "basic-goods",
+                  "minLevel": 4
+                }
+              ]
+            },
+            {
+              "level": 5,
+              "iron": 17600000,
+              "food": 17600000,
+              "gold": 52800000,
+              "valor": 880,
+              "requirements": [
+                {
+                  "elementId": "basic-goods",
+                  "minLevel": 5
+                }
+              ]
+            },
+            {
+              "level": 6,
+              "iron": 20000000,
+              "food": 20000000,
+              "gold": 60000000,
+              "valor": 1000,
+              "requirements": [
+                {
+                  "elementId": "basic-goods",
+                  "minLevel": 5
+                }
+              ]
+            },
+            {
+              "level": 7,
+              "iron": 20000000,
+              "food": 20000000,
+              "gold": 60000000,
+              "valor": 1000,
+              "requirements": [
+                {
+                  "elementId": "basic-goods",
+                  "minLevel": 5
+                }
+              ]
+            },
+            {
+              "level": 8,
+              "iron": 20000000,
+              "food": 20000000,
+              "gold": 60000000,
+              "valor": 1000,
+              "requirements": [
+                {
+                  "elementId": "basic-goods",
+                  "minLevel": 5
+                }
+              ]
+            },
+            {
+              "level": 9,
+              "iron": 20000000,
+              "food": 20000000,
+              "gold": 60000000,
+              "valor": 1000,
+              "requirements": [
+                {
+                  "elementId": "basic-goods",
+                  "minLevel": 5
+                }
+              ]
+            },
+            {
+              "level": 10,
+              "iron": 20000000,
+              "food": 20000000,
+              "gold": 60000000,
+              "valor": 1000,
+              "requirements": [
+                {
+                  "elementId": "basic-goods",
+                  "minLevel": 5
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "connections": [
+        {
+          "from": "attack-boost",
+          "to": [
+            "rapid-transit"
+          ]
+        },
+        {
+          "from": "defense-boost",
+          "to": [
+            "rapid-transit"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "row-3",
+      "elements": [
+        {
+          "id": "rapid-transit",
+          "name": "Rapid Transit",
+          "image": "/images/tech/intercity-truck/rapid-transit.png",
+          "maxLevel": 5,
+          "currentLevel": 0,
+          "levels": [
+            {
+              "level": 1,
+              "iron": 17600000,
+              "food": 17600000,
+              "gold": 52800000,
+              "valor": 880,
+              "requirements": [
+                {
+                  "elementId": "attack-boost",
+                  "minLevel": 1
+                },
+                {
+                  "elementId": "defense-boost",
+                  "minLevel": 1
+                }
+              ]
+            },
+            {
+              "level": 2,
+              "iron": 17600000,
+              "food": 17600000,
+              "gold": 52800000,
+              "valor": 880,
+              "requirements": [
+                {
+                  "elementId": "attack-boost",
+                  "minLevel": 2
+                },
+                {
+                  "elementId": "defense-boost",
+                  "minLevel": 2
+                }
+              ]
+            },
+            {
+              "level": 3,
+              "iron": 17600000,
+              "food": 17600000,
+              "gold": 52800000,
+              "valor": 880,
+              "requirements": [
+                {
+                  "elementId": "attack-boost",
+                  "minLevel": 3
+                },
+                {
+                  "elementId": "defense-boost",
+                  "minLevel": 3
+                }
+              ]
+            },
+            {
+              "level": 4,
+              "iron": 17600000,
+              "food": 17600000,
+              "gold": 52800000,
+              "valor": 880,
+              "requirements": [
+                {
+                  "elementId": "attack-boost",
+                  "minLevel": 4
+                },
+                {
+                  "elementId": "defense-boost",
+                  "minLevel": 4
+                }
+              ]
+            },
+            {
+              "level": 5,
+              "iron": 17600000,
+              "food": 17600000,
+              "gold": 52800000,
+              "valor": 880,
+              "requirements": [
+                {
+                  "elementId": "attack-boost",
+                  "minLevel": 5
+                },
+                {
+                  "elementId": "defense-boost",
+                  "minLevel": 5
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "connections": [
+        {
+          "from": "rapid-transit",
+          "to": [
+            "plunder",
+            "lucky"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "row-4",
+      "elements": [
+        {
+          "id": "plunder",
+          "name": "Plunder",
+          "image": "/images/tech/intercity-truck/plunder.png",
+          "maxLevel": 5,
+          "currentLevel": 0,
+          "levels": [
+            {
+              "level": 1,
+              "iron": 20000000,
+              "food": 20000000,
+              "gold": 60000000,
+              "valor": 1000,
+              "requirements": [
+                {
+                  "elementId": "rapid-transit",
+                  "minLevel": 1
+                }
+              ]
+            },
+            {
+              "level": 2,
+              "iron": 20000000,
+              "food": 20000000,
+              "gold": 60000000,
+              "valor": 1000,
+              "requirements": [
+                {
+                  "elementId": "rapid-transit",
+                  "minLevel": 2
+                }
+              ]
+            },
+            {
+              "level": 3,
+              "iron": 20000000,
+              "food": 20000000,
+              "gold": 60000000,
+              "valor": 1000,
+              "requirements": [
+                {
+                  "elementId": "rapid-transit",
+                  "minLevel": 3
+                }
+              ]
+            },
+            {
+              "level": 4,
+              "iron": 20000000,
+              "food": 20000000,
+              "gold": 60000000,
+              "valor": 1000,
+              "requirements": [
+                {
+                  "elementId": "rapid-transit",
+                  "minLevel": 4
+                }
+              ]
+            },
+            {
+              "level": 5,
+              "iron": 20000000,
+              "food": 20000000,
+              "gold": 60000000,
+              "valor": 1000,
+              "requirements": [
+                {
+                  "elementId": "rapid-transit",
+                  "minLevel": 5
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "lucky",
+          "name": "Lucky",
+          "image": "/images/tech/intercity-truck/lucky.png",
+          "maxLevel": 5,
+          "currentLevel": 0,
+          "levels": [
+            {
+              "level": 1,
+              "iron": 20000000,
+              "food": 20000000,
+              "gold": 60000000,
+              "valor": 1000,
+              "requirements": [
+                {
+                  "elementId": "rapid-transit",
+                  "minLevel": 1
+                }
+              ]
+            },
+            {
+              "level": 2,
+              "iron": 20000000,
+              "food": 20000000,
+              "gold": 60000000,
+              "valor": 1000,
+              "requirements": [
+                {
+                  "elementId": "rapid-transit",
+                  "minLevel": 2
+                }
+              ]
+            },
+            {
+              "level": 3,
+              "iron": 20000000,
+              "food": 20000000,
+              "gold": 60000000,
+              "valor": 1000,
+              "requirements": [
+                {
+                  "elementId": "rapid-transit",
+                  "minLevel": 3
+                }
+              ]
+            },
+            {
+              "level": 4,
+              "iron": 20000000,
+              "food": 20000000,
+              "gold": 60000000,
+              "valor": 1000,
+              "requirements": [
+                {
+                  "elementId": "rapid-transit",
+                  "minLevel": 4
+                }
+              ]
+            },
+            {
+              "level": 5,
+              "iron": 20000000,
+              "food": 20000000,
+              "gold": 60000000,
+              "valor": 1000,
+              "requirements": [
+                {
+                  "elementId": "rapid-transit",
+                  "minLevel": 5
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "connections": [
+        {
+          "from": "plunder",
+          "to": [
+            "extra-truck"
+          ]
+        },
+        {
+          "from": "lucky",
+          "to": [
+            "extra-truck"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "row-5",
+      "elements": [
+        {
+          "id": "extra-truck",
+          "name": "Extra Truck",
+          "image": "/images/tech/intercity-truck/extra-truck.png",
+          "maxLevel": 1,
+          "currentLevel": 0,
+          "levels": [
+            {
+              "level": 1,
+              "iron": 100000000,
+              "food": 100000000,
+              "gold": 300000000,
+              "valor": 5000,
+              "requirements": [
+                {
+                  "elementId": "plunder",
+                  "minLevel": 5
+                },
+                {
+                  "elementId": "lucky",
+                  "minLevel": 5
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "connections": [
+        {
+          "from": "extra-truck",
+          "to": [
+            "ultimate-guard",
+            "reindeer-sleigh-ride"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "row-6",
+      "elements": [
+        {
+          "id": "ultimate-guard",
+          "name": "Ultimate Guard",
+          "image": "/images/tech/intercity-truck/ultimate-guard.png",
+          "maxLevel": 1,
+          "currentLevel": 0,
+          "levels": [
+            {
+              "level": 1,
+              "iron": 400000000,
+              "food": 400000000,
+              "gold": 1200000000,
+              "valor": 20000,
+              "requirements": [
+                {
+                  "elementId": "extra-truck",
+                  "minLevel": 1
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "reindeer-sleigh-ride",
+          "name": "Reindeer Sleigh Ride",
+          "image": "/images/tech/intercity-truck/reindeer-sleigh-ride.png",
+          "maxLevel": 1,
+          "currentLevel": 0,
+          "levels": [
+            {
+              "level": 1,
+              "iron": 400000000,
+              "food": 400000000,
+              "gold": 1200000000,
+              "valor": 20000,
+              "requirements": [
+                {
+                  "elementId": "extra-truck",
+                  "minLevel": 1
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "connections": []
+    }
+  ]
+}

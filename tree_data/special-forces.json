@@ -1,0 +1,2916 @@
+{
+  "name": "Special Forces",
+  "isComplete": false,
+  "specialThanks": "Special thanks to #335 - Sharky Kiki for helping to fill in the gaps in this research tree!",
+  "rows": [
+    {
+      "id": "row-1",
+      "elements": [
+        {
+          "id": "hp-boost-1",
+          "name": "HP Boost I",
+          "image": "/images/tech/special-forces/hp-boost-3.png",
+          "maxLevel": 10,
+          "currentLevel": 0,
+          "levels": [
+            {
+              "level": 1,
+              "iron": 916100,
+              "food": 916100,
+              "gold": 2700000,
+              "valor": 240,
+              "requirements": []
+            },
+            {
+              "level": 2,
+              "iron": 916100,
+              "food": 916100,
+              "gold": 2700000,
+              "valor": 240,
+              "requirements": []
+            },
+            {
+              "level": 3,
+              "iron": 916100,
+              "food": 916100,
+              "gold": 2700000,
+              "valor": 240,
+              "requirements": []
+            },
+            {
+              "level": 4,
+              "iron": 1300000,
+              "food": 1300000,
+              "gold": 3800000,
+              "valor": 280,
+              "requirements": []
+            },
+            {
+              "level": 5,
+              "iron": 1300000,
+              "food": 1300000,
+              "gold": 3800000,
+              "valor": 280,
+              "requirements": []
+            },
+            {
+              "level": 6,
+              "iron": 2300000,
+              "food": 2300000,
+              "gold": 6900000,
+              "valor": 320,
+              "requirements": []
+            },
+            {
+              "level": 7,
+              "iron": 2300000,
+              "food": 2300000,
+              "gold": 6900000,
+              "valor": 320,
+              "requirements": []
+            },
+            {
+              "level": 8,
+              "iron": 2900000,
+              "food": 2900000,
+              "gold": 8900000,
+              "valor": 400,
+              "requirements": []
+            },
+            {
+              "level": 9,
+              "iron": 2900000,
+              "food": 2900000,
+              "gold": 8900000,
+              "valor": 400,
+              "requirements": []
+            },
+            {
+              "level": 10,
+              "iron": 5100000,
+              "food": 5100000,
+              "gold": 15500000,
+              "valor": 520,
+              "requirements": []
+            }
+          ]
+        },
+        {
+          "id": "attack-boost-1",
+          "name": "Attack Boost I",
+          "image": "/images/tech/special-forces/attack-boost-3.png",
+          "maxLevel": 10,
+          "currentLevel": 0,
+          "levels": [
+            {
+              "level": 1,
+              "iron": 916100,
+              "food": 916100,
+              "gold": 2700000,
+              "valor": 240,
+              "requirements": []
+            },
+            {
+              "level": 2,
+              "iron": 916100,
+              "food": 916100,
+              "gold": 2700000,
+              "valor": 240,
+              "requirements": []
+            },
+            {
+              "level": 3,
+              "iron": 916100,
+              "food": 916100,
+              "gold": 2700000,
+              "valor": 240,
+              "requirements": []
+            },
+            {
+              "level": 4,
+              "iron": 1300000,
+              "food": 1300000,
+              "gold": 3800000,
+              "valor": 280,
+              "requirements": []
+            },
+            {
+              "level": 5,
+              "iron": 1300000,
+              "food": 1300000,
+              "gold": 3800000,
+              "valor": 280,
+              "requirements": []
+            },
+            {
+              "level": 6,
+              "iron": 2300000,
+              "food": 2300000,
+              "gold": 6900000,
+              "valor": 320,
+              "requirements": []
+            },
+            {
+              "level": 7,
+              "iron": 2300000,
+              "food": 2300000,
+              "gold": 6900000,
+              "valor": 320,
+              "requirements": []
+            },
+            {
+              "level": 8,
+              "iron": 2900000,
+              "food": 2900000,
+              "gold": 8900000,
+              "valor": 400,
+              "requirements": []
+            },
+            {
+              "level": 9,
+              "iron": 2900000,
+              "food": 2900000,
+              "gold": 8900000,
+              "valor": 400,
+              "requirements": []
+            },
+            {
+              "level": 10,
+              "iron": 5100000,
+              "food": 5100000,
+              "gold": 15500000,
+              "valor": 520,
+              "requirements": []
+            }
+          ]
+        },
+        {
+          "id": "defense-boost-1",
+          "name": "Defense Boost I",
+          "image": "/images/tech/special-forces/defense-boost-3.png",
+          "maxLevel": 10,
+          "currentLevel": 0,
+          "levels": [
+            {
+              "level": 1,
+              "iron": 916100,
+              "food": 916100,
+              "gold": 2700000,
+              "valor": 240,
+              "requirements": []
+            },
+            {
+              "level": 2,
+              "iron": 916100,
+              "food": 916100,
+              "gold": 2700000,
+              "valor": 240,
+              "requirements": []
+            },
+            {
+              "level": 3,
+              "iron": 916100,
+              "food": 916100,
+              "gold": 2700000,
+              "valor": 240,
+              "requirements": []
+            },
+            {
+              "level": 4,
+              "iron": 1300000,
+              "food": 1300000,
+              "gold": 3800000,
+              "valor": 280,
+              "requirements": []
+            },
+            {
+              "level": 5,
+              "iron": 1300000,
+              "food": 1300000,
+              "gold": 3800000,
+              "valor": 280,
+              "requirements": []
+            },
+            {
+              "level": 6,
+              "iron": 2300000,
+              "food": 2300000,
+              "gold": 6900000,
+              "valor": 320,
+              "requirements": []
+            },
+            {
+              "level": 7,
+              "iron": 2300000,
+              "food": 2300000,
+              "gold": 6900000,
+              "valor": 320,
+              "requirements": []
+            },
+            {
+              "level": 8,
+              "iron": 2900000,
+              "food": 2900000,
+              "gold": 8900000,
+              "valor": 400,
+              "requirements": []
+            },
+            {
+              "level": 9,
+              "iron": 2900000,
+              "food": 2900000,
+              "gold": 8900000,
+              "valor": 400,
+              "requirements": []
+            },
+            {
+              "level": 10,
+              "iron": 5100000,
+              "food": 5100000,
+              "gold": 15500000,
+              "valor": 520,
+              "requirements": []
+            }
+          ]
+        }
+      ],
+      "connections": [
+        {
+          "from": "hp-boost-1",
+          "to": [
+            "advanced-protection-1"
+          ]
+        },
+        {
+          "from": "attack-boost-1",
+          "to": [
+            "advanced-protection-1"
+          ]
+        },
+        {
+          "from": "defense-boost-1",
+          "to": [
+            "advanced-protection-1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "row-2",
+      "elements": [
+        {
+          "id": "advanced-protection-1",
+          "name": "Advanced Protection",
+          "image": "/images/tech/special-forces/defense-boost-3.png",
+          "maxLevel": 10,
+          "currentLevel": 0,
+          "levels": [
+            {
+              "level": 1,
+              "iron": 2300000,
+              "food": 2300000,
+              "gold": 6900000,
+              "valor": 320,
+              "requirements": [
+                {
+                  "elementId": "hp-boost-1",
+                  "minLevel": 1
+                },
+                {
+                  "elementId": "attack-boost-1",
+                  "minLevel": 1
+                },
+                {
+                  "elementId": "defense-boost-1",
+                  "minLevel": 1
+                }
+              ]
+            },
+            {
+              "level": 2,
+              "iron": 2900000,
+              "food": 2900000,
+              "gold": 8900000,
+              "valor": 400,
+              "requirements": [
+                {
+                  "elementId": "hp-boost-1",
+                  "minLevel": 2
+                },
+                {
+                  "elementId": "attack-boost-1",
+                  "minLevel": 2
+                },
+                {
+                  "elementId": "defense-boost-1",
+                  "minLevel": 2
+                }
+              ]
+            },
+            {
+              "level": 3,
+              "iron": 2900000,
+              "food": 2900000,
+              "gold": 8900000,
+              "valor": 400,
+              "requirements": [
+                {
+                  "elementId": "hp-boost-1",
+                  "minLevel": 3
+                },
+                {
+                  "elementId": "attack-boost-1",
+                  "minLevel": 3
+                },
+                {
+                  "elementId": "defense-boost-1",
+                  "minLevel": 3
+                }
+              ]
+            },
+            {
+              "level": 4,
+              "iron": 5100000,
+              "food": 5100000,
+              "gold": 15500000,
+              "valor": 520,
+              "requirements": [
+                {
+                  "elementId": "hp-boost-1",
+                  "minLevel": 4
+                },
+                {
+                  "elementId": "attack-boost-1",
+                  "minLevel": 4
+                },
+                {
+                  "elementId": "defense-boost-1",
+                  "minLevel": 4
+                }
+              ]
+            },
+            {
+              "level": 5,
+              "iron": 5100000,
+              "food": 5100000,
+              "gold": 15500000,
+              "valor": 520,
+              "requirements": [
+                {
+                  "elementId": "hp-boost-1",
+                  "minLevel": 5
+                },
+                {
+                  "elementId": "attack-boost-1",
+                  "minLevel": 5
+                },
+                {
+                  "elementId": "defense-boost-1",
+                  "minLevel": 5
+                }
+              ]
+            },
+            {
+              "level": 6,
+              "iron": 61400000,
+              "food": 61400000,
+              "gold": 18700000,
+              "valor": 640,
+              "requirements": []
+            },
+            {
+              "level": 7,
+              "iron": 61400000,
+              "food": 61400000,
+              "gold": 18700000,
+              "valor": 640,
+              "requirements": []
+            },
+            {
+              "level": 8,
+              "iron": 11100000,
+              "food": 11100000,
+              "gold": 33600000,
+              "valor": 800,
+              "requirements": []
+            },
+            {
+              "level": 9,
+              "iron": 11100000,
+              "food": 11100000,
+              "gold": 33600000,
+              "valor": 800,
+              "requirements": []
+            },
+            {
+              "level": 10,
+              "iron": 15600000,
+              "food": 15600000,
+              "gold": 47100000,
+              "valor": 960,
+              "requirements": []
+            }
+          ]
+        }
+      ],
+      "connections": [
+        {
+          "from": "advanced-protection-1",
+          "to": [
+            "defense-training-7",
+            "weapon-training-7",
+            "advanced-armor-7"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "row-3",
+      "elements": [
+        {
+          "id": "defense-training-7",
+          "name": "Defense Training VII",
+          "image": "/images/tech/special-forces/attack-boost-3.png",
+          "maxLevel": 10,
+          "currentLevel": 0,
+          "levels": [
+            {
+              "level": 1,
+              "iron": 2900000,
+              "food": 2900000,
+              "gold": 8900000,
+              "valor": 400,
+              "requirements": [
+                {
+                  "elementId": "advanced-protection-1",
+                  "minLevel": 1
+                }
+              ]
+            },
+            {
+              "level": 2,
+              "iron": 2900000,
+              "food": 2900000,
+              "gold": 8900000,
+              "valor": 400,
+              "requirements": [
+                {
+                  "elementId": "advanced-protection-1",
+                  "minLevel": 2
+                }
+              ]
+            },
+            {
+              "level": 3,
+              "iron": 5100000,
+              "food": 5100000,
+              "gold": 15500000,
+              "valor": 520,
+              "requirements": [
+                {
+                  "elementId": "advanced-protection-1",
+                  "minLevel": 3
+                }
+              ]
+            },
+            {
+              "level": 4,
+              "iron": 5100000,
+              "food": 5100000,
+              "gold": 15500000,
+              "valor": 520,
+              "requirements": [
+                {
+                  "elementId": "advanced-protection-1",
+                  "minLevel": 4
+                }
+              ]
+            },
+            {
+              "level": 5,
+              "iron": 61400000,
+              "food": 61400000,
+              "gold": 18700000,
+              "valor": 640,
+              "requirements": [
+                {
+                  "elementId": "advanced-protection-1",
+                  "minLevel": 5
+                }
+              ]
+            },
+            {
+              "level": 6,
+              "iron": 61400000,
+              "food": 61400000,
+              "gold": 18700000,
+              "valor": 640,
+              "requirements": [
+                {
+                  "elementId": "advanced-protection-1",
+                  "minLevel": 6
+                }
+              ]
+            },
+            {
+              "level": 7,
+              "iron": 11100000,
+              "food": 11100000,
+              "gold": 33600000,
+              "valor": 800,
+              "requirements": [
+                {
+                  "elementId": "advanced-protection-1",
+                  "minLevel": 7
+                }
+              ]
+            },
+            {
+              "level": 8,
+              "iron": 11100000,
+              "food": 11100000,
+              "gold": 33600000,
+              "valor": 800,
+              "requirements": [
+                {
+                  "elementId": "advanced-protection-1",
+                  "minLevel": 8
+                }
+              ]
+            },
+            {
+              "level": 9,
+              "iron": 15700000,
+              "food": 15700000,
+              "gold": 47100000,
+              "valor": 960,
+              "requirements": [
+                {
+                  "elementId": "advanced-protection-1",
+                  "minLevel": 9
+                }
+              ]
+            },
+            {
+              "level": 10,
+              "iron": 15700000,
+              "food": 15700000,
+              "gold": 47100000,
+              "valor": 960,
+              "requirements": [
+                {
+                  "elementId": "advanced-protection-1",
+                  "minLevel": 10
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "weapon-training-7",
+          "name": "Weapon Training VII",
+          "image": "/images/tech/special-forces/defense-boost-3.png",
+          "maxLevel": 10,
+          "currentLevel": 0,
+          "levels": [
+            {
+              "level": 1,
+              "iron": 2900000,
+              "food": 2900000,
+              "gold": 8900000,
+              "valor": 400,
+              "requirements": [
+                {
+                  "elementId": "advanced-protection-1",
+                  "minLevel": 1
+                }
+              ]
+            },
+            {
+              "level": 2,
+              "iron": 2900000,
+              "food": 2900000,
+              "gold": 8900000,
+              "valor": 400,
+              "requirements": [
+                {
+                  "elementId": "advanced-protection-1",
+                  "minLevel": 2
+                }
+              ]
+            },
+            {
+              "level": 3,
+              "iron": 5100000,
+              "food": 5100000,
+              "gold": 15500000,
+              "valor": 520,
+              "requirements": [
+                {
+                  "elementId": "advanced-protection-1",
+                  "minLevel": 3
+                }
+              ]
+            },
+            {
+              "level": 4,
+              "iron": 5100000,
+              "food": 5100000,
+              "gold": 15500000,
+              "valor": 520,
+              "requirements": [
+                {
+                  "elementId": "advanced-protection-1",
+                  "minLevel": 4
+                }
+              ]
+            },
+            {
+              "level": 5,
+              "iron": 61400000,
+              "food": 61400000,
+              "gold": 18700000,
+              "valor": 640,
+              "requirements": [
+                {
+                  "elementId": "advanced-protection-1",
+                  "minLevel": 5
+                }
+              ]
+            },
+            {
+              "level": 6,
+              "iron": 61400000,
+              "food": 61400000,
+              "gold": 18700000,
+              "valor": 640,
+              "requirements": [
+                {
+                  "elementId": "advanced-protection-1",
+                  "minLevel": 6
+                }
+              ]
+            },
+            {
+              "level": 7,
+              "iron": 11100000,
+              "food": 11100000,
+              "gold": 33600000,
+              "valor": 800,
+              "requirements": [
+                {
+                  "elementId": "advanced-protection-1",
+                  "minLevel": 7
+                }
+              ]
+            },
+            {
+              "level": 8,
+              "iron": 11100000,
+              "food": 11100000,
+              "gold": 33600000,
+              "valor": 800,
+              "requirements": [
+                {
+                  "elementId": "advanced-protection-1",
+                  "minLevel": 8
+                }
+              ]
+            },
+            {
+              "level": 9,
+              "iron": 15700000,
+              "food": 15700000,
+              "gold": 47100000,
+              "valor": 960,
+              "requirements": [
+                {
+                  "elementId": "advanced-protection-1",
+                  "minLevel": 9
+                }
+              ]
+            },
+            {
+              "level": 10,
+              "iron": 15700000,
+              "food": 15700000,
+              "gold": 47100000,
+              "valor": 960,
+              "requirements": [
+                {
+                  "elementId": "advanced-protection-1",
+                  "minLevel": 10
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "advanced-armor-7",
+          "name": "Advanced Armor VII",
+          "image": "/images/tech/special-forces/hp-boost-3.png",
+          "maxLevel": 10,
+          "currentLevel": 0,
+          "levels": [
+            {
+              "level": 1,
+              "iron": 2900000,
+              "food": 2900000,
+              "gold": 8900000,
+              "valor": 400,
+              "requirements": [
+                {
+                  "elementId": "advanced-protection-1",
+                  "minLevel": 1
+                }
+              ]
+            },
+            {
+              "level": 2,
+              "iron": 2900000,
+              "food": 2900000,
+              "gold": 8900000,
+              "valor": 400,
+              "requirements": [
+                {
+                  "elementId": "advanced-protection-1",
+                  "minLevel": 2
+                }
+              ]
+            },
+            {
+              "level": 3,
+              "iron": 5100000,
+              "food": 5100000,
+              "gold": 15500000,
+              "valor": 520,
+              "requirements": [
+                {
+                  "elementId": "advanced-protection-1",
+                  "minLevel": 3
+                }
+              ]
+            },
+            {
+              "level": 4,
+              "iron": 5100000,
+              "food": 5100000,
+              "gold": 15500000,
+              "valor": 520,
+              "requirements": [
+                {
+                  "elementId": "advanced-protection-1",
+                  "minLevel": 4
+                }
+              ]
+            },
+            {
+              "level": 5,
+              "iron": 61400000,
+              "food": 61400000,
+              "gold": 18700000,
+              "valor": 640,
+              "requirements": [
+                {
+                  "elementId": "advanced-protection-1",
+                  "minLevel": 5
+                }
+              ]
+            },
+            {
+              "level": 6,
+              "iron": 61400000,
+              "food": 61400000,
+              "gold": 18700000,
+              "valor": 640,
+              "requirements": [
+                {
+                  "elementId": "advanced-protection-1",
+                  "minLevel": 6
+                }
+              ]
+            },
+            {
+              "level": 7,
+              "iron": 11100000,
+              "food": 11100000,
+              "gold": 33600000,
+              "valor": 800,
+              "requirements": [
+                {
+                  "elementId": "advanced-protection-1",
+                  "minLevel": 7
+                }
+              ]
+            },
+            {
+              "level": 8,
+              "iron": 11100000,
+              "food": 11100000,
+              "gold": 33600000,
+              "valor": 800,
+              "requirements": [
+                {
+                  "elementId": "advanced-protection-1",
+                  "minLevel": 8
+                }
+              ]
+            },
+            {
+              "level": 9,
+              "iron": 15700000,
+              "food": 15700000,
+              "gold": 47100000,
+              "valor": 960,
+              "requirements": [
+                {
+                  "elementId": "advanced-protection-1",
+                  "minLevel": 9
+                }
+              ]
+            },
+            {
+              "level": 10,
+              "iron": 15700000,
+              "food": 15700000,
+              "gold": 47100000,
+              "valor": 960,
+              "requirements": [
+                {
+                  "elementId": "advanced-protection-1",
+                  "minLevel": 10
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "connections": [
+        {
+          "from": "defense-training-7",
+          "to": [
+            "focused-training-1",
+            "barracks-expansion-1"
+          ]
+        },
+        {
+          "from": "weapon-training-7",
+          "to": [
+            "focused-training-1",
+            "barracks-expansion-1"
+          ]
+        },
+        {
+          "from": "advanced-armor-7",
+          "to": [
+            "focused-training-1",
+            "barracks-expansion-1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "row-4",
+      "elements": [
+        {
+          "id": "focused-training-1",
+          "name": "Focused Training I",
+          "image": "/images/tech/siege-to-seize/focused-training-1.png",
+          "maxLevel": 10,
+          "currentLevel": 0,
+          "levels": [
+            {
+              "level": 1,
+              "iron": 5100000,
+              "food": 5100000,
+              "gold": 15500000,
+              "valor": 520,
+              "requirements": [
+                {
+                  "elementId": "defense-training-7",
+                  "minLevel": 4
+                },
+                {
+                  "elementId": "weapon-training-7",
+                  "minLevel": 4
+                },
+                {
+                  "elementId": "advanced-armor-7",
+                  "minLevel": 4
+                }
+              ]
+            },
+            {
+              "level": 2,
+              "iron": 6100000,
+              "food": 6100000,
+              "gold": 18700000,
+              "valor": 640,
+              "requirements": []
+            },
+            {
+              "level": 3,
+              "iron": 0,
+              "food": 0,
+              "gold": 0,
+              "valor": 0,
+              "requirements": []
+            },
+            {
+              "level": 4,
+              "iron": 11100000,
+              "food": 11100000,
+              "gold": 33600000,
+              "valor": 800,
+              "requirements": []
+            },
+            {
+              "level": 5,
+              "iron": 0,
+              "food": 0,
+              "gold": 0,
+              "valor": 0,
+              "requirements": []
+            },
+            {
+              "level": 6,
+              "iron": 0,
+              "food": 0,
+              "gold": 0,
+              "valor": 0,
+              "requirements": []
+            },
+            {
+              "level": 7,
+              "iron": 0,
+              "food": 0,
+              "gold": 0,
+              "valor": 0,
+              "requirements": []
+            },
+            {
+              "level": 8,
+              "iron": 0,
+              "food": 0,
+              "gold": 0,
+              "valor": 0,
+              "requirements": []
+            },
+            {
+              "level": 9,
+              "iron": 0,
+              "food": 0,
+              "gold": 0,
+              "valor": 0,
+              "requirements": []
+            },
+            {
+              "level": 10,
+              "iron": 0,
+              "food": 0,
+              "gold": 0,
+              "valor": 0,
+              "requirements": []
+            }
+          ]
+        },
+        {
+          "id": "barracks-expansion-1",
+          "name": "Barracks Expansion I",
+          "image": "/images/tech/siege-to-seize/barrack-expansion-1.png",
+          "maxLevel": 10,
+          "currentLevel": 0,
+          "levels": [
+            {
+              "level": 1,
+              "iron": 5100000,
+              "food": 5100000,
+              "gold": 15500000,
+              "valor": 520,
+              "requirements": [
+                {
+                  "elementId": "defense-training-7",
+                  "minLevel": 4
+                },
+                {
+                  "elementId": "weapon-training-7",
+                  "minLevel": 4
+                },
+                {
+                  "elementId": "advanced-armor-7",
+                  "minLevel": 4
+                }
+              ]
+            },
+            {
+              "level": 2,
+              "iron": 6100000,
+              "food": 6100000,
+              "gold": 18700000,
+              "valor": 640,
+              "requirements": []
+            },
+            {
+              "level": 3,
+              "iron": 0,
+              "food": 0,
+              "gold": 0,
+              "valor": 0,
+              "requirements": []
+            },
+            {
+              "level": 4,
+              "iron": 11100000,
+              "food": 11100000,
+              "gold": 33600000,
+              "valor": 800,
+              "requirements": []
+            },
+            {
+              "level": 5,
+              "iron": 0,
+              "food": 0,
+              "gold": 0,
+              "valor": 0,
+              "requirements": []
+            },
+            {
+              "level": 6,
+              "iron": 0,
+              "food": 0,
+              "gold": 0,
+              "valor": 0,
+              "requirements": []
+            },
+            {
+              "level": 7,
+              "iron": 0,
+              "food": 0,
+              "gold": 0,
+              "valor": 0,
+              "requirements": []
+            },
+            {
+              "level": 8,
+              "iron": 0,
+              "food": 0,
+              "gold": 0,
+              "valor": 0,
+              "requirements": []
+            },
+            {
+              "level": 9,
+              "iron": 0,
+              "food": 0,
+              "gold": 0,
+              "valor": 0,
+              "requirements": []
+            },
+            {
+              "level": 10,
+              "iron": 0,
+              "food": 0,
+              "gold": 0,
+              "valor": 0,
+              "requirements": []
+            }
+          ]
+        }
+      ],
+      "connections": [
+        {
+          "from": "focused-training-1",
+          "to": [
+            "hp-boost-2",
+            "attack-boost-2",
+            "defense-boost-2"
+          ]
+        },
+        {
+          "from": "barracks-expansion-1",
+          "to": [
+            "hp-boost-2",
+            "attack-boost-2",
+            "defense-boost-2"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "row-5",
+      "elements": [
+        {
+          "id": "hp-boost-2",
+          "name": "HP Boost II",
+          "image": "/images/tech/special-forces/hp-boost-3.png",
+          "maxLevel": 10,
+          "currentLevel": 0,
+          "levels": [
+            {
+              "level": 1,
+              "iron": 11100000,
+              "food": 11100000,
+              "gold": 33600000,
+              "valor": 800,
+              "requirements": [
+                {
+                  "elementId": "focused-training-1",
+                  "minLevel": 1
+                },
+                {
+                  "elementId": "barracks-expansion-1",
+                  "minLevel": 1
+                }
+              ]
+            },
+            {
+              "level": 2,
+              "iron": 11100000,
+              "food": 11100000,
+              "gold": 33600000,
+              "valor": 800,
+              "requirements": []
+            },
+            {
+              "level": 3,
+              "iron": 11100000,
+              "food": 11100000,
+              "gold": 33600000,
+              "valor": 800,
+              "requirements": []
+            },
+            {
+              "level": 4,
+              "iron": 15600000,
+              "food": 15600000,
+              "gold": 47100000,
+              "valor": 960,
+              "requirements": []
+            },
+            {
+              "level": 5,
+              "iron": 15600000,
+              "food": 15600000,
+              "gold": 47100000,
+              "valor": 960,
+              "requirements": []
+            },
+            {
+              "level": 6,
+              "iron": 20300000,
+              "food": 20300000,
+              "gold": 61200000,
+              "valor": 1120,
+              "requirements": []
+            },
+            {
+              "level": 7,
+              "iron": 20300000,
+              "food": 20300000,
+              "gold": 61200000,
+              "valor": 1120,
+              "requirements": []
+            },
+            {
+              "level": 8,
+              "iron": 25400000,
+              "food": 25400000,
+              "gold": 76600000,
+              "valor": 1280,
+              "requirements": []
+            },
+            {
+              "level": 9,
+              "iron": 25400000,
+              "food": 25400000,
+              "gold": 76600000,
+              "valor": 1280,
+              "requirements": []
+            },
+            {
+              "level": 10,
+              "iron": 31900000,
+              "food": 31900000,
+              "gold": 95700000,
+              "valor": 1440,
+              "requirements": []
+            }
+          ]
+        },
+        {
+          "id": "attack-boost-2",
+          "name": "Attack Boost II",
+          "image": "/images/tech/special-forces/attack-boost-3.png",
+          "maxLevel": 10,
+          "currentLevel": 0,
+          "levels": [
+            {
+              "level": 1,
+              "iron": 11100000,
+              "food": 11100000,
+              "gold": 33600000,
+              "valor": 800,
+              "requirements": [
+                {
+                  "elementId": "focused-training-1",
+                  "minLevel": 1
+                },
+                {
+                  "elementId": "barracks-expansion-1",
+                  "minLevel": 1
+                }
+              ]
+            },
+            {
+              "level": 2,
+              "iron": 11100000,
+              "food": 11100000,
+              "gold": 33600000,
+              "valor": 800,
+              "requirements": []
+            },
+            {
+              "level": 3,
+              "iron": 11100000,
+              "food": 11100000,
+              "gold": 33600000,
+              "valor": 800,
+              "requirements": []
+            },
+            {
+              "level": 4,
+              "iron": 15600000,
+              "food": 15600000,
+              "gold": 47100000,
+              "valor": 960,
+              "requirements": []
+            },
+            {
+              "level": 5,
+              "iron": 15600000,
+              "food": 15600000,
+              "gold": 47100000,
+              "valor": 960,
+              "requirements": []
+            },
+            {
+              "level": 6,
+              "iron": 20300000,
+              "food": 20300000,
+              "gold": 61200000,
+              "valor": 1120,
+              "requirements": []
+            },
+            {
+              "level": 7,
+              "iron": 20300000,
+              "food": 20300000,
+              "gold": 61200000,
+              "valor": 1120,
+              "requirements": []
+            },
+            {
+              "level": 8,
+              "iron": 25400000,
+              "food": 25400000,
+              "gold": 76600000,
+              "valor": 1280,
+              "requirements": []
+            },
+            {
+              "level": 9,
+              "iron": 25400000,
+              "food": 25400000,
+              "gold": 76600000,
+              "valor": 1280,
+              "requirements": []
+            },
+            {
+              "level": 10,
+              "iron": 31900000,
+              "food": 31900000,
+              "gold": 95700000,
+              "valor": 1440,
+              "requirements": []
+            }
+          ]
+        },
+        {
+          "id": "defense-boost-2",
+          "name": "Defense Boost II",
+          "image": "/images/tech/special-forces/defense-boost-3.png",
+          "maxLevel": 10,
+          "currentLevel": 0,
+          "levels": [
+            {
+              "level": 1,
+              "iron": 11100000,
+              "food": 11100000,
+              "gold": 33600000,
+              "valor": 800,
+              "requirements": [
+                {
+                  "elementId": "focused-training-1",
+                  "minLevel": 1
+                },
+                {
+                  "elementId": "barracks-expansion-1",
+                  "minLevel": 1
+                }
+              ]
+            },
+            {
+              "level": 2,
+              "iron": 11100000,
+              "food": 11100000,
+              "gold": 33600000,
+              "valor": 800,
+              "requirements": []
+            },
+            {
+              "level": 3,
+              "iron": 11100000,
+              "food": 11100000,
+              "gold": 33600000,
+              "valor": 800,
+              "requirements": []
+            },
+            {
+              "level": 4,
+              "iron": 15600000,
+              "food": 15600000,
+              "gold": 47100000,
+              "valor": 960,
+              "requirements": []
+            },
+            {
+              "level": 5,
+              "iron": 15600000,
+              "food": 15600000,
+              "gold": 47100000,
+              "valor": 960,
+              "requirements": []
+            },
+            {
+              "level": 6,
+              "iron": 20300000,
+              "food": 20300000,
+              "gold": 61200000,
+              "valor": 1120,
+              "requirements": []
+            },
+            {
+              "level": 7,
+              "iron": 20300000,
+              "food": 20300000,
+              "gold": 61200000,
+              "valor": 1120,
+              "requirements": []
+            },
+            {
+              "level": 8,
+              "iron": 25400000,
+              "food": 25400000,
+              "gold": 76600000,
+              "valor": 1280,
+              "requirements": []
+            },
+            {
+              "level": 9,
+              "iron": 25400000,
+              "food": 25400000,
+              "gold": 76600000,
+              "valor": 1280,
+              "requirements": []
+            },
+            {
+              "level": 10,
+              "iron": 31900000,
+              "food": 31900000,
+              "gold": 95700000,
+              "valor": 1440,
+              "requirements": []
+            }
+          ]
+        }
+      ],
+      "connections": [
+        {
+          "from": "hp-boost-2",
+          "to": [
+            "morale"
+          ]
+        },
+        {
+          "from": "attack-boost-2",
+          "to": [
+            "morale"
+          ]
+        },
+        {
+          "from": "defense-boost-2",
+          "to": [
+            "morale"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "row-6",
+      "elements": [
+        {
+          "id": "morale",
+          "name": "Morale",
+          "image": "/images/tech/special-forces/unit-x.png",
+          "maxLevel": 10,
+          "currentLevel": 0,
+          "levels": [
+            {
+              "level": 1,
+              "iron": 15600000,
+              "food": 15600000,
+              "gold": 47100000,
+              "valor": 960,
+              "requirements": [
+                {
+                  "elementId": "hp-boost-2",
+                  "minLevel": 1
+                },
+                {
+                  "elementId": "attack-boost-2",
+                  "minLevel": 1
+                },
+                {
+                  "elementId": "defense-boost-2",
+                  "minLevel": 1
+                }
+              ]
+            },
+            {
+              "level": 2,
+              "iron": 20400000,
+              "food": 20400000,
+              "gold": 61300000,
+              "valor": 1120,
+              "requirements": []
+            },
+            {
+              "level": 3,
+              "iron": 20400000,
+              "food": 20400000,
+              "gold": 61300000,
+              "valor": 1120,
+              "requirements": []
+            },
+            {
+              "level": 4,
+              "iron": 25400000,
+              "food": 25400000,
+              "gold": 76600000,
+              "valor": 1280,
+              "requirements": []
+            },
+            {
+              "level": 5,
+              "iron": 25400000,
+              "food": 25400000,
+              "gold": 76600000,
+              "valor": 1280,
+              "requirements": []
+            },
+            {
+              "level": 6,
+              "iron": 31900000,
+              "food": 31900000,
+              "gold": 95700000,
+              "valor": 1440,
+              "requirements": []
+            },
+            {
+              "level": 7,
+              "iron": 31900000,
+              "food": 31900000,
+              "gold": 95700000,
+              "valor": 1440,
+              "requirements": []
+            },
+            {
+              "level": 8,
+              "iron": 54200000,
+              "food": 54200000,
+              "gold": 162700000,
+              "valor": 1600,
+              "requirements": []
+            },
+            {
+              "level": 9,
+              "iron": 54200000,
+              "food": 54200000,
+              "gold": 162700000,
+              "valor": 1600,
+              "requirements": []
+            },
+            {
+              "level": 10,
+              "iron": 75900000,
+              "food": 75900000,
+              "gold": 227700000,
+              "valor": 1800,
+              "requirements": []
+            }
+          ]
+        }
+      ],
+      "connections": [
+        {
+          "from": "morale",
+          "to": [
+            "defense-training-8",
+            "weapon-training-8",
+            "advanced-armor-8"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "row-7",
+      "elements": [
+        {
+          "id": "defense-training-8",
+          "name": "Defense Training VIII",
+          "image": "/images/tech/special-forces/defense-boost-3.png",
+          "maxLevel": 10,
+          "currentLevel": 0,
+          "levels": [
+            {
+              "level": 1,
+              "iron": 20100000,
+              "food": 20100000,
+              "gold": 60300000,
+              "valor": 1120,
+              "requirements": [
+                {
+                  "elementId": "morale",
+                  "minLevel": 1
+                }
+              ]
+            },
+            {
+              "level": 2,
+              "iron": 25500000,
+              "food": 25500000,
+              "gold": 76600000,
+              "valor": 1280,
+              "requirements": [
+                {
+                  "elementId": "morale",
+                  "minLevel": 2
+                }
+              ]
+            },
+            {
+              "level": 3,
+              "iron": 25500000,
+              "food": 25500000,
+              "gold": 76600000,
+              "valor": 1280,
+              "requirements": [
+                {
+                  "elementId": "morale",
+                  "minLevel": 3
+                }
+              ]
+            },
+            {
+              "level": 4,
+              "iron": 31900000,
+              "food": 31900000,
+              "gold": 95700000,
+              "valor": 1440,
+              "requirements": [
+                {
+                  "elementId": "morale",
+                  "minLevel": 4
+                }
+              ]
+            },
+            {
+              "level": 5,
+              "iron": 31900000,
+              "food": 31900000,
+              "gold": 95700000,
+              "valor": 1440,
+              "requirements": [
+                {
+                  "elementId": "morale",
+                  "minLevel": 5
+                }
+              ]
+            },
+            {
+              "level": 6,
+              "iron": 54200000,
+              "food": 54200000,
+              "gold": 162700000,
+              "valor": 1600,
+              "requirements": [
+                {
+                  "elementId": "morale",
+                  "minLevel": 6
+                }
+              ]
+            },
+            {
+              "level": 7,
+              "iron": 54200000,
+              "food": 54200000,
+              "gold": 162700000,
+              "valor": 1600,
+              "requirements": [
+                {
+                  "elementId": "morale",
+                  "minLevel": 7
+                }
+              ]
+            },
+            {
+              "level": 8,
+              "iron": 75900000,
+              "food": 75900000,
+              "gold": 227700000,
+              "valor": 1800,
+              "requirements": [
+                {
+                  "elementId": "morale",
+                  "minLevel": 8
+                }
+              ]
+            },
+            {
+              "level": 9,
+              "iron": 75900000,
+              "food": 75900000,
+              "gold": 227700000,
+              "valor": 1800,
+              "requirements": [
+                {
+                  "elementId": "morale",
+                  "minLevel": 9
+                }
+              ]
+            },
+            {
+              "level": 10,
+              "iron": 98700000,
+              "food": 98700000,
+              "gold": 296000000,
+              "valor": 2000,
+              "requirements": [
+                {
+                  "elementId": "morale",
+                  "minLevel": 10
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "weapon-training-8",
+          "name": "Weapon Training VIII",
+          "image": "/images/tech/special-forces/attack-boost-3.png",
+          "maxLevel": 10,
+          "currentLevel": 0,
+          "levels": [
+            {
+              "level": 1,
+              "iron": 20100000,
+              "food": 20100000,
+              "gold": 60300000,
+              "valor": 1120,
+              "requirements": [
+                {
+                  "elementId": "morale",
+                  "minLevel": 1
+                }
+              ]
+            },
+            {
+              "level": 2,
+              "iron": 25500000,
+              "food": 25500000,
+              "gold": 76600000,
+              "valor": 1280,
+              "requirements": [
+                {
+                  "elementId": "morale",
+                  "minLevel": 2
+                }
+              ]
+            },
+            {
+              "level": 3,
+              "iron": 25500000,
+              "food": 25500000,
+              "gold": 76600000,
+              "valor": 1280,
+              "requirements": [
+                {
+                  "elementId": "morale",
+                  "minLevel": 3
+                }
+              ]
+            },
+            {
+              "level": 4,
+              "iron": 31900000,
+              "food": 31900000,
+              "gold": 95700000,
+              "valor": 1440,
+              "requirements": [
+                {
+                  "elementId": "morale",
+                  "minLevel": 4
+                }
+              ]
+            },
+            {
+              "level": 5,
+              "iron": 31900000,
+              "food": 31900000,
+              "gold": 95700000,
+              "valor": 1440,
+              "requirements": [
+                {
+                  "elementId": "morale",
+                  "minLevel": 5
+                }
+              ]
+            },
+            {
+              "level": 6,
+              "iron": 54200000,
+              "food": 54200000,
+              "gold": 162700000,
+              "valor": 1600,
+              "requirements": [
+                {
+                  "elementId": "morale",
+                  "minLevel": 6
+                }
+              ]
+            },
+            {
+              "level": 7,
+              "iron": 54200000,
+              "food": 54200000,
+              "gold": 162700000,
+              "valor": 1600,
+              "requirements": [
+                {
+                  "elementId": "morale",
+                  "minLevel": 7
+                }
+              ]
+            },
+            {
+              "level": 8,
+              "iron": 75900000,
+              "food": 75900000,
+              "gold": 227700000,
+              "valor": 1800,
+              "requirements": [
+                {
+                  "elementId": "morale",
+                  "minLevel": 8
+                }
+              ]
+            },
+            {
+              "level": 9,
+              "iron": 75900000,
+              "food": 75900000,
+              "gold": 227700000,
+              "valor": 1800,
+              "requirements": [
+                {
+                  "elementId": "morale",
+                  "minLevel": 9
+                }
+              ]
+            },
+            {
+              "level": 10,
+              "iron": 98700000,
+              "food": 98700000,
+              "gold": 296000000,
+              "valor": 2000,
+              "requirements": [
+                {
+                  "elementId": "morale",
+                  "minLevel": 10
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "advanced-armor-8",
+          "name": "Advanced Armor VIII",
+          "image": "/images/tech/special-forces/hp-boost-3.png",
+          "maxLevel": 10,
+          "currentLevel": 0,
+          "levels": [
+            {
+              "level": 1,
+              "iron": 20100000,
+              "food": 20100000,
+              "gold": 60300000,
+              "valor": 1120,
+              "requirements": [
+                {
+                  "elementId": "morale",
+                  "minLevel": 1
+                }
+              ]
+            },
+            {
+              "level": 2,
+              "iron": 25500000,
+              "food": 25500000,
+              "gold": 76600000,
+              "valor": 1280,
+              "requirements": [
+                {
+                  "elementId": "morale",
+                  "minLevel": 2
+                }
+              ]
+            },
+            {
+              "level": 3,
+              "iron": 25500000,
+              "food": 25500000,
+              "gold": 76600000,
+              "valor": 1280,
+              "requirements": [
+                {
+                  "elementId": "morale",
+                  "minLevel": 3
+                }
+              ]
+            },
+            {
+              "level": 4,
+              "iron": 31900000,
+              "food": 31900000,
+              "gold": 95700000,
+              "valor": 1440,
+              "requirements": [
+                {
+                  "elementId": "morale",
+                  "minLevel": 4
+                }
+              ]
+            },
+            {
+              "level": 5,
+              "iron": 31900000,
+              "food": 31900000,
+              "gold": 95700000,
+              "valor": 1440,
+              "requirements": [
+                {
+                  "elementId": "morale",
+                  "minLevel": 5
+                }
+              ]
+            },
+            {
+              "level": 6,
+              "iron": 54200000,
+              "food": 54200000,
+              "gold": 162700000,
+              "valor": 1600,
+              "requirements": [
+                {
+                  "elementId": "morale",
+                  "minLevel": 6
+                }
+              ]
+            },
+            {
+              "level": 7,
+              "iron": 54200000,
+              "food": 54200000,
+              "gold": 162700000,
+              "valor": 1600,
+              "requirements": [
+                {
+                  "elementId": "morale",
+                  "minLevel": 7
+                }
+              ]
+            },
+            {
+              "level": 8,
+              "iron": 75900000,
+              "food": 75900000,
+              "gold": 227700000,
+              "valor": 1800,
+              "requirements": [
+                {
+                  "elementId": "morale",
+                  "minLevel": 8
+                }
+              ]
+            },
+            {
+              "level": 9,
+              "iron": 75900000,
+              "food": 75900000,
+              "gold": 227700000,
+              "valor": 1800,
+              "requirements": [
+                {
+                  "elementId": "morale",
+                  "minLevel": 9
+                }
+              ]
+            },
+            {
+              "level": 10,
+              "iron": 98700000,
+              "food": 98700000,
+              "gold": 296000000,
+              "valor": 2000,
+              "requirements": [
+                {
+                  "elementId": "morale",
+                  "minLevel": 10
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "connections": [
+        {
+          "from": "defense-training-8",
+          "to": [
+            "rapid-field-dressing-1",
+            "infirmary-expansion-1"
+          ]
+        },
+        {
+          "from": "weapon-training-8",
+          "to": [
+            "rapid-field-dressing-1",
+            "infirmary-expansion-1"
+          ]
+        },
+        {
+          "from": "advanced-armor-8",
+          "to": [
+            "rapid-field-dressing-1",
+            "infirmary-expansion-1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "row-8",
+      "elements": [
+        {
+          "id": "rapid-field-dressing-1",
+          "name": "Rapid Field Dressing I",
+          "image": "/images/tech/special-forces/rapid-field-dressing-1.png",
+          "maxLevel": 10,
+          "currentLevel": 0,
+          "levels": [
+            {
+              "level": 1,
+              "iron": 25500000,
+              "food": 25500000,
+              "gold": 76600000,
+              "valor": 1280,
+              "requirements": [
+                {
+                  "elementId": "defense-training-8",
+                  "minLevel": 3
+                },
+                {
+                  "elementId": "weapon-training-8",
+                  "minLevel": 3
+                },
+                {
+                  "elementId": "advanced-armor-8",
+                  "minLevel": 3
+                }
+              ]
+            },
+            {
+              "level": 2,
+              "iron": 31900000,
+              "food": 31900000,
+              "gold": 95700000,
+              "valor": 1440,
+              "requirements": []
+            },
+            {
+              "level": 3,
+              "iron": 0,
+              "food": 0,
+              "gold": 0,
+              "valor": 0,
+              "requirements": []
+            },
+            {
+              "level": 4,
+              "iron": 0,
+              "food": 0,
+              "gold": 0,
+              "valor": 0,
+              "requirements": []
+            },
+            {
+              "level": 5,
+              "iron": 0,
+              "food": 0,
+              "gold": 0,
+              "valor": 0,
+              "requirements": []
+            },
+            {
+              "level": 6,
+              "iron": 0,
+              "food": 0,
+              "gold": 0,
+              "valor": 0,
+              "requirements": []
+            },
+            {
+              "level": 7,
+              "iron": 0,
+              "food": 0,
+              "gold": 0,
+              "valor": 0,
+              "requirements": []
+            },
+            {
+              "level": 8,
+              "iron": 0,
+              "food": 0,
+              "gold": 0,
+              "valor": 0,
+              "requirements": []
+            },
+            {
+              "level": 9,
+              "iron": 0,
+              "food": 0,
+              "gold": 0,
+              "valor": 0,
+              "requirements": []
+            },
+            {
+              "level": 10,
+              "iron": 0,
+              "food": 0,
+              "gold": 0,
+              "valor": 0,
+              "requirements": []
+            }
+          ]
+        },
+        {
+          "id": "infirmary-expansion-1",
+          "name": "Infirmary Expansion I",
+          "image": "/images/tech/special-forces/infirmary-expansion-1.png",
+          "maxLevel": 10,
+          "currentLevel": 0,
+          "levels": [
+            {
+              "level": 1,
+              "iron": 25500000,
+              "food": 25500000,
+              "gold": 76600000,
+              "valor": 1280,
+              "requirements": [
+                {
+                  "elementId": "defense-training-8",
+                  "minLevel": 3
+                },
+                {
+                  "elementId": "weapon-training-8",
+                  "minLevel": 3
+                },
+                {
+                  "elementId": "advanced-armor-8",
+                  "minLevel": 3
+                }
+              ]
+            },
+            {
+              "level": 2,
+              "iron": 31900000,
+              "food": 31900000,
+              "gold": 95700000,
+              "valor": 1440,
+              "requirements": []
+            },
+            {
+              "level": 3,
+              "iron": 0,
+              "food": 0,
+              "gold": 0,
+              "valor": 0,
+              "requirements": []
+            },
+            {
+              "level": 4,
+              "iron": 0,
+              "food": 0,
+              "gold": 0,
+              "valor": 0,
+              "requirements": []
+            },
+            {
+              "level": 5,
+              "iron": 0,
+              "food": 0,
+              "gold": 0,
+              "valor": 0,
+              "requirements": []
+            },
+            {
+              "level": 6,
+              "iron": 0,
+              "food": 0,
+              "gold": 0,
+              "valor": 0,
+              "requirements": []
+            },
+            {
+              "level": 7,
+              "iron": 0,
+              "food": 0,
+              "gold": 0,
+              "valor": 0,
+              "requirements": []
+            },
+            {
+              "level": 8,
+              "iron": 0,
+              "food": 0,
+              "gold": 0,
+              "valor": 0,
+              "requirements": []
+            },
+            {
+              "level": 9,
+              "iron": 0,
+              "food": 0,
+              "gold": 0,
+              "valor": 0,
+              "requirements": []
+            },
+            {
+              "level": 10,
+              "iron": 0,
+              "food": 0,
+              "gold": 0,
+              "valor": 0,
+              "requirements": []
+            }
+          ]
+        }
+      ],
+      "connections": [
+        {
+          "from": "rapid-field-dressing-1",
+          "to": [
+            "advanced-protection"
+          ]
+        },
+        {
+          "from": "infirmary-expansion-1",
+          "to": [
+            "advanced-protection"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "row-9",
+      "elements": [
+        {
+          "id": "advanced-protection",
+          "name": "Advanced Protection",
+          "image": "/images/tech/special-forces/advanced-protection.png",
+          "maxLevel": 10,
+          "currentLevel": 0,
+          "levels": [
+            {
+              "level": 1,
+              "iron": 25500000,
+              "food": 25500000,
+              "gold": 76600000,
+              "valor": 1280,
+              "requirements": [
+                {
+                  "elementId": "rapid-field-dressing-1",
+                  "minLevel": 1
+                },
+                {
+                  "elementId": "infirmary-expansion-1",
+                  "minLevel": 1
+                }
+              ]
+            },
+            {
+              "level": 2,
+              "iron": 54200000,
+              "food": 54200000,
+              "gold": 162700000,
+              "valor": 1600,
+              "requirements": [
+                {
+                  "elementId": "rapid-field-dressing-1",
+                  "minLevel": 1
+                },
+                {
+                  "elementId": "infirmary-expansion-1",
+                  "minLevel": 1
+                }
+              ]
+            },
+            {
+              "level": 3,
+              "iron": 54200000,
+              "food": 54200000,
+              "gold": 162700000,
+              "valor": 1600,
+              "requirements": [
+                {
+                  "elementId": "rapid-field-dressing-1",
+                  "minLevel": 1
+                },
+                {
+                  "elementId": "infirmary-expansion-1",
+                  "minLevel": 1
+                }
+              ]
+            },
+            {
+              "level": 4,
+              "iron": 54200000,
+              "food": 54200000,
+              "gold": 162700000,
+              "valor": 1600,
+              "requirements": [
+                {
+                  "elementId": "rapid-field-dressing-1",
+                  "minLevel": 1
+                },
+                {
+                  "elementId": "infirmary-expansion-1",
+                  "minLevel": 1
+                }
+              ]
+            },
+            {
+              "level": 5,
+              "iron": 75900000,
+              "food": 75900000,
+              "gold": 227700000,
+              "valor": 1800,
+              "requirements": [
+                {
+                  "elementId": "rapid-field-dressing-1",
+                  "minLevel": 1
+                },
+                {
+                  "elementId": "infirmary-expansion-1",
+                  "minLevel": 1
+                }
+              ]
+            },
+            {
+              "level": 6,
+              "iron": 75900000,
+              "food": 75900000,
+              "gold": 227700000,
+              "valor": 1800,
+              "requirements": [
+                {
+                  "elementId": "rapid-field-dressing-1",
+                  "minLevel": 1
+                },
+                {
+                  "elementId": "infirmary-expansion-1",
+                  "minLevel": 1
+                }
+              ]
+            },
+            {
+              "level": 7,
+              "iron": 75900000,
+              "food": 75900000,
+              "gold": 227700000,
+              "valor": 1800,
+              "requirements": [
+                {
+                  "elementId": "rapid-field-dressing-1",
+                  "minLevel": 1
+                },
+                {
+                  "elementId": "infirmary-expansion-1",
+                  "minLevel": 1
+                }
+              ]
+            },
+            {
+              "level": 8,
+              "iron": 98700000,
+              "food": 98700000,
+              "gold": 296000000,
+              "valor": 2000,
+              "requirements": [
+                {
+                  "elementId": "rapid-field-dressing-1",
+                  "minLevel": 1
+                },
+                {
+                  "elementId": "infirmary-expansion-1",
+                  "minLevel": 1
+                }
+              ]
+            },
+            {
+              "level": 9,
+              "iron": 98700000,
+              "food": 98700000,
+              "gold": 296000000,
+              "valor": 2000,
+              "requirements": [
+                {
+                  "elementId": "rapid-field-dressing-1",
+                  "minLevel": 1
+                },
+                {
+                  "elementId": "infirmary-expansion-1",
+                  "minLevel": 1
+                }
+              ]
+            },
+            {
+              "level": 10,
+              "iron": 138100000,
+              "food": 138100000,
+              "gold": 414600000,
+              "valor": 2200,
+              "requirements": [
+                {
+                  "elementId": "rapid-field-dressing-1",
+                  "minLevel": 1
+                },
+                {
+                  "elementId": "infirmary-expansion-1",
+                  "minLevel": 1
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "connections": [
+        {
+          "from": "advanced-protection",
+          "to": [
+            "hp-boost-3",
+            "attack-boost-3",
+            "defense-boost-3"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "row-10",
+      "elements": [
+        {
+          "id": "hp-boost-3",
+          "name": "HP Boost III",
+          "image": "/images/tech/special-forces/hp-boost-3.png",
+          "maxLevel": 10,
+          "currentLevel": 0,
+          "levels": [
+            {
+              "level": 1,
+              "iron": 31900000,
+              "food": 31900000,
+              "gold": 95700000,
+              "valor": 1440,
+              "requirements": [
+                {
+                  "elementId": "advanced-protection",
+                  "minLevel": 1
+                }
+              ]
+            },
+            {
+              "level": 2,
+              "iron": 54200000,
+              "food": 54200000,
+              "gold": 162700000,
+              "valor": 1600,
+              "requirements": [
+                {
+                  "elementId": "advanced-protection",
+                  "minLevel": 2
+                }
+              ]
+            },
+            {
+              "level": 3,
+              "iron": 54200000,
+              "food": 54200000,
+              "gold": 162700000,
+              "valor": 1600,
+              "requirements": [
+                {
+                  "elementId": "advanced-protection",
+                  "minLevel": 3
+                }
+              ]
+            },
+            {
+              "level": 4,
+              "iron": 75900000,
+              "food": 75900000,
+              "gold": 227700000,
+              "valor": 1800,
+              "requirements": [
+                {
+                  "elementId": "advanced-protection",
+                  "minLevel": 4
+                }
+              ]
+            },
+            {
+              "level": 5,
+              "iron": 75900000,
+              "food": 75900000,
+              "gold": 227700000,
+              "valor": 1800,
+              "requirements": [
+                {
+                  "elementId": "advanced-protection",
+                  "minLevel": 5
+                }
+              ]
+            },
+            {
+              "level": 6,
+              "iron": 98700000,
+              "food": 98700000,
+              "gold": 296000000,
+              "valor": 2000,
+              "requirements": [
+                {
+                  "elementId": "advanced-protection",
+                  "minLevel": 6
+                }
+              ]
+            },
+            {
+              "level": 7,
+              "iron": 98700000,
+              "food": 98700000,
+              "gold": 296000000,
+              "valor": 2000,
+              "requirements": [
+                {
+                  "elementId": "advanced-protection",
+                  "minLevel": 7
+                }
+              ]
+            },
+            {
+              "level": 8,
+              "iron": 138100000,
+              "food": 138100000,
+              "gold": 414600000,
+              "valor": 2200,
+              "requirements": [
+                {
+                  "elementId": "advanced-protection",
+                  "minLevel": 8
+                }
+              ]
+            },
+            {
+              "level": 9,
+              "iron": 138100000,
+              "food": 138100000,
+              "gold": 414600000,
+              "valor": 2200,
+              "requirements": [
+                {
+                  "elementId": "advanced-protection",
+                  "minLevel": 9
+                }
+              ]
+            },
+            {
+              "level": 10,
+              "iron": 193400000,
+              "food": 193400000,
+              "gold": 580300000,
+              "valor": 2400,
+              "requirements": [
+                {
+                  "elementId": "advanced-protection",
+                  "minLevel": 10
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "attack-boost-3",
+          "name": "Attack Boost III",
+          "image": "/images/tech/special-forces/attack-boost-3.png",
+          "maxLevel": 10,
+          "currentLevel": 0,
+          "levels": [
+            {
+              "level": 1,
+              "iron": 31900000,
+              "food": 31900000,
+              "gold": 95700000,
+              "valor": 1440,
+              "requirements": [
+                {
+                  "elementId": "advanced-protection",
+                  "minLevel": 1
+                }
+              ]
+            },
+            {
+              "level": 2,
+              "iron": 54200000,
+              "food": 54200000,
+              "gold": 162700000,
+              "valor": 1600,
+              "requirements": [
+                {
+                  "elementId": "advanced-protection",
+                  "minLevel": 2
+                }
+              ]
+            },
+            {
+              "level": 3,
+              "iron": 54200000,
+              "food": 54200000,
+              "gold": 162700000,
+              "valor": 1600,
+              "requirements": [
+                {
+                  "elementId": "advanced-protection",
+                  "minLevel": 3
+                }
+              ]
+            },
+            {
+              "level": 4,
+              "iron": 75900000,
+              "food": 75900000,
+              "gold": 227700000,
+              "valor": 1800,
+              "requirements": [
+                {
+                  "elementId": "advanced-protection",
+                  "minLevel": 4
+                }
+              ]
+            },
+            {
+              "level": 5,
+              "iron": 75900000,
+              "food": 75900000,
+              "gold": 227700000,
+              "valor": 1800,
+              "requirements": [
+                {
+                  "elementId": "advanced-protection",
+                  "minLevel": 5
+                }
+              ]
+            },
+            {
+              "level": 6,
+              "iron": 98700000,
+              "food": 98700000,
+              "gold": 296000000,
+              "valor": 2000,
+              "requirements": [
+                {
+                  "elementId": "advanced-protection",
+                  "minLevel": 6
+                }
+              ]
+            },
+            {
+              "level": 7,
+              "iron": 98700000,
+              "food": 98700000,
+              "gold": 296000000,
+              "valor": 2000,
+              "requirements": [
+                {
+                  "elementId": "advanced-protection",
+                  "minLevel": 7
+                }
+              ]
+            },
+            {
+              "level": 8,
+              "iron": 138100000,
+              "food": 138100000,
+              "gold": 414600000,
+              "valor": 2200,
+              "requirements": [
+                {
+                  "elementId": "advanced-protection",
+                  "minLevel": 8
+                }
+              ]
+            },
+            {
+              "level": 9,
+              "iron": 138100000,
+              "food": 138100000,
+              "gold": 414600000,
+              "valor": 2200,
+              "requirements": [
+                {
+                  "elementId": "advanced-protection",
+                  "minLevel": 9
+                }
+              ]
+            },
+            {
+              "level": 10,
+              "iron": 193400000,
+              "food": 193400000,
+              "gold": 580300000,
+              "valor": 2400,
+              "requirements": [
+                {
+                  "elementId": "advanced-protection",
+                  "minLevel": 10
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "defense-boost-3",
+          "name": "Defense Boost III",
+          "image": "/images/tech/special-forces/defense-boost-3.png",
+          "maxLevel": 10,
+          "currentLevel": 0,
+          "levels": [
+            {
+              "level": 1,
+              "iron": 31900000,
+              "food": 31900000,
+              "gold": 95700000,
+              "valor": 1440,
+              "requirements": [
+                {
+                  "elementId": "advanced-protection",
+                  "minLevel": 1
+                }
+              ]
+            },
+            {
+              "level": 2,
+              "iron": 54200000,
+              "food": 54200000,
+              "gold": 162700000,
+              "valor": 1600,
+              "requirements": [
+                {
+                  "elementId": "advanced-protection",
+                  "minLevel": 2
+                }
+              ]
+            },
+            {
+              "level": 3,
+              "iron": 54200000,
+              "food": 54200000,
+              "gold": 162700000,
+              "valor": 1600,
+              "requirements": [
+                {
+                  "elementId": "advanced-protection",
+                  "minLevel": 3
+                }
+              ]
+            },
+            {
+              "level": 4,
+              "iron": 75900000,
+              "food": 75900000,
+              "gold": 227700000,
+              "valor": 1800,
+              "requirements": [
+                {
+                  "elementId": "advanced-protection",
+                  "minLevel": 4
+                }
+              ]
+            },
+            {
+              "level": 5,
+              "iron": 75900000,
+              "food": 75900000,
+              "gold": 227700000,
+              "valor": 1800,
+              "requirements": [
+                {
+                  "elementId": "advanced-protection",
+                  "minLevel": 5
+                }
+              ]
+            },
+            {
+              "level": 6,
+              "iron": 98700000,
+              "food": 98700000,
+              "gold": 296000000,
+              "valor": 2000,
+              "requirements": [
+                {
+                  "elementId": "advanced-protection",
+                  "minLevel": 6
+                }
+              ]
+            },
+            {
+              "level": 7,
+              "iron": 98700000,
+              "food": 98700000,
+              "gold": 296000000,
+              "valor": 2000,
+              "requirements": [
+                {
+                  "elementId": "advanced-protection",
+                  "minLevel": 7
+                }
+              ]
+            },
+            {
+              "level": 8,
+              "iron": 138100000,
+              "food": 138100000,
+              "gold": 414600000,
+              "valor": 2200,
+              "requirements": [
+                {
+                  "elementId": "advanced-protection",
+                  "minLevel": 8
+                }
+              ]
+            },
+            {
+              "level": 9,
+              "iron": 138100000,
+              "food": 138100000,
+              "gold": 414600000,
+              "valor": 2200,
+              "requirements": [
+                {
+                  "elementId": "advanced-protection",
+                  "minLevel": 9
+                }
+              ]
+            },
+            {
+              "level": 10,
+              "iron": 193400000,
+              "food": 193400000,
+              "gold": 580300000,
+              "valor": 2400,
+              "requirements": [
+                {
+                  "elementId": "advanced-protection",
+                  "minLevel": 10
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "connections": [
+        {
+          "from": "hp-boost-3",
+          "to": [
+            "unit-x"
+          ]
+        },
+        {
+          "from": "attack-boost-3",
+          "to": [
+            "unit-x"
+          ]
+        },
+        {
+          "from": "defense-boost-3",
+          "to": [
+            "unit-x"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "row-11",
+      "elements": [
+        {
+          "id": "unit-x",
+          "name": "Unit X",
+          "image": "/images/tech/special-forces/unit-x.png",
+          "maxLevel": 1,
+          "currentLevel": 0,
+          "levels": [
+            {
+              "level": 1,
+              "iron": 193400000,
+              "food": 193400000,
+              "gold": 580300000,
+              "valor": 2400,
+              "requirements": [
+                {
+                  "elementId": "hp-boost-3",
+                  "minLevel": 10
+                },
+                {
+                  "elementId": "attack-boost-3",
+                  "minLevel": 10
+                },
+                {
+                  "elementId": "defense-boost-3",
+                  "minLevel": 10
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "connections": []
+    }
+  ]
+}

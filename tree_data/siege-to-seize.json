@@ -1,0 +1,1630 @@
+{
+  "name": "Siege to Seize",
+  "isComplete": true,
+  "rows": [
+    {
+      "id": "row-1",
+      "elements": [
+        {
+          "id": "power-boost-1",
+          "name": "Power Boost I",
+          "image": "/images/tech/siege-to-seize/power-boost-1.png",
+          "maxLevel": 10,
+          "currentLevel": 0,
+          "levels": [
+            {
+              "level": 1,
+              "gold": 33654500,
+              "food": 11100000,
+              "iron": 11100000,
+              "valor": 400,
+              "requirements": []
+            },
+            {
+              "level": 2,
+              "gold": 33654500,
+              "food": 11100000,
+              "iron": 11100000,
+              "valor": 400,
+              "requirements": []
+            },
+            {
+              "level": 3,
+              "gold": 33600000,
+              "food": 11600000,
+              "iron": 11600000,
+              "valor": 400,
+              "requirements": []
+            },
+            {
+              "level": 4,
+              "gold": 47070000,
+              "food": 15700000,
+              "iron": 15700000,
+              "valor": 550,
+              "requirements": []
+            },
+            {
+              "level": 5,
+              "gold": 47070000,
+              "food": 15700000,
+              "iron": 15700000,
+              "valor": 550,
+              "requirements": []
+            },
+            {
+              "level": 6,
+              "gold": 47070000,
+              "food": 15700000,
+              "iron": 15700000,
+              "valor": 550,
+              "requirements": []
+            },
+            {
+              "level": 7,
+              "gold": 61251100,
+              "food": 20417000,
+              "iron": 20417000,
+              "valor": 700,
+              "requirements": []
+            },
+            {
+              "level": 8,
+              "gold": 61251100,
+              "food": 20417000,
+              "iron": 20417000,
+              "valor": 700,
+              "requirements": []
+            },
+            {
+              "level": 9,
+              "gold": 61251100,
+              "food": 20417000,
+              "iron": 20417000,
+              "valor": 700,
+              "requirements": []
+            },
+            {
+              "level": 10,
+              "gold": 61251100,
+              "food": 20417000,
+              "iron": 20417000,
+              "valor": 700,
+              "requirements": []
+            }
+          ]
+        }
+      ],
+      "connections": [
+        {
+          "from": "power-boost-1",
+          "to": [
+            "final-stand-1",
+            "fierce-assault-1",
+            "vigilant-formation-1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "row-2",
+      "elements": [
+        {
+          "id": "final-stand-1",
+          "name": "Final Stand I",
+          "image": "/images/tech/siege-to-seize/final-stand-1.png",
+          "maxLevel": 10,
+          "currentLevel": 0,
+          "levels": [
+            {
+              "level": 1,
+              "gold": 33600000,
+              "food": 11600000,
+              "iron": 11600000,
+              "valor": 400,
+              "requirements": [
+                {
+                  "elementId": "power-boost-1",
+                  "minLevel": 1
+                }
+              ]
+            },
+            {
+              "level": 2,
+              "gold": 33600000,
+              "food": 11600000,
+              "iron": 11600000,
+              "valor": 400,
+              "requirements": []
+            },
+            {
+              "level": 3,
+              "gold": 33600000,
+              "food": 11600000,
+              "iron": 11600000,
+              "valor": 400,
+              "requirements": []
+            },
+            {
+              "level": 4,
+              "gold": 47070000,
+              "food": 15700000,
+              "iron": 15700000,
+              "valor": 550,
+              "requirements": []
+            },
+            {
+              "level": 5,
+              "gold": 47070000,
+              "food": 15700000,
+              "iron": 15700000,
+              "valor": 550,
+              "requirements": []
+            },
+            {
+              "level": 6,
+              "gold": 47070000,
+              "food": 15700000,
+              "iron": 15700000,
+              "valor": 550,
+              "requirements": []
+            },
+            {
+              "level": 7,
+              "gold": 61251100,
+              "food": 20417000,
+              "iron": 20417000,
+              "valor": 700,
+              "requirements": []
+            },
+            {
+              "level": 8,
+              "gold": 61251100,
+              "food": 20417000,
+              "iron": 20417000,
+              "valor": 700,
+              "requirements": []
+            },
+            {
+              "level": 9,
+              "gold": 61251100,
+              "food": 20417000,
+              "iron": 20417000,
+              "valor": 700,
+              "requirements": []
+            },
+            {
+              "level": 10,
+              "gold": 61251100,
+              "food": 20417000,
+              "iron": 20417000,
+              "valor": 700,
+              "requirements": []
+            }
+          ]
+        },
+        {
+          "id": "fierce-assault-1",
+          "name": "Fierce Assault I",
+          "image": "/images/tech/siege-to-seize/fierce-assault-1.png",
+          "maxLevel": 10,
+          "currentLevel": 0,
+          "levels": [
+            {
+              "level": 1,
+              "gold": 33600000,
+              "food": 11600000,
+              "iron": 11600000,
+              "valor": 400,
+              "requirements": [
+                {
+                  "elementId": "power-boost-1",
+                  "minLevel": 1
+                }
+              ]
+            },
+            {
+              "level": 2,
+              "gold": 33600000,
+              "food": 11600000,
+              "iron": 11600000,
+              "valor": 400,
+              "requirements": []
+            },
+            {
+              "level": 3,
+              "gold": 33600000,
+              "food": 11600000,
+              "iron": 11600000,
+              "valor": 400,
+              "requirements": []
+            },
+            {
+              "level": 4,
+              "gold": 47070000,
+              "food": 15700000,
+              "iron": 15700000,
+              "valor": 550,
+              "requirements": []
+            },
+            {
+              "level": 5,
+              "gold": 47070000,
+              "food": 15700000,
+              "iron": 15700000,
+              "valor": 550,
+              "requirements": []
+            },
+            {
+              "level": 6,
+              "gold": 47070000,
+              "food": 15700000,
+              "iron": 15700000,
+              "valor": 550,
+              "requirements": []
+            },
+            {
+              "level": 7,
+              "gold": 61251100,
+              "food": 20417000,
+              "iron": 20417000,
+              "valor": 700,
+              "requirements": []
+            },
+            {
+              "level": 8,
+              "gold": 61251100,
+              "food": 20417000,
+              "iron": 20417000,
+              "valor": 700,
+              "requirements": []
+            },
+            {
+              "level": 9,
+              "gold": 61251100,
+              "food": 20417000,
+              "iron": 20417000,
+              "valor": 700,
+              "requirements": []
+            },
+            {
+              "level": 10,
+              "gold": 61251100,
+              "food": 20417000,
+              "iron": 20417000,
+              "valor": 700,
+              "requirements": []
+            }
+          ]
+        },
+        {
+          "id": "vigilant-formation-1",
+          "name": "Vigilant Formation I",
+          "image": "/images/tech/siege-to-seize/vigilant-formation-1.png",
+          "maxLevel": 10,
+          "currentLevel": 0,
+          "levels": [
+            {
+              "level": 1,
+              "gold": 33600000,
+              "food": 11600000,
+              "iron": 11600000,
+              "valor": 400,
+              "requirements": [
+                {
+                  "elementId": "power-boost-1",
+                  "minLevel": 1
+                }
+              ]
+            },
+            {
+              "level": 2,
+              "gold": 33600000,
+              "food": 11600000,
+              "iron": 11600000,
+              "valor": 400,
+              "requirements": []
+            },
+            {
+              "level": 3,
+              "gold": 33600000,
+              "food": 11600000,
+              "iron": 11600000,
+              "valor": 400,
+              "requirements": []
+            },
+            {
+              "level": 4,
+              "gold": 47070000,
+              "food": 15700000,
+              "iron": 15700000,
+              "valor": 550,
+              "requirements": []
+            },
+            {
+              "level": 5,
+              "gold": 47070000,
+              "food": 15700000,
+              "iron": 15700000,
+              "valor": 550,
+              "requirements": []
+            },
+            {
+              "level": 6,
+              "gold": 47070000,
+              "food": 15700000,
+              "iron": 15700000,
+              "valor": 550,
+              "requirements": []
+            },
+            {
+              "level": 7,
+              "gold": 61251100,
+              "food": 20417000,
+              "iron": 20417000,
+              "valor": 700,
+              "requirements": []
+            },
+            {
+              "level": 8,
+              "gold": 61251100,
+              "food": 20417000,
+              "iron": 20417000,
+              "valor": 700,
+              "requirements": []
+            },
+            {
+              "level": 9,
+              "gold": 61251100,
+              "food": 20417000,
+              "iron": 20417000,
+              "valor": 700,
+              "requirements": []
+            },
+            {
+              "level": 10,
+              "gold": 61251100,
+              "food": 20417000,
+              "iron": 20417000,
+              "valor": 700,
+              "requirements": []
+            }
+          ]
+        }
+      ],
+      "connections": [
+        {
+          "from": "final-stand-1",
+          "to": [
+            "extra-drill-ground"
+          ]
+        },
+        {
+          "from": "fierce-assault-1",
+          "to": [
+            "extra-drill-ground"
+          ]
+        },
+        {
+          "from": "vigilant-formation-1",
+          "to": [
+            "extra-drill-ground"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "row-3",
+      "elements": [
+        {
+          "id": "extra-drill-ground",
+          "name": "Extra Drill Ground",
+          "image": "/images/tech/siege-to-seize/extra-drill-ground.png",
+          "maxLevel": 1,
+          "currentLevel": 0,
+          "levels": [
+            {
+              "level": 1,
+              "gold": 61251100,
+              "food": 20417000,
+              "iron": 20417000,
+              "valor": 700,
+              "requirements": [
+                {
+                  "elementId": "final-stand-1",
+                  "minLevel": 10
+                },
+                {
+                  "elementId": "fierce-assault-1",
+                  "minLevel": 10
+                },
+                {
+                  "elementId": "vigilant-formation-1",
+                  "minLevel": 10
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "connections": [
+        {
+          "from": "extra-drill-ground",
+          "to": [
+            "barrack-expansion-1",
+            "focused-training-1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "row-4",
+      "elements": [
+        {
+          "id": "barrack-expansion-1",
+          "name": "Barrack Expansion I",
+          "image": "/images/tech/siege-to-seize/barrack-expansion-1.png",
+          "maxLevel": 10,
+          "currentLevel": 0,
+          "levels": [
+            {
+              "level": 1,
+              "gold": 61251100,
+              "food": 20417000,
+              "iron": 20417000,
+              "valor": 700,
+              "requirements": [
+                {
+                  "elementId": "extra-drill-ground",
+                  "minLevel": 1
+                }
+              ]
+            },
+            {
+              "level": 2,
+              "gold": 61251100,
+              "food": 20417000,
+              "iron": 20417000,
+              "valor": 700,
+              "requirements": []
+            },
+            {
+              "level": 3,
+              "gold": 61251100,
+              "food": 20417000,
+              "iron": 20417000,
+              "valor": 700,
+              "requirements": []
+            },
+            {
+              "level": 4,
+              "gold": 76563900,
+              "food": 25521300,
+              "iron": 25521300,
+              "valor": 900,
+              "requirements": []
+            },
+            {
+              "level": 5,
+              "gold": 76563900,
+              "food": 25521300,
+              "iron": 25521300,
+              "valor": 900,
+              "requirements": []
+            },
+            {
+              "level": 6,
+              "gold": 76563900,
+              "food": 25521300,
+              "iron": 25521300,
+              "valor": 900,
+              "requirements": []
+            },
+            {
+              "level": 7,
+              "gold": 95704900,
+              "food": 31901600,
+              "iron": 31901600,
+              "valor": 1100,
+              "requirements": []
+            },
+            {
+              "level": 8,
+              "gold": 95704900,
+              "food": 31901600,
+              "iron": 31901600,
+              "valor": 1100,
+              "requirements": []
+            },
+            {
+              "level": 9,
+              "gold": 95704900,
+              "food": 31901600,
+              "iron": 31901600,
+              "valor": 1100,
+              "requirements": []
+            },
+            {
+              "level": 10,
+              "gold": 95704900,
+              "food": 31901600,
+              "iron": 31901600,
+              "valor": 1100,
+              "requirements": []
+            }
+          ]
+        },
+        {
+          "id": "focused-training-1",
+          "name": "Focused Training I",
+          "image": "/images/tech/siege-to-seize/focused-training-1.png",
+          "maxLevel": 10,
+          "currentLevel": 0,
+          "levels": [
+            {
+              "level": 1,
+              "gold": 61251100,
+              "food": 20417000,
+              "iron": 20417000,
+              "valor": 700,
+              "requirements": [
+                {
+                  "elementId": "extra-drill-ground",
+                  "minLevel": 1
+                }
+              ]
+            },
+            {
+              "level": 2,
+              "gold": 61251100,
+              "food": 20417000,
+              "iron": 20417000,
+              "valor": 700,
+              "requirements": []
+            },
+            {
+              "level": 3,
+              "gold": 61251100,
+              "food": 20417000,
+              "iron": 20417000,
+              "valor": 700,
+              "requirements": []
+            },
+            {
+              "level": 4,
+              "gold": 76563900,
+              "food": 25521300,
+              "iron": 25521300,
+              "valor": 900,
+              "requirements": []
+            },
+            {
+              "level": 5,
+              "gold": 76563900,
+              "food": 25521300,
+              "iron": 25521300,
+              "valor": 900,
+              "requirements": []
+            },
+            {
+              "level": 6,
+              "gold": 76563900,
+              "food": 25521300,
+              "iron": 25521300,
+              "valor": 900,
+              "requirements": []
+            },
+            {
+              "level": 7,
+              "gold": 95704900,
+              "food": 31901600,
+              "iron": 31901600,
+              "valor": 1100,
+              "requirements": []
+            },
+            {
+              "level": 8,
+              "gold": 95704900,
+              "food": 31901600,
+              "iron": 31901600,
+              "valor": 1100,
+              "requirements": []
+            },
+            {
+              "level": 9,
+              "gold": 95704900,
+              "food": 31901600,
+              "iron": 31901600,
+              "valor": 1100,
+              "requirements": []
+            },
+            {
+              "level": 10,
+              "gold": 95704900,
+              "food": 31901600,
+              "iron": 31901600,
+              "valor": 1100,
+              "requirements": []
+            }
+          ]
+        }
+      ],
+      "connections": [
+        {
+          "from": "barrack-expansion-1",
+          "to": [
+            "final-stand-2",
+            "fierce-assault-2",
+            "vigilant-formation-2"
+          ]
+        },
+        {
+          "from": "focused-training-1",
+          "to": [
+            "final-stand-2",
+            "fierce-assault-2",
+            "vigilant-formation-2"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "row-5",
+      "elements": [
+        {
+          "id": "final-stand-2",
+          "name": "Final Stand II",
+          "image": "/images/tech/siege-to-seize/final-stand-2.png",
+          "maxLevel": 10,
+          "currentLevel": 0,
+          "levels": [
+            {
+              "level": 1,
+              "gold": 61251100,
+              "food": 20417000,
+              "iron": 20417000,
+              "valor": 700,
+              "requirements": [
+                {
+                  "elementId": "barrack-expansion-1",
+                  "minLevel": 1
+                },
+                {
+                  "elementId": "focused-training-1",
+                  "minLevel": 1
+                }
+              ]
+            },
+            {
+              "level": 2,
+              "gold": 61251100,
+              "food": 20417000,
+              "iron": 20417000,
+              "valor": 700,
+              "requirements": []
+            },
+            {
+              "level": 3,
+              "gold": 61251100,
+              "food": 20417000,
+              "iron": 20417000,
+              "valor": 700,
+              "requirements": []
+            },
+            {
+              "level": 4,
+              "gold": 76563900,
+              "food": 25521300,
+              "iron": 25521300,
+              "valor": 900,
+              "requirements": []
+            },
+            {
+              "level": 5,
+              "gold": 76563900,
+              "food": 25521300,
+              "iron": 25521300,
+              "valor": 900,
+              "requirements": []
+            },
+            {
+              "level": 6,
+              "gold": 76563900,
+              "food": 25521300,
+              "iron": 25521300,
+              "valor": 900,
+              "requirements": []
+            },
+            {
+              "level": 7,
+              "gold": 95704900,
+              "food": 31901600,
+              "iron": 31901600,
+              "valor": 1100,
+              "requirements": []
+            },
+            {
+              "level": 8,
+              "gold": 95704900,
+              "food": 31901600,
+              "iron": 31901600,
+              "valor": 1100,
+              "requirements": []
+            },
+            {
+              "level": 9,
+              "gold": 95704900,
+              "food": 31901600,
+              "iron": 31901600,
+              "valor": 1100,
+              "requirements": []
+            },
+            {
+              "level": 10,
+              "gold": 95704900,
+              "food": 31901600,
+              "iron": 31901600,
+              "valor": 1100,
+              "requirements": []
+            }
+          ]
+        },
+        {
+          "id": "fierce-assault-2",
+          "name": "Fierce Assault II",
+          "image": "/images/tech/siege-to-seize/fierce-assault-2.png",
+          "maxLevel": 10,
+          "currentLevel": 0,
+          "levels": [
+            {
+              "level": 1,
+              "gold": 61251100,
+              "food": 20417000,
+              "iron": 20417000,
+              "valor": 700,
+              "requirements": [
+                {
+                  "elementId": "barrack-expansion-1",
+                  "minLevel": 1
+                },
+                {
+                  "elementId": "focused-training-1",
+                  "minLevel": 1
+                }
+              ]
+            },
+            {
+              "level": 2,
+              "gold": 61251100,
+              "food": 20417000,
+              "iron": 20417000,
+              "valor": 700,
+              "requirements": []
+            },
+            {
+              "level": 3,
+              "gold": 61251100,
+              "food": 20417000,
+              "iron": 20417000,
+              "valor": 700,
+              "requirements": []
+            },
+            {
+              "level": 4,
+              "gold": 76563900,
+              "food": 25521300,
+              "iron": 25521300,
+              "valor": 900,
+              "requirements": []
+            },
+            {
+              "level": 5,
+              "gold": 76563900,
+              "food": 25521300,
+              "iron": 25521300,
+              "valor": 900,
+              "requirements": []
+            },
+            {
+              "level": 6,
+              "gold": 76563900,
+              "food": 25521300,
+              "iron": 25521300,
+              "valor": 900,
+              "requirements": []
+            },
+            {
+              "level": 7,
+              "gold": 95704900,
+              "food": 31901600,
+              "iron": 31901600,
+              "valor": 1100,
+              "requirements": []
+            },
+            {
+              "level": 8,
+              "gold": 95704900,
+              "food": 31901600,
+              "iron": 31901600,
+              "valor": 1100,
+              "requirements": []
+            },
+            {
+              "level": 9,
+              "gold": 95704900,
+              "food": 31901600,
+              "iron": 31901600,
+              "valor": 1100,
+              "requirements": []
+            },
+            {
+              "level": 10,
+              "gold": 95704900,
+              "food": 31901600,
+              "iron": 31901600,
+              "valor": 1100,
+              "requirements": []
+            }
+          ]
+        },
+        {
+          "id": "vigilant-formation-2",
+          "name": "Vigilant Formation II",
+          "image": "/images/tech/siege-to-seize/vigilant-formation-2.png",
+          "maxLevel": 10,
+          "currentLevel": 0,
+          "levels": [
+            {
+              "level": 1,
+              "gold": 61251100,
+              "food": 20417000,
+              "iron": 20417000,
+              "valor": 700,
+              "requirements": [
+                {
+                  "elementId": "barrack-expansion-1",
+                  "minLevel": 1
+                },
+                {
+                  "elementId": "focused-training-1",
+                  "minLevel": 1
+                }
+              ]
+            },
+            {
+              "level": 2,
+              "gold": 61251100,
+              "food": 20417000,
+              "iron": 20417000,
+              "valor": 700,
+              "requirements": []
+            },
+            {
+              "level": 3,
+              "gold": 61251100,
+              "food": 20417000,
+              "iron": 20417000,
+              "valor": 700,
+              "requirements": []
+            },
+            {
+              "level": 4,
+              "gold": 76563900,
+              "food": 25521300,
+              "iron": 25521300,
+              "valor": 900,
+              "requirements": []
+            },
+            {
+              "level": 5,
+              "gold": 76563900,
+              "food": 25521300,
+              "iron": 25521300,
+              "valor": 900,
+              "requirements": []
+            },
+            {
+              "level": 6,
+              "gold": 76563900,
+              "food": 25521300,
+              "iron": 25521300,
+              "valor": 900,
+              "requirements": []
+            },
+            {
+              "level": 7,
+              "gold": 95704900,
+              "food": 31901600,
+              "iron": 31901600,
+              "valor": 1100,
+              "requirements": []
+            },
+            {
+              "level": 8,
+              "gold": 95704900,
+              "food": 31901600,
+              "iron": 31901600,
+              "valor": 1100,
+              "requirements": []
+            },
+            {
+              "level": 9,
+              "gold": 95704900,
+              "food": 31901600,
+              "iron": 31901600,
+              "valor": 1100,
+              "requirements": []
+            },
+            {
+              "level": 10,
+              "gold": 95704900,
+              "food": 31901600,
+              "iron": 31901600,
+              "valor": 1100,
+              "requirements": []
+            }
+          ]
+        }
+      ],
+      "connections": [
+        {
+          "from": "final-stand-2",
+          "to": [
+            "drill-ground-expansion"
+          ]
+        },
+        {
+          "from": "fierce-assault-2",
+          "to": [
+            "drill-ground-expansion"
+          ]
+        },
+        {
+          "from": "vigilant-formation-2",
+          "to": [
+            "drill-ground-expansion"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "row-6",
+      "elements": [
+        {
+          "id": "drill-ground-expansion",
+          "name": "Drill Ground Expansion",
+          "image": "/images/tech/siege-to-seize/drill-ground-expansion.png",
+          "maxLevel": 10,
+          "currentLevel": 0,
+          "levels": [
+            {
+              "level": 1,
+              "gold": 76563900,
+              "food": 25521300,
+              "iron": 25521300,
+              "valor": 900,
+              "requirements": [
+                {
+                  "elementId": "final-stand-2",
+                  "minLevel": 6
+                },
+                {
+                  "elementId": "fierce-assault-2",
+                  "minLevel": 6
+                },
+                {
+                  "elementId": "vigilant-formation-2",
+                  "minLevel": 6
+                }
+              ]
+            },
+            {
+              "level": 2,
+              "gold": 76563900,
+              "food": 25521300,
+              "iron": 25521300,
+              "valor": 900,
+              "requirements": []
+            },
+            {
+              "level": 3,
+              "gold": 76563900,
+              "food": 25521300,
+              "iron": 25521300,
+              "valor": 900,
+              "requirements": []
+            },
+            {
+              "level": 4,
+              "gold": 95704900,
+              "food": 31901600,
+              "iron": 31901600,
+              "valor": 1100,
+              "requirements": []
+            },
+            {
+              "level": 5,
+              "gold": 95704900,
+              "food": 31901600,
+              "iron": 31901600,
+              "valor": 1100,
+              "requirements": []
+            },
+            {
+              "level": 6,
+              "gold": 95704900,
+              "food": 31901600,
+              "iron": 31901600,
+              "valor": 1100,
+              "requirements": []
+            },
+            {
+              "level": 7,
+              "gold": 162698400,
+              "food": 54232800,
+              "iron": 54232800,
+              "valor": 1850,
+              "requirements": []
+            },
+            {
+              "level": 8,
+              "gold": 162698400,
+              "food": 54232800,
+              "iron": 54232800,
+              "valor": 1850,
+              "requirements": []
+            },
+            {
+              "level": 9,
+              "gold": 162698400,
+              "food": 54232800,
+              "iron": 54232800,
+              "valor": 1850,
+              "requirements": []
+            },
+            {
+              "level": 10,
+              "gold": 162698400,
+              "food": 54232800,
+              "iron": 54232800,
+              "valor": 1850,
+              "requirements": []
+            }
+          ]
+        }
+      ],
+      "connections": [
+        {
+          "from": "drill-ground-expansion",
+          "to": [
+            "rapid-march-1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "row-7",
+      "elements": [
+        {
+          "id": "rapid-march-1",
+          "name": "Rapid March I",
+          "image": "/images/tech/siege-to-seize/rapid-march-1.png",
+          "maxLevel": 10,
+          "currentLevel": 0,
+          "levels": [
+            {
+              "level": 1,
+              "gold": 76563900,
+              "food": 25521300,
+              "iron": 25521300,
+              "valor": 900,
+              "requirements": [
+                {
+                  "elementId": "drill-ground-expansion",
+                  "minLevel": 1
+                }
+              ]
+            },
+            {
+              "level": 2,
+              "gold": 76563900,
+              "food": 25521300,
+              "iron": 25521300,
+              "valor": 900,
+              "requirements": []
+            },
+            {
+              "level": 3,
+              "gold": 76563900,
+              "food": 25521300,
+              "iron": 25521300,
+              "valor": 900,
+              "requirements": []
+            },
+            {
+              "level": 4,
+              "gold": 95704900,
+              "food": 31901600,
+              "iron": 31901600,
+              "valor": 1100,
+              "requirements": []
+            },
+            {
+              "level": 5,
+              "gold": 95704900,
+              "food": 31901600,
+              "iron": 31901600,
+              "valor": 1100,
+              "requirements": []
+            },
+            {
+              "level": 6,
+              "gold": 95704900,
+              "food": 31901600,
+              "iron": 31901600,
+              "valor": 1100,
+              "requirements": []
+            },
+            {
+              "level": 7,
+              "gold": 162698400,
+              "food": 54232800,
+              "iron": 54232800,
+              "valor": 1850,
+              "requirements": []
+            },
+            {
+              "level": 8,
+              "gold": 162698400,
+              "food": 54232800,
+              "iron": 54232800,
+              "valor": 1850,
+              "requirements": []
+            },
+            {
+              "level": 9,
+              "gold": 162698400,
+              "food": 54232800,
+              "iron": 54232800,
+              "valor": 1850,
+              "requirements": []
+            },
+            {
+              "level": 10,
+              "gold": 162698400,
+              "food": 54232800,
+              "iron": 54232800,
+              "valor": 1850,
+              "requirements": []
+            }
+          ]
+        }
+      ],
+      "connections": [
+        {
+          "from": "rapid-march-1",
+          "to": [
+            "final-stand-3",
+            "fierce-assault-3",
+            "vigilant-formation-3"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "row-8",
+      "elements": [
+        {
+          "id": "final-stand-3",
+          "name": "Final Stand III",
+          "image": "/images/tech/siege-to-seize/final-stand-3.png",
+          "maxLevel": 10,
+          "currentLevel": 0,
+          "levels": [
+            {
+              "level": 1,
+              "gold": 95704900,
+              "food": 31901600,
+              "iron": 31901600,
+              "valor": 1100,
+              "requirements": [
+                {
+                  "elementId": "rapid-march-1",
+                  "minLevel": 6
+                }
+              ]
+            },
+            {
+              "level": 2,
+              "gold": 95704900,
+              "food": 31901600,
+              "iron": 31901600,
+              "valor": 1100,
+              "requirements": []
+            },
+            {
+              "level": 3,
+              "gold": 95704900,
+              "food": 31901600,
+              "iron": 31901600,
+              "valor": 1100,
+              "requirements": []
+            },
+            {
+              "level": 4,
+              "gold": 162698400,
+              "food": 54232800,
+              "iron": 54232800,
+              "valor": 1850,
+              "requirements": []
+            },
+            {
+              "level": 5,
+              "gold": 162698400,
+              "food": 54232800,
+              "iron": 54232800,
+              "valor": 1850,
+              "requirements": []
+            },
+            {
+              "level": 6,
+              "gold": 162698400,
+              "food": 54232800,
+              "iron": 54232800,
+              "valor": 1850,
+              "requirements": []
+            },
+            {
+              "level": 7,
+              "gold": 227777700,
+              "food": 75925900,
+              "iron": 75925900,
+              "valor": 2550,
+              "requirements": []
+            },
+            {
+              "level": 8,
+              "gold": 227777700,
+              "food": 75925900,
+              "iron": 75925900,
+              "valor": 2550,
+              "requirements": []
+            },
+            {
+              "level": 9,
+              "gold": 227777700,
+              "food": 75925900,
+              "iron": 75925900,
+              "valor": 2550,
+              "requirements": []
+            },
+            {
+              "level": 10,
+              "gold": 227777700,
+              "food": 75925900,
+              "iron": 75925900,
+              "valor": 2550,
+              "requirements": []
+            }
+          ]
+        },
+        {
+          "id": "fierce-assault-3",
+          "name": "Fierce Assault III",
+          "image": "/images/tech/siege-to-seize/fierce-assault-3.png",
+          "maxLevel": 10,
+          "currentLevel": 0,
+          "levels": [
+            {
+              "level": 1,
+              "gold": 95704900,
+              "food": 31901600,
+              "iron": 31901600,
+              "valor": 1100,
+              "requirements": [
+                {
+                  "elementId": "rapid-march-1",
+                  "minLevel": 6
+                }
+              ]
+            },
+            {
+              "level": 2,
+              "gold": 95704900,
+              "food": 31901600,
+              "iron": 31901600,
+              "valor": 1100,
+              "requirements": []
+            },
+            {
+              "level": 3,
+              "gold": 95704900,
+              "food": 31901600,
+              "iron": 31901600,
+              "valor": 1100,
+              "requirements": []
+            },
+            {
+              "level": 4,
+              "gold": 162698400,
+              "food": 54232800,
+              "iron": 54232800,
+              "valor": 1850,
+              "requirements": []
+            },
+            {
+              "level": 5,
+              "gold": 162698400,
+              "food": 54232800,
+              "iron": 54232800,
+              "valor": 1850,
+              "requirements": []
+            },
+            {
+              "level": 6,
+              "gold": 162698400,
+              "food": 54232800,
+              "iron": 54232800,
+              "valor": 1850,
+              "requirements": []
+            },
+            {
+              "level": 7,
+              "gold": 227777700,
+              "food": 75925900,
+              "iron": 75925900,
+              "valor": 2550,
+              "requirements": []
+            },
+            {
+              "level": 8,
+              "gold": 227777700,
+              "food": 75925900,
+              "iron": 75925900,
+              "valor": 2550,
+              "requirements": []
+            },
+            {
+              "level": 9,
+              "gold": 227777700,
+              "food": 75925900,
+              "iron": 75925900,
+              "valor": 2550,
+              "requirements": []
+            },
+            {
+              "level": 10,
+              "gold": 227777700,
+              "food": 75925900,
+              "iron": 75925900,
+              "valor": 2550,
+              "requirements": []
+            }
+          ]
+        },
+        {
+          "id": "vigilant-formation-3",
+          "name": "Vigilant Formation III",
+          "image": "/images/tech/siege-to-seize/vigilant-formation-3.png",
+          "maxLevel": 10,
+          "currentLevel": 0,
+          "levels": [
+            {
+              "level": 1,
+              "gold": 95704900,
+              "food": 31901600,
+              "iron": 31901600,
+              "valor": 1100,
+              "requirements": [
+                {
+                  "elementId": "rapid-march-1",
+                  "minLevel": 6
+                }
+              ]
+            },
+            {
+              "level": 2,
+              "gold": 95704900,
+              "food": 31901600,
+              "iron": 31901600,
+              "valor": 1100,
+              "requirements": []
+            },
+            {
+              "level": 3,
+              "gold": 95704900,
+              "food": 31901600,
+              "iron": 31901600,
+              "valor": 1100,
+              "requirements": []
+            },
+            {
+              "level": 4,
+              "gold": 162698400,
+              "food": 54232800,
+              "iron": 54232800,
+              "valor": 1850,
+              "requirements": []
+            },
+            {
+              "level": 5,
+              "gold": 162698400,
+              "food": 54232800,
+              "iron": 54232800,
+              "valor": 1850,
+              "requirements": []
+            },
+            {
+              "level": 6,
+              "gold": 162698400,
+              "food": 54232800,
+              "iron": 54232800,
+              "valor": 1850,
+              "requirements": []
+            },
+            {
+              "level": 7,
+              "gold": 227777700,
+              "food": 75925900,
+              "iron": 75925900,
+              "valor": 2550,
+              "requirements": []
+            },
+            {
+              "level": 8,
+              "gold": 227777700,
+              "food": 75925900,
+              "iron": 75925900,
+              "valor": 2550,
+              "requirements": []
+            },
+            {
+              "level": 9,
+              "gold": 227777700,
+              "food": 75925900,
+              "iron": 75925900,
+              "valor": 2550,
+              "requirements": []
+            },
+            {
+              "level": 10,
+              "gold": 227777700,
+              "food": 75925900,
+              "iron": 75925900,
+              "valor": 2550,
+              "requirements": []
+            }
+          ]
+        }
+      ],
+      "connections": [
+        {
+          "from": "final-stand-3",
+          "to": [
+            "fatal-strike-1"
+          ]
+        },
+        {
+          "from": "fierce-assault-3",
+          "to": [
+            "fatal-strike-1"
+          ]
+        },
+        {
+          "from": "vigilant-formation-3",
+          "to": [
+            "fatal-strike-1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "row-9",
+      "elements": [
+        {
+          "id": "fatal-strike-1",
+          "name": "Fatal Strike I",
+          "image": "/images/tech/siege-to-seize/fatal-strike-1.png",
+          "maxLevel": 10,
+          "currentLevel": 0,
+          "levels": [
+            {
+              "level": 1,
+              "gold": 95704900,
+              "food": 31901600,
+              "iron": 31901600,
+              "valor": 1100,
+              "requirements": [
+                {
+                  "elementId": "final-stand-3",
+                  "minLevel": 1
+                },
+                {
+                  "elementId": "fierce-assault-3",
+                  "minLevel": 1
+                },
+                {
+                  "elementId": "vigilant-formation-3",
+                  "minLevel": 1
+                }
+              ]
+            },
+            {
+              "level": 2,
+              "gold": 95704900,
+              "food": 31901600,
+              "iron": 31901600,
+              "valor": 1100,
+              "requirements": []
+            },
+            {
+              "level": 3,
+              "gold": 95704900,
+              "food": 31901600,
+              "iron": 31901600,
+              "valor": 1100,
+              "requirements": []
+            },
+            {
+              "level": 4,
+              "gold": 162698400,
+              "food": 54232800,
+              "iron": 54232800,
+              "valor": 1850,
+              "requirements": []
+            },
+            {
+              "level": 5,
+              "gold": 162698400,
+              "food": 54232800,
+              "iron": 54232800,
+              "valor": 1850,
+              "requirements": []
+            },
+            {
+              "level": 6,
+              "gold": 162698400,
+              "food": 54232800,
+              "iron": 54232800,
+              "valor": 1850,
+              "requirements": []
+            },
+            {
+              "level": 7,
+              "gold": 227777700,
+              "food": 75925900,
+              "iron": 75925900,
+              "valor": 2550,
+              "requirements": []
+            },
+            {
+              "level": 8,
+              "gold": 227777700,
+              "food": 75925900,
+              "iron": 75925900,
+              "valor": 2550,
+              "requirements": []
+            },
+            {
+              "level": 9,
+              "gold": 227777700,
+              "food": 75925900,
+              "iron": 75925900,
+              "valor": 2550,
+              "requirements": []
+            },
+            {
+              "level": 10,
+              "gold": 227777700,
+              "food": 75925900,
+              "iron": 75925900,
+              "valor": 2550,
+              "requirements": []
+            }
+          ]
+        }
+      ],
+      "connections": []
+    }
+  ]
+}

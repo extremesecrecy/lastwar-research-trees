@@ -1,0 +1,1630 @@
+{
+  "name": "Defense Fortifications",
+  "isComplete": true,
+  "rows": [
+    {
+      "id": "row-1",
+      "elements": [
+        {
+          "id": "extra-hospitals",
+          "name": "Extra Hospitals",
+          "image": "/images/tech/defense-fortifications/extra-hospitals.png",
+          "maxLevel": 1,
+          "currentLevel": 0,
+          "levels": [
+            {
+              "level": 1,
+              "gold": 33600000,
+              "food": 11600000,
+              "iron": 11600000,
+              "valor": 400,
+              "requirements": []
+            }
+          ]
+        }
+      ],
+      "connections": [
+        {
+          "from": "extra-hospitals",
+          "to": [
+            "hold-the-line-1",
+            "counter-defense-1",
+            "solid-defense-1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "row-2",
+      "elements": [
+        {
+          "id": "hold-the-line-1",
+          "name": "Hold the Line I",
+          "image": "/images/tech/defense-fortifications/hold-the-line-1.png",
+          "maxLevel": 10,
+          "currentLevel": 0,
+          "levels": [
+            {
+              "level": 1,
+              "gold": 33600000,
+              "food": 11600000,
+              "iron": 11600000,
+              "valor": 400,
+              "requirements": [
+                {
+                  "elementId": "extra-hospitals",
+                  "minLevel": 1
+                }
+              ]
+            },
+            {
+              "level": 2,
+              "gold": 33600000,
+              "food": 11600000,
+              "iron": 11600000,
+              "valor": 400,
+              "requirements": []
+            },
+            {
+              "level": 3,
+              "gold": 33600000,
+              "food": 11600000,
+              "iron": 11600000,
+              "valor": 400,
+              "requirements": []
+            },
+            {
+              "level": 4,
+              "gold": 47070000,
+              "food": 15700000,
+              "iron": 15700000,
+              "valor": 550,
+              "requirements": []
+            },
+            {
+              "level": 5,
+              "gold": 47070000,
+              "food": 15700000,
+              "iron": 15700000,
+              "valor": 550,
+              "requirements": []
+            },
+            {
+              "level": 6,
+              "gold": 47070000,
+              "food": 15700000,
+              "iron": 15700000,
+              "valor": 550,
+              "requirements": []
+            },
+            {
+              "level": 7,
+              "gold": 61251100,
+              "food": 20417000,
+              "iron": 20417000,
+              "valor": 700,
+              "requirements": []
+            },
+            {
+              "level": 8,
+              "gold": 61251100,
+              "food": 20417000,
+              "iron": 20417000,
+              "valor": 700,
+              "requirements": []
+            },
+            {
+              "level": 9,
+              "gold": 61251100,
+              "food": 20417000,
+              "iron": 20417000,
+              "valor": 700,
+              "requirements": []
+            },
+            {
+              "level": 10,
+              "gold": 61251100,
+              "food": 20417000,
+              "iron": 20417000,
+              "valor": 700,
+              "requirements": []
+            }
+          ]
+        },
+        {
+          "id": "counter-defense-1",
+          "name": "Counter Defense I",
+          "image": "/images/tech/defense-fortifications/counter-defense-1.png",
+          "maxLevel": 10,
+          "currentLevel": 0,
+          "levels": [
+            {
+              "level": 1,
+              "gold": 33600000,
+              "food": 11600000,
+              "iron": 11600000,
+              "valor": 400,
+              "requirements": [
+                {
+                  "elementId": "extra-hospitals",
+                  "minLevel": 1
+                }
+              ]
+            },
+            {
+              "level": 2,
+              "gold": 33600000,
+              "food": 11600000,
+              "iron": 11600000,
+              "valor": 400,
+              "requirements": []
+            },
+            {
+              "level": 3,
+              "gold": 33600000,
+              "food": 11600000,
+              "iron": 11600000,
+              "valor": 400,
+              "requirements": []
+            },
+            {
+              "level": 4,
+              "gold": 47070000,
+              "food": 15700000,
+              "iron": 15700000,
+              "valor": 550,
+              "requirements": []
+            },
+            {
+              "level": 5,
+              "gold": 47070000,
+              "food": 15700000,
+              "iron": 15700000,
+              "valor": 550,
+              "requirements": []
+            },
+            {
+              "level": 6,
+              "gold": 47070000,
+              "food": 15700000,
+              "iron": 15700000,
+              "valor": 550,
+              "requirements": []
+            },
+            {
+              "level": 7,
+              "gold": 61251100,
+              "food": 20417000,
+              "iron": 20417000,
+              "valor": 700,
+              "requirements": []
+            },
+            {
+              "level": 8,
+              "gold": 61251100,
+              "food": 20417000,
+              "iron": 20417000,
+              "valor": 700,
+              "requirements": []
+            },
+            {
+              "level": 9,
+              "gold": 61251100,
+              "food": 20417000,
+              "iron": 20417000,
+              "valor": 700,
+              "requirements": []
+            },
+            {
+              "level": 10,
+              "gold": 61251100,
+              "food": 20417000,
+              "iron": 20417000,
+              "valor": 700,
+              "requirements": []
+            }
+          ]
+        },
+        {
+          "id": "solid-defense-1",
+          "name": "Solid Defense I",
+          "image": "/images/tech/defense-fortifications/solid-defense-1.png",
+          "maxLevel": 10,
+          "currentLevel": 0,
+          "levels": [
+            {
+              "level": 1,
+              "gold": 33600000,
+              "food": 11600000,
+              "iron": 11600000,
+              "valor": 400,
+              "requirements": [
+                {
+                  "elementId": "extra-hospitals",
+                  "minLevel": 1
+                }
+              ]
+            },
+            {
+              "level": 2,
+              "gold": 33600000,
+              "food": 11600000,
+              "iron": 11600000,
+              "valor": 400,
+              "requirements": []
+            },
+            {
+              "level": 3,
+              "gold": 33600000,
+              "food": 11600000,
+              "iron": 11600000,
+              "valor": 400,
+              "requirements": []
+            },
+            {
+              "level": 4,
+              "gold": 47070000,
+              "food": 15700000,
+              "iron": 15700000,
+              "valor": 550,
+              "requirements": []
+            },
+            {
+              "level": 5,
+              "gold": 47070000,
+              "food": 15700000,
+              "iron": 15700000,
+              "valor": 550,
+              "requirements": []
+            },
+            {
+              "level": 6,
+              "gold": 47070000,
+              "food": 15700000,
+              "iron": 15700000,
+              "valor": 550,
+              "requirements": []
+            },
+            {
+              "level": 7,
+              "gold": 61251100,
+              "food": 20417000,
+              "iron": 20417000,
+              "valor": 700,
+              "requirements": []
+            },
+            {
+              "level": 8,
+              "gold": 61251100,
+              "food": 20417000,
+              "iron": 20417000,
+              "valor": 700,
+              "requirements": []
+            },
+            {
+              "level": 9,
+              "gold": 61251100,
+              "food": 20417000,
+              "iron": 20417000,
+              "valor": 700,
+              "requirements": []
+            },
+            {
+              "level": 10,
+              "gold": 61251100,
+              "food": 20417000,
+              "iron": 20417000,
+              "valor": 700,
+              "requirements": []
+            }
+          ]
+        }
+      ],
+      "connections": [
+        {
+          "from": "hold-the-line-1",
+          "to": [
+            "defense-fortifications"
+          ]
+        },
+        {
+          "from": "counter-defense-1",
+          "to": [
+            "defense-fortifications"
+          ]
+        },
+        {
+          "from": "solid-defense-1",
+          "to": [
+            "defense-fortifications"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "row-3",
+      "elements": [
+        {
+          "id": "defense-fortifications",
+          "name": "Defense Fortifications",
+          "image": "/images/tech/defense-fortifications/defense-fortifications.png",
+          "maxLevel": 10,
+          "currentLevel": 0,
+          "levels": [
+            {
+              "level": 1,
+              "gold": 33600000,
+              "food": 11600000,
+              "iron": 11600000,
+              "valor": 400,
+              "requirements": [
+                {
+                  "elementId": "hold-the-line-1",
+                  "minLevel": 2
+                },
+                {
+                  "elementId": "counter-defense-1",
+                  "minLevel": 2
+                },
+                {
+                  "elementId": "solid-defense-1",
+                  "minLevel": 2
+                }
+              ]
+            },
+            {
+              "level": 2,
+              "gold": 33600000,
+              "food": 11600000,
+              "iron": 11600000,
+              "valor": 400,
+              "requirements": []
+            },
+            {
+              "level": 3,
+              "gold": 33600000,
+              "food": 11600000,
+              "iron": 11600000,
+              "valor": 400,
+              "requirements": []
+            },
+            {
+              "level": 4,
+              "gold": 47070000,
+              "food": 15700000,
+              "iron": 15700000,
+              "valor": 550,
+              "requirements": []
+            },
+            {
+              "level": 5,
+              "gold": 47070000,
+              "food": 15700000,
+              "iron": 15700000,
+              "valor": 550,
+              "requirements": []
+            },
+            {
+              "level": 6,
+              "gold": 47070000,
+              "food": 15700000,
+              "iron": 15700000,
+              "valor": 550,
+              "requirements": []
+            },
+            {
+              "level": 7,
+              "gold": 61251100,
+              "food": 20417000,
+              "iron": 20417000,
+              "valor": 700,
+              "requirements": []
+            },
+            {
+              "level": 8,
+              "gold": 61251100,
+              "food": 20417000,
+              "iron": 20417000,
+              "valor": 700,
+              "requirements": []
+            },
+            {
+              "level": 9,
+              "gold": 61251100,
+              "food": 20417000,
+              "iron": 20417000,
+              "valor": 700,
+              "requirements": []
+            },
+            {
+              "level": 10,
+              "gold": 61251100,
+              "food": 20417000,
+              "iron": 20417000,
+              "valor": 700,
+              "requirements": []
+            }
+          ]
+        }
+      ],
+      "connections": [
+        {
+          "from": "defense-fortifications",
+          "to": [
+            "infirmary-expansion-1",
+            "efficient-healing"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "row-4",
+      "elements": [
+        {
+          "id": "infirmary-expansion-1",
+          "name": "Infirmary Expansion I",
+          "image": "/images/tech/defense-fortifications/infirmary-expansion-1.png",
+          "maxLevel": 10,
+          "currentLevel": 0,
+          "levels": [
+            {
+              "level": 1,
+              "gold": 61251100,
+              "food": 20417000,
+              "iron": 20417000,
+              "valor": 700,
+              "requirements": [
+                {
+                  "elementId": "defense-fortifications",
+                  "minLevel": 7
+                }
+              ]
+            },
+            {
+              "level": 2,
+              "gold": 61251100,
+              "food": 20417000,
+              "iron": 20417000,
+              "valor": 700,
+              "requirements": []
+            },
+            {
+              "level": 3,
+              "gold": 61251100,
+              "food": 20417000,
+              "iron": 20417000,
+              "valor": 700,
+              "requirements": []
+            },
+            {
+              "level": 4,
+              "gold": 76563900,
+              "food": 25521300,
+              "iron": 25521300,
+              "valor": 900,
+              "requirements": []
+            },
+            {
+              "level": 5,
+              "gold": 76563900,
+              "food": 25521300,
+              "iron": 25521300,
+              "valor": 900,
+              "requirements": []
+            },
+            {
+              "level": 6,
+              "gold": 76563900,
+              "food": 25521300,
+              "iron": 25521300,
+              "valor": 900,
+              "requirements": []
+            },
+            {
+              "level": 7,
+              "gold": 95704900,
+              "food": 31901600,
+              "iron": 31901600,
+              "valor": 1100,
+              "requirements": []
+            },
+            {
+              "level": 8,
+              "gold": 95704900,
+              "food": 31901600,
+              "iron": 31901600,
+              "valor": 1100,
+              "requirements": []
+            },
+            {
+              "level": 9,
+              "gold": 95704900,
+              "food": 31901600,
+              "iron": 31901600,
+              "valor": 1100,
+              "requirements": []
+            },
+            {
+              "level": 10,
+              "gold": 95704900,
+              "food": 31901600,
+              "iron": 31901600,
+              "valor": 1100,
+              "requirements": []
+            }
+          ]
+        },
+        {
+          "id": "efficient-healing",
+          "name": "Efficient Healing",
+          "image": "/images/tech/defense-fortifications/efficient-healing.png",
+          "maxLevel": 10,
+          "currentLevel": 0,
+          "levels": [
+            {
+              "level": 1,
+              "gold": 61251100,
+              "food": 20417000,
+              "iron": 20417000,
+              "valor": 700,
+              "requirements": [
+                {
+                  "elementId": "defense-fortifications",
+                  "minLevel": 7
+                }
+              ]
+            },
+            {
+              "level": 2,
+              "gold": 61251100,
+              "food": 20417000,
+              "iron": 20417000,
+              "valor": 700,
+              "requirements": []
+            },
+            {
+              "level": 3,
+              "gold": 61251100,
+              "food": 20417000,
+              "iron": 20417000,
+              "valor": 700,
+              "requirements": []
+            },
+            {
+              "level": 4,
+              "gold": 76563900,
+              "food": 25521300,
+              "iron": 25521300,
+              "valor": 900,
+              "requirements": []
+            },
+            {
+              "level": 5,
+              "gold": 76563900,
+              "food": 25521300,
+              "iron": 25521300,
+              "valor": 900,
+              "requirements": []
+            },
+            {
+              "level": 6,
+              "gold": 76563900,
+              "food": 25521300,
+              "iron": 25521300,
+              "valor": 900,
+              "requirements": []
+            },
+            {
+              "level": 7,
+              "gold": 95704900,
+              "food": 31901600,
+              "iron": 31901600,
+              "valor": 1100,
+              "requirements": []
+            },
+            {
+              "level": 8,
+              "gold": 95704900,
+              "food": 31901600,
+              "iron": 31901600,
+              "valor": 1100,
+              "requirements": []
+            },
+            {
+              "level": 9,
+              "gold": 95704900,
+              "food": 31901600,
+              "iron": 31901600,
+              "valor": 1100,
+              "requirements": []
+            },
+            {
+              "level": 10,
+              "gold": 95704900,
+              "food": 31901600,
+              "iron": 31901600,
+              "valor": 1100,
+              "requirements": []
+            }
+          ]
+        }
+      ],
+      "connections": [
+        {
+          "from": "infirmary-expansion-1",
+          "to": [
+            "hold-the-line-2",
+            "counter-defense-2",
+            "solid-defense-2"
+          ]
+        },
+        {
+          "from": "efficient-healing",
+          "to": [
+            "hold-the-line-2",
+            "counter-defense-2",
+            "solid-defense-2"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "row-5",
+      "elements": [
+        {
+          "id": "hold-the-line-2",
+          "name": "Hold the Line II",
+          "image": "/images/tech/defense-fortifications/hold-the-line-2.png",
+          "maxLevel": 10,
+          "currentLevel": 0,
+          "levels": [
+            {
+              "level": 1,
+              "gold": 61251100,
+              "food": 20417000,
+              "iron": 20417000,
+              "valor": 700,
+              "requirements": [
+                {
+                  "elementId": "infirmary-expansion-1",
+                  "minLevel": 1
+                },
+                {
+                  "elementId": "efficient-healing",
+                  "minLevel": 1
+                }
+              ]
+            },
+            {
+              "level": 2,
+              "gold": 61251100,
+              "food": 20417000,
+              "iron": 20417000,
+              "valor": 700,
+              "requirements": []
+            },
+            {
+              "level": 3,
+              "gold": 61251100,
+              "food": 20417000,
+              "iron": 20417000,
+              "valor": 700,
+              "requirements": []
+            },
+            {
+              "level": 4,
+              "gold": 76563900,
+              "food": 25521300,
+              "iron": 25521300,
+              "valor": 900,
+              "requirements": []
+            },
+            {
+              "level": 5,
+              "gold": 76563900,
+              "food": 25521300,
+              "iron": 25521300,
+              "valor": 900,
+              "requirements": []
+            },
+            {
+              "level": 6,
+              "gold": 76563900,
+              "food": 25521300,
+              "iron": 25521300,
+              "valor": 900,
+              "requirements": []
+            },
+            {
+              "level": 7,
+              "gold": 95704900,
+              "food": 31901600,
+              "iron": 31901600,
+              "valor": 1100,
+              "requirements": []
+            },
+            {
+              "level": 8,
+              "gold": 95704900,
+              "food": 31901600,
+              "iron": 31901600,
+              "valor": 1100,
+              "requirements": []
+            },
+            {
+              "level": 9,
+              "gold": 95704900,
+              "food": 31901600,
+              "iron": 31901600,
+              "valor": 1100,
+              "requirements": []
+            },
+            {
+              "level": 10,
+              "gold": 95704900,
+              "food": 31901600,
+              "iron": 31901600,
+              "valor": 1100,
+              "requirements": []
+            }
+          ]
+        },
+        {
+          "id": "counter-defense-2",
+          "name": "Counter Defense II",
+          "image": "/images/tech/defense-fortifications/counter-defense-2.png",
+          "maxLevel": 10,
+          "currentLevel": 0,
+          "levels": [
+            {
+              "level": 1,
+              "gold": 61251100,
+              "food": 20417000,
+              "iron": 20417000,
+              "valor": 700,
+              "requirements": [
+                {
+                  "elementId": "infirmary-expansion-1",
+                  "minLevel": 1
+                },
+                {
+                  "elementId": "efficient-healing",
+                  "minLevel": 1
+                }
+              ]
+            },
+            {
+              "level": 2,
+              "gold": 61251100,
+              "food": 20417000,
+              "iron": 20417000,
+              "valor": 700,
+              "requirements": []
+            },
+            {
+              "level": 3,
+              "gold": 61251100,
+              "food": 20417000,
+              "iron": 20417000,
+              "valor": 700,
+              "requirements": []
+            },
+            {
+              "level": 4,
+              "gold": 76563900,
+              "food": 25521300,
+              "iron": 25521300,
+              "valor": 900,
+              "requirements": []
+            },
+            {
+              "level": 5,
+              "gold": 76563900,
+              "food": 25521300,
+              "iron": 25521300,
+              "valor": 900,
+              "requirements": []
+            },
+            {
+              "level": 6,
+              "gold": 76563900,
+              "food": 25521300,
+              "iron": 25521300,
+              "valor": 900,
+              "requirements": []
+            },
+            {
+              "level": 7,
+              "gold": 95704900,
+              "food": 31901600,
+              "iron": 31901600,
+              "valor": 1100,
+              "requirements": []
+            },
+            {
+              "level": 8,
+              "gold": 95704900,
+              "food": 31901600,
+              "iron": 31901600,
+              "valor": 1100,
+              "requirements": []
+            },
+            {
+              "level": 9,
+              "gold": 95704900,
+              "food": 31901600,
+              "iron": 31901600,
+              "valor": 1100,
+              "requirements": []
+            },
+            {
+              "level": 10,
+              "gold": 95704900,
+              "food": 31901600,
+              "iron": 31901600,
+              "valor": 1100,
+              "requirements": []
+            }
+          ]
+        },
+        {
+          "id": "solid-defense-2",
+          "name": "Solid Defense II",
+          "image": "/images/tech/defense-fortifications/solid-defense-2.png",
+          "maxLevel": 10,
+          "currentLevel": 0,
+          "levels": [
+            {
+              "level": 1,
+              "gold": 61251100,
+              "food": 20417000,
+              "iron": 20417000,
+              "valor": 700,
+              "requirements": [
+                {
+                  "elementId": "infirmary-expansion-1",
+                  "minLevel": 1
+                },
+                {
+                  "elementId": "efficient-healing",
+                  "minLevel": 1
+                }
+              ]
+            },
+            {
+              "level": 2,
+              "gold": 61251100,
+              "food": 20417000,
+              "iron": 20417000,
+              "valor": 700,
+              "requirements": []
+            },
+            {
+              "level": 3,
+              "gold": 61251100,
+              "food": 20417000,
+              "iron": 20417000,
+              "valor": 700,
+              "requirements": []
+            },
+            {
+              "level": 4,
+              "gold": 76563900,
+              "food": 25521300,
+              "iron": 25521300,
+              "valor": 900,
+              "requirements": []
+            },
+            {
+              "level": 5,
+              "gold": 76563900,
+              "food": 25521300,
+              "iron": 25521300,
+              "valor": 900,
+              "requirements": []
+            },
+            {
+              "level": 6,
+              "gold": 76563900,
+              "food": 25521300,
+              "iron": 25521300,
+              "valor": 900,
+              "requirements": []
+            },
+            {
+              "level": 7,
+              "gold": 95704900,
+              "food": 31901600,
+              "iron": 31901600,
+              "valor": 1100,
+              "requirements": []
+            },
+            {
+              "level": 8,
+              "gold": 95704900,
+              "food": 31901600,
+              "iron": 31901600,
+              "valor": 1100,
+              "requirements": []
+            },
+            {
+              "level": 9,
+              "gold": 95704900,
+              "food": 31901600,
+              "iron": 31901600,
+              "valor": 1100,
+              "requirements": []
+            },
+            {
+              "level": 10,
+              "gold": 95704900,
+              "food": 31901600,
+              "iron": 31901600,
+              "valor": 1100,
+              "requirements": []
+            }
+          ]
+        }
+      ],
+      "connections": [
+        {
+          "from": "hold-the-line-2",
+          "to": [
+            "resource-protection"
+          ]
+        },
+        {
+          "from": "counter-defense-2",
+          "to": [
+            "resource-protection"
+          ]
+        },
+        {
+          "from": "solid-defense-2",
+          "to": [
+            "resource-protection"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "row-6",
+      "elements": [
+        {
+          "id": "resource-protection",
+          "name": "Resource Protection",
+          "image": "/images/tech/defense-fortifications/resource-protection.png",
+          "maxLevel": 10,
+          "currentLevel": 0,
+          "levels": [
+            {
+              "level": 1,
+              "gold": 76563900,
+              "food": 25521300,
+              "iron": 25521300,
+              "valor": 900,
+              "requirements": [
+                {
+                  "elementId": "hold-the-line-2",
+                  "minLevel": 6
+                },
+                {
+                  "elementId": "counter-defense-2",
+                  "minLevel": 6
+                },
+                {
+                  "elementId": "solid-defense-2",
+                  "minLevel": 6
+                }
+              ]
+            },
+            {
+              "level": 2,
+              "gold": 76563900,
+              "food": 25521300,
+              "iron": 25521300,
+              "valor": 900,
+              "requirements": []
+            },
+            {
+              "level": 3,
+              "gold": 76563900,
+              "food": 25521300,
+              "iron": 25521300,
+              "valor": 900,
+              "requirements": []
+            },
+            {
+              "level": 4,
+              "gold": 95704900,
+              "food": 31901600,
+              "iron": 31901600,
+              "valor": 1100,
+              "requirements": []
+            },
+            {
+              "level": 5,
+              "gold": 95704900,
+              "food": 31901600,
+              "iron": 31901600,
+              "valor": 1100,
+              "requirements": []
+            },
+            {
+              "level": 6,
+              "gold": 95704900,
+              "food": 31901600,
+              "iron": 31901600,
+              "valor": 1100,
+              "requirements": []
+            },
+            {
+              "level": 7,
+              "gold": 227777700,
+              "food": 75925900,
+              "iron": 75925900,
+              "valor": 2550,
+              "requirements": []
+            },
+            {
+              "level": 8,
+              "gold": 227777700,
+              "food": 75925900,
+              "iron": 75925900,
+              "valor": 2550,
+              "requirements": []
+            },
+            {
+              "level": 9,
+              "gold": 227777700,
+              "food": 75925900,
+              "iron": 75925900,
+              "valor": 2550,
+              "requirements": []
+            },
+            {
+              "level": 10,
+              "gold": 227777700,
+              "food": 75925900,
+              "iron": 75925900,
+              "valor": 2550,
+              "requirements": []
+            }
+          ]
+        }
+      ],
+      "connections": [
+        {
+          "from": "resource-protection",
+          "to": [
+            "rapid-march-1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "row-7",
+      "elements": [
+        {
+          "id": "rapid-march-1",
+          "name": "Rapid March I",
+          "image": "/images/tech/defense-fortifications/rapid-march-1.png",
+          "maxLevel": 10,
+          "currentLevel": 0,
+          "levels": [
+            {
+              "level": 1,
+              "gold": 76563900,
+              "food": 25521300,
+              "iron": 25521300,
+              "valor": 900,
+              "requirements": [
+                {
+                  "elementId": "resource-protection",
+                  "minLevel": 1
+                }
+              ]
+            },
+            {
+              "level": 2,
+              "gold": 76563900,
+              "food": 25521300,
+              "iron": 25521300,
+              "valor": 900,
+              "requirements": []
+            },
+            {
+              "level": 3,
+              "gold": 76563900,
+              "food": 25521300,
+              "iron": 25521300,
+              "valor": 900,
+              "requirements": []
+            },
+            {
+              "level": 4,
+              "gold": 95704900,
+              "food": 31901600,
+              "iron": 31901600,
+              "valor": 1100,
+              "requirements": []
+            },
+            {
+              "level": 5,
+              "gold": 95704900,
+              "food": 31901600,
+              "iron": 31901600,
+              "valor": 1100,
+              "requirements": []
+            },
+            {
+              "level": 6,
+              "gold": 95704900,
+              "food": 31901600,
+              "iron": 31901600,
+              "valor": 1100,
+              "requirements": []
+            },
+            {
+              "level": 7,
+              "gold": 227777700,
+              "food": 75925900,
+              "iron": 75925900,
+              "valor": 2550,
+              "requirements": []
+            },
+            {
+              "level": 8,
+              "gold": 227777700,
+              "food": 75925900,
+              "iron": 75925900,
+              "valor": 2550,
+              "requirements": []
+            },
+            {
+              "level": 9,
+              "gold": 227777700,
+              "food": 75925900,
+              "iron": 75925900,
+              "valor": 2550,
+              "requirements": []
+            },
+            {
+              "level": 10,
+              "gold": 227777700,
+              "food": 75925900,
+              "iron": 75925900,
+              "valor": 2550,
+              "requirements": []
+            }
+          ]
+        }
+      ],
+      "connections": [
+        {
+          "from": "rapid-march-1",
+          "to": [
+            "hold-the-line-3",
+            "counter-defense-3",
+            "solid-defense-3"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "row-8",
+      "elements": [
+        {
+          "id": "hold-the-line-3",
+          "name": "Hold the Line III",
+          "image": "/images/tech/defense-fortifications/hold-the-line-3.png",
+          "maxLevel": 10,
+          "currentLevel": 0,
+          "levels": [
+            {
+              "level": 1,
+              "gold": 95704900,
+              "food": 31901600,
+              "iron": 31901600,
+              "valor": 1100,
+              "requirements": [
+                {
+                  "elementId": "rapid-march-1",
+                  "minLevel": 4
+                }
+              ]
+            },
+            {
+              "level": 2,
+              "gold": 95704900,
+              "food": 31901600,
+              "iron": 31901600,
+              "valor": 1100,
+              "requirements": []
+            },
+            {
+              "level": 3,
+              "gold": 95704900,
+              "food": 31901600,
+              "iron": 31901600,
+              "valor": 1100,
+              "requirements": []
+            },
+            {
+              "level": 4,
+              "gold": 162698400,
+              "food": 54232800,
+              "iron": 54232800,
+              "valor": 1850,
+              "requirements": []
+            },
+            {
+              "level": 5,
+              "gold": 162698400,
+              "food": 54232800,
+              "iron": 54232800,
+              "valor": 1850,
+              "requirements": []
+            },
+            {
+              "level": 6,
+              "gold": 162698400,
+              "food": 54232800,
+              "iron": 54232800,
+              "valor": 1850,
+              "requirements": []
+            },
+            {
+              "level": 7,
+              "gold": 227777700,
+              "food": 75925900,
+              "iron": 75925900,
+              "valor": 2550,
+              "requirements": []
+            },
+            {
+              "level": 8,
+              "gold": 227777700,
+              "food": 75925900,
+              "iron": 75925900,
+              "valor": 2550,
+              "requirements": []
+            },
+            {
+              "level": 9,
+              "gold": 227777700,
+              "food": 75925900,
+              "iron": 75925900,
+              "valor": 2550,
+              "requirements": []
+            },
+            {
+              "level": 10,
+              "gold": 227777700,
+              "food": 75925900,
+              "iron": 75925900,
+              "valor": 2550,
+              "requirements": []
+            }
+          ]
+        },
+        {
+          "id": "counter-defense-3",
+          "name": "Counter Defense III",
+          "image": "/images/tech/defense-fortifications/counter-defense-3.png",
+          "maxLevel": 10,
+          "currentLevel": 0,
+          "levels": [
+            {
+              "level": 1,
+              "gold": 95704900,
+              "food": 31901600,
+              "iron": 31901600,
+              "valor": 1100,
+              "requirements": [
+                {
+                  "elementId": "rapid-march-1",
+                  "minLevel": 4
+                }
+              ]
+            },
+            {
+              "level": 2,
+              "gold": 95704900,
+              "food": 31901600,
+              "iron": 31901600,
+              "valor": 1100,
+              "requirements": []
+            },
+            {
+              "level": 3,
+              "gold": 95704900,
+              "food": 31901600,
+              "iron": 31901600,
+              "valor": 1100,
+              "requirements": []
+            },
+            {
+              "level": 4,
+              "gold": 162698400,
+              "food": 54232800,
+              "iron": 54232800,
+              "valor": 1850,
+              "requirements": []
+            },
+            {
+              "level": 5,
+              "gold": 162698400,
+              "food": 54232800,
+              "iron": 54232800,
+              "valor": 1850,
+              "requirements": []
+            },
+            {
+              "level": 6,
+              "gold": 162698400,
+              "food": 54232800,
+              "iron": 54232800,
+              "valor": 1850,
+              "requirements": []
+            },
+            {
+              "level": 7,
+              "gold": 227777700,
+              "food": 75925900,
+              "iron": 75925900,
+              "valor": 2550,
+              "requirements": []
+            },
+            {
+              "level": 8,
+              "gold": 227777700,
+              "food": 75925900,
+              "iron": 75925900,
+              "valor": 2550,
+              "requirements": []
+            },
+            {
+              "level": 9,
+              "gold": 227777700,
+              "food": 75925900,
+              "iron": 75925900,
+              "valor": 2550,
+              "requirements": []
+            },
+            {
+              "level": 10,
+              "gold": 227777700,
+              "food": 75925900,
+              "iron": 75925900,
+              "valor": 2550,
+              "requirements": []
+            }
+          ]
+        },
+        {
+          "id": "solid-defense-3",
+          "name": "Solid Defense III",
+          "image": "/images/tech/defense-fortifications/solid-defense-3.png",
+          "maxLevel": 10,
+          "currentLevel": 0,
+          "levels": [
+            {
+              "level": 1,
+              "gold": 95704900,
+              "food": 31901600,
+              "iron": 31901600,
+              "valor": 1100,
+              "requirements": [
+                {
+                  "elementId": "rapid-march-1",
+                  "minLevel": 4
+                }
+              ]
+            },
+            {
+              "level": 2,
+              "gold": 95704900,
+              "food": 31901600,
+              "iron": 31901600,
+              "valor": 1100,
+              "requirements": []
+            },
+            {
+              "level": 3,
+              "gold": 95704900,
+              "food": 31901600,
+              "iron": 31901600,
+              "valor": 1100,
+              "requirements": []
+            },
+            {
+              "level": 4,
+              "gold": 162698400,
+              "food": 54232800,
+              "iron": 54232800,
+              "valor": 1850,
+              "requirements": []
+            },
+            {
+              "level": 5,
+              "gold": 162698400,
+              "food": 54232800,
+              "iron": 54232800,
+              "valor": 1850,
+              "requirements": []
+            },
+            {
+              "level": 6,
+              "gold": 162698400,
+              "food": 54232800,
+              "iron": 54232800,
+              "valor": 1850,
+              "requirements": []
+            },
+            {
+              "level": 7,
+              "gold": 227777700,
+              "food": 75925900,
+              "iron": 75925900,
+              "valor": 2550,
+              "requirements": []
+            },
+            {
+              "level": 8,
+              "gold": 227777700,
+              "food": 75925900,
+              "iron": 75925900,
+              "valor": 2550,
+              "requirements": []
+            },
+            {
+              "level": 9,
+              "gold": 227777700,
+              "food": 75925900,
+              "iron": 75925900,
+              "valor": 2550,
+              "requirements": []
+            },
+            {
+              "level": 10,
+              "gold": 227777700,
+              "food": 75925900,
+              "iron": 75925900,
+              "valor": 2550,
+              "requirements": []
+            }
+          ]
+        }
+      ],
+      "connections": [
+        {
+          "from": "hold-the-line-3",
+          "to": [
+            "survival-skills"
+          ]
+        },
+        {
+          "from": "counter-defense-3",
+          "to": [
+            "survival-skills"
+          ]
+        },
+        {
+          "from": "solid-defense-3",
+          "to": [
+            "survival-skills"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "row-9",
+      "elements": [
+        {
+          "id": "survival-skills",
+          "name": "Survival Skills",
+          "image": "/images/tech/defense-fortifications/survival-skills.png",
+          "maxLevel": 10,
+          "currentLevel": 0,
+          "levels": [
+            {
+              "level": 1,
+              "gold": 95704900,
+              "food": 31901600,
+              "iron": 31901600,
+              "valor": 1100,
+              "requirements": [
+                {
+                  "elementId": "hold-the-line-3",
+                  "minLevel": 1
+                },
+                {
+                  "elementId": "counter-defense-3",
+                  "minLevel": 1
+                },
+                {
+                  "elementId": "solid-defense-3",
+                  "minLevel": 1
+                }
+              ]
+            },
+            {
+              "level": 2,
+              "gold": 95704900,
+              "food": 31901600,
+              "iron": 31901600,
+              "valor": 1100,
+              "requirements": []
+            },
+            {
+              "level": 3,
+              "gold": 95704900,
+              "food": 31901600,
+              "iron": 31901600,
+              "valor": 1100,
+              "requirements": []
+            },
+            {
+              "level": 4,
+              "gold": 162698400,
+              "food": 54232800,
+              "iron": 54232800,
+              "valor": 1850,
+              "requirements": []
+            },
+            {
+              "level": 5,
+              "gold": 162698400,
+              "food": 54232800,
+              "iron": 54232800,
+              "valor": 1850,
+              "requirements": []
+            },
+            {
+              "level": 6,
+              "gold": 162698400,
+              "food": 54232800,
+              "iron": 54232800,
+              "valor": 1850,
+              "requirements": []
+            },
+            {
+              "level": 7,
+              "gold": 227777700,
+              "food": 75925900,
+              "iron": 75925900,
+              "valor": 2550,
+              "requirements": []
+            },
+            {
+              "level": 8,
+              "gold": 227777700,
+              "food": 75925900,
+              "iron": 75925900,
+              "valor": 2550,
+              "requirements": []
+            },
+            {
+              "level": 9,
+              "gold": 227777700,
+              "food": 75925900,
+              "iron": 75925900,
+              "valor": 2550,
+              "requirements": []
+            },
+            {
+              "level": 10,
+              "gold": 227777700,
+              "food": 75925900,
+              "iron": 75925900,
+              "valor": 2550,
+              "requirements": []
+            }
+          ]
+        }
+      ],
+      "connections": []
+    }
+  ]
+}

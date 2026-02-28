@@ -1,0 +1,6 @@
+# Personal progress data — never push
+research_trees.csv
+validate_path*.py
+__pycache__/
+*.pyc
+

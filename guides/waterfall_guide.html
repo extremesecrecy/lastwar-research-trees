@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Waterfall Training Method - OWOW</title>
+<style>
+  @font-face {
+    font-family: 'DKCrayonCrumble';
+    src: url('DKCrayonCrumble.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+  }
+  /* HCI Brand: Orange #f4a261, Cyan #5bc0de, Yellow #f4d35e, Teal #7fb3a8, Dark #5a6a6a, Text #333 */
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: 'DKCrayonCrumble', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: #fff;
+    color: #333;
+    padding: 6px 10px;
+    height: 100vh;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* Header */
+  .top-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 4px;
+    flex-shrink: 0;
+  }
+  .top-bar h1 { font-size: 22px; letter-spacing: 1px; text-transform: uppercase; color: #5a6a6a; }
+  .top-bar .sub { font-size: 15px; color: #888; }
+  .alliance {
+    background: #e8f4f1;
+    border: 1px solid #7fb3a8;
+    border-radius: 5px;
+    padding: 2px 10px;
+    text-align: right;
+  }
+  .alliance .name { font-size: 19px; font-weight: 800; color: #5a6a6a; }
+  .alliance .info { font-size: 15px; color: #666; }
+
+  /* Section labels */
+  .section-label {
+    font-size: 17px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: #5a6a6a;
+    margin: 4px 0 3px 0;
+    padding-bottom: 2px;
+    border-bottom: 2px solid #7fb3a8;
+  }
+
+  /* Cards */
+  .card {
+    border-radius: 5px;
+    padding: 5px 8px;
+    font-size: 16px;
+    line-height: 1.3;
+  }
+  .c-prep { background: #e8f5e9; border: 2px solid #43a047; }
+  .c-low { background: #fafafa; border: 1px solid #ccc; }
+  .c-med { background: #e4f3f8; border: 2px solid #5bc0de; }
+  .c-high { background: #fef3e2; border: 2px solid #f4a261; }
+  .c-crit { background: #fce4ec; border: 2px solid #e53935; }
+  .c-teal { background: #e8f4f1; border: 2px solid #7fb3a8; }
+  .c-yellow { background: #fdf8e8; border: 2px solid #f4d35e; }
+
+  .card-title { font-size: 17px; font-weight: 800; margin-bottom: 2px; }
+  .ct-dark { color: #5a6a6a; }
+  .ct-green { color: #2e7d32; }
+  .ct-orange { color: #c47a30; }
+  .ct-red { color: #c62828; }
+  .ct-cyan { color: #2a8fa8; }
+  .ct-teal { color: #5a8a7e; }
+
+  .tag {
+    display: inline-block;
+    font-size: 13px;
+    padding: 0 5px;
+    border-radius: 3px;
+    font-weight: 700;
+    color: #fff;
+    vertical-align: middle;
+  }
+  .t-red { background: #e53935; }
+  .t-ora { background: #f4a261; }
+  .t-teal { background: #7fb3a8; }
+  .t-cyan { background: #5bc0de; }
+  .t-grn { background: #2e7d32; }
+  .t-dark { background: #5a6a6a; }
+  .t-yellow { background: #d4a017; }
+
+  /* Main layout: 3-column */
+  .main-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 6px;
+    flex: 1;
+    min-height: 0;
+  }
+  .col { display: flex; flex-direction: column; gap: 4px; min-height: 0; }
+
+  /* Tables */
+  table.levels { width: 100%; border-collapse: collapse; font-size: 15px; }
+  table.levels th { background: #5a6a6a; color: #fff; padding: 2px 4px; font-size: 13px; text-transform: uppercase; letter-spacing: 0.2px; white-space: nowrap; }
+  table.levels td { padding: 2px 4px; text-align: center; border-bottom: 1px solid #e8e8e8; }
+  table.levels tr:nth-child(even) { background: #f5f8f7; }
+  table.levels .col-level { font-weight: 700; }
+  .hl-cyan { color: #2a8fa8; font-weight: 700; }
+  .hl-teal { color: #5a8a7e; font-weight: 700; }
+  .hl-green { color: #2e7d32; font-weight: 600; }
+  .hl-ora { color: #c47a30; font-weight: 700; }
+  .hl-red { color: #c62828; font-weight: 700; }
+
+  /* Formula */
+  .formula {
+    font-family: 'Consolas', 'Courier New', monospace;
+    background: #fff;
+    padding: 1px 5px;
+    border-radius: 3px;
+    display: inline-block;
+    margin: 1px 0;
+    border: 1px solid #ddd;
+    font-size: 14px;
+  }
+
+  /* Step circles */
+  .step-circle {
+    background: #5a6a6a;
+    color: #fff;
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 800;
+    font-size: 14px;
+    flex-shrink: 0;
+  }
+
+  /* Rules */
+  .rule-list { list-style: none; font-size: 15px; line-height: 1.4; }
+  .rule-list li { padding: 0 0 1px 14px; position: relative; }
+  .rule-list li::before { content: ''; position: absolute; left: 0; top: 6px; width: 6px; height: 6px; border-radius: 50%; }
+  .c-prep .rule-list li::before { background: #43a047; }
+  .c-crit .rule-list li::before { background: #e53935; }
+
+  /* Waterfall flow */
+  .wf-flow { display: flex; align-items: center; justify-content: center; gap: 3px; margin: 3px 0; }
+  .wf-box {
+    border-radius: 5px;
+    padding: 3px 6px;
+    text-align: center;
+    min-width: 68px;
+    font-weight: 700;
+  }
+  .wf-arrow { font-size: 20px; color: #5a6a6a; font-weight: 900; }
+
+  /* Barracks visual */
+  .barracks-row { display: flex; gap: 4px; margin: 3px 0; }
+  .barracks-box {
+    flex: 1;
+    border-radius: 5px;
+    padding: 4px;
+    text-align: center;
+  }
+  .barracks-box .bk-label { font-size: 12px; text-transform: uppercase; font-weight: 700; color: #666; }
+  .barracks-box .bk-level { font-size: 20px; font-weight: 900; }
+  .barracks-box .bk-tier { font-size: 13px; font-weight: 700; }
+
+  /* Multiplier stack */
+  .mult-row { display: flex; align-items: center; gap: 4px; justify-content: center; margin: 2px 0; }
+  .mult-box {
+    border-radius: 5px;
+    padding: 3px 8px;
+    text-align: center;
+    font-weight: 800;
+  }
+  .mult-x { font-size: 18px; color: #5a6a6a; font-weight: 900; }
+  .mult-eq { font-size: 20px; color: #c62828; font-weight: 900; }
+
+  /* Comparison */
+  .comp-grid { display: grid; grid-template-columns: 1fr auto 1fr; gap: 4px; align-items: stretch; }
+  .comp-vs { display: flex; align-items: center; justify-content: center; font-size: 22px; font-weight: 900; color: #5a6a6a; }
+
+  /* Footer */
+  .footer { text-align: center; font-size: 14px; color: #999; padding: 3px; border-top: 1px solid #e0e0e0; flex-shrink: 0; }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="top-bar">
+  <div>
+    <h1>Waterfall Training Method</h1>
+    <div class="sub">Friday's Secret Weapon &mdash; 3.3x More Points Per Troop</div>
+  </div>
+  <img src="crayon.png" alt="Crayola" style="height:30px;">
+  <div class="alliance">
+    <div class="name">[OWOW] Old World Order</div>
+    <div class="info">Last War: Survival</div>
+  </div>
+</div>
+
+<!-- MAIN 3-COLUMN LAYOUT -->
+<div class="main-grid">
+
+  <!-- ======================== COLUMN 1: Understanding the System ======================== -->
+  <div class="col">
+    <div class="section-label">What Is the Waterfall?</div>
+    <div class="card c-med">
+      <div class="card-title ct-cyan">Train Low, Upgrade Through Each Barracks</div>
+      <div style="font-size:15px; margin-bottom:3px;">Instead of training T8 directly, train T5 cheap &amp; fast, then <b>upgrade</b> through each barracks tier. Every upgrade scores the same points as fresh training!</div>
+      <div class="wf-flow">
+        <div class="wf-box" style="background:#e8f5e9; border:2px solid #43a047;">
+          <div style="font-size:12px; color:#2e7d32;">Barracks A</div>
+          <div style="font-size:16px; color:#2e7d32;">Train T5</div>
+          <div style="font-size:11px; color:#666;">Lv 14</div>
+        </div>
+        <div class="wf-arrow">&#8594;</div>
+        <div class="wf-box" style="background:#e4f3f8; border:2px solid #5bc0de;">
+          <div style="font-size:12px; color:#2a8fa8;">Barracks B</div>
+          <div style="font-size:16px; color:#2a8fa8;">&#8593; T6</div>
+          <div style="font-size:11px; color:#666;">Lv 17</div>
+        </div>
+        <div class="wf-arrow">&#8594;</div>
+        <div class="wf-box" style="background:#fef3e2; border:2px solid #f4a261;">
+          <div style="font-size:12px; color:#c47a30;">Barracks C</div>
+          <div style="font-size:16px; color:#c47a30;">&#8593; T7</div>
+          <div style="font-size:11px; color:#666;">Lv 20</div>
+        </div>
+        <div class="wf-arrow">&#8594;</div>
+        <div class="wf-box" style="background:#fce4ec; border:2px solid #e53935;">
+          <div style="font-size:12px; color:#c62828;">Barracks D</div>
+          <div style="font-size:16px; color:#c62828;">&#8593; T8</div>
+          <div style="font-size:11px; color:#666;">Lv 24</div>
+        </div>
+      </div>
+      <div style="font-size:14px; color:#666; text-align:center;">Each step = points! 4 steps &gt; 1 direct training</div>
+    </div>
+
+    <div class="section-label">Barracks Stagger Setup</div>
+    <div class="card c-teal" style="padding:5px 8px;">
+      <div class="card-title ct-teal" style="font-size:16px;">Target: One Barracks Per Tier</div>
+      <div class="barracks-row">
+        <div class="barracks-box" style="background:#e8f5e9; border:2px solid #43a047;">
+          <div class="bk-label">Barracks A</div>
+          <div class="bk-level" style="color:#2e7d32;">Lv 14</div>
+          <div class="bk-tier" style="color:#2e7d32;">T5 Factory</div>
+        </div>
+        <div class="barracks-box" style="background:#e4f3f8; border:2px solid #5bc0de;">
+          <div class="bk-label">Barracks B</div>
+          <div class="bk-level" style="color:#2a8fa8;">Lv 17</div>
+          <div class="bk-tier" style="color:#2a8fa8;">T5&#8594;T6</div>
+        </div>
+        <div class="barracks-box" style="background:#fef3e2; border:2px solid #f4a261;">
+          <div class="bk-label">Barracks C</div>
+          <div class="bk-level" style="color:#c47a30;">Lv 20</div>
+          <div class="bk-tier" style="color:#c47a30;">T6&#8594;T7</div>
+        </div>
+        <div class="barracks-box" style="background:#fce4ec; border:2px solid #e53935;">
+          <div class="bk-label">Barracks D</div>
+          <div class="bk-level" style="color:#c62828;">Lv 24</div>
+          <div class="bk-tier" style="color:#c62828;">T7&#8594;T8</div>
+        </div>
+      </div>
+      <div style="font-size:14px; color:#666; text-align:center;">Keep one barracks at each tier unlock level &mdash; don't over-upgrade!</div>
+    </div>
+
+    <div class="section-label">Troop Tier Unlock Table</div>
+    <table class="levels">
+      <thead>
+        <tr>
+          <th>Tier</th>
+          <th>Barracks Lv</th>
+          <th>Build Time</th>
+          <th>Food + Iron</th>
+          <th>Gold</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td class="col-level hl-green">T5</td><td>14</td><td class="hl-teal">12h 10m</td><td>2.4M ea</td><td>980K</td></tr>
+        <tr><td class="col-level hl-cyan">T6</td><td>17</td><td class="hl-teal">1d 9h</td><td>7.9M ea</td><td>3.2M</td></tr>
+        <tr><td class="col-level hl-ora">T7</td><td>20</td><td class="hl-teal">3d 20h</td><td>30M ea</td><td>12M</td></tr>
+        <tr><td class="col-level hl-red">T8</td><td>24</td><td class="hl-teal">11d 18h</td><td>85M ea</td><td>34M</td></tr>
+        <tr><td class="col-level" style="color:#8e24aa;">T9</td><td>27</td><td class="hl-teal">32d 5h</td><td>260M ea</td><td>110M</td></tr>
+        <tr><td class="col-level" style="color:#8e24aa;">T10</td><td>30</td><td class="hl-teal">76d 6h</td><td>720M ea</td><td>290M</td></tr>
+      </tbody>
+    </table>
+    <div style="font-size:13px; color:#888; text-align:center;">Build times shown are raw (before speed buffs). Costs = per level, not cumulative.</div>
+
+    <div class="section-label">How to Unlock All 4 Barracks</div>
+    <div class="card c-low" style="font-size:15px;">
+      <div style="display:grid; grid-template-columns:auto 1fr; gap:2px 6px;">
+        <span class="tag t-dark">1st</span><div>Starting barracks &mdash; everyone has it from HQ 1</div>
+        <span class="tag t-dark">2nd</span><div>HQ level progression &mdash; unlocked early game</div>
+        <span class="tag t-cyan">3rd</span><div><b>Extra Barracks</b> research &mdash; Development Tree Row 10 (1.19M gold + 397K food/iron)</div>
+        <span class="tag t-ora">4th</span><div>HQ level progression or additional research node</div>
+      </div>
+      <div style="margin-top:3px; font-size:14px; color:#c47a30; font-weight:700;">All 4 barracks share the same per-level upgrade costs!</div>
+    </div>
+  </div>
+
+  <!-- ======================== COLUMN 2: The Strategy ======================== -->
+  <div class="col">
+    <div class="section-label">Point Scoring: Direct vs Waterfall</div>
+    <div class="comp-grid">
+      <div class="card c-crit" style="text-align:center;">
+        <div class="card-title ct-red" style="font-size:16px;">Direct Training</div>
+        <div style="font-size:14px; color:#666;">Train T8 in one step</div>
+        <div style="font-size:15px;">1 training event</div>
+        <div style="font-size:24px; font-weight:900; color:#c62828;">~220 pts</div>
+        <div style="font-size:13px; color:#666;">per troop</div>
+      </div>
+      <div class="comp-vs">VS</div>
+      <div class="card c-prep" style="text-align:center;">
+        <div class="card-title ct-green" style="font-size:16px;">Waterfall Method</div>
+        <div style="font-size:14px; color:#666;">T5&#8594;T6&#8594;T7&#8594;T8</div>
+        <div style="font-size:15px;">4 training events</div>
+        <div style="font-size:24px; font-weight:900; color:#2e7d32;">~735 pts</div>
+        <div style="font-size:13px; color:#666;">per troop</div>
+      </div>
+    </div>
+    <div style="text-align:center; font-size:16px; font-weight:700; color:#f4a261; margin:2px 0;">
+      Waterfall = <b style="color:#2e7d32;">3.3x more points</b> for the same troop!
+    </div>
+
+    <div class="section-label">Multiplier Stack (Why Friday is King)</div>
+    <div class="card c-yellow" style="padding:5px 8px;">
+      <div class="mult-row">
+        <div class="mult-box" style="background:#e8f5e9; border:2px solid #43a047; color:#2e7d32; font-size:16px;">Waterfall<br><span style="font-size:22px;">3.3x</span></div>
+        <div class="mult-x">&times;</div>
+        <div class="mult-box" style="background:#fef3e2; border:2px solid #f4a261; color:#c47a30; font-size:16px;">Friday<br><span style="font-size:22px;">4x</span></div>
+        <div class="mult-x">&times;</div>
+        <div class="mult-box" style="background:#e4f3f8; border:2px solid #5bc0de; color:#2a8fa8; font-size:16px;">Duel Expert<br><span style="font-size:22px;">2x</span></div>
+        <div class="mult-eq">=</div>
+        <div class="mult-box" style="background:#fce4ec; border:2px solid #e53935; color:#c62828; font-size:16px;">TOTAL<br><span style="font-size:26px;">26x</span></div>
+      </div>
+      <div style="text-align:center; font-size:14px; color:#666;">Direct T8 on a random day = 1x. Waterfall on Friday with Duel Expert = <b>26x</b> efficiency!</div>
+    </div>
+
+    <div class="section-label">Weekly Prep Plan</div>
+    <div class="card c-low" style="font-size:15px;">
+      <div style="display:grid; grid-template-columns:auto 1fr; gap:2px 6px;">
+        <span class="tag t-teal">MON&ndash;THU</span>
+        <div><b>Stockpile Phase:</b> Train T5 troops in your Lv14 barracks. Queue batches every few hours. Let them pile up &mdash; do NOT upgrade yet.</div>
+        <span class="tag t-ora">THU Night</span>
+        <div><b>Final Prep:</b> Complete all T5 queues. Check your training speedup stockpile. Stack radar missions.</div>
+        <span class="tag t-red">FRIDAY</span>
+        <div><b>Execution Day:</b> After reset + 5 min, run the full waterfall cascade with all saved training speedups. Every troop flows T5&#8594;T6&#8594;T7&#8594;T8.</div>
+        <span class="tag t-dark">SAT&ndash;SUN</span>
+        <div><b>Recovery:</b> Resume normal training. Start building T5 stockpile again for next Friday.</div>
+      </div>
+    </div>
+
+    <div class="section-label">Rung Racing: Growth Path by HQ Level</div>
+    <table class="levels">
+      <thead>
+        <tr>
+          <th>Rung</th>
+          <th>B-A</th>
+          <th>B-B</th>
+          <th>B-C</th>
+          <th>B-D</th>
+          <th>Train</th>
+          <th>HQ Range</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td class="col-level">1</td><td>6</td><td>10</td><td>14</td><td>17</td><td class="hl-green">T3</td><td>15&ndash;17</td></tr>
+        <tr><td class="col-level">2</td><td>10</td><td>14</td><td>17</td><td>20</td><td class="hl-cyan">T4</td><td>18&ndash;20</td></tr>
+        <tr><td class="col-level">3</td><td>14</td><td>17</td><td>20</td><td>24</td><td class="hl-ora">T5</td><td>21&ndash;24</td></tr>
+        <tr><td class="col-level">4</td><td>17</td><td>20</td><td>24</td><td>27</td><td style="color:#8e24aa; font-weight:700;">T6</td><td>25&ndash;27</td></tr>
+        <tr><td class="col-level">5</td><td>20</td><td>24</td><td>27</td><td>30</td><td style="color:#8e24aa; font-weight:700;">T7</td><td>28&ndash;30</td></tr>
+      </tbody>
+    </table>
+    <div style="font-size:13px; color:#888; text-align:center; margin-top:1px;">
+      Find your HQ range in the table &mdash; that's your current rung. Stagger barracks to match!
+    </div>
+
+    <div class="section-label">Arms Race Chest Targets</div>
+    <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:4px;">
+      <div class="card c-low" style="text-align:center; padding:4px;">
+        <div style="font-size:13px; color:#666; text-transform:uppercase;">Bronze</div>
+        <div style="font-size:20px; font-weight:900; color:#5a6a6a;">5,000</div>
+        <div style="font-size:12px; color:#888;">pts needed</div>
+      </div>
+      <div class="card c-med" style="text-align:center; padding:4px;">
+        <div style="font-size:13px; color:#2a8fa8; text-transform:uppercase;">Silver</div>
+        <div style="font-size:20px; font-weight:900; color:#2a8fa8;">10,000</div>
+        <div style="font-size:12px; color:#888;">pts needed</div>
+      </div>
+      <div class="card c-high" style="text-align:center; padding:4px;">
+        <div style="font-size:13px; color:#c47a30; text-transform:uppercase;">Gold</div>
+        <div style="font-size:20px; font-weight:900; color:#c47a30;">25,000</div>
+        <div style="font-size:12px; color:#888;">pts needed</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ======================== COLUMN 3: Execution & Rules ======================== -->
+  <div class="col">
+    <div class="section-label">Friday Execution: Step by Step</div>
+    <div class="card c-low" style="flex-shrink:0;">
+      <div style="display:grid; grid-template-columns: auto 1fr; gap: 3px 7px; font-size:15px; line-height:1.35;">
+        <div class="step-circle">1</div>
+        <div><b>Wait 5 min after 6pm reset</b> &mdash; points don't count during reset window.</div>
+        <div class="step-circle">2</div>
+        <div><b>Collect stacked radar missions</b> &mdash; if you stacked Thu night, collect now for bonus pts.</div>
+        <div class="step-circle">3</div>
+        <div><b>Collect completed T5</b> from Barracks A (Lv 14). These were trained Mon&ndash;Thu.</div>
+        <div class="step-circle">4</div>
+        <div><b>Upgrade T5 &#8594; T6</b> in Barracks B (Lv 17). Use training speedups to instant-finish.</div>
+        <div class="step-circle">5</div>
+        <div><b>Upgrade T6 &#8594; T7</b> in Barracks C (Lv 20). Speedup again.</div>
+        <div class="step-circle">6</div>
+        <div><b>Upgrade T7 &#8594; T8</b> in Barracks D (Lv 24). Speedup to finish.</div>
+        <div class="step-circle">7</div>
+        <div><b>Repeat!</b> Queue another batch of T5 upgrades and cascade again until speedups run out.</div>
+      </div>
+    </div>
+
+    <div class="section-label">Speedup Math</div>
+    <div class="card c-teal" style="font-size:15px;">
+      <div style="margin-bottom:2px;">Training speedups score <b>10 pts per minute</b> of speedup used.</div>
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:4px;">
+        <div style="background:#fff; border-radius:4px; padding:3px 6px; border:1px solid #7fb3a8;">
+          <span class="formula">1hr speedup = 600 pts</span>
+        </div>
+        <div style="background:#fff; border-radius:4px; padding:3px 6px; border:1px solid #7fb3a8;">
+          <span class="formula">8hr speedup = 4,800 pts</span>
+        </div>
+      </div>
+      <div style="margin-top:3px; font-size:14px; color:#5a8a7e;">
+        <b>Friday 4x multiplier</b> applies to ALL training activity. <b>Duel Expert 2x</b> stacks on top. Save EVERY training speedup for Friday!
+      </div>
+    </div>
+
+    <div class="section-label">Quick Reference Rules</div>
+    <div style="display:grid; grid-template-columns:1fr 1fr; gap:4px; flex:1; min-height:0;">
+      <div class="card c-prep">
+        <div class="card-title ct-green" style="font-size:16px;">DO</div>
+        <ul class="rule-list">
+          <li>Keep barracks <b>staggered</b> at different tier levels</li>
+          <li>Train T5 all week in your lowest barracks</li>
+          <li>Save ALL training speedups for <b>Friday</b></li>
+          <li>Use speedups to instant-finish each upgrade step</li>
+          <li>Research <b>Duel Expert</b> to max (doubles all VS pts!)</li>
+          <li>Cascade multiple batches if speedups allow</li>
+        </ul>
+      </div>
+      <div class="card c-crit">
+        <div class="card-title ct-red" style="font-size:16px;">DON'T</div>
+        <ul class="rule-list">
+          <li><b>NEVER</b> use training speedups outside Friday</li>
+          <li>Don't upgrade all barracks to the same level</li>
+          <li>Don't train T8 directly &mdash; you waste 3.3x points</li>
+          <li>Don't collect troops before reset + 5 min</li>
+          <li>Don't forget to queue T5 during the week</li>
+          <li>Don't skip the cascade &mdash; every step = more points</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="section-label">Common Mistakes</div>
+    <div class="card c-high" style="font-size:15px;">
+      <div style="display:grid; grid-template-columns:auto 1fr; gap:2px 6px;">
+        <span class="tag t-red">&#10007;</span><div><b>All barracks at Lv 24</b> &mdash; you can only train T8 directly. No waterfall possible.</div>
+        <span class="tag t-red">&#10007;</span><div><b>Using speedups on Tuesday</b> &mdash; training speedups only score on Friday. Wasted!</div>
+        <span class="tag t-red">&#10007;</span><div><b>Forgetting to stockpile T5</b> &mdash; no T5 troops = nothing to cascade on Friday.</div>
+        <span class="tag t-red">&#10007;</span><div><b>Collecting before reset</b> &mdash; points earned in the 5-min window after 6pm don't count.</div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- FOOTER -->
+<div class="footer">
+  [OWOW] Old World Order &bull; Waterfall Training Method &bull; Last War: Survival &bull; Kristen OWOW SKYNET
+</div>
+
+</body>
+</html>

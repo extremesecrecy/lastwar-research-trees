@@ -1,0 +1,741 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>VS Duel Weekly Battle Plan - OWOW</title>
+<style>
+  @font-face {
+    font-family: 'DKCrayonCrumble';
+    src: url('DKCrayonCrumble.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+  }
+  /* HCI Brand: Orange #f4a261, Cyan #5bc0de, Yellow #f4d35e, Teal #7fb3a8, Dark #5a6a6a, Text #333 */
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: 'DKCrayonCrumble', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: #fff;
+    color: #333;
+    padding: 6px 10px;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* Header row */
+  .top-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 4px;
+    flex-shrink: 0;
+  }
+  .top-bar h1 { font-size: 20px; letter-spacing: 1px; text-transform: uppercase; color: #5a6a6a; }
+  .top-bar .sub { font-size: 12px; color: #888; }
+  .stats-row {
+    display: flex;
+    gap: 8px;
+    margin-top: 2px;
+  }
+  .stat-pill {
+    display: inline-block;
+    font-size: 12px;
+    font-weight: 700;
+    padding: 1px 7px;
+    border-radius: 10px;
+    border: 1px solid #7fb3a8;
+    background: #e8f4f1;
+    color: #5a6a6a;
+  }
+  .stat-pill.green { background: #e8f5e9; border-color: #a5d6a7; color: #2e7d32; }
+  .stat-pill.amber { background: #fef3e2; border-color: #f4a261; color: #c47a30; }
+  .alliance {
+    background: #e8f4f1;
+    border: 1px solid #7fb3a8;
+    border-radius: 5px;
+    padding: 4px 12px;
+    text-align: right;
+  }
+  .alliance .name { font-size: 17px; font-weight: 800; color: #5a6a6a; }
+  .alliance .info { font-size: 12px; color: #666; }
+
+  /* Win banner */
+  .win {
+    background: #5a6a6a;
+    color: #fff;
+    border-radius: 4px;
+    padding: 4px 10px;
+    text-align: center;
+    font-size: 14px;
+    flex-shrink: 0;
+    margin-bottom: 5px;
+  }
+  .win .gold { color: #f4d35e; font-weight: 800; }
+
+  /* Section labels */
+  .section-label {
+    font-size: 15px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: #5a6a6a;
+    margin: 8px 0 4px 0;
+    padding-bottom: 2px;
+    border-bottom: 2px solid #7fb3a8;
+    flex-shrink: 0;
+  }
+  .section-label:first-of-type { margin-top: 0; }
+
+  /* Main grid rows */
+  .row {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    gap: 5px;
+    margin-bottom: 5px;
+  }
+  .row-3col {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 5px;
+    margin-bottom: 5px;
+  }
+
+  /* Day cards */
+  .card {
+    border-radius: 6px;
+    padding: 8px 10px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    font-size: 15px;
+    line-height: 1.4;
+  }
+  .card::-webkit-scrollbar { width: 3px; }
+  .card::-webkit-scrollbar-thumb { background: rgba(0,0,0,0.15); border-radius: 3px; }
+
+  .c-prep { background: #e8f5e9; border: 2px solid #43a047; }
+  .c-low { background: #fafafa; border: 1px solid #ccc; }
+  .c-med { background: #e4f3f8; border: 2px solid #5bc0de; }
+  .c-high { background: #fef3e2; border: 2px solid #f4a261; }
+  .c-crit { background: #fce4ec; border: 2px solid #e53935; }
+  .c-ref { background: #f5f5f5; border: 1px solid #bbb; }
+  .c-store { background: #e4f3f8; border: 2px solid #5bc0de; }
+  .c-speed { background: #fef3e2; border: 2px solid #f4a261; }
+  .c-buff { background: #e8f4f1; border: 2px solid #7fb3a8; }
+
+  .card-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 4px;
+  }
+  .dname { font-size: 18px; font-weight: 800; color: #5a6a6a; }
+  .dtheme { font-size: 12px; color: #888; }
+  .vp {
+    font-size: 15px;
+    font-weight: 800;
+    color: #fff;
+    border-radius: 12px;
+    padding: 1px 8px;
+    flex-shrink: 0;
+  }
+  .v4 { background: #e53935; }
+  .v3 { background: #f4a261; }
+  .v2 { background: #5bc0de; }
+  .v1 { background: #9e9e9e; }
+  .v0 { background: #43a047; }
+
+  .sec {
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    font-weight: 700;
+    margin-top: 4px;
+    margin-bottom: 2px;
+    padding-bottom: 1px;
+  }
+  .s-do { color: #2e7d32; border-bottom: 1px solid #c8e6c9; }
+  .s-save { color: #f4a261; border-bottom: 1px solid #fce4c4; }
+  .s-radar { color: #7fb3a8; border-bottom: 1px solid #c5ddd7; }
+  .s-buy { color: #5bc0de; border-bottom: 1px solid #b8e2f0; }
+
+  ul { list-style: none; }
+  li {
+    padding: 2px 0 2px 14px;
+    position: relative;
+  }
+  li::before {
+    content: '>';
+    position: absolute;
+    left: 0;
+    color: #bbb;
+    font-weight: bold;
+    font-size: 13px;
+  }
+  li.h::before { content: '!'; color: #e53935; }
+  li.m::before { content: '+'; color: #f4a261; }
+  li.b::before { content: '$'; color: #5bc0de; }
+
+  .tag {
+    display: inline-block;
+    font-size: 11px;
+    padding: 0 4px;
+    border-radius: 2px;
+    font-weight: 700;
+    vertical-align: middle;
+    color: #fff;
+  }
+  .t-red { background: #e53935; }
+  .t-ora { background: #f4a261; }
+  .t-pur { background: #7fb3a8; }
+  .t-blu { background: #5bc0de; }
+  .t-grn { background: #2e7d32; }
+
+  /* Reference panel */
+  .ref-title {
+    font-size: 16px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 4px;
+    padding-bottom: 2px;
+  }
+  .rt-orange { color: #f4a261; border-bottom: 1px solid #fce4c4; }
+  .rt-purple { color: #7fb3a8; border-bottom: 1px solid #c5ddd7; }
+  .rt-blue { color: #5bc0de; border-bottom: 1px solid #b8e2f0; }
+
+  .res-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 2px 0;
+    font-size: 15px;
+  }
+  .res-row .n { font-weight: 600; }
+  .res-row .d { color: #2e7d32; font-weight: 700; }
+
+  .flow {
+    display: flex;
+    align-items: center;
+    gap: 3px;
+    flex-wrap: wrap;
+    margin: 4px 0;
+  }
+  .fl {
+    background: #e8f4f1;
+    border: 1px solid #7fb3a8;
+    border-radius: 4px;
+    padding: 3px 8px;
+    font-size: 12px;
+    text-align: center;
+    font-weight: 600;
+  }
+  .fa { color: #7fb3a8; font-weight: bold; font-size: 14px; }
+
+  .rule {
+    font-size: 15px;
+    padding: 2px 0;
+  }
+  .rule b { color: #5bc0de; }
+
+  /* Store tables */
+  .store-tbl {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+    margin-top: 3px;
+  }
+  .store-tbl th {
+    text-align: left;
+    font-size: 12px;
+    text-transform: uppercase;
+    color: #666;
+    border-bottom: 1px solid #ddd;
+    padding: 2px 4px;
+  }
+  .store-tbl td {
+    padding: 3px 4px;
+    border-bottom: 1px solid #f0f0f0;
+  }
+  .store-tbl tr.pri1 td { font-weight: 700; }
+  .store-tbl tr.avoid td { color: #999; text-decoration: line-through; }
+  .store-tbl .cost { color: #5bc0de; font-weight: 600; white-space: nowrap; }
+  .store-tbl .qty { color: #2e7d32; font-weight: 600; white-space: nowrap; }
+
+  .panel-title {
+    font-size: 17px;
+    font-weight: 800;
+    margin-bottom: 4px;
+  }
+  .pt-blue { color: #5bc0de; }
+  .pt-amber { color: #f4a261; }
+  .pt-purple { color: #7fb3a8; }
+
+  .buff-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 3px 0;
+    border-bottom: 1px solid #f0f0f0;
+    font-size: 15px;
+  }
+  .buff-row:last-child { border-bottom: none; }
+  .buff-src { font-weight: 600; }
+  .buff-val { font-weight: 800; color: #7fb3a8; }
+  .buff-note { font-size: 12px; color: #888; }
+
+  .target-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 3px 0;
+    border-bottom: 1px solid #f0f0f0;
+    font-size: 15px;
+  }
+  .target-row:last-child { border-bottom: none; }
+  .target-type { font-weight: 600; }
+  .target-hrs { font-weight: 800; color: #f4a261; }
+  .target-day { font-weight: 700; color: #2e7d32; font-size: 13px; }
+
+  /* Footer */
+  .footer {
+    text-align: center;
+    font-size: 12px;
+    color: #bbb;
+    margin-top: 8px;
+    padding: 4px;
+    flex-shrink: 0;
+  }
+
+  @media print {
+    body { padding: 4px; }
+    .card { break-inside: avoid; }
+  }
+</style>
+</head>
+<body>
+
+<div class="top-bar">
+  <div>
+    <h1>VS Duel Weekly Battle Plan</h1>
+    <div class="sub">Server #2013 | Season 0 | Reset 6:00 PM</div>
+    <div class="stats-row">
+      <span class="stat-pill">HQ 24</span>
+      <span class="stat-pill amber">VIP 11</span>
+      <span class="stat-pill green">Squad 1: COMPLETE</span>
+      <span class="stat-pill green">Squad 2: MAXED</span>
+      <span class="stat-pill">AC 23 + Lawyers = 22 helps</span>
+    </div>
+  </div>
+  <img src="crayon.png" alt="Crayola" style="height:32px; max-width:300px; object-fit:contain;">
+  <div class="alliance">
+    <div class="name">[OWOW] Old World Order</div>
+    <div class="info">Leader: Brutus</div>
+  </div>
+</div>
+
+<div class="win">
+  Win: <span class="gold">7 VP</span> out of 12 &nbsp;|&nbsp; Fastest: <b>Saturday (4) + Friday (3) = 7 VP</b> &nbsp;|&nbsp; Research <b>Duel Expert</b> tech to DOUBLE all points &nbsp;|&nbsp; Wait <b>5 min</b> after 6pm reset
+</div>
+
+<!-- ═══════════════════ DAY CARDS ═══════════════════ -->
+<div class="section-label">Daily Battle Plan</div>
+
+<!-- ROW 1: Sun Mon Tue Wed -->
+<div class="row">
+
+  <div class="card c-prep">
+    <div class="card-head">
+      <div><div class="dname">SUNDAY</div><div class="dtheme">Prep Day — Stack & Save</div></div>
+      <div class="vp v0">0 VP</div>
+    </div>
+    <div class="sec s-do">Do:</div>
+    <ul>
+      <li class="h">Send gathering to mines (gold = most pts!) return after Mon 6pm</li>
+      <li class="h">Stack radar: complete tasks but DON'T collect (red dot)</li>
+      <li class="m">Start long building upgrade to finish Mon/Tue (becomes present)</li>
+      <li>Check stores (VIP, Alliance, Campaign) for drone parts/data chips</li>
+      <li>Save ALL speedups, hero XP, shards, medals — touch NOTHING</li>
+    </ul>
+    <div class="sec s-radar">Radar Stacking for Monday (~10pm start):</div>
+    <ul>
+      <li class="h">~10pm: STOP collecting. Complete missions on map but leave red dots.</li>
+      <li>Keep storage at 34/35 max so refresh timer keeps running</li>
+      <li>Completed missions in storage DO NOT expire — stack safely overnight!</li>
+    </ul>
+  </div>
+
+  <div class="card c-low">
+    <div class="card-head">
+      <div><div class="dname">MONDAY</div><div class="dtheme">Radar Training + Drone Boost</div></div>
+      <div class="vp v1">1 VP</div>
+    </div>
+    <div class="sec s-buy">Buy (Stores reset today!):</div>
+    <ul>
+      <li class="b">VIP Store: Stamina x5 (300 diamonds) <span class="tag t-blu">PRIORITY</span></li>
+      <li class="b">VIP Store: 8hr + 3hr Speedups (672 diamonds)</li>
+      <li class="b">Alliance: Hero Shards x5, Drone Parts x10, Speedups x10</li>
+      <li class="b">Alliance: Shields for Saturday (24hr + 8hr)</li>
+    </ul>
+    <div class="sec s-do">Do:</div>
+    <ul>
+      <li class="h">Wait 5 min after reset, then collect ALL stacked radar missions</li>
+      <li class="h">Spend ALL stamina (attacks, rallies, radar)</li>
+      <li class="m">Open drone data CHIP chests (skill chips — score today!)</li>
+      <li>Use drone combat data + train drone parts</li>
+      <li>Gather resources from mines (gold tiles = most pts)</li>
+    </ul>
+    <div class="sec s-save">Save for later:</div>
+    <ul>
+      <li class="h">Hero EXP/shards/medals → <b>THURSDAY</b></li>
+      <li>Construction speedups → Tuesday</li>
+      <li>Research speedups → Wednesday</li>
+      <li>Training speedups → Friday</li>
+      <li>Drone COMPONENT chests → Wed <span class="tag t-pur">WED ONLY</span></li>
+    </ul>
+  </div>
+
+  <div class="card c-low">
+    <div class="card-head">
+      <div><div class="dname">TUESDAY</div><div class="dtheme">Base Expansion + City Building</div></div>
+      <div class="vp v1">1 VP</div>
+    </div>
+    <div class="sec s-do">Do:</div>
+    <ul>
+      <li class="h">Open ALL building completion presents (gift boxes)</li>
+      <li class="h">Use ALL construction speedups (30+ hrs target)</li>
+      <li class="h">Dispatch UR (gold) Trade Trucks — refresh for Legendary!</li>
+      <li class="m">Start Legendary secret tasks</li>
+      <li>Use survivor recruitment tickets</li>
+    </ul>
+    <div class="sec s-save">Save for later:</div>
+    <ul>
+      <li>Research speedups → Wednesday</li>
+      <li>Hero XP/shards/medals → Thursday</li>
+      <li>Training speedups → Friday</li>
+    </ul>
+    <div class="sec s-radar">Radar Stacking for Wednesday (~10pm start):</div>
+    <ul>
+      <li class="h">~10pm: STOP collecting. Complete missions, leave red dots in storage.</li>
+      <li>Start research timed to finish Wed (press Complete on Wed for pts!)</li>
+    </ul>
+  </div>
+
+  <div class="card c-low">
+    <div class="card-head">
+      <div><div class="dname">WEDNESDAY</div><div class="dtheme">Age of Science + Tech Research</div></div>
+      <div class="vp v1">1 VP</div>
+    </div>
+    <div class="sec s-do">Do:</div>
+    <ul>
+      <li class="h">Press Complete on any pending research (tech power = pts!)</li>
+      <li class="h">Use ALL research speedups (30+ hrs target)</li>
+      <li class="h">Open drone COMPONENT chests (gear parts) <span class="tag t-pur">ONLY TODAY</span></li>
+      <li class="m">Collect stacked radar missions</li>
+      <li class="m">Spend Valor Badges on Alliance Duel research</li>
+      <li>Start new research → speedup → complete → repeat</li>
+    </ul>
+    <div class="sec s-save">Save for later:</div>
+    <ul>
+      <li>Hero XP/shards/medals → Thursday</li>
+      <li>Training speedups → Friday</li>
+    </ul>
+    <div class="sec s-radar">Radar:</div>
+    <ul>
+      <li>Do radar normally — no stacking (too early for Fri)</li>
+    </ul>
+  </div>
+
+</div>
+
+<!-- ROW 2: Thu Fri Sat Reference -->
+<div class="row">
+
+  <div class="card c-med">
+    <div class="card-head">
+      <div><div class="dname">THURSDAY</div><div class="dtheme">Train Heroes + Hero Advancement</div></div>
+      <div class="vp v2">2 VP</div>
+    </div>
+    <div class="sec s-do">Do:</div>
+    <ul>
+      <li class="h">ALL hero EXP → priority heroes <span class="tag t-red">HIGH</span></li>
+      <li class="h">ALL hero shards (star up heroes)</li>
+      <li class="h">ALL skill medals on hero skills</li>
+      <li class="h">Hero exclusive weapon shards</li>
+      <li class="m">Use recruitment tickets (Legendary/New Era)</li>
+      <li>Do Honorable Campaign (resets today!)</li>
+    </ul>
+    <div class="sec s-save">Save for later:</div>
+    <ul>
+      <li>Training speedups → FRIDAY <span class="tag t-ora">4x TOMORROW</span></li>
+      <li>Pre-train low-tier troops tonight for waterfall</li>
+    </ul>
+    <div class="sec s-radar">Radar Stacking for Friday (~10pm start):</div>
+    <ul>
+      <li class="h">~10pm: STOP collecting. Complete missions, leave red dots in storage.</li>
+    </ul>
+  </div>
+
+  <div class="card c-high">
+    <div class="card-head">
+      <div><div class="dname">FRIDAY</div><div class="dtheme">Total Mobilization + Unit Progression</div></div>
+      <div class="vp v3">3 VP</div>
+    </div>
+    <div class="sec s-do">Do:</div>
+    <ul>
+      <li class="h">WATERFALL: Train T5 → T6 → T7 → T8 <span class="tag t-ora">4x POINTS</span></li>
+      <li class="h">Use ALL training speedups (50+ hrs!) — THIS IS THE DAY</li>
+      <li class="h">Collect completed troops (points on completion!)</li>
+      <li class="m">Collect stacked radar missions</li>
+      <li class="m">Use leftover construction/research speedups</li>
+      <li>Use generic/universal speedups here if needed for VP</li>
+    </ul>
+    <div class="sec s-save">Save for later:</div>
+    <ul>
+      <li>Healing speedups → Saturday</li>
+      <li>Train MAX troops tonight for Saturday battles</li>
+    </ul>
+  </div>
+
+  <div class="card c-crit">
+    <div class="card-head">
+      <div><div class="dname">SATURDAY</div><div class="dtheme">Enemy Buster — MOST VALUABLE</div></div>
+      <div class="vp v4">4 VP</div>
+    </div>
+    <div class="sec s-do">Do:</div>
+    <ul>
+      <li class="h">Scout targets FIRST — empty bases = 0 points! <span class="tag t-red">CRITICAL</span></li>
+      <li class="h">Attack bases WITH troops defending</li>
+      <li class="h">Coordinate attack timing with OWOW alliance</li>
+      <li class="h">Use healing speedups → revive → attack again</li>
+      <li class="m">Buy/activate 24hr shield (5,000 diamonds) — AFTER attacking</li>
+      <li class="m">Remove YOUR defense lineup (uncheck squads)</li>
+      <li>Dispatch UR trade trucks + Legendary secret tasks</li>
+    </ul>
+    <div class="sec s-radar">Radar:</div>
+    <ul>
+      <li>Do radar normally — no stacking (too early for Mon)</li>
+    </ul>
+  </div>
+
+  <!-- REFERENCE PANEL -->
+  <div class="card c-ref">
+    <div class="ref-title rt-orange">Resource Save Priority</div>
+    <div class="res-row"><span class="n">1. Training Speedups</span><span class="d">FRIDAY (4x)</span></div>
+    <div class="res-row"><span class="n">2. Construction Speedups</span><span class="d">TUESDAY</span></div>
+    <div class="res-row"><span class="n">3. Research Speedups</span><span class="d">WEDNESDAY</span></div>
+    <div class="res-row"><span class="n">4. Hero XP/Shards/Medals</span><span class="d">THURSDAY</span></div>
+    <div class="res-row"><span class="n">5. Drone Component Chests</span><span class="d">WED ONLY</span></div>
+    <div class="res-row"><span class="n">6. Healing Speedups</span><span class="d">SATURDAY</span></div>
+    <div class="res-row"><span class="n">7. Recruitment Tickets</span><span class="d">THURSDAY</span></div>
+    <div class="res-row"><span class="n">8. Valor Badges</span><span class="d">WEDNESDAY</span></div>
+    <div class="res-row"><span class="n">9. Trade Truck Refreshes</span><span class="d">TUE / SAT</span></div>
+    <div class="res-row"><span class="n">10. Drone Chip Chests</span><span class="d">MONDAY</span></div>
+
+    <div class="ref-title rt-purple" style="margin-top:8px;">Radar Stacking (Lv.8: 35 storage, 10/6hrs)</div>
+    <div style="font-size:14px; margin-bottom:3px;">Start ~10pm night before. Complete missions → storage. Collect 34 at once on scoring day!</div>
+    <div style="font-size:13px; color:#2e7d32; font-weight:600; margin-bottom:3px;">Completed missions DO NOT expire. Only uncompleted ones time out (~8hrs).</div>
+    <div style="padding:4px 6px; background:#fce4ec; border-radius:4px; font-size:13px; margin-bottom:4px;">
+      <b style="color:#e53935;">NEVER hit 35/35!</b> At 35/35 the 6-hour refresh timer STOPS — no new missions generate.<br>
+      <b style="color:#e53935;">Always keep at 34/35.</b> If you hit 35, collect 1 to restart the timer.
+    </div>
+    <div class="flow">
+      <div class="fl">Stack<br><b>SUN 10pm</b></div>
+      <div class="fa">→</div>
+      <div class="fl">Collect<br><b>MON 6:05pm</b></div>
+      <div class="fa">|</div>
+      <div class="fl">Stack<br><b>TUE 10pm</b></div>
+      <div class="fa">→</div>
+      <div class="fl">Collect<br><b>WED 6:05pm</b></div>
+      <div class="fa">|</div>
+      <div class="fl">Stack<br><b>THU 10pm</b></div>
+      <div class="fa">→</div>
+      <div class="fl">Collect<br><b>FRI 6:05pm</b></div>
+    </div>
+
+    <div class="ref-title rt-blue" style="margin-top:8px;">Quick Rules</div>
+    <div class="rule"><b>Wait 5 min</b> after 6pm reset before earning points</div>
+    <div class="rule"><b>Duel Expert</b> tech = DOUBLES all VS points</div>
+    <div class="rule"><b>Fri + Sat</b> = 7 VP = instant win</div>
+    <div class="rule"><b>vs 12AM</b> — our Aircraft > their Tanks</div>
+  </div>
+
+</div>
+
+<!-- ═══════════════════ STORES & RESOURCES ═══════════════════ -->
+<div class="section-label">Weekly Shopping & Resource Management</div>
+
+<div class="row-3col">
+
+  <!-- STORE SHOPPING -->
+  <div class="card c-store">
+    <div class="panel-title pt-blue">Monday Shopping List (Stores Reset!)</div>
+
+    <div class="sec s-buy" style="margin-top:2px;">VIP Store (Diamonds):</div>
+    <table class="store-tbl">
+      <tr><th>Item</th><th>Cost</th><th>Qty</th></tr>
+      <tr class="pri1"><td>Stamina</td><td class="cost">300 diamonds</td><td class="qty">5 (250 stam)</td></tr>
+      <tr class="pri1"><td>8-Hour Speedup</td><td class="cost">480 diamonds</td><td class="qty">buy all</td></tr>
+      <tr><td>3-Hour Speedup</td><td class="cost">192 diamonds</td><td class="qty">buy all</td></tr>
+      <tr class="avoid"><td>5-Min Speedup</td><td class="cost">—</td><td class="qty">SKIP (bad value)</td></tr>
+      <tr class="avoid"><td>Gear Materials / Hero EXP</td><td class="cost">—</td><td class="qty">SKIP</td></tr>
+    </table>
+
+    <div class="sec s-buy" style="margin-top:6px;">Alliance Store (Contribution Pts):</div>
+    <table class="store-tbl">
+      <tr><th>Item</th><th>Cost</th><th>Qty</th></tr>
+      <tr class="pri1"><td>Legendary Hero Shards</td><td class="cost">3,000 ea</td><td class="qty">5/week</td></tr>
+      <tr class="pri1"><td>Drone Parts</td><td class="cost">1,000 ea</td><td class="qty">10/week</td></tr>
+      <tr><td>24hr Shield</td><td class="cost">20,000 ea</td><td class="qty">1-3/week</td></tr>
+      <tr><td>8hr Shield</td><td class="cost">7,500 ea</td><td class="qty">as needed</td></tr>
+      <tr><td>1-Hour Speedups</td><td class="cost">900 ea</td><td class="qty">10/week</td></tr>
+      <tr class="avoid"><td>Survivors / Resource Chests</td><td class="cost">—</td><td class="qty">SKIP</td></tr>
+    </table>
+
+    <div class="sec s-buy" style="margin-top:6px;">Honor Shop (Monthly):</div>
+    <table class="store-tbl">
+      <tr class="pri1"><td>Legendary Gear Blueprints</td><td class="cost">Honor pts</td><td class="qty">50/month max</td></tr>
+    </table>
+    <div style="font-size:13px; color:#c62828; font-weight:700; margin-top:2px;">ONLY non-paid source for gear blueprints!</div>
+
+    <div class="sec s-buy" style="margin-top:6px;">Campaign Store (Medals):</div>
+    <table class="store-tbl">
+      <tr class="pri1"><td>UR Universal Shards</td><td class="cost">Medals</td><td class="qty">all avail</td></tr>
+      <tr><td>Weapon Shards</td><td class="cost">Medals</td><td class="qty">all avail</td></tr>
+    </table>
+  </div>
+
+  <!-- SPEEDUP TARGETS -->
+  <div class="card c-speed">
+    <div class="panel-title pt-amber">Weekly Speedup Budget</div>
+    <div style="font-size:13px; color:#e65100; font-weight:600; margin-bottom:6px;">NEVER use speedups outside their designated day!</div>
+
+    <div class="target-row">
+      <span class="target-type">Training Speedups</span>
+      <span class="target-hrs">50+ hrs</span>
+      <span class="target-day">→ FRIDAY (4x!)</span>
+    </div>
+    <div class="target-row">
+      <span class="target-type">Construction Speedups</span>
+      <span class="target-hrs">30+ hrs</span>
+      <span class="target-day">→ TUESDAY</span>
+    </div>
+    <div class="target-row">
+      <span class="target-type">Research Speedups</span>
+      <span class="target-hrs">30+ hrs</span>
+      <span class="target-day">→ WEDNESDAY</span>
+    </div>
+    <div class="target-row">
+      <span class="target-type">Healing Speedups</span>
+      <span class="target-hrs">20+ hrs</span>
+      <span class="target-day">→ SATURDAY</span>
+    </div>
+    <div class="target-row">
+      <span class="target-type">Hero Advancement</span>
+      <span class="target-hrs">10+ hrs</span>
+      <span class="target-day">→ THURSDAY</span>
+    </div>
+    <div class="target-row">
+      <span class="target-type">Generic / Universal</span>
+      <span class="target-hrs">50+ hrs</span>
+      <span class="target-day">→ FRI or SAT</span>
+    </div>
+
+    <div style="margin-top:10px; font-size:14px; font-weight:700; color:#e65100;">Speedup Sources (Weekly):</div>
+    <table class="store-tbl">
+      <tr><td>VIP Store</td><td>8hr + 3hr speedups (buy Monday)</td></tr>
+      <tr><td>Alliance Store</td><td>10x 1-hour speedups (buy Monday)</td></tr>
+      <tr><td>Arms Race Chests</td><td>Daily (18 badges = 3 chests/day)</td></tr>
+      <tr><td>VS Duel Rewards</td><td>Win VP days for bonus speedups</td></tr>
+      <tr><td>Radar / Events</td><td>Occasional drops from missions</td></tr>
+      <tr><td>Alliance Gifts</td><td>When members buy packs</td></tr>
+    </table>
+
+    <div style="margin-top:8px; font-size:14px; font-weight:700; color:#e65100;">Arms Race Badge Targets:</div>
+    <div style="font-size:14px;">18 badges/day = Bronze + Silver + Gold chests</div>
+  </div>
+
+  <!-- CONSTRUCTION SPEED BUFFS -->
+  <div class="card c-buff">
+    <div class="panel-title pt-purple">Speed Buffs & Alliance Help</div>
+    <div style="font-size:13px; color:#6a1b9a; font-weight:600; margin-bottom:6px;">All bonuses are MULTIPLICATIVE (they stack powerfully!)</div>
+
+    <div style="font-size:14px; font-weight:700; color:#6a1b9a; margin-bottom:3px;">Construction Speed Sources:</div>
+    <div class="buff-row">
+      <span class="buff-src">VIP 11</span>
+      <span class="buff-val">+50%</span>
+      <span class="buff-note">biggest single jump</span>
+    </div>
+    <div class="buff-row">
+      <span class="buff-src">Secretary of Dev</span>
+      <span class="buff-val">+50%</span>
+      <span class="buff-note">capitol officer</span>
+    </div>
+    <div class="buff-row">
+      <span class="buff-src">Fast Builder I-IV</span>
+      <span class="buff-val">~+40%</span>
+      <span class="buff-note">Dev research tree</span>
+    </div>
+    <div class="buff-row">
+      <span class="buff-src">Alliance Tech</span>
+      <span class="buff-val">up to +45%</span>
+      <span class="buff-note">Coop Construction</span>
+    </div>
+    <div class="buff-row">
+      <span class="buff-src">Speed Boost Items</span>
+      <span class="buff-val">25-50%</span>
+      <span class="buff-note">temporary consumable</span>
+    </div>
+
+    <div style="font-size:14px; font-weight:700; color:#6a1b9a; margin-top:10px; margin-bottom:3px;">Alliance Help (AC23 + 4 Lawyers = 22 helps!):</div>
+    <div class="buff-row">
+      <span class="buff-src">Per Help</span>
+      <span class="buff-val">0.5%</span>
+      <span class="buff-note">of remaining time (or 1 min min)</span>
+    </div>
+    <div class="buff-row">
+      <span class="buff-src">22 helps on 8hr build</span>
+      <span class="buff-val">-53 min</span>
+      <span class="buff-note">11% total reduction</span>
+    </div>
+    <div class="buff-row">
+      <span class="buff-src">22 helps on 1-day build</span>
+      <span class="buff-val">-2hr 38m</span>
+      <span class="buff-note">11% total reduction</span>
+    </div>
+    <div class="buff-row">
+      <span class="buff-src">22 helps on 3-day build</span>
+      <span class="buff-val">-7hr 55m</span>
+      <span class="buff-note">11% total reduction</span>
+    </div>
+
+    <div style="margin-top:8px; padding:4px 6px; background:#f3e5f5; border-radius:4px; font-size:13px;">
+      <b style="color:#6a1b9a;">VIP 4+ = Auto-complete helps</b> (you have VIP 11)<br>
+      <b style="color:#c62828;">Must be in alliance BEFORE starting build!</b>
+    </div>
+
+    <div style="font-size:14px; font-weight:700; color:#6a1b9a; margin-top:10px; margin-bottom:3px;">VIP Activation (Keep Active!):</div>
+    <div class="buff-row">
+      <span class="buff-src">30 days</span>
+      <span class="buff-val">10,000 diamonds</span>
+      <span class="buff-note">BEST VALUE (333/day)</span>
+    </div>
+    <div class="buff-row">
+      <span class="buff-src">7 days</span>
+      <span class="buff-val">3,000 diamonds</span>
+      <span class="buff-note">429/day</span>
+    </div>
+    <div class="buff-row">
+      <span class="buff-src" style="color:#999;">24 hours</span>
+      <span class="buff-val" style="color:#999;">1,000 diamonds</span>
+      <span class="buff-note">worst value — avoid</span>
+    </div>
+  </div>
+
+</div>
+
+<div class="footer">
+  [OWOW] Old World Order — VS Duel Battle Plan — Updated Feb 26, 2026 — HQ 24 | VIP 11 | All 5 Heroes Lv.107 | Kristen Command System
+</div>
+
+</body>
+</html>

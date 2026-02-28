@@ -1,0 +1,1189 @@
+{
+  "name": "Squad 3",
+  "isComplete": true,
+  "specialThanks": "Special thanks to #287 SGPxyz, Keg, and #335 Sharky Kiki for helping to fill in the gaps in this research tree!",
+  "rows": [
+    {
+      "id": "row-1",
+      "elements": [
+        {
+          "id": "terminator-3",
+          "name": "Terminator III",
+          "image": "/images/tech/squad/terminator.png",
+          "maxLevel": 5,
+          "currentLevel": 0,
+          "levels": [
+            {
+              "level": 1,
+              "gold": 18670000,
+              "food": 6220000,
+              "iron": 6220000,
+              "requirements": []
+            },
+            {
+              "level": 2,
+              "gold": 33560000,
+              "food": 11110000,
+              "iron": 11110000,
+              "requirements": []
+            },
+            {
+              "level": 3,
+              "gold": 47110000,
+              "food": 15670000,
+              "iron": 15670000,
+              "requirements": []
+            },
+            {
+              "level": 4,
+              "gold": 61220000,
+              "food": 20330000,
+              "iron": 20330000,
+              "requirements": []
+            },
+            {
+              "level": 5,
+              "gold": 76560000,
+              "food": 25440000,
+              "iron": 25440000,
+              "requirements": []
+            }
+          ]
+        }
+      ],
+      "connections": [
+        {
+          "from": "terminator-3",
+          "to": [
+            "virus-resistance-3"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "row-2",
+      "elements": [
+        {
+          "id": "virus-resistance-3",
+          "name": "Virus Resistance III",
+          "image": "/images/tech/squad/virus-resistance.png",
+          "maxLevel": 5,
+          "currentLevel": 0,
+          "levels": [
+            {
+              "level": 1,
+              "gold": 18670000,
+              "food": 6220000,
+              "iron": 6220000,
+              "requirements": [
+                {
+                  "elementId": "terminator-3",
+                  "minLevel": 1
+                }
+              ]
+            },
+            {
+              "level": 2,
+              "gold": 33560000,
+              "food": 11110000,
+              "iron": 11110000,
+              "requirements": []
+            },
+            {
+              "level": 3,
+              "gold": 47110000,
+              "food": 15670000,
+              "iron": 15670000,
+              "requirements": []
+            },
+            {
+              "level": 4,
+              "gold": 61220000,
+              "food": 20330000,
+              "iron": 20330000,
+              "requirements": []
+            },
+            {
+              "level": 5,
+              "gold": 76560000,
+              "food": 25440000,
+              "iron": 25440000,
+              "requirements": []
+            }
+          ]
+        }
+      ],
+      "connections": [
+        {
+          "from": "virus-resistance-3",
+          "to": [
+            "assault-training-3",
+            "formation-training-3"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "row-3",
+      "elements": [
+        {
+          "id": "assault-training-3",
+          "name": "Assault Training III",
+          "image": "/images/tech/squad/assault-training.png",
+          "maxLevel": 5,
+          "currentLevel": 0,
+          "levels": [
+            {
+              "level": 1,
+              "gold": 33560000,
+              "food": 11110000,
+              "iron": 11110000,
+              "requirements": [
+                {
+                  "elementId": "virus-resistance-3",
+                  "minLevel": 2
+                }
+              ]
+            },
+            {
+              "level": 2,
+              "gold": 47110000,
+              "food": 15670000,
+              "iron": 15670000,
+              "requirements": []
+            },
+            {
+              "level": 3,
+              "gold": 61220000,
+              "food": 20330000,
+              "iron": 20330000,
+              "requirements": []
+            },
+            {
+              "level": 4,
+              "gold": 76560000,
+              "food": 25440000,
+              "iron": 25440000,
+              "requirements": []
+            },
+            {
+              "level": 5,
+              "gold": 95670000,
+              "food": 31890000,
+              "iron": 31890000,
+              "requirements": []
+            }
+          ]
+        },
+        {
+          "id": "formation-training-3",
+          "name": "Formation Training III",
+          "image": "/images/tech/squad/formation-training.png",
+          "maxLevel": 5,
+          "currentLevel": 0,
+          "levels": [
+            {
+              "level": 1,
+              "gold": 33560000,
+              "food": 11110000,
+              "iron": 11110000,
+              "requirements": [
+                {
+                  "elementId": "virus-resistance-3",
+                  "minLevel": 2
+                }
+              ]
+            },
+            {
+              "level": 2,
+              "gold": 47110000,
+              "food": 15670000,
+              "iron": 15670000,
+              "requirements": []
+            },
+            {
+              "level": 3,
+              "gold": 61220000,
+              "food": 20330000,
+              "iron": 20330000,
+              "requirements": []
+            },
+            {
+              "level": 4,
+              "gold": 76560000,
+              "food": 25440000,
+              "iron": 25440000,
+              "requirements": []
+            },
+            {
+              "level": 5,
+              "gold": 95670000,
+              "food": 31890000,
+              "iron": 31890000,
+              "requirements": []
+            }
+          ]
+        }
+      ],
+      "connections": [
+        {
+          "from": "assault-training-3",
+          "to": [
+            "survival-training-3"
+          ]
+        },
+        {
+          "from": "formation-training-3",
+          "to": [
+            "survival-training-3"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "row-4",
+      "elements": [
+        {
+          "id": "survival-training-3",
+          "name": "Survival Training III",
+          "image": "/images/tech/squad/survival-training.png",
+          "maxLevel": 5,
+          "currentLevel": 0,
+          "levels": [
+            {
+              "level": 1,
+              "gold": 33560000,
+              "food": 11110000,
+              "iron": 11110000,
+              "requirements": [
+                {
+                  "elementId": "assault-training-3",
+                  "minLevel": 2
+                },
+                {
+                  "elementId": "formation-training-3",
+                  "minLevel": 2
+                }
+              ]
+            },
+            {
+              "level": 2,
+              "gold": 47110000,
+              "food": 15670000,
+              "iron": 15670000,
+              "requirements": []
+            },
+            {
+              "level": 3,
+              "gold": 61220000,
+              "food": 20330000,
+              "iron": 20330000,
+              "requirements": []
+            },
+            {
+              "level": 4,
+              "gold": 76560000,
+              "food": 25440000,
+              "iron": 25440000,
+              "requirements": []
+            },
+            {
+              "level": 5,
+              "gold": 95670000,
+              "food": 31890000,
+              "iron": 31890000,
+              "requirements": []
+            }
+          ]
+        }
+      ],
+      "connections": [
+        {
+          "from": "survival-training-3",
+          "to": [
+            "resource-reaper-3",
+            "power-boost-3"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "row-5",
+      "elements": [
+        {
+          "id": "resource-reaper-3",
+          "name": "Resource Reaper III",
+          "image": "/images/tech/squad/resource-reaper.png",
+          "maxLevel": 5,
+          "currentLevel": 0,
+          "levels": [
+            {
+              "level": 1,
+              "gold": 47110000,
+              "food": 15670000,
+              "iron": 15670000,
+              "requirements": [
+                {
+                  "elementId": "survival-training-3",
+                  "minLevel": 2
+                }
+              ]
+            },
+            {
+              "level": 2,
+              "gold": 61220000,
+              "food": 20330000,
+              "iron": 20330000,
+              "requirements": []
+            },
+            {
+              "level": 3,
+              "gold": 76560000,
+              "food": 25440000,
+              "iron": 25440000,
+              "requirements": []
+            },
+            {
+              "level": 4,
+              "gold": 95670000,
+              "food": 31890000,
+              "iron": 31890000,
+              "requirements": []
+            }
+          ]
+        },
+        {
+          "id": "power-boost-3",
+          "name": "Power Boost III",
+          "image": "/images/tech/squad/power-boost.png",
+          "maxLevel": 5,
+          "currentLevel": 0,
+          "levels": [
+            {
+              "level": 1,
+              "gold": 47110000,
+              "food": 15670000,
+              "iron": 15670000,
+              "requirements": [
+                {
+                  "elementId": "survival-training-3",
+                  "minLevel": 2
+                }
+              ]
+            },
+            {
+              "level": 2,
+              "gold": 61220000,
+              "food": 20330000,
+              "iron": 20330000,
+              "requirements": []
+            },
+            {
+              "level": 3,
+              "gold": 76560000,
+              "food": 25440000,
+              "iron": 25440000,
+              "requirements": []
+            },
+            {
+              "level": 4,
+              "gold": 95670000,
+              "food": 31890000,
+              "iron": 31890000,
+              "requirements": []
+            }
+          ]
+        }
+      ],
+      "connections": [
+        {
+          "from": "resource-reaper-3",
+          "to": [
+            "zombie-radar-3",
+            "assault-tactics-3",
+            "fast-exploration-3"
+          ]
+        },
+        {
+          "from": "power-boost-3",
+          "to": [
+            "zombie-radar-3",
+            "assault-tactics-3",
+            "fast-exploration-3"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "row-6",
+      "elements": [
+        {
+          "id": "zombie-radar-3",
+          "name": "Zombie Radar III",
+          "image": "/images/tech/squad/zombie-radar.png",
+          "maxLevel": 5,
+          "currentLevel": 0,
+          "levels": [
+            {
+              "level": 1,
+              "gold": 61220000,
+              "food": 20330000,
+              "iron": 20330000,
+              "requirements": [
+                {
+                  "elementId": "resource-reaper-3",
+                  "minLevel": 2
+                },
+                {
+                  "elementId": "power-boost-3",
+                  "minLevel": 2
+                }
+              ]
+            },
+            {
+              "level": 2,
+              "gold": 76560000,
+              "food": 25440000,
+              "iron": 25440000,
+              "requirements": []
+            },
+            {
+              "level": 3,
+              "gold": 95670000,
+              "food": 31890000,
+              "iron": 31890000,
+              "requirements": []
+            },
+            {
+              "level": 4,
+              "gold": 162670000,
+              "food": 54220000,
+              "iron": 54220000,
+              "requirements": []
+            }
+          ]
+        },
+        {
+          "id": "assault-tactics-3",
+          "name": "Assault Tactics III",
+          "image": "/images/tech/squad/assault-tactics.png",
+          "maxLevel": 5,
+          "currentLevel": 0,
+          "levels": [
+            {
+              "level": 1,
+              "gold": 61220000,
+              "food": 20330000,
+              "iron": 20330000,
+              "requirements": [
+                {
+                  "elementId": "resource-reaper-3",
+                  "minLevel": 2
+                },
+                {
+                  "elementId": "power-boost-3",
+                  "minLevel": 2
+                }
+              ]
+            },
+            {
+              "level": 2,
+              "gold": 76560000,
+              "food": 25440000,
+              "iron": 25440000,
+              "requirements": []
+            },
+            {
+              "level": 3,
+              "gold": 95670000,
+              "food": 31890000,
+              "iron": 31890000,
+              "requirements": []
+            },
+            {
+              "level": 4,
+              "gold": 162670000,
+              "food": 54220000,
+              "iron": 54220000,
+              "requirements": []
+            }
+          ]
+        },
+        {
+          "id": "fast-exploration-3",
+          "name": "Fast Exploration III",
+          "image": "/images/tech/squad/fast-exploration.png",
+          "maxLevel": 5,
+          "currentLevel": 0,
+          "levels": [
+            {
+              "level": 1,
+              "gold": 61220000,
+              "food": 20330000,
+              "iron": 20330000,
+              "requirements": [
+                {
+                  "elementId": "resource-reaper-3",
+                  "minLevel": 2
+                },
+                {
+                  "elementId": "power-boost-3",
+                  "minLevel": 2
+                }
+              ]
+            },
+            {
+              "level": 2,
+              "gold": 76560000,
+              "food": 25440000,
+              "iron": 25440000,
+              "requirements": []
+            },
+            {
+              "level": 3,
+              "gold": 95670000,
+              "food": 31890000,
+              "iron": 31890000,
+              "requirements": []
+            },
+            {
+              "level": 4,
+              "gold": 162670000,
+              "food": 54220000,
+              "iron": 54220000,
+              "requirements": []
+            }
+          ]
+        }
+      ],
+      "connections": [
+        {
+          "from": "zombie-radar-3",
+          "to": [
+            "rapid-march-3"
+          ]
+        },
+        {
+          "from": "assault-tactics-3",
+          "to": [
+            "rapid-march-3"
+          ]
+        },
+        {
+          "from": "fast-exploration-3",
+          "to": [
+            "rapid-march-3"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "row-7",
+      "elements": [
+        {
+          "id": "rapid-march-3",
+          "name": "Rapid March III",
+          "image": "/images/tech/squad/rapid-march.png",
+          "maxLevel": 5,
+          "currentLevel": 0,
+          "levels": [
+            {
+              "level": 1,
+              "gold": 61220000,
+              "food": 20330000,
+              "iron": 20330000,
+              "requirements": [
+                {
+                  "elementId": "zombie-radar-3",
+                  "minLevel": 1
+                },
+                {
+                  "elementId": "assault-tactics-3",
+                  "minLevel": 1
+                },
+                {
+                  "elementId": "fast-exploration-3",
+                  "minLevel": 1
+                }
+              ]
+            },
+            {
+              "level": 2,
+              "gold": 76560000,
+              "food": 25440000,
+              "iron": 25440000,
+              "requirements": []
+            },
+            {
+              "level": 3,
+              "gold": 95670000,
+              "food": 31890000,
+              "iron": 31890000,
+              "requirements": []
+            },
+            {
+              "level": 4,
+              "gold": 162670000,
+              "food": 54220000,
+              "iron": 54220000,
+              "requirements": []
+            },
+            {
+              "level": 5,
+              "gold": 227670000,
+              "food": 75890000,
+              "iron": 75890000,
+              "requirements": []
+            }
+          ]
+        }
+      ],
+      "connections": [
+        {
+          "from": "rapid-march-3",
+          "to": [
+            "fierce-assault-3",
+            "counter-defense-3"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "row-8",
+      "elements": [
+        {
+          "id": "fierce-assault-3",
+          "name": "Fierce Assault III",
+          "image": "/images/tech/squad/fierce-assault.png",
+          "maxLevel": 5,
+          "currentLevel": 0,
+          "levels": [
+            {
+              "level": 1,
+              "gold": 76560000,
+              "food": 25440000,
+              "iron": 25440000,
+              "requirements": [
+                {
+                  "elementId": "rapid-march-3",
+                  "minLevel": 2
+                }
+              ]
+            },
+            {
+              "level": 2,
+              "gold": 95670000,
+              "food": 31890000,
+              "iron": 31890000,
+              "requirements": []
+            },
+            {
+              "level": 3,
+              "gold": 162670000,
+              "food": 54220000,
+              "iron": 54220000,
+              "requirements": []
+            },
+            {
+              "level": 4,
+              "gold": 227670000,
+              "food": 75890000,
+              "iron": 75890000,
+              "requirements": []
+            },
+            {
+              "level": 5,
+              "gold": 296000000,
+              "food": 98670000,
+              "iron": 98670000,
+              "requirements": []
+            }
+          ]
+        },
+        {
+          "id": "counter-defense-3",
+          "name": "Counter Defense III",
+          "image": "/images/tech/squad/counter-defense.png",
+          "maxLevel": 5,
+          "currentLevel": 0,
+          "levels": [
+            {
+              "level": 1,
+              "gold": 76560000,
+              "food": 25440000,
+              "iron": 25440000,
+              "requirements": [
+                {
+                  "elementId": "rapid-march-3",
+                  "minLevel": 2
+                }
+              ]
+            },
+            {
+              "level": 2,
+              "gold": 95670000,
+              "food": 31890000,
+              "iron": 31890000,
+              "requirements": []
+            },
+            {
+              "level": 3,
+              "gold": 162670000,
+              "food": 54220000,
+              "iron": 54220000,
+              "requirements": []
+            },
+            {
+              "level": 4,
+              "gold": 227670000,
+              "food": 75890000,
+              "iron": 75890000,
+              "requirements": []
+            },
+            {
+              "level": 5,
+              "gold": 296000000,
+              "food": 98670000,
+              "iron": 98670000,
+              "requirements": []
+            }
+          ]
+        }
+      ],
+      "connections": [
+        {
+          "from": "fierce-assault-3",
+          "to": [
+            "vigilant-formation-3"
+          ]
+        },
+        {
+          "from": "counter-defense-3",
+          "to": [
+            "solid-defense-3"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "row-9",
+      "elements": [
+        {
+          "id": "vigilant-formation-3",
+          "name": "Vigilant Formation III",
+          "image": "/images/tech/squad/vigilant-formation.png",
+          "maxLevel": 5,
+          "currentLevel": 0,
+          "levels": [
+            {
+              "level": 1,
+              "gold": 76560000,
+              "food": 25440000,
+              "iron": 25440000,
+              "requirements": [
+                {
+                  "elementId": "fierce-assault-3",
+                  "minLevel": 1
+                }
+              ]
+            },
+            {
+              "level": 2,
+              "gold": 95670000,
+              "food": 31890000,
+              "iron": 31890000,
+              "requirements": []
+            },
+            {
+              "level": 3,
+              "gold": 162670000,
+              "food": 54220000,
+              "iron": 54220000,
+              "requirements": []
+            },
+            {
+              "level": 4,
+              "gold": 227670000,
+              "food": 75890000,
+              "iron": 75890000,
+              "requirements": []
+            },
+            {
+              "level": 5,
+              "gold": 296000000,
+              "food": 98670000,
+              "iron": 98670000,
+              "requirements": []
+            }
+          ]
+        },
+        {
+          "id": "solid-defense-3",
+          "name": "Solid Defense III",
+          "image": "/images/tech/squad/solid-defense.png",
+          "maxLevel": 5,
+          "currentLevel": 0,
+          "levels": [
+            {
+              "level": 1,
+              "gold": 76560000,
+              "food": 25440000,
+              "iron": 25440000,
+              "requirements": [
+                {
+                  "elementId": "counter-defense-3",
+                  "minLevel": 1
+                }
+              ]
+            },
+            {
+              "level": 2,
+              "gold": 95670000,
+              "food": 31890000,
+              "iron": 31890000,
+              "requirements": []
+            },
+            {
+              "level": 3,
+              "gold": 162670000,
+              "food": 54220000,
+              "iron": 54220000,
+              "requirements": []
+            },
+            {
+              "level": 4,
+              "gold": 227670000,
+              "food": 75890000,
+              "iron": 75890000,
+              "requirements": []
+            },
+            {
+              "level": 5,
+              "gold": 296000000,
+              "food": 98670000,
+              "iron": 98670000,
+              "requirements": []
+            }
+          ]
+        }
+      ],
+      "connections": [
+        {
+          "from": "vigilant-formation-3",
+          "to": [
+            "final-stand-3"
+          ]
+        },
+        {
+          "from": "solid-defense-3",
+          "to": [
+            "hold-the-line-3"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "row-10",
+      "elements": [
+        {
+          "id": "final-stand-3",
+          "name": "Final Stand III",
+          "image": "/images/tech/squad/final-stand.png",
+          "maxLevel": 5,
+          "currentLevel": 0,
+          "levels": [
+            {
+              "level": 1,
+              "gold": 76560000,
+              "food": 25440000,
+              "iron": 25440000,
+              "requirements": [
+                {
+                  "elementId": "vigilant-formation-3",
+                  "minLevel": 1
+                }
+              ]
+            },
+            {
+              "level": 2,
+              "gold": 95670000,
+              "food": 31890000,
+              "iron": 31890000,
+              "requirements": []
+            },
+            {
+              "level": 3,
+              "gold": 162670000,
+              "food": 54220000,
+              "iron": 54220000,
+              "requirements": []
+            },
+            {
+              "level": 4,
+              "gold": 227670000,
+              "food": 75890000,
+              "iron": 75890000,
+              "requirements": []
+            },
+            {
+              "level": 5,
+              "gold": 296000000,
+              "food": 98670000,
+              "iron": 98670000,
+              "requirements": []
+            }
+          ]
+        },
+        {
+          "id": "hold-the-line-3",
+          "name": "Hold the Line III",
+          "image": "/images/tech/squad/hold-the-line.png",
+          "maxLevel": 5,
+          "currentLevel": 0,
+          "levels": [
+            {
+              "level": 1,
+              "gold": 76560000,
+              "food": 25440000,
+              "iron": 25440000,
+              "requirements": [
+                {
+                  "elementId": "solid-defense-3",
+                  "minLevel": 1
+                }
+              ]
+            },
+            {
+              "level": 2,
+              "gold": 95670000,
+              "food": 31890000,
+              "iron": 31890000,
+              "requirements": []
+            },
+            {
+              "level": 3,
+              "gold": 162670000,
+              "food": 54220000,
+              "iron": 54220000,
+              "requirements": []
+            },
+            {
+              "level": 4,
+              "gold": 227670000,
+              "food": 75890000,
+              "iron": 75890000,
+              "requirements": []
+            },
+            {
+              "level": 5,
+              "gold": 296000000,
+              "food": 98670000,
+              "iron": 98670000,
+              "requirements": []
+            }
+          ]
+        }
+      ],
+      "connections": [
+        {
+          "from": "final-stand-3",
+          "to": [
+            "physical-suppression-3",
+            "energy-barrage-3"
+          ]
+        },
+        {
+          "from": "hold-the-line-3",
+          "to": [
+            "physical-suppression-3",
+            "energy-barrage-3"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "row-11",
+      "elements": [
+        {
+          "id": "physical-suppression-3",
+          "name": "Physical Suppression III",
+          "image": "/images/tech/squad/physical-suppression.png",
+          "maxLevel": 5,
+          "currentLevel": 0,
+          "levels": [
+            {
+              "level": 1,
+              "gold": 95670000,
+              "food": 31890000,
+              "iron": 31890000,
+              "requirements": [
+                {
+                  "elementId": "final-stand-3",
+                  "minLevel": 2
+                },
+                {
+                  "elementId": "hold-the-line-3",
+                  "minLevel": 2
+                }
+              ]
+            },
+            {
+              "level": 2,
+              "gold": 162670000,
+              "food": 54220000,
+              "iron": 54220000,
+              "requirements": []
+            },
+            {
+              "level": 3,
+              "gold": 227670000,
+              "food": 75890000,
+              "iron": 75890000,
+              "requirements": []
+            },
+            {
+              "level": 4,
+              "gold": 296000000,
+              "food": 98670000,
+              "iron": 98670000,
+              "requirements": []
+            },
+            {
+              "level": 5,
+              "gold": 414440000,
+              "food": 138110000,
+              "iron": 138110000,
+              "requirements": []
+            }
+          ]
+        },
+        {
+          "id": "energy-barrage-3",
+          "name": "Energy Barrage III",
+          "image": "/images/tech/squad/energy-barrage.png",
+          "maxLevel": 5,
+          "currentLevel": 0,
+          "levels": [
+            {
+              "level": 1,
+              "gold": 95670000,
+              "food": 31890000,
+              "iron": 31890000,
+              "requirements": [
+                {
+                  "elementId": "final-stand-3",
+                  "minLevel": 2
+                },
+                {
+                  "elementId": "hold-the-line-3",
+                  "minLevel": 2
+                }
+              ]
+            },
+            {
+              "level": 2,
+              "gold": 162670000,
+              "food": 54220000,
+              "iron": 54220000,
+              "requirements": []
+            },
+            {
+              "level": 3,
+              "gold": 227670000,
+              "food": 75890000,
+              "iron": 75890000,
+              "requirements": []
+            },
+            {
+              "level": 4,
+              "gold": 296000000,
+              "food": 98670000,
+              "iron": 98670000,
+              "requirements": []
+            },
+            {
+              "level": 5,
+              "gold": 414440000,
+              "food": 138110000,
+              "iron": 138110000,
+              "requirements": []
+            }
+          ]
+        }
+      ],
+      "connections": [
+        {
+          "from": "physical-suppression-3",
+          "to": [
+            "fatal-strike-3"
+          ]
+        },
+        {
+          "from": "energy-barrage-3",
+          "to": [
+            "fatal-strike-3"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "row-12",
+      "elements": [
+        {
+          "id": "fatal-strike-3",
+          "name": "Fatal Strike III",
+          "image": "/images/tech/squad/fatal-strike.png",
+          "maxLevel": 5,
+          "currentLevel": 0,
+          "levels": [
+            {
+              "level": 1,
+              "gold": 162670000,
+              "food": 54220000,
+              "iron": 54220000,
+              "requirements": [
+                {
+                  "elementId": "physical-suppression-3",
+                  "minLevel": 2
+                },
+                {
+                  "elementId": "energy-barrage-3",
+                  "minLevel": 2
+                }
+              ]
+            },
+            {
+              "level": 2,
+              "gold": 227670000,
+              "food": 75890000,
+              "iron": 75890000,
+              "requirements": []
+            },
+            {
+              "level": 3,
+              "gold": 296000000,
+              "food": 98670000,
+              "iron": 98670000,
+              "requirements": []
+            },
+            {
+              "level": 4,
+              "gold": 414440000,
+              "food": 138110000,
+              "iron": 138110000,
+              "requirements": []
+            },
+            {
+              "level": 5,
+              "gold": 580330000,
+              "food": 193440000,
+              "iron": 193440000,
+              "requirements": []
+            }
+          ]
+        }
+      ],
+      "connections": []
+    }
+  ]
+}
