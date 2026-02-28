@@ -184,6 +184,34 @@
   .mil-table th { background: #5bc0de; color: #fff; padding: 2px 4px; font-size: 10px; text-transform: uppercase; }
   .mil-table td { padding: 2px 4px; text-align: center; border-bottom: 1px solid #eee; }
   .mil-table tr:nth-child(even) { background: #f0f8ff; }
+
+  /* Mobile responsive */
+  @media (max-width: 768px) {
+    body { height: auto; overflow: auto; }
+    .top-bar { flex-direction: column; gap: 6px; text-align: center; }
+    .top-bar h1 { font-size: 18px; }
+    .alliance { text-align: center; }
+    .main-grid { grid-template-columns: 1fr; }
+    .col { min-height: auto; }
+    .sub-grid { grid-template-rows: auto; }
+    .tbl-auto, .tbl-scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+    table.bldg { min-width: 400px; }
+    .mil-table { min-width: 400px; display: block; overflow-x: auto; }
+    .card { font-size: 12px; }
+    .section-label { font-size: 13px; }
+    .note { font-size: 11px; }
+  }
+  @media (max-width: 480px) {
+    body { padding: 4px 6px; }
+    .top-bar h1 { font-size: 16px; }
+    .top-bar .sub { font-size: 12px; }
+    .alliance .name { font-size: 15px; }
+    table.bldg { font-size: 11px; min-width: 360px; }
+    table.bldg th { font-size: 9px; padding: 2px; }
+    table.bldg td { padding: 1px 2px; }
+    .mil-table { font-size: 11px; min-width: 360px; }
+    .tag { font-size: 9px; }
+  }
 </style>
 </head>
 <body>
