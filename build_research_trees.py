@@ -178,11 +178,11 @@ def process_tree(tree_key, tree, progress, priority_map, notes_map):
     emap = build_element_map(tree)
     max_width = max(len(r['elements']) for r in tree['rows'])
 
-    # Current levels from CSV
+    # All nodes start at level 0 — users load their own progress via Import CSV
+    # (CSV HaveIt data is personal; the published HTML must start fresh for all visitors)
     levels = {}
     for eid, el in emap.items():
-        k = (tree_name, el['name'])
-        levels[eid] = progress.get(k, 0)
+        levels[eid] = 0
 
     # Compute states
     states = {}
@@ -1601,14 +1601,12 @@ function showImportMsg(text) {
 // ============ RESET ============
 
 function resetProgress() {
-    if (!confirm('Reset all research progress to the original CSV values? This clears all your browser changes.')) return;
+    if (!confirm('Reset ALL research progress to zero? This clears everything. You can re-import your CSV to restore your data.')) return;
     try { localStorage.removeItem(LS_KEY); } catch(e) {}
-    // Restore original levels from ORIGINAL_LEVELS
-    for (const [tk, levels] of Object.entries(ORIGINAL_LEVELS)) {
-        if (!TREE_DATA[tk]) continue;
-        for (const [eid, lv] of Object.entries(levels)) {
-            const node = TREE_DATA[tk].nodes?.[eid];
-            if (node) node.currentLevel = lv;
+    // Set every node to level 0
+    for (const [tk, tree] of Object.entries(TREE_DATA)) {
+        for (const [eid, node] of Object.entries(tree.nodes)) {
+            node.currentLevel = 0;
         }
     }
     recomputeAll();
@@ -1616,6 +1614,12 @@ function resetProgress() {
     drawAllLines();
     updateGrandStats();
     renderRecommendedBadges();
+    // Close editor if open (closeEditor is scoped inside setupEditor)
+    const ep = document.querySelector('.editor-popup');
+    if (ep) ep.style.display = 'none';
+    editorOpen = false;
+    const bd = document.getElementById('editor-backdrop');
+    if (bd) bd.classList.remove('active');
 }
 
 // ============ RECOMMENDED PATH ============
