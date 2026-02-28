@@ -310,6 +310,44 @@
     body { padding: 4px; }
     .card { break-inside: avoid; }
   }
+
+  /* Mobile responsive */
+  @media (max-width: 768px) {
+    .top-bar { flex-direction: column; gap: 6px; text-align: center; }
+    .top-bar h1 { font-size: 17px; }
+    .alliance { text-align: center; }
+    .stats-row { flex-wrap: wrap; justify-content: center; }
+    .win { font-size: 12px; padding: 6px 8px; }
+    .row { grid-template-columns: 1fr; }
+    .row-3col { grid-template-columns: 1fr; }
+    .card { overflow-y: visible; overflow-x: visible; }
+    .dname { font-size: 16px; }
+    .store-tbl { display: block; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+    .flow { flex-wrap: wrap; gap: 4px; }
+    .section-label { font-size: 14px; }
+    .buff-row { flex-wrap: wrap; gap: 2px; }
+    .target-row { flex-wrap: wrap; gap: 2px; }
+  }
+  @media (max-width: 480px) {
+    body { padding: 6px 8px; }
+    .top-bar h1 { font-size: 15px; }
+    .top-bar .sub { font-size: 11px; }
+    .stat-pill { font-size: 10px; padding: 1px 5px; }
+    .alliance .name { font-size: 14px; }
+    .win { font-size: 11px; }
+    .card { font-size: 13px; padding: 6px 8px; }
+    .dname { font-size: 15px; }
+    .vp { font-size: 13px; }
+    .sec { font-size: 11px; }
+    li { font-size: 13px; }
+    .tag { font-size: 10px; }
+    .store-tbl { font-size: 12px; }
+    .panel-title { font-size: 15px; }
+    .buff-row { font-size: 13px; }
+    .target-row { font-size: 13px; }
+    .res-row { font-size: 13px; }
+    .fl { font-size: 10px; padding: 2px 5px; }
+  }
 </style>
 </head>
 <body>
