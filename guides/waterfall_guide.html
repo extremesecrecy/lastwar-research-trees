@@ -192,6 +192,43 @@
 
   /* Footer */
   .footer { text-align: center; font-size: 14px; color: #999; padding: 3px; border-top: 1px solid #e0e0e0; flex-shrink: 0; }
+
+  /* Mobile responsive */
+  @media (max-width: 768px) {
+    body { height: auto; overflow: auto; }
+    .top-bar { flex-direction: column; gap: 6px; text-align: center; }
+    .top-bar h1 { font-size: 18px; }
+    .alliance { text-align: center; }
+    .main-grid { grid-template-columns: 1fr; }
+    .col { min-height: auto; }
+    .wf-flow { flex-wrap: wrap; }
+    .barracks-row { flex-wrap: wrap; }
+    .barracks-box { min-width: 45%; }
+    .comp-grid { grid-template-columns: 1fr; gap: 6px; }
+    .comp-vs { font-size: 18px; padding: 4px 0; }
+    .mult-row { flex-wrap: wrap; gap: 6px; }
+    table.levels { display: block; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+    .card { font-size: 14px; }
+    .card-title { font-size: 15px; }
+    .section-label { font-size: 15px; }
+    .rule-list { font-size: 14px; }
+  }
+  @media (max-width: 480px) {
+    body { padding: 6px 8px; }
+    .top-bar h1 { font-size: 16px; }
+    .top-bar .sub { font-size: 12px; }
+    .alliance .name { font-size: 15px; }
+    .card { font-size: 13px; padding: 5px 6px; }
+    .wf-box { min-width: 56px; padding: 2px 4px; }
+    .wf-box div { font-size: 11px !important; }
+    .wf-arrow { font-size: 16px; }
+    .barracks-box .bk-level { font-size: 16px; }
+    .mult-box { padding: 3px 6px; font-size: 14px !important; }
+    .mult-box span { font-size: 18px !important; }
+    .step-circle { width: 20px; height: 20px; font-size: 12px; }
+    .formula { font-size: 12px; }
+    .tag { font-size: 11px; }
+  }
 </style>
 </head>
 <body>
