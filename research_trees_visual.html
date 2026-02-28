@@ -489,8 +489,10 @@ body {
     <p class="subtitle">Old World Order &bull; Server #2013 &bull; <span id="grand-stats">Overall: 0/1380 (0%)</span></p>
     <div class="header-actions">
         <button class="header-btn export" id="btn-export">Export CSV</button>
-        <button class="header-btn import" id="btn-import">Import CSV</button>
-        <input type="file" id="csv-file-input" accept=".csv" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0);opacity:0">
+        <div style="position:relative;display:inline-block">
+            <button class="header-btn import" type="button" style="pointer-events:none">Import CSV</button>
+            <input type="file" id="csv-file-input" accept=".csv" style="position:absolute;top:0;left:0;width:100%;height:100%;opacity:0;cursor:pointer">
+        </div>
         <button class="header-btn reset" id="btn-reset">Reset</button>
     </div>
 </div>
@@ -1103,10 +1105,6 @@ document.addEventListener('DOMContentLoaded', () => {
         setTimeout(() => { clearAllLines(); drawAllLines(); }, 100);
     });
     document.getElementById('btn-export')?.addEventListener('click', exportCSV);
-    document.getElementById('btn-import')?.addEventListener('click', function(e) {
-        e.preventDefault();
-        document.getElementById('csv-file-input')?.click();
-    });
     document.getElementById('csv-file-input')?.addEventListener('change', importCSV);
     document.getElementById('btn-reset')?.addEventListener('click', resetProgress);
 });
