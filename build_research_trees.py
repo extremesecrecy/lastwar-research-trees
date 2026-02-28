@@ -711,6 +711,91 @@ body {
     text-align: center;
     margin-top: 2px;
 }
+
+/* Mobile detail section (hidden on desktop) */
+.ep-detail { display: none; }
+
+/* Backdrop overlay for mobile editor */
+.editor-backdrop {
+    display: none;
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(0,0,0,0.35);
+    z-index: 1999;
+}
+
+/* ===== TABLET + PHONE (max-width: 768px) ===== */
+@media (max-width: 768px) {
+    /* Stack trees vertically */
+    .band { flex-direction: column; gap: 4px; padding: 4px 0 8px; overflow-x: visible; }
+    .tree-col { width: 100% !important; overflow-x: auto; -webkit-overflow-scrolling: touch; padding: 0 8px; }
+    .tree-body { min-width: fit-content; }
+
+    /* Collapsible tree headers */
+    .tree-header { cursor: pointer; position: sticky; top: 0; background: #fff; z-index: 5; padding: 8px 0 6px; border-bottom: 1px solid #e0e0e0; }
+    .tree-header::after { content: ' \u25BC'; font-size: 10px; color: #aaa; }
+    .tree-col.collapsed .tree-header::after { content: ' \u25B6'; }
+    .tree-col.collapsed .tree-body { display: none; }
+
+    /* Header compact */
+    .page-header h1 { font-size: 20px; }
+    .page-header .subtitle { font-size: 10px; }
+
+    /* Legend wraps */
+    .legend { flex-wrap: wrap; gap: 8px 14px; padding: 6px 12px; }
+
+    /* Band labels compact */
+    .band-label { font-size: 13px; margin: 4px 0 1px; }
+
+    /* Editor -> bottom sheet */
+    .editor-popup {
+        position: fixed !important;
+        bottom: 0 !important;
+        left: 0 !important;
+        right: 0 !important;
+        top: auto !important;
+        width: 100% !important;
+        min-width: unset !important;
+        border-radius: 12px 12px 0 0;
+        padding: 16px 20px 24px;
+        box-shadow: 0 -4px 24px rgba(0,0,0,0.2);
+        max-height: 60vh;
+        overflow-y: auto;
+    }
+    .ep-btn { width: 48px; height: 44px; font-size: 20px; }
+    .ep-btn.max-btn { padding: 0 16px; height: 44px; font-size: 13px; }
+    .ep-close { font-size: 24px; padding: 8px 12px; }
+    .ep-title { font-size: 16px; }
+    .ep-level { font-size: 18px; }
+
+    /* Hide hover tooltip on touch */
+    .tooltip { display: none !important; }
+
+    /* Show detail section in editor on mobile */
+    .ep-detail { display: block; margin-top: 8px; font-size: 12px; line-height: 1.5; }
+    .ep-detail .tt-sep { border-top: 1px solid #eee; margin: 5px 0; }
+    .ep-detail .tt-label { font-weight: 600; color: #666; font-size: 10px; margin-top: 3px; }
+    .ep-detail .tt-cost span { margin-right: 6px; }
+    .ep-detail .tt-notes { font-style: italic; color: #888; margin-top: 4px; font-size: 10px; }
+    .ep-detail .tt-rec { color: #d97706; font-weight: 600; font-size: 10px; margin-top: 4px; }
+
+    /* Show backdrop on mobile */
+    .editor-backdrop.active { display: block; }
+}
+
+/* ===== PHONE ONLY (max-width: 480px) ===== */
+@media (max-width: 480px) {
+    /* Slightly smaller nodes, taller for better touch targets */
+    .node { width: 88px; height: 40px; }
+    .node-top { height: 30px; }
+    .node-name { font-size: 9px; line-height: 30px; }
+    .node-pill { font-size: 8px; line-height: 30px; }
+    .tree-row { gap: 8px; margin-bottom: 16px; }
+    .page-header h1 { font-size: 18px; }
+    .page-header .logo { height: 24px; }
+    .header-btn { padding: 6px 12px; font-size: 12px; }
+    .header-actions { gap: 6px; flex-wrap: wrap; }
+}
 '''
 
 # === JAVASCRIPT ===
@@ -718,6 +803,7 @@ body {
 JS = r'''
 const LS_KEY = 'owow-research-progress';
 let editorOpen = false;
+const isMobile = () => window.innerWidth <= 768;
 
 document.addEventListener('DOMContentLoaded', () => {
     loadProgress();
@@ -726,12 +812,44 @@ document.addEventListener('DOMContentLoaded', () => {
     renderRecommendedBadges();
     setupTooltips();
     setupEditor();
+    if (isMobile()) setupCollapsibleTrees();
     window.addEventListener('resize', () => { clearAllLines(); drawAllLines(); });
+    window.addEventListener('orientationchange', () => {
+        setTimeout(() => { clearAllLines(); drawAllLines(); }, 100);
+    });
     document.getElementById('btn-export')?.addEventListener('click', exportCSV);
     document.getElementById('btn-import')?.addEventListener('click', () => document.getElementById('csv-file-input')?.click());
     document.getElementById('csv-file-input')?.addEventListener('change', importCSV);
     document.getElementById('btn-reset')?.addEventListener('click', resetProgress);
 });
+
+// ============ COLLAPSIBLE TREES (MOBILE) ============
+
+function setupCollapsibleTrees() {
+    // Find the tree containing the next recommended step (gold badge)
+    const steps = computeRecommendedPath();
+    const nextStep = steps.find(s => s.status === 'next');
+    const expandTreeKey = nextStep ? nextStep.treeKey : null;
+
+    document.querySelectorAll('.tree-col').forEach(col => {
+        const treeKey = col.id.replace('tree-', '');
+        const header = col.querySelector('.tree-header');
+        if (!header) return;
+
+        // Collapse all except the tree with the next recommended step
+        if (treeKey !== expandTreeKey) {
+            col.classList.add('collapsed');
+        }
+
+        header.addEventListener('click', () => {
+            col.classList.toggle('collapsed');
+            if (!col.classList.contains('collapsed')) {
+                // Redraw SVG lines after expand animation
+                setTimeout(() => drawTreeLines(treeKey), 50);
+            }
+        });
+    });
+}
 
 // ============ DRAWING ============
 
@@ -1058,17 +1176,26 @@ function setupEditor() {
         renderEditor();
         popup.style.display = 'block';
 
-        // Position near clicked node
-        const r = anchorEl.getBoundingClientRect();
-        let x = r.right + 8;
-        let y = r.top - 10;
-        // Keep on screen
-        const pw = 230, ph = 160;
-        if (x + pw > window.innerWidth - 10) x = r.left - pw - 8;
-        if (y + ph > window.innerHeight - 10) y = window.innerHeight - ph - 10;
-        if (y < 10) y = 10;
-        popup.style.left = x + 'px';
-        popup.style.top = y + 'px';
+        if (isMobile()) {
+            // Bottom sheet: clear inline positioning, let CSS handle it
+            popup.style.left = '';
+            popup.style.top = '';
+            // Show backdrop
+            const backdrop = document.getElementById('editor-backdrop');
+            if (backdrop) backdrop.classList.add('active');
+        } else {
+            // Position near clicked node (desktop)
+            const r = anchorEl.getBoundingClientRect();
+            let x = r.right + 8;
+            let y = r.top - 10;
+            // Keep on screen
+            const pw = 230, ph = 160;
+            if (x + pw > window.innerWidth - 10) x = r.left - pw - 8;
+            if (y + ph > window.innerHeight - 10) y = window.innerHeight - ph - 10;
+            if (y < 10) y = 10;
+            popup.style.left = x + 'px';
+            popup.style.top = y + 'px';
+        }
     }
 
     function closeEditor() {
@@ -1076,6 +1203,8 @@ function setupEditor() {
         editorOpen = false;
         curTree = null;
         curId = null;
+        const backdrop = document.getElementById('editor-backdrop');
+        if (backdrop) backdrop.classList.remove('active');
     }
 
     function renderEditor() {
@@ -1140,6 +1269,56 @@ function setupEditor() {
                 epRec.innerHTML = '';
             }
         }
+
+        // Populate ep-detail on mobile (replaces tooltip info)
+        const epDetail = popup.querySelector('.ep-detail');
+        if (epDetail && isMobile()) {
+            let dh = '';
+            // Prerequisites
+            const nextIdx = d.currentLevel;
+            const nextLv = d.levels[nextIdx];
+            const detReqs = (nextLv && nextLv.requirements) ? nextLv.requirements : d.requirements;
+            if (detReqs.length) {
+                const label = d.currentLevel > 0
+                    ? `Prerequisites (for Lv.${d.currentLevel + 1}):`
+                    : `Prerequisites:`;
+                dh += `<div class="tt-sep"></div><div class="tt-label">${label}</div>`;
+                const nodes = TREE_DATA[curTree]?.nodes;
+                detReqs.forEach(req => {
+                    if (req.external) {
+                        dh += `<div style="color:#c00;font-size:10px">${esc(req.elementId)}</div>`;
+                    } else {
+                        const rn = nodes?.[req.elementId];
+                        const rName = rn ? rn.name : req.elementId;
+                        const met = rn && rn.currentLevel >= req.minLevel;
+                        const color = met ? '#2e7d32' : '#c00';
+                        dh += `<div style="font-size:11px;color:${color}">${esc(rName)} Lv.${req.minLevel} ${met ? '\u2713' : '\u2717'}</div>`;
+                    }
+                });
+            }
+            // Next level cost (if not already shown in ep-cost)
+            if (d.state !== 'maxed' && d.state !== 'locked' && d.state !== 'blocked') {
+                const nc = getNextCost(d);
+                if (nc) {
+                    dh += `<div class="tt-sep"></div>`;
+                    dh += `<div class="tt-label">Next Level (${d.currentLevel + 1}):</div>`;
+                    dh += fmtCost(nc);
+                }
+            }
+            // Total remaining
+            const rem = getTotalRemaining(d);
+            if (d.state !== 'maxed' && (rem.gold || rem.food || rem.iron || rem.valor)) {
+                dh += `<div class="tt-label">Total Remaining:</div>`;
+                dh += fmtCost(rem);
+            }
+            // Notes
+            if (d.notes) {
+                dh += `<div class="tt-sep"></div><div class="tt-notes">${esc(d.notes)}</div>`;
+            }
+            epDetail.innerHTML = dh;
+        } else if (epDetail) {
+            epDetail.innerHTML = '';
+        }
     }
 
     function changeLevel(delta) {
@@ -1189,6 +1368,11 @@ function setupEditor() {
         if (editorOpen && !popup.contains(e.target) && !e.target.closest('.node')) {
             closeEditor();
         }
+    });
+
+    // Backdrop click closes editor (mobile)
+    document.getElementById('editor-backdrop')?.addEventListener('click', () => {
+        if (editorOpen) closeEditor();
     });
 
     // Escape closes editor
@@ -1578,6 +1762,7 @@ def main():
 <html lang="en">
 <head>
 <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=3">
 <title>[OWOW] Research Trees</title>
 <style>
 {CSS}
@@ -1618,6 +1803,7 @@ def main():
 
 <div id="tooltip" class="tooltip"></div>
 
+<div class="editor-backdrop" id="editor-backdrop"></div>
 <div class="editor-popup" id="editor-popup">
     <button class="ep-close">&times;</button>
     <div class="ep-title"></div>
@@ -1630,6 +1816,7 @@ def main():
     <div class="ep-cost"></div>
     <div class="ep-pri"></div>
     <div class="ep-rec"></div>
+    <div class="ep-detail"></div>
 </div>
 
 <script>
