@@ -187,7 +187,8 @@
 
   /* Mobile responsive */
   @media (max-width: 768px) {
-    body { height: auto; overflow: auto; }
+    html { height: auto !important; overflow: visible !important; }
+    body { height: auto !important; overflow: visible !important; min-height: 0 !important; display: block !important; }
     .top-bar { flex-direction: column; gap: 6px; text-align: center; }
     .top-bar h1 { font-size: 18px; }
     .alliance { text-align: center; }
