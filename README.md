@@ -4,7 +4,7 @@
 
 Interactive research tree tracker for [Last War: Survival](https://play.google.com/store/apps/details?id=com.fun.lastwar.gp). Track all 11 research trees, see costs and prerequisites at a glance, and follow the recommended research path to maximize your progression.
 
-![Screenshot](screenshot.png)
+<p align="center"><img src="skynet_banner.png" alt="OWOW SKYNET - Old World Order" width="500"></p>
 
 ## Live Site
 

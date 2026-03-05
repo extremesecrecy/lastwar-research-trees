@@ -1774,7 +1774,7 @@ def main():
 <body>
 
 <div class="page-header">
-    <img src="crayon.png" class="logo" alt="OWOW">
+    <img src="skynet_logo.png" class="logo" alt="OWOW SKYNET">
     <h1>[OWOW] Research Trees</h1>
     <p class="subtitle">Old World Order &bull; Server #2013 &bull; <span id="grand-stats">Overall: {grand_done}/{grand_total} ({grand_pct}%)</span></p>
     <div class="header-actions">
