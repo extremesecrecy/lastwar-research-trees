@@ -279,7 +279,7 @@ def process_tree(tree_key, tree, progress, priority_map, notes_map):
 
 def generate_tree_html(tree_key, data):
     mw = data['max_width']
-    col_w = mw * 96 + (mw - 1) * 12 + 32
+    col_w = mw * 104 + (mw - 1) * 12 + 32
     s = data['stats']
     display_name = DISPLAY_NAMES.get(tree_key, data['tree_name'])
     incomplete = '' if data['is_complete'] else ' <span class="tree-incomplete">*</span>'
@@ -287,7 +287,8 @@ def generate_tree_html(tree_key, data):
     lines = []
     lines.append(f'<div class="tree-col" id="tree-{tree_key}" style="width:{col_w}px">')
     lines.append(f'  <div class="tree-header">{html_mod.escape(display_name)}{incomplete}<br>'
-                 f'<span class="tree-pct">{s["done"]}/{s["total"]} &mdash; {s["pct"]}%</span></div>')
+                 f'<span class="tree-pct">{s["done"]}/{s["total"]} &mdash; {s["pct"]}%</span>'
+                 f'<div class="tree-progress-bar"><div class="tree-progress-fill" style="width:{s["pct"]}%"></div></div></div>')
     lines.append(f'  <div class="tree-body">')
     lines.append(f'    <svg class="tree-svg" id="svg-{tree_key}"></svg>')
 
@@ -340,21 +341,36 @@ body {
 /* Page header */
 .page-header {
     text-align: center;
-    padding: 16px 0 10px;
-    border-bottom: 2px solid #e0e0e0;
+    padding: 16px 24px 12px;
+    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+    border-bottom: 3px solid #f4a261;
     margin-bottom: 12px;
+    color: #fff;
+}
+.game-badge {
+    display: inline-block;
+    background: rgba(244,162,97,0.15);
+    border: 1px solid rgba(244,162,97,0.4);
+    color: #f4a261;
+    font-size: 10px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1.2px;
+    padding: 2px 12px;
+    border-radius: 12px;
+    margin-bottom: 6px;
 }
 .page-header .logo { height: 60px; vertical-align: middle; margin-right: 8px; }
 .page-header h1 {
     font-family: 'DKCrayonCrumble', sans-serif;
     font-size: 26px;
-    color: #5a6a6a;
+    color: #fff;
     display: inline;
     vertical-align: middle;
 }
 .page-header .subtitle {
     font-size: 11px;
-    color: #999;
+    color: rgba(255,255,255,0.6);
     margin-top: 3px;
 }
 .header-actions {
@@ -364,22 +380,23 @@ body {
     gap: 10px;
 }
 .header-btn {
-    padding: 4px 14px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    background: #fafafa;
-    font-size: 11px;
+    padding: 5px 16px;
+    border: 1px solid rgba(255,255,255,0.2);
+    border-radius: 6px;
+    background: rgba(255,255,255,0.08);
+    font-size: 12px;
     cursor: pointer;
-    color: #555;
-    transition: background 0.15s, border-color 0.15s;
+    color: rgba(255,255,255,0.85);
+    transition: all 0.2s ease;
+    font-weight: 500;
 }
-.header-btn:hover { background: #eee; border-color: #aaa; }
-.header-btn.export { border-color: #7fb3a8; color: #5a8a7e; }
-.header-btn.export:hover { background: #e6f0ed; }
-.header-btn.import { border-color: #5bc0de; color: #3a8ca0; }
-.header-btn.import:hover { background: #e8f4f8; }
-.header-btn.reset { border-color: #e74c3c; color: #c0392b; }
-.header-btn.reset:hover { background: #fdeaea; }
+.header-btn:hover { background: rgba(255,255,255,0.15); border-color: rgba(255,255,255,0.35); color: #fff; }
+.header-btn.export { border-color: rgba(91,192,222,0.5); color: #8dd8ee; }
+.header-btn.export:hover { background: rgba(91,192,222,0.15); border-color: rgba(91,192,222,0.7); }
+.header-btn.import { border-color: rgba(127,179,168,0.5); color: #a8d8cc; }
+.header-btn.import:hover { background: rgba(127,179,168,0.15); border-color: rgba(127,179,168,0.7); }
+.header-btn.reset { border-color: rgba(231,76,60,0.4); color: #e8a09a; }
+.header-btn.reset:hover { background: rgba(231,76,60,0.15); border-color: rgba(231,76,60,0.6); color: #f5b7b1; }
 .import-msg {
     position: fixed;
     top: 20px;
@@ -401,18 +418,30 @@ body {
 .legend {
     display: flex;
     justify-content: center;
-    gap: 18px;
-    padding: 6px 0 4px;
-    font-size: 10px;
-    color: #666;
+    align-items: center;
+    gap: 16px;
+    padding: 8px 16px;
+    font-size: 12px;
+    color: #555;
+    border: 1px solid #e8e8e8;
+    border-radius: 6px;
+    margin: 8px 20px 4px;
+    background: #fafafa;
+}
+.legend-label {
+    font-weight: 600;
+    color: #777;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
 }
 .legend-item {
     display: flex;
     align-items: center;
-    gap: 4px;
+    gap: 5px;
 }
 .legend-swatch {
-    width: 14px; height: 14px;
+    width: 18px; height: 18px;
     border-radius: 3px;
     display: inline-block;
 }
@@ -449,15 +478,31 @@ body {
     font-size: 15px;
     color: #5a6a6a;
     text-align: center;
-    padding: 5px 0 3px;
-    border-bottom: 1px solid #e0e0e0;
+    padding: 6px 10px 5px;
+    background: #f8f9fa;
+    border: 1px solid #e8e8e8;
+    border-radius: 6px 6px 0 0;
     margin-bottom: 6px;
     line-height: 1.3;
+    font-weight: 700;
 }
 .tree-pct {
     font-family: 'Segoe UI', sans-serif;
     font-size: 10px;
     color: #999;
+}
+.tree-progress-bar {
+    height: 3px;
+    background: #e8e8e8;
+    border-radius: 2px;
+    margin-top: 3px;
+    overflow: hidden;
+}
+.tree-progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #7fb3a8, #5bc0de);
+    border-radius: 2px;
+    transition: width 0.3s;
 }
 .tree-incomplete {
     color: #e74c3c;
@@ -487,8 +532,8 @@ body {
 
 /* Nodes */
 .node {
-    width: 96px;
-    height: 36px;
+    width: 104px;
+    height: 38px;
     border-radius: 5px;
     padding: 2px 5px 0;
     cursor: pointer;
@@ -507,23 +552,23 @@ body {
     display: flex;
     align-items: center;
     gap: 2px;
-    height: 26px;
+    height: 28px;
 }
 .node-name {
-    font-size: 10px;
+    font-size: 11px;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
     flex: 1;
     min-width: 0;
-    line-height: 26px;
+    line-height: 28px;
 }
 .node-pill {
-    font-size: 9px;
+    font-size: 10px;
     font-weight: 600;
     white-space: nowrap;
     opacity: 0.6;
-    line-height: 26px;
+    line-height: 28px;
 }
 .node-bar {
     position: absolute;
@@ -712,6 +757,18 @@ body {
     margin-top: 2px;
 }
 
+/* Footer */
+.page-footer {
+    text-align: center;
+    padding: 16px 20px;
+    margin-top: 20px;
+    font-size: 11px;
+    color: #999;
+    border-top: 1px solid #e8e8e8;
+}
+.page-footer a { color: #5bc0de; text-decoration: none; }
+.page-footer a:hover { text-decoration: underline; }
+
 /* Mobile detail section (hidden on desktop) */
 .ep-detail { display: none; }
 
@@ -738,14 +795,20 @@ body {
     .tree-col.collapsed .tree-body { display: none; }
 
     /* Header compact */
+    .page-header { padding: 12px 16px 10px; }
     .page-header h1 { font-size: 20px; }
     .page-header .subtitle { font-size: 10px; }
+    .game-badge { font-size: 9px; padding: 2px 10px; margin-bottom: 4px; }
 
     /* Legend wraps */
-    .legend { flex-wrap: wrap; gap: 8px 14px; padding: 6px 12px; }
+    .legend { flex-wrap: wrap; gap: 6px 12px; padding: 6px 12px; margin: 6px 12px 4px; font-size: 11px; }
+    .legend-label { font-size: 10px; }
 
     /* Band labels compact */
-    .band-label { font-size: 13px; margin: 4px 0 1px; }
+    .band-label { font-size: 14px; padding: 8px 12px; position: sticky; top: 0; z-index: 4; background: #fff; margin: 4px 0 1px; }
+
+    /* Tree headers tappable */
+    .tree-header { padding: 8px 12px 6px; }
 
     /* Editor -> bottom sheet */
     .editor-popup {
@@ -786,15 +849,59 @@ body {
 /* ===== PHONE ONLY (max-width: 480px) ===== */
 @media (max-width: 480px) {
     /* Slightly smaller nodes, taller for better touch targets */
-    .node { width: 88px; height: 40px; }
+    .node { width: 92px; height: 40px; }
     .node-top { height: 30px; }
-    .node-name { font-size: 9px; line-height: 30px; }
-    .node-pill { font-size: 8px; line-height: 30px; }
+    .node-name { font-size: 9.5px; line-height: 30px; }
+    .node-pill { font-size: 9px; line-height: 30px; }
     .tree-row { gap: 8px; margin-bottom: 16px; }
     .page-header h1 { font-size: 18px; }
     .page-header .logo { height: 44px; }
     .header-btn { padding: 6px 12px; font-size: 12px; }
     .header-actions { gap: 6px; flex-wrap: wrap; }
+    .legend-swatch { width: 14px; height: 14px; }
+}
+
+/* Navigation Bar */
+.guide-nav {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px 12px;
+    align-items: center;
+    padding: 6px 16px;
+    background: #f0f5f4;
+    border-bottom: 2px solid #7fb3a8;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 12px;
+}
+.guide-nav a {
+    color: #5a6a6a;
+    text-decoration: none;
+    padding: 2px 6px;
+    border-radius: 3px;
+    white-space: nowrap;
+}
+.guide-nav a:hover {
+    color: #f4a261;
+    background: #fff;
+}
+.guide-nav a.current {
+    color: #f4a261;
+    font-weight: bold;
+    background: #fff;
+    border: 1px solid #f4a261;
+}
+.guide-nav .nav-home {
+    font-weight: bold;
+    margin-right: 8px;
+    padding-right: 12px;
+    border-right: 1px solid #7fb3a8;
+}
+@media (max-width: 480px) {
+    .guide-nav {
+        padding: 4px 10px;
+        gap: 3px 8px;
+        font-size: 11px;
+    }
 }
 '''
 
@@ -1016,6 +1123,10 @@ function updateTreeStats(tk) {
     const header = document.querySelector('#tree-' + tk + ' .tree-pct');
     if (header) {
         header.innerHTML = done + '/' + total + ' &mdash; ' + pct + '%';
+    }
+    const progFill = document.querySelector('#tree-' + tk + ' .tree-progress-fill');
+    if (progFill) {
+        progFill.style.width = pct + '%';
     }
 }
 
@@ -1546,8 +1657,8 @@ function importCSV(e) {
         // Show confirmation
         showImportMsg('Imported ' + updated + ' nodes');
 
-        // Reset file input so same file can be re-imported
-        e.target.value = '';
+        // Reset file input so same file can be re-imported (setTimeout avoids double-trigger)
+        setTimeout(() => { e.target.value = ''; }, 100);
     };
     reader.readAsText(file);
 }
@@ -1766,28 +1877,41 @@ def main():
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=3">
-<title>[OWOW] Research Trees</title>
+<title>Last War: Research Tree Tracker</title>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='6' fill='%231a1a2e'/><text x='16' y='23' text-anchor='middle' font-size='20'>🔬</text></svg>">
 <style>
 {CSS}
 </style>
 </head>
 <body>
 
+<nav class="guide-nav">
+  <a href="./" class="nav-home current">&#8592; Home</a>
+  <a href="guides/alliance_support_hub.html">Alliance Hub</a>
+  <a href="guides/building_planner.html">Building Planner</a>
+  <a href="guides/building_reference.html">Building Ref</a>
+  <a href="guides/capitol_positions.html">Capitol Positions</a>
+  <a href="guides/chip_lab_guide.html">Chip Lab</a>
+  <a href="guides/radar_guide.html">Radar</a>
+  <a href="guides/vs_weekly_planner.html">VS Planner</a>
+  <a href="guides/waterfall_guide.html">Waterfall</a>
+</nav>
+
 <div class="page-header">
-    <img src="skynet_logo.png" class="logo" alt="OWOW SKYNET">
-    <h1>[OWOW] Research Trees</h1>
-    <p class="subtitle">Old World Order &bull; Server #2013 &bull; <span id="grand-stats">Overall: {grand_done}/{grand_total} ({grand_pct}%)</span></p>
+    <div class="game-badge">Last War: Survival</div>
+    <img src="skynet_logo.png" class="logo" alt="">
+    <h1>Research Tree Tracker</h1>
+    <p class="subtitle">Interactive Tech Tree Progress Tracker &bull; All Servers &bull; <span id="grand-stats">Overall: {grand_done}/{grand_total} ({grand_pct}%)</span></p>
     <div class="header-actions">
         <button class="header-btn export" id="btn-export">Export CSV</button>
-        <div style="position:relative;display:inline-block">
-            <button class="header-btn import" type="button" style="pointer-events:none">Import CSV</button>
-            <input type="file" id="csv-file-input" accept=".csv" style="position:absolute;top:0;left:0;width:100%;height:100%;opacity:0;cursor:pointer">
-        </div>
+        <label for="csv-file-input" class="header-btn import" style="cursor:pointer;display:inline-block">Import CSV</label>
+        <input type="file" id="csv-file-input" accept=".csv" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0);opacity:0">
         <button class="header-btn reset" id="btn-reset">Reset</button>
     </div>
 </div>
 
 <div class="legend">
+    <span class="legend-label">Legend:</span>
     <div class="legend-item"><span class="legend-swatch sw-maxed"></span> Maxed</div>
     <div class="legend-item"><span class="legend-swatch sw-progress"></span> In Progress</div>
     <div class="legend-item"><span class="legend-swatch sw-blocked"></span> Blocked</div>
@@ -1796,15 +1920,17 @@ def main():
     <div class="legend-item"><span class="legend-swatch sw-rec">1</span> Recommended</div>
 </div>
 
-<div class="band-label">Shorter Trees</div>
+<div class="band-label">Strategy &amp; Support Trees</div>
 <div class="band" id="band1">
 {band1_html}
 </div>
 
-<div class="band-label">Taller Trees</div>
+<div class="band-label">Combat &amp; Squad Trees</div>
 <div class="band" id="band2">
 {band2_html}
 </div>
+
+<div class="page-footer">Built for Last War: Survival players &bull; Data from <a href="https://cpt-hedge.com/calculators/research" target="_blank">cpt-hedge.com</a> &bull; Created by Extremesecrecy</div>
 
 <div id="tooltip" class="tooltip"></div>
 

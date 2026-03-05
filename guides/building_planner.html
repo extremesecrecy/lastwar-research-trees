@@ -440,6 +440,96 @@
     opacity: 1;
   }
 
+  /* Speedup Inventory */
+  .speedup-section {
+    margin-bottom: 10px;
+  }
+  .speedup-toggle {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 14px;
+    background: #e4f3f8;
+    border: 1.5px solid var(--cyan);
+    border-radius: 8px;
+    cursor: pointer;
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--dark);
+  }
+  .speedup-toggle:active { opacity: 0.8; }
+  .speedup-toggle .arrow {
+    font-size: 12px;
+    transition: transform 0.2s;
+  }
+  .speedup-section.expanded .speedup-toggle .arrow {
+    transform: rotate(90deg);
+  }
+  .speedup-toggle .total-hours {
+    margin-left: auto;
+    font-size: 12px;
+    color: var(--cyan);
+    font-weight: 700;
+  }
+  .speedup-body {
+    display: none;
+    padding: 10px 14px;
+    background: #e4f3f8;
+    border: 1.5px solid var(--cyan);
+    border-top: none;
+    border-radius: 0 0 8px 8px;
+  }
+  .speedup-section.expanded .speedup-body {
+    display: block;
+  }
+  .speedup-section.expanded .speedup-toggle {
+    border-radius: 8px 8px 0 0;
+  }
+  .speedup-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 8px;
+  }
+  .speedup-field {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+  }
+  .speedup-field label {
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--dark);
+    white-space: nowrap;
+  }
+  .speedup-field input {
+    width: 60px;
+    padding: 4px 6px;
+    border: 1.5px solid var(--cyan);
+    border-radius: 5px;
+    font-size: 14px;
+    text-align: center;
+    background: #fff;
+  }
+  .speedup-field input:focus {
+    outline: none;
+    border-color: var(--teal);
+    box-shadow: 0 0 0 2px rgba(91, 192, 222, 0.2);
+  }
+  .speedup-summary {
+    margin-top: 8px;
+    padding-top: 8px;
+    border-top: 1px solid var(--cyan);
+    font-size: 12px;
+    color: var(--dark);
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 4px;
+  }
+
   /* Responsive */
   @media (max-width: 480px) {
     body { padding: 4px; }
@@ -450,10 +540,12 @@
     .tab-btn { font-size: 11px; padding: 8px 2px; }
     .action-bar { flex-direction: column; }
     .action-btn { min-width: 100%; }
+    .speedup-grid { grid-template-columns: repeat(2, 1fr); }
   }
 
   @media (min-width: 481px) and (max-width: 768px) {
     .power-dashboard { grid-template-columns: 1fr 1fr 1fr; }
+    .speedup-grid { grid-template-columns: repeat(3, 1fr); }
   }
 
   @media (min-width: 769px) {
@@ -520,6 +612,7 @@
   <a href="building_planner.html" class="current">Building Planner</a>
   <a href="building_reference.html">Building Ref</a>
   <a href="capitol_positions.html">Capitol Positions</a>
+  <a href="chip_lab_guide.html">Chip Lab</a>
   <a href="radar_guide.html">Radar</a>
   <a href="vs_weekly_planner.html">VS Planner</a>
   <a href="waterfall_guide.html">Waterfall</a>
@@ -531,7 +624,6 @@
     <div class="sub">Last War: Survival</div>
   </div>
   <div class="alliance">
-    <img src="skynet_logo.png" alt="OWOW SKYNET" style="height:60px;">
     <div class="name">[OWOW]</div>
     <div class="info">Old World Order</div>
   </div>
@@ -542,6 +634,50 @@
   <label>Target HQ: <select id="targetHQ"></select></label>
   <label>Builders: <input type="number" id="builderCount" min="1" max="5" value="3"></label>
   <label>VIP Level: <select id="vipLevel"></select></label>
+</div>
+
+<div class="speedup-section" id="speedupSection">
+  <div class="speedup-toggle" onclick="toggleSpeedups()">
+    <span class="arrow">&#9654;</span>
+    <span>Speedup Inventory</span>
+    <span class="total-hours" id="speedupTotalLabel">0h total</span>
+  </div>
+  <div class="speedup-body">
+    <div class="speedup-grid">
+      <div class="speedup-field">
+        <label>5 min</label>
+        <input type="number" id="sp-m5" min="0" value="0" onchange="onSpeedupChange()" oninput="onSpeedupChange()">
+      </div>
+      <div class="speedup-field">
+        <label>15 min</label>
+        <input type="number" id="sp-m15" min="0" value="0" onchange="onSpeedupChange()" oninput="onSpeedupChange()">
+      </div>
+      <div class="speedup-field">
+        <label>30 min</label>
+        <input type="number" id="sp-m30" min="0" value="0" onchange="onSpeedupChange()" oninput="onSpeedupChange()">
+      </div>
+      <div class="speedup-field">
+        <label>1 hour</label>
+        <input type="number" id="sp-h1" min="0" value="0" onchange="onSpeedupChange()" oninput="onSpeedupChange()">
+      </div>
+      <div class="speedup-field">
+        <label>3 hour</label>
+        <input type="number" id="sp-h3" min="0" value="0" onchange="onSpeedupChange()" oninput="onSpeedupChange()">
+      </div>
+      <div class="speedup-field">
+        <label>8 hour</label>
+        <input type="number" id="sp-h8" min="0" value="0" onchange="onSpeedupChange()" oninput="onSpeedupChange()">
+      </div>
+      <div class="speedup-field">
+        <label>24 hour</label>
+        <input type="number" id="sp-h24" min="0" value="0" onchange="onSpeedupChange()" oninput="onSpeedupChange()">
+      </div>
+    </div>
+    <div class="speedup-summary">
+      <span id="speedupSummaryText">Total: 0h 0m</span>
+      <span id="speedupRemaining"></span>
+    </div>
+  </div>
 </div>
 
 <div class="power-dashboard">
@@ -609,6 +745,20 @@ const VIP_SPEED = {
     10:35, 11:50, 12:55, 13:60, 14:65, 15:70
 };
 
+// Speedup types: key -> seconds
+const SPEEDUP_TYPES = [
+    { key: 'm5',  label: '5 min',  secs: 300 },
+    { key: 'm15', label: '15 min', secs: 900 },
+    { key: 'm30', label: '30 min', secs: 1800 },
+    { key: 'h1',  label: '1 hr',   secs: 3600 },
+    { key: 'h3',  label: '3 hr',   secs: 10800 },
+    { key: 'h8',  label: '8 hr',   secs: 28800 },
+    { key: 'h24', label: '24 hr',  secs: 86400 }
+];
+
+// Speedup inventory state
+var speedupState = { m5:0, m15:0, m30:0, h1:0, h3:0, h8:0, h24:0 };
+
 /* ---------- INIT ---------- */
 function init() {
     // Init state with 0 for all buildings
@@ -624,6 +774,7 @@ function init() {
     populateVIPDropdown();
     renderBuildingTracker();
     setupTabs();
+    loadSpeedupUI();
 
     // Initial calculations
     recalcAll();
@@ -637,7 +788,8 @@ function saveProgress() {
             currentHQ: parseInt(document.getElementById('currentHQ').value) || 1,
             targetHQ: parseInt(document.getElementById('targetHQ').value) || 2,
             builders: parseInt(document.getElementById('builderCount').value) || 3,
-            vip: parseInt(document.getElementById('vipLevel').value) || 0
+            vip: parseInt(document.getElementById('vipLevel').value) || 0,
+            speedups: speedupState
         };
         localStorage.setItem(LS_KEY, JSON.stringify(data));
     } catch(e) { /* quota exceeded */ }
@@ -656,6 +808,11 @@ function loadProgress() {
                 }
             }
         }
+        if (data.speedups) {
+            for (var k in data.speedups) {
+                if (k in speedupState) speedupState[k] = parseInt(data.speedups[k]) || 0;
+            }
+        }
         if (data.currentHQ) {
             setTimeout(() => {
                 const cur = document.getElementById('currentHQ');
@@ -666,6 +823,7 @@ function loadProgress() {
                 if (tgt) tgt.value = data.targetHQ || data.currentHQ + 1;
                 if (bld) bld.value = data.builders || 3;
                 if (vip) vip.value = data.vip || 0;
+                loadSpeedupUI();
                 recalcAll();
             }, 0);
         }
@@ -1301,13 +1459,31 @@ function renderSteps(container, steps, mode, totalParallelTime) {
         timeLabel = '(with parallel builders)';
     }
 
+    // Apply speedups to display time
+    var speedupTotal = getSpeedupTotalSeconds();
+    var speedupResult = applySpeedups(displayTime);
+    var hasSpeedups = speedupTotal > 0;
+
     html += '<div class="summary-box">' +
         '<h4>Total ' + timeLabel + '</h4>' +
         '<div class="summary-row"><span>Food:</span><span>' + fN(totalFood) + '</span></div>' +
         '<div class="summary-row"><span>Iron:</span><span>' + fN(totalIron) + '</span></div>' +
         '<div class="summary-row"><span>Gold:</span><span>' + fN(totalGold) + '</span></div>' +
-        '<div class="summary-row"><span>Time:</span><span>' + formatTime(displayTime) + ' ' + timeLabel + '</span></div>' +
-        '<div class="summary-row"><span>Power:</span><span>+' + fN(totalPower) + '</span></div>' +
+        '<div class="summary-row"><span>Build Time:</span><span>' + formatTime(displayTime) + ' ' + timeLabel + '</span></div>';
+
+    if (hasSpeedups) {
+        html +=
+            '<div class="summary-row" style="color:var(--cyan);font-weight:700;"><span>After Speedups:</span><span>' + formatTime(speedupResult.remainingTime) + '</span></div>' +
+            '<div class="summary-row" style="font-size:11px;color:#888;"><span>Speedups Used:</span><span>' + formatSpeedupsUsed(speedupResult.used) + '</span></div>';
+        var remSp = getRemainingSpeedups(speedupResult.used);
+        var remTotal = 0;
+        for (var ri = 0; ri < SPEEDUP_TYPES.length; ri++) remTotal += (remSp[SPEEDUP_TYPES[ri].key] || 0) * SPEEDUP_TYPES[ri].secs;
+        if (remTotal > 0) {
+            html += '<div class="summary-row" style="font-size:11px;color:#888;"><span>Remaining Speedups:</span><span>' + formatTime(remTotal) + '</span></div>';
+        }
+    }
+
+    html += '<div class="summary-row"><span>Power:</span><span>+' + fN(totalPower) + '</span></div>' +
     '</div>';
 
     container.innerHTML = html;
@@ -1362,7 +1538,8 @@ function setupTabs() {
 
 /* ---------- CSV EXPORT/IMPORT ---------- */
 function exportCSV() {
-    var rows = ['Building,Category,CurrentLevel,MaxLevel,Power,RequiredForHQ,Notes'];
+    var rows = ['# Speedups: m5=' + (speedupState.m5||0) + ',m15=' + (speedupState.m15||0) + ',m30=' + (speedupState.m30||0) + ',h1=' + (speedupState.h1||0) + ',h3=' + (speedupState.h3||0) + ',h8=' + (speedupState.h8||0) + ',h24=' + (speedupState.h24||0)];
+    rows.push('Building,Category,CurrentLevel,MaxLevel,Power,RequiredForHQ,Notes');
 
     for (var catName in categories) {
         var buildingList = categories[catName];
@@ -1412,7 +1589,29 @@ function importCSV(event) {
     var reader = new FileReader();
     reader.onload = function(e) {
         var lines = e.target.result.split(/\r?\n/);
-        var header = lines[0].split(',');
+
+        // Parse speedup comment header if present
+        for (var si = 0; si < lines.length; si++) {
+            if (lines[si].indexOf('# Speedups:') === 0) {
+                var spPart = lines[si].replace('# Speedups: ', '');
+                var spPairs = spPart.split(',');
+                for (var sp = 0; sp < spPairs.length; sp++) {
+                    var kv = spPairs[sp].split('=');
+                    if (kv.length === 2 && kv[0] in speedupState) {
+                        speedupState[kv[0]] = parseInt(kv[1]) || 0;
+                    }
+                }
+                loadSpeedupUI();
+                break;
+            }
+        }
+
+        // Find header row (skip comment lines)
+        var headerIdx = 0;
+        for (var hi = 0; hi < lines.length; hi++) {
+            if (lines[hi].charAt(0) !== '#') { headerIdx = hi; break; }
+        }
+        var header = lines[headerIdx].split(',');
         var buildingIdx = header.indexOf('Building');
         var levelIdx = header.indexOf('CurrentLevel');
 
@@ -1422,7 +1621,7 @@ function importCSV(event) {
         }
 
         var imported = 0;
-        for (var i = 1; i < lines.length; i++) {
+        for (var i = headerIdx + 1; i < lines.length; i++) {
             var cols = parseCSVRow(lines[i]);
             if (cols.length <= Math.max(buildingIdx, levelIdx)) continue;
 
@@ -1475,10 +1674,12 @@ function csvEsc(s) {
 }
 
 function resetAll() {
-    if (!confirm('Reset all building levels? You can re-import your CSV to restore.')) return;
+    if (!confirm('Reset all building levels and speedups? You can re-import your CSV to restore.')) return;
     for (var b in state) state[b] = 0;
+    for (var k in speedupState) speedupState[k] = 0;
     localStorage.removeItem(LS_KEY);
     renderBuildingTracker();
+    loadSpeedupUI();
     recalcAll();
     showToast('All levels reset.');
 }
@@ -1500,6 +1701,98 @@ function showToast(msg) {
     toast.textContent = msg;
     toast.classList.add('show');
     setTimeout(function() { toast.classList.remove('show'); }, 2000);
+}
+
+/* ---------- SPEEDUP INVENTORY ---------- */
+function toggleSpeedups() {
+    document.getElementById('speedupSection').classList.toggle('expanded');
+}
+
+function loadSpeedupUI() {
+    for (var i = 0; i < SPEEDUP_TYPES.length; i++) {
+        var el = document.getElementById('sp-' + SPEEDUP_TYPES[i].key);
+        if (el) el.value = speedupState[SPEEDUP_TYPES[i].key] || 0;
+    }
+    updateSpeedupDisplay();
+}
+
+function onSpeedupChange() {
+    for (var i = 0; i < SPEEDUP_TYPES.length; i++) {
+        var el = document.getElementById('sp-' + SPEEDUP_TYPES[i].key);
+        speedupState[SPEEDUP_TYPES[i].key] = Math.max(0, parseInt(el.value) || 0);
+    }
+    updateSpeedupDisplay();
+    recalcAll();
+    saveProgress();
+}
+
+function getSpeedupTotalSeconds() {
+    var total = 0;
+    for (var i = 0; i < SPEEDUP_TYPES.length; i++) {
+        total += (speedupState[SPEEDUP_TYPES[i].key] || 0) * SPEEDUP_TYPES[i].secs;
+    }
+    return total;
+}
+
+function updateSpeedupDisplay() {
+    var total = getSpeedupTotalSeconds();
+    var h = Math.floor(total / 3600);
+    var m = Math.floor((total % 3600) / 60);
+    var lbl = document.getElementById('speedupTotalLabel');
+    if (lbl) lbl.textContent = h + 'h ' + m + 'm total';
+    var sum = document.getElementById('speedupSummaryText');
+    if (sum) sum.textContent = 'Total: ' + h + 'h ' + m + 'm (' + formatTime(total) + ')';
+}
+
+function applySpeedups(totalSeconds) {
+    // Greedy: use largest speedups first, don't overshoot
+    var remaining = totalSeconds;
+    var used = {};
+    var inventory = {};
+    for (var i = 0; i < SPEEDUP_TYPES.length; i++) {
+        inventory[SPEEDUP_TYPES[i].key] = speedupState[SPEEDUP_TYPES[i].key] || 0;
+        used[SPEEDUP_TYPES[i].key] = 0;
+    }
+    // Iterate from largest to smallest
+    for (var j = SPEEDUP_TYPES.length - 1; j >= 0; j--) {
+        var sp = SPEEDUP_TYPES[j];
+        if (remaining <= 0) break;
+        var canUse = Math.min(inventory[sp.key], Math.floor(remaining / sp.secs));
+        if (canUse > 0) {
+            used[sp.key] = canUse;
+            remaining -= canUse * sp.secs;
+        }
+    }
+    // Use one more of the largest that fits to finish off remaining (if any)
+    if (remaining > 0) {
+        for (var k = 0; k < SPEEDUP_TYPES.length; k++) {
+            var sp2 = SPEEDUP_TYPES[k];
+            if (inventory[sp2.key] > used[sp2.key]) {
+                used[sp2.key]++;
+                remaining = Math.max(0, remaining - sp2.secs);
+                break;
+            }
+        }
+    }
+    return { remainingTime: Math.max(0, remaining), used: used };
+}
+
+function formatSpeedupsUsed(used) {
+    var parts = [];
+    for (var i = SPEEDUP_TYPES.length - 1; i >= 0; i--) {
+        var sp = SPEEDUP_TYPES[i];
+        if (used[sp.key] > 0) parts.push(used[sp.key] + 'x ' + sp.label);
+    }
+    return parts.length > 0 ? parts.join(', ') : 'none';
+}
+
+function getRemainingSpeedups(used) {
+    var rem = {};
+    for (var i = 0; i < SPEEDUP_TYPES.length; i++) {
+        var k = SPEEDUP_TYPES[i].key;
+        rem[k] = (speedupState[k] || 0) - (used[k] || 0);
+    }
+    return rem;
 }
 
 /* ---------- START ---------- */

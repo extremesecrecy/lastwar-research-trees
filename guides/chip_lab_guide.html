@@ -1,0 +1,835 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chip Lab Guide - OWOW</title>
+<style>
+  @font-face {
+    font-family: 'DKCrayonCrumble';
+    src: url('DKCrayonCrumble.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+  }
+  /* HCI Brand: Orange #f4a261, Cyan #5bc0de, Yellow #f4d35e, Teal #7fb3a8, Dark #5a6a6a, Text #333, Watermelon #fc5c65 */
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: 'DKCrayonCrumble', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: #fff;
+    color: #333;
+    padding: 12px 16px;
+    min-height: 100vh;
+  }
+
+  /* Header */
+  .top-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 6px;
+  }
+  .top-bar .left h1 {
+    font-size: 24px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: #5a6a6a;
+  }
+  .top-bar .left .sub {
+    font-size: 13px;
+    color: #888;
+  }
+  .top-bar .right {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .top-bar .right img { height: 60px; }
+  .top-bar .right .alliance-tag {
+    background: #e8f4f1;
+    border: 1px solid #7fb3a8;
+    border-radius: 5px;
+    padding: 3px 10px;
+    font-size: 13px;
+    color: #5a6a6a;
+    font-weight: bold;
+  }
+
+  /* Highlight boxes */
+  .highlight-box {
+    border-radius: 8px;
+    padding: 14px 20px;
+    margin: 0 auto 16px auto;
+    max-width: 620px;
+    text-align: center;
+  }
+  .highlight-box.info {
+    background: #e4f3f8;
+    border: 2px solid #5bc0de;
+  }
+  .highlight-box.info .label { color: #5bc0de; font-size: 11px; font-weight: bold; text-transform: uppercase; letter-spacing: 1px; }
+  .highlight-box.info .value { color: #333; font-size: 20px; font-weight: bold; margin-top: 2px; }
+  .highlight-box.info .tip { color: #7fb3a8; font-size: 12px; margin-top: 4px; }
+  .highlight-box.action {
+    background: #fff0f0;
+    border: 2px solid #fc5c65;
+  }
+  .highlight-box.action .label { color: #fc5c65; font-size: 11px; font-weight: bold; text-transform: uppercase; letter-spacing: 1px; }
+  .highlight-box.action .value { color: #333; font-size: 18px; font-weight: bold; margin-top: 2px; }
+  .highlight-box.action .tip { color: #888; font-size: 12px; margin-top: 4px; }
+
+  .highlight-box.wide {
+    max-width: 780px;
+  }
+
+  /* Section titles */
+  .section-title {
+    font-size: 16px;
+    color: #f4a261;
+    margin: 16px 0 8px 0;
+    border-bottom: 2px solid #f4d35e;
+    padding-bottom: 4px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+
+  /* Tables */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+    font-size: 14px;
+  }
+  thead th {
+    background: #5a6a6a;
+    color: #fff;
+    padding: 8px 6px;
+    text-align: center;
+    font-weight: 600;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    position: sticky;
+    top: 0;
+    z-index: 2;
+  }
+  tbody td {
+    padding: 7px 6px;
+    text-align: center;
+    border-bottom: 1px solid #e8e8e8;
+  }
+  tbody tr:nth-child(even) { background: #fafafa; }
+  tbody tr:nth-child(odd) { background: #fff; }
+  tbody tr:hover { background: #f0f7ff; }
+
+  /* Priority highlight rows */
+  tbody tr.priority-high {
+    background: #fef3e2 !important;
+  }
+  tbody tr.priority-high:hover { background: #fdebd0 !important; }
+
+  /* Column styles */
+  .name-col { color: #5a6a6a; font-weight: bold; font-size: 14px; text-align: left !important; }
+  .cat-col { text-align: left !important; }
+  .effect-col { color: #333; font-size: 13px; text-align: left !important; }
+  .priority-col { font-weight: bold; }
+
+  /* Color badges for rarity */
+  .rarity { padding: 2px 8px; border-radius: 10px; font-weight: bold; font-size: 12px; white-space: nowrap; }
+  .rarity-r { background: #e8f5e9; color: #388e3c; }
+  .rarity-sr { background: #e3f2fd; color: #1976d2; }
+  .rarity-ssr { background: #f3e5f5; color: #7b1fa2; }
+  .rarity-ur { background: #fff8e1; color: #f57f17; border: 1px solid #f57f17; }
+
+  /* Bullet list */
+  .fact-list {
+    max-width: 620px;
+    margin: 8px auto 16px auto;
+    padding-left: 24px;
+  }
+  .fact-list li {
+    margin-bottom: 6px;
+    font-size: 14px;
+    color: #333;
+    line-height: 1.5;
+  }
+
+  /* Section description text */
+  .section-desc {
+    max-width: 620px;
+    margin: 4px auto 12px auto;
+    font-size: 14px;
+    color: #333;
+    line-height: 1.6;
+  }
+
+  /* Loadout cards */
+  .loadout-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-bottom: 16px;
+  }
+  .loadout-card {
+    border: 2px solid #e8e8e8;
+    border-radius: 8px;
+    padding: 12px 14px;
+    background: #fafafa;
+  }
+  .loadout-card h3 {
+    font-size: 14px;
+    color: #5a6a6a;
+    margin-bottom: 6px;
+    border-bottom: 1px solid #e8e8e8;
+    padding-bottom: 4px;
+  }
+  .loadout-card .chip-list {
+    list-style: none;
+    padding: 0;
+  }
+  .loadout-card .chip-list li {
+    font-size: 13px;
+    padding: 3px 0;
+    color: #333;
+    border-bottom: 1px dotted #e8e8e8;
+  }
+  .loadout-card .chip-list li:last-child {
+    border-bottom: none;
+  }
+  .loadout-card .chip-list .chip-num {
+    display: inline-block;
+    width: 18px;
+    height: 18px;
+    background: #5bc0de;
+    color: #fff;
+    border-radius: 50%;
+    text-align: center;
+    font-size: 11px;
+    line-height: 18px;
+    margin-right: 6px;
+    font-weight: bold;
+  }
+  .loadout-card.aircraft {
+    border-color: #5bc0de;
+  }
+  .loadout-card.aircraft h3 { color: #5bc0de; }
+  .loadout-card.tank {
+    border-color: #7fb3a8;
+  }
+  .loadout-card.tank h3 { color: #7fb3a8; }
+  .loadout-card.anti-tank {
+    border-color: #fc5c65;
+  }
+  .loadout-card.anti-tank h3 { color: #fc5c65; }
+  .loadout-card.support {
+    border-color: #f4a261;
+  }
+  .loadout-card.support h3 { color: #f4a261; }
+
+  /* Milestone bar */
+  .milestone-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 8px auto 16px auto;
+    max-width: 620px;
+    position: relative;
+  }
+  .milestone-bar::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: #e8e8e8;
+    z-index: 0;
+  }
+  .milestone {
+    text-align: center;
+    position: relative;
+    z-index: 1;
+    background: #fff;
+    padding: 0 8px;
+  }
+  .milestone .dot {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 12px;
+    color: #fff;
+    margin: 0 auto 4px auto;
+  }
+  .milestone .m-label {
+    font-size: 11px;
+    color: #888;
+  }
+  .milestone .m-desc {
+    font-size: 12px;
+    color: #333;
+    font-weight: 600;
+  }
+
+  /* Footer */
+  .footer {
+    text-align: center;
+    padding: 14px 0;
+    font-size: 12px;
+    color: #888;
+    border-top: 1px solid #eee;
+    margin-top: 16px;
+  }
+
+  /* Navigation Bar */
+  .guide-nav {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px 12px;
+    align-items: center;
+    padding: 6px 16px;
+    background: #f0f5f4;
+    border-bottom: 2px solid #7fb3a8;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 12px;
+    margin: -12px -16px 12px -16px;
+  }
+  .guide-nav a {
+    color: #5a6a6a;
+    text-decoration: none;
+    padding: 2px 6px;
+    border-radius: 3px;
+    white-space: nowrap;
+  }
+  .guide-nav a:hover {
+    color: #f4a261;
+    background: #fff;
+  }
+  .guide-nav a.current {
+    color: #f4a261;
+    font-weight: bold;
+    background: #fff;
+    border: 1px solid #f4a261;
+  }
+  .guide-nav .nav-home {
+    font-weight: bold;
+    margin-right: 8px;
+    padding-right: 12px;
+    border-right: 1px solid #7fb3a8;
+  }
+
+  /* Responsive */
+  @media (max-width: 600px) {
+    body { padding: 8px 10px; }
+    .top-bar { flex-direction: column; text-align: center; gap: 6px; }
+    .top-bar .right { justify-content: center; }
+    .top-bar .left h1 { font-size: 20px; }
+    .loadout-grid { grid-template-columns: 1fr; }
+    table { font-size: 12px; }
+    thead th { font-size: 10px; padding: 6px 4px; }
+    tbody td { padding: 5px 4px; }
+    .guide-nav {
+      padding: 4px 10px;
+      gap: 3px 8px;
+      font-size: 11px;
+      margin: -8px -10px 8px -10px;
+    }
+    .highlight-box .value { font-size: 16px; }
+  }
+</style>
+</head>
+<body>
+
+<nav class="guide-nav">
+  <a href="../" class="nav-home">&#8592; Home</a>
+  <a href="alliance_support_hub.html">Alliance Hub</a>
+  <a href="building_planner.html">Building Planner</a>
+  <a href="building_reference.html">Building Ref</a>
+  <a href="capitol_positions.html">Capitol Positions</a>
+  <a href="chip_lab_guide.html" class="current">Chip Lab</a>
+  <a href="radar_guide.html">Radar</a>
+  <a href="vs_weekly_planner.html">VS Planner</a>
+  <a href="waterfall_guide.html">Waterfall</a>
+</nav>
+
+<div class="top-bar">
+  <div class="left">
+    <h1>Chip Lab Guide</h1>
+    <div class="sub">Master Your Drones. Dominate the Sky.</div>
+  </div>
+  <div class="right">
+    <img src="skynet_logo.png" alt="OWOW">
+    <div class="alliance-tag">[OWOW] Old World Order</div>
+  </div>
+</div>
+
+<div class="highlight-box info">
+  <div class="label">Drone Skill Chips</div>
+  <div class="value">Permanent power boosts &mdash; craft smart, upgrade consistently, dominate!</div>
+  <div class="tip">Chip Lab unlocks at HQ 15. All legendary chips available at Chip Lab Level 20.</div>
+</div>
+
+<!-- SECTION 1: What is the Chip Lab? -->
+<h2 class="section-title">1. What is the Chip Lab?</h2>
+
+<p class="section-desc">
+  The Chip Lab is a building that lets you craft drone skill chips from materials. Chips are equipped to your drone and provide permanent combat bonuses that scale with upgrades and stars. Unlike gear or research, chip power carries across all game modes.
+</p>
+
+<ul class="fact-list">
+  <li><strong>Unlocks:</strong> HQ Level 15</li>
+  <li><strong>Max Level:</strong> 35 (Levels 31&ndash;35 require Oil &mdash; Season 2+)</li>
+  <li><strong>Level 15:</strong> First legendary chip recipes available</li>
+  <li><strong>Level 20:</strong> All legendary chip recipes unlocked</li>
+  <li><strong>Levels 21&ndash;35:</strong> Power increases only (no new recipes)</li>
+  <li><strong>Key rule:</strong> Always craft the highest rarity you can. Never waste materials on lower tiers.</li>
+</ul>
+
+<!-- SECTION 2: Chip Types & Categories -->
+<h2 class="section-title">2. Chip Types &amp; Categories</h2>
+
+<p class="section-desc">
+  All chips fall into 4 functional categories. Each category serves a different combat role. A balanced loadout uses chips from multiple categories.
+</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Category</th>
+      <th>Icon Color</th>
+      <th>Role</th>
+      <th>Best For</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td class="name-col">Attack</td>
+      <td style="color:#e53935;">Red</td>
+      <td class="effect-col">Boost drone damage output, crit rate</td>
+      <td>DPS heroes (DVA, Kimberly, Schuyler)</td>
+    </tr>
+    <tr>
+      <td class="name-col">Defense</td>
+      <td style="color:#1976d2;">Blue</td>
+      <td class="effect-col">Increase HP, armor, damage resistance</td>
+      <td>Tanks (Murphy, Williams, Carlie, Lucius)</td>
+    </tr>
+    <tr>
+      <td class="name-col">Initial Move</td>
+      <td style="color:#43a047;">Green</td>
+      <td class="effect-col">Shield at battle start (~10 seconds)</td>
+      <td>Opening protection for all squads</td>
+    </tr>
+    <tr>
+      <td class="name-col">Interference</td>
+      <td style="color:#7b1fa2;">Purple</td>
+      <td class="effect-col">Crowd control, DoT, enemy debuffs</td>
+      <td>PvP disruption, utility builds</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 style="font-size:14px; color:#5a6a6a; margin: 8px 0;">Quality Tiers</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th>Rarity</th>
+      <th>Color</th>
+      <th>Material Type</th>
+      <th>Craft Cost</th>
+      <th>Notes</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><span class="rarity rarity-r">R</span></td>
+      <td>Green</td>
+      <td>None</td>
+      <td>Minimal</td>
+      <td>Starter chips, replace ASAP</td>
+    </tr>
+    <tr>
+      <td><span class="rarity rarity-sr">SR</span></td>
+      <td>Blue</td>
+      <td>None</td>
+      <td>Low</td>
+      <td>Filler until epic/legendary</td>
+    </tr>
+    <tr>
+      <td><span class="rarity rarity-ssr">SSR</span></td>
+      <td>Purple</td>
+      <td>Basic Materials</td>
+      <td>400&ndash;800</td>
+      <td>Decent placeholder</td>
+    </tr>
+    <tr class="priority-high">
+      <td><span class="rarity rarity-ur">UR</span></td>
+      <td>Gold</td>
+      <td>Premium Materials</td>
+      <td>800 each</td>
+      <td><strong>CRAFT THESE. Only invest in UR.</strong></td>
+    </tr>
+  </tbody>
+</table>
+
+<!-- SECTION 3: All Legendary Chips -->
+<h2 class="section-title">3. Legendary Chips &mdash; Priority Order</h2>
+
+<p class="section-desc">
+  Focus your materials on crafting legendary (UR) chips in this order. The first 3 are universal and should be your immediate targets.
+</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>#</th>
+      <th>Chip Name</th>
+      <th>Category</th>
+      <th>Effect</th>
+      <th>Best For</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr class="priority-high">
+      <td class="priority-col" style="color:#fc5c65;">1</td>
+      <td class="name-col">Memory Ultra Fission</td>
+      <td class="cat-col">Attack</td>
+      <td class="effect-col">Primary damage chip (type-matched: Tank/Aircraft/Missile versions)</td>
+      <td>ALL squads</td>
+    </tr>
+    <tr class="priority-high">
+      <td class="priority-col" style="color:#fc5c65;">2</td>
+      <td class="name-col">Gravitational Resonance Armor</td>
+      <td class="cat-col">Defense</td>
+      <td class="effect-col">Core defense chip &mdash; massive HP and damage reduction</td>
+      <td>ALL squads</td>
+    </tr>
+    <tr class="priority-high">
+      <td class="priority-col" style="color:#fc5c65;">3</td>
+      <td class="name-col">Enhanced Firepower</td>
+      <td class="cat-col">Attack</td>
+      <td class="effect-col">Multi-target damage, hits multiple enemies</td>
+      <td>DPS heroes</td>
+    </tr>
+    <tr>
+      <td class="priority-col" style="color:#f4a261;">4</td>
+      <td class="name-col">Absolute Quantum Field</td>
+      <td class="cat-col">Initial Move</td>
+      <td class="effect-col">Battle opening protection shield</td>
+      <td>All squads (PvP)</td>
+    </tr>
+    <tr>
+      <td class="priority-col" style="color:#f4a261;">5</td>
+      <td class="name-col">Piercing Rounds</td>
+      <td class="cat-col">Attack</td>
+      <td class="effect-col">Armor penetration (25% at 5-star)</td>
+      <td>Anti-tank builds</td>
+    </tr>
+    <tr>
+      <td class="priority-col" style="color:#f4a261;">6</td>
+      <td class="name-col">Energy Shield Generator</td>
+      <td class="cat-col">Defense</td>
+      <td class="effect-col">Multi-attack burst absorption</td>
+      <td>Tanks, PvP defense</td>
+    </tr>
+    <tr>
+      <td class="priority-col">7</td>
+      <td class="name-col">Overcharge Amplifier</td>
+      <td class="cat-col">Attack</td>
+      <td class="effect-col">Burst damage finisher</td>
+      <td>DPS heroes</td>
+    </tr>
+    <tr>
+      <td class="priority-col">8</td>
+      <td class="name-col">Rapid Repair Protocol</td>
+      <td class="cat-col">Defense</td>
+      <td class="effect-col">Team healing support</td>
+      <td>Long fights, rallies</td>
+    </tr>
+    <tr>
+      <td class="priority-col">9</td>
+      <td class="name-col">Fortress Protocol</td>
+      <td class="cat-col">Defense</td>
+      <td class="effect-col">Maximum defense positioning</td>
+      <td>Pure tank builds</td>
+    </tr>
+    <tr>
+      <td class="priority-col">10</td>
+      <td class="name-col">Advanced Sensor Array</td>
+      <td class="cat-col">Interference</td>
+      <td class="effect-col">Tactical accuracy bonuses</td>
+      <td>Utility/debuff builds</td>
+    </tr>
+    <tr>
+      <td class="priority-col">11</td>
+      <td class="name-col">Deep Scan Matrix</td>
+      <td class="cat-col">Interference</td>
+      <td class="effect-col">Interference utility &mdash; enemy debuffs</td>
+      <td>PvP disruption</td>
+    </tr>
+  </tbody>
+</table>
+
+<div class="highlight-box action wide">
+  <div class="label">Crafting Rule</div>
+  <div class="value">Memory Ultra Fission FIRST. Gravitational Resonance Armor SECOND. Everything else after.</div>
+  <div class="tip">Craft the Aircraft version of Memory Ultra Fission for your Squad 1. Tank version for Squad 2.</div>
+</div>
+
+<!-- SECTION 4: Recommended Loadouts -->
+<h2 class="section-title">4. Recommended Loadouts</h2>
+
+<p class="section-desc">
+  Equip 4 chips per drone loadout. Here are optimized setups for each squad type.
+</p>
+
+<div class="loadout-grid">
+  <div class="loadout-card aircraft">
+    <h3>Aircraft Heroes (Squad 1)</h3>
+    <ul class="chip-list">
+      <li><span class="chip-num">1</span> Memory Ultra Fission (Aircraft)</li>
+      <li><span class="chip-num">2</span> Enhanced Firepower</li>
+      <li><span class="chip-num">3</span> Piercing Rounds</li>
+      <li><span class="chip-num">4</span> Gravitational Resonance Armor</li>
+    </ul>
+  </div>
+
+  <div class="loadout-card tank">
+    <h3>Tank Heroes (Squad 2)</h3>
+    <ul class="chip-list">
+      <li><span class="chip-num">1</span> Gravitational Resonance Armor</li>
+      <li><span class="chip-num">2</span> Memory Ultra Fission (Tank)</li>
+      <li><span class="chip-num">3</span> Absolute Quantum Field</li>
+      <li><span class="chip-num">4</span> Energy Shield Generator</li>
+    </ul>
+  </div>
+
+  <div class="loadout-card anti-tank">
+    <h3>Anti-Tank Build (Your Advantage)</h3>
+    <ul class="chip-list">
+      <li><span class="chip-num">1</span> Memory Ultra Fission (Aircraft)</li>
+      <li><span class="chip-num">2</span> Enhanced Firepower</li>
+      <li><span class="chip-num">3</span> Piercing Rounds</li>
+      <li><span class="chip-num">4</span> Overcharge Amplifier</li>
+    </ul>
+  </div>
+
+  <div class="loadout-card support">
+    <h3>Support / Buffer (Marshall)</h3>
+    <ul class="chip-list">
+      <li><span class="chip-num">1</span> Gravitational Resonance Armor</li>
+      <li><span class="chip-num">2</span> Absolute Quantum Field</li>
+      <li><span class="chip-num">3</span> Rapid Repair Protocol</li>
+      <li><span class="chip-num">4</span> Energy Shield Generator</li>
+    </ul>
+  </div>
+</div>
+
+<div class="highlight-box action wide">
+  <div class="label">Your Key Advantage</div>
+  <div class="value">Aircraft chips + Piercing Rounds SHRED tank formations!</div>
+  <div class="tip">Most players on Server #2013 run tanks. Your Aircraft squad with anti-tank chips = built-in type advantage AND armor penetration.</div>
+</div>
+
+<!-- SECTION 5: Combat Boost & Stars -->
+<h2 class="section-title">5. Combat Boost &amp; Star Progression</h2>
+
+<p class="section-desc">
+  Combat Boost is a universal progression system that enhances ALL equipped chips. Level it consistently &mdash; benefits are massive at key milestones.
+</p>
+
+<div class="milestone-bar">
+  <div class="milestone">
+    <div class="dot" style="background:#7fb3a8;">150</div>
+    <div class="m-desc">Extra Chip Sets</div>
+    <div class="m-label">First milestone</div>
+  </div>
+  <div class="milestone">
+    <div class="dot" style="background:#f4a261;">300</div>
+    <div class="m-desc">Enhanced Stars</div>
+    <div class="m-label">Major breakpoint</div>
+  </div>
+  <div class="milestone">
+    <div class="dot" style="background:#fc5c65;">450</div>
+    <div class="m-desc">Max Efficiency</div>
+    <div class="m-label">Endgame target</div>
+  </div>
+</div>
+
+<h3 style="font-size:14px; color:#5a6a6a; margin: 12px 0 8px 0;">Star Progression</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th>Stars</th>
+      <th>Requirement</th>
+      <th>Bonus</th>
+      <th>Notes</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="color:#f57f17; font-weight:bold;">1-star</td>
+      <td>Base craft</td>
+      <td>Base stats</td>
+      <td>Starting point</td>
+    </tr>
+    <tr class="priority-high">
+      <td style="color:#f57f17; font-weight:bold;">2-star</td>
+      <td>Duplicate chips + materials</td>
+      <td>Special bonus unlocked</td>
+      <td>First power spike</td>
+    </tr>
+    <tr>
+      <td style="color:#f57f17; font-weight:bold;">3-star</td>
+      <td>More duplicates</td>
+      <td>Stat boost</td>
+      <td>Steady improvement</td>
+    </tr>
+    <tr>
+      <td style="color:#f57f17; font-weight:bold;">4-star</td>
+      <td>More duplicates</td>
+      <td>Stat boost</td>
+      <td>Near max</td>
+    </tr>
+    <tr class="priority-high">
+      <td style="color:#f57f17; font-weight:bold;">5-star</td>
+      <td>Max duplicates + materials</td>
+      <td>Second special bonus</td>
+      <td>Full power (Piercing Rounds = 25% armor pen!)</td>
+    </tr>
+  </tbody>
+</table>
+
+<div class="highlight-box info">
+  <div class="label">Key Rule</div>
+  <div class="value">Keep all chip levels roughly equal for maximum efficiency.</div>
+  <div class="tip">Leveling one chip to 100 while others sit at 10 wastes resources. Balanced leveling = more total power.</div>
+</div>
+
+<!-- SECTION 6: Farming Guide & Progression -->
+<h2 class="section-title">6. Farming Guide &amp; F2P Timeline</h2>
+
+<p class="section-desc">
+  Premium materials are the bottleneck. Here's where to farm them and what to expect as F2P.
+</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Source</th>
+      <th>Yield</th>
+      <th>Time</th>
+      <th>Priority</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr class="priority-high">
+      <td class="name-col">Versus Mode</td>
+      <td>~30 Premium</td>
+      <td>5&ndash;8 min</td>
+      <td class="priority-col" style="color:#fc5c65;">Highest</td>
+    </tr>
+    <tr>
+      <td class="name-col">Campaign Store</td>
+      <td>15&ndash;25</td>
+      <td>Check 2&ndash;3x daily</td>
+      <td class="priority-col" style="color:#f4a261;">High</td>
+    </tr>
+    <tr>
+      <td class="name-col">Alliance Exercises</td>
+      <td>8&ndash;15 Premium</td>
+      <td>Varies</td>
+      <td class="priority-col">Medium</td>
+    </tr>
+    <tr>
+      <td class="name-col">Ghost Ops</td>
+      <td>10&ndash;20</td>
+      <td>Varies</td>
+      <td class="priority-col">Medium</td>
+    </tr>
+  </tbody>
+</table>
+
+<p class="section-desc">
+  <strong>Weekly total:</strong> 420&ndash;750 Premium Materials depending on effort.
+</p>
+
+<h3 style="font-size:14px; color:#5a6a6a; margin: 12px 0 8px 0;">F2P Timeline</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th>Timeframe</th>
+      <th>Goal</th>
+      <th>Details</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td class="name-col">Month 1</td>
+      <td>First Legendary</td>
+      <td class="effect-col">Craft Memory Ultra Fission (Aircraft). Equip immediately.</td>
+    </tr>
+    <tr>
+      <td class="name-col">Month 3</td>
+      <td>Combat Boost 150 + 3 Legendaries</td>
+      <td class="effect-col">Add Gravitational Resonance Armor + Enhanced Firepower.</td>
+    </tr>
+    <tr>
+      <td class="name-col">Month 6</td>
+      <td>Full Legendary Set + CB 300</td>
+      <td class="effect-col">All 4 chip slots legendary. Combat Boost milestone 300 reached.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 style="font-size:14px; color:#5a6a6a; margin: 12px 0 8px 0;">Resource Allocation (Suggested Split)</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th>Category</th>
+      <th>% of Materials</th>
+      <th>Why</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr class="priority-high">
+      <td class="name-col">Attack Chips</td>
+      <td><strong>60%</strong></td>
+      <td class="effect-col">Damage wins fights. Prioritize offense first.</td>
+    </tr>
+    <tr>
+      <td class="name-col">Defense Chips</td>
+      <td><strong>25%</strong></td>
+      <td class="effect-col">Survivability so your DPS stays alive to deal damage.</td>
+    </tr>
+    <tr>
+      <td class="name-col">Initial Move</td>
+      <td>10%</td>
+      <td class="effect-col">Opening shield matters in PvP.</td>
+    </tr>
+    <tr>
+      <td class="name-col">Interference</td>
+      <td>5%</td>
+      <td class="effect-col">Luxury &mdash; only after core chips are done.</td>
+    </tr>
+  </tbody>
+</table>
+
+<div class="highlight-box info wide">
+  <div class="label">Event Timing</div>
+  <div class="value">Open drone data CHIP chests on MONDAY (Radar Training VS day)</div>
+  <div class="tip">Drone data chip chests score points on Monday's VS Duel phase. Save chip materials for event bonus periods (20&ndash;50% efficiency gains).</div>
+</div>
+
+<div class="footer">
+  [OWOW] Old World Order &bull; Chip Lab Guide &bull; Last War: Survival &bull; Kristen OWOW SKYNET
+</div>
+
+</body>
+</html>
