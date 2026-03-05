@@ -23,6 +23,7 @@ Interactive research tree tracker for [Last War: Survival](https://play.google.c
 | [VS Weekly Planner](https://extremesecrecy.github.io/lastwar-research-trees/guides/vs_weekly_planner.html) | Day-by-day VS Duel battle plan (what to save, what to spend) |
 | [Waterfall Guide](https://extremesecrecy.github.io/lastwar-research-trees/guides/waterfall_guide.html) | Troop waterfall training strategy for max Arms Race points |
 | [Building Planner](https://extremesecrecy.github.io/lastwar-research-trees/guides/building_planner.html) | Interactive building progression planner with upgrade recommendations |
+| [Chip Lab Guide](https://extremesecrecy.github.io/lastwar-research-trees/guides/chip_lab_guide.html) | Drone skill chips — types, legendary priority, loadouts, farming guide |
 
 ## Quick Start (Offline)
 
