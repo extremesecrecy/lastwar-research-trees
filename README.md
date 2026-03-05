@@ -18,6 +18,7 @@ Interactive research tree tracker for [Last War: Survival](https://play.google.c
 |-------|---------------|
 | [Alliance Support Hub](https://extremesecrecy.github.io/lastwar-research-trees/guides/alliance_support_hub.html) | Alliance support hub levels and bonuses |
 | [Building Reference](https://extremesecrecy.github.io/lastwar-research-trees/guides/building_reference.html) | All building upgrade requirements and costs |
+| [Capitol Positions](https://extremesecrecy.github.io/lastwar-research-trees/guides/capitol_positions.html) | Capitol officer positions — buffs, application queue, strategic timing |
 | [Radar Guide](https://extremesecrecy.github.io/lastwar-research-trees/guides/radar_guide.html) | Radar mission system — stacking, timers, levels 1-17 |
 | [VS Weekly Planner](https://extremesecrecy.github.io/lastwar-research-trees/guides/vs_weekly_planner.html) | Day-by-day VS Duel battle plan (what to save, what to spend) |
 | [Waterfall Guide](https://extremesecrecy.github.io/lastwar-research-trees/guides/waterfall_guide.html) | Troop waterfall training strategy for max Arms Race points |
