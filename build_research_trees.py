@@ -344,7 +344,7 @@ body {
     border-bottom: 2px solid #e0e0e0;
     margin-bottom: 12px;
 }
-.page-header .logo { height: 30px; vertical-align: middle; margin-right: 8px; }
+.page-header .logo { height: 60px; vertical-align: middle; margin-right: 8px; }
 .page-header h1 {
     font-family: 'DKCrayonCrumble', sans-serif;
     font-size: 26px;
@@ -792,7 +792,7 @@ body {
     .node-pill { font-size: 8px; line-height: 30px; }
     .tree-row { gap: 8px; margin-bottom: 16px; }
     .page-header h1 { font-size: 18px; }
-    .page-header .logo { height: 24px; }
+    .page-header .logo { height: 44px; }
     .header-btn { padding: 6px 12px; font-size: 12px; }
     .header-actions { gap: 6px; flex-wrap: wrap; }
 }
