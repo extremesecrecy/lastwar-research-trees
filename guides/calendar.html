@@ -116,7 +116,7 @@
     padding: 4px; text-transform: uppercase; letter-spacing: 1px;
   }
 
-  .cal-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 2px; }
+  .cal-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 2px; width: 100%; overflow: hidden; }
 
   .cal-cell {
     min-height: 90px; padding: 4px 5px; background: #fff; border: 1px solid #e8e8e8;
@@ -276,12 +276,41 @@
     .cell-phase { font-size: 8px; }
   }
   @media (max-width: 600px) {
-    .config-bar { gap: 8px; }
-    .cal-cell { min-height: 55px; padding: 2px 3px; }
-    .cell-day { font-size: 12px; }
-    .cell-vp { font-size: 8px; }
-    .detail-body { grid-template-columns: 1fr; }
-    .detail-header { flex-wrap: wrap; }
+    body { padding: 4px; overflow-x: hidden; }
+    .guide-nav { margin: -4px -4px 8px -4px; padding: 4px 8px; gap: 3px 8px; font-size: 11px; }
+    .top-bar h1 { font-size: 18px; }
+    .config-bar { gap: 6px 10px; padding: 8px 10px; }
+    .config-group label { font-size: 9px; }
+    .config-group select, .config-group input[type="date"] { font-size: 12px; padding: 3px 4px; }
+    .cal-header h2 { font-size: 16px; }
+    .cal-weekdays div { font-size: 9px; letter-spacing: 0; }
+    .cal-grid { gap: 1px; }
+    .cal-cell { min-height: 48px; padding: 2px 2px; }
+    .cal-cell.blank { min-height: 0; }
+    .cell-day { font-size: 11px; }
+    .cell-phase { font-size: 7px; max-width: 100%; }
+    .cell-vp { font-size: 7px; padding: 0 3px; }
+    .cell-dots { gap: 2px; }
+    .dot { width: 6px; height: 6px; }
+    .cell-radar { font-size: 9px; top: 1px; right: 1px; }
+    .detail-body { grid-template-columns: 1fr; gap: 10px; padding: 12px; }
+    .detail-header { flex-wrap: wrap; padding: 10px 12px; gap: 6px; }
+    .detail-header h3 { font-size: 16px; width: 100%; }
+    .detail-meta { font-size: 11px; flex: 1; }
+    .close-btn { position: absolute; top: 8px; right: 8px; }
+    .detail-header { position: relative; }
+    .checklist li, .savelist li { font-size: 12px; }
+    .detail-events { padding: 0 12px 10px; }
+    .detail-radar { padding: 0 12px 12px; }
+    .sidebar-section { padding: 10px; }
+    .subscribe-url { font-size: 9px; }
+  }
+  @media (max-width: 380px) {
+    .cal-cell { min-height: 42px; }
+    .cell-phase { display: none; }
+    .cell-radar { display: none; }
+    .cell-vp { font-size: 7px; }
+    .cal-weekdays div { font-size: 8px; }
   }
 </style>
 </head>
