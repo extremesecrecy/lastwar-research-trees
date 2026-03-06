@@ -919,6 +919,7 @@ function populateHQDropdowns() {
         tgt.innerHTML += '<option value="' + i + '">' + i + '</option>';
     }
     cur.value = 24;
+    state['headquarters'] = 24;
     tgt.value = 25;
     cur.onchange = function() {
         // Sync HQ building row to match Current HQ dropdown
@@ -1206,11 +1207,21 @@ function updateStatusDots() {
         if (!dot) continue;
 
         var baseKey = getBaseKey(iKey);
+        var instNum = getInstanceNum(iKey);
         var currentLvl = state[iKey] || 0;
         var requiredLvl = reqMap[baseKey] || 0;
         var anyMet = getMaxInstanceLevel(baseKey) >= requiredLvl;
 
         dot.className = 'status-dot';
+
+        // Locked instances: show lock message instead of requirement
+        var mi = MULTI_INSTANCE[baseKey];
+        if (mi && mi.unlockHQ[instNum - 1] > (state['headquarters'] || 0)) {
+            dot.classList.add('status-gray');
+            dot.title = 'Locked until HQ ' + mi.unlockHQ[instNum - 1];
+            continue;
+        }
+
         if (requiredLvl > 0) {
             if (currentLvl >= requiredLvl) {
                 dot.classList.add('status-green');
