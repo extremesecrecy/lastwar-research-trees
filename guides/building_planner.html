@@ -602,6 +602,17 @@
       margin: -16px -16px 12px -16px;
     }
   }
+
+  /* Multi-instance building rows */
+  .building-row.instance-locked { opacity: 0.45; background: #f5f5f5; }
+  .building-row.instance-locked select { cursor: not-allowed; }
+  .lock-note { font-size: 10px; color: #999; margin-left: 4px; }
+  .building-row.sub-instance .building-name {
+    padding-left: 16px; font-size: 12px; color: #666;
+  }
+  .building-row.sub-instance .building-name::before {
+    content: '\2514  '; color: #ccc;
+  }
 </style>
 </head>
 <body>
@@ -759,11 +770,75 @@ const SPEEDUP_TYPES = [
 // Speedup inventory state
 var speedupState = { m5:0, m15:0, m30:0, h1:0, h3:0, h8:0, h24:0 };
 
+/* ---------- MULTI-INSTANCE CONFIG ---------- */
+const MULTI_INSTANCE = {};
+for (const [bKey, bData] of Object.entries(buildings)) {
+    const ul = bData.unlockLevels || [];
+    if (ul.length > 1) MULTI_INSTANCE[bKey] = { count: ul.length, unlockHQ: [...ul] };
+}
+// Overrides for buildings with more instances than cpt-hedge tracks
+const MI_OVERRIDES = { 'barracks': 4, 'drill ground': 4 };
+for (const [bKey, count] of Object.entries(MI_OVERRIDES)) {
+    if (MULTI_INSTANCE[bKey]) {
+        while (MULTI_INSTANCE[bKey].unlockHQ.length < count)
+            MULTI_INSTANCE[bKey].unlockHQ.push(MULTI_INSTANCE[bKey].unlockHQ.at(-1));
+        MULTI_INSTANCE[bKey].count = count;
+    }
+}
+
+/* ---------- MULTI-INSTANCE HELPERS ---------- */
+function getBaseKey(instanceKey) {
+    var m = instanceKey.match(/^(.+)_(\d+)$/);
+    return m ? m[1] : instanceKey;
+}
+
+function getInstanceNum(instanceKey) {
+    var m = instanceKey.match(/_(\d+)$/);
+    return m ? parseInt(m[1]) : 1;
+}
+
+function getAllInstanceKeys(buildingKey) {
+    var keys = [buildingKey];
+    if (MULTI_INSTANCE[buildingKey]) {
+        for (var i = 2; i <= MULTI_INSTANCE[buildingKey].count; i++)
+            keys.push(buildingKey + '_' + i);
+    }
+    return keys;
+}
+
+function getMaxInstanceLevel(buildingKey) {
+    var maxLvl = state[buildingKey] || 0;
+    if (MULTI_INSTANCE[buildingKey]) {
+        for (var i = 2; i <= MULTI_INSTANCE[buildingKey].count; i++) {
+            var lvl = state[buildingKey + '_' + i] || 0;
+            if (lvl > maxLvl) maxLvl = lvl;
+        }
+    }
+    return maxLvl;
+}
+
+function isInstanceUnlocked(buildingKey, instanceNum) {
+    var mi = MULTI_INSTANCE[buildingKey];
+    if (!mi) return instanceNum === 1;
+    if (instanceNum < 1 || instanceNum > mi.count) return false;
+    return (state['headquarters'] || 0) >= mi.unlockHQ[instanceNum - 1];
+}
+
+function getInstanceDisplayName(buildingKey, instanceNum) {
+    var dName = displayNames[buildingKey] || buildingKey;
+    if (MULTI_INSTANCE[buildingKey]) return dName + ' #' + instanceNum;
+    return dName;
+}
+
 /* ---------- INIT ---------- */
 function init() {
-    // Init state with 0 for all buildings
+    // Init state with 0 for all buildings (including multi-instance)
     for (const bName of Object.keys(buildings)) {
         state[bName] = 0;
+        if (MULTI_INSTANCE[bName]) {
+            for (var i = 2; i <= MULTI_INSTANCE[bName].count; i++)
+                state[bName + '_' + i] = 0;
+        }
     }
 
     // Load from localStorage
@@ -803,7 +878,8 @@ function loadProgress() {
         if (data.levels) {
             for (const [b, lvl] of Object.entries(data.levels)) {
                 if (b in state) {
-                    const maxLvl = buildings[b] ? buildings[b].levels.length : 0;
+                    var base = getBaseKey(b);
+                    const maxLvl = buildings[base] ? buildings[base].levels.length : 0;
                     state[b] = Math.max(0, Math.min(maxLvl, lvl));
                 }
             }
@@ -881,12 +957,16 @@ function renderBuildingTracker() {
 
         let bodyHtml = '';
         for (const b of buildingList) {
-            bodyHtml += renderBuildingRow(b);
+            bodyHtml += renderBuildingRow(b, 1);
+            if (MULTI_INSTANCE[b]) {
+                for (var mi = 2; mi <= MULTI_INSTANCE[b].count; mi++)
+                    bodyHtml += renderBuildingRow(b, mi);
+            }
         }
 
         catDiv.innerHTML =
             '<div class="category-header" onclick="toggleCategory(this)">' +
-                '<span class="cat-name">' + catName + ' (' + buildingList.length + ')</span>' +
+                '<span class="cat-name">' + catName + '</span>' +
                 '<span class="cat-info">' +
                     '<span class="cat-progress" id="cat-prog-' + catId + '">' + reqCount.met + '/' + reqCount.total + '</span>' +
                     '<span class="cat-arrow">&#9654;</span>' +
@@ -898,13 +978,18 @@ function renderBuildingTracker() {
     }
 }
 
-function renderBuildingRow(buildingKey) {
+function renderBuildingRow(buildingKey, instanceNum) {
+    instanceNum = instanceNum || 1;
     const bData = buildings[buildingKey];
     if (!bData) return '';
     const maxLevel = bData.levels.length;
-    const dName = displayNames[buildingKey] || buildingKey;
-    const currentLevel = state[buildingKey] || 0;
-    const safeKey = buildingKey.replace(/\s/g, '-');
+    const instanceKey = instanceNum === 1 ? buildingKey : buildingKey + '_' + instanceNum;
+    const isMulti = !!MULTI_INSTANCE[buildingKey];
+    const dName = isMulti ? getInstanceDisplayName(buildingKey, instanceNum) : (displayNames[buildingKey] || buildingKey);
+    const currentLevel = state[instanceKey] || 0;
+    const safeKey = instanceKey.replace(/\s/g, '-');
+    const locked = isMulti && !isInstanceUnlocked(buildingKey, instanceNum);
+    const lockHQ = isMulti ? MULTI_INSTANCE[buildingKey].unlockHQ[instanceNum - 1] : 0;
 
     let options = '<option value="0">--</option>';
     for (let i = 1; i <= maxLevel; i++) {
@@ -912,33 +997,64 @@ function renderBuildingRow(buildingKey) {
         options += '<option value="' + i + '"' + sel + '>' + i + '</option>';
     }
 
-    return '<div class="building-row" data-building="' + buildingKey + '">' +
-        '<span class="building-name" onclick="toggleBuildingDetail(\'' + buildingKey + '\')">' + dName + '</span>' +
+    var lockNote = locked ? '<span class="lock-note">(HQ ' + lockHQ + ')</span>' : '';
+    var disabledAttr = locked ? ' disabled' : '';
+    var rowClass = 'building-row' + (locked ? ' instance-locked' : '') + (isMulti && instanceNum > 1 ? ' sub-instance' : '');
+
+    return '<div class="' + rowClass + '" data-building="' + instanceKey + '">' +
+        '<span class="building-name" onclick="toggleBuildingDetail(\'' + instanceKey + '\')">' + dName + lockNote + '</span>' +
         '<div class="building-level">' +
-            '<select onchange="setBuildingLevel(\'' + buildingKey + '\', parseInt(this.value))">' + options + '</select>' +
+            '<select onchange="setBuildingLevel(\'' + instanceKey + '\', parseInt(this.value))"' + disabledAttr + '>' + options + '</select>' +
             '<div class="status-dot status-gray" id="status-' + safeKey + '"></div>' +
         '</div>' +
     '</div>' +
     '<div class="building-detail" id="detail-' + safeKey + '"></div>';
 }
 
-function setBuildingLevel(buildingKey, level) {
-    state[buildingKey] = level;
-    // If HQ building changed, sync the Current HQ dropdown
-    if (buildingKey === 'headquarters') {
+function setBuildingLevel(instanceKey, level) {
+    state[instanceKey] = level;
+    var baseKey = getBaseKey(instanceKey);
+    // If HQ building changed, sync the Current HQ dropdown and update instance locks
+    if (baseKey === 'headquarters') {
         var curHQ = document.getElementById('currentHQ');
         if (curHQ) curHQ.value = level;
+        updateInstanceLocks();
     }
     recalcAll();
     saveProgress();
+}
+
+function updateInstanceLocks() {
+    for (var bKey in MULTI_INSTANCE) {
+        var mi = MULTI_INSTANCE[bKey];
+        for (var i = 1; i <= mi.count; i++) {
+            var iKey = i === 1 ? bKey : bKey + '_' + i;
+            var safeKey = iKey.replace(/\s/g, '-');
+            var row = document.querySelector('[data-building="' + iKey + '"]');
+            if (!row) continue;
+            var sel = row.querySelector('select');
+            var unlocked = isInstanceUnlocked(bKey, i);
+            if (unlocked) {
+                row.classList.remove('instance-locked');
+                if (sel) sel.disabled = false;
+                var lockNote = row.querySelector('.lock-note');
+                if (lockNote) lockNote.style.display = 'none';
+            } else {
+                row.classList.add('instance-locked');
+                if (sel) sel.disabled = true;
+                var lockNote2 = row.querySelector('.lock-note');
+                if (lockNote2) lockNote2.style.display = '';
+            }
+        }
+    }
 }
 
 function toggleCategory(header) {
     header.parentElement.classList.toggle('expanded');
 }
 
-function toggleBuildingDetail(buildingKey) {
-    var safeKey = buildingKey.replace(/\s/g, '-');
+function toggleBuildingDetail(instanceKey) {
+    var safeKey = instanceKey.replace(/\s/g, '-');
     var el = document.getElementById('detail-' + safeKey);
     if (!el) return;
 
@@ -947,8 +1063,9 @@ function toggleBuildingDetail(buildingKey) {
         return;
     }
 
-    var bData = buildings[buildingKey];
-    var currentLevel = state[buildingKey] || 0;
+    var baseKey = getBaseKey(instanceKey);
+    var bData = buildings[baseKey];
+    var currentLevel = state[instanceKey] || 0;
 
     if (currentLevel >= bData.levels.length) {
         el.innerHTML = '<div style="padding:4px;color:var(--green);font-weight:700;">MAXED!</div>';
@@ -988,8 +1105,9 @@ function getRequirementsForHQ(targetHQ) {
     return entry ? (entry.requirements || []) : [];
 }
 
-function getBuildingPower(buildingKey, level) {
-    var bData = buildings[buildingKey];
+function getBuildingPower(instanceKey, level) {
+    var base = getBaseKey(instanceKey);
+    var bData = buildings[base];
     if (!bData || level <= 0) return 0;
     var total = 0;
     for (var i = 0; i < Math.min(level, bData.levels.length); i++) {
@@ -998,8 +1116,9 @@ function getBuildingPower(buildingKey, level) {
     return total;
 }
 
-function getCostForRange(buildingKey, fromLevel, toLevel) {
-    var bData = buildings[buildingKey];
+function getCostForRange(instanceKey, fromLevel, toLevel) {
+    var base = getBaseKey(instanceKey);
+    var bData = buildings[base];
     if (!bData) return { food: 0, iron: 0, gold: 0, time: 0, power: 0 };
 
     var food = 0, iron = 0, gold = 0, totalSeconds = 0, power = 0;
@@ -1054,8 +1173,9 @@ function updatePowerDashboard() {
     for (var r = 0; r < reqs.length; r++) {
         var req = reqs[r];
         var bKey = normalizeBuildingName(req.building);
-        if (bKey && (state[bKey] || 0) < req.level) {
-            var extraCost = getCostForRange(bKey, state[bKey] || 0, req.level);
+        if (bKey && getMaxInstanceLevel(bKey) < req.level) {
+            var bestLvl = getMaxInstanceLevel(bKey);
+            var extraCost = getCostForRange(bKey, bestLvl, req.level);
             targetPower += extraCost.power;
         }
     }
@@ -1079,19 +1199,26 @@ function updateStatusDots() {
         if (bKey) reqMap[bKey] = reqs[r].level;
     }
 
-    for (var bKey2 in buildings) {
-        var safeKey = bKey2.replace(/\s/g, '-');
+    // Iterate over all state keys (includes instance keys like barracks_2)
+    for (var iKey in state) {
+        var safeKey = iKey.replace(/\s/g, '-');
         var dot = document.getElementById('status-' + safeKey);
         if (!dot) continue;
 
-        var currentLvl = state[bKey2] || 0;
-        var requiredLvl = reqMap[bKey2] || 0;
+        var baseKey = getBaseKey(iKey);
+        var currentLvl = state[iKey] || 0;
+        var requiredLvl = reqMap[baseKey] || 0;
+        var anyMet = getMaxInstanceLevel(baseKey) >= requiredLvl;
 
         dot.className = 'status-dot';
         if (requiredLvl > 0) {
             if (currentLvl >= requiredLvl) {
                 dot.classList.add('status-green');
                 dot.title = 'Meets HQ ' + targetHQ + ' requirement (needs Lv.' + requiredLvl + ')';
+            } else if (anyMet) {
+                // Another instance meets it — show gray-green
+                dot.classList.add('status-gray');
+                dot.title = 'Another instance meets Lv.' + requiredLvl + ' for HQ ' + targetHQ;
             } else if (currentLvl > 0) {
                 dot.classList.add('status-orange');
                 dot.title = 'Needs Lv.' + requiredLvl + ' for HQ ' + targetHQ + ' (currently Lv.' + currentLvl + ')';
@@ -1130,7 +1257,7 @@ function countMetRequirements(buildingList) {
         var b = buildingList[i];
         if (reqMap[b]) {
             total++;
-            if ((state[b] || 0) >= reqMap[b]) met++;
+            if (getMaxInstanceLevel(b) >= reqMap[b]) met++;
         }
     }
     return { met: met, total: total };
@@ -1159,6 +1286,19 @@ function normalizeBuildingName(name) {
 }
 
 /* ---------- CHEAPEST PATH ---------- */
+function pickBestInstance(bKey, reqLevel, upgradedTo) {
+    // Pick the instance with the highest current level (cheapest to upgrade to reqLevel)
+    var allKeys = getAllInstanceKeys(bKey);
+    var bestKey = null, bestLvl = -1;
+    for (var i = 0; i < allKeys.length; i++) {
+        var iKey = allKeys[i];
+        var lvl = Math.max(state[iKey] || 0, upgradedTo[iKey] || 0);
+        if (lvl >= reqLevel) return null; // already met by this instance
+        if (lvl > bestLvl) { bestLvl = lvl; bestKey = iKey; }
+    }
+    return bestKey;
+}
+
 function computeCheapestPath() {
     var container = document.getElementById('tab-cheapest');
     var currentHQ = parseInt(document.getElementById('currentHQ').value) || 1;
@@ -1190,20 +1330,33 @@ function computeCheapestPath() {
 
             if (!bKey) continue;
 
-            var currentLvl = Math.max(state[bKey] || 0, upgradedTo[bKey] || 0);
-            if (currentLvl >= req.level) continue;
+            // Check if ANY instance already meets the requirement
+            var anyMet = false;
+            var allKeys = getAllInstanceKeys(bKey);
+            for (var ai = 0; ai < allKeys.length; ai++) {
+                if (Math.max(state[allKeys[ai]] || 0, upgradedTo[allKeys[ai]] || 0) >= req.level) { anyMet = true; break; }
+            }
+            if (anyMet) continue;
 
-            var cost = getCostForRange(bKey, currentLvl, req.level);
+            // Pick the best instance to upgrade
+            var bestIKey = pickBestInstance(bKey, req.level, upgradedTo);
+            if (!bestIKey) continue;
+
+            var currentLvl = Math.max(state[bestIKey] || 0, upgradedTo[bestIKey] || 0);
+            var cost = getCostForRange(bestIKey, currentLvl, req.level);
+            var instNum = getInstanceNum(bestIKey);
+            var stepName = MULTI_INSTANCE[bKey] ? getInstanceDisplayName(bKey, instNum) : (displayNames[bKey] || bKey);
+
             steps.push({
-                buildingKey: bKey,
-                name: displayNames[bKey] || bKey,
+                buildingKey: bestIKey,
+                name: stepName,
                 fromLevel: currentLvl,
                 toLevel: req.level,
                 forHQ: hq,
                 cost: cost,
                 type: 'req'
             });
-            upgradedTo[bKey] = req.level;
+            upgradedTo[bestIKey] = req.level;
         }
 
         var hqFrom = Math.max(currentHQ, upgradedTo['headquarters'] || hq - 1);
@@ -1244,18 +1397,30 @@ function handleOrRequirement(req, upgradedTo, forHQ) {
         var bKey = normalizeBuildingName(part);
         if (!bKey) continue;
 
-        var currentLvl = Math.max(state[bKey] || 0, upgradedTo[bKey] || 0);
-        if (currentLvl >= req.level) return null;
+        // Check all instances of this building
+        var allKeys = getAllInstanceKeys(bKey);
+        for (var ai = 0; ai < allKeys.length; ai++) {
+            var iKey = allKeys[ai];
+            var currentLvl = Math.max(state[iKey] || 0, upgradedTo[iKey] || 0);
+            if (currentLvl >= req.level) return null; // already met
+        }
 
-        var cost = getCostForRange(bKey, currentLvl, req.level);
+        // Pick best instance for this OR option
+        var bestIKey = pickBestInstance(bKey, req.level, upgradedTo);
+        if (!bestIKey) continue;
+
+        var currentLvl2 = Math.max(state[bestIKey] || 0, upgradedTo[bestIKey] || 0);
+        var cost = getCostForRange(bestIKey, currentLvl2, req.level);
         var totalCost = cost.food + cost.iron + cost.gold;
+        var instNum = getInstanceNum(bestIKey);
+        var stepName = MULTI_INSTANCE[bKey] ? getInstanceDisplayName(bKey, instNum) : (displayNames[bKey] || bKey);
 
         if (totalCost < bestCost) {
             bestCost = totalCost;
             bestOption = {
-                buildingKey: bKey,
-                name: displayNames[bKey] || bKey,
-                fromLevel: currentLvl,
+                buildingKey: bestIKey,
+                name: stepName,
+                fromLevel: currentLvl2,
                 toLevel: req.level,
                 forHQ: forHQ,
                 cost: cost,
@@ -1306,15 +1471,28 @@ function computeFastestPath() {
             }
 
             if (!bKey) continue;
-            var currentLvl = Math.max(state[bKey] || 0, upgradedTo[bKey] || 0);
-            if (currentLvl >= req.level) continue;
 
-            var cost = getCostForRange(bKey, currentLvl, req.level);
+            // Check if ANY instance already meets this
+            var anyMet = false;
+            var allKeys = getAllInstanceKeys(bKey);
+            for (var ai = 0; ai < allKeys.length; ai++) {
+                if (Math.max(state[allKeys[ai]] || 0, upgradedTo[allKeys[ai]] || 0) >= req.level) { anyMet = true; break; }
+            }
+            if (anyMet) continue;
+
+            var bestIKey = pickBestInstance(bKey, req.level, upgradedTo);
+            if (!bestIKey) continue;
+
+            var currentLvl = Math.max(state[bestIKey] || 0, upgradedTo[bestIKey] || 0);
+            var cost = getCostForRange(bestIKey, currentLvl, req.level);
             if (speedBonus > 0) cost.time = Math.floor(cost.time / (1 + speedBonus / 100));
 
+            var instNum = getInstanceNum(bestIKey);
+            var stepName = MULTI_INSTANCE[bKey] ? getInstanceDisplayName(bKey, instNum) : (displayNames[bKey] || bKey);
+
             prereqSteps.push({
-                buildingKey: bKey,
-                name: displayNames[bKey] || bKey,
+                buildingKey: bestIKey,
+                name: stepName,
                 fromLevel: currentLvl,
                 toLevel: req.level,
                 forHQ: hq,
@@ -1322,7 +1500,7 @@ function computeFastestPath() {
                 type: 'req',
                 parallel: true
             });
-            upgradedTo[bKey] = req.level;
+            upgradedTo[bestIKey] = req.level;
         }
 
         prereqSteps.sort(function(a, b) { return b.cost.time - a.cost.time; });
@@ -1385,9 +1563,12 @@ function computePowerROI() {
 
     var recommendations = [];
 
-    for (var bKey2 in buildings) {
-        var bData = buildings[bKey2];
-        var currentLvl = state[bKey2] || 0;
+    // Iterate all state keys (includes instance keys)
+    for (var iKey in state) {
+        var baseKey = getBaseKey(iKey);
+        var bData = buildings[baseKey];
+        if (!bData) continue;
+        var currentLvl = state[iKey] || 0;
         if (currentLvl >= bData.levels.length) continue;
 
         var nextLvl = bData.levels[currentLvl];
@@ -1399,11 +1580,13 @@ function computePowerROI() {
         if (totalRss <= 0 || power <= 0) continue;
 
         var efficiency = power / totalRss * 1000000;
-        var isRequired = reqMap[bKey2] && currentLvl < reqMap[bKey2];
+        var isRequired = reqMap[baseKey] && getMaxInstanceLevel(baseKey) < reqMap[baseKey];
+        var instNum = getInstanceNum(iKey);
+        var stepName = MULTI_INSTANCE[baseKey] ? getInstanceDisplayName(baseKey, instNum) : (displayNames[baseKey] || baseKey);
 
         recommendations.push({
-            buildingKey: bKey2,
-            name: displayNames[bKey2] || bKey2,
+            buildingKey: iKey,
+            name: stepName,
             fromLevel: currentLvl,
             toLevel: currentLvl + 1,
             cost: {
@@ -1555,7 +1738,7 @@ function setupTabs() {
 /* ---------- CSV EXPORT/IMPORT ---------- */
 function exportCSV() {
     var rows = ['# Speedups: m5=' + (speedupState.m5||0) + ',m15=' + (speedupState.m15||0) + ',m30=' + (speedupState.m30||0) + ',h1=' + (speedupState.h1||0) + ',h3=' + (speedupState.h3||0) + ',h8=' + (speedupState.h8||0) + ',h24=' + (speedupState.h24||0)];
-    rows.push('Building,Category,CurrentLevel,MaxLevel,Power,RequiredForHQ,Notes');
+    rows.push('Building,Instance,Category,CurrentLevel,MaxLevel,Power,RequiredForHQ,Notes');
 
     for (var catName in categories) {
         var buildingList = categories[catName];
@@ -1563,9 +1746,6 @@ function exportCSV() {
             var bKey = buildingList[i];
             var bData = buildings[bKey];
             if (!bData) continue;
-            var lvl = state[bKey] || 0;
-            var maxLvl = bData.levels.length;
-            var power = getBuildingPower(bKey, lvl);
 
             var reqHQs = [];
             for (var h = 1; h <= 35; h++) {
@@ -1575,16 +1755,27 @@ function exportCSV() {
                     if (rKey === bKey) reqHQs.push('HQ' + h + ':' + reqs[r].level);
                 }
             }
+            var reqStr = csvEsc(reqHQs.join(';'));
 
-            rows.push([
-                csvEsc(bKey),
-                csvEsc(catName),
-                lvl,
-                maxLvl,
-                power,
-                csvEsc(reqHQs.join(';')),
-                ''
-            ].join(','));
+            var allKeys = getAllInstanceKeys(bKey);
+            for (var ai = 0; ai < allKeys.length; ai++) {
+                var iKey = allKeys[ai];
+                var instNum = getInstanceNum(iKey);
+                var lvl = state[iKey] || 0;
+                var maxLvl = bData.levels.length;
+                var power = getBuildingPower(iKey, lvl);
+
+                rows.push([
+                    csvEsc(bKey),
+                    instNum,
+                    csvEsc(catName),
+                    lvl,
+                    maxLvl,
+                    power,
+                    reqStr,
+                    ''
+                ].join(','));
+            }
         }
     }
 
@@ -1630,6 +1821,7 @@ function importCSV(event) {
         var header = lines[headerIdx].split(',');
         var buildingIdx = header.indexOf('Building');
         var levelIdx = header.indexOf('CurrentLevel');
+        var instanceIdx = header.indexOf('Instance');
 
         if (buildingIdx < 0 || levelIdx < 0) {
             alert('Invalid CSV format. Need Building and CurrentLevel columns.');
@@ -1642,11 +1834,14 @@ function importCSV(event) {
             if (cols.length <= Math.max(buildingIdx, levelIdx)) continue;
 
             var bKey = cols[buildingIdx].trim();
+            var instNum = instanceIdx >= 0 ? (parseInt(cols[instanceIdx]) || 1) : 1;
+            var iKey = instNum === 1 ? bKey : bKey + '_' + instNum;
             var lvl = parseInt(cols[levelIdx]) || 0;
 
-            if (bKey in state) {
-                var maxLvl = buildings[bKey] ? buildings[bKey].levels.length : 0;
-                state[bKey] = Math.max(0, Math.min(maxLvl, lvl));
+            if (iKey in state) {
+                var base = getBaseKey(iKey);
+                var maxLvl = buildings[base] ? buildings[base].levels.length : 0;
+                state[iKey] = Math.max(0, Math.min(maxLvl, lvl));
                 imported++;
             }
         }
