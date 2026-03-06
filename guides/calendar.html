@@ -1,0 +1,821 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Last War Event Calendar | OWOW SKYNET</title>
+<style>
+  @font-face {
+    font-family: 'DKCrayonCrumble';
+    src: url('DKCrayonCrumble.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --orange: #f4a261;
+    --cyan: #5bc0de;
+    --yellow: #f4d35e;
+    --teal: #7fb3a8;
+    --dark: #5a6a6a;
+    --text: #333;
+    --watermelon: #fc5c65;
+    --green: #43a047;
+    --red: #e53935;
+    --gray: #ccc;
+    --light-bg: #fafafa;
+    --hero: #9b59b6;
+    --war: #e53935;
+    --alliance: #5bc0de;
+    --weapon: #f4d35e;
+    --season-clr: #f4a261;
+    --event-clr: #7fb3a8;
+  }
+
+  body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: #fff;
+    color: var(--text);
+    padding: 8px;
+    min-height: 100vh;
+  }
+
+  h1, h2, h3, .section-label, .alliance .name {
+    font-family: 'DKCrayonCrumble', 'Segoe UI', sans-serif;
+  }
+
+  /* Nav */
+  .guide-nav {
+    display: flex; flex-wrap: wrap; gap: 4px 12px; align-items: center;
+    padding: 6px 16px; background: #f0f5f4; border-bottom: 2px solid var(--teal);
+    font-size: 12px; margin: -8px -8px 12px -8px;
+  }
+  .guide-nav a { color: var(--dark); text-decoration: none; padding: 2px 6px; border-radius: 3px; white-space: nowrap; }
+  .guide-nav a:hover { color: var(--orange); background: #fff; }
+  .guide-nav a.current { color: var(--orange); font-weight: bold; background: #fff; border: 1px solid var(--orange); }
+  .guide-nav .nav-home { font-weight: bold; margin-right: 8px; padding-right: 12px; border-right: 1px solid var(--teal); }
+
+  /* Top bar */
+  .top-bar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; flex-wrap: wrap; gap: 8px; }
+  .top-bar h1 { font-size: 22px; letter-spacing: 1px; text-transform: uppercase; color: var(--dark); }
+  .top-bar .sub { font-size: 12px; color: #888; }
+  .alliance { background: #e8f4f1; border: 1px solid var(--teal); border-radius: 5px; padding: 2px 10px; text-align: right; }
+  .alliance .name { font-size: 14px; color: var(--dark); }
+  .alliance .tagline { font-size: 10px; color: var(--teal); letter-spacing: 2px; text-transform: uppercase; }
+
+  /* Config bar */
+  .config-bar {
+    display: flex; flex-wrap: wrap; gap: 12px; align-items: flex-end;
+    padding: 10px 14px; background: var(--light-bg); border: 1px solid var(--gray);
+    border-radius: 6px; margin-bottom: 14px;
+  }
+  .config-group { display: flex; flex-direction: column; gap: 2px; }
+  .config-group label { font-size: 10px; text-transform: uppercase; color: var(--dark); font-weight: 600; letter-spacing: 0.5px; }
+  .config-group input[type="date"], .config-group select {
+    padding: 4px 8px; border: 1px solid var(--gray); border-radius: 4px;
+    font-size: 13px; font-family: inherit; background: #fff;
+  }
+  .server-day-badge {
+    font-size: 14px; font-weight: 700; color: var(--orange); background: #fff;
+    border: 2px solid var(--orange); border-radius: 4px; padding: 2px 10px; text-align: center;
+  }
+  .season-badge {
+    font-size: 14px; font-weight: 700; color: var(--cyan); background: #fff;
+    border: 2px solid var(--cyan); border-radius: 4px; padding: 2px 10px; text-align: center;
+  }
+
+  /* Main layout */
+  .main-layout { display: flex; gap: 16px; align-items: flex-start; }
+
+  /* Calendar */
+  .calendar-container { flex: 1; min-width: 0; }
+  .cal-header { display: flex; align-items: center; gap: 12px; margin-bottom: 8px; }
+  .cal-header h2 { flex: 1; text-align: center; font-size: 20px; color: var(--dark); }
+  .cal-nav {
+    background: none; border: 2px solid var(--orange); color: var(--orange);
+    width: 32px; height: 32px; border-radius: 50%; cursor: pointer;
+    font-size: 16px; font-weight: bold; display: flex; align-items: center; justify-content: center;
+    transition: all 0.15s;
+  }
+  .cal-nav:hover { background: var(--orange); color: #fff; }
+  .today-btn {
+    background: var(--teal); color: #fff; border: none; padding: 5px 14px;
+    border-radius: 4px; cursor: pointer; font-size: 12px; font-weight: 600;
+    transition: background 0.15s;
+  }
+  .today-btn:hover { background: var(--dark); }
+
+  .cal-weekdays {
+    display: grid; grid-template-columns: repeat(7, 1fr); gap: 2px;
+    margin-bottom: 2px;
+  }
+  .cal-weekdays div {
+    text-align: center; font-size: 11px; font-weight: 700; color: var(--dark);
+    padding: 4px; text-transform: uppercase; letter-spacing: 1px;
+  }
+
+  .cal-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 2px; }
+
+  .cal-cell {
+    min-height: 90px; padding: 4px 5px; background: #fff; border: 1px solid #e8e8e8;
+    border-radius: 4px; cursor: pointer; position: relative; transition: all 0.12s;
+    display: flex; flex-direction: column;
+  }
+  .cal-cell:hover { border-color: var(--orange); box-shadow: 0 2px 8px rgba(244,162,97,0.18); z-index: 2; }
+  .cal-cell.blank { background: transparent; border: none; cursor: default; min-height: 0; }
+  .cal-cell.today { border: 2px solid var(--orange); background: #fff8f2; box-shadow: 0 0 0 2px rgba(244,162,97,0.15); }
+
+  .cell-day { font-size: 14px; font-weight: 700; color: var(--dark); margin-bottom: 2px; }
+  .cell-phase { font-size: 9px; color: #666; line-height: 1.2; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .cell-phase.prep { color: var(--teal); font-weight: 600; }
+
+  .cell-vp {
+    display: inline-block; font-size: 9px; font-weight: 800; padding: 1px 5px;
+    border-radius: 3px; margin-top: 1px; width: fit-content;
+  }
+  .cell-vp.vp-1 { background: #e8f5e9; color: #388e3c; }
+  .cell-vp.vp-2 { background: #fff3e0; color: #e65100; }
+  .cell-vp.vp-3 { background: #fce4ec; color: #c62828; }
+  .cell-vp.vp-4 { background: #f44336; color: #fff; }
+
+  .cell-dots { display: flex; gap: 3px; margin-top: auto; flex-wrap: wrap; padding-top: 2px; }
+  .dot {
+    width: 8px; height: 8px; border-radius: 50%; display: inline-block; flex-shrink: 0;
+  }
+  .dot-hero { background: var(--hero); }
+  .dot-war { background: var(--war); }
+  .dot-alliance-event, .dot-alliance { background: var(--alliance); }
+  .dot-exclusive-weapon { background: var(--weapon); border: 1px solid #d4a017; }
+  .dot-season-start { background: var(--season-clr); }
+  .dot-season { background: var(--season-clr); opacity: 0.7; }
+  .dot-event { background: var(--event-clr); }
+
+  .cell-radar {
+    position: absolute; top: 3px; right: 4px; font-size: 12px; opacity: 0.7;
+  }
+
+  /* Priority borders */
+  .cal-cell.priority-high { border-left: 3px solid var(--watermelon); }
+  .cal-cell.priority-critical { border-left: 3px solid var(--red); background: #fff5f5; }
+  .cal-cell.priority-medium { border-left: 3px solid var(--orange); }
+  .cal-cell.priority-prep { border-left: 3px solid var(--teal); }
+
+  /* Sidebar */
+  .sidebar { width: 280px; flex-shrink: 0; }
+  .sidebar-section {
+    background: var(--light-bg); border: 1px solid #e8e8e8; border-radius: 6px;
+    padding: 12px; margin-bottom: 12px;
+  }
+  .sidebar-section h3 { font-size: 14px; color: var(--dark); margin-bottom: 8px; border-bottom: 2px solid var(--yellow); padding-bottom: 4px; }
+
+  .legend { display: flex; flex-direction: column; gap: 6px; }
+  .legend-item { display: flex; align-items: center; gap: 8px; font-size: 12px; }
+
+  .upcoming-list { display: flex; flex-direction: column; gap: 6px; }
+  .upcoming-item { padding: 6px 8px; background: #fff; border-radius: 4px; border-left: 3px solid var(--gray); }
+  .upcoming-item.type-hero { border-left-color: var(--hero); }
+  .upcoming-item.type-war { border-left-color: var(--war); }
+  .upcoming-item.type-alliance-event { border-left-color: var(--alliance); }
+  .upcoming-item.type-exclusive-weapon { border-left-color: var(--weapon); }
+  .upcoming-item.type-season-start { border-left-color: var(--season-clr); }
+  .upcoming-item.type-event { border-left-color: var(--event-clr); }
+  .upcoming-item.type-season { border-left-color: var(--season-clr); }
+  .upcoming-top { display: flex; align-items: center; gap: 6px; }
+  .upcoming-name { font-size: 12px; font-weight: 600; flex: 1; }
+  .upcoming-date { font-size: 10px; color: #888; margin-top: 2px; }
+  .badge-today { font-size: 9px; font-weight: 800; color: #fff; background: var(--watermelon); padding: 1px 6px; border-radius: 3px; }
+  .badge-tomorrow { font-size: 9px; font-weight: 800; color: #fff; background: var(--orange); padding: 1px 6px; border-radius: 3px; }
+  .badge-days { font-size: 9px; font-weight: 700; color: var(--dark); background: #eee; padding: 1px 6px; border-radius: 3px; }
+  .upcoming-empty { font-size: 12px; color: #aaa; text-align: center; padding: 16px 0; }
+
+  /* ICS section */
+  .ics-section { }
+  .ics-btn {
+    width: 100%; padding: 8px; background: var(--watermelon); color: #fff;
+    border: none; border-radius: 4px; font-size: 13px; font-weight: 700;
+    cursor: pointer; transition: background 0.15s; margin-bottom: 10px;
+  }
+  .ics-btn:hover { background: #e04550; }
+  .subscribe-box { background: #fff; border: 1px solid #e8e8e8; border-radius: 4px; padding: 8px; }
+  .subscribe-label { font-size: 10px; font-weight: 600; color: var(--dark); margin-bottom: 4px; text-transform: uppercase; }
+  .subscribe-url {
+    width: 100%; font-size: 10px; padding: 4px 6px; border: 1px solid var(--gray);
+    border-radius: 3px; color: var(--text); cursor: pointer; background: var(--light-bg);
+  }
+  .subscribe-hint { font-size: 9px; color: #aaa; margin-top: 4px; }
+
+  /* Day detail panel */
+  .day-detail {
+    margin-top: 14px; background: #fff; border: 2px solid var(--orange);
+    border-radius: 8px; overflow: hidden;
+    box-shadow: 0 4px 20px rgba(244,162,97,0.12);
+  }
+  .detail-header {
+    background: linear-gradient(135deg, var(--orange), #e8956a);
+    color: #fff; padding: 12px 16px; display: flex; align-items: center; gap: 12px;
+  }
+  .detail-header h3 { font-size: 18px; flex: 1; }
+  .detail-meta { font-size: 12px; opacity: 0.95; }
+  .detail-meta strong { color: #fff; }
+  .close-btn {
+    background: rgba(255,255,255,0.2); border: none; color: #fff;
+    width: 28px; height: 28px; border-radius: 50%; cursor: pointer;
+    font-size: 16px; display: flex; align-items: center; justify-content: center;
+    transition: background 0.15s;
+  }
+  .close-btn:hover { background: rgba(255,255,255,0.35); }
+
+  .detail-body { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; padding: 16px; }
+  .detail-col h4 { font-size: 13px; font-weight: 700; color: var(--dark); margin-bottom: 8px;
+    text-transform: uppercase; letter-spacing: 0.5px; border-bottom: 2px solid var(--yellow); padding-bottom: 4px; }
+  .checklist { list-style: none; }
+  .checklist li { position: relative; padding: 4px 0 4px 20px; font-size: 12px; line-height: 1.5; }
+  .checklist li::before { content: '\2713'; position: absolute; left: 0; color: var(--green); font-weight: 700; }
+  .savelist { list-style: none; }
+  .savelist li { position: relative; padding: 4px 0 4px 20px; font-size: 12px; line-height: 1.5; }
+  .savelist li::before { content: '\01F4BE'; position: absolute; left: 0; font-size: 11px; }
+
+  .detail-events { padding: 0 16px 12px; }
+  .detail-events h4 { font-size: 13px; font-weight: 700; color: var(--dark); margin-bottom: 8px;
+    text-transform: uppercase; letter-spacing: 0.5px; }
+  .event-card {
+    display: flex; align-items: flex-start; gap: 8px; padding: 8px 10px;
+    background: var(--light-bg); border-radius: 4px; margin-bottom: 6px;
+    border-left: 3px solid var(--gray);
+  }
+  .event-card.type-hero { border-left-color: var(--hero); }
+  .event-card.type-war { border-left-color: var(--war); }
+  .event-card.type-alliance-event { border-left-color: var(--alliance); }
+  .event-card.type-exclusive-weapon { border-left-color: var(--weapon); }
+  .event-card.type-season-start { border-left-color: var(--season-clr); }
+  .event-card.type-event { border-left-color: var(--event-clr); }
+  .event-card.type-season { border-left-color: var(--season-clr); }
+  .event-card strong { font-size: 12px; }
+  .event-detail { font-size: 11px; color: #888; }
+
+  .detail-radar { padding: 0 16px 16px; }
+  .radar-tip {
+    padding: 8px 12px; border-radius: 4px; font-size: 12px;
+  }
+  .radar-tip.collect { background: #e8f5e9; border-left: 3px solid var(--green); }
+  .radar-tip.stack { background: #fff3e0; border-left: 3px solid var(--orange); }
+
+  .vp-inline { font-weight: 800; padding: 1px 6px; border-radius: 3px; }
+  .vp-inline.vp-1 { background: rgba(255,255,255,0.25); }
+  .vp-inline.vp-2 { background: rgba(255,255,255,0.3); }
+  .vp-inline.vp-3 { background: rgba(255,255,255,0.35); }
+  .vp-inline.vp-4 { background: rgba(255,255,255,0.4); }
+
+  /* Responsive */
+  @media (max-width: 900px) {
+    .main-layout { flex-direction: column; }
+    .sidebar { width: 100%; }
+    .cal-cell { min-height: 70px; }
+    .cell-phase { font-size: 8px; }
+  }
+  @media (max-width: 600px) {
+    .config-bar { gap: 8px; }
+    .cal-cell { min-height: 55px; padding: 2px 3px; }
+    .cell-day { font-size: 12px; }
+    .cell-vp { font-size: 8px; }
+    .detail-body { grid-template-columns: 1fr; }
+    .detail-header { flex-wrap: wrap; }
+  }
+</style>
+</head>
+<body>
+
+<nav class="guide-nav">
+  <a href="../" class="nav-home">&#8592; Home</a>
+  <a href="alliance_support_hub.html">Alliance Hub</a>
+  <a href="building_planner.html">Building Planner</a>
+  <a href="building_reference.html">Building Ref</a>
+  <a href="capitol_positions.html">Capitol Positions</a>
+  <a href="chip_lab_guide.html">Chip Lab</a>
+  <a href="calendar.html" class="current">Calendar</a>
+  <a href="radar_guide.html">Radar</a>
+  <a href="vs_weekly_planner.html">VS Planner</a>
+  <a href="waterfall_guide.html">Waterfall</a>
+</nav>
+
+<div class="top-bar">
+  <div class="left">
+    <h1>Event Calendar</h1>
+    <div class="sub">Know Your Day. Win Your War.</div>
+  </div>
+  <div class="alliance">
+    <div class="name">[OWOW]</div>
+    <div class="tagline">SKYNET</div>
+  </div>
+</div>
+
+<div class="config-bar">
+  <div class="config-group">
+    <label for="serverDate">Server Created</label>
+    <input type="date" id="serverDate" value="2025-12-14">
+  </div>
+  <div class="config-group">
+    <label for="timezone">Timezone</label>
+    <select id="timezone">
+      <option value="-5">EST (UTC-5)</option>
+      <option value="-6">CST (UTC-6)</option>
+      <option value="-7">MST (UTC-7)</option>
+      <option value="-8">PST (UTC-8)</option>
+      <option value="-4">AST (UTC-4)</option>
+      <option value="0">UTC</option>
+      <option value="1">CET (UTC+1)</option>
+      <option value="2">EET (UTC+2)</option>
+      <option value="5.5">IST (UTC+5:30)</option>
+      <option value="8">CST/SGT (UTC+8)</option>
+      <option value="9">JST (UTC+9)</option>
+      <option value="10">AEST (UTC+10)</option>
+    </select>
+  </div>
+  <div class="config-group">
+    <label for="resetHour">Reset Hour</label>
+    <select id="resetHour">
+      <option value="17">5 PM</option>
+      <option value="18" selected>6 PM</option>
+      <option value="19">7 PM</option>
+      <option value="20">8 PM</option>
+      <option value="21">9 PM</option>
+    </select>
+  </div>
+  <div class="config-group">
+    <label>Server Day</label>
+    <div id="serverDayDisplay" class="server-day-badge">Day --</div>
+  </div>
+  <div class="config-group">
+    <label>Season</label>
+    <div id="seasonDisplay" class="season-badge">S0</div>
+  </div>
+</div>
+
+<div class="main-layout">
+  <div class="calendar-container">
+    <div class="cal-header">
+      <button id="prevMonth" class="cal-nav">&larr;</button>
+      <h2 id="monthTitle">March 2026</h2>
+      <button id="nextMonth" class="cal-nav">&rarr;</button>
+      <button id="todayBtn" class="today-btn">Today</button>
+    </div>
+    <div class="cal-weekdays">
+      <div>Mon</div><div>Tue</div><div>Wed</div><div>Thu</div><div>Fri</div><div>Sat</div><div>Sun</div>
+    </div>
+    <div id="calGrid" class="cal-grid"></div>
+  </div>
+
+  <div class="sidebar">
+    <div class="sidebar-section">
+      <h3>Upcoming Events</h3>
+      <div id="upcomingEvents" class="upcoming-list"></div>
+    </div>
+    <div class="sidebar-section">
+      <h3>Legend</h3>
+      <div class="legend">
+        <div class="legend-item"><span class="dot dot-hero"></span> Hero Unlock</div>
+        <div class="legend-item"><span class="dot dot-war"></span> War / PvP</div>
+        <div class="legend-item"><span class="dot dot-alliance"></span> Alliance Event</div>
+        <div class="legend-item"><span class="dot dot-weapon"></span> Exclusive Weapon</div>
+        <div class="legend-item"><span class="dot dot-season"></span> Season Start</div>
+        <div class="legend-item"><span class="dot dot-event"></span> General Event</div>
+      </div>
+    </div>
+    <div class="sidebar-section ics-section">
+      <h3>Download Calendar</h3>
+      <button id="downloadIcs" class="ics-btn">Download .ics File</button>
+      <div class="subscribe-box">
+        <div class="subscribe-label">Subscribe URL (Server #2013):</div>
+        <input type="text" readonly class="subscribe-url"
+          value="https://extremesecrecy.github.io/lastwar-research-trees/guides/lastwar_calendar.ics"
+          onclick="this.select()">
+        <div class="subscribe-hint">Paste into Google Calendar &rarr; Other calendars &rarr; From URL</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="dayDetail" class="day-detail" style="display:none">
+  <div class="detail-header">
+    <h3 id="detailTitle">Monday, Mar 6</h3>
+    <div id="detailMeta" class="detail-meta"></div>
+    <button id="closeDetail" class="close-btn">&times;</button>
+  </div>
+  <div class="detail-body">
+    <div class="detail-col">
+      <h4>What To Do</h4>
+      <ul id="detailToDo" class="checklist"></ul>
+    </div>
+    <div class="detail-col">
+      <h4>What To Save</h4>
+      <ul id="detailSave" class="savelist"></ul>
+    </div>
+  </div>
+  <div id="detailEvents" class="detail-events"></div>
+  <div id="detailRadar" class="detail-radar"></div>
+</div>
+
+<script>
+const TIMELINE_EVENTS = [{"day":1,"season":0,"name":"Rocket Shadow - Kimberly (Paid)","details":"Unlocks Kimberly as paid hero (tank)","partOfInGameCalendar":true,"type":"hero"},{"day":1,"season":0,"name":"Secret Mobile Squad","details":"Unlocks the secret mobile squad daily event","partOfInGameCalendar":true,"type":"event"},{"day":1,"season":0,"name":"Unyielding Warrior - Murphy (Free)","details":"Unlocks Murphy in the Tavern (tank)","partOfInGameCalendar":false,"type":"hero"},{"day":3,"season":0,"name":"Arms Race","details":"Unlocks the daily arms race event","partOfInGameCalendar":true,"type":"event"},{"day":3,"season":0,"name":"Doomsday Leader","details":"Unlocks weekly world bosses","partOfInGameCalendar":true,"type":"event"},{"day":4,"season":0,"name":"Alliance Exercise","details":"Unlock marshal alliance event","partOfInGameCalendar":true,"type":"alliance event"},{"day":4,"season":0,"name":"Intercity trade","details":"Unlocks trains","partOfInGameCalendar":true,"type":"event"},{"day":5,"season":0,"name":"Top Commander","details":"Top Commander event","partOfInGameCalendar":true,"type":"event"},{"day":5,"season":0,"name":"City Clash I","details":"Take level 1 villages","partOfInGameCalendar":true,"type":"war"},{"day":7,"season":0,"name":"Exercise Escalation","details":"Marshall up to level 3","partOfInGameCalendar":true,"type":"alliance event"},{"day":7,"season":0,"name":"City Clash II","details":"Level 2 villages","partOfInGameCalendar":true,"type":"war"},{"day":8,"season":0,"name":"Troublemaker - Carlie (Paid)","details":"Unlocks Carlie as paid hero (aircraft)","partOfInGameCalendar":true,"type":"hero"},{"day":8,"season":0,"name":"Blade Striker - DVA (Paid)","details":"Unlocks DVA as paid hero (aircraft)","partOfInGameCalendar":true,"type":"hero"},{"day":10,"season":0,"name":"City Clash III","details":"Level 3 villages","partOfInGameCalendar":true,"type":"war"},{"day":12,"season":0,"name":"Desert Storm","details":"Weekly alliance event","partOfInGameCalendar":true,"type":"alliance event"},{"day":13,"season":0,"name":"City Clash IV","details":"City Clash IV","partOfInGameCalendar":true,"type":"war"},{"day":14,"season":0,"name":"Exercise Escalation","details":"Marshall level 4","partOfInGameCalendar":true,"type":"alliance event"},{"day":15,"season":0,"name":"Magnetic Expert - Tesla (Paid)","details":"Unlocks Tesla as paid hero (missile)","partOfInGameCalendar":true,"type":"hero"},{"day":15,"season":0,"name":"Thunder - Swift (Paid)","details":"Unlocks Swift as paid hero (missile)","partOfInGameCalendar":true,"type":"hero"},{"day":17,"season":0,"name":"City Clash V","details":"Level 5 villages","partOfInGameCalendar":true,"type":"war"},{"day":19,"season":0,"name":"Alliance Duel","details":"Weekly VS event","partOfInGameCalendar":true,"type":"alliance event"},{"day":21,"season":0,"name":"Exercise Escalation","details":"Level 5","partOfInGameCalendar":true,"type":"alliance event"},{"day":21,"season":0,"name":"City Clash VI","details":"Level 6 villages","partOfInGameCalendar":true,"type":"war"},{"day":22,"season":0,"name":"Blade of Legion - Marshall (Free)","details":"Unlocks Marshall in the Tavern (tank)","partOfInGameCalendar":true,"type":"hero"},{"day":25,"season":0,"name":"Capitol Conquest","details":"Level 7 villages","partOfInGameCalendar":true,"type":"war"},{"day":29,"season":0,"name":"Unite and Prepare for war","details":"Unite and Prepare for war","partOfInGameCalendar":true,"type":"war"},{"day":29,"season":0,"name":"Storm Hunter - Williams (Paid)","details":"Unlocks Williams as paid hero (tank)","partOfInGameCalendar":true,"type":"hero"},{"day":29,"season":0,"name":"Cross warzone intercity trade","details":"Trucks from other servers","partOfInGameCalendar":true,"type":"event"},{"day":30,"season":0,"name":"Exercise Escalation","details":"Level 6","partOfInGameCalendar":true,"type":"alliance event"},{"day":36,"season":0,"name":"Magblade - Schuyler (Paid)","details":"Unlocks Schuyler as paid hero (aircraft)","partOfInGameCalendar":true,"type":"hero"},{"day":43,"season":0,"name":"Ironclad General - McGregor (Paid)","details":"Unlocks McGregor as paid hero (missile)","partOfInGameCalendar":true,"type":"hero"},{"day":45,"season":0,"name":"Exercise Escalation","details":"Level 7","partOfInGameCalendar":true,"type":"alliance event"},{"day":57,"season":0,"name":"EM Hunter - Stetmann (Paid)","details":"Unlocks Stetmann as paid hero (tank)","partOfInGameCalendar":true,"type":"hero"},{"day":60,"season":0,"name":"Exercise Escalation","details":"Level 8","partOfInGameCalendar":true,"type":"alliance event"},{"day":61,"season":0,"name":"Hero tavern unlocks (Free)","details":"Kimberly, Tesla, Swift, DVA, and Carlie will become avaialble in the Tavern for free","partOfInGameCalendar":false,"type":"hero"},{"day":64,"season":0,"name":"Sky Night - Lucius (Paid)","details":"Unlocks Lucius as paid hero (aircraft)","partOfInGameCalendar":true,"type":"hero"},{"day":71,"season":0,"name":"The Reaper - Morrison (Paid)","details":"Unlocks Morrison as paid hero (aircraft)","partOfInGameCalendar":true,"type":"hero"},{"day":82,"season":0,"name":"Drone Combat Boost","details":"Drone skill chips","partOfInGameCalendar":true,"type":"event"},{"day":85,"season":0,"name":"Titan - Adam (Paid)","details":"Unlocks Adam as paid hero (missile)","partOfInGameCalendar":true,"type":"hero"},{"day":90,"season":0,"name":"Exercise Escalation","details":"Level 9","partOfInGameCalendar":true,"type":"alliance event"},{"day":99,"season":0,"name":"Lion Cub - Fiona (Paid)","details":"Unlocks Fiona as paid hero (missile)","partOfInGameCalendar":true,"type":"hero"},{"day":120,"season":0,"name":"Exercise Escalation","details":"Level 10","partOfInGameCalendar":true,"type":"alliance event"},{"day":0,"season":1,"name":"S1: The Crimson Plague","details":"S1: The Crimson Plague","partOfInGameCalendar":true,"type":"season-start"},{"day":1,"season":1,"name":"Season Boost","details":"Season Boost","partOfInGameCalendar":true,"type":"season"},{"day":1,"season":1,"name":"Zombie Siege","details":"Alliance event","partOfInGameCalendar":true,"type":"alliance event"},{"day":1,"season":1,"name":"S1: Hero's Return (Free)","details":"Adds Schuyler (aircraft) and Williams (tank) to the Tavern for free as part of the hero's return event.","partOfInGameCalendar":false,"type":"hero"},{"day":1,"season":1,"name":"Hidden Treasure","details":"Hero Choice Chests from the Hidden Treasure digs now also include shards for Carlie, Tesla, and Swift.","partOfInGameCalendar":false,"type":"hero"},{"day":4,"season":1,"name":"Kimberly Exclusive Weapon","details":"Kimberly Exclusive Weapon","partOfInGameCalendar":true,"type":"exclusive weapon"},{"day":18,"season":1,"name":"DVA Exclusive Weapon","details":"DVA Exclusive Weapon","partOfInGameCalendar":true,"type":"exclusive weapon"},{"day":39,"season":1,"name":"Tesla Exclusive Weapon","details":"Tesla Exclusive Weapon","partOfInGameCalendar":true,"type":"exclusive weapon"},{"day":57,"season":1,"name":"Black market","details":"Black market","partOfInGameCalendar":true,"type":"event"},{"day":57,"season":1,"name":"Champions Duel","details":"Champions Duel","partOfInGameCalendar":true,"type":"event"},{"day":60,"season":1,"name":"Ghost Ops","details":"Ghost Ops provides you access to the remaining heroes you are missing and that aren't in the Tavern yet. You can get hero shards for all heroes, including Lucius, Morrison, Adam, Williams, Schuyler, McGregor, Stetmann and Fiona.","partOfInGameCalendar":false,"type":"hero"},{"day":0,"season":2,"name":"S2: Polar World","details":"S2: Polar World","partOfInGameCalendar":true,"type":"season-start"},{"day":1,"season":2,"name":"Season Boost","details":"Season Boost","partOfInGameCalendar":true,"type":"season"},{"day":1,"season":2,"name":"S2: Legend Returns (Free)","details":"Adds McGregor (missile) to the Tavern for free as part of the Legend returns event.","partOfInGameCalendar":false,"type":"hero"},{"day":1,"season":2,"name":"Hero tavern unlocks (Free)","details":"Adds Schuyler (aircraft) and Williams (tank) to the regular Tavern for free.","partOfInGameCalendar":false,"type":"hero"},{"day":1,"season":2,"name":"Hidden Treasure","details":"Hero Choice Chests from the Hidden Treasure digs now also include shards for Marshall, Williams, and Schuyler.","partOfInGameCalendar":false,"type":"hero"},{"day":3,"season":2,"name":"S2: Weapons of Legends (Free)","details":"Adds Hero Exclusive Weapon Shard Choice Chest II to the Tavern. This provides weapon shards for Kimberly, DVA, and Tesla.","partOfInGameCalendar":false,"type":"exclusive weapon"},{"day":4,"season":2,"name":"Murphy Exclusive Weapon","details":"Murphy Exclusive Weapon","partOfInGameCalendar":true,"type":"exclusive weapon"},{"day":18,"season":2,"name":"Carlie Exclusive Weapon","details":"Carlie Exclusive Weapon","partOfInGameCalendar":true,"type":"exclusive weapon"},{"day":39,"season":2,"name":"Swift Exclusive Weapon","details":"Swift Exclusive Weapon","partOfInGameCalendar":true,"type":"exclusive weapon"},{"day":57,"season":2,"name":"Age of Oil","details":"Age of Oil","partOfInGameCalendar":true,"type":"event"},{"day":57,"season":2,"name":"General's Trial","details":"Advanced trials unlock","partOfInGameCalendar":true,"type":"event"},{"day":57,"season":2,"name":"Black market","details":"Black market","partOfInGameCalendar":false,"type":"event"},{"day":57,"season":2,"name":"Champions Duel","details":"Champions Duel","partOfInGameCalendar":false,"type":"event"},{"day":57,"season":2,"name":"Zombie Siege","details":"Unlocks level 9 and 10","partOfInGameCalendar":true,"type":"alliance event"},{"day":57,"season":2,"name":"Tempest Beast","details":"Glacieradon during zombie event (only outside of seasons)","partOfInGameCalendar":true,"type":"event"},{"day":64,"season":2,"name":"General's Trial","details":"Unlocks sky predator boss during vanguard event","partOfInGameCalendar":true,"type":"event"},{"day":92,"season":2,"name":"The Doomsday","details":"Unlocks slugger doomwalkers during doomsday event","partOfInGameCalendar":true,"type":"event"},{"day":92,"season":2,"name":"Zombie Invasion","details":"Unlocks level 105-120 bosses","partOfInGameCalendar":true,"type":"event"},{"day":96,"season":2,"name":"Overlord","details":"Unlocks gorilla overlord","partOfInGameCalendar":true,"type":"hero"},{"day":0,"season":3,"name":"S3: Golden Realm","details":"S3: Golden Realm","partOfInGameCalendar":true,"type":"season-start"},{"day":1,"season":3,"name":"Season Boost","details":"Season Boost","partOfInGameCalendar":true,"type":"season"},{"day":1,"season":3,"name":"S3: Legend Returns (Free)","details":"Adds Lucius (aircraft) and Stetmann (tank) to the Tavern for free as part of the Legend Returns event.","partOfInGameCalendar":false,"type":"hero"},{"day":1,"season":3,"name":"Hero tavern unlocks (Free)","details":"Adds McGregor (missile) to the regular Tavern for free.","partOfInGameCalendar":false,"type":"hero"},{"day":1,"season":3,"name":"Hidden Treasure","details":"Hero Choice Chests from the Hidden Treasure digs now also include shards for McGregor, Stetmann and Lucius.","partOfInGameCalendar":false,"type":"hero"},{"day":3,"season":3,"name":"S3: Weapons of Legends (Free)","details":"Adds Hero Exclusive Weapon Shard Choice Chest IV to the Tavern. This provides weapon shards for Kimberly, DVA, Tesla, Murphy, Carlie, and Swift.","partOfInGameCalendar":false,"type":"exclusive weapon"},{"day":4,"season":3,"name":"Marshall Exclusive Weapon","details":"Marshall Exclusive Weapon","partOfInGameCalendar":true,"type":"exclusive weapon"},{"day":18,"season":3,"name":"Schuyler Exclusive Weapon","details":"Schuyler Exclusive Weapon","partOfInGameCalendar":true,"type":"exclusive weapon"},{"day":39,"season":3,"name":"McGregor Exclusive Weapon","details":"McGregor Exclusive Weapon","partOfInGameCalendar":true,"type":"exclusive weapon"},{"day":57,"season":3,"name":"Black market","details":"Black market","partOfInGameCalendar":false,"type":"event"},{"day":57,"season":3,"name":"Champions Duel","details":"Champions Duel","partOfInGameCalendar":false,"type":"event"},{"day":57,"season":3,"name":"Zombie Siege","details":"Unlocks level 11 and 12","partOfInGameCalendar":true,"type":"alliance event"},{"day":57,"season":3,"name":"Zombie Invasion","details":"Unlocks level 125-135 bosses","partOfInGameCalendar":true,"type":"event"},{"day":57,"season":3,"name":"Secret Mobile Squad","details":"Changes treasure hunt to different setup","partOfInGameCalendar":true,"type":"event"},{"day":57,"season":3,"name":"General's Trial","details":"Sky predator boss increase","partOfInGameCalendar":true,"type":"event"},{"day":64,"season":3,"name":"Alliance Exercise","details":"Marshal event changes to sandworm","partOfInGameCalendar":true,"type":"alliance event"},{"day":0,"season":4,"name":"S4: Evernight Isle","details":"S4: Evernight Isle","partOfInGameCalendar":true,"type":"season-start"},{"day":1,"season":4,"name":"Season Boost","details":"Season Boost","partOfInGameCalendar":true,"type":"season"},{"day":1,"season":4,"name":"S4: Legend Returns (Free)","details":"Adds Adam (missile), Morrison (aircraft) and Fiona (missile) to the Tavern for free as part of the Legend Returns event.","partOfInGameCalendar":false,"type":"hero"},{"day":1,"season":4,"name":"Hero tavern unlocks (Free)","details":"Adds Lucius (aircraft) and Stetmann (tank) to the regular Tavern for free.","partOfInGameCalendar":false,"type":"hero"},{"day":1,"season":4,"name":"Hidden Treasure","details":"Hero Choice Chests from the Hidden Treasure digs now include shards for Morrison, Adam, and Fiona. This brings ALL heroes to the Hero Choice Chest.","partOfInGameCalendar":false,"type":"hero"},{"day":3,"season":4,"name":"S4: Weapons of Legends (Free)","details":"Adds Hero Exclusive Weapon Shard Choice Chest VI to the Tavern. This provides weapon shards for Kimberly, DVA, Tesla, Murphy, Carlie, Swift, Marshall, Schuyler, and McGregor.","partOfInGameCalendar":false,"type":"exclusive weapon"},{"day":4,"season":4,"name":"Lucius Exclusive Weapon","details":"Lucius Exclusive Weapon","partOfInGameCalendar":true,"type":"exclusive weapon"},{"day":18,"season":4,"name":"Adam Exclusive Weapon","details":"Adam Exclusive Weapon","partOfInGameCalendar":true,"type":"exclusive weapon"},{"day":39,"season":4,"name":"Williams Exclusive Weapon","details":"Williams Exclusive Weapon","partOfInGameCalendar":true,"type":"exclusive weapon"},{"day":57,"season":4,"name":"Black market","details":"Black market","partOfInGameCalendar":false,"type":"event"},{"day":57,"season":4,"name":"Champions Duel","details":"Champions Duel","partOfInGameCalendar":false,"type":"event"},{"day":0,"season":5,"name":"S5: Wild West","details":"S5: Wild West","partOfInGameCalendar":true,"type":"season-start"},{"day":1,"season":5,"name":"Season Boost","details":"Season Boost","partOfInGameCalendar":true,"type":"season"},{"day":1,"season":5,"name":"S5: Legend Returns (Free)","details":"Adds Weapon shards for Kimberly (tank), Tesla (missile) and DVA (aircraft) to the Tavern for free as part of the Legend Returns event. It also still includes hero shards for all UR heroes as well.","partOfInGameCalendar":false,"type":"hero"},{"day":1,"season":5,"name":"Hero tavern unlocks (Free)","details":"Adds Morrison (aircraft), Adam (missile), and Fiona (missile) to the regular Tavern for free.","partOfInGameCalendar":false,"type":"hero"},{"day":1,"season":5,"name":"Hidden Treasure","details":"Hero Choice Chests from the Hidden Treasure digs now include shards for Morrison, Adam, and Fiona. This brings ALL heroes to the Hero Choice Chest.","partOfInGameCalendar":false,"type":"hero"},{"day":3,"season":5,"name":"S5: Weapons of Legends (Free)","details":"Adds Hero Exclusive Weapon Shard Choice Chest VIII to the Tavern. This provides weapon shards for Kimberly, DVA, Tesla, Murphy, Carlie, Swift, Marshall, Schuyler, McGregor, Lucius, Adam, and Williams.","partOfInGameCalendar":false,"type":"exclusive weapon"},{"day":4,"season":5,"name":"Fiona Exclusive Weapon","details":"Fiona Exclusive Weapon","partOfInGameCalendar":false,"type":"exclusive weapon"},{"day":18,"season":5,"name":"Stetmann Exclusive Weapon","details":"Stetmann Exclusive Weapon","partOfInGameCalendar":false,"type":"exclusive weapon"},{"day":39,"season":5,"name":"Morrison Exclusive Weapon","details":"Morrison Exclusive Weapon","partOfInGameCalendar":false,"type":"exclusive weapon"},{"day":57,"season":5,"name":"Black market","details":"Black market","partOfInGameCalendar":false,"type":"event"},{"day":57,"season":5,"name":"Champions Duel","details":"Champions Duel","partOfInGameCalendar":false,"type":"event"}];
+const WEEKLY_SCHEDULE = [{"dow":1,"dayName":"Monday","armsRace":"Drone Boost","vsDuel":"Radar Training","vp":1,"priority":"low","whatToDo":["Collect stacked radar missions (after 6:05 PM reset)","Spend all stamina on attacks/rallies/radar","Open drone data CHIP chests (skill chips for Chip Lab)","Use drone combat data + train drone parts","Gather resources from mines (gold tiles = most points, alliance territory +25%)"],"whatToSave":["Hero XP/shards/medals \u2192 THURSDAY","Construction speedups \u2192 TUESDAY","Research speedups \u2192 WEDNESDAY","Training speedups \u2192 FRIDAY","Drone COMPONENT chests \u2192 WEDNESDAY"],"stackRadar":false,"collectRadar":true},{"dow":2,"dayName":"Tuesday","armsRace":"City Building","vsDuel":"Base Expansion","vp":1,"priority":"low","whatToDo":["Open ALL building completion presents (gift boxes)","Use ALL construction speedups to finish upgrades","Dispatch UR (gold) trade trucks \u2014 refresh for Legendary!","Start Legendary secret tasks","Use survivor recruitment tickets"],"whatToSave":["Research speedups \u2192 WEDNESDAY","Hero XP/shards/medals \u2192 THURSDAY","Training speedups \u2192 FRIDAY","Drone COMPONENT chests \u2192 WEDNESDAY"],"stackRadar":true,"collectRadar":false},{"dow":3,"dayName":"Wednesday","armsRace":"Tech Research","vsDuel":"Age of Science","vp":1,"priority":"low","whatToDo":["Use ALL research speedups to complete tech projects","Open drone COMPONENT chests (ONLY score today!)","Spend Valor Badges on Alliance Duel research","Collect stacked radar missions (after 6:05 PM)","Start new research \u2192 speedup \u2192 repeat for max completions"],"whatToSave":["Hero XP/shards/medals \u2192 THURSDAY","Training speedups \u2192 FRIDAY"],"stackRadar":false,"collectRadar":true},{"dow":4,"dayName":"Thursday","armsRace":"Hero Advancement","vsDuel":"Train Heroes","vp":2,"priority":"medium","whatToDo":["Dump ALL hero XP into priority heroes","Use ALL hero shards (star up heroes)","Apply ALL skill medals","Use hero weapon shards","Use recruitment tickets (Legendary/New Era/Hero Return)","Honorable Campaign resets today!"],"whatToSave":["Training speedups \u2192 FRIDAY (tomorrow, the big day!)","Construction speedups \u2192 next TUESDAY"],"stackRadar":true,"collectRadar":false},{"dow":5,"dayName":"Friday","armsRace":"Unit Progression","vsDuel":"Total Mobilization","vp":3,"priority":"high","whatToDo":["WATERFALL: Train T5 \u2192 upgrade T6 \u2192 T7 \u2192 T8 (each tier = more points!)","Use ALL training speedups (4x point multiplier!)","Collect stacked radar missions (after 6:05 PM)","Use any leftover construction/research speedups","Train as many batches as possible \u2014 every troop counts!"],"whatToSave":["Healing speedups \u2192 SATURDAY"],"stackRadar":false,"collectRadar":true},{"dow":6,"dayName":"Saturday","armsRace":"Enemy Buster","vsDuel":"Enemy Buster","vp":4,"priority":"critical","whatToDo":["Buy 24hr shield (5,000 diamonds) AFTER attacking","Scout targets FIRST \u2014 find bases with troops defending","Attack enemy bases (coordinate with alliance for timing!)","Use healing speedups to revive and attack again","Remove YOUR defense lineup to minimize losses if attacked","Attack at ~4:05am server time if possible (opponents sleeping)"],"whatToSave":["Start saving everything for next week's cycle!"],"stackRadar":false,"collectRadar":false},{"dow":0,"dayName":"Sunday","armsRace":"Recovery / Prep","vsDuel":"PREP DAY (no VS)","vp":0,"priority":"prep","whatToDo":["Send gathering squads timed to return AFTER Monday 6 PM reset","Stack radar missions ~10 PM (complete but DON'T collect)","Save ALL speedups, hero XP, shards, medals \u2014 touch NOTHING","Check stores for drone parts/data chips (VIP, Alliance, Campaign, Honor)","Start a long building upgrade to finish Mon/Tue (present!)"],"whatToSave":["EVERYTHING \u2014 Sunday is pure prep, no points available"],"stackRadar":true,"collectRadar":false}];
+const SEASON_LENGTHS = [120, 90, 90, 90, 90, 90];
+
+let currentMonth, currentYear;
+let serverCreation, resetHour;
+
+function init() {
+  const saved = localStorage.getItem('owow-calendar-config');
+  if (saved) {
+    try {
+      const c = JSON.parse(saved);
+      if (c.serverDate) document.getElementById('serverDate').value = c.serverDate;
+      if (c.timezone) document.getElementById('timezone').value = c.timezone;
+      if (c.resetHour) document.getElementById('resetHour').value = c.resetHour;
+    } catch(e) {}
+  }
+  loadConfig();
+  const today = new Date();
+  currentMonth = today.getMonth();
+  currentYear = today.getFullYear();
+  render();
+  document.getElementById('prevMonth').onclick = () => { changeMonth(-1); };
+  document.getElementById('nextMonth').onclick = () => { changeMonth(1); };
+  document.getElementById('todayBtn').onclick = goToday;
+  document.getElementById('closeDetail').onclick = () => {
+    document.getElementById('dayDetail').style.display = 'none';
+  };
+  document.getElementById('downloadIcs').onclick = downloadIcs;
+  document.getElementById('serverDate').onchange = () => { saveConfig(); loadConfig(); render(); };
+  document.getElementById('timezone').onchange = () => { saveConfig(); loadConfig(); render(); };
+  document.getElementById('resetHour').onchange = () => { saveConfig(); loadConfig(); render(); };
+}
+
+function saveConfig() {
+  const c = {
+    serverDate: document.getElementById('serverDate').value,
+    timezone: document.getElementById('timezone').value,
+    resetHour: document.getElementById('resetHour').value
+  };
+  localStorage.setItem('owow-calendar-config', JSON.stringify(c));
+}
+
+function loadConfig() {
+  const dateStr = document.getElementById('serverDate').value;
+  const parts = dateStr.split('-');
+  serverCreation = new Date(+parts[0], +parts[1]-1, +parts[2]);
+  resetHour = +document.getElementById('resetHour').value;
+  updateServerDay();
+}
+
+function updateServerDay() {
+  const today = new Date();
+  today.setHours(0,0,0,0);
+  const sc = new Date(serverCreation);
+  sc.setHours(0,0,0,0);
+  const diff = Math.floor((today - sc) / 86400000) + 1;
+  document.getElementById('serverDayDisplay').textContent = 'Day ' + Math.max(1, diff);
+  let cumulative = 0;
+  let season = 0;
+  for (let s = 0; s < SEASON_LENGTHS.length; s++) {
+    if (diff <= cumulative + SEASON_LENGTHS[s]) {
+      season = s;
+      break;
+    }
+    cumulative += SEASON_LENGTHS[s];
+    season = s + 1;
+  }
+  document.getElementById('seasonDisplay').textContent = 'S' + season;
+}
+
+function getAbsDay(season, day) {
+  let offset = 0;
+  for (let s = 0; s < season && s < SEASON_LENGTHS.length; s++) {
+    offset += SEASON_LENGTHS[s];
+  }
+  return offset + day;
+}
+
+function getDateForEvent(evt) {
+  const absDay = getAbsDay(evt.season, evt.day);
+  const d = new Date(serverCreation);
+  d.setDate(d.getDate() + absDay - 1);
+  return d;
+}
+
+function getEventsForDate(date) {
+  const result = [];
+  const d = new Date(date);
+  d.setHours(0,0,0,0);
+  for (const evt of TIMELINE_EVENTS) {
+    const evtDate = getDateForEvent(evt);
+    evtDate.setHours(0,0,0,0);
+    if (evtDate.getTime() === d.getTime()) {
+      result.push(evt);
+    }
+  }
+  return result;
+}
+
+function getScheduleForDate(date) {
+  const dow = date.getDay();
+  return WEEKLY_SCHEDULE.find(s => s.dow === dow);
+}
+
+function changeMonth(delta) {
+  currentMonth += delta;
+  if (currentMonth > 11) { currentMonth = 0; currentYear++; }
+  if (currentMonth < 0) { currentMonth = 11; currentYear--; }
+  render();
+}
+
+function goToday() {
+  const today = new Date();
+  currentMonth = today.getMonth();
+  currentYear = today.getFullYear();
+  render();
+}
+
+function render() {
+  renderCalendar();
+  renderUpcoming();
+}
+
+function renderCalendar() {
+  const monthNames = ['January','February','March','April','May','June',
+    'July','August','September','October','November','December'];
+  document.getElementById('monthTitle').textContent = monthNames[currentMonth] + ' ' + currentYear;
+
+  const grid = document.getElementById('calGrid');
+  grid.innerHTML = '';
+
+  const firstDay = new Date(currentYear, currentMonth, 1);
+  let startDow = firstDay.getDay();
+  if (startDow === 0) startDow = 7;
+  startDow--;
+
+  const daysInMonth = new Date(currentYear, currentMonth + 1, 0).getDate();
+  const today = new Date();
+  today.setHours(0,0,0,0);
+
+  // Fill blanks before first day
+  for (let i = 0; i < startDow; i++) {
+    const blank = document.createElement('div');
+    blank.className = 'cal-cell blank';
+    grid.appendChild(blank);
+  }
+
+  for (let day = 1; day <= daysInMonth; day++) {
+    const date = new Date(currentYear, currentMonth, day);
+    date.setHours(0,0,0,0);
+    const cell = document.createElement('div');
+    cell.className = 'cal-cell';
+
+    const isToday = date.getTime() === today.getTime();
+    if (isToday) cell.classList.add('today');
+
+    const sched = getScheduleForDate(date);
+    const events = getEventsForDate(date);
+
+    // Priority class
+    if (sched) {
+      cell.classList.add('priority-' + sched.priority);
+    }
+
+    // Day number
+    const num = document.createElement('div');
+    num.className = 'cell-day';
+    num.textContent = day;
+    cell.appendChild(num);
+
+    // VS phase label
+    if (sched && sched.vp > 0) {
+      const phase = document.createElement('div');
+      phase.className = 'cell-phase';
+      phase.textContent = sched.vsDuel;
+      cell.appendChild(phase);
+
+      const vp = document.createElement('div');
+      vp.className = 'cell-vp vp-' + sched.vp;
+      vp.textContent = sched.vp + 'VP';
+      cell.appendChild(vp);
+    } else if (sched) {
+      const phase = document.createElement('div');
+      phase.className = 'cell-phase prep';
+      phase.textContent = 'PREP';
+      cell.appendChild(phase);
+    }
+
+    // Event dots
+    if (events.length > 0) {
+      const dots = document.createElement('div');
+      dots.className = 'cell-dots';
+      const seen = new Set();
+      for (const evt of events) {
+        if (seen.has(evt.type)) continue;
+        seen.add(evt.type);
+        const dot = document.createElement('span');
+        dot.className = 'dot dot-' + evt.type.replace(/\s+/g, '-');
+        dot.title = evt.name;
+        dots.appendChild(dot);
+      }
+      cell.appendChild(dots);
+    }
+
+    // Radar indicator
+    if (sched && (sched.stackRadar || sched.collectRadar)) {
+      const radar = document.createElement('div');
+      radar.className = 'cell-radar';
+      radar.textContent = sched.collectRadar ? '\ud83d\udce1' : '\ud83d\udce6';
+      radar.title = sched.collectRadar ? 'Collect radar today' : 'Stack radar tonight';
+      cell.appendChild(radar);
+    }
+
+    cell.onclick = () => showDayDetail(date);
+    grid.appendChild(cell);
+  }
+}
+
+function renderUpcoming() {
+  const container = document.getElementById('upcomingEvents');
+  container.innerHTML = '';
+  const today = new Date();
+  today.setHours(0,0,0,0);
+  const upcoming = [];
+  for (const evt of TIMELINE_EVENTS) {
+    const evtDate = getDateForEvent(evt);
+    evtDate.setHours(0,0,0,0);
+    const diff = Math.floor((evtDate - today) / 86400000);
+    if (diff >= 0 && diff <= 30) {
+      upcoming.push({ ...evt, realDate: evtDate, daysAway: diff });
+    }
+  }
+  upcoming.sort((a, b) => a.daysAway - b.daysAway);
+  if (upcoming.length === 0) {
+    container.innerHTML = '<div class="upcoming-empty">No events in the next 30 days</div>';
+    return;
+  }
+  for (const evt of upcoming.slice(0, 12)) {
+    const item = document.createElement('div');
+    item.className = 'upcoming-item type-' + evt.type.replace(/\s+/g, '-');
+    const dateStr = evt.realDate.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+    const badge = evt.daysAway === 0 ? '<span class="badge-today">TODAY</span>'
+      : evt.daysAway === 1 ? '<span class="badge-tomorrow">TOMORROW</span>'
+      : '<span class="badge-days">' + evt.daysAway + 'd</span>';
+    item.innerHTML = '<div class="upcoming-top"><span class="dot dot-' + evt.type.replace(/\s+/g, '-') + '"></span>'
+      + '<span class="upcoming-name">' + evt.name + '</span>' + badge + '</div>'
+      + '<div class="upcoming-date">' + dateStr + ' &middot; ' + evt.details + '</div>';
+    container.appendChild(item);
+  }
+}
+
+function showDayDetail(date) {
+  const panel = document.getElementById('dayDetail');
+  const sched = getScheduleForDate(date);
+  const events = getEventsForDate(date);
+  const dayNames = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+  const monthNames = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+
+  document.getElementById('detailTitle').textContent =
+    dayNames[date.getDay()] + ', ' + monthNames[date.getMonth()] + ' ' + date.getDate();
+
+  const sc = new Date(serverCreation);
+  sc.setHours(0,0,0,0);
+  const d2 = new Date(date);
+  d2.setHours(0,0,0,0);
+  const serverDay = Math.floor((d2 - sc) / 86400000) + 1;
+
+  let meta = 'Server Day ' + serverDay;
+  if (sched && sched.vp > 0) {
+    meta += ' &middot; <strong>' + sched.armsRace + '</strong> + <strong>' + sched.vsDuel + '</strong>';
+    meta += ' &middot; <span class="vp-inline vp-' + sched.vp + '">' + sched.vp + ' VP</span>';
+  } else if (sched) {
+    meta += ' &middot; <strong>PREP DAY</strong> &mdash; Save everything!';
+  }
+  document.getElementById('detailMeta').innerHTML = meta;
+
+  const todoList = document.getElementById('detailToDo');
+  todoList.innerHTML = '';
+  if (sched) {
+    for (const item of sched.whatToDo) {
+      const li = document.createElement('li');
+      li.textContent = item;
+      todoList.appendChild(li);
+    }
+  }
+
+  const saveList = document.getElementById('detailSave');
+  saveList.innerHTML = '';
+  if (sched) {
+    for (const item of sched.whatToSave) {
+      const li = document.createElement('li');
+      li.textContent = item;
+      saveList.appendChild(li);
+    }
+  }
+
+  const evtDiv = document.getElementById('detailEvents');
+  evtDiv.innerHTML = '';
+  if (events.length > 0) {
+    const h4 = document.createElement('h4');
+    h4.textContent = 'Special Events';
+    evtDiv.appendChild(h4);
+    for (const evt of events) {
+      const card = document.createElement('div');
+      card.className = 'event-card type-' + evt.type.replace(/\s+/g, '-');
+      card.innerHTML = '<span class="dot dot-' + evt.type.replace(/\s+/g, '-') + '"></span>'
+        + '<strong>' + evt.name + '</strong><br><span class="event-detail">' + evt.details + '</span>';
+      evtDiv.appendChild(card);
+    }
+  }
+
+  const radarDiv = document.getElementById('detailRadar');
+  radarDiv.innerHTML = '';
+  if (sched && sched.collectRadar) {
+    radarDiv.innerHTML = '<div class="radar-tip collect">\ud83d\udce1 <strong>COLLECT</strong> stacked radar missions after 6:05 PM reset!</div>';
+  } else if (sched && sched.stackRadar) {
+    radarDiv.innerHTML = '<div class="radar-tip stack">\ud83d\udce6 <strong>STACK</strong> radar missions tonight (~10 PM) \u2014 complete but DON\'T collect!</div>';
+  }
+
+  panel.style.display = 'block';
+  panel.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+}
+
+function downloadIcs() {
+  const resetH = +document.getElementById('resetHour').value;
+  const lines = [
+    'BEGIN:VCALENDAR',
+    'VERSION:2.0',
+    'PRODID:-//OWOW SKYNET//Last War Calendar//EN',
+    'CALSCALE:GREGORIAN',
+    'METHOD:PUBLISH',
+    'X-WR-CALNAME:Last War - Server Events',
+    'X-WR-TIMEZONE:UTC',
+  ];
+  let uid = 0;
+  const dowMap = ['SU','MO','TU','WE','TH','FR','SA'];
+
+  for (const sched of WEEKLY_SCHEDULE) {
+    if (sched.vp === 0) continue;
+    uid++;
+    let daysAhead = sched.dow - serverCreation.getDay();
+    if (daysAhead < 0) daysAhead += 7;
+    const first = new Date(serverCreation);
+    first.setDate(first.getDate() + daysAhead);
+    const dtStart = formatIcsDate(first) + 'T' + pad2(resetH) + '0000';
+    const todoText = sched.whatToDo.map(t => 'DO: ' + t).join('\n');
+    const saveText = sched.whatToSave.map(t => 'SAVE: ' + t).join('\n');
+    const desc = 'Arms Race: ' + sched.armsRace + '\nVS Duel: ' + sched.vsDuel + '\nVP: ' + sched.vp + '\n\n' + todoText + '\n\n' + saveText;
+    const stars = '★'.repeat(sched.vp);
+    lines.push('BEGIN:VEVENT');
+    lines.push('UID:owow-w-' + uid + '@lastwar');
+    lines.push('DTSTART:' + dtStart);
+    lines.push('DURATION:PT2H');
+    lines.push('RRULE:FREQ=WEEKLY;BYDAY=' + dowMap[sched.dow]);
+    lines.push('SUMMARY:' + sched.vsDuel + ' (' + sched.vp + 'VP ' + stars + ')');
+    lines.push('DESCRIPTION:' + foldIcs(desc));
+    lines.push('END:VEVENT');
+  }
+
+  for (const evt of TIMELINE_EVENTS) {
+    uid++;
+    const evtDate = getDateForEvent(evt);
+    const dtStart = formatIcsDate(evtDate);
+    const sLabel = evt.season > 0 ? 'S' + evt.season + ': ' : '';
+    lines.push('BEGIN:VEVENT');
+    lines.push('UID:owow-e-' + uid + '@lastwar');
+    lines.push('DTSTART;VALUE=DATE:' + dtStart);
+    lines.push('SUMMARY:' + sLabel + evt.name);
+    lines.push('DESCRIPTION:' + foldIcs(evt.details || ''));
+    lines.push('CATEGORIES:' + evt.type.toUpperCase());
+    if (evt.type === 'hero') {
+      lines.push('BEGIN:VALARM');
+      lines.push('TRIGGER:-P1D');
+      lines.push('ACTION:DISPLAY');
+      lines.push('DESCRIPTION:Tomorrow: ' + evt.name);
+      lines.push('END:VALARM');
+    }
+    lines.push('END:VEVENT');
+  }
+
+  lines.push('END:VCALENDAR');
+  const blob = new Blob([lines.join('\r\n')], { type: 'text/calendar' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = 'lastwar_calendar.ics';
+  a.click();
+  URL.revokeObjectURL(url);
+}
+
+function formatIcsDate(d) {
+  return d.getFullYear() + pad2(d.getMonth()+1) + pad2(d.getDate());
+}
+function pad2(n) { return n < 10 ? '0'+n : ''+n; }
+function foldIcs(s) { return s.replace(/\n/g, '\\n'); }
+
+document.addEventListener('DOMContentLoaded', init);
+</script>
+</body>
+</html>
