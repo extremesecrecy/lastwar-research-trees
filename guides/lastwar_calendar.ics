@@ -1,0 +1,986 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//OWOW SKYNET//Last War Calendar//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+X-WR-CALNAME:Last War - Server Events
+X-WR-TIMEZONE:UTC
+BEGIN:VEVENT
+UID:owow-weekly-1@lastwar
+DTSTART:20251216T180000
+DURATION:PT2H
+RRULE:FREQ=WEEKLY;BYDAY=MO
+SUMMARY:Radar Training (1VP ★)
+DESCRIPTION:Arms Race: Drone Boost\nVS Duel: Radar Training\nVP: 1\n\nDO: Collect stacked radar missions (after 6:05 PM reset)\nDO: Spend all stamina on attacks/rallies/radar\nDO: Open drone data CHIP chests (skill chips for Chip Lab)\nDO: Use drone combat data + train drone parts\nDO: Gather resources from mines (gold tiles = most points, alliance territory +25%)\n\nSAVE: Hero XP/shards/medals → THURSDAY\nSAVE: Construction speedups → TUESDAY\nSAVE: Research speedups → WEDNESDAY\nSAVE: Training speedups → FRIDAY\nSAVE: Drone COMPONENT chests → WEDNESDAY
+END:VEVENT
+BEGIN:VEVENT
+UID:owow-weekly-2@lastwar
+DTSTART:20251217T180000
+DURATION:PT2H
+RRULE:FREQ=WEEKLY;BYDAY=TU
+SUMMARY:Base Expansion (1VP ★)
+DESCRIPTION:Arms Race: City Building\nVS Duel: Base Expansion\nVP: 1\n\nDO: Open ALL building completion presents (gift boxes)\nDO: Use ALL construction speedups to finish upgrades\nDO: Dispatch UR (gold) trade trucks — refresh for Legendary!\nDO: Start Legendary secret tasks\nDO: Use survivor recruitment tickets\n\nSAVE: Research speedups → WEDNESDAY\nSAVE: Hero XP/shards/medals → THURSDAY\nSAVE: Training speedups → FRIDAY\nSAVE: Drone COMPONENT chests → WEDNESDAY
+END:VEVENT
+BEGIN:VEVENT
+UID:owow-weekly-3@lastwar
+DTSTART:20251218T180000
+DURATION:PT2H
+RRULE:FREQ=WEEKLY;BYDAY=WE
+SUMMARY:Age of Science (1VP ★)
+DESCRIPTION:Arms Race: Tech Research\nVS Duel: Age of Science\nVP: 1\n\nDO: Use ALL research speedups to complete tech projects\nDO: Open drone COMPONENT chests (ONLY score today!)\nDO: Spend Valor Badges on Alliance Duel research\nDO: Collect stacked radar missions (after 6:05 PM)\nDO: Start new research → speedup → repeat for max completions\n\nSAVE: Hero XP/shards/medals → THURSDAY\nSAVE: Training speedups → FRIDAY
+END:VEVENT
+BEGIN:VEVENT
+UID:owow-weekly-4@lastwar
+DTSTART:20251219T180000
+DURATION:PT2H
+RRULE:FREQ=WEEKLY;BYDAY=TH
+SUMMARY:Train Heroes (2VP ★★)
+DESCRIPTION:Arms Race: Hero Advancement\nVS Duel: Train Heroes\nVP: 2\n\nDO: Dump ALL hero XP into priority heroes\nDO: Use ALL hero shards (star up heroes)\nDO: Apply ALL skill medals\nDO: Use hero weapon shards\nDO: Use recruitment tickets (Legendary/New Era/Hero Return)\nDO: Honorable Campaign resets today!\n\nSAVE: Training speedups → FRIDAY (tomorrow, the big day!)\nSAVE: Construction speedups → next TUESDAY
+END:VEVENT
+BEGIN:VEVENT
+UID:owow-weekly-5@lastwar
+DTSTART:20251220T180000
+DURATION:PT2H
+RRULE:FREQ=WEEKLY;BYDAY=FR
+SUMMARY:Total Mobilization (3VP ★★★)
+DESCRIPTION:Arms Race: Unit Progression\nVS Duel: Total Mobilization\nVP: 3\n\nDO: WATERFALL: Train T5 → upgrade T6 → T7 → T8 (each tier = more points!)\nDO: Use ALL training speedups (4x point multiplier!)\nDO: Collect stacked radar missions (after 6:05 PM)\nDO: Use any leftover construction/research speedups\nDO: Train as many batches as possible — every troop counts!\n\nSAVE: Healing speedups → SATURDAY
+END:VEVENT
+BEGIN:VEVENT
+UID:owow-weekly-6@lastwar
+DTSTART:20251214T180000
+DURATION:PT2H
+RRULE:FREQ=WEEKLY;BYDAY=SA
+SUMMARY:Enemy Buster (4VP ★★★★)
+DESCRIPTION:Arms Race: Enemy Buster\nVS Duel: Enemy Buster\nVP: 4\n\nDO: Buy 24hr shield (5,000 diamonds) AFTER attacking\nDO: Scout targets FIRST — find bases with troops defending\nDO: Attack enemy bases (coordinate with alliance for timing!)\nDO: Use healing speedups to revive and attack again\nDO: Remove YOUR defense lineup to minimize losses if attacked\nDO: Attack at ~4:05am server time if possible (opponents sleeping)\n\nSAVE: Start saving everything for next week's cycle!
+END:VEVENT
+BEGIN:VEVENT
+UID:owow-event-7@lastwar
+DTSTART;VALUE=DATE:20251214
+SUMMARY:Rocket Shadow - Kimberly (Paid)
+DESCRIPTION:Unlocks Kimberly as paid hero (tank)
+CATEGORIES:HERO
+BEGIN:VALARM
+TRIGGER:-P1D
+ACTION:DISPLAY
+DESCRIPTION:Tomorrow: Rocket Shadow - Kimberly (Paid)
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:owow-event-8@lastwar
+DTSTART;VALUE=DATE:20251214
+SUMMARY:Secret Mobile Squad
+DESCRIPTION:Unlocks the secret mobile squad daily event
+CATEGORIES:EVENT
+END:VEVENT
+BEGIN:VEVENT
+UID:owow-event-9@lastwar
+DTSTART;VALUE=DATE:20251214
+SUMMARY:Unyielding Warrior - Murphy (Free)
+DESCRIPTION:Unlocks Murphy in the Tavern (tank)
+CATEGORIES:HERO
+BEGIN:VALARM
+TRIGGER:-P1D
+ACTION:DISPLAY
+DESCRIPTION:Tomorrow: Unyielding Warrior - Murphy (Free)
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:owow-event-10@lastwar
+DTSTART;VALUE=DATE:20251216
+SUMMARY:Arms Race
+DESCRIPTION:Unlocks the daily arms race event
+CATEGORIES:EVENT
+END:VEVENT
+BEGIN:VEVENT
+UID:owow-event-11@lastwar
+DTSTART;VALUE=DATE:20251216
+SUMMARY:Doomsday Leader
+DESCRIPTION:Unlocks weekly world bosses
+CATEGORIES:EVENT
+END:VEVENT
+BEGIN:VEVENT
+UID:owow-event-12@lastwar
+DTSTART;VALUE=DATE:20251217
+SUMMARY:Alliance Exercise
+DESCRIPTION:Unlock marshal alliance event
+CATEGORIES:ALLIANCE EVENT
+END:VEVENT
+BEGIN:VEVENT
+UID:owow-event-13@lastwar
+DTSTART;VALUE=DATE:20251217
+SUMMARY:Intercity trade
+DESCRIPTION:Unlocks trains
+CATEGORIES:EVENT
+END:VEVENT
+BEGIN:VEVENT
+UID:owow-event-14@lastwar
+DTSTART;VALUE=DATE:20251218
+SUMMARY:Top Commander
+DESCRIPTION:Top Commander event
+CATEGORIES:EVENT
+END:VEVENT
+BEGIN:VEVENT
+UID:owow-event-15@lastwar
+DTSTART;VALUE=DATE:20251218
+SUMMARY:City Clash I
+DESCRIPTION:Take level 1 villages
+CATEGORIES:WAR
+END:VEVENT
+BEGIN:VEVENT
+UID:owow-event-16@lastwar
+DTSTART;VALUE=DATE:20251220
+SUMMARY:Exercise Escalation
+DESCRIPTION:Marshall up to level 3
+CATEGORIES:ALLIANCE EVENT
+END:VEVENT
+BEGIN:VEVENT
+UID:owow-event-17@lastwar
+DTSTART;VALUE=DATE:20251220
+SUMMARY:City Clash II
+DESCRIPTION:Level 2 villages
+CATEGORIES:WAR
+END:VEVENT
+BEGIN:VEVENT
+UID:owow-event-18@lastwar
+DTSTART;VALUE=DATE:20251221
+SUMMARY:Troublemaker - Carlie (Paid)
+DESCRIPTION:Unlocks Carlie as paid hero (aircraft)
+CATEGORIES:HERO
+BEGIN:VALARM
+TRIGGER:-P1D
+ACTION:DISPLAY
+DESCRIPTION:Tomorrow: Troublemaker - Carlie (Paid)
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:owow-event-19@lastwar
+DTSTART;VALUE=DATE:20251221
+SUMMARY:Blade Striker - DVA (Paid)
+DESCRIPTION:Unlocks DVA as paid hero (aircraft)
+CATEGORIES:HERO
+BEGIN:VALARM
+TRIGGER:-P1D
+ACTION:DISPLAY
+DESCRIPTION:Tomorrow: Blade Striker - DVA (Paid)
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:owow-event-20@lastwar
+DTSTART;VALUE=DATE:20251223
+SUMMARY:City Clash III
+DESCRIPTION:Level 3 villages
+CATEGORIES:WAR
+END:VEVENT
+BEGIN:VEVENT
+UID:owow-event-21@lastwar
+DTSTART;VALUE=DATE:20251225
+SUMMARY:Desert Storm
+DESCRIPTION:Weekly alliance event
+CATEGORIES:ALLIANCE EVENT
+END:VEVENT
+BEGIN:VEVENT
+UID:owow-event-22@lastwar
+DTSTART;VALUE=DATE:20251226
+SUMMARY:City Clash IV
+DESCRIPTION:City Clash IV
+CATEGORIES:WAR
+END:VEVENT
+BEGIN:VEVENT
+UID:owow-event-23@lastwar
+DTSTART;VALUE=DATE:20251227
+SUMMARY:Exercise Escalation
+DESCRIPTION:Marshall level 4
+CATEGORIES:ALLIANCE EVENT
+END:VEVENT
+BEGIN:VEVENT
+UID:owow-event-24@lastwar
+DTSTART;VALUE=DATE:20251228
+SUMMARY:Magnetic Expert - Tesla (Paid)
+DESCRIPTION:Unlocks Tesla as paid hero (missile)
+CATEGORIES:HERO
+BEGIN:VALARM
+TRIGGER:-P1D
+ACTION:DISPLAY
+DESCRIPTION:Tomorrow: Magnetic Expert - Tesla (Paid)
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:owow-event-25@lastwar
+DTSTART;VALUE=DATE:20251228
+SUMMARY:Thunder - Swift (Paid)
+DESCRIPTION:Unlocks Swift as paid hero (missile)
+CATEGORIES:HERO
+BEGIN:VALARM
+TRIGGER:-P1D
+ACTION:DISPLAY
+DESCRIPTION:Tomorrow: Thunder - Swift (Paid)
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:owow-event-26@lastwar
+DTSTART;VALUE=DATE:20251230
+SUMMARY:City Clash V
+DESCRIPTION:Level 5 villages
+CATEGORIES:WAR
+END:VEVENT
+BEGIN:VEVENT
+UID:owow-event-27@lastwar
+DTSTART;VALUE=DATE:20260101
+SUMMARY:Alliance Duel
+DESCRIPTION:Weekly VS event
+CATEGORIES:ALLIANCE EVENT
+END:VEVENT
+BEGIN:VEVENT
+UID:owow-event-28@lastwar
+DTSTART;VALUE=DATE:20260103
+SUMMARY:Exercise Escalation
+DESCRIPTION:Level 5
+CATEGORIES:ALLIANCE EVENT
+END:VEVENT
+BEGIN:VEVENT
+UID:owow-event-29@lastwar
+DTSTART;VALUE=DATE:20260103
+SUMMARY:City Clash VI
+DESCRIPTION:Level 6 villages
+CATEGORIES:WAR
+END:VEVENT
+BEGIN:VEVENT
+UID:owow-event-30@lastwar
+DTSTART;VALUE=DATE:20260104
+SUMMARY:Blade of Legion - Marshall (Free)
+DESCRIPTION:Unlocks Marshall in the Tavern (tank)
+CATEGORIES:HERO
+BEGIN:VALARM
+TRIGGER:-P1D
+ACTION:DISPLAY
+DESCRIPTION:Tomorrow: Blade of Legion - Marshall (Free)
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:owow-event-31@lastwar
+DTSTART;VALUE=DATE:20260107
+SUMMARY:Capitol Conquest
+DESCRIPTION:Level 7 villages
+CATEGORIES:WAR
+END:VEVENT
+BEGIN:VEVENT
+UID:owow-event-32@lastwar
+DTSTART;VALUE=DATE:20260111
+SUMMARY:Unite and Prepare for war
+DESCRIPTION:Unite and Prepare for war
+CATEGORIES:WAR
+END:VEVENT
+BEGIN:VEVENT
+UID:owow-event-33@lastwar
+DTSTART;VALUE=DATE:20260111
+SUMMARY:Storm Hunter - Williams (Paid)
+DESCRIPTION:Unlocks Williams as paid hero (tank)
+CATEGORIES:HERO
+BEGIN:VALARM
+TRIGGER:-P1D
+ACTION:DISPLAY
+DESCRIPTION:Tomorrow: Storm Hunter - Williams (Paid)
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:owow-event-34@lastwar
+DTSTART;VALUE=DATE:20260111
+SUMMARY:Cross warzone intercity trade
+DESCRIPTION:Trucks from other servers
+CATEGORIES:EVENT
+END:VEVENT
+BEGIN:VEVENT
+UID:owow-event-35@lastwar
+DTSTART;VALUE=DATE:20260112
+SUMMARY:Exercise Escalation
+DESCRIPTION:Level 6
+CATEGORIES:ALLIANCE EVENT
+END:VEVENT
+BEGIN:VEVENT
+UID:owow-event-36@lastwar
+DTSTART;VALUE=DATE:20260118
+SUMMARY:Magblade - Schuyler (Paid)
+DESCRIPTION:Unlocks Schuyler as paid hero (aircraft)
+CATEGORIES:HERO
+BEGIN:VALARM
+TRIGGER:-P1D
+ACTION:DISPLAY
+DESCRIPTION:Tomorrow: Magblade - Schuyler (Paid)
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:owow-event-37@lastwar
+DTSTART;VALUE=DATE:20260125
+SUMMARY:Ironclad General - McGregor (Paid)
+DESCRIPTION:Unlocks McGregor as paid hero (missile)
+CATEGORIES:HERO
+BEGIN:VALARM
+TRIGGER:-P1D
+ACTION:DISPLAY
+DESCRIPTION:Tomorrow: Ironclad General - McGregor (Paid)
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:owow-event-38@lastwar
+DTSTART;VALUE=DATE:20260127
+SUMMARY:Exercise Escalation
+DESCRIPTION:Level 7
+CATEGORIES:ALLIANCE EVENT
+END:VEVENT
+BEGIN:VEVENT
+UID:owow-event-39@lastwar
+DTSTART;VALUE=DATE:20260208
+SUMMARY:EM Hunter - Stetmann (Paid)
+DESCRIPTION:Unlocks Stetmann as paid hero (tank)
+CATEGORIES:HERO
+BEGIN:VALARM
+TRIGGER:-P1D
+ACTION:DISPLAY
+DESCRIPTION:Tomorrow: EM Hunter - Stetmann (Paid)
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:owow-event-40@lastwar
+DTSTART;VALUE=DATE:20260211
+SUMMARY:Exercise Escalation
+DESCRIPTION:Level 8
+CATEGORIES:ALLIANCE EVENT
+END:VEVENT
+BEGIN:VEVENT
+UID:owow-event-41@lastwar
+DTSTART;VALUE=DATE:20260212
+SUMMARY:Hero tavern unlocks (Free)
+DESCRIPTION:Kimberly, Tesla, Swift, DVA, and Carlie will become avaialble in the Tavern for free
+CATEGORIES:HERO
+BEGIN:VALARM
+TRIGGER:-P1D
+ACTION:DISPLAY
+DESCRIPTION:Tomorrow: Hero tavern unlocks (Free)
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:owow-event-42@lastwar
+DTSTART;VALUE=DATE:20260215
+SUMMARY:Sky Night - Lucius (Paid)
+DESCRIPTION:Unlocks Lucius as paid hero (aircraft)
+CATEGORIES:HERO
+BEGIN:VALARM
+TRIGGER:-P1D
+ACTION:DISPLAY
+DESCRIPTION:Tomorrow: Sky Night - Lucius (Paid)
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:owow-event-43@lastwar
+DTSTART;VALUE=DATE:20260222
+SUMMARY:The Reaper - Morrison (Paid)
+DESCRIPTION:Unlocks Morrison as paid hero (aircraft)
+CATEGORIES:HERO
+BEGIN:VALARM
+TRIGGER:-P1D
+ACTION:DISPLAY
+DESCRIPTION:Tomorrow: The Reaper - Morrison (Paid)
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:owow-event-44@lastwar
+DTSTART;VALUE=DATE:20260305
+SUMMARY:Drone Combat Boost
+DESCRIPTION:Drone skill chips
+CATEGORIES:EVENT
+END:VEVENT
+BEGIN:VEVENT
+UID:owow-event-45@lastwar
+DTSTART;VALUE=DATE:20260308
+SUMMARY:Titan - Adam (Paid)
+DESCRIPTION:Unlocks Adam as paid hero (missile)
+CATEGORIES:HERO
+BEGIN:VALARM
+TRIGGER:-P1D
+ACTION:DISPLAY
+DESCRIPTION:Tomorrow: Titan - Adam (Paid)
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:owow-event-46@lastwar
+DTSTART;VALUE=DATE:20260313
+SUMMARY:Exercise Escalation
+DESCRIPTION:Level 9
+CATEGORIES:ALLIANCE EVENT
+END:VEVENT
+BEGIN:VEVENT
+UID:owow-event-47@lastwar
+DTSTART;VALUE=DATE:20260322
+SUMMARY:Lion Cub - Fiona (Paid)
+DESCRIPTION:Unlocks Fiona as paid hero (missile)
+CATEGORIES:HERO
+BEGIN:VALARM
+TRIGGER:-P1D
+ACTION:DISPLAY
+DESCRIPTION:Tomorrow: Lion Cub - Fiona (Paid)
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:owow-event-48@lastwar
+DTSTART;VALUE=DATE:20260412
+SUMMARY:Exercise Escalation
+DESCRIPTION:Level 10
+CATEGORIES:ALLIANCE EVENT
+END:VEVENT
+BEGIN:VEVENT
+UID:owow-event-49@lastwar
+DTSTART;VALUE=DATE:20260412
+SUMMARY:S1: S1: The Crimson Plague
+DESCRIPTION:S1: The Crimson Plague
+CATEGORIES:SEASON-START
+END:VEVENT
+BEGIN:VEVENT
+UID:owow-event-50@lastwar
+DTSTART;VALUE=DATE:20260413
+SUMMARY:S1: Season Boost
+DESCRIPTION:Season Boost
+CATEGORIES:SEASON
+END:VEVENT
+BEGIN:VEVENT
+UID:owow-event-51@lastwar
+DTSTART;VALUE=DATE:20260413
+SUMMARY:S1: Zombie Siege
+DESCRIPTION:Alliance event
+CATEGORIES:ALLIANCE EVENT
+END:VEVENT
+BEGIN:VEVENT
+UID:owow-event-52@lastwar
+DTSTART;VALUE=DATE:20260413
+SUMMARY:S1: S1: Hero's Return (Free)
+DESCRIPTION:Adds Schuyler (aircraft) and Williams (tank) to the Tavern for free as part of the hero's return event.
+CATEGORIES:HERO
+BEGIN:VALARM
+TRIGGER:-P1D
+ACTION:DISPLAY
+DESCRIPTION:Tomorrow: S1: S1: Hero's Return (Free)
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:owow-event-53@lastwar
+DTSTART;VALUE=DATE:20260413
+SUMMARY:S1: Hidden Treasure
+DESCRIPTION:Hero Choice Chests from the Hidden Treasure digs now also include shards for Carlie, Tesla, and Swift.
+CATEGORIES:HERO
+BEGIN:VALARM
+TRIGGER:-P1D
+ACTION:DISPLAY
+DESCRIPTION:Tomorrow: S1: Hidden Treasure
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:owow-event-54@lastwar
+DTSTART;VALUE=DATE:20260416
+SUMMARY:S1: Kimberly Exclusive Weapon
+DESCRIPTION:Kimberly Exclusive Weapon
+CATEGORIES:EXCLUSIVE WEAPON
+END:VEVENT
+BEGIN:VEVENT
+UID:owow-event-55@lastwar
+DTSTART;VALUE=DATE:20260430
+SUMMARY:S1: DVA Exclusive Weapon
+DESCRIPTION:DVA Exclusive Weapon
+CATEGORIES:EXCLUSIVE WEAPON
+END:VEVENT
+BEGIN:VEVENT
+UID:owow-event-56@lastwar
+DTSTART;VALUE=DATE:20260521
+SUMMARY:S1: Tesla Exclusive Weapon
+DESCRIPTION:Tesla Exclusive Weapon
+CATEGORIES:EXCLUSIVE WEAPON
+END:VEVENT
+BEGIN:VEVENT
+UID:owow-event-57@lastwar
+DTSTART;VALUE=DATE:20260608
+SUMMARY:S1: Black market
+DESCRIPTION:Black market
+CATEGORIES:EVENT
+END:VEVENT
+BEGIN:VEVENT
+UID:owow-event-58@lastwar
+DTSTART;VALUE=DATE:20260608
+SUMMARY:S1: Champions Duel
+DESCRIPTION:Champions Duel
+CATEGORIES:EVENT
+END:VEVENT
+BEGIN:VEVENT
+UID:owow-event-59@lastwar
+DTSTART;VALUE=DATE:20260611
+SUMMARY:S1: Ghost Ops
+DESCRIPTION:Ghost Ops provides you access to the remaining heroes you are missing and that aren't in the Tavern yet. You can get hero shards for all heroes, including Lucius, Morrison, Adam, Williams, Schuyler, McGregor, Stetmann and Fiona.
+CATEGORIES:HERO
+BEGIN:VALARM
+TRIGGER:-P1D
+ACTION:DISPLAY
+DESCRIPTION:Tomorrow: S1: Ghost Ops
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:owow-event-60@lastwar
+DTSTART;VALUE=DATE:20260711
+SUMMARY:S2: S2: Polar World
+DESCRIPTION:S2: Polar World
+CATEGORIES:SEASON-START
+END:VEVENT
+BEGIN:VEVENT
+UID:owow-event-61@lastwar
+DTSTART;VALUE=DATE:20260712
+SUMMARY:S2: Season Boost
+DESCRIPTION:Season Boost
+CATEGORIES:SEASON
+END:VEVENT
+BEGIN:VEVENT
+UID:owow-event-62@lastwar
+DTSTART;VALUE=DATE:20260712
+SUMMARY:S2: S2: Legend Returns (Free)
+DESCRIPTION:Adds McGregor (missile) to the Tavern for free as part of the Legend returns event.
+CATEGORIES:HERO
+BEGIN:VALARM
+TRIGGER:-P1D
+ACTION:DISPLAY
+DESCRIPTION:Tomorrow: S2: S2: Legend Returns (Free)
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:owow-event-63@lastwar
+DTSTART;VALUE=DATE:20260712
+SUMMARY:S2: Hero tavern unlocks (Free)
+DESCRIPTION:Adds Schuyler (aircraft) and Williams (tank) to the regular Tavern for free.
+CATEGORIES:HERO
+BEGIN:VALARM
+TRIGGER:-P1D
+ACTION:DISPLAY
+DESCRIPTION:Tomorrow: S2: Hero tavern unlocks (Free)
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:owow-event-64@lastwar
+DTSTART;VALUE=DATE:20260712
+SUMMARY:S2: Hidden Treasure
+DESCRIPTION:Hero Choice Chests from the Hidden Treasure digs now also include shards for Marshall, Williams, and Schuyler.
+CATEGORIES:HERO
+BEGIN:VALARM
+TRIGGER:-P1D
+ACTION:DISPLAY
+DESCRIPTION:Tomorrow: S2: Hidden Treasure
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:owow-event-65@lastwar
+DTSTART;VALUE=DATE:20260714
+SUMMARY:S2: S2: Weapons of Legends (Free)
+DESCRIPTION:Adds Hero Exclusive Weapon Shard Choice Chest II to the Tavern. This provides weapon shards for Kimberly, DVA, and Tesla.
+CATEGORIES:EXCLUSIVE WEAPON
+END:VEVENT
+BEGIN:VEVENT
+UID:owow-event-66@lastwar
+DTSTART;VALUE=DATE:20260715
+SUMMARY:S2: Murphy Exclusive Weapon
+DESCRIPTION:Murphy Exclusive Weapon
+CATEGORIES:EXCLUSIVE WEAPON
+END:VEVENT
+BEGIN:VEVENT
+UID:owow-event-67@lastwar
+DTSTART;VALUE=DATE:20260729
+SUMMARY:S2: Carlie Exclusive Weapon
+DESCRIPTION:Carlie Exclusive Weapon
+CATEGORIES:EXCLUSIVE WEAPON
+END:VEVENT
+BEGIN:VEVENT
+UID:owow-event-68@lastwar
+DTSTART;VALUE=DATE:20260819
+SUMMARY:S2: Swift Exclusive Weapon
+DESCRIPTION:Swift Exclusive Weapon
+CATEGORIES:EXCLUSIVE WEAPON
+END:VEVENT
+BEGIN:VEVENT
+UID:owow-event-69@lastwar
+DTSTART;VALUE=DATE:20260906
+SUMMARY:S2: Age of Oil
+DESCRIPTION:Age of Oil
+CATEGORIES:EVENT
+END:VEVENT
+BEGIN:VEVENT
+UID:owow-event-70@lastwar
+DTSTART;VALUE=DATE:20260906
+SUMMARY:S2: General's Trial
+DESCRIPTION:Advanced trials unlock
+CATEGORIES:EVENT
+END:VEVENT
+BEGIN:VEVENT
+UID:owow-event-71@lastwar
+DTSTART;VALUE=DATE:20260906
+SUMMARY:S2: Black market
+DESCRIPTION:Black market
+CATEGORIES:EVENT
+END:VEVENT
+BEGIN:VEVENT
+UID:owow-event-72@lastwar
+DTSTART;VALUE=DATE:20260906
+SUMMARY:S2: Champions Duel
+DESCRIPTION:Champions Duel
+CATEGORIES:EVENT
+END:VEVENT
+BEGIN:VEVENT
+UID:owow-event-73@lastwar
+DTSTART;VALUE=DATE:20260906
+SUMMARY:S2: Zombie Siege
+DESCRIPTION:Unlocks level 9 and 10
+CATEGORIES:ALLIANCE EVENT
+END:VEVENT
+BEGIN:VEVENT
+UID:owow-event-74@lastwar
+DTSTART;VALUE=DATE:20260906
+SUMMARY:S2: Tempest Beast
+DESCRIPTION:Glacieradon during zombie event (only outside of seasons)
+CATEGORIES:EVENT
+END:VEVENT
+BEGIN:VEVENT
+UID:owow-event-75@lastwar
+DTSTART;VALUE=DATE:20260913
+SUMMARY:S2: General's Trial
+DESCRIPTION:Unlocks sky predator boss during vanguard event
+CATEGORIES:EVENT
+END:VEVENT
+BEGIN:VEVENT
+UID:owow-event-76@lastwar
+DTSTART;VALUE=DATE:20261011
+SUMMARY:S2: The Doomsday
+DESCRIPTION:Unlocks slugger doomwalkers during doomsday event
+CATEGORIES:EVENT
+END:VEVENT
+BEGIN:VEVENT
+UID:owow-event-77@lastwar
+DTSTART;VALUE=DATE:20261011
+SUMMARY:S2: Zombie Invasion
+DESCRIPTION:Unlocks level 105-120 bosses
+CATEGORIES:EVENT
+END:VEVENT
+BEGIN:VEVENT
+UID:owow-event-78@lastwar
+DTSTART;VALUE=DATE:20261015
+SUMMARY:S2: Overlord
+DESCRIPTION:Unlocks gorilla overlord
+CATEGORIES:HERO
+BEGIN:VALARM
+TRIGGER:-P1D
+ACTION:DISPLAY
+DESCRIPTION:Tomorrow: S2: Overlord
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:owow-event-79@lastwar
+DTSTART;VALUE=DATE:20261009
+SUMMARY:S3: S3: Golden Realm
+DESCRIPTION:S3: Golden Realm
+CATEGORIES:SEASON-START
+END:VEVENT
+BEGIN:VEVENT
+UID:owow-event-80@lastwar
+DTSTART;VALUE=DATE:20261010
+SUMMARY:S3: Season Boost
+DESCRIPTION:Season Boost
+CATEGORIES:SEASON
+END:VEVENT
+BEGIN:VEVENT
+UID:owow-event-81@lastwar
+DTSTART;VALUE=DATE:20261010
+SUMMARY:S3: S3: Legend Returns (Free)
+DESCRIPTION:Adds Lucius (aircraft) and Stetmann (tank) to the Tavern for free as part of the Legend Returns event.
+CATEGORIES:HERO
+BEGIN:VALARM
+TRIGGER:-P1D
+ACTION:DISPLAY
+DESCRIPTION:Tomorrow: S3: S3: Legend Returns (Free)
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:owow-event-82@lastwar
+DTSTART;VALUE=DATE:20261010
+SUMMARY:S3: Hero tavern unlocks (Free)
+DESCRIPTION:Adds McGregor (missile) to the regular Tavern for free.
+CATEGORIES:HERO
+BEGIN:VALARM
+TRIGGER:-P1D
+ACTION:DISPLAY
+DESCRIPTION:Tomorrow: S3: Hero tavern unlocks (Free)
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:owow-event-83@lastwar
+DTSTART;VALUE=DATE:20261010
+SUMMARY:S3: Hidden Treasure
+DESCRIPTION:Hero Choice Chests from the Hidden Treasure digs now also include shards for McGregor, Stetmann and Lucius.
+CATEGORIES:HERO
+BEGIN:VALARM
+TRIGGER:-P1D
+ACTION:DISPLAY
+DESCRIPTION:Tomorrow: S3: Hidden Treasure
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:owow-event-84@lastwar
+DTSTART;VALUE=DATE:20261012
+SUMMARY:S3: S3: Weapons of Legends (Free)
+DESCRIPTION:Adds Hero Exclusive Weapon Shard Choice Chest IV to the Tavern. This provides weapon shards for Kimberly, DVA, Tesla, Murphy, Carlie, and Swift.
+CATEGORIES:EXCLUSIVE WEAPON
+END:VEVENT
+BEGIN:VEVENT
+UID:owow-event-85@lastwar
+DTSTART;VALUE=DATE:20261013
+SUMMARY:S3: Marshall Exclusive Weapon
+DESCRIPTION:Marshall Exclusive Weapon
+CATEGORIES:EXCLUSIVE WEAPON
+END:VEVENT
+BEGIN:VEVENT
+UID:owow-event-86@lastwar
+DTSTART;VALUE=DATE:20261027
+SUMMARY:S3: Schuyler Exclusive Weapon
+DESCRIPTION:Schuyler Exclusive Weapon
+CATEGORIES:EXCLUSIVE WEAPON
+END:VEVENT
+BEGIN:VEVENT
+UID:owow-event-87@lastwar
+DTSTART;VALUE=DATE:20261117
+SUMMARY:S3: McGregor Exclusive Weapon
+DESCRIPTION:McGregor Exclusive Weapon
+CATEGORIES:EXCLUSIVE WEAPON
+END:VEVENT
+BEGIN:VEVENT
+UID:owow-event-88@lastwar
+DTSTART;VALUE=DATE:20261205
+SUMMARY:S3: Black market
+DESCRIPTION:Black market
+CATEGORIES:EVENT
+END:VEVENT
+BEGIN:VEVENT
+UID:owow-event-89@lastwar
+DTSTART;VALUE=DATE:20261205
+SUMMARY:S3: Champions Duel
+DESCRIPTION:Champions Duel
+CATEGORIES:EVENT
+END:VEVENT
+BEGIN:VEVENT
+UID:owow-event-90@lastwar
+DTSTART;VALUE=DATE:20261205
+SUMMARY:S3: Zombie Siege
+DESCRIPTION:Unlocks level 11 and 12
+CATEGORIES:ALLIANCE EVENT
+END:VEVENT
+BEGIN:VEVENT
+UID:owow-event-91@lastwar
+DTSTART;VALUE=DATE:20261205
+SUMMARY:S3: Zombie Invasion
+DESCRIPTION:Unlocks level 125-135 bosses
+CATEGORIES:EVENT
+END:VEVENT
+BEGIN:VEVENT
+UID:owow-event-92@lastwar
+DTSTART;VALUE=DATE:20261205
+SUMMARY:S3: Secret Mobile Squad
+DESCRIPTION:Changes treasure hunt to different setup
+CATEGORIES:EVENT
+END:VEVENT
+BEGIN:VEVENT
+UID:owow-event-93@lastwar
+DTSTART;VALUE=DATE:20261205
+SUMMARY:S3: General's Trial
+DESCRIPTION:Sky predator boss increase
+CATEGORIES:EVENT
+END:VEVENT
+BEGIN:VEVENT
+UID:owow-event-94@lastwar
+DTSTART;VALUE=DATE:20261212
+SUMMARY:S3: Alliance Exercise
+DESCRIPTION:Marshal event changes to sandworm
+CATEGORIES:ALLIANCE EVENT
+END:VEVENT
+BEGIN:VEVENT
+UID:owow-event-95@lastwar
+DTSTART;VALUE=DATE:20270107
+SUMMARY:S4: S4: Evernight Isle
+DESCRIPTION:S4: Evernight Isle
+CATEGORIES:SEASON-START
+END:VEVENT
+BEGIN:VEVENT
+UID:owow-event-96@lastwar
+DTSTART;VALUE=DATE:20270108
+SUMMARY:S4: Season Boost
+DESCRIPTION:Season Boost
+CATEGORIES:SEASON
+END:VEVENT
+BEGIN:VEVENT
+UID:owow-event-97@lastwar
+DTSTART;VALUE=DATE:20270108
+SUMMARY:S4: S4: Legend Returns (Free)
+DESCRIPTION:Adds Adam (missile), Morrison (aircraft) and Fiona (missile) to the Tavern for free as part of the Legend Returns event.
+CATEGORIES:HERO
+BEGIN:VALARM
+TRIGGER:-P1D
+ACTION:DISPLAY
+DESCRIPTION:Tomorrow: S4: S4: Legend Returns (Free)
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:owow-event-98@lastwar
+DTSTART;VALUE=DATE:20270108
+SUMMARY:S4: Hero tavern unlocks (Free)
+DESCRIPTION:Adds Lucius (aircraft) and Stetmann (tank) to the regular Tavern for free.
+CATEGORIES:HERO
+BEGIN:VALARM
+TRIGGER:-P1D
+ACTION:DISPLAY
+DESCRIPTION:Tomorrow: S4: Hero tavern unlocks (Free)
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:owow-event-99@lastwar
+DTSTART;VALUE=DATE:20270108
+SUMMARY:S4: Hidden Treasure
+DESCRIPTION:Hero Choice Chests from the Hidden Treasure digs now include shards for Morrison, Adam, and Fiona. This brings ALL heroes to the Hero Choice Chest.
+CATEGORIES:HERO
+BEGIN:VALARM
+TRIGGER:-P1D
+ACTION:DISPLAY
+DESCRIPTION:Tomorrow: S4: Hidden Treasure
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:owow-event-100@lastwar
+DTSTART;VALUE=DATE:20270110
+SUMMARY:S4: S4: Weapons of Legends (Free)
+DESCRIPTION:Adds Hero Exclusive Weapon Shard Choice Chest VI to the Tavern. This provides weapon shards for Kimberly, DVA, Tesla, Murphy, Carlie, Swift, Marshall, Schuyler, and McGregor.
+CATEGORIES:EXCLUSIVE WEAPON
+END:VEVENT
+BEGIN:VEVENT
+UID:owow-event-101@lastwar
+DTSTART;VALUE=DATE:20270111
+SUMMARY:S4: Lucius Exclusive Weapon
+DESCRIPTION:Lucius Exclusive Weapon
+CATEGORIES:EXCLUSIVE WEAPON
+END:VEVENT
+BEGIN:VEVENT
+UID:owow-event-102@lastwar
+DTSTART;VALUE=DATE:20270125
+SUMMARY:S4: Adam Exclusive Weapon
+DESCRIPTION:Adam Exclusive Weapon
+CATEGORIES:EXCLUSIVE WEAPON
+END:VEVENT
+BEGIN:VEVENT
+UID:owow-event-103@lastwar
+DTSTART;VALUE=DATE:20270215
+SUMMARY:S4: Williams Exclusive Weapon
+DESCRIPTION:Williams Exclusive Weapon
+CATEGORIES:EXCLUSIVE WEAPON
+END:VEVENT
+BEGIN:VEVENT
+UID:owow-event-104@lastwar
+DTSTART;VALUE=DATE:20270305
+SUMMARY:S4: Black market
+DESCRIPTION:Black market
+CATEGORIES:EVENT
+END:VEVENT
+BEGIN:VEVENT
+UID:owow-event-105@lastwar
+DTSTART;VALUE=DATE:20270305
+SUMMARY:S4: Champions Duel
+DESCRIPTION:Champions Duel
+CATEGORIES:EVENT
+END:VEVENT
+BEGIN:VEVENT
+UID:owow-event-106@lastwar
+DTSTART;VALUE=DATE:20270407
+SUMMARY:S5: S5: Wild West
+DESCRIPTION:S5: Wild West
+CATEGORIES:SEASON-START
+END:VEVENT
+BEGIN:VEVENT
+UID:owow-event-107@lastwar
+DTSTART;VALUE=DATE:20270408
+SUMMARY:S5: Season Boost
+DESCRIPTION:Season Boost
+CATEGORIES:SEASON
+END:VEVENT
+BEGIN:VEVENT
+UID:owow-event-108@lastwar
+DTSTART;VALUE=DATE:20270408
+SUMMARY:S5: S5: Legend Returns (Free)
+DESCRIPTION:Adds Weapon shards for Kimberly (tank), Tesla (missile) and DVA (aircraft) to the Tavern for free as part of the Legend Returns event. It also still includes hero shards for all UR heroes as well.
+CATEGORIES:HERO
+BEGIN:VALARM
+TRIGGER:-P1D
+ACTION:DISPLAY
+DESCRIPTION:Tomorrow: S5: S5: Legend Returns (Free)
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:owow-event-109@lastwar
+DTSTART;VALUE=DATE:20270408
+SUMMARY:S5: Hero tavern unlocks (Free)
+DESCRIPTION:Adds Morrison (aircraft), Adam (missile), and Fiona (missile) to the regular Tavern for free.
+CATEGORIES:HERO
+BEGIN:VALARM
+TRIGGER:-P1D
+ACTION:DISPLAY
+DESCRIPTION:Tomorrow: S5: Hero tavern unlocks (Free)
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:owow-event-110@lastwar
+DTSTART;VALUE=DATE:20270408
+SUMMARY:S5: Hidden Treasure
+DESCRIPTION:Hero Choice Chests from the Hidden Treasure digs now include shards for Morrison, Adam, and Fiona. This brings ALL heroes to the Hero Choice Chest.
+CATEGORIES:HERO
+BEGIN:VALARM
+TRIGGER:-P1D
+ACTION:DISPLAY
+DESCRIPTION:Tomorrow: S5: Hidden Treasure
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:owow-event-111@lastwar
+DTSTART;VALUE=DATE:20270410
+SUMMARY:S5: S5: Weapons of Legends (Free)
+DESCRIPTION:Adds Hero Exclusive Weapon Shard Choice Chest VIII to the Tavern. This provides weapon shards for Kimberly, DVA, Tesla, Murphy, Carlie, Swift, Marshall, Schuyler, McGregor, Lucius, Adam, and Williams.
+CATEGORIES:EXCLUSIVE WEAPON
+END:VEVENT
+BEGIN:VEVENT
+UID:owow-event-112@lastwar
+DTSTART;VALUE=DATE:20270411
+SUMMARY:S5: Fiona Exclusive Weapon
+DESCRIPTION:Fiona Exclusive Weapon
+CATEGORIES:EXCLUSIVE WEAPON
+END:VEVENT
+BEGIN:VEVENT
+UID:owow-event-113@lastwar
+DTSTART;VALUE=DATE:20270425
+SUMMARY:S5: Stetmann Exclusive Weapon
+DESCRIPTION:Stetmann Exclusive Weapon
+CATEGORIES:EXCLUSIVE WEAPON
+END:VEVENT
+BEGIN:VEVENT
+UID:owow-event-114@lastwar
+DTSTART;VALUE=DATE:20270516
+SUMMARY:S5: Morrison Exclusive Weapon
+DESCRIPTION:Morrison Exclusive Weapon
+CATEGORIES:EXCLUSIVE WEAPON
+END:VEVENT
+BEGIN:VEVENT
+UID:owow-event-115@lastwar
+DTSTART;VALUE=DATE:20270603
+SUMMARY:S5: Black market
+DESCRIPTION:Black market
+CATEGORIES:EVENT
+END:VEVENT
+BEGIN:VEVENT
+UID:owow-event-116@lastwar
+DTSTART;VALUE=DATE:20270603
+SUMMARY:S5: Champions Duel
+DESCRIPTION:Champions Duel
+CATEGORIES:EVENT
+END:VEVENT
+END:VCALENDAR
