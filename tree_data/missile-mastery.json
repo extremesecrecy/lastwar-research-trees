@@ -1,0 +1,2459 @@
+{
+  "name": "Missile Mastery",
+  "isComplete": true,
+  "rows": [
+    {
+      "id": "row-1",
+      "elements": [
+        {
+          "id": "missile-vehicle-synergy-hp-1",
+          "name": "Missile Vehicle Synergy - HP I",
+          "image": "/images/tech/missile-vehicle-mastery/missile-vehicle-synergy-hp-1.png",
+          "maxLevel": 10,
+          "currentLevel": 0,
+          "levels": [
+            {
+              "level": 1,
+              "iron": 21660000,
+              "food": 21660000,
+              "gold": 65000000,
+              "valor": 1500,
+              "requirements": []
+            },
+            {
+              "level": 2,
+              "iron": 21660000,
+              "food": 21660000,
+              "gold": 65000000,
+              "valor": 1500,
+              "requirements": []
+            },
+            {
+              "level": 3,
+              "iron": 30280000,
+              "food": 30280000,
+              "gold": 91050000,
+              "valor": 1690,
+              "requirements": []
+            },
+            {
+              "level": 4,
+              "iron": 30280000,
+              "food": 30280000,
+              "gold": 91050000,
+              "valor": 1690,
+              "requirements": []
+            },
+            {
+              "level": 5,
+              "iron": 39481500,
+              "food": 39481500,
+              "gold": 118444400,
+              "valor": 1880,
+              "requirements": []
+            },
+            {
+              "level": 6,
+              "iron": 39481500,
+              "food": 39481500,
+              "gold": 118444400,
+              "valor": 1880,
+              "requirements": []
+            },
+            {
+              "level": 7,
+              "iron": 55274100,
+              "food": 55274100,
+              "gold": 165822200,
+              "valor": 2070,
+              "requirements": []
+            },
+            {
+              "level": 8,
+              "iron": 55274100,
+              "food": 55274100,
+              "gold": 165822200,
+              "valor": 2070,
+              "requirements": []
+            },
+            {
+              "level": 9,
+              "iron": 77383700,
+              "food": 77383700,
+              "gold": 232151000,
+              "valor": 2250,
+              "requirements": []
+            },
+            {
+              "level": 10,
+              "iron": 77383700,
+              "food": 77383700,
+              "gold": 232151000,
+              "valor": 2250,
+              "requirements": []
+            }
+          ]
+        },
+        {
+          "id": "missile-vehicle-synergy-attack-1",
+          "name": "Missile Vehicle Synergy - Attack I",
+          "image": "/images/tech/missile-vehicle-mastery/missile-vehicle-synergy-attack-1.png",
+          "maxLevel": 10,
+          "currentLevel": 0,
+          "levels": [
+            {
+              "level": 1,
+              "iron": 21660000,
+              "food": 21660000,
+              "gold": 65000000,
+              "valor": 1500,
+              "requirements": []
+            },
+            {
+              "level": 2,
+              "iron": 21660000,
+              "food": 21660000,
+              "gold": 65000000,
+              "valor": 1500,
+              "requirements": []
+            },
+            {
+              "level": 3,
+              "iron": 30280000,
+              "food": 30280000,
+              "gold": 91050000,
+              "valor": 1690,
+              "requirements": []
+            },
+            {
+              "level": 4,
+              "iron": 30280000,
+              "food": 30280000,
+              "gold": 91050000,
+              "valor": 1690,
+              "requirements": []
+            },
+            {
+              "level": 5,
+              "iron": 39481500,
+              "food": 39481500,
+              "gold": 118444400,
+              "valor": 1880,
+              "requirements": []
+            },
+            {
+              "level": 6,
+              "iron": 39481500,
+              "food": 39481500,
+              "gold": 118444400,
+              "valor": 1880,
+              "requirements": []
+            },
+            {
+              "level": 7,
+              "iron": 55274100,
+              "food": 55274100,
+              "gold": 165822200,
+              "valor": 2070,
+              "requirements": []
+            },
+            {
+              "level": 8,
+              "iron": 55274100,
+              "food": 55274100,
+              "gold": 165822200,
+              "valor": 2070,
+              "requirements": []
+            },
+            {
+              "level": 9,
+              "iron": 77383700,
+              "food": 77383700,
+              "gold": 232151000,
+              "valor": 2250,
+              "requirements": []
+            },
+            {
+              "level": 10,
+              "iron": 77383700,
+              "food": 77383700,
+              "gold": 232151000,
+              "valor": 2250,
+              "requirements": []
+            }
+          ]
+        },
+        {
+          "id": "missile-vehicle-synergy-defense-1",
+          "name": "Missile Vehicle Synergy - Defense I",
+          "image": "/images/tech/missile-vehicle-mastery/missile-vehicle-synergy-defense-1.png",
+          "maxLevel": 10,
+          "currentLevel": 0,
+          "levels": [
+            {
+              "level": 1,
+              "iron": 21660000,
+              "food": 21660000,
+              "gold": 65000000,
+              "valor": 1500,
+              "requirements": []
+            },
+            {
+              "level": 2,
+              "iron": 21660000,
+              "food": 21660000,
+              "gold": 65000000,
+              "valor": 1500,
+              "requirements": []
+            },
+            {
+              "level": 3,
+              "iron": 30280000,
+              "food": 30280000,
+              "gold": 91050000,
+              "valor": 1690,
+              "requirements": []
+            },
+            {
+              "level": 4,
+              "iron": 30280000,
+              "food": 30280000,
+              "gold": 91050000,
+              "valor": 1690,
+              "requirements": []
+            },
+            {
+              "level": 5,
+              "iron": 39481500,
+              "food": 39481500,
+              "gold": 118444400,
+              "valor": 1880,
+              "requirements": []
+            },
+            {
+              "level": 6,
+              "iron": 39481500,
+              "food": 39481500,
+              "gold": 118444400,
+              "valor": 1880,
+              "requirements": []
+            },
+            {
+              "level": 7,
+              "iron": 55274100,
+              "food": 55274100,
+              "gold": 165822200,
+              "valor": 2070,
+              "requirements": []
+            },
+            {
+              "level": 8,
+              "iron": 55274100,
+              "food": 55274100,
+              "gold": 165822200,
+              "valor": 2070,
+              "requirements": []
+            },
+            {
+              "level": 9,
+              "iron": 77383700,
+              "food": 77383700,
+              "gold": 232151000,
+              "valor": 2250,
+              "requirements": []
+            },
+            {
+              "level": 10,
+              "iron": 77383700,
+              "food": 77383700,
+              "gold": 232151000,
+              "valor": 2250,
+              "requirements": []
+            }
+          ]
+        }
+      ],
+      "connections": [
+        {
+          "from": "missile-vehicle-synergy-hp-1",
+          "to": [
+            "missile-vehicle-synergy-damage-1"
+          ]
+        },
+        {
+          "from": "missile-vehicle-synergy-attack-1",
+          "to": [
+            "missile-vehicle-synergy-damage-1"
+          ]
+        },
+        {
+          "from": "missile-vehicle-synergy-defense-1",
+          "to": [
+            "missile-vehicle-synergy-damage-1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "row-2",
+      "elements": [
+        {
+          "id": "missile-vehicle-synergy-damage-1",
+          "name": "Missile Vehicle Synergy - Damage I",
+          "image": "/images/tech/missile-vehicle-mastery/missile-vehicle-synergy-damage-1.png",
+          "maxLevel": 5,
+          "currentLevel": 0,
+          "levels": [
+            {
+              "level": 1,
+              "iron": 21660000,
+              "food": 21660000,
+              "gold": 65000000,
+              "valor": 1500,
+              "requirements": [
+                {
+                  "elementId": "missile-vehicle-synergy-hp-1",
+                  "minLevel": 2
+                },
+                {
+                  "elementId": "missile-vehicle-synergy-attack-1",
+                  "minLevel": 2
+                },
+                {
+                  "elementId": "missile-vehicle-synergy-defense-1",
+                  "minLevel": 2
+                }
+              ]
+            },
+            {
+              "level": 2,
+              "iron": 30280000,
+              "food": 30280000,
+              "gold": 91050000,
+              "valor": 1690,
+              "requirements": [
+                {
+                  "elementId": "missile-vehicle-synergy-hp-1",
+                  "minLevel": 4
+                },
+                {
+                  "elementId": "missile-vehicle-synergy-attack-1",
+                  "minLevel": 4
+                },
+                {
+                  "elementId": "missile-vehicle-synergy-defense-1",
+                  "minLevel": 4
+                }
+              ]
+            },
+            {
+              "level": 3,
+              "iron": 39481500,
+              "food": 39481500,
+              "gold": 118444400,
+              "valor": 1880,
+              "requirements": [
+                {
+                  "elementId": "missile-vehicle-synergy-hp-1",
+                  "minLevel": 6
+                },
+                {
+                  "elementId": "missile-vehicle-synergy-attack-1",
+                  "minLevel": 6
+                },
+                {
+                  "elementId": "missile-vehicle-synergy-defense-1",
+                  "minLevel": 6
+                }
+              ]
+            },
+            {
+              "level": 4,
+              "iron": 55274100,
+              "food": 55274100,
+              "gold": 165822200,
+              "valor": 2070,
+              "requirements": [
+                {
+                  "elementId": "missile-vehicle-synergy-hp-1",
+                  "minLevel": 8
+                },
+                {
+                  "elementId": "missile-vehicle-synergy-attack-1",
+                  "minLevel": 8
+                },
+                {
+                  "elementId": "missile-vehicle-synergy-defense-1",
+                  "minLevel": 8
+                }
+              ]
+            },
+            {
+              "level": 5,
+              "iron": 77383700,
+              "food": 77383700,
+              "gold": 232151000,
+              "valor": 2250,
+              "requirements": [
+                {
+                  "elementId": "missile-vehicle-synergy-hp-1",
+                  "minLevel": 10
+                },
+                {
+                  "elementId": "missile-vehicle-synergy-attack-1",
+                  "minLevel": 10
+                },
+                {
+                  "elementId": "missile-vehicle-synergy-defense-1",
+                  "minLevel": 10
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "connections": [
+        {
+          "from": "missile-vehicle-synergy-damage-1",
+          "to": [
+            "missile-vehicle-march-size-1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "row-3",
+      "elements": [
+        {
+          "id": "missile-vehicle-march-size-1",
+          "name": "Missile Vehicle - March Size I",
+          "image": "/images/tech/missile-vehicle-mastery/missile-vehicle-march-size-1.png",
+          "maxLevel": 5,
+          "currentLevel": 0,
+          "levels": [
+            {
+              "level": 1,
+              "iron": 21660000,
+              "food": 21660000,
+              "gold": 65000000,
+              "valor": 1500,
+              "requirements": [
+                {
+                  "elementId": "missile-vehicle-synergy-damage-1",
+                  "minLevel": 1
+                }
+              ]
+            },
+            {
+              "level": 2,
+              "iron": 30280000,
+              "food": 30280000,
+              "gold": 91050000,
+              "valor": 1690,
+              "requirements": [
+                {
+                  "elementId": "missile-vehicle-synergy-damage-1",
+                  "minLevel": 2
+                }
+              ]
+            },
+            {
+              "level": 3,
+              "iron": 39481500,
+              "food": 39481500,
+              "gold": 118444400,
+              "valor": 1880,
+              "requirements": [
+                {
+                  "elementId": "missile-vehicle-synergy-damage-1",
+                  "minLevel": 3
+                }
+              ]
+            },
+            {
+              "level": 4,
+              "iron": 55274100,
+              "food": 55274100,
+              "gold": 165822200,
+              "valor": 2070,
+              "requirements": [
+                {
+                  "elementId": "missile-vehicle-synergy-damage-1",
+                  "minLevel": 4
+                }
+              ]
+            },
+            {
+              "level": 5,
+              "iron": 77383700,
+              "food": 77383700,
+              "gold": 232151000,
+              "valor": 2250,
+              "requirements": [
+                {
+                  "elementId": "missile-vehicle-synergy-damage-1",
+                  "minLevel": 5
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "connections": [
+        {
+          "from": "missile-vehicle-march-size-1",
+          "to": [
+            "missile-vehicle-hp-1",
+            "missile-vehicle-attack-1",
+            "missile-vehicle-defense-1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "row-4",
+      "elements": [
+        {
+          "id": "missile-vehicle-hp-1",
+          "name": "Missile Vehicle - HP I",
+          "image": "/images/tech/missile-vehicle-mastery/missile-vehicle-hp-1.png",
+          "maxLevel": 10,
+          "currentLevel": 0,
+          "levels": [
+            {
+              "level": 1,
+              "iron": 21660000,
+              "food": 21660000,
+              "gold": 65000000,
+              "valor": 1500,
+              "requirements": [
+                {
+                  "elementId": "missile-vehicle-march-size-1",
+                  "minLevel": 1
+                }
+              ]
+            },
+            {
+              "level": 2,
+              "iron": 21660000,
+              "food": 21660000,
+              "gold": 65000000,
+              "valor": 1500,
+              "requirements": [
+                {
+                  "elementId": "missile-vehicle-march-size-1",
+                  "minLevel": 1
+                }
+              ]
+            },
+            {
+              "level": 3,
+              "iron": 30280000,
+              "food": 30280000,
+              "gold": 91050000,
+              "valor": 1690,
+              "requirements": [
+                {
+                  "elementId": "missile-vehicle-march-size-1",
+                  "minLevel": 2
+                }
+              ]
+            },
+            {
+              "level": 4,
+              "iron": 30280000,
+              "food": 30280000,
+              "gold": 91050000,
+              "valor": 1690,
+              "requirements": [
+                {
+                  "elementId": "missile-vehicle-march-size-1",
+                  "minLevel": 2
+                }
+              ]
+            },
+            {
+              "level": 5,
+              "iron": 39481500,
+              "food": 39481500,
+              "gold": 118444400,
+              "valor": 1880,
+              "requirements": [
+                {
+                  "elementId": "missile-vehicle-march-size-1",
+                  "minLevel": 3
+                }
+              ]
+            },
+            {
+              "level": 6,
+              "iron": 39481500,
+              "food": 39481500,
+              "gold": 118444400,
+              "valor": 1880,
+              "requirements": [
+                {
+                  "elementId": "missile-vehicle-march-size-1",
+                  "minLevel": 3
+                }
+              ]
+            },
+            {
+              "level": 7,
+              "iron": 55274100,
+              "food": 55274100,
+              "gold": 165822200,
+              "valor": 2070,
+              "requirements": [
+                {
+                  "elementId": "missile-vehicle-march-size-1",
+                  "minLevel": 4
+                }
+              ]
+            },
+            {
+              "level": 8,
+              "iron": 55274100,
+              "food": 55274100,
+              "gold": 165822200,
+              "valor": 2070,
+              "requirements": [
+                {
+                  "elementId": "missile-vehicle-march-size-1",
+                  "minLevel": 4
+                }
+              ]
+            },
+            {
+              "level": 9,
+              "iron": 77383700,
+              "food": 77383700,
+              "gold": 232151000,
+              "valor": 2250,
+              "requirements": [
+                {
+                  "elementId": "missile-vehicle-march-size-1",
+                  "minLevel": 5
+                }
+              ]
+            },
+            {
+              "level": 10,
+              "iron": 77383700,
+              "food": 77383700,
+              "gold": 232151000,
+              "valor": 2250,
+              "requirements": [
+                {
+                  "elementId": "missile-vehicle-march-size-1",
+                  "minLevel": 5
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "missile-vehicle-attack-1",
+          "name": "Missile Vehicle - Attack I",
+          "image": "/images/tech/missile-vehicle-mastery/missile-vehicle-attack-1.png",
+          "maxLevel": 10,
+          "currentLevel": 0,
+          "levels": [
+            {
+              "level": 1,
+              "iron": 21660000,
+              "food": 21660000,
+              "gold": 65000000,
+              "valor": 1500,
+              "requirements": [
+                {
+                  "elementId": "missile-vehicle-march-size-1",
+                  "minLevel": 1
+                }
+              ]
+            },
+            {
+              "level": 2,
+              "iron": 21660000,
+              "food": 21660000,
+              "gold": 65000000,
+              "valor": 1500,
+              "requirements": [
+                {
+                  "elementId": "missile-vehicle-march-size-1",
+                  "minLevel": 1
+                }
+              ]
+            },
+            {
+              "level": 3,
+              "iron": 30280000,
+              "food": 30280000,
+              "gold": 91050000,
+              "valor": 1690,
+              "requirements": [
+                {
+                  "elementId": "missile-vehicle-march-size-1",
+                  "minLevel": 2
+                }
+              ]
+            },
+            {
+              "level": 4,
+              "iron": 30280000,
+              "food": 30280000,
+              "gold": 91050000,
+              "valor": 1690,
+              "requirements": [
+                {
+                  "elementId": "missile-vehicle-march-size-1",
+                  "minLevel": 2
+                }
+              ]
+            },
+            {
+              "level": 5,
+              "iron": 39481500,
+              "food": 39481500,
+              "gold": 118444400,
+              "valor": 1880,
+              "requirements": [
+                {
+                  "elementId": "missile-vehicle-march-size-1",
+                  "minLevel": 3
+                }
+              ]
+            },
+            {
+              "level": 6,
+              "iron": 39481500,
+              "food": 39481500,
+              "gold": 118444400,
+              "valor": 1880,
+              "requirements": [
+                {
+                  "elementId": "missile-vehicle-march-size-1",
+                  "minLevel": 3
+                }
+              ]
+            },
+            {
+              "level": 7,
+              "iron": 55274100,
+              "food": 55274100,
+              "gold": 165822200,
+              "valor": 2070,
+              "requirements": [
+                {
+                  "elementId": "missile-vehicle-march-size-1",
+                  "minLevel": 4
+                }
+              ]
+            },
+            {
+              "level": 8,
+              "iron": 55274100,
+              "food": 55274100,
+              "gold": 165822200,
+              "valor": 2070,
+              "requirements": [
+                {
+                  "elementId": "missile-vehicle-march-size-1",
+                  "minLevel": 4
+                }
+              ]
+            },
+            {
+              "level": 9,
+              "iron": 77383700,
+              "food": 77383700,
+              "gold": 232151000,
+              "valor": 2250,
+              "requirements": [
+                {
+                  "elementId": "missile-vehicle-march-size-1",
+                  "minLevel": 5
+                }
+              ]
+            },
+            {
+              "level": 10,
+              "iron": 77383700,
+              "food": 77383700,
+              "gold": 232151000,
+              "valor": 2250,
+              "requirements": [
+                {
+                  "elementId": "missile-vehicle-march-size-1",
+                  "minLevel": 5
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "missile-vehicle-defense-1",
+          "name": "Missile Vehicle - Defense I",
+          "image": "/images/tech/missile-vehicle-mastery/missile-vehicle-defense-1.png",
+          "maxLevel": 10,
+          "currentLevel": 0,
+          "levels": [
+            {
+              "level": 1,
+              "iron": 21660000,
+              "food": 21660000,
+              "gold": 65000000,
+              "valor": 1500,
+              "requirements": [
+                {
+                  "elementId": "missile-vehicle-march-size-1",
+                  "minLevel": 1
+                }
+              ]
+            },
+            {
+              "level": 2,
+              "iron": 21660000,
+              "food": 21660000,
+              "gold": 65000000,
+              "valor": 1500,
+              "requirements": [
+                {
+                  "elementId": "missile-vehicle-march-size-1",
+                  "minLevel": 1
+                }
+              ]
+            },
+            {
+              "level": 3,
+              "iron": 30280000,
+              "food": 30280000,
+              "gold": 91050000,
+              "valor": 1690,
+              "requirements": [
+                {
+                  "elementId": "missile-vehicle-march-size-1",
+                  "minLevel": 2
+                }
+              ]
+            },
+            {
+              "level": 4,
+              "iron": 30280000,
+              "food": 30280000,
+              "gold": 91050000,
+              "valor": 1690,
+              "requirements": [
+                {
+                  "elementId": "missile-vehicle-march-size-1",
+                  "minLevel": 2
+                }
+              ]
+            },
+            {
+              "level": 5,
+              "iron": 39481500,
+              "food": 39481500,
+              "gold": 118444400,
+              "valor": 1880,
+              "requirements": [
+                {
+                  "elementId": "missile-vehicle-march-size-1",
+                  "minLevel": 3
+                }
+              ]
+            },
+            {
+              "level": 6,
+              "iron": 39481500,
+              "food": 39481500,
+              "gold": 118444400,
+              "valor": 1880,
+              "requirements": [
+                {
+                  "elementId": "missile-vehicle-march-size-1",
+                  "minLevel": 3
+                }
+              ]
+            },
+            {
+              "level": 7,
+              "iron": 55274100,
+              "food": 55274100,
+              "gold": 165822200,
+              "valor": 2070,
+              "requirements": [
+                {
+                  "elementId": "missile-vehicle-march-size-1",
+                  "minLevel": 4
+                }
+              ]
+            },
+            {
+              "level": 8,
+              "iron": 55274100,
+              "food": 55274100,
+              "gold": 165822200,
+              "valor": 2070,
+              "requirements": [
+                {
+                  "elementId": "missile-vehicle-march-size-1",
+                  "minLevel": 4
+                }
+              ]
+            },
+            {
+              "level": 9,
+              "iron": 77383700,
+              "food": 77383700,
+              "gold": 232151000,
+              "valor": 2250,
+              "requirements": [
+                {
+                  "elementId": "missile-vehicle-march-size-1",
+                  "minLevel": 5
+                }
+              ]
+            },
+            {
+              "level": 10,
+              "iron": 77383700,
+              "food": 77383700,
+              "gold": 232151000,
+              "valor": 2250,
+              "requirements": [
+                {
+                  "elementId": "missile-vehicle-march-size-1",
+                  "minLevel": 5
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "connections": [
+        {
+          "from": "missile-vehicle-hp-1",
+          "to": [
+            "missile-vehicle-damage-1"
+          ]
+        },
+        {
+          "from": "missile-vehicle-attack-1",
+          "to": [
+            "missile-vehicle-damage-1"
+          ]
+        },
+        {
+          "from": "missile-vehicle-defense-1",
+          "to": [
+            "missile-vehicle-damage-1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "row-5",
+      "elements": [
+        {
+          "id": "missile-vehicle-damage-1",
+          "name": "Missile Vehicle - Damage I",
+          "image": "/images/tech/missile-vehicle-mastery/missile-vehicle-damage-1.png",
+          "maxLevel": 5,
+          "currentLevel": 0,
+          "levels": [
+            {
+              "level": 1,
+              "iron": 21660000,
+              "food": 21660000,
+              "gold": 65000000,
+              "valor": 1500,
+              "requirements": [
+                {
+                  "elementId": "missile-vehicle-hp-1",
+                  "minLevel": 2
+                },
+                {
+                  "elementId": "missile-vehicle-attack-1",
+                  "minLevel": 2
+                },
+                {
+                  "elementId": "missile-vehicle-defense-1",
+                  "minLevel": 2
+                }
+              ]
+            },
+            {
+              "level": 2,
+              "iron": 30280000,
+              "food": 30280000,
+              "gold": 91050000,
+              "valor": 1690,
+              "requirements": [
+                {
+                  "elementId": "missile-vehicle-hp-1",
+                  "minLevel": 4
+                },
+                {
+                  "elementId": "missile-vehicle-attack-1",
+                  "minLevel": 4
+                },
+                {
+                  "elementId": "missile-vehicle-defense-1",
+                  "minLevel": 4
+                }
+              ]
+            },
+            {
+              "level": 3,
+              "iron": 39481500,
+              "food": 39481500,
+              "gold": 118444400,
+              "valor": 1880,
+              "requirements": [
+                {
+                  "elementId": "missile-vehicle-hp-1",
+                  "minLevel": 6
+                },
+                {
+                  "elementId": "missile-vehicle-attack-1",
+                  "minLevel": 6
+                },
+                {
+                  "elementId": "missile-vehicle-defense-1",
+                  "minLevel": 6
+                }
+              ]
+            },
+            {
+              "level": 4,
+              "iron": 55274100,
+              "food": 55274100,
+              "gold": 165822200,
+              "valor": 2070,
+              "requirements": [
+                {
+                  "elementId": "missile-vehicle-hp-1",
+                  "minLevel": 8
+                },
+                {
+                  "elementId": "missile-vehicle-attack-1",
+                  "minLevel": 8
+                },
+                {
+                  "elementId": "missile-vehicle-defense-1",
+                  "minLevel": 8
+                }
+              ]
+            },
+            {
+              "level": 5,
+              "iron": 77383700,
+              "food": 77383700,
+              "gold": 232151000,
+              "valor": 2250,
+              "requirements": [
+                {
+                  "elementId": "missile-vehicle-hp-1",
+                  "minLevel": 10
+                },
+                {
+                  "elementId": "missile-vehicle-attack-1",
+                  "minLevel": 10
+                },
+                {
+                  "elementId": "missile-vehicle-defense-1",
+                  "minLevel": 10
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "connections": [
+        {
+          "from": "missile-vehicle-damage-1",
+          "to": [
+            "missile-vehicle-ultimate-defense-1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "row-6",
+      "elements": [
+        {
+          "id": "missile-vehicle-ultimate-defense-1",
+          "name": "Missile Vehicle - Ultimate Defense I",
+          "image": "/images/tech/missile-vehicle-mastery/missile-vehicle-ultimate-defense-1.png",
+          "maxLevel": 10,
+          "currentLevel": 0,
+          "levels": [
+            {
+              "level": 1,
+              "iron": 21660000,
+              "food": 21660000,
+              "gold": 65000000,
+              "valor": 1500,
+              "requirements": [
+                {
+                  "elementId": "missile-vehicle-damage-1",
+                  "minLevel": 1
+                }
+              ]
+            },
+            {
+              "level": 2,
+              "iron": 21660000,
+              "food": 21660000,
+              "gold": 65000000,
+              "valor": 1500,
+              "requirements": [
+                {
+                  "elementId": "missile-vehicle-damage-1",
+                  "minLevel": 1
+                }
+              ]
+            },
+            {
+              "level": 3,
+              "iron": 30280000,
+              "food": 30280000,
+              "gold": 91050000,
+              "valor": 1690,
+              "requirements": [
+                {
+                  "elementId": "missile-vehicle-damage-1",
+                  "minLevel": 2
+                }
+              ]
+            },
+            {
+              "level": 4,
+              "iron": 30280000,
+              "food": 30280000,
+              "gold": 91050000,
+              "valor": 1690,
+              "requirements": [
+                {
+                  "elementId": "missile-vehicle-damage-1",
+                  "minLevel": 2
+                }
+              ]
+            },
+            {
+              "level": 5,
+              "iron": 39481500,
+              "food": 39481500,
+              "gold": 118444400,
+              "valor": 1880,
+              "requirements": [
+                {
+                  "elementId": "missile-vehicle-damage-1",
+                  "minLevel": 3
+                }
+              ]
+            },
+            {
+              "level": 6,
+              "iron": 39481500,
+              "food": 39481500,
+              "gold": 118444400,
+              "valor": 1880,
+              "requirements": [
+                {
+                  "elementId": "missile-vehicle-damage-1",
+                  "minLevel": 3
+                }
+              ]
+            },
+            {
+              "level": 7,
+              "iron": 55274100,
+              "food": 55274100,
+              "gold": 165822200,
+              "valor": 2070,
+              "requirements": [
+                {
+                  "elementId": "missile-vehicle-damage-1",
+                  "minLevel": 4
+                }
+              ]
+            },
+            {
+              "level": 8,
+              "iron": 55274100,
+              "food": 55274100,
+              "gold": 165822200,
+              "valor": 2070,
+              "requirements": [
+                {
+                  "elementId": "missile-vehicle-damage-1",
+                  "minLevel": 4
+                }
+              ]
+            },
+            {
+              "level": 9,
+              "iron": 77383700,
+              "food": 77383700,
+              "gold": 232151000,
+              "valor": 2250,
+              "requirements": [
+                {
+                  "elementId": "missile-vehicle-damage-1",
+                  "minLevel": 5
+                }
+              ]
+            },
+            {
+              "level": 10,
+              "iron": 77383700,
+              "food": 77383700,
+              "gold": 232151000,
+              "valor": 2250,
+              "requirements": [
+                {
+                  "elementId": "missile-vehicle-damage-1",
+                  "minLevel": 5
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "connections": [
+        {
+          "from": "missile-vehicle-ultimate-defense-1",
+          "to": [
+            "missile-vehicle-synergy-hp-2",
+            "missile-vehicle-synergy-attack-2",
+            "missile-vehicle-synergy-defense-2"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "row-7",
+      "elements": [
+        {
+          "id": "missile-vehicle-synergy-hp-2",
+          "name": "Missile Vehicle Synergy - HP II",
+          "image": "/images/tech/missile-vehicle-mastery/missile-vehicle-synergy-hp-2.png",
+          "maxLevel": 10,
+          "currentLevel": 0,
+          "levels": [
+            {
+              "level": 1,
+              "iron": 21660000,
+              "food": 21660000,
+              "gold": 65000000,
+              "valor": 1500,
+              "requirements": []
+            },
+            {
+              "level": 2,
+              "iron": 21660000,
+              "food": 21660000,
+              "gold": 65000000,
+              "valor": 1500,
+              "requirements": []
+            },
+            {
+              "level": 3,
+              "iron": 30280000,
+              "food": 30280000,
+              "gold": 91050000,
+              "valor": 1690,
+              "requirements": []
+            },
+            {
+              "level": 4,
+              "iron": 30280000,
+              "food": 30280000,
+              "gold": 91050000,
+              "valor": 1690,
+              "requirements": []
+            },
+            {
+              "level": 5,
+              "iron": 39481500,
+              "food": 39481500,
+              "gold": 118444400,
+              "valor": 1880,
+              "requirements": []
+            },
+            {
+              "level": 6,
+              "iron": 39481500,
+              "food": 39481500,
+              "gold": 118444400,
+              "valor": 1880,
+              "requirements": []
+            },
+            {
+              "level": 7,
+              "iron": 55274100,
+              "food": 55274100,
+              "gold": 165822200,
+              "valor": 2070,
+              "requirements": []
+            },
+            {
+              "level": 8,
+              "iron": 55274100,
+              "food": 55274100,
+              "gold": 165822200,
+              "valor": 2070,
+              "requirements": []
+            },
+            {
+              "level": 9,
+              "iron": 77383700,
+              "food": 77383700,
+              "gold": 232151000,
+              "valor": 2250,
+              "requirements": []
+            },
+            {
+              "level": 10,
+              "iron": 77383700,
+              "food": 77383700,
+              "gold": 232151000,
+              "valor": 2250,
+              "requirements": []
+            }
+          ]
+        },
+        {
+          "id": "missile-vehicle-synergy-attack-2",
+          "name": "Missile Vehicle Synergy - Attack II",
+          "image": "/images/tech/missile-vehicle-mastery/missile-vehicle-synergy-attack-2.png",
+          "maxLevel": 10,
+          "currentLevel": 0,
+          "levels": [
+            {
+              "level": 1,
+              "iron": 21660000,
+              "food": 21660000,
+              "gold": 65000000,
+              "valor": 1500,
+              "requirements": []
+            },
+            {
+              "level": 2,
+              "iron": 21660000,
+              "food": 21660000,
+              "gold": 65000000,
+              "valor": 1500,
+              "requirements": []
+            },
+            {
+              "level": 3,
+              "iron": 30280000,
+              "food": 30280000,
+              "gold": 91050000,
+              "valor": 1690,
+              "requirements": []
+            },
+            {
+              "level": 4,
+              "iron": 30280000,
+              "food": 30280000,
+              "gold": 91050000,
+              "valor": 1690,
+              "requirements": []
+            },
+            {
+              "level": 5,
+              "iron": 39481500,
+              "food": 39481500,
+              "gold": 118444400,
+              "valor": 1880,
+              "requirements": []
+            },
+            {
+              "level": 6,
+              "iron": 39481500,
+              "food": 39481500,
+              "gold": 118444400,
+              "valor": 1880,
+              "requirements": []
+            },
+            {
+              "level": 7,
+              "iron": 55274100,
+              "food": 55274100,
+              "gold": 165822200,
+              "valor": 2070,
+              "requirements": []
+            },
+            {
+              "level": 8,
+              "iron": 55274100,
+              "food": 55274100,
+              "gold": 165822200,
+              "valor": 2070,
+              "requirements": []
+            },
+            {
+              "level": 9,
+              "iron": 77383700,
+              "food": 77383700,
+              "gold": 232151000,
+              "valor": 2250,
+              "requirements": []
+            },
+            {
+              "level": 10,
+              "iron": 77383700,
+              "food": 77383700,
+              "gold": 232151000,
+              "valor": 2250,
+              "requirements": []
+            }
+          ]
+        },
+        {
+          "id": "missile-vehicle-synergy-defense-2",
+          "name": "Missile Vehicle Synergy - Defense II",
+          "image": "/images/tech/missile-vehicle-mastery/missile-vehicle-synergy-defense-2.png",
+          "maxLevel": 10,
+          "currentLevel": 0,
+          "levels": [
+            {
+              "level": 1,
+              "iron": 21660000,
+              "food": 21660000,
+              "gold": 65000000,
+              "valor": 1500,
+              "requirements": []
+            },
+            {
+              "level": 2,
+              "iron": 21660000,
+              "food": 21660000,
+              "gold": 65000000,
+              "valor": 1500,
+              "requirements": []
+            },
+            {
+              "level": 3,
+              "iron": 30280000,
+              "food": 30280000,
+              "gold": 91050000,
+              "valor": 1690,
+              "requirements": []
+            },
+            {
+              "level": 4,
+              "iron": 30280000,
+              "food": 30280000,
+              "gold": 91050000,
+              "valor": 1690,
+              "requirements": []
+            },
+            {
+              "level": 5,
+              "iron": 39481500,
+              "food": 39481500,
+              "gold": 118444400,
+              "valor": 1880,
+              "requirements": []
+            },
+            {
+              "level": 6,
+              "iron": 39481500,
+              "food": 39481500,
+              "gold": 118444400,
+              "valor": 1880,
+              "requirements": []
+            },
+            {
+              "level": 7,
+              "iron": 55274100,
+              "food": 55274100,
+              "gold": 165822200,
+              "valor": 2070,
+              "requirements": []
+            },
+            {
+              "level": 8,
+              "iron": 55274100,
+              "food": 55274100,
+              "gold": 165822200,
+              "valor": 2070,
+              "requirements": []
+            },
+            {
+              "level": 9,
+              "iron": 77383700,
+              "food": 77383700,
+              "gold": 232151000,
+              "valor": 2250,
+              "requirements": []
+            },
+            {
+              "level": 10,
+              "iron": 77383700,
+              "food": 77383700,
+              "gold": 232151000,
+              "valor": 2250,
+              "requirements": []
+            }
+          ]
+        }
+      ],
+      "connections": [
+        {
+          "from": "missile-vehicle-synergy-hp-2",
+          "to": [
+            "missile-vehicle-synergy-damage-2"
+          ]
+        },
+        {
+          "from": "missile-vehicle-synergy-attack-2",
+          "to": [
+            "missile-vehicle-synergy-damage-2"
+          ]
+        },
+        {
+          "from": "missile-vehicle-synergy-defense-2",
+          "to": [
+            "missile-vehicle-synergy-damage-2"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "row-8",
+      "elements": [
+        {
+          "id": "missile-vehicle-synergy-damage-2",
+          "name": "Missile Vehicle Synergy - Damage II",
+          "image": "/images/tech/missile-vehicle-mastery/missile-vehicle-synergy-damage-2.png",
+          "maxLevel": 5,
+          "currentLevel": 0,
+          "levels": [
+            {
+              "level": 1,
+              "iron": 21660000,
+              "food": 21660000,
+              "gold": 65000000,
+              "valor": 1500,
+              "requirements": [
+                {
+                  "elementId": "missile-vehicle-synergy-hp-2",
+                  "minLevel": 2
+                },
+                {
+                  "elementId": "missile-vehicle-synergy-attack-2",
+                  "minLevel": 2
+                },
+                {
+                  "elementId": "missile-vehicle-synergy-defense-2",
+                  "minLevel": 2
+                }
+              ]
+            },
+            {
+              "level": 2,
+              "iron": 30280000,
+              "food": 30280000,
+              "gold": 91050000,
+              "valor": 1690,
+              "requirements": [
+                {
+                  "elementId": "missile-vehicle-synergy-hp-2",
+                  "minLevel": 4
+                },
+                {
+                  "elementId": "missile-vehicle-synergy-attack-2",
+                  "minLevel": 4
+                },
+                {
+                  "elementId": "missile-vehicle-synergy-defense-2",
+                  "minLevel": 4
+                }
+              ]
+            },
+            {
+              "level": 3,
+              "iron": 39481500,
+              "food": 39481500,
+              "gold": 118444400,
+              "valor": 1880,
+              "requirements": [
+                {
+                  "elementId": "missile-vehicle-synergy-hp-2",
+                  "minLevel": 6
+                },
+                {
+                  "elementId": "missile-vehicle-synergy-attack-2",
+                  "minLevel": 6
+                },
+                {
+                  "elementId": "missile-vehicle-synergy-defense-2",
+                  "minLevel": 6
+                }
+              ]
+            },
+            {
+              "level": 4,
+              "iron": 55274100,
+              "food": 55274100,
+              "gold": 165822200,
+              "valor": 2070,
+              "requirements": [
+                {
+                  "elementId": "missile-vehicle-synergy-hp-2",
+                  "minLevel": 8
+                },
+                {
+                  "elementId": "missile-vehicle-synergy-attack-2",
+                  "minLevel": 8
+                },
+                {
+                  "elementId": "missile-vehicle-synergy-defense-2",
+                  "minLevel": 8
+                }
+              ]
+            },
+            {
+              "level": 5,
+              "iron": 77383700,
+              "food": 77383700,
+              "gold": 232151000,
+              "valor": 2250,
+              "requirements": [
+                {
+                  "elementId": "missile-vehicle-synergy-hp-2",
+                  "minLevel": 10
+                },
+                {
+                  "elementId": "missile-vehicle-synergy-attack-2",
+                  "minLevel": 10
+                },
+                {
+                  "elementId": "missile-vehicle-synergy-defense-2",
+                  "minLevel": 10
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "connections": [
+        {
+          "from": "missile-vehicle-synergy-damage-2",
+          "to": [
+            "missile-vehicle-march-size-2"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "row-9",
+      "elements": [
+        {
+          "id": "missile-vehicle-march-size-2",
+          "name": "Missile Vehicle - March Size II",
+          "image": "/images/tech/missile-vehicle-mastery/missile-vehicle-march-size-2.png",
+          "maxLevel": 5,
+          "currentLevel": 0,
+          "levels": [
+            {
+              "level": 1,
+              "iron": 21660000,
+              "food": 21660000,
+              "gold": 65000000,
+              "valor": 1500,
+              "requirements": [
+                {
+                  "elementId": "missile-vehicle-synergy-damage-2",
+                  "minLevel": 1
+                }
+              ]
+            },
+            {
+              "level": 2,
+              "iron": 30280000,
+              "food": 30280000,
+              "gold": 91050000,
+              "valor": 1690,
+              "requirements": [
+                {
+                  "elementId": "missile-vehicle-synergy-damage-2",
+                  "minLevel": 2
+                }
+              ]
+            },
+            {
+              "level": 3,
+              "iron": 39481500,
+              "food": 39481500,
+              "gold": 118444400,
+              "valor": 1880,
+              "requirements": [
+                {
+                  "elementId": "missile-vehicle-synergy-damage-2",
+                  "minLevel": 3
+                }
+              ]
+            },
+            {
+              "level": 4,
+              "iron": 55274100,
+              "food": 55274100,
+              "gold": 165822200,
+              "valor": 2070,
+              "requirements": [
+                {
+                  "elementId": "missile-vehicle-synergy-damage-2",
+                  "minLevel": 4
+                }
+              ]
+            },
+            {
+              "level": 5,
+              "iron": 77383700,
+              "food": 77383700,
+              "gold": 232151000,
+              "valor": 2250,
+              "requirements": [
+                {
+                  "elementId": "missile-vehicle-synergy-damage-2",
+                  "minLevel": 5
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "connections": [
+        {
+          "from": "missile-vehicle-march-size-2",
+          "to": [
+            "missile-vehicle-hp-2",
+            "missile-vehicle-attack-2",
+            "missile-vehicle-defense-2"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "row-10",
+      "elements": [
+        {
+          "id": "missile-vehicle-hp-2",
+          "name": "Missile Vehicle - HP II",
+          "image": "/images/tech/missile-vehicle-mastery/missile-vehicle-hp-2.png",
+          "maxLevel": 10,
+          "currentLevel": 0,
+          "levels": [
+            {
+              "level": 1,
+              "iron": 21660000,
+              "food": 21660000,
+              "gold": 65000000,
+              "valor": 1500,
+              "requirements": [
+                {
+                  "elementId": "missile-vehicle-march-size-2",
+                  "minLevel": 1
+                }
+              ]
+            },
+            {
+              "level": 2,
+              "iron": 21660000,
+              "food": 21660000,
+              "gold": 65000000,
+              "valor": 1500,
+              "requirements": [
+                {
+                  "elementId": "missile-vehicle-march-size-2",
+                  "minLevel": 1
+                }
+              ]
+            },
+            {
+              "level": 3,
+              "iron": 30280000,
+              "food": 30280000,
+              "gold": 91050000,
+              "valor": 1690,
+              "requirements": [
+                {
+                  "elementId": "missile-vehicle-march-size-2",
+                  "minLevel": 2
+                }
+              ]
+            },
+            {
+              "level": 4,
+              "iron": 30280000,
+              "food": 30280000,
+              "gold": 91050000,
+              "valor": 1690,
+              "requirements": [
+                {
+                  "elementId": "missile-vehicle-march-size-2",
+                  "minLevel": 2
+                }
+              ]
+            },
+            {
+              "level": 5,
+              "iron": 39481500,
+              "food": 39481500,
+              "gold": 118444400,
+              "valor": 1880,
+              "requirements": [
+                {
+                  "elementId": "missile-vehicle-march-size-2",
+                  "minLevel": 3
+                }
+              ]
+            },
+            {
+              "level": 6,
+              "iron": 39481500,
+              "food": 39481500,
+              "gold": 118444400,
+              "valor": 1880,
+              "requirements": [
+                {
+                  "elementId": "missile-vehicle-march-size-2",
+                  "minLevel": 3
+                }
+              ]
+            },
+            {
+              "level": 7,
+              "iron": 55274100,
+              "food": 55274100,
+              "gold": 165822200,
+              "valor": 2070,
+              "requirements": [
+                {
+                  "elementId": "missile-vehicle-march-size-2",
+                  "minLevel": 4
+                }
+              ]
+            },
+            {
+              "level": 8,
+              "iron": 55274100,
+              "food": 55274100,
+              "gold": 165822200,
+              "valor": 2070,
+              "requirements": [
+                {
+                  "elementId": "missile-vehicle-march-size-2",
+                  "minLevel": 4
+                }
+              ]
+            },
+            {
+              "level": 9,
+              "iron": 77383700,
+              "food": 77383700,
+              "gold": 232151000,
+              "valor": 2250,
+              "requirements": [
+                {
+                  "elementId": "missile-vehicle-march-size-2",
+                  "minLevel": 5
+                }
+              ]
+            },
+            {
+              "level": 10,
+              "iron": 77383700,
+              "food": 77383700,
+              "gold": 232151000,
+              "valor": 2250,
+              "requirements": [
+                {
+                  "elementId": "missile-vehicle-march-size-2",
+                  "minLevel": 5
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "missile-vehicle-attack-2",
+          "name": "Missile Vehicle - Attack II",
+          "image": "/images/tech/missile-vehicle-mastery/missile-vehicle-attack-2.png",
+          "maxLevel": 10,
+          "currentLevel": 0,
+          "levels": [
+            {
+              "level": 1,
+              "iron": 21660000,
+              "food": 21660000,
+              "gold": 65000000,
+              "valor": 1500,
+              "requirements": [
+                {
+                  "elementId": "missile-vehicle-march-size-2",
+                  "minLevel": 1
+                }
+              ]
+            },
+            {
+              "level": 2,
+              "iron": 21660000,
+              "food": 21660000,
+              "gold": 65000000,
+              "valor": 1500,
+              "requirements": [
+                {
+                  "elementId": "missile-vehicle-march-size-2",
+                  "minLevel": 1
+                }
+              ]
+            },
+            {
+              "level": 3,
+              "iron": 30280000,
+              "food": 30280000,
+              "gold": 91050000,
+              "valor": 1690,
+              "requirements": [
+                {
+                  "elementId": "missile-vehicle-march-size-2",
+                  "minLevel": 2
+                }
+              ]
+            },
+            {
+              "level": 4,
+              "iron": 30280000,
+              "food": 30280000,
+              "gold": 91050000,
+              "valor": 1690,
+              "requirements": [
+                {
+                  "elementId": "missile-vehicle-march-size-2",
+                  "minLevel": 2
+                }
+              ]
+            },
+            {
+              "level": 5,
+              "iron": 39481500,
+              "food": 39481500,
+              "gold": 118444400,
+              "valor": 1880,
+              "requirements": [
+                {
+                  "elementId": "missile-vehicle-march-size-2",
+                  "minLevel": 3
+                }
+              ]
+            },
+            {
+              "level": 6,
+              "iron": 39481500,
+              "food": 39481500,
+              "gold": 118444400,
+              "valor": 1880,
+              "requirements": [
+                {
+                  "elementId": "missile-vehicle-march-size-2",
+                  "minLevel": 3
+                }
+              ]
+            },
+            {
+              "level": 7,
+              "iron": 55274100,
+              "food": 55274100,
+              "gold": 165822200,
+              "valor": 2070,
+              "requirements": [
+                {
+                  "elementId": "missile-vehicle-march-size-2",
+                  "minLevel": 4
+                }
+              ]
+            },
+            {
+              "level": 8,
+              "iron": 55274100,
+              "food": 55274100,
+              "gold": 165822200,
+              "valor": 2070,
+              "requirements": [
+                {
+                  "elementId": "missile-vehicle-march-size-2",
+                  "minLevel": 4
+                }
+              ]
+            },
+            {
+              "level": 9,
+              "iron": 77383700,
+              "food": 77383700,
+              "gold": 232151000,
+              "valor": 2250,
+              "requirements": [
+                {
+                  "elementId": "missile-vehicle-march-size-2",
+                  "minLevel": 5
+                }
+              ]
+            },
+            {
+              "level": 10,
+              "iron": 77383700,
+              "food": 77383700,
+              "gold": 232151000,
+              "valor": 2250,
+              "requirements": [
+                {
+                  "elementId": "missile-vehicle-march-size-2",
+                  "minLevel": 5
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "missile-vehicle-defense-2",
+          "name": "Missile Vehicle - Defense II",
+          "image": "/images/tech/missile-vehicle-mastery/missile-vehicle-defense-2.png",
+          "maxLevel": 10,
+          "currentLevel": 0,
+          "levels": [
+            {
+              "level": 1,
+              "iron": 21660000,
+              "food": 21660000,
+              "gold": 65000000,
+              "valor": 1500,
+              "requirements": [
+                {
+                  "elementId": "missile-vehicle-march-size-2",
+                  "minLevel": 1
+                }
+              ]
+            },
+            {
+              "level": 2,
+              "iron": 21660000,
+              "food": 21660000,
+              "gold": 65000000,
+              "valor": 1500,
+              "requirements": [
+                {
+                  "elementId": "missile-vehicle-march-size-2",
+                  "minLevel": 1
+                }
+              ]
+            },
+            {
+              "level": 3,
+              "iron": 30280000,
+              "food": 30280000,
+              "gold": 91050000,
+              "valor": 1690,
+              "requirements": [
+                {
+                  "elementId": "missile-vehicle-march-size-2",
+                  "minLevel": 2
+                }
+              ]
+            },
+            {
+              "level": 4,
+              "iron": 30280000,
+              "food": 30280000,
+              "gold": 91050000,
+              "valor": 1690,
+              "requirements": [
+                {
+                  "elementId": "missile-vehicle-march-size-2",
+                  "minLevel": 2
+                }
+              ]
+            },
+            {
+              "level": 5,
+              "iron": 39481500,
+              "food": 39481500,
+              "gold": 118444400,
+              "valor": 1880,
+              "requirements": [
+                {
+                  "elementId": "missile-vehicle-march-size-2",
+                  "minLevel": 3
+                }
+              ]
+            },
+            {
+              "level": 6,
+              "iron": 39481500,
+              "food": 39481500,
+              "gold": 118444400,
+              "valor": 1880,
+              "requirements": [
+                {
+                  "elementId": "missile-vehicle-march-size-2",
+                  "minLevel": 3
+                }
+              ]
+            },
+            {
+              "level": 7,
+              "iron": 55274100,
+              "food": 55274100,
+              "gold": 165822200,
+              "valor": 2070,
+              "requirements": [
+                {
+                  "elementId": "missile-vehicle-march-size-2",
+                  "minLevel": 4
+                }
+              ]
+            },
+            {
+              "level": 8,
+              "iron": 55274100,
+              "food": 55274100,
+              "gold": 165822200,
+              "valor": 2070,
+              "requirements": [
+                {
+                  "elementId": "missile-vehicle-march-size-2",
+                  "minLevel": 4
+                }
+              ]
+            },
+            {
+              "level": 9,
+              "iron": 77383700,
+              "food": 77383700,
+              "gold": 232151000,
+              "valor": 2250,
+              "requirements": [
+                {
+                  "elementId": "missile-vehicle-march-size-2",
+                  "minLevel": 5
+                }
+              ]
+            },
+            {
+              "level": 10,
+              "iron": 77383700,
+              "food": 77383700,
+              "gold": 232151000,
+              "valor": 2250,
+              "requirements": [
+                {
+                  "elementId": "missile-vehicle-march-size-2",
+                  "minLevel": 5
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "connections": [
+        {
+          "from": "missile-vehicle-hp-2",
+          "to": [
+            "missile-vehicle-damage-2"
+          ]
+        },
+        {
+          "from": "missile-vehicle-attack-2",
+          "to": [
+            "missile-vehicle-damage-2"
+          ]
+        },
+        {
+          "from": "missile-vehicle-defense-2",
+          "to": [
+            "missile-vehicle-damage-2"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "row-11",
+      "elements": [
+        {
+          "id": "missile-vehicle-damage-2",
+          "name": "Missile Vehicle - Damage II",
+          "image": "/images/tech/missile-vehicle-mastery/missile-vehicle-damage-2.png",
+          "maxLevel": 5,
+          "currentLevel": 0,
+          "levels": [
+            {
+              "level": 1,
+              "iron": 21660000,
+              "food": 21660000,
+              "gold": 65000000,
+              "valor": 1500,
+              "requirements": [
+                {
+                  "elementId": "missile-vehicle-hp-2",
+                  "minLevel": 2
+                },
+                {
+                  "elementId": "missile-vehicle-attack-2",
+                  "minLevel": 2
+                },
+                {
+                  "elementId": "missile-vehicle-defense-2",
+                  "minLevel": 2
+                }
+              ]
+            },
+            {
+              "level": 2,
+              "iron": 30280000,
+              "food": 30280000,
+              "gold": 91050000,
+              "valor": 1690,
+              "requirements": [
+                {
+                  "elementId": "missile-vehicle-hp-2",
+                  "minLevel": 4
+                },
+                {
+                  "elementId": "missile-vehicle-attack-2",
+                  "minLevel": 4
+                },
+                {
+                  "elementId": "missile-vehicle-defense-2",
+                  "minLevel": 4
+                }
+              ]
+            },
+            {
+              "level": 3,
+              "iron": 39481500,
+              "food": 39481500,
+              "gold": 118444400,
+              "valor": 1880,
+              "requirements": [
+                {
+                  "elementId": "missile-vehicle-hp-2",
+                  "minLevel": 6
+                },
+                {
+                  "elementId": "missile-vehicle-attack-2",
+                  "minLevel": 6
+                },
+                {
+                  "elementId": "missile-vehicle-defense-2",
+                  "minLevel": 6
+                }
+              ]
+            },
+            {
+              "level": 4,
+              "iron": 55274100,
+              "food": 55274100,
+              "gold": 165822200,
+              "valor": 2070,
+              "requirements": [
+                {
+                  "elementId": "missile-vehicle-hp-2",
+                  "minLevel": 8
+                },
+                {
+                  "elementId": "missile-vehicle-attack-2",
+                  "minLevel": 8
+                },
+                {
+                  "elementId": "missile-vehicle-defense-2",
+                  "minLevel": 8
+                }
+              ]
+            },
+            {
+              "level": 5,
+              "iron": 77383700,
+              "food": 77383700,
+              "gold": 232151000,
+              "valor": 2250,
+              "requirements": [
+                {
+                  "elementId": "missile-vehicle-hp-2",
+                  "minLevel": 10
+                },
+                {
+                  "elementId": "missile-vehicle-attack-2",
+                  "minLevel": 10
+                },
+                {
+                  "elementId": "missile-vehicle-defense-2",
+                  "minLevel": 10
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "connections": [
+        {
+          "from": "missile-vehicle-damage-2",
+          "to": [
+            "missile-vehicle-ultimate-defense-2"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "row-12",
+      "elements": [
+        {
+          "id": "missile-vehicle-ultimate-defense-2",
+          "name": "Missile Vehicle - Ultimate Defense II",
+          "image": "/images/tech/missile-vehicle-mastery/missile-vehicle-ultimate-defense-2.png",
+          "maxLevel": 10,
+          "currentLevel": 0,
+          "levels": [
+            {
+              "level": 1,
+              "iron": 21660000,
+              "food": 21660000,
+              "gold": 65000000,
+              "valor": 1500,
+              "requirements": [
+                {
+                  "elementId": "missile-vehicle-damage-2",
+                  "minLevel": 1
+                }
+              ]
+            },
+            {
+              "level": 2,
+              "iron": 21660000,
+              "food": 21660000,
+              "gold": 65000000,
+              "valor": 1500,
+              "requirements": [
+                {
+                  "elementId": "missile-vehicle-damage-2",
+                  "minLevel": 1
+                }
+              ]
+            },
+            {
+              "level": 3,
+              "iron": 30280000,
+              "food": 30280000,
+              "gold": 91050000,
+              "valor": 1690,
+              "requirements": [
+                {
+                  "elementId": "missile-vehicle-damage-2",
+                  "minLevel": 2
+                }
+              ]
+            },
+            {
+              "level": 4,
+              "iron": 30280000,
+              "food": 30280000,
+              "gold": 91050000,
+              "valor": 1690,
+              "requirements": [
+                {
+                  "elementId": "missile-vehicle-damage-2",
+                  "minLevel": 2
+                }
+              ]
+            },
+            {
+              "level": 5,
+              "iron": 39481500,
+              "food": 39481500,
+              "gold": 118444400,
+              "valor": 1880,
+              "requirements": [
+                {
+                  "elementId": "missile-vehicle-damage-2",
+                  "minLevel": 3
+                }
+              ]
+            },
+            {
+              "level": 6,
+              "iron": 39481500,
+              "food": 39481500,
+              "gold": 118444400,
+              "valor": 1880,
+              "requirements": [
+                {
+                  "elementId": "missile-vehicle-damage-2",
+                  "minLevel": 3
+                }
+              ]
+            },
+            {
+              "level": 7,
+              "iron": 55274100,
+              "food": 55274100,
+              "gold": 165822200,
+              "valor": 2070,
+              "requirements": [
+                {
+                  "elementId": "missile-vehicle-damage-2",
+                  "minLevel": 4
+                }
+              ]
+            },
+            {
+              "level": 8,
+              "iron": 55274100,
+              "food": 55274100,
+              "gold": 165822200,
+              "valor": 2070,
+              "requirements": [
+                {
+                  "elementId": "missile-vehicle-damage-2",
+                  "minLevel": 4
+                }
+              ]
+            },
+            {
+              "level": 9,
+              "iron": 77383700,
+              "food": 77383700,
+              "gold": 232151000,
+              "valor": 2250,
+              "requirements": [
+                {
+                  "elementId": "missile-vehicle-damage-2",
+                  "minLevel": 5
+                }
+              ]
+            },
+            {
+              "level": 10,
+              "iron": 77383700,
+              "food": 77383700,
+              "gold": 232151000,
+              "valor": 2250,
+              "requirements": [
+                {
+                  "elementId": "missile-vehicle-damage-2",
+                  "minLevel": 5
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "connections": []
+    }
+  ]
+}

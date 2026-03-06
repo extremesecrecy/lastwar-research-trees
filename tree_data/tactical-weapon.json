@@ -1,0 +1,4465 @@
+{
+  "name": "Tactical Weapon",
+  "isComplete": false,
+  "specialThanks": "Special thanks to #419 Prince, and #287 SGPxyz, for helping to fill in the gaps in this research tree!",
+  "rows": [
+    {
+      "id": "row-1",
+      "elements": [
+        {
+          "id": "support-hero-hp-1",
+          "name": "Support: Hero HP I",
+          "image": "/images/tech/tactical-weapon/support-hero-hp-1.png",
+          "maxLevel": 10,
+          "currentLevel": 0,
+          "levels": [
+            {
+              "level": 1,
+              "gold": 135580000,
+              "food": 45160000,
+              "iron": 45160000,
+              "valor": 2000,
+              "requirements": [
+                {
+                  "elementId": "Troop Type Mastery",
+                  "minLevel": "180%",
+                  "external": true
+                }
+              ]
+            },
+            {
+              "level": 2,
+              "gold": 135580000,
+              "food": 45160000,
+              "iron": 45160000,
+              "valor": 2000,
+              "requirements": []
+            },
+            {
+              "level": 3,
+              "gold": 189790000,
+              "food": 63260000,
+              "iron": 63260000,
+              "valor": 2250,
+              "requirements": []
+            },
+            {
+              "level": 4,
+              "gold": 189790000,
+              "food": 63260000,
+              "iron": 63260000,
+              "valor": 2250,
+              "requirements": []
+            },
+            {
+              "level": 5,
+              "gold": 246670000,
+              "food": 82220000,
+              "iron": 82220000,
+              "valor": 2500,
+              "requirements": []
+            },
+            {
+              "level": 6,
+              "gold": 246670000,
+              "food": 82220000,
+              "iron": 82220000,
+              "valor": 2500,
+              "requirements": []
+            },
+            {
+              "level": 7,
+              "gold": 363825000,
+              "food": 122000000,
+              "iron": 122000000,
+              "valor": 2750,
+              "requirements": []
+            },
+            {
+              "level": 8,
+              "gold": 363825000,
+              "food": 122000000,
+              "iron": 122000000,
+              "valor": 2750,
+              "requirements": []
+            },
+            {
+              "level": 9,
+              "gold": 480980000,
+              "food": 161200000,
+              "iron": 161200000,
+              "valor": 3000,
+              "requirements": []
+            },
+            {
+              "level": 10,
+              "gold": 480980000,
+              "food": 161200000,
+              "iron": 161200000,
+              "valor": 3000,
+              "requirements": []
+            }
+          ]
+        },
+        {
+          "id": "support-hero-attack-1",
+          "name": "Support: Hero Attack I",
+          "image": "/images/tech/tactical-weapon/support-hero-attack-1.png",
+          "maxLevel": 10,
+          "currentLevel": 0,
+          "levels": [
+            {
+              "level": 1,
+              "gold": 135580000,
+              "food": 45160000,
+              "iron": 45160000,
+              "valor": 2000,
+              "requirements": [
+                {
+                  "elementId": "Troop Type Mastery",
+                  "minLevel": "180%",
+                  "external": true
+                }
+              ]
+            },
+            {
+              "level": 2,
+              "gold": 135580000,
+              "food": 45160000,
+              "iron": 45160000,
+              "valor": 2000,
+              "requirements": []
+            },
+            {
+              "level": 3,
+              "gold": 189790000,
+              "food": 63260000,
+              "iron": 63260000,
+              "valor": 2250,
+              "requirements": []
+            },
+            {
+              "level": 4,
+              "gold": 189790000,
+              "food": 63260000,
+              "iron": 63260000,
+              "valor": 2250,
+              "requirements": []
+            },
+            {
+              "level": 5,
+              "gold": 246670000,
+              "food": 82220000,
+              "iron": 82220000,
+              "valor": 2500,
+              "requirements": []
+            },
+            {
+              "level": 6,
+              "gold": 246670000,
+              "food": 82220000,
+              "iron": 82220000,
+              "valor": 2500,
+              "requirements": []
+            },
+            {
+              "level": 7,
+              "gold": 363825000,
+              "food": 122000000,
+              "iron": 122000000,
+              "valor": 2750,
+              "requirements": []
+            },
+            {
+              "level": 8,
+              "gold": 363825000,
+              "food": 122000000,
+              "iron": 122000000,
+              "valor": 2750,
+              "requirements": []
+            },
+            {
+              "level": 9,
+              "gold": 480980000,
+              "food": 161200000,
+              "iron": 161200000,
+              "valor": 3000,
+              "requirements": []
+            },
+            {
+              "level": 10,
+              "gold": 480980000,
+              "food": 161200000,
+              "iron": 161200000,
+              "valor": 3000,
+              "requirements": []
+            }
+          ]
+        },
+        {
+          "id": "support-hero-defense-1",
+          "name": "Support: Hero Defense I",
+          "image": "/images/tech/tactical-weapon/support-hero-defense-1.png",
+          "maxLevel": 10,
+          "currentLevel": 0,
+          "levels": [
+            {
+              "level": 1,
+              "gold": 135580000,
+              "food": 45160000,
+              "iron": 45160000,
+              "valor": 2000,
+              "requirements": [
+                {
+                  "elementId": "Troop Type Mastery",
+                  "minLevel": "180%",
+                  "external": true
+                }
+              ]
+            },
+            {
+              "level": 2,
+              "gold": 135580000,
+              "food": 45160000,
+              "iron": 45160000,
+              "valor": 2000,
+              "requirements": []
+            },
+            {
+              "level": 3,
+              "gold": 189790000,
+              "food": 63260000,
+              "iron": 63260000,
+              "valor": 2250,
+              "requirements": []
+            },
+            {
+              "level": 4,
+              "gold": 189790000,
+              "food": 63260000,
+              "iron": 63260000,
+              "valor": 2250,
+              "requirements": []
+            },
+            {
+              "level": 5,
+              "gold": 246670000,
+              "food": 82220000,
+              "iron": 82220000,
+              "valor": 2500,
+              "requirements": []
+            },
+            {
+              "level": 6,
+              "gold": 246670000,
+              "food": 82220000,
+              "iron": 82220000,
+              "valor": 2500,
+              "requirements": []
+            },
+            {
+              "level": 7,
+              "gold": 363825000,
+              "food": 122000000,
+              "iron": 122000000,
+              "valor": 2750,
+              "requirements": []
+            },
+            {
+              "level": 8,
+              "gold": 363825000,
+              "food": 122000000,
+              "iron": 122000000,
+              "valor": 2750,
+              "requirements": []
+            },
+            {
+              "level": 9,
+              "gold": 480980000,
+              "food": 161200000,
+              "iron": 161200000,
+              "valor": 3000,
+              "requirements": []
+            },
+            {
+              "level": 10,
+              "gold": 480980000,
+              "food": 161200000,
+              "iron": 161200000,
+              "valor": 3000,
+              "requirements": []
+            }
+          ]
+        }
+      ],
+      "connections": [
+        {
+          "from": "support-hero-hp-1",
+          "to": [
+            "enhancement-drone-hp-1"
+          ]
+        },
+        {
+          "from": "support-hero-attack-1",
+          "to": [
+            "enhancement-drone-attack-1"
+          ]
+        },
+        {
+          "from": "support-hero-defense-1",
+          "to": [
+            "enhancement-drone-defense-1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "row-2",
+      "elements": [
+        {
+          "id": "enhancement-drone-hp-1",
+          "name": "Enhancement: Drone HP I",
+          "image": "/images/tech/tactical-weapon/enhancement-drone-hp-1.png",
+          "maxLevel": 10,
+          "currentLevel": 0,
+          "levels": [
+            {
+              "level": 1,
+              "gold": 135580000,
+              "food": 45160000,
+              "iron": 45160000,
+              "valor": 2000,
+              "requirements": [
+                {
+                  "elementId": "support-hero-hp-1",
+                  "minLevel": 1
+                },
+                {
+                  "elementId": "support-hero-attack-1",
+                  "minLevel": 1
+                },
+                {
+                  "elementId": "support-hero-defense-1",
+                  "minLevel": 1
+                }
+              ]
+            },
+            {
+              "level": 2,
+              "gold": 135580000,
+              "food": 45160000,
+              "iron": 45160000,
+              "valor": 2000,
+              "requirements": []
+            },
+            {
+              "level": 3,
+              "gold": 189790000,
+              "food": 63260000,
+              "iron": 63260000,
+              "valor": 2250,
+              "requirements": [
+                {
+                  "elementId": "support-hero-hp-1",
+                  "minLevel": 3
+                },
+                {
+                  "elementId": "support-hero-attack-1",
+                  "minLevel": 3
+                },
+                {
+                  "elementId": "support-hero-defense-1",
+                  "minLevel": 3
+                }
+              ]
+            },
+            {
+              "level": 4,
+              "gold": 189790000,
+              "food": 63260000,
+              "iron": 63260000,
+              "valor": 2250,
+              "requirements": []
+            },
+            {
+              "level": 5,
+              "gold": 246670000,
+              "food": 82220000,
+              "iron": 82220000,
+              "valor": 2500,
+              "requirements": []
+            },
+            {
+              "level": 6,
+              "gold": 246670000,
+              "food": 82220000,
+              "iron": 82220000,
+              "valor": 2500,
+              "requirements": [
+                {
+                  "elementId": "support-hero-hp-1",
+                  "minLevel": 6
+                },
+                {
+                  "elementId": "support-hero-attack-1",
+                  "minLevel": 6
+                },
+                {
+                  "elementId": "support-hero-defense-1",
+                  "minLevel": 6
+                }
+              ]
+            },
+            {
+              "level": 7,
+              "gold": 363825000,
+              "food": 122000000,
+              "iron": 122000000,
+              "valor": 2750,
+              "requirements": []
+            },
+            {
+              "level": 8,
+              "gold": 363825000,
+              "food": 122000000,
+              "iron": 122000000,
+              "valor": 2750,
+              "requirements": []
+            },
+            {
+              "level": 9,
+              "gold": 480980000,
+              "food": 161200000,
+              "iron": 161200000,
+              "valor": 3000,
+              "requirements": [
+                {
+                  "elementId": "support-hero-hp-1",
+                  "minLevel": 9
+                },
+                {
+                  "elementId": "support-hero-attack-1",
+                  "minLevel": 9
+                },
+                {
+                  "elementId": "support-hero-defense-1",
+                  "minLevel": 9
+                }
+              ]
+            },
+            {
+              "level": 10,
+              "gold": 480980000,
+              "food": 161200000,
+              "iron": 161200000,
+              "valor": 3000,
+              "requirements": []
+            }
+          ]
+        },
+        {
+          "id": "enhancement-drone-attack-1",
+          "name": "Enhancement: Drone Attack I",
+          "image": "/images/tech/tactical-weapon/enhancement-drone-attack-1.png",
+          "maxLevel": 10,
+          "currentLevel": 0,
+          "levels": [
+            {
+              "level": 1,
+              "gold": 135580000,
+              "food": 45160000,
+              "iron": 45160000,
+              "valor": 2000,
+              "requirements": [
+                {
+                  "elementId": "support-hero-hp-1",
+                  "minLevel": 1
+                },
+                {
+                  "elementId": "support-hero-attack-1",
+                  "minLevel": 1
+                },
+                {
+                  "elementId": "support-hero-defense-1",
+                  "minLevel": 1
+                }
+              ]
+            },
+            {
+              "level": 2,
+              "gold": 135580000,
+              "food": 45160000,
+              "iron": 45160000,
+              "valor": 2000,
+              "requirements": []
+            },
+            {
+              "level": 3,
+              "gold": 189790000,
+              "food": 63260000,
+              "iron": 63260000,
+              "valor": 2250,
+              "requirements": [
+                {
+                  "elementId": "support-hero-hp-1",
+                  "minLevel": 3
+                },
+                {
+                  "elementId": "support-hero-attack-1",
+                  "minLevel": 3
+                },
+                {
+                  "elementId": "support-hero-defense-1",
+                  "minLevel": 3
+                }
+              ]
+            },
+            {
+              "level": 4,
+              "gold": 189790000,
+              "food": 63260000,
+              "iron": 63260000,
+              "valor": 2250,
+              "requirements": []
+            },
+            {
+              "level": 5,
+              "gold": 246670000,
+              "food": 82220000,
+              "iron": 82220000,
+              "valor": 2500,
+              "requirements": []
+            },
+            {
+              "level": 6,
+              "gold": 246670000,
+              "food": 82220000,
+              "iron": 82220000,
+              "valor": 2500,
+              "requirements": [
+                {
+                  "elementId": "support-hero-hp-1",
+                  "minLevel": 6
+                },
+                {
+                  "elementId": "support-hero-attack-1",
+                  "minLevel": 6
+                },
+                {
+                  "elementId": "support-hero-defense-1",
+                  "minLevel": 6
+                }
+              ]
+            },
+            {
+              "level": 7,
+              "gold": 363825000,
+              "food": 122000000,
+              "iron": 122000000,
+              "valor": 2750,
+              "requirements": []
+            },
+            {
+              "level": 8,
+              "gold": 363825000,
+              "food": 122000000,
+              "iron": 122000000,
+              "valor": 2750,
+              "requirements": []
+            },
+            {
+              "level": 9,
+              "gold": 480980000,
+              "food": 161200000,
+              "iron": 161200000,
+              "valor": 3000,
+              "requirements": [
+                {
+                  "elementId": "support-hero-hp-1",
+                  "minLevel": 9
+                },
+                {
+                  "elementId": "support-hero-attack-1",
+                  "minLevel": 9
+                },
+                {
+                  "elementId": "support-hero-defense-1",
+                  "minLevel": 9
+                }
+              ]
+            },
+            {
+              "level": 10,
+              "gold": 480980000,
+              "food": 161200000,
+              "iron": 161200000,
+              "valor": 3000,
+              "requirements": []
+            }
+          ]
+        },
+        {
+          "id": "enhancement-drone-defense-1",
+          "name": "Enhancement: Drone Defense I",
+          "image": "/images/tech/tactical-weapon/enhancement-drone-defense-1.png",
+          "maxLevel": 10,
+          "currentLevel": 0,
+          "levels": [
+            {
+              "level": 1,
+              "gold": 135580000,
+              "food": 45160000,
+              "iron": 45160000,
+              "valor": 2000,
+              "requirements": [
+                {
+                  "elementId": "support-hero-hp-1",
+                  "minLevel": 1
+                },
+                {
+                  "elementId": "support-hero-attack-1",
+                  "minLevel": 1
+                },
+                {
+                  "elementId": "support-hero-defense-1",
+                  "minLevel": 1
+                }
+              ]
+            },
+            {
+              "level": 2,
+              "gold": 135580000,
+              "food": 45160000,
+              "iron": 45160000,
+              "valor": 2000,
+              "requirements": []
+            },
+            {
+              "level": 3,
+              "gold": 189790000,
+              "food": 63260000,
+              "iron": 63260000,
+              "valor": 2250,
+              "requirements": [
+                {
+                  "elementId": "support-hero-hp-1",
+                  "minLevel": 3
+                },
+                {
+                  "elementId": "support-hero-attack-1",
+                  "minLevel": 3
+                },
+                {
+                  "elementId": "support-hero-defense-1",
+                  "minLevel": 3
+                }
+              ]
+            },
+            {
+              "level": 4,
+              "gold": 189790000,
+              "food": 63260000,
+              "iron": 63260000,
+              "valor": 2250,
+              "requirements": []
+            },
+            {
+              "level": 5,
+              "gold": 246670000,
+              "food": 82220000,
+              "iron": 82220000,
+              "valor": 2500,
+              "requirements": []
+            },
+            {
+              "level": 6,
+              "gold": 246670000,
+              "food": 82220000,
+              "iron": 82220000,
+              "valor": 2500,
+              "requirements": [
+                {
+                  "elementId": "support-hero-hp-1",
+                  "minLevel": 6
+                },
+                {
+                  "elementId": "support-hero-attack-1",
+                  "minLevel": 6
+                },
+                {
+                  "elementId": "support-hero-defense-1",
+                  "minLevel": 6
+                }
+              ]
+            },
+            {
+              "level": 7,
+              "gold": 363825000,
+              "food": 122000000,
+              "iron": 122000000,
+              "valor": 2750,
+              "requirements": []
+            },
+            {
+              "level": 8,
+              "gold": 363825000,
+              "food": 122000000,
+              "iron": 122000000,
+              "valor": 2750,
+              "requirements": []
+            },
+            {
+              "level": 9,
+              "gold": 480980000,
+              "food": 161200000,
+              "iron": 161200000,
+              "valor": 3000,
+              "requirements": [
+                {
+                  "elementId": "support-hero-hp-1",
+                  "minLevel": 9
+                },
+                {
+                  "elementId": "support-hero-attack-1",
+                  "minLevel": 9
+                },
+                {
+                  "elementId": "support-hero-defense-1",
+                  "minLevel": 9
+                }
+              ]
+            },
+            {
+              "level": 10,
+              "gold": 480980000,
+              "food": 161200000,
+              "iron": 161200000,
+              "valor": 3000,
+              "requirements": []
+            }
+          ]
+        }
+      ],
+      "connections": [
+        {
+          "from": "enhancement-drone-hp-1",
+          "to": [
+            "assistance-hp-conversion-1"
+          ]
+        },
+        {
+          "from": "enhancement-drone-attack-1",
+          "to": [
+            "assistance-attack-conversion-1"
+          ]
+        },
+        {
+          "from": "enhancement-drone-defense-1",
+          "to": [
+            "assistance-defense-conversion-1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "row-3",
+      "elements": [
+        {
+          "id": "assistance-hp-conversion-1",
+          "name": "Assistance: HP Conversion I",
+          "image": "/images/tech/tactical-weapon/assistance-hp-conversion-1.png",
+          "maxLevel": 10,
+          "currentLevel": 0,
+          "levels": [
+            {
+              "level": 1,
+              "gold": 135580000,
+              "food": 45160000,
+              "iron": 45160000,
+              "valor": 2000,
+              "requirements": [
+                {
+                  "elementId": "enhancement-drone-hp-1",
+                  "minLevel": 1
+                },
+                {
+                  "elementId": "enhancement-drone-attack-1",
+                  "minLevel": 1
+                },
+                {
+                  "elementId": "enhancement-drone-defense-1",
+                  "minLevel": 1
+                }
+              ]
+            },
+            {
+              "level": 2,
+              "gold": 135580000,
+              "food": 45160000,
+              "iron": 45160000,
+              "valor": 2000,
+              "requirements": []
+            },
+            {
+              "level": 3,
+              "gold": 189790000,
+              "food": 63260000,
+              "iron": 63260000,
+              "valor": 2250,
+              "requirements": [
+                {
+                  "elementId": "enhancement-drone-hp-1",
+                  "minLevel": 3
+                },
+                {
+                  "elementId": "enhancement-drone-attack-1",
+                  "minLevel": 3
+                },
+                {
+                  "elementId": "enhancement-drone-defense-1",
+                  "minLevel": 3
+                }
+              ]
+            },
+            {
+              "level": 4,
+              "gold": 189790000,
+              "food": 63260000,
+              "iron": 63260000,
+              "valor": 2250,
+              "requirements": []
+            },
+            {
+              "level": 5,
+              "gold": 246670000,
+              "food": 82220000,
+              "iron": 82220000,
+              "valor": 2500,
+              "requirements": []
+            },
+            {
+              "level": 6,
+              "gold": 246670000,
+              "food": 82220000,
+              "iron": 82220000,
+              "valor": 2500,
+              "requirements": [
+                {
+                  "elementId": "enhancement-drone-hp-1",
+                  "minLevel": 6
+                },
+                {
+                  "elementId": "enhancement-drone-attack-1",
+                  "minLevel": 6
+                },
+                {
+                  "elementId": "enhancement-drone-defense-1",
+                  "minLevel": 6
+                }
+              ]
+            },
+            {
+              "level": 7,
+              "gold": 363825000,
+              "food": 122000000,
+              "iron": 122000000,
+              "valor": 2750,
+              "requirements": []
+            },
+            {
+              "level": 8,
+              "gold": 363825000,
+              "food": 122000000,
+              "iron": 122000000,
+              "valor": 2750,
+              "requirements": []
+            },
+            {
+              "level": 9,
+              "gold": 480980000,
+              "food": 161200000,
+              "iron": 161200000,
+              "valor": 3000,
+              "requirements": [
+                {
+                  "elementId": "enhancement-drone-hp-1",
+                  "minLevel": 9
+                },
+                {
+                  "elementId": "enhancement-drone-attack-1",
+                  "minLevel": 9
+                },
+                {
+                  "elementId": "enhancement-drone-defense-1",
+                  "minLevel": 9
+                }
+              ]
+            },
+            {
+              "level": 10,
+              "gold": 480980000,
+              "food": 161200000,
+              "iron": 161200000,
+              "valor": 3000,
+              "requirements": []
+            }
+          ]
+        },
+        {
+          "id": "assistance-attack-conversion-1",
+          "name": "Assistance: Attack Conversion I",
+          "image": "/images/tech/tactical-weapon/assistance-attack-conversion-1.png",
+          "maxLevel": 10,
+          "currentLevel": 0,
+          "levels": [
+            {
+              "level": 1,
+              "gold": 135580000,
+              "food": 45160000,
+              "iron": 45160000,
+              "valor": 2000,
+              "requirements": [
+                {
+                  "elementId": "enhancement-drone-hp-1",
+                  "minLevel": 1
+                },
+                {
+                  "elementId": "enhancement-drone-attack-1",
+                  "minLevel": 1
+                },
+                {
+                  "elementId": "enhancement-drone-defense-1",
+                  "minLevel": 1
+                }
+              ]
+            },
+            {
+              "level": 2,
+              "gold": 135580000,
+              "food": 45160000,
+              "iron": 45160000,
+              "valor": 2000,
+              "requirements": []
+            },
+            {
+              "level": 3,
+              "gold": 189790000,
+              "food": 63260000,
+              "iron": 63260000,
+              "valor": 2250,
+              "requirements": [
+                {
+                  "elementId": "enhancement-drone-hp-1",
+                  "minLevel": 3
+                },
+                {
+                  "elementId": "enhancement-drone-attack-1",
+                  "minLevel": 3
+                },
+                {
+                  "elementId": "enhancement-drone-defense-1",
+                  "minLevel": 3
+                }
+              ]
+            },
+            {
+              "level": 4,
+              "gold": 189790000,
+              "food": 63260000,
+              "iron": 63260000,
+              "valor": 2250,
+              "requirements": []
+            },
+            {
+              "level": 5,
+              "gold": 246670000,
+              "food": 82220000,
+              "iron": 82220000,
+              "valor": 2500,
+              "requirements": []
+            },
+            {
+              "level": 6,
+              "gold": 246670000,
+              "food": 82220000,
+              "iron": 82220000,
+              "valor": 2500,
+              "requirements": [
+                {
+                  "elementId": "enhancement-drone-hp-1",
+                  "minLevel": 6
+                },
+                {
+                  "elementId": "enhancement-drone-attack-1",
+                  "minLevel": 6
+                },
+                {
+                  "elementId": "enhancement-drone-defense-1",
+                  "minLevel": 6
+                }
+              ]
+            },
+            {
+              "level": 7,
+              "gold": 363825000,
+              "food": 122000000,
+              "iron": 122000000,
+              "valor": 2750,
+              "requirements": []
+            },
+            {
+              "level": 8,
+              "gold": 363825000,
+              "food": 122000000,
+              "iron": 122000000,
+              "valor": 2750,
+              "requirements": []
+            },
+            {
+              "level": 9,
+              "gold": 480980000,
+              "food": 161200000,
+              "iron": 161200000,
+              "valor": 3000,
+              "requirements": [
+                {
+                  "elementId": "enhancement-drone-hp-1",
+                  "minLevel": 9
+                },
+                {
+                  "elementId": "enhancement-drone-attack-1",
+                  "minLevel": 9
+                },
+                {
+                  "elementId": "enhancement-drone-defense-1",
+                  "minLevel": 9
+                }
+              ]
+            },
+            {
+              "level": 10,
+              "gold": 480980000,
+              "food": 161200000,
+              "iron": 161200000,
+              "valor": 3000,
+              "requirements": []
+            }
+          ]
+        },
+        {
+          "id": "assistance-defense-conversion-1",
+          "name": "Assistance: Defense Conversion I",
+          "image": "/images/tech/tactical-weapon/assistance-defense-conversion-1.png",
+          "maxLevel": 10,
+          "currentLevel": 0,
+          "levels": [
+            {
+              "level": 1,
+              "gold": 135580000,
+              "food": 45160000,
+              "iron": 45160000,
+              "valor": 2000,
+              "requirements": [
+                {
+                  "elementId": "enhancement-drone-hp-1",
+                  "minLevel": 1
+                },
+                {
+                  "elementId": "enhancement-drone-attack-1",
+                  "minLevel": 1
+                },
+                {
+                  "elementId": "enhancement-drone-defense-1",
+                  "minLevel": 1
+                }
+              ]
+            },
+            {
+              "level": 2,
+              "gold": 135580000,
+              "food": 45160000,
+              "iron": 45160000,
+              "valor": 2000,
+              "requirements": []
+            },
+            {
+              "level": 3,
+              "gold": 189790000,
+              "food": 63260000,
+              "iron": 63260000,
+              "valor": 2250,
+              "requirements": [
+                {
+                  "elementId": "enhancement-drone-hp-1",
+                  "minLevel": 3
+                },
+                {
+                  "elementId": "enhancement-drone-attack-1",
+                  "minLevel": 3
+                },
+                {
+                  "elementId": "enhancement-drone-defense-1",
+                  "minLevel": 3
+                }
+              ]
+            },
+            {
+              "level": 4,
+              "gold": 189790000,
+              "food": 63260000,
+              "iron": 63260000,
+              "valor": 2250,
+              "requirements": []
+            },
+            {
+              "level": 5,
+              "gold": 246670000,
+              "food": 82220000,
+              "iron": 82220000,
+              "valor": 2500,
+              "requirements": []
+            },
+            {
+              "level": 6,
+              "gold": 246670000,
+              "food": 82220000,
+              "iron": 82220000,
+              "valor": 2500,
+              "requirements": [
+                {
+                  "elementId": "enhancement-drone-hp-1",
+                  "minLevel": 6
+                },
+                {
+                  "elementId": "enhancement-drone-attack-1",
+                  "minLevel": 6
+                },
+                {
+                  "elementId": "enhancement-drone-defense-1",
+                  "minLevel": 6
+                }
+              ]
+            },
+            {
+              "level": 7,
+              "gold": 363825000,
+              "food": 122000000,
+              "iron": 122000000,
+              "valor": 2750,
+              "requirements": []
+            },
+            {
+              "level": 8,
+              "gold": 363825000,
+              "food": 122000000,
+              "iron": 122000000,
+              "valor": 2750,
+              "requirements": []
+            },
+            {
+              "level": 9,
+              "gold": 480980000,
+              "food": 161200000,
+              "iron": 161200000,
+              "valor": 3000,
+              "requirements": [
+                {
+                  "elementId": "enhancement-drone-hp-1",
+                  "minLevel": 9
+                },
+                {
+                  "elementId": "enhancement-drone-attack-1",
+                  "minLevel": 9
+                },
+                {
+                  "elementId": "enhancement-drone-defense-1",
+                  "minLevel": 9
+                }
+              ]
+            },
+            {
+              "level": 10,
+              "gold": 480980000,
+              "food": 161200000,
+              "iron": 161200000,
+              "valor": 3000,
+              "requirements": []
+            }
+          ]
+        }
+      ],
+      "connections": [
+        {
+          "from": "assistance-hp-conversion-1",
+          "to": [
+            "limit-break-skill-star-1"
+          ]
+        },
+        {
+          "from": "assistance-attack-conversion-1",
+          "to": [
+            "limit-break-skill-star-1"
+          ]
+        },
+        {
+          "from": "assistance-defense-conversion-1",
+          "to": [
+            "limit-break-skill-star-1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "row-4",
+      "elements": [
+        {
+          "id": "limit-break-skill-star-1",
+          "name": "Limit Break: Skill Star I",
+          "image": "/images/tech/tactical-weapon/limit-break-skill-star-1.png",
+          "maxLevel": 1,
+          "currentLevel": 0,
+          "levels": [
+            {
+              "level": 1,
+              "gold": 483580000,
+              "food": 161600000,
+              "iron": 161600000,
+              "valor": 7500,
+              "requirements": [
+                {
+                  "elementId": "assistance-hp-conversion-1",
+                  "minLevel": 10
+                },
+                {
+                  "elementId": "assistance-attack-conversion-1",
+                  "minLevel": 10
+                },
+                {
+                  "elementId": "assistance-defense-conversion-1",
+                  "minLevel": 10
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "connections": [
+        {
+          "from": "limit-break-skill-star-1",
+          "to": [
+            "support-hero-hp-2",
+            "support-hero-attack-2",
+            "support-hero-defense-2"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "row-5",
+      "elements": [
+        {
+          "id": "support-hero-hp-2",
+          "name": "Support: Hero HP II",
+          "image": "/images/tech/tactical-weapon/support-hero-hp-2.png",
+          "maxLevel": 10,
+          "currentLevel": 0,
+          "levels": [
+            {
+              "level": 1,
+              "gold": 189790000,
+              "food": 63260000,
+              "iron": 63260000,
+              "valor": 2250,
+              "requirements": [
+                {
+                  "elementId": "limit-break-skill-star-1",
+                  "minLevel": 1
+                }
+              ]
+            },
+            {
+              "level": 2,
+              "gold": 189790000,
+              "food": 63260000,
+              "iron": 63260000,
+              "valor": 2250,
+              "requirements": []
+            },
+            {
+              "level": 3,
+              "gold": 246670000,
+              "food": 82220000,
+              "iron": 82220000,
+              "valor": 2500,
+              "requirements": []
+            },
+            {
+              "level": 4,
+              "gold": 246670000,
+              "food": 82220000,
+              "iron": 82220000,
+              "valor": 2500,
+              "requirements": []
+            },
+            {
+              "level": 5,
+              "gold": 363825000,
+              "food": 122000000,
+              "iron": 122000000,
+              "valor": 2750,
+              "requirements": []
+            },
+            {
+              "level": 6,
+              "gold": 363825000,
+              "food": 122000000,
+              "iron": 122000000,
+              "valor": 2750,
+              "requirements": []
+            },
+            {
+              "level": 7,
+              "gold": 480980000,
+              "food": 161200000,
+              "iron": 161200000,
+              "valor": 3000,
+              "requirements": []
+            },
+            {
+              "level": 8,
+              "gold": 480980000,
+              "food": 161200000,
+              "iron": 161200000,
+              "valor": 3000,
+              "requirements": []
+            },
+            {
+              "level": 9,
+              "gold": 677000000,
+              "food": 225670000,
+              "iron": 225670000,
+              "valor": 3250,
+              "requirements": []
+            },
+            {
+              "level": 10,
+              "gold": 677000000,
+              "food": 225670000,
+              "iron": 225670000,
+              "valor": 3250,
+              "requirements": []
+            }
+          ]
+        },
+        {
+          "id": "support-hero-attack-2",
+          "name": "Support: Hero Attack II",
+          "image": "/images/tech/tactical-weapon/support-hero-attack-2.png",
+          "maxLevel": 10,
+          "currentLevel": 0,
+          "levels": [
+            {
+              "level": 1,
+              "gold": 189790000,
+              "food": 63260000,
+              "iron": 63260000,
+              "valor": 2250,
+              "requirements": [
+                {
+                  "elementId": "limit-break-skill-star-1",
+                  "minLevel": 1
+                }
+              ]
+            },
+            {
+              "level": 2,
+              "gold": 189790000,
+              "food": 63260000,
+              "iron": 63260000,
+              "valor": 2250,
+              "requirements": []
+            },
+            {
+              "level": 3,
+              "gold": 246670000,
+              "food": 82220000,
+              "iron": 82220000,
+              "valor": 2500,
+              "requirements": []
+            },
+            {
+              "level": 4,
+              "gold": 246670000,
+              "food": 82220000,
+              "iron": 82220000,
+              "valor": 2500,
+              "requirements": []
+            },
+            {
+              "level": 5,
+              "gold": 363825000,
+              "food": 122000000,
+              "iron": 122000000,
+              "valor": 2750,
+              "requirements": []
+            },
+            {
+              "level": 6,
+              "gold": 363825000,
+              "food": 122000000,
+              "iron": 122000000,
+              "valor": 2750,
+              "requirements": []
+            },
+            {
+              "level": 7,
+              "gold": 480980000,
+              "food": 161200000,
+              "iron": 161200000,
+              "valor": 3000,
+              "requirements": []
+            },
+            {
+              "level": 8,
+              "gold": 480980000,
+              "food": 161200000,
+              "iron": 161200000,
+              "valor": 3000,
+              "requirements": []
+            },
+            {
+              "level": 9,
+              "gold": 677000000,
+              "food": 225670000,
+              "iron": 225670000,
+              "valor": 3250,
+              "requirements": []
+            },
+            {
+              "level": 10,
+              "gold": 677000000,
+              "food": 225670000,
+              "iron": 225670000,
+              "valor": 3250,
+              "requirements": []
+            }
+          ]
+        },
+        {
+          "id": "support-hero-defense-2",
+          "name": "Support: Hero Defense II",
+          "image": "/images/tech/tactical-weapon/support-hero-defense-2.png",
+          "maxLevel": 10,
+          "currentLevel": 0,
+          "levels": [
+            {
+              "level": 1,
+              "gold": 189790000,
+              "food": 63260000,
+              "iron": 63260000,
+              "valor": 2250,
+              "requirements": [
+                {
+                  "elementId": "limit-break-skill-star-1",
+                  "minLevel": 1
+                }
+              ]
+            },
+            {
+              "level": 2,
+              "gold": 189790000,
+              "food": 63260000,
+              "iron": 63260000,
+              "valor": 2250,
+              "requirements": []
+            },
+            {
+              "level": 3,
+              "gold": 246670000,
+              "food": 82220000,
+              "iron": 82220000,
+              "valor": 2500,
+              "requirements": []
+            },
+            {
+              "level": 4,
+              "gold": 246670000,
+              "food": 82220000,
+              "iron": 82220000,
+              "valor": 2500,
+              "requirements": []
+            },
+            {
+              "level": 5,
+              "gold": 363825000,
+              "food": 122000000,
+              "iron": 122000000,
+              "valor": 2750,
+              "requirements": []
+            },
+            {
+              "level": 6,
+              "gold": 363825000,
+              "food": 122000000,
+              "iron": 122000000,
+              "valor": 2750,
+              "requirements": []
+            },
+            {
+              "level": 7,
+              "gold": 480980000,
+              "food": 161200000,
+              "iron": 161200000,
+              "valor": 3000,
+              "requirements": []
+            },
+            {
+              "level": 8,
+              "gold": 480980000,
+              "food": 161200000,
+              "iron": 161200000,
+              "valor": 3000,
+              "requirements": []
+            },
+            {
+              "level": 9,
+              "gold": 677000000,
+              "food": 225670000,
+              "iron": 225670000,
+              "valor": 3250,
+              "requirements": []
+            },
+            {
+              "level": 10,
+              "gold": 677000000,
+              "food": 225670000,
+              "iron": 225670000,
+              "valor": 3250,
+              "requirements": []
+            }
+          ]
+        }
+      ],
+      "connections": [
+        {
+          "from": "support-hero-hp-2",
+          "to": [
+            "enhancement-drone-hp-2"
+          ]
+        },
+        {
+          "from": "support-hero-attack-2",
+          "to": [
+            "enhancement-drone-attack-2"
+          ]
+        },
+        {
+          "from": "support-hero-defense-2",
+          "to": [
+            "enhancement-drone-defense-2"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "row-6",
+      "elements": [
+        {
+          "id": "enhancement-drone-hp-2",
+          "name": "Enhancement: Drone HP II",
+          "image": "/images/tech/tactical-weapon/enhancement-drone-hp-2.png",
+          "maxLevel": 10,
+          "currentLevel": 0,
+          "levels": [
+            {
+              "level": 1,
+              "gold": 189790000,
+              "food": 63260000,
+              "iron": 63260000,
+              "valor": 2250,
+              "requirements": [
+                {
+                  "elementId": "support-hero-hp-2",
+                  "minLevel": 1
+                }
+              ]
+            },
+            {
+              "level": 2,
+              "gold": 189790000,
+              "food": 63260000,
+              "iron": 63260000,
+              "valor": 2250,
+              "requirements": []
+            },
+            {
+              "level": 3,
+              "gold": 246670000,
+              "food": 82220000,
+              "iron": 82220000,
+              "valor": 2500,
+              "requirements": []
+            },
+            {
+              "level": 4,
+              "gold": 246670000,
+              "food": 82220000,
+              "iron": 82220000,
+              "valor": 2500,
+              "requirements": []
+            },
+            {
+              "level": 5,
+              "gold": 363825000,
+              "food": 122000000,
+              "iron": 122000000,
+              "valor": 2750,
+              "requirements": []
+            },
+            {
+              "level": 6,
+              "gold": 363825000,
+              "food": 122000000,
+              "iron": 122000000,
+              "valor": 2750,
+              "requirements": []
+            },
+            {
+              "level": 7,
+              "gold": 480980000,
+              "food": 161200000,
+              "iron": 161200000,
+              "valor": 3000,
+              "requirements": []
+            },
+            {
+              "level": 8,
+              "gold": 480980000,
+              "food": 161200000,
+              "iron": 161200000,
+              "valor": 3000,
+              "requirements": []
+            },
+            {
+              "level": 9,
+              "gold": 677000000,
+              "food": 225670000,
+              "iron": 225670000,
+              "valor": 3250,
+              "requirements": []
+            },
+            {
+              "level": 10,
+              "gold": 677000000,
+              "food": 225670000,
+              "iron": 225670000,
+              "valor": 3250,
+              "requirements": []
+            }
+          ]
+        },
+        {
+          "id": "enhancement-drone-attack-2",
+          "name": "Enhancement: Drone Attack II",
+          "image": "/images/tech/tactical-weapon/enhancement-drone-attack-2.png",
+          "maxLevel": 10,
+          "currentLevel": 0,
+          "levels": [
+            {
+              "level": 1,
+              "gold": 189790000,
+              "food": 63260000,
+              "iron": 63260000,
+              "valor": 2250,
+              "requirements": [
+                {
+                  "elementId": "support-hero-attack-2",
+                  "minLevel": 1
+                }
+              ]
+            },
+            {
+              "level": 2,
+              "gold": 189790000,
+              "food": 63260000,
+              "iron": 63260000,
+              "valor": 2250,
+              "requirements": []
+            },
+            {
+              "level": 3,
+              "gold": 246670000,
+              "food": 82220000,
+              "iron": 82220000,
+              "valor": 2500,
+              "requirements": []
+            },
+            {
+              "level": 4,
+              "gold": 246670000,
+              "food": 82220000,
+              "iron": 82220000,
+              "valor": 2500,
+              "requirements": []
+            },
+            {
+              "level": 5,
+              "gold": 363825000,
+              "food": 122000000,
+              "iron": 122000000,
+              "valor": 2750,
+              "requirements": []
+            },
+            {
+              "level": 6,
+              "gold": 363825000,
+              "food": 122000000,
+              "iron": 122000000,
+              "valor": 2750,
+              "requirements": []
+            },
+            {
+              "level": 7,
+              "gold": 480980000,
+              "food": 161200000,
+              "iron": 161200000,
+              "valor": 3000,
+              "requirements": []
+            },
+            {
+              "level": 8,
+              "gold": 480980000,
+              "food": 161200000,
+              "iron": 161200000,
+              "valor": 3000,
+              "requirements": []
+            },
+            {
+              "level": 9,
+              "gold": 677000000,
+              "food": 225670000,
+              "iron": 225670000,
+              "valor": 3250,
+              "requirements": []
+            },
+            {
+              "level": 10,
+              "gold": 677000000,
+              "food": 225670000,
+              "iron": 225670000,
+              "valor": 3250,
+              "requirements": []
+            }
+          ]
+        },
+        {
+          "id": "enhancement-drone-defense-2",
+          "name": "Enhancement: Drone Defense II",
+          "image": "/images/tech/tactical-weapon/enhancement-drone-defense-2.png",
+          "maxLevel": 10,
+          "currentLevel": 0,
+          "levels": [
+            {
+              "level": 1,
+              "gold": 189790000,
+              "food": 63260000,
+              "iron": 63260000,
+              "valor": 2250,
+              "requirements": [
+                {
+                  "elementId": "support-hero-defense-2",
+                  "minLevel": 1
+                }
+              ]
+            },
+            {
+              "level": 2,
+              "gold": 189790000,
+              "food": 63260000,
+              "iron": 63260000,
+              "valor": 2250,
+              "requirements": []
+            },
+            {
+              "level": 3,
+              "gold": 246670000,
+              "food": 82220000,
+              "iron": 82220000,
+              "valor": 2500,
+              "requirements": []
+            },
+            {
+              "level": 4,
+              "gold": 246670000,
+              "food": 82220000,
+              "iron": 82220000,
+              "valor": 2500,
+              "requirements": []
+            },
+            {
+              "level": 5,
+              "gold": 363825000,
+              "food": 122000000,
+              "iron": 122000000,
+              "valor": 2750,
+              "requirements": []
+            },
+            {
+              "level": 6,
+              "gold": 363825000,
+              "food": 122000000,
+              "iron": 122000000,
+              "valor": 2750,
+              "requirements": []
+            },
+            {
+              "level": 7,
+              "gold": 480980000,
+              "food": 161200000,
+              "iron": 161200000,
+              "valor": 3000,
+              "requirements": []
+            },
+            {
+              "level": 8,
+              "gold": 480980000,
+              "food": 161200000,
+              "iron": 161200000,
+              "valor": 3000,
+              "requirements": []
+            },
+            {
+              "level": 9,
+              "gold": 677000000,
+              "food": 225670000,
+              "iron": 225670000,
+              "valor": 3250,
+              "requirements": []
+            },
+            {
+              "level": 10,
+              "gold": 677000000,
+              "food": 225670000,
+              "iron": 225670000,
+              "valor": 3250,
+              "requirements": []
+            }
+          ]
+        }
+      ],
+      "connections": [
+        {
+          "from": "enhancement-drone-hp-2",
+          "to": [
+            "assistance-hp-conversion-2"
+          ]
+        },
+        {
+          "from": "enhancement-drone-attack-2",
+          "to": [
+            "assistance-attack-conversion-2"
+          ]
+        },
+        {
+          "from": "enhancement-drone-defense-2",
+          "to": [
+            "assistance-defense-conversion-2"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "row-7",
+      "elements": [
+        {
+          "id": "assistance-hp-conversion-2",
+          "name": "Assistance: HP Conversion II",
+          "image": "/images/tech/tactical-weapon/assistance-hp-conversion-2.png",
+          "maxLevel": 10,
+          "currentLevel": 0,
+          "levels": [
+            {
+              "level": 1,
+              "gold": 189790000,
+              "food": 63260000,
+              "iron": 63260000,
+              "valor": 2250,
+              "requirements": [
+                {
+                  "elementId": "enhancement-drone-hp-2",
+                  "minLevel": 1
+                }
+              ]
+            },
+            {
+              "level": 2,
+              "gold": 189790000,
+              "food": 63260000,
+              "iron": 63260000,
+              "valor": 2250,
+              "requirements": []
+            },
+            {
+              "level": 3,
+              "gold": 246670000,
+              "food": 82220000,
+              "iron": 82220000,
+              "valor": 2500,
+              "requirements": []
+            },
+            {
+              "level": 4,
+              "gold": 246670000,
+              "food": 82220000,
+              "iron": 82220000,
+              "valor": 2500,
+              "requirements": []
+            },
+            {
+              "level": 5,
+              "gold": 363825000,
+              "food": 122000000,
+              "iron": 122000000,
+              "valor": 2750,
+              "requirements": []
+            },
+            {
+              "level": 6,
+              "gold": 363825000,
+              "food": 122000000,
+              "iron": 122000000,
+              "valor": 2750,
+              "requirements": []
+            },
+            {
+              "level": 7,
+              "gold": 480980000,
+              "food": 161200000,
+              "iron": 161200000,
+              "valor": 3000,
+              "requirements": []
+            },
+            {
+              "level": 8,
+              "gold": 480980000,
+              "food": 161200000,
+              "iron": 161200000,
+              "valor": 3000,
+              "requirements": []
+            },
+            {
+              "level": 9,
+              "gold": 677000000,
+              "food": 225670000,
+              "iron": 225670000,
+              "valor": 3250,
+              "requirements": []
+            },
+            {
+              "level": 10,
+              "gold": 677000000,
+              "food": 225670000,
+              "iron": 225670000,
+              "valor": 3250,
+              "requirements": []
+            }
+          ]
+        },
+        {
+          "id": "assistance-attack-conversion-2",
+          "name": "Assistance: Attack Conversion II",
+          "image": "/images/tech/tactical-weapon/assistance-attack-conversion-2.png",
+          "maxLevel": 10,
+          "currentLevel": 0,
+          "levels": [
+            {
+              "level": 1,
+              "gold": 189790000,
+              "food": 63260000,
+              "iron": 63260000,
+              "valor": 2250,
+              "requirements": [
+                {
+                  "elementId": "enhancement-drone-attack-2",
+                  "minLevel": 1
+                }
+              ]
+            },
+            {
+              "level": 2,
+              "gold": 189790000,
+              "food": 63260000,
+              "iron": 63260000,
+              "valor": 2250,
+              "requirements": []
+            },
+            {
+              "level": 3,
+              "gold": 246670000,
+              "food": 82220000,
+              "iron": 82220000,
+              "valor": 2500,
+              "requirements": []
+            },
+            {
+              "level": 4,
+              "gold": 246670000,
+              "food": 82220000,
+              "iron": 82220000,
+              "valor": 2500,
+              "requirements": []
+            },
+            {
+              "level": 5,
+              "gold": 363825000,
+              "food": 122000000,
+              "iron": 122000000,
+              "valor": 2750,
+              "requirements": []
+            },
+            {
+              "level": 6,
+              "gold": 363825000,
+              "food": 122000000,
+              "iron": 122000000,
+              "valor": 2750,
+              "requirements": []
+            },
+            {
+              "level": 7,
+              "gold": 480980000,
+              "food": 161200000,
+              "iron": 161200000,
+              "valor": 3000,
+              "requirements": []
+            },
+            {
+              "level": 8,
+              "gold": 480980000,
+              "food": 161200000,
+              "iron": 161200000,
+              "valor": 3000,
+              "requirements": []
+            },
+            {
+              "level": 9,
+              "gold": 677000000,
+              "food": 225670000,
+              "iron": 225670000,
+              "valor": 3250,
+              "requirements": []
+            },
+            {
+              "level": 10,
+              "gold": 677000000,
+              "food": 225670000,
+              "iron": 225670000,
+              "valor": 3250,
+              "requirements": []
+            }
+          ]
+        },
+        {
+          "id": "assistance-defense-conversion-2",
+          "name": "Assistance: Defense Conversion II",
+          "image": "/images/tech/tactical-weapon/assistance-defense-conversion-2.png",
+          "maxLevel": 10,
+          "currentLevel": 0,
+          "levels": [
+            {
+              "level": 1,
+              "gold": 189790000,
+              "food": 63260000,
+              "iron": 63260000,
+              "valor": 2250,
+              "requirements": [
+                {
+                  "elementId": "enhancement-drone-defense-2",
+                  "minLevel": 1
+                }
+              ]
+            },
+            {
+              "level": 2,
+              "gold": 189790000,
+              "food": 63260000,
+              "iron": 63260000,
+              "valor": 2250,
+              "requirements": []
+            },
+            {
+              "level": 3,
+              "gold": 246670000,
+              "food": 82220000,
+              "iron": 82220000,
+              "valor": 2500,
+              "requirements": []
+            },
+            {
+              "level": 4,
+              "gold": 246670000,
+              "food": 82220000,
+              "iron": 82220000,
+              "valor": 2500,
+              "requirements": []
+            },
+            {
+              "level": 5,
+              "gold": 363825000,
+              "food": 122000000,
+              "iron": 122000000,
+              "valor": 2750,
+              "requirements": []
+            },
+            {
+              "level": 6,
+              "gold": 363825000,
+              "food": 122000000,
+              "iron": 122000000,
+              "valor": 2750,
+              "requirements": []
+            },
+            {
+              "level": 7,
+              "gold": 480980000,
+              "food": 161200000,
+              "iron": 161200000,
+              "valor": 3000,
+              "requirements": []
+            },
+            {
+              "level": 8,
+              "gold": 480980000,
+              "food": 161200000,
+              "iron": 161200000,
+              "valor": 3000,
+              "requirements": []
+            },
+            {
+              "level": 9,
+              "gold": 677000000,
+              "food": 225670000,
+              "iron": 225670000,
+              "valor": 3250,
+              "requirements": []
+            },
+            {
+              "level": 10,
+              "gold": 677000000,
+              "food": 225670000,
+              "iron": 225670000,
+              "valor": 3250,
+              "requirements": []
+            }
+          ]
+        }
+      ],
+      "connections": [
+        {
+          "from": "assistance-hp-conversion-2",
+          "to": [
+            "limit-break-skill-star-2"
+          ]
+        },
+        {
+          "from": "assistance-attack-conversion-2",
+          "to": [
+            "limit-break-skill-star-2"
+          ]
+        },
+        {
+          "from": "assistance-defense-conversion-2",
+          "to": [
+            "limit-break-skill-star-2"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "row-8",
+      "elements": [
+        {
+          "id": "limit-break-skill-star-2",
+          "name": "Limit Break: Skill Star II",
+          "image": "/images/tech/tactical-weapon/limit-break-skill-star-2.png",
+          "maxLevel": 1,
+          "currentLevel": 0,
+          "levels": [
+            {
+              "level": 1,
+              "gold": 710950000,
+              "food": 236950000,
+              "iron": 236950000,
+              "valor": 7500,
+              "requirements": [
+                {
+                  "elementId": "assistance-hp-conversion-2",
+                  "minLevel": 10
+                },
+                {
+                  "elementId": "assistance-attack-conversion-2",
+                  "minLevel": 10
+                },
+                {
+                  "elementId": "assistance-defense-conversion-2",
+                  "minLevel": 10
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "connections": [
+        {
+          "from": "limit-break-skill-star-2",
+          "to": [
+            "support-hero-hp-3",
+            "support-hero-attack-3",
+            "support-hero-defense-3"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "row-9",
+      "elements": [
+        {
+          "id": "support-hero-hp-3",
+          "name": "Support: Hero HP III",
+          "image": "/images/tech/tactical-weapon/support-hero-hp-3.png",
+          "maxLevel": 20,
+          "currentLevel": 0,
+          "levels": [
+            {
+              "level": 1,
+              "gold": 680950000,
+              "food": 226950000,
+              "iron": 226950000,
+              "valor": 3000,
+              "requirements": [
+                {
+                  "elementId": "limit-break-skill-star-2",
+                  "minLevel": 1
+                },
+                {
+                  "elementId": "Troop Type Mastery",
+                  "minLevel": "300%",
+                  "external": true
+                }
+              ]
+            },
+            {
+              "level": 2,
+              "gold": 680950000,
+              "food": 226950000,
+              "iron": 226950000,
+              "valor": 3000,
+              "requirements": [
+                {
+                  "elementId": "limit-break-skill-star-2",
+                  "minLevel": 1
+                },
+                {
+                  "elementId": "Troop Type Mastery",
+                  "minLevel": "300%",
+                  "external": true
+                }
+              ]
+            },
+            {
+              "level": 3,
+              "gold": 680950000,
+              "food": 226950000,
+              "iron": 226950000,
+              "valor": 3000,
+              "requirements": [
+                {
+                  "elementId": "limit-break-skill-star-2",
+                  "minLevel": 1
+                },
+                {
+                  "elementId": "Troop Type Mastery",
+                  "minLevel": "300%",
+                  "external": true
+                }
+              ]
+            },
+            {
+              "level": 4,
+              "gold": 680950000,
+              "food": 226950000,
+              "iron": 226950000,
+              "valor": 3000,
+              "requirements": [
+                {
+                  "elementId": "limit-break-skill-star-2",
+                  "minLevel": 1
+                },
+                {
+                  "elementId": "Troop Type Mastery",
+                  "minLevel": "300%",
+                  "external": true
+                }
+              ]
+            },
+            {
+              "level": 5,
+              "gold": 953260000,
+              "food": 317680000,
+              "iron": 317680000,
+              "valor": 3250,
+              "requirements": [
+                {
+                  "elementId": "limit-break-skill-star-2",
+                  "minLevel": 1
+                },
+                {
+                  "elementId": "Troop Type Mastery",
+                  "minLevel": "300%",
+                  "external": true
+                }
+              ]
+            },
+            {
+              "level": 6,
+              "gold": 953260000,
+              "food": 317680000,
+              "iron": 317680000,
+              "valor": 3250,
+              "requirements": [
+                {
+                  "elementId": "limit-break-skill-star-2",
+                  "minLevel": 1
+                },
+                {
+                  "elementId": "Troop Type Mastery",
+                  "minLevel": "300%",
+                  "external": true
+                }
+              ]
+            },
+            {
+              "level": 7,
+              "gold": 953260000,
+              "food": 317680000,
+              "iron": 317680000,
+              "valor": 3250,
+              "requirements": [
+                {
+                  "elementId": "limit-break-skill-star-2",
+                  "minLevel": 1
+                },
+                {
+                  "elementId": "Troop Type Mastery",
+                  "minLevel": "300%",
+                  "external": true
+                }
+              ]
+            },
+            {
+              "level": 8,
+              "gold": 953260000,
+              "food": 317680000,
+              "iron": 317680000,
+              "valor": 3250,
+              "requirements": [
+                {
+                  "elementId": "limit-break-skill-star-2",
+                  "minLevel": 1
+                },
+                {
+                  "elementId": "Troop Type Mastery",
+                  "minLevel": "300%",
+                  "external": true
+                }
+              ]
+            },
+            {
+              "level": 9,
+              "gold": 1001000000,
+              "food": 333670000,
+              "iron": 333670000,
+              "valor": 3500,
+              "requirements": [
+                {
+                  "elementId": "limit-break-skill-star-2",
+                  "minLevel": 1
+                },
+                {
+                  "elementId": "Troop Type Mastery",
+                  "minLevel": "300%",
+                  "external": true
+                }
+              ]
+            },
+            {
+              "level": 10,
+              "gold": 1001000000,
+              "food": 333670000,
+              "iron": 333670000,
+              "valor": 3500,
+              "requirements": [
+                {
+                  "elementId": "limit-break-skill-star-2",
+                  "minLevel": 1
+                },
+                {
+                  "elementId": "Troop Type Mastery",
+                  "minLevel": "300%",
+                  "external": true
+                }
+              ]
+            },
+            {
+              "level": 11,
+              "gold": 1001000000,
+              "food": 333670000,
+              "iron": 333670000,
+              "valor": 3500,
+              "requirements": [
+                {
+                  "elementId": "limit-break-skill-star-2",
+                  "minLevel": 1
+                },
+                {
+                  "elementId": "Troop Type Mastery",
+                  "minLevel": "300%",
+                  "external": true
+                }
+              ]
+            },
+            {
+              "level": 12,
+              "gold": 1001000000,
+              "food": 333670000,
+              "iron": 333670000,
+              "valor": 3500,
+              "requirements": [
+                {
+                  "elementId": "limit-break-skill-star-2",
+                  "minLevel": 1
+                },
+                {
+                  "elementId": "Troop Type Mastery",
+                  "minLevel": "300%",
+                  "external": true
+                }
+              ]
+            },
+            {
+              "level": 13,
+              "gold": 1041000000,
+              "food": 347000000,
+              "iron": 347000000,
+              "valor": 3750,
+              "requirements": [
+                {
+                  "elementId": "limit-break-skill-star-2",
+                  "minLevel": 1
+                },
+                {
+                  "elementId": "Troop Type Mastery",
+                  "minLevel": "300%",
+                  "external": true
+                }
+              ]
+            },
+            {
+              "level": 14,
+              "gold": 1041000000,
+              "food": 347000000,
+              "iron": 347000000,
+              "valor": 3750,
+              "requirements": [
+                {
+                  "elementId": "limit-break-skill-star-2",
+                  "minLevel": 1
+                },
+                {
+                  "elementId": "Troop Type Mastery",
+                  "minLevel": "300%",
+                  "external": true
+                }
+              ]
+            },
+            {
+              "level": 15,
+              "gold": 1041000000,
+              "food": 347000000,
+              "iron": 347000000,
+              "valor": 3750,
+              "requirements": [
+                {
+                  "elementId": "limit-break-skill-star-2",
+                  "minLevel": 1
+                },
+                {
+                  "elementId": "Troop Type Mastery",
+                  "minLevel": "300%",
+                  "external": true
+                }
+              ]
+            },
+            {
+              "level": 16,
+              "gold": 1041000000,
+              "food": 347000000,
+              "iron": 347000000,
+              "valor": 3750,
+              "requirements": [
+                {
+                  "elementId": "limit-break-skill-star-2",
+                  "minLevel": 1
+                },
+                {
+                  "elementId": "Troop Type Mastery",
+                  "minLevel": "300%",
+                  "external": true
+                }
+              ]
+            },
+            {
+              "level": 17,
+              "gold": 1071990000,
+              "food": 357330000,
+              "iron": 357330000,
+              "valor": 4000,
+              "requirements": [
+                {
+                  "elementId": "limit-break-skill-star-2",
+                  "minLevel": 1
+                },
+                {
+                  "elementId": "Troop Type Mastery",
+                  "minLevel": "300%",
+                  "external": true
+                }
+              ]
+            },
+            {
+              "level": 18,
+              "gold": 1071990000,
+              "food": 357330000,
+              "iron": 357330000,
+              "valor": 4000,
+              "requirements": [
+                {
+                  "elementId": "limit-break-skill-star-2",
+                  "minLevel": 1
+                },
+                {
+                  "elementId": "Troop Type Mastery",
+                  "minLevel": "300%",
+                  "external": true
+                }
+              ]
+            },
+            {
+              "level": 19,
+              "gold": 1071990000,
+              "food": 357330000,
+              "iron": 357330000,
+              "valor": 4000,
+              "requirements": [
+                {
+                  "elementId": "limit-break-skill-star-2",
+                  "minLevel": 1
+                },
+                {
+                  "elementId": "Troop Type Mastery",
+                  "minLevel": "300%",
+                  "external": true
+                }
+              ]
+            },
+            {
+              "level": 20,
+              "gold": 1071990000,
+              "food": 357330000,
+              "iron": 357330000,
+              "valor": 4000,
+              "requirements": [
+                {
+                  "elementId": "limit-break-skill-star-2",
+                  "minLevel": 1
+                },
+                {
+                  "elementId": "Troop Type Mastery",
+                  "minLevel": "300%",
+                  "external": true
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "support-hero-attack-3",
+          "name": "Support: Hero Attack III",
+          "image": "/images/tech/tactical-weapon/support-hero-attack-3.png",
+          "maxLevel": 20,
+          "currentLevel": 0,
+          "levels": [
+            {
+              "level": 1,
+              "gold": 680950000,
+              "food": 226950000,
+              "iron": 226950000,
+              "valor": 3000,
+              "requirements": [
+                {
+                  "elementId": "limit-break-skill-star-2",
+                  "minLevel": 1
+                },
+                {
+                  "elementId": "Troop Type Mastery",
+                  "minLevel": "300%",
+                  "external": true
+                }
+              ]
+            },
+            {
+              "level": 2,
+              "gold": 680950000,
+              "food": 226950000,
+              "iron": 226950000,
+              "valor": 3000,
+              "requirements": [
+                {
+                  "elementId": "limit-break-skill-star-2",
+                  "minLevel": 1
+                },
+                {
+                  "elementId": "Troop Type Mastery",
+                  "minLevel": "300%",
+                  "external": true
+                }
+              ]
+            },
+            {
+              "level": 3,
+              "gold": 680950000,
+              "food": 226950000,
+              "iron": 226950000,
+              "valor": 3000,
+              "requirements": [
+                {
+                  "elementId": "limit-break-skill-star-2",
+                  "minLevel": 1
+                },
+                {
+                  "elementId": "Troop Type Mastery",
+                  "minLevel": "300%",
+                  "external": true
+                }
+              ]
+            },
+            {
+              "level": 4,
+              "gold": 680950000,
+              "food": 226950000,
+              "iron": 226950000,
+              "valor": 3000,
+              "requirements": [
+                {
+                  "elementId": "limit-break-skill-star-2",
+                  "minLevel": 1
+                },
+                {
+                  "elementId": "Troop Type Mastery",
+                  "minLevel": "300%",
+                  "external": true
+                }
+              ]
+            },
+            {
+              "level": 5,
+              "gold": 953260000,
+              "food": 317680000,
+              "iron": 317680000,
+              "valor": 3250,
+              "requirements": [
+                {
+                  "elementId": "limit-break-skill-star-2",
+                  "minLevel": 1
+                },
+                {
+                  "elementId": "Troop Type Mastery",
+                  "minLevel": "300%",
+                  "external": true
+                }
+              ]
+            },
+            {
+              "level": 6,
+              "gold": 953260000,
+              "food": 317680000,
+              "iron": 317680000,
+              "valor": 3250,
+              "requirements": [
+                {
+                  "elementId": "limit-break-skill-star-2",
+                  "minLevel": 1
+                },
+                {
+                  "elementId": "Troop Type Mastery",
+                  "minLevel": "300%",
+                  "external": true
+                }
+              ]
+            },
+            {
+              "level": 7,
+              "gold": 953260000,
+              "food": 317680000,
+              "iron": 317680000,
+              "valor": 3250,
+              "requirements": [
+                {
+                  "elementId": "limit-break-skill-star-2",
+                  "minLevel": 1
+                },
+                {
+                  "elementId": "Troop Type Mastery",
+                  "minLevel": "300%",
+                  "external": true
+                }
+              ]
+            },
+            {
+              "level": 8,
+              "gold": 953260000,
+              "food": 317680000,
+              "iron": 317680000,
+              "valor": 3250,
+              "requirements": [
+                {
+                  "elementId": "limit-break-skill-star-2",
+                  "minLevel": 1
+                },
+                {
+                  "elementId": "Troop Type Mastery",
+                  "minLevel": "300%",
+                  "external": true
+                }
+              ]
+            },
+            {
+              "level": 9,
+              "gold": 1001000000,
+              "food": 333670000,
+              "iron": 333670000,
+              "valor": 3500,
+              "requirements": [
+                {
+                  "elementId": "limit-break-skill-star-2",
+                  "minLevel": 1
+                },
+                {
+                  "elementId": "Troop Type Mastery",
+                  "minLevel": "300%",
+                  "external": true
+                }
+              ]
+            },
+            {
+              "level": 10,
+              "gold": 1001000000,
+              "food": 333670000,
+              "iron": 333670000,
+              "valor": 3500,
+              "requirements": [
+                {
+                  "elementId": "limit-break-skill-star-2",
+                  "minLevel": 1
+                },
+                {
+                  "elementId": "Troop Type Mastery",
+                  "minLevel": "300%",
+                  "external": true
+                }
+              ]
+            },
+            {
+              "level": 11,
+              "gold": 1001000000,
+              "food": 333670000,
+              "iron": 333670000,
+              "valor": 3500,
+              "requirements": [
+                {
+                  "elementId": "limit-break-skill-star-2",
+                  "minLevel": 1
+                },
+                {
+                  "elementId": "Troop Type Mastery",
+                  "minLevel": "300%",
+                  "external": true
+                }
+              ]
+            },
+            {
+              "level": 12,
+              "gold": 1001000000,
+              "food": 333670000,
+              "iron": 333670000,
+              "valor": 3500,
+              "requirements": [
+                {
+                  "elementId": "limit-break-skill-star-2",
+                  "minLevel": 1
+                },
+                {
+                  "elementId": "Troop Type Mastery",
+                  "minLevel": "300%",
+                  "external": true
+                }
+              ]
+            },
+            {
+              "level": 13,
+              "gold": 1041000000,
+              "food": 347000000,
+              "iron": 347000000,
+              "valor": 3750,
+              "requirements": [
+                {
+                  "elementId": "limit-break-skill-star-2",
+                  "minLevel": 1
+                },
+                {
+                  "elementId": "Troop Type Mastery",
+                  "minLevel": "300%",
+                  "external": true
+                }
+              ]
+            },
+            {
+              "level": 14,
+              "gold": 1041000000,
+              "food": 347000000,
+              "iron": 347000000,
+              "valor": 3750,
+              "requirements": [
+                {
+                  "elementId": "limit-break-skill-star-2",
+                  "minLevel": 1
+                },
+                {
+                  "elementId": "Troop Type Mastery",
+                  "minLevel": "300%",
+                  "external": true
+                }
+              ]
+            },
+            {
+              "level": 15,
+              "gold": 1041000000,
+              "food": 347000000,
+              "iron": 347000000,
+              "valor": 3750,
+              "requirements": [
+                {
+                  "elementId": "limit-break-skill-star-2",
+                  "minLevel": 1
+                },
+                {
+                  "elementId": "Troop Type Mastery",
+                  "minLevel": "300%",
+                  "external": true
+                }
+              ]
+            },
+            {
+              "level": 16,
+              "gold": 1041000000,
+              "food": 347000000,
+              "iron": 347000000,
+              "valor": 3750,
+              "requirements": [
+                {
+                  "elementId": "limit-break-skill-star-2",
+                  "minLevel": 1
+                },
+                {
+                  "elementId": "Troop Type Mastery",
+                  "minLevel": "300%",
+                  "external": true
+                }
+              ]
+            },
+            {
+              "level": 17,
+              "gold": 1071990000,
+              "food": 357330000,
+              "iron": 357330000,
+              "valor": 4000,
+              "requirements": [
+                {
+                  "elementId": "limit-break-skill-star-2",
+                  "minLevel": 1
+                },
+                {
+                  "elementId": "Troop Type Mastery",
+                  "minLevel": "300%",
+                  "external": true
+                }
+              ]
+            },
+            {
+              "level": 18,
+              "gold": 1071990000,
+              "food": 357330000,
+              "iron": 357330000,
+              "valor": 4000,
+              "requirements": [
+                {
+                  "elementId": "limit-break-skill-star-2",
+                  "minLevel": 1
+                },
+                {
+                  "elementId": "Troop Type Mastery",
+                  "minLevel": "300%",
+                  "external": true
+                }
+              ]
+            },
+            {
+              "level": 19,
+              "gold": 1071990000,
+              "food": 357330000,
+              "iron": 357330000,
+              "valor": 4000,
+              "requirements": [
+                {
+                  "elementId": "limit-break-skill-star-2",
+                  "minLevel": 1
+                },
+                {
+                  "elementId": "Troop Type Mastery",
+                  "minLevel": "300%",
+                  "external": true
+                }
+              ]
+            },
+            {
+              "level": 20,
+              "gold": 1071990000,
+              "food": 357330000,
+              "iron": 357330000,
+              "valor": 4000,
+              "requirements": [
+                {
+                  "elementId": "limit-break-skill-star-2",
+                  "minLevel": 1
+                },
+                {
+                  "elementId": "Troop Type Mastery",
+                  "minLevel": "300%",
+                  "external": true
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "support-hero-defense-3",
+          "name": "Support: Hero Defense III",
+          "image": "/images/tech/tactical-weapon/support-hero-defense-3.png",
+          "maxLevel": 20,
+          "currentLevel": 0,
+          "levels": [
+            {
+              "level": 1,
+              "gold": 680950000,
+              "food": 226950000,
+              "iron": 226950000,
+              "valor": 3000,
+              "requirements": [
+                {
+                  "elementId": "limit-break-skill-star-2",
+                  "minLevel": 1
+                },
+                {
+                  "elementId": "Troop Type Mastery",
+                  "minLevel": "300%",
+                  "external": true
+                }
+              ]
+            },
+            {
+              "level": 2,
+              "gold": 680950000,
+              "food": 226950000,
+              "iron": 226950000,
+              "valor": 3000,
+              "requirements": [
+                {
+                  "elementId": "limit-break-skill-star-2",
+                  "minLevel": 1
+                },
+                {
+                  "elementId": "Troop Type Mastery",
+                  "minLevel": "300%",
+                  "external": true
+                }
+              ]
+            },
+            {
+              "level": 3,
+              "gold": 680950000,
+              "food": 226950000,
+              "iron": 226950000,
+              "valor": 3000,
+              "requirements": [
+                {
+                  "elementId": "limit-break-skill-star-2",
+                  "minLevel": 1
+                },
+                {
+                  "elementId": "Troop Type Mastery",
+                  "minLevel": "300%",
+                  "external": true
+                }
+              ]
+            },
+            {
+              "level": 4,
+              "gold": 680950000,
+              "food": 226950000,
+              "iron": 226950000,
+              "valor": 3000,
+              "requirements": [
+                {
+                  "elementId": "limit-break-skill-star-2",
+                  "minLevel": 1
+                },
+                {
+                  "elementId": "Troop Type Mastery",
+                  "minLevel": "300%",
+                  "external": true
+                }
+              ]
+            },
+            {
+              "level": 5,
+              "gold": 953260000,
+              "food": 317680000,
+              "iron": 317680000,
+              "valor": 3250,
+              "requirements": [
+                {
+                  "elementId": "limit-break-skill-star-2",
+                  "minLevel": 1
+                },
+                {
+                  "elementId": "Troop Type Mastery",
+                  "minLevel": "300%",
+                  "external": true
+                }
+              ]
+            },
+            {
+              "level": 6,
+              "gold": 953260000,
+              "food": 317680000,
+              "iron": 317680000,
+              "valor": 3250,
+              "requirements": [
+                {
+                  "elementId": "limit-break-skill-star-2",
+                  "minLevel": 1
+                },
+                {
+                  "elementId": "Troop Type Mastery",
+                  "minLevel": "300%",
+                  "external": true
+                }
+              ]
+            },
+            {
+              "level": 7,
+              "gold": 953260000,
+              "food": 317680000,
+              "iron": 317680000,
+              "valor": 3250,
+              "requirements": [
+                {
+                  "elementId": "limit-break-skill-star-2",
+                  "minLevel": 1
+                },
+                {
+                  "elementId": "Troop Type Mastery",
+                  "minLevel": "300%",
+                  "external": true
+                }
+              ]
+            },
+            {
+              "level": 8,
+              "gold": 953260000,
+              "food": 317680000,
+              "iron": 317680000,
+              "valor": 3250,
+              "requirements": [
+                {
+                  "elementId": "limit-break-skill-star-2",
+                  "minLevel": 1
+                },
+                {
+                  "elementId": "Troop Type Mastery",
+                  "minLevel": "300%",
+                  "external": true
+                }
+              ]
+            },
+            {
+              "level": 9,
+              "gold": 1001000000,
+              "food": 333670000,
+              "iron": 333670000,
+              "valor": 3500,
+              "requirements": [
+                {
+                  "elementId": "limit-break-skill-star-2",
+                  "minLevel": 1
+                },
+                {
+                  "elementId": "Troop Type Mastery",
+                  "minLevel": "300%",
+                  "external": true
+                }
+              ]
+            },
+            {
+              "level": 10,
+              "gold": 1001000000,
+              "food": 333670000,
+              "iron": 333670000,
+              "valor": 3500,
+              "requirements": [
+                {
+                  "elementId": "limit-break-skill-star-2",
+                  "minLevel": 1
+                },
+                {
+                  "elementId": "Troop Type Mastery",
+                  "minLevel": "300%",
+                  "external": true
+                }
+              ]
+            },
+            {
+              "level": 11,
+              "gold": 1001000000,
+              "food": 333670000,
+              "iron": 333670000,
+              "valor": 3500,
+              "requirements": [
+                {
+                  "elementId": "limit-break-skill-star-2",
+                  "minLevel": 1
+                },
+                {
+                  "elementId": "Troop Type Mastery",
+                  "minLevel": "300%",
+                  "external": true
+                }
+              ]
+            },
+            {
+              "level": 12,
+              "gold": 1001000000,
+              "food": 333670000,
+              "iron": 333670000,
+              "valor": 3500,
+              "requirements": [
+                {
+                  "elementId": "limit-break-skill-star-2",
+                  "minLevel": 1
+                },
+                {
+                  "elementId": "Troop Type Mastery",
+                  "minLevel": "300%",
+                  "external": true
+                }
+              ]
+            },
+            {
+              "level": 13,
+              "gold": 1041000000,
+              "food": 347000000,
+              "iron": 347000000,
+              "valor": 3750,
+              "requirements": [
+                {
+                  "elementId": "limit-break-skill-star-2",
+                  "minLevel": 1
+                },
+                {
+                  "elementId": "Troop Type Mastery",
+                  "minLevel": "300%",
+                  "external": true
+                }
+              ]
+            },
+            {
+              "level": 14,
+              "gold": 1041000000,
+              "food": 347000000,
+              "iron": 347000000,
+              "valor": 3750,
+              "requirements": [
+                {
+                  "elementId": "limit-break-skill-star-2",
+                  "minLevel": 1
+                },
+                {
+                  "elementId": "Troop Type Mastery",
+                  "minLevel": "300%",
+                  "external": true
+                }
+              ]
+            },
+            {
+              "level": 15,
+              "gold": 1041000000,
+              "food": 347000000,
+              "iron": 347000000,
+              "valor": 3750,
+              "requirements": [
+                {
+                  "elementId": "limit-break-skill-star-2",
+                  "minLevel": 1
+                },
+                {
+                  "elementId": "Troop Type Mastery",
+                  "minLevel": "300%",
+                  "external": true
+                }
+              ]
+            },
+            {
+              "level": 16,
+              "gold": 1041000000,
+              "food": 347000000,
+              "iron": 347000000,
+              "valor": 3750,
+              "requirements": [
+                {
+                  "elementId": "limit-break-skill-star-2",
+                  "minLevel": 1
+                },
+                {
+                  "elementId": "Troop Type Mastery",
+                  "minLevel": "300%",
+                  "external": true
+                }
+              ]
+            },
+            {
+              "level": 17,
+              "gold": 1071990000,
+              "food": 357330000,
+              "iron": 357330000,
+              "valor": 4000,
+              "requirements": [
+                {
+                  "elementId": "limit-break-skill-star-2",
+                  "minLevel": 1
+                },
+                {
+                  "elementId": "Troop Type Mastery",
+                  "minLevel": "300%",
+                  "external": true
+                }
+              ]
+            },
+            {
+              "level": 18,
+              "gold": 1071990000,
+              "food": 357330000,
+              "iron": 357330000,
+              "valor": 4000,
+              "requirements": [
+                {
+                  "elementId": "limit-break-skill-star-2",
+                  "minLevel": 1
+                },
+                {
+                  "elementId": "Troop Type Mastery",
+                  "minLevel": "300%",
+                  "external": true
+                }
+              ]
+            },
+            {
+              "level": 19,
+              "gold": 1071990000,
+              "food": 357330000,
+              "iron": 357330000,
+              "valor": 4000,
+              "requirements": [
+                {
+                  "elementId": "limit-break-skill-star-2",
+                  "minLevel": 1
+                },
+                {
+                  "elementId": "Troop Type Mastery",
+                  "minLevel": "300%",
+                  "external": true
+                }
+              ]
+            },
+            {
+              "level": 20,
+              "gold": 1071990000,
+              "food": 357330000,
+              "iron": 357330000,
+              "valor": 4000,
+              "requirements": [
+                {
+                  "elementId": "limit-break-skill-star-2",
+                  "minLevel": 1
+                },
+                {
+                  "elementId": "Troop Type Mastery",
+                  "minLevel": "300%",
+                  "external": true
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "connections": [
+        {
+          "from": "support-hero-hp-3",
+          "to": [
+            "enhancement-drone-hp-3"
+          ]
+        },
+        {
+          "from": "support-hero-attack-3",
+          "to": [
+            "enhancement-drone-attack-3"
+          ]
+        },
+        {
+          "from": "support-hero-defense-3",
+          "to": [
+            "enhancement-drone-defense-3"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "row-10",
+      "elements": [
+        {
+          "id": "enhancement-drone-hp-3",
+          "name": "Enhancement: Drone HP III",
+          "image": "/images/tech/tactical-weapon/enhancement-drone-hp-3.png",
+          "maxLevel": 20,
+          "currentLevel": 0,
+          "levels": [
+            {
+              "level": 1,
+              "gold": 680950000,
+              "food": 226950000,
+              "iron": 226950000,
+              "valor": 3000,
+              "requirements": [
+                {
+                  "elementId": "support-hero-hp-3",
+                  "minLevel": 1
+                },
+                {
+                  "elementId": "support-hero-attack-3",
+                  "minLevel": 1
+                },
+                {
+                  "elementId": "support-hero-defense-3",
+                  "minLevel": 1
+                }
+              ]
+            },
+            {
+              "level": 2,
+              "gold": 680950000,
+              "food": 226950000,
+              "iron": 226950000,
+              "valor": 3000,
+              "requirements": []
+            },
+            {
+              "level": 3,
+              "gold": 680950000,
+              "food": 226950000,
+              "iron": 226950000,
+              "valor": 3000,
+              "requirements": []
+            },
+            {
+              "level": 4,
+              "gold": 680950000,
+              "food": 226950000,
+              "iron": 226950000,
+              "valor": 3000,
+              "requirements": []
+            },
+            {
+              "level": 5,
+              "gold": 953260000,
+              "food": 317680000,
+              "iron": 317680000,
+              "valor": 3250,
+              "requirements": [
+                {
+                  "elementId": "support-hero-hp-3",
+                  "minLevel": 5
+                },
+                {
+                  "elementId": "support-hero-attack-3",
+                  "minLevel": 5
+                },
+                {
+                  "elementId": "support-hero-defense-3",
+                  "minLevel": 5
+                }
+              ]
+            },
+            {
+              "level": 6,
+              "gold": 953260000,
+              "food": 317680000,
+              "iron": 317680000,
+              "valor": 3250,
+              "requirements": []
+            },
+            {
+              "level": 7,
+              "gold": 953260000,
+              "food": 317680000,
+              "iron": 317680000,
+              "valor": 3250,
+              "requirements": []
+            },
+            {
+              "level": 8,
+              "gold": 953260000,
+              "food": 317680000,
+              "iron": 317680000,
+              "valor": 3250,
+              "requirements": []
+            },
+            {
+              "level": 9,
+              "gold": 1001000000,
+              "food": 333670000,
+              "iron": 333670000,
+              "valor": 3500,
+              "requirements": [
+                {
+                  "elementId": "support-hero-hp-3",
+                  "minLevel": 9
+                },
+                {
+                  "elementId": "support-hero-attack-3",
+                  "minLevel": 9
+                },
+                {
+                  "elementId": "support-hero-defense-3",
+                  "minLevel": 9
+                }
+              ]
+            },
+            {
+              "level": 10,
+              "gold": 1001000000,
+              "food": 333670000,
+              "iron": 333670000,
+              "valor": 3500,
+              "requirements": []
+            },
+            {
+              "level": 11,
+              "gold": 1001000000,
+              "food": 333670000,
+              "iron": 333670000,
+              "valor": 3500,
+              "requirements": []
+            },
+            {
+              "level": 12,
+              "gold": 1001000000,
+              "food": 333670000,
+              "iron": 333670000,
+              "valor": 3500,
+              "requirements": []
+            },
+            {
+              "level": 13,
+              "gold": 1041000000,
+              "food": 347000000,
+              "iron": 347000000,
+              "valor": 3750,
+              "requirements": [
+                {
+                  "elementId": "support-hero-hp-3",
+                  "minLevel": 13
+                },
+                {
+                  "elementId": "support-hero-attack-3",
+                  "minLevel": 13
+                },
+                {
+                  "elementId": "support-hero-defense-3",
+                  "minLevel": 13
+                }
+              ]
+            },
+            {
+              "level": 14,
+              "gold": 1041000000,
+              "food": 347000000,
+              "iron": 347000000,
+              "valor": 3750,
+              "requirements": []
+            },
+            {
+              "level": 15,
+              "gold": 1041000000,
+              "food": 347000000,
+              "iron": 347000000,
+              "valor": 3750,
+              "requirements": []
+            },
+            {
+              "level": 16,
+              "gold": 1041000000,
+              "food": 347000000,
+              "iron": 347000000,
+              "valor": 3750,
+              "requirements": []
+            },
+            {
+              "level": 17,
+              "gold": 1071990000,
+              "food": 357330000,
+              "iron": 357330000,
+              "valor": 4000,
+              "requirements": [
+                {
+                  "elementId": "support-hero-hp-3",
+                  "minLevel": 17
+                },
+                {
+                  "elementId": "support-hero-attack-3",
+                  "minLevel": 17
+                },
+                {
+                  "elementId": "support-hero-defense-3",
+                  "minLevel": 17
+                }
+              ]
+            },
+            {
+              "level": 18,
+              "gold": 1071990000,
+              "food": 357330000,
+              "iron": 357330000,
+              "valor": 4000,
+              "requirements": []
+            },
+            {
+              "level": 19,
+              "gold": 1071990000,
+              "food": 357330000,
+              "iron": 357330000,
+              "valor": 4000,
+              "requirements": []
+            },
+            {
+              "level": 20,
+              "gold": 1071990000,
+              "food": 357330000,
+              "iron": 357330000,
+              "valor": 4000,
+              "requirements": []
+            }
+          ]
+        },
+        {
+          "id": "enhancement-drone-attack-3",
+          "name": "Enhancement: Drone Attack III",
+          "image": "/images/tech/tactical-weapon/enhancement-drone-attack-3.png",
+          "maxLevel": 20,
+          "currentLevel": 0,
+          "levels": [
+            {
+              "level": 1,
+              "gold": 680950000,
+              "food": 226950000,
+              "iron": 226950000,
+              "valor": 3000,
+              "requirements": [
+                {
+                  "elementId": "support-hero-hp-3",
+                  "minLevel": 1
+                },
+                {
+                  "elementId": "support-hero-attack-3",
+                  "minLevel": 1
+                },
+                {
+                  "elementId": "support-hero-defense-3",
+                  "minLevel": 1
+                }
+              ]
+            },
+            {
+              "level": 2,
+              "gold": 680950000,
+              "food": 226950000,
+              "iron": 226950000,
+              "valor": 3000,
+              "requirements": []
+            },
+            {
+              "level": 3,
+              "gold": 680950000,
+              "food": 226950000,
+              "iron": 226950000,
+              "valor": 3000,
+              "requirements": []
+            },
+            {
+              "level": 4,
+              "gold": 680950000,
+              "food": 226950000,
+              "iron": 226950000,
+              "valor": 3000,
+              "requirements": []
+            },
+            {
+              "level": 5,
+              "gold": 953260000,
+              "food": 317680000,
+              "iron": 317680000,
+              "valor": 3250,
+              "requirements": [
+                {
+                  "elementId": "support-hero-hp-3",
+                  "minLevel": 5
+                },
+                {
+                  "elementId": "support-hero-attack-3",
+                  "minLevel": 5
+                },
+                {
+                  "elementId": "support-hero-defense-3",
+                  "minLevel": 5
+                }
+              ]
+            },
+            {
+              "level": 6,
+              "gold": 953260000,
+              "food": 317680000,
+              "iron": 317680000,
+              "valor": 3250,
+              "requirements": []
+            },
+            {
+              "level": 7,
+              "gold": 953260000,
+              "food": 317680000,
+              "iron": 317680000,
+              "valor": 3250,
+              "requirements": []
+            },
+            {
+              "level": 8,
+              "gold": 953260000,
+              "food": 317680000,
+              "iron": 317680000,
+              "valor": 3250,
+              "requirements": []
+            },
+            {
+              "level": 9,
+              "gold": 1001000000,
+              "food": 333670000,
+              "iron": 333670000,
+              "valor": 3500,
+              "requirements": [
+                {
+                  "elementId": "support-hero-hp-3",
+                  "minLevel": 9
+                },
+                {
+                  "elementId": "support-hero-attack-3",
+                  "minLevel": 9
+                },
+                {
+                  "elementId": "support-hero-defense-3",
+                  "minLevel": 9
+                }
+              ]
+            },
+            {
+              "level": 10,
+              "gold": 1001000000,
+              "food": 333670000,
+              "iron": 333670000,
+              "valor": 3500,
+              "requirements": []
+            },
+            {
+              "level": 11,
+              "gold": 1001000000,
+              "food": 333670000,
+              "iron": 333670000,
+              "valor": 3500,
+              "requirements": []
+            },
+            {
+              "level": 12,
+              "gold": 1001000000,
+              "food": 333670000,
+              "iron": 333670000,
+              "valor": 3500,
+              "requirements": []
+            },
+            {
+              "level": 13,
+              "gold": 1041000000,
+              "food": 347000000,
+              "iron": 347000000,
+              "valor": 3750,
+              "requirements": [
+                {
+                  "elementId": "support-hero-hp-3",
+                  "minLevel": 13
+                },
+                {
+                  "elementId": "support-hero-attack-3",
+                  "minLevel": 13
+                },
+                {
+                  "elementId": "support-hero-defense-3",
+                  "minLevel": 13
+                }
+              ]
+            },
+            {
+              "level": 14,
+              "gold": 1041000000,
+              "food": 347000000,
+              "iron": 347000000,
+              "valor": 3750,
+              "requirements": []
+            },
+            {
+              "level": 15,
+              "gold": 1041000000,
+              "food": 347000000,
+              "iron": 347000000,
+              "valor": 3750,
+              "requirements": []
+            },
+            {
+              "level": 16,
+              "gold": 1041000000,
+              "food": 347000000,
+              "iron": 347000000,
+              "valor": 3750,
+              "requirements": []
+            },
+            {
+              "level": 17,
+              "gold": 1071990000,
+              "food": 357330000,
+              "iron": 357330000,
+              "valor": 4000,
+              "requirements": [
+                {
+                  "elementId": "support-hero-hp-3",
+                  "minLevel": 17
+                },
+                {
+                  "elementId": "support-hero-attack-3",
+                  "minLevel": 17
+                },
+                {
+                  "elementId": "support-hero-defense-3",
+                  "minLevel": 17
+                }
+              ]
+            },
+            {
+              "level": 18,
+              "gold": 1071990000,
+              "food": 357330000,
+              "iron": 357330000,
+              "valor": 4000,
+              "requirements": []
+            },
+            {
+              "level": 19,
+              "gold": 1071990000,
+              "food": 357330000,
+              "iron": 357330000,
+              "valor": 4000,
+              "requirements": []
+            },
+            {
+              "level": 20,
+              "gold": 1071990000,
+              "food": 357330000,
+              "iron": 357330000,
+              "valor": 4000,
+              "requirements": []
+            }
+          ]
+        },
+        {
+          "id": "enhancement-drone-defense-3",
+          "name": "Enhancement: Drone Defense III",
+          "image": "/images/tech/tactical-weapon/enhancement-drone-defense-3.png",
+          "maxLevel": 20,
+          "currentLevel": 0,
+          "levels": [
+            {
+              "level": 1,
+              "gold": 680950000,
+              "food": 226950000,
+              "iron": 226950000,
+              "valor": 3000,
+              "requirements": [
+                {
+                  "elementId": "support-hero-hp-3",
+                  "minLevel": 1
+                },
+                {
+                  "elementId": "support-hero-attack-3",
+                  "minLevel": 1
+                },
+                {
+                  "elementId": "support-hero-defense-3",
+                  "minLevel": 1
+                }
+              ]
+            },
+            {
+              "level": 2,
+              "gold": 680950000,
+              "food": 226950000,
+              "iron": 226950000,
+              "valor": 3000,
+              "requirements": []
+            },
+            {
+              "level": 3,
+              "gold": 680950000,
+              "food": 226950000,
+              "iron": 226950000,
+              "valor": 3000,
+              "requirements": []
+            },
+            {
+              "level": 4,
+              "gold": 680950000,
+              "food": 226950000,
+              "iron": 226950000,
+              "valor": 3000,
+              "requirements": []
+            },
+            {
+              "level": 5,
+              "gold": 953260000,
+              "food": 317680000,
+              "iron": 317680000,
+              "valor": 3250,
+              "requirements": [
+                {
+                  "elementId": "support-hero-hp-3",
+                  "minLevel": 5
+                },
+                {
+                  "elementId": "support-hero-attack-3",
+                  "minLevel": 5
+                },
+                {
+                  "elementId": "support-hero-defense-3",
+                  "minLevel": 5
+                }
+              ]
+            },
+            {
+              "level": 6,
+              "gold": 953260000,
+              "food": 317680000,
+              "iron": 317680000,
+              "valor": 3250,
+              "requirements": []
+            },
+            {
+              "level": 7,
+              "gold": 953260000,
+              "food": 317680000,
+              "iron": 317680000,
+              "valor": 3250,
+              "requirements": []
+            },
+            {
+              "level": 8,
+              "gold": 953260000,
+              "food": 317680000,
+              "iron": 317680000,
+              "valor": 3250,
+              "requirements": []
+            },
+            {
+              "level": 9,
+              "gold": 1001000000,
+              "food": 333670000,
+              "iron": 333670000,
+              "valor": 3500,
+              "requirements": [
+                {
+                  "elementId": "support-hero-hp-3",
+                  "minLevel": 9
+                },
+                {
+                  "elementId": "support-hero-attack-3",
+                  "minLevel": 9
+                },
+                {
+                  "elementId": "support-hero-defense-3",
+                  "minLevel": 9
+                }
+              ]
+            },
+            {
+              "level": 10,
+              "gold": 1001000000,
+              "food": 333670000,
+              "iron": 333670000,
+              "valor": 3500,
+              "requirements": []
+            },
+            {
+              "level": 11,
+              "gold": 1001000000,
+              "food": 333670000,
+              "iron": 333670000,
+              "valor": 3500,
+              "requirements": []
+            },
+            {
+              "level": 12,
+              "gold": 1001000000,
+              "food": 333670000,
+              "iron": 333670000,
+              "valor": 3500,
+              "requirements": []
+            },
+            {
+              "level": 13,
+              "gold": 1041000000,
+              "food": 347000000,
+              "iron": 347000000,
+              "valor": 3750,
+              "requirements": [
+                {
+                  "elementId": "support-hero-hp-3",
+                  "minLevel": 13
+                },
+                {
+                  "elementId": "support-hero-attack-3",
+                  "minLevel": 13
+                },
+                {
+                  "elementId": "support-hero-defense-3",
+                  "minLevel": 13
+                }
+              ]
+            },
+            {
+              "level": 14,
+              "gold": 1041000000,
+              "food": 347000000,
+              "iron": 347000000,
+              "valor": 3750,
+              "requirements": []
+            },
+            {
+              "level": 15,
+              "gold": 1041000000,
+              "food": 347000000,
+              "iron": 347000000,
+              "valor": 3750,
+              "requirements": []
+            },
+            {
+              "level": 16,
+              "gold": 1041000000,
+              "food": 347000000,
+              "iron": 347000000,
+              "valor": 3750,
+              "requirements": []
+            },
+            {
+              "level": 17,
+              "gold": 1071990000,
+              "food": 357330000,
+              "iron": 357330000,
+              "valor": 4000,
+              "requirements": [
+                {
+                  "elementId": "support-hero-hp-3",
+                  "minLevel": 17
+                },
+                {
+                  "elementId": "support-hero-attack-3",
+                  "minLevel": 17
+                },
+                {
+                  "elementId": "support-hero-defense-3",
+                  "minLevel": 17
+                }
+              ]
+            },
+            {
+              "level": 18,
+              "gold": 1071990000,
+              "food": 357330000,
+              "iron": 357330000,
+              "valor": 4000,
+              "requirements": []
+            },
+            {
+              "level": 19,
+              "gold": 1071990000,
+              "food": 357330000,
+              "iron": 357330000,
+              "valor": 4000,
+              "requirements": []
+            },
+            {
+              "level": 20,
+              "gold": 1071990000,
+              "food": 357330000,
+              "iron": 357330000,
+              "valor": 4000,
+              "requirements": []
+            }
+          ]
+        }
+      ],
+      "connections": [
+        {
+          "from": "enhancement-drone-hp-3",
+          "to": [
+            "limit-break-level-cap"
+          ]
+        },
+        {
+          "from": "enhancement-drone-attack-3",
+          "to": [
+            "limit-break-level-cap"
+          ]
+        },
+        {
+          "from": "enhancement-drone-defense-3",
+          "to": [
+            "limit-break-level-cap"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "row-11",
+      "elements": [
+        {
+          "id": "limit-break-level-cap",
+          "name": "Limit Break: Level Cap",
+          "image": "/images/tech/tactical-weapon/limit-break-level-cap.png",
+          "maxLevel": 10,
+          "currentLevel": 0,
+          "levels": [
+            {
+              "level": 1,
+              "gold": 953260000,
+              "food": 317680000,
+              "iron": 317680000,
+              "valor": 0,
+              "requirements": [
+                {
+                  "elementId": "enhancement-drone-hp-3",
+                  "minLevel": 4
+                },
+                {
+                  "elementId": "enhancement-drone-attack-3",
+                  "minLevel": 4
+                },
+                {
+                  "elementId": "enhancement-drone-defense-3",
+                  "minLevel": 4
+                }
+              ]
+            },
+            {
+              "level": 2,
+              "gold": 953260000,
+              "food": 317680000,
+              "iron": 317680000,
+              "valor": 0,
+              "requirements": []
+            },
+            {
+              "level": 3,
+              "gold": 1001000000,
+              "food": 333670000,
+              "iron": 333670000,
+              "valor": 0,
+              "requirements": [
+                {
+                  "elementId": "enhancement-drone-hp-3",
+                  "minLevel": 8
+                },
+                {
+                  "elementId": "enhancement-drone-attack-3",
+                  "minLevel": 8
+                },
+                {
+                  "elementId": "enhancement-drone-defense-3",
+                  "minLevel": 8
+                }
+              ]
+            },
+            {
+              "level": 4,
+              "gold": 1001000000,
+              "food": 333670000,
+              "iron": 333670000,
+              "valor": 0,
+              "requirements": []
+            },
+            {
+              "level": 5,
+              "gold": 1041000000,
+              "food": 347000000,
+              "iron": 347000000,
+              "valor": 0,
+              "requirements": [
+                {
+                  "elementId": "enhancement-drone-hp-3",
+                  "minLevel": 12
+                },
+                {
+                  "elementId": "enhancement-drone-attack-3",
+                  "minLevel": 12
+                },
+                {
+                  "elementId": "enhancement-drone-defense-3",
+                  "minLevel": 12
+                }
+              ]
+            },
+            {
+              "level": 6,
+              "gold": 1041000000,
+              "food": 347000000,
+              "iron": 347000000,
+              "valor": 0,
+              "requirements": []
+            },
+            {
+              "level": 7,
+              "gold": 1071990000,
+              "food": 357330000,
+              "iron": 357330000,
+              "valor": 0,
+              "requirements": [
+                {
+                  "elementId": "enhancement-drone-hp-3",
+                  "minLevel": 16
+                },
+                {
+                  "elementId": "enhancement-drone-attack-3",
+                  "minLevel": 16
+                },
+                {
+                  "elementId": "enhancement-drone-defense-3",
+                  "minLevel": 16
+                }
+              ]
+            },
+            {
+              "level": 8,
+              "gold": 1071990000,
+              "food": 357330000,
+              "iron": 357330000,
+              "valor": 0,
+              "requirements": []
+            }
+          ]
+        }
+      ],
+      "connections": [
+        {
+          "from": "limit-break-level-cap",
+          "to": [
+            "support-hero-hp-4",
+            "support-hero-attack-4",
+            "support-hero-defense-4"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "row-12",
+      "elements": [
+        {
+          "id": "support-hero-hp-4",
+          "name": "Support: Hero HP IV",
+          "image": "/images/tech/tactical-weapon/support-hero-hp-4.png",
+          "maxLevel": 20,
+          "currentLevel": 0,
+          "levels": [
+            {
+              "level": 1,
+              "gold": 953260000,
+              "food": 317680000,
+              "iron": 317680000,
+              "valor": 3250,
+              "requirements": [
+                {
+                  "elementId": "limit-break-level-cap",
+                  "minLevel": 2
+                }
+              ]
+            },
+            {
+              "level": 2,
+              "gold": 953260000,
+              "food": 317680000,
+              "iron": 317680000,
+              "valor": 3250,
+              "requirements": []
+            }
+          ]
+        },
+        {
+          "id": "support-hero-attack-4",
+          "name": "Support: Hero Attack IV",
+          "image": "/images/tech/tactical-weapon/support-hero-attack-4.png",
+          "maxLevel": 20,
+          "currentLevel": 0,
+          "levels": [
+            {
+              "level": 1,
+              "gold": 953260000,
+              "food": 317680000,
+              "iron": 317680000,
+              "valor": 3250,
+              "requirements": [
+                {
+                  "elementId": "limit-break-level-cap",
+                  "minLevel": 2
+                }
+              ]
+            },
+            {
+              "level": 2,
+              "gold": 953260000,
+              "food": 317680000,
+              "iron": 317680000,
+              "valor": 3250,
+              "requirements": []
+            }
+          ]
+        },
+        {
+          "id": "support-hero-defense-4",
+          "name": "Support: Hero Defense IV",
+          "image": "/images/tech/tactical-weapon/support-hero-defense-4.png",
+          "maxLevel": 20,
+          "currentLevel": 0,
+          "levels": [
+            {
+              "level": 1,
+              "gold": 953260000,
+              "food": 317680000,
+              "iron": 317680000,
+              "valor": 3250,
+              "requirements": [
+                {
+                  "elementId": "limit-break-level-cap",
+                  "minLevel": 2
+                }
+              ]
+            },
+            {
+              "level": 2,
+              "gold": 953260000,
+              "food": 317680000,
+              "iron": 317680000,
+              "valor": 3250,
+              "requirements": []
+            }
+          ]
+        }
+      ],
+      "connections": [
+        {
+          "from": "support-hero-hp-4",
+          "to": [
+            "assistance-hp-conversion-3"
+          ]
+        },
+        {
+          "from": "support-hero-attack-4",
+          "to": [
+            "assistance-attack-conversion-3"
+          ]
+        },
+        {
+          "from": "support-hero-defense-4",
+          "to": [
+            "assistance-defense-conversion-3"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "row-13",
+      "elements": [
+        {
+          "id": "assistance-hp-conversion-3",
+          "name": "Assistance: HP Conversion III",
+          "image": "/images/tech/tactical-weapon/assistance-hp-conversion-3.png",
+          "maxLevel": 30,
+          "currentLevel": 0,
+          "levels": [
+            {
+              "level": 1,
+              "gold": 953260000,
+              "food": 317680000,
+              "iron": 317680000,
+              "valor": 3250,
+              "requirements": [
+                {
+                  "elementId": "support-hero-hp-4",
+                  "minLevel": 1
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "assistance-attack-conversion-3",
+          "name": "Assistance: Attack Conversion III",
+          "image": "/images/tech/tactical-weapon/assistance-attack-conversion-3.png",
+          "maxLevel": 30,
+          "currentLevel": 0,
+          "levels": [
+            {
+              "level": 1,
+              "gold": 953260000,
+              "food": 317680000,
+              "iron": 317680000,
+              "valor": 3250,
+              "requirements": [
+                {
+                  "elementId": "support-hero-attack-4",
+                  "minLevel": 1
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "assistance-defense-conversion-3",
+          "name": "Assistance: Defense Conversion III",
+          "image": "/images/tech/tactical-weapon/assistance-defense-conversion-3.png",
+          "maxLevel": 30,
+          "currentLevel": 0,
+          "levels": [
+            {
+              "level": 1,
+              "gold": 953260000,
+              "food": 317680000,
+              "iron": 317680000,
+              "valor": 3250,
+              "requirements": [
+                {
+                  "elementId": "support-hero-defense-4",
+                  "minLevel": 1
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "connections": [
+        {
+          "from": "assistance-hp-conversion-3",
+          "to": [
+            "limit-break-chip-skill-boost"
+          ]
+        },
+        {
+          "from": "assistance-attack-conversion-3",
+          "to": [
+            "limit-break-chip-skill-boost"
+          ]
+        },
+        {
+          "from": "assistance-defense-conversion-3",
+          "to": [
+            "limit-break-chip-skill-boost"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "row-14",
+      "elements": [
+        {
+          "id": "limit-break-chip-skill-boost",
+          "name": "Limit Break: Chip Skill Boost",
+          "image": "/images/tech/tactical-weapon/limit-break-chip-skill-boost.png",
+          "maxLevel": 3,
+          "currentLevel": 0,
+          "levels": [
+            {
+              "level": 1,
+              "gold": 1050000000,
+              "food": 357370000,
+              "iron": 357370000,
+              "valor": 7500,
+              "requirements": [
+                {
+                  "elementId": "assistance-hp-conversion-3",
+                  "minLevel": 8
+                },
+                {
+                  "elementId": "assistance-attack-conversion-3",
+                  "minLevel": 8
+                },
+                {
+                  "elementId": "assistance-defense-conversion-3",
+                  "minLevel": 8
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "connections": []
+    }
+  ]
+}
