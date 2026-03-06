@@ -194,13 +194,36 @@
 
   /* ICS section */
   .ics-section { }
+  /* Setup banner */
+  .setup-banner {
+    display: flex; align-items: center; gap: 10px;
+    padding: 10px 14px; margin-bottom: 8px;
+    background: linear-gradient(135deg, #fff8e1, #fff3cd); border: 2px solid var(--orange);
+    border-radius: 6px; font-size: 12px; color: var(--text);
+  }
+  .setup-icon { font-size: 20px; }
+  .setup-text { flex: 1; line-height: 1.4; }
+  .setup-text strong { color: var(--dark); }
+  .setup-dismiss {
+    background: none; border: none; font-size: 18px; color: #999;
+    cursor: pointer; padding: 0 4px; line-height: 1;
+  }
+  .setup-dismiss:hover { color: var(--dark); }
+
+  .ics-desc { font-size: 11px; color: #666; margin-bottom: 8px; line-height: 1.4; }
   .ics-btn {
     width: 100%; padding: 8px; background: var(--watermelon); color: #fff;
     border: none; border-radius: 4px; font-size: 13px; font-weight: 700;
     cursor: pointer; transition: background 0.15s; margin-bottom: 10px;
   }
   .ics-btn:hover { background: #e04550; }
-  .subscribe-box { background: #fff; border: 1px solid #e8e8e8; border-radius: 4px; padding: 8px; }
+  .subscribe-details { margin-top: 6px; }
+  .subscribe-details summary {
+    font-size: 10px; color: var(--teal); cursor: pointer; font-weight: 600;
+    text-transform: uppercase; letter-spacing: 0.5px;
+  }
+  .subscribe-details summary:hover { color: var(--dark); }
+  .subscribe-box { background: #fff; border: 1px solid #e8e8e8; border-radius: 4px; padding: 8px; margin-top: 6px; }
   .subscribe-label { font-size: 10px; font-weight: 600; color: var(--dark); margin-bottom: 4px; text-transform: uppercase; }
   .subscribe-url {
     width: 100%; font-size: 10px; padding: 4px 6px; border: 1px solid var(--gray);
@@ -345,36 +368,80 @@
   </div>
 </div>
 
+<div id="setupBanner" class="setup-banner" style="display:none">
+  <div class="setup-icon">&#9881;</div>
+  <div class="setup-text">
+    <strong>Set up YOUR server</strong> &mdash; Change the creation date below to match your server. All events, dates, and the calendar download will adjust automatically.
+  </div>
+  <button id="dismissSetup" class="setup-dismiss">&times;</button>
+</div>
+
 <div class="config-bar">
   <div class="config-group">
-    <label for="serverDate">Server Created</label>
+    <label for="serverDate">Your Server Created</label>
     <input type="date" id="serverDate" value="2025-12-14">
   </div>
   <div class="config-group">
-    <label for="timezone">Timezone</label>
+    <label for="timezone">Your Timezone</label>
     <select id="timezone">
-      <option value="-5">EST (UTC-5)</option>
-      <option value="-6">CST (UTC-6)</option>
-      <option value="-7">MST (UTC-7)</option>
+      <option value="-12">UTC-12</option>
+      <option value="-11">UTC-11</option>
+      <option value="-10">HST (UTC-10)</option>
+      <option value="-9">AKST (UTC-9)</option>
       <option value="-8">PST (UTC-8)</option>
+      <option value="-7">MST (UTC-7)</option>
+      <option value="-6">CST (UTC-6)</option>
+      <option value="-5">EST (UTC-5)</option>
       <option value="-4">AST (UTC-4)</option>
-      <option value="0">UTC</option>
+      <option value="-3">BRT (UTC-3)</option>
+      <option value="-2">UTC-2</option>
+      <option value="-1">UTC-1</option>
+      <option value="0">UTC / GMT</option>
       <option value="1">CET (UTC+1)</option>
       <option value="2">EET (UTC+2)</option>
+      <option value="3">MSK (UTC+3)</option>
+      <option value="3.5">IRST (UTC+3:30)</option>
+      <option value="4">GST (UTC+4)</option>
+      <option value="5">PKT (UTC+5)</option>
       <option value="5.5">IST (UTC+5:30)</option>
+      <option value="6">BST (UTC+6)</option>
+      <option value="7">ICT (UTC+7)</option>
       <option value="8">CST/SGT (UTC+8)</option>
-      <option value="9">JST (UTC+9)</option>
+      <option value="9">JST/KST (UTC+9)</option>
+      <option value="9.5">ACST (UTC+9:30)</option>
       <option value="10">AEST (UTC+10)</option>
+      <option value="11">SBT (UTC+11)</option>
+      <option value="12">NZST (UTC+12)</option>
+      <option value="13">NZDT (UTC+13)</option>
     </select>
   </div>
   <div class="config-group">
     <label for="resetHour">Reset Hour</label>
     <select id="resetHour">
+      <option value="0">12 AM</option>
+      <option value="1">1 AM</option>
+      <option value="2">2 AM</option>
+      <option value="3">3 AM</option>
+      <option value="4">4 AM</option>
+      <option value="5">5 AM</option>
+      <option value="6">6 AM</option>
+      <option value="7">7 AM</option>
+      <option value="8">8 AM</option>
+      <option value="9">9 AM</option>
+      <option value="10">10 AM</option>
+      <option value="11">11 AM</option>
+      <option value="12">12 PM</option>
+      <option value="13">1 PM</option>
+      <option value="14">2 PM</option>
+      <option value="15">3 PM</option>
+      <option value="16">4 PM</option>
       <option value="17">5 PM</option>
       <option value="18" selected>6 PM</option>
       <option value="19">7 PM</option>
       <option value="20">8 PM</option>
       <option value="21">9 PM</option>
+      <option value="22">10 PM</option>
+      <option value="23">11 PM</option>
     </select>
   </div>
   <div class="config-group">
@@ -383,7 +450,7 @@
   </div>
   <div class="config-group">
     <label>Season</label>
-    <div id="seasonDisplay" class="season-badge">S0</div>
+    <div id="seasonDisplay" class="season-badge">--</div>
   </div>
 </div>
 
@@ -419,14 +486,18 @@
     </div>
     <div class="sidebar-section ics-section">
       <h3>Download Calendar</h3>
-      <button id="downloadIcs" class="ics-btn">Download .ics File</button>
-      <div class="subscribe-box">
-        <div class="subscribe-label">Subscribe URL (Server #2013):</div>
-        <input type="text" readonly class="subscribe-url"
-          value="https://extremesecrecy.github.io/lastwar-research-trees/guides/lastwar_calendar.ics"
-          onclick="this.select()">
-        <div class="subscribe-hint">Paste into Google Calendar &rarr; Other calendars &rarr; From URL</div>
-      </div>
+      <p class="ics-desc">Downloads a personalized .ics file using YOUR server date, timezone, and reset hour settings above.</p>
+      <button id="downloadIcs" class="ics-btn">Download .ics for Your Server</button>
+      <details class="subscribe-details">
+        <summary>Subscribe URL (Server #2013 only)</summary>
+        <div class="subscribe-box">
+          <div class="subscribe-label">Auto-sync URL for [OWOW] alliance members:</div>
+          <input type="text" readonly class="subscribe-url"
+            value="https://extremesecrecy.github.io/lastwar-research-trees/guides/lastwar_calendar.ics"
+            onclick="this.select()">
+          <div class="subscribe-hint">Paste into Google Calendar &rarr; Other calendars &rarr; From URL<br>This static file is for Server #2013 only. Other servers: use the Download button above.</div>
+        </div>
+      </details>
     </div>
   </div>
 </div>
@@ -468,7 +539,24 @@ function init() {
       if (c.timezone) document.getElementById('timezone').value = c.timezone;
       if (c.resetHour) document.getElementById('resetHour').value = c.resetHour;
     } catch(e) {}
+  } else {
+    // First visit — show setup banner and auto-detect timezone
+    document.getElementById('setupBanner').style.display = 'flex';
+    const offsetMin = new Date().getTimezoneOffset();
+    const offsetHrs = -(offsetMin / 60); // JS offset is inverted (EST = +300 = UTC-5)
+    const tzSelect = document.getElementById('timezone');
+    let bestMatch = '0';
+    let bestDiff = 999;
+    for (const opt of tzSelect.options) {
+      const diff = Math.abs(parseFloat(opt.value) - offsetHrs);
+      if (diff < bestDiff) { bestDiff = diff; bestMatch = opt.value; }
+    }
+    tzSelect.value = bestMatch;
   }
+  document.getElementById('dismissSetup').onclick = () => {
+    document.getElementById('setupBanner').style.display = 'none';
+    saveConfig(); // Saves whatever they have, marks as configured
+  };
   loadConfig();
   const today = new Date();
   currentMonth = today.getMonth();
