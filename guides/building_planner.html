@@ -927,6 +927,7 @@ function populateHQDropdowns() {
         state['headquarters'] = hqLvl;
         var hqSelect = document.querySelector('[data-building="headquarters"] select');
         if (hqSelect) hqSelect.value = hqLvl;
+        updateInstanceLocks();
         recalcAll(); saveProgress();
     };
     tgt.onchange = function() { recalcAll(); saveProgress(); };
@@ -1110,11 +1111,8 @@ function getBuildingPower(instanceKey, level) {
     var base = getBaseKey(instanceKey);
     var bData = buildings[base];
     if (!bData || level <= 0) return 0;
-    var total = 0;
-    for (var i = 0; i < Math.min(level, bData.levels.length); i++) {
-        total += (bData.levels[i].power || 0);
-    }
-    return total;
+    var idx = Math.min(level, bData.levels.length) - 1;
+    return bData.levels[idx].power || 0;
 }
 
 function getCostForRange(instanceKey, fromLevel, toLevel) {
@@ -1122,16 +1120,21 @@ function getCostForRange(instanceKey, fromLevel, toLevel) {
     var bData = buildings[base];
     if (!bData) return { food: 0, iron: 0, gold: 0, time: 0, power: 0 };
 
-    var food = 0, iron = 0, gold = 0, totalSeconds = 0, power = 0;
+    var food = 0, iron = 0, gold = 0, totalSeconds = 0;
 
     for (var i = fromLevel; i < Math.min(toLevel, bData.levels.length); i++) {
         var lvl = bData.levels[i];
         food += lvl.rss ? lvl.rss.food || 0 : 0;
         iron += lvl.rss ? lvl.rss.iron || 0 : 0;
         gold += lvl.rss ? lvl.rss.gold || 0 : 0;
-        power += lvl.power || 0;
         totalSeconds += parseTime(lvl.time);
     }
+
+    // Power values are cumulative totals, so power gained = end - start
+    var endIdx = Math.min(toLevel, bData.levels.length) - 1;
+    var startPower = fromLevel > 0 ? (bData.levels[fromLevel - 1].power || 0) : 0;
+    var endPower = endIdx >= 0 ? (bData.levels[endIdx].power || 0) : 0;
+    var power = endPower - startPower;
 
     return { food: food, iron: iron, gold: gold, time: totalSeconds, power: power };
 }
@@ -1923,6 +1926,7 @@ function fN(v) {
     if (v >= 1000000000) return (v / 1000000000).toFixed(1) + 'B';
     if (v >= 1000000) return (v / 1000000).toFixed(1) + 'M';
     if (v >= 1000) return (v / 1000).toFixed(1) + 'K';
+    if (v !== Math.floor(v)) return v.toFixed(1);
     return v.toString();
 }
 
