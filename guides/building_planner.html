@@ -781,7 +781,7 @@ const MI_OVERRIDES = { 'barracks': 4, 'drill ground': 4 };
 for (const [bKey, count] of Object.entries(MI_OVERRIDES)) {
     if (MULTI_INSTANCE[bKey]) {
         while (MULTI_INSTANCE[bKey].unlockHQ.length < count)
-            MULTI_INSTANCE[bKey].unlockHQ.push(MULTI_INSTANCE[bKey].unlockHQ.at(-1));
+            MULTI_INSTANCE[bKey].unlockHQ.push(MULTI_INSTANCE[bKey].unlockHQ[MULTI_INSTANCE[bKey].unlockHQ.length - 1]);
         MULTI_INSTANCE[bKey].count = count;
     }
 }
@@ -1288,10 +1288,16 @@ function normalizeBuildingName(name) {
 /* ---------- CHEAPEST PATH ---------- */
 function pickBestInstance(bKey, reqLevel, upgradedTo) {
     // Pick the instance with the highest current level (cheapest to upgrade to reqLevel)
+    // Skip instances that are locked (HQ too low to unlock them)
     var allKeys = getAllInstanceKeys(bKey);
     var bestKey = null, bestLvl = -1;
+    var effectiveHQ = Math.max(state['headquarters'] || 0, upgradedTo['headquarters'] || 0);
+    var mi = MULTI_INSTANCE[bKey];
     for (var i = 0; i < allKeys.length; i++) {
         var iKey = allKeys[i];
+        var instNum = getInstanceNum(iKey);
+        // Skip locked instances that won't be unlocked by the planned HQ level
+        if (mi && mi.unlockHQ[instNum - 1] > effectiveHQ) continue;
         var lvl = Math.max(state[iKey] || 0, upgradedTo[iKey] || 0);
         if (lvl >= reqLevel) return null; // already met by this instance
         if (lvl > bestLvl) { bestLvl = lvl; bestKey = iKey; }
@@ -1563,11 +1569,14 @@ function computePowerROI() {
 
     var recommendations = [];
 
-    // Iterate all state keys (includes instance keys)
+    // Iterate all state keys (includes instance keys), skip locked instances
     for (var iKey in state) {
         var baseKey = getBaseKey(iKey);
         var bData = buildings[baseKey];
         if (!bData) continue;
+        var instNum = getInstanceNum(iKey);
+        var mi = MULTI_INSTANCE[baseKey];
+        if (mi && mi.unlockHQ[instNum - 1] > (state['headquarters'] || 0)) continue;
         var currentLvl = state[iKey] || 0;
         if (currentLvl >= bData.levels.length) continue;
 
