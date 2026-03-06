@@ -823,6 +823,10 @@ function loadProgress() {
                 if (tgt) tgt.value = data.targetHQ || data.currentHQ + 1;
                 if (bld) bld.value = data.builders || 3;
                 if (vip) vip.value = data.vip || 0;
+                // Sync HQ building row with Current HQ dropdown
+                state['headquarters'] = parseInt(data.currentHQ) || 0;
+                var hqSelect = document.querySelector('[data-building="headquarters"] select');
+                if (hqSelect) hqSelect.value = state['headquarters'];
                 loadSpeedupUI();
                 recalcAll();
             }, 0);
@@ -840,7 +844,14 @@ function populateHQDropdowns() {
     }
     cur.value = 24;
     tgt.value = 25;
-    cur.onchange = function() { recalcAll(); saveProgress(); };
+    cur.onchange = function() {
+        // Sync HQ building row to match Current HQ dropdown
+        var hqLvl = parseInt(this.value) || 0;
+        state['headquarters'] = hqLvl;
+        var hqSelect = document.querySelector('[data-building="headquarters"] select');
+        if (hqSelect) hqSelect.value = hqLvl;
+        recalcAll(); saveProgress();
+    };
     tgt.onchange = function() { recalcAll(); saveProgress(); };
     document.getElementById('builderCount').onchange = function() { recalcAll(); saveProgress(); };
 }
@@ -913,6 +924,11 @@ function renderBuildingRow(buildingKey) {
 
 function setBuildingLevel(buildingKey, level) {
     state[buildingKey] = level;
+    // If HQ building changed, sync the Current HQ dropdown
+    if (buildingKey === 'headquarters') {
+        var curHQ = document.getElementById('currentHQ');
+        if (curHQ) curHQ.value = level;
+    }
     recalcAll();
     saveProgress();
 }
