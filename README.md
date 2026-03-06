@@ -1,90 +1,76 @@
-# [OWOW] Research Tree Visualizer
+# [OWOW] Last War: Survival — Strategic Tools
 
-Interactive research tree tracker for **Last War: Survival**. Built for [OWOW] Old World Order, Server #2013.
+![OWOW SKYNET](skynet_banner.png)
 
-## Quick Start
+## Live Site
 
-1. Open `research_trees_visual.html` in any modern browser (Chrome, Edge, Firefox)
-2. That's it — no install, no server, no internet required
+**[Open the Tools](https://extremesecrecy.github.io/lastwar-research-trees/)**
 
-## Features
+## Tools & Guides
 
-- **16 research trees** displayed in three horizontal bands with SVG connection lines
-- **Click any node** to adjust your current level (+/-, MAX)
-- **Color-coded states**: green = maxed, orange = in progress, blue = available, gray = locked
-- **Recommended path**: gold pulsing badge = your next research, gray badges = future steps
-- **Hover tooltips** show costs, prerequisites, remaining resources, and recommended step info
-- **Auto-saves** to browser localStorage — your progress persists between sessions
-- **Import/Export CSV** to share progress or back up data
+| Tool | Description |
+|------|-------------|
+| [Research Tree Tracker](https://extremesecrecy.github.io/lastwar-research-trees/research_trees_visual.html) | Interactive 16-tree research tracker with recommended path |
+| [Building Planner](https://extremesecrecy.github.io/lastwar-research-trees/guides/building_planner.html) | Building progression planner with upgrade paths & power dashboard |
+| [Event Calendar](https://extremesecrecy.github.io/lastwar-research-trees/guides/calendar.html) | Daily task reminders + server event timeline with ICS download |
+| [VS Weekly Planner](https://extremesecrecy.github.io/lastwar-research-trees/guides/vs_weekly_planner.html) | Arms Race + VS Duel weekly schedule |
+| [Waterfall Guide](https://extremesecrecy.github.io/lastwar-research-trees/guides/waterfall_guide.html) | Troop waterfall training method |
+| [Radar Guide](https://extremesecrecy.github.io/lastwar-research-trees/guides/radar_guide.html) | Radar mission stacking system |
+| [Alliance Support Hub](https://extremesecrecy.github.io/lastwar-research-trees/guides/alliance_support_hub.html) | Alliance Center levels & help mechanics |
+| [Capitol Positions](https://extremesecrecy.github.io/lastwar-research-trees/guides/capitol_positions.html) | Capitol officer positions & buffs |
+| [Chip Lab](https://extremesecrecy.github.io/lastwar-research-trees/guides/chip_lab_guide.html) | Chip Lab guide with real chip names |
+| [Building Reference](https://extremesecrecy.github.io/lastwar-research-trees/guides/building_reference.html) | Building upgrade costs reference |
 
-## Color Legend
+## Subscribe to the Calendar
 
-| Color | Meaning |
-|-------|---------|
-| Green border | Maxed (fully researched) |
-| Orange border | In progress (partially researched) |
-| Red dashed border | Blocked (in progress but next level prerequisites not met) |
-| Blue border | Available (prerequisites met, ready to research) |
-| Gray border | Locked (prerequisites not met) |
-| Gold badge (pulsing) | Recommended next research |
-| Gray badge | Future recommended research |
+Import this URL into Google Calendar, Apple Calendar, or Outlook:
 
-## Editing Progress
-
-- **Click** any node to open the editor popup
-- Use **-** / **+** to adjust level one at a time
-- Use **MAX** to set the node to its maximum level
-- Click outside or press **Escape** to close the editor
-- Changes auto-save to your browser
-
-## Recommended Path
-
-The gold numbered badges show the universal "best research order" based on pro guides:
-
-1. **Alliance Duel core** (Duel Expert doubles VS points!)
-2. **Extra Hospitals** (save troops)
-3. **Development tree** (build/research/train faster)
-4. **Squad 1 tree** (main squad buffs)
-5. **Hero tree Tier I** (all three branches)
-6. **Special Forces start** (path to T10 troops)
-7. **Defense Fort combat** (base defense)
-8. **Squad 2 start** (secondary squad)
-
-As you max nodes, the gold "UP NEXT" badge automatically moves to the next step.
-
-## Import / Export
-
-- **Export CSV**: Downloads your current progress as `research_trees.csv`
-- **Import CSV**: Upload a CSV file to load progress (must have Tree, Node, Level, HaveIt columns)
-- **Reset**: Reverts to the original CSV values baked into the HTML
-
-## For Alliance Officers: Rebuilding
-
-If you edit `research_trees.csv` or `recommended_path.json`, regenerate the HTML:
-
-```bash
-cd researchtrees
-python build_research_trees.py
+```
+https://extremesecrecy.github.io/lastwar-research-trees/guides/lastwar_calendar.ics
 ```
 
-Requirements: Python 3.6+, no external packages needed.
+Or visit the [Event Calendar](https://extremesecrecy.github.io/lastwar-research-trees/guides/calendar.html) to set your server date and download a personalized calendar.
 
-### Files
+## AI Advisor
+
+Export your progress as CSV, then upload it with the advisor prompt to get personalized strategic advice:
+
+- [Research AI Advisor](https://raw.githubusercontent.com/extremesecrecy/lastwar-research-trees/main/ai_advisor_prompt.md) — Analyzes your research tree progress
+- [Building AI Advisor](https://raw.githubusercontent.com/extremesecrecy/lastwar-research-trees/main/ai_building_advisor_prompt.md) — Analyzes your building progression
+
+## For Developers
+
+### Key Files
 
 | File | Purpose |
 |------|---------|
-| `research_trees_visual.html` | The app (open in browser) |
-| `research_trees.csv` | Research progress data |
-| `recommended_path.json` | Ordered research sequence |
-| `build_research_trees.py` | Build script (generates HTML) |
-| `tree_data/*.json` | Raw tree structure data |
-| `DKCrayonCrumble.ttf` | Display font |
-| `crayon.png` | OWOW logo |
+| `research_trees_visual.html` | Interactive research tracker (16 trees, recommended path) |
+| `build_research_trees.py` | Build script for research tracker |
+| `research_trees.csv` | Research progress data (import/export) |
+| `recommended_path.json` | 75-step ordered research sequence |
+| `tree_data/*.json` | Raw tree structure data (16 files) |
+| `guides/*.html` | All guide pages (self-contained) |
 
-## Sharing
+### Color Legend
 
-To share with alliance members: zip the entire `researchtrees/` folder and send. They just unzip and open the HTML file.
+| Color | Meaning |
+|-------|---------|
+| Green | Maxed (all levels complete) |
+| Orange | In Progress |
+| Red dashed | Blocked (prerequisites not met) |
+| Blue | Available to research |
+| Gray | Locked |
+| Gold pulsing | Recommended next step |
 
-## localStorage Note
+### Rebuilding
 
-Progress is saved per-browser. If you clear browser data or switch browsers, you'll revert to the CSV baseline baked into the HTML. Use **Export CSV** to back up your progress.
+```bash
+python build_research_trees.py    # Rebuild research tracker
+python build_calendar.py          # Rebuild calendar + ICS
+```
+
+---
+
+Built by **[OWOW] Old World Order**
+
+*Kristen OWOW SKYNET. Ready for Judgment Day.*
