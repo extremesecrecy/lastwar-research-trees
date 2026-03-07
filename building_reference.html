@@ -1,0 +1,608 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Base Building Reference - OWOW</title>
+<style>
+  @font-face {
+    font-family: 'DKCrayonCrumble';
+    src: url('DKCrayonCrumble.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: 'DKCrayonCrumble', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: #fff;
+    color: #333;
+    padding: 4px 8px;
+    height: 100vh;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* Header */
+  .top-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2px;
+    flex-shrink: 0;
+  }
+  .top-bar h1 { font-size: 22px; letter-spacing: 1px; text-transform: uppercase; color: #5a6a6a; }
+  .top-bar .sub { font-size: 14px; color: #888; }
+  .alliance {
+    background: #e8f4f1;
+    border: 1px solid #7fb3a8;
+    border-radius: 5px;
+    padding: 2px 10px;
+    text-align: right;
+  }
+  .alliance .name { font-size: 19px; font-weight: 800; color: #5a6a6a; }
+  .alliance .info { font-size: 14px; color: #666; }
+
+  /* Section labels */
+  .section-label {
+    font-size: 14px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: #5a6a6a;
+    margin: 3px 0 2px 0;
+    padding-bottom: 1px;
+    border-bottom: 2px solid #7fb3a8;
+  }
+
+  /* Cards */
+  .card {
+    border-radius: 5px;
+    padding: 4px 6px;
+    font-size: 13px;
+    line-height: 1.3;
+  }
+  .c-prep { background: #e8f5e9; border: 1.5px solid #43a047; }
+  .c-low { background: #fafafa; border: 1px solid #ccc; }
+  .c-med { background: #e4f3f8; border: 1.5px solid #5bc0de; }
+  .c-high { background: #fef3e2; border: 1.5px solid #f4a261; }
+  .c-crit { background: #fce4ec; border: 1.5px solid #e53935; }
+  .c-teal { background: #e8f4f1; border: 1.5px solid #7fb3a8; }
+
+  .card-title { font-size: 14px; font-weight: 800; margin-bottom: 2px; }
+  .ct-dark { color: #5a6a6a; }
+  .ct-green { color: #2e7d32; }
+  .ct-orange { color: #c47a30; }
+  .ct-red { color: #c62828; }
+  .ct-cyan { color: #2a8fa8; }
+  .ct-teal { color: #5a8a7e; }
+
+  .tag {
+    display: inline-block;
+    font-size: 11px;
+    padding: 0 4px;
+    border-radius: 3px;
+    font-weight: 700;
+    color: #fff;
+    vertical-align: middle;
+  }
+  .t-red { background: #e53935; }
+  .t-ora { background: #f4a261; }
+  .t-teal { background: #7fb3a8; }
+  .t-cyan { background: #5bc0de; }
+  .t-grn { background: #2e7d32; }
+  .t-dark { background: #5a6a6a; }
+
+  /* 3 column grid */
+  .main-grid {
+    display: grid;
+    grid-template-columns: 1.05fr 0.95fr 1fr;
+    gap: 6px;
+    flex: 1;
+    min-height: 0;
+  }
+  .col { display: flex; flex-direction: column; gap: 3px; min-height: 0; }
+
+  /* Tables */
+  table.bldg { width: 100%; border-collapse: collapse; font-size: 12px; }
+  table.bldg th {
+    background: #5a6a6a;
+    color: #fff;
+    padding: 2px 3px;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+    white-space: nowrap;
+    position: sticky;
+    top: 0;
+    z-index: 1;
+  }
+  table.bldg td {
+    padding: 1px 3px;
+    text-align: center;
+    border-bottom: 1px solid #eee;
+    white-space: nowrap;
+    line-height: 1.2;
+  }
+  table.bldg tr:nth-child(even) { background: #f7f9f8; }
+  table.bldg .col-level { font-weight: 700; text-align: center; }
+
+  /* Highlighted rows */
+  .row-mile { background: #e8f4f1 !important; }
+  .row-end { background: #f3e8f5 !important; }
+  .row-req { background: #fef9e7 !important; }
+  .row-req td { color: #8a6d00; }
+
+  /* Table container — natural height (cols 1 & 2) */
+  .tbl-auto {
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    overflow: hidden;
+  }
+  /* Table container — fill remaining space + scroll (col 3) */
+  .tbl-scroll {
+    flex: 1;
+    overflow-y: auto;
+    overflow-x: hidden;
+    min-height: 0;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+  }
+  .tbl-scroll::-webkit-scrollbar { width: 5px; }
+  .tbl-scroll::-webkit-scrollbar-thumb { background: #bbb; border-radius: 3px; }
+
+  /* Notes */
+  .note { font-size: 11px; color: #888; line-height: 1.3; margin-top: 1px; }
+  .note b { color: #5a6a6a; }
+
+  /* Footer */
+  .footer {
+    text-align: center;
+    font-size: 12px;
+    color: #999;
+    padding: 2px;
+    border-top: 1px solid #e0e0e0;
+    flex-shrink: 0;
+  }
+
+  /* Sub-grid for col 3 */
+  .sub-grid {
+    display: grid;
+    grid-template-rows: 1fr 1fr 1fr;
+    gap: 3px;
+    flex: 1;
+    min-height: 0;
+  }
+  .sub-section {
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+  }
+
+  /* Military center card */
+  .mil-table { width: 100%; border-collapse: collapse; font-size: 12px; margin-top: 2px; }
+  .mil-table th { background: #5bc0de; color: #fff; padding: 2px 4px; font-size: 10px; text-transform: uppercase; }
+  .mil-table td { padding: 2px 4px; text-align: center; border-bottom: 1px solid #eee; }
+  .mil-table tr:nth-child(even) { background: #f0f8ff; }
+
+  /* Mobile responsive */
+  @media (max-width: 768px) {
+    html { height: auto !important; overflow: visible !important; }
+    body { height: auto !important; overflow: visible !important; min-height: 0 !important; display: block !important; }
+    .top-bar { flex-direction: column; gap: 6px; text-align: center; }
+    .top-bar h1 { font-size: 18px; }
+    .alliance { text-align: center; }
+    .main-grid { grid-template-columns: 1fr; }
+    .col { min-height: auto; }
+    .sub-grid { grid-template-rows: auto; }
+    .tbl-auto, .tbl-scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+    table.bldg { min-width: 400px; }
+    .mil-table { min-width: 400px; display: block; overflow-x: auto; }
+    .card { font-size: 12px; }
+    .section-label { font-size: 13px; }
+    .note { font-size: 11px; }
+  }
+  @media (max-width: 480px) {
+    body { padding: 4px 6px; }
+    .top-bar h1 { font-size: 16px; }
+    .top-bar .sub { font-size: 12px; }
+    .alliance .name { font-size: 15px; }
+    table.bldg { font-size: 11px; min-width: 360px; }
+    table.bldg th { font-size: 9px; padding: 2px; }
+    table.bldg td { padding: 1px 2px; }
+    .mil-table { font-size: 11px; min-width: 360px; }
+    .tag { font-size: 9px; }
+  }
+
+  /* Navigation Bar */
+  .guide-nav {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px 12px;
+    align-items: center;
+    padding: 6px 10px;
+    background: #f0f5f4;
+    border-bottom: 2px solid #7fb3a8;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 12px;
+    margin: -4px -8px 4px -8px;
+    flex-shrink: 0;
+  }
+  .guide-nav a {
+    color: #5a6a6a;
+    text-decoration: none;
+    padding: 2px 6px;
+    border-radius: 3px;
+    white-space: nowrap;
+  }
+  .guide-nav a:hover {
+    color: #f4a261;
+    background: #fff;
+  }
+  .guide-nav a.current {
+    color: #f4a261;
+    font-weight: bold;
+    background: #fff;
+    border: 1px solid #f4a261;
+  }
+  .guide-nav .nav-home {
+    font-weight: bold;
+    margin-right: 8px;
+    padding-right: 12px;
+    border-right: 1px solid #7fb3a8;
+  }
+</style>
+</head>
+<body>
+
+<nav class="guide-nav">
+  <a href="../" class="nav-home">&#8592; Home</a>
+  <a href="alliance_support_hub.html">Alliance Hub</a>
+  <a href="building_planner.html">Building Planner</a>
+  <a href="building_reference.html" class="current">Building Ref</a>
+  <a href="capitol_positions.html">Capitol Positions</a>
+  <a href="chip_lab_guide.html">Chip Lab</a>
+  <a href="radar_guide.html">Radar</a>
+  <a href="guides/server_dashboard.html">Server</a>
+  <a href="vs_weekly_planner.html">VS Planner</a>
+  <a href="waterfall_guide.html">Waterfall</a>
+</nav>
+
+<!-- HEADER -->
+<div class="top-bar">
+  <div>
+    <h1>Base Building Reference</h1>
+    <div class="sub">HQ Requirements, Costs & Building Guides -- All Levels 1-35</div>
+  </div>
+  <img src="skynet_logo.png" alt="OWOW SKYNET" style="height:60px;">
+  <div class="alliance">
+    <div class="name">[OWOW] Old World Order</div>
+    <div class="info">Last War: Survival</div>
+  </div>
+</div>
+
+<!-- MAIN 3-COLUMN GRID -->
+<div class="main-grid">
+
+  <!-- COLUMN 1: HQ REQUIREMENTS -->
+  <div class="col">
+    <div class="section-label">HQ Requirements -- What You Need to Upgrade</div>
+    <div class="tbl-auto">
+      <table class="bldg">
+        <thead>
+          <tr><th>HQ</th><th>Prereq 1</th><th>Prereq 2+</th><th>Hero Cap</th></tr>
+        </thead>
+        <tbody>
+<tr><td class="col-level">1</td><td>—</td><td>—</td><td>4</td></tr>
+<tr><td class="col-level">2</td><td>DG 1</td><td>Park 1</td><td>9</td></tr>
+<tr><td class="col-level">3</td><td>Wall 2</td><td>—</td><td>14</td></tr>
+<tr><td class="col-level">4</td><td>DG 3</td><td>Barr 3</td><td>19</td></tr>
+<tr><td class="col-level">5</td><td>Wall 4</td><td>Barr 4</td><td>24</td></tr>
+<tr><td class="col-level">6</td><td>Wall 5</td><td>DG 5</td><td>29</td></tr>
+<tr><td class="col-level">7</td><td>Wall 6</td><td>(A/T/M)C 6</td><td>34</td></tr>
+<tr><td class="col-level">8</td><td>TC 7</td><td>ALC 7</td><td>39</td></tr>
+<tr><td class="col-level">9</td><td>TC 8</td><td>(A/T/M)C 8</td><td>44</td></tr>
+<tr class="row-mile"><td class="col-level">10</td><td>TC 9</td><td>Hosp 9</td><td>49</td></tr>
+<tr><td class="col-level">11</td><td>TC 10</td><td>Wall 10</td><td>54</td></tr>
+<tr><td class="col-level">12</td><td>TC 11</td><td>Barr 11</td><td>59</td></tr>
+<tr><td class="col-level">13</td><td>TC 12</td><td>(A/T/M)C 12</td><td>64</td></tr>
+<tr><td class="col-level">14</td><td>TC 13</td><td>DG 13</td><td>69</td></tr>
+<tr class="row-mile"><td class="col-level">15</td><td>TC 14</td><td>Wall 14</td><td>74</td></tr>
+<tr><td class="col-level">16</td><td>TC 15</td><td>ALC 15</td><td>79</td></tr>
+<tr><td class="col-level">17</td><td>TC 16</td><td>(A/T/M)C 16</td><td>84</td></tr>
+<tr><td class="col-level">18</td><td>TC 17</td><td>Hosp 17</td><td>89</td></tr>
+<tr><td class="col-level">19</td><td>TC 18</td><td>Wall 18</td><td>94</td></tr>
+<tr class="row-mile"><td class="col-level">20</td><td>TC 19</td><td>Barr 19</td><td>99</td></tr>
+<tr><td class="col-level">21</td><td>TC 20</td><td>(A/T/M)C 20</td><td>104</td></tr>
+<tr><td class="col-level">22</td><td>TC 21</td><td>DG 21</td><td>109</td></tr>
+<tr><td class="col-level">23</td><td>TC 22</td><td>Wall 22</td><td>114</td></tr>
+<tr><td class="col-level">24</td><td>TC 23</td><td>ALC 23</td><td>119</td></tr>
+<tr class="row-mile"><td class="col-level">25</td><td>TC 24</td><td>(A/T/M)C 24</td><td>124</td></tr>
+<tr><td class="col-level">26</td><td>TC 25</td><td>Hosp 25</td><td>129</td></tr>
+<tr><td class="col-level">27</td><td>TC 26</td><td>Wall 26</td><td>134</td></tr>
+<tr><td class="col-level">28</td><td>TC 27</td><td>Barr 27</td><td>139</td></tr>
+<tr><td class="col-level">29</td><td>TC 28</td><td>(A/T/M)C 28</td><td>144</td></tr>
+<tr class="row-mile"><td class="col-level">30</td><td>TC 29</td><td>DG 29</td><td>149</td></tr>
+<tr class="row-end"><td class="col-level">31</td><td>TC 30</td><td style="font-size:10px">Barr 30, (A/T/M)C 30</td><td>154</td></tr>
+<tr class="row-end"><td class="col-level">32</td><td>TC 31</td><td style="font-size:10px">Barr 31, (A/T/M)C 31, Wall 31</td><td>159</td></tr>
+<tr class="row-end"><td class="col-level">33</td><td>TC 32</td><td style="font-size:10px">Barr 32, (A/T/M)C 32, Hosp 32, DG 32</td><td>164</td></tr>
+<tr class="row-end"><td class="col-level">34</td><td>TC 33</td><td style="font-size:10px">Barr 33, (A/T/M)C 33, ALC 33, Wall 33</td><td>169</td></tr>
+<tr class="row-end"><td class="col-level">35</td><td>TC 34</td><td style="font-size:10px">Barr 34, (A/T/M)C 34, Hosp 34, DG 34</td><td>174</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="card c-low" style="flex-shrink:0;">
+      <div class="card-title ct-dark">Legend</div>
+      <div style="font-size:12px;display:flex;gap:10px;flex-wrap:wrap;">
+        <span><b>TC</b> = Tech Center</span>
+        <span><b>ALC</b> = Alliance Center</span>
+        <span><b>(A/T/M)C</b> = Aircraft, Tank, or Missile Center</span>
+        <span><b>Hosp</b> = Hospital</span>
+        <span><b>Barr</b> = Barracks</span>
+        <span><b>DG</b> = Drill Ground</span>
+      </div>
+    </div>
+    <div class="card c-teal" style="flex-shrink:0;">
+      <div class="card-title ct-teal">Requirement Patterns</div>
+      <div style="font-size:12px;">
+        <b>TC</b> required at EVERY level from HQ 8+<br>
+        <b>2nd prereq rotates (8-level cycle):</b> ALC - (A/T/M)C - Hosp - Wall - Barr - (A/T/M)C - DG - Wall<br>
+        <b>(A/T/M)C</b> = any 1 of the 3 military centers qualifies<br>
+        <b>HQ 31+</b> needs 3-5 buildings simultaneously<br>
+        <b>Hero Cap</b> = HQ x 5 - 1
+      </div>
+    </div>
+    <div class="card c-high" style="flex-shrink:0;">
+      <div class="card-title ct-orange">Troop Tier Unlocks (Barracks Level)</div>
+      <div style="font-size:12px;">
+        Lv 14 = <span class="tag t-cyan">T5</span> |
+        Lv 17 = <span class="tag t-cyan">T6</span> |
+        Lv 20 = <span class="tag t-cyan">T7</span> |
+        Lv 24 = <span class="tag t-cyan">T8</span> |
+        Lv 27 = <span class="tag t-cyan">T9</span> |
+        Lv 30 = <span class="tag t-cyan">T10</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- COLUMN 2: HQ COSTS + MILITARY CENTERS -->
+  <div class="col">
+    <div class="section-label">HQ Upgrade Costs & Build Times</div>
+    <div class="tbl-auto">
+      <table class="bldg">
+        <thead>
+          <tr><th>HQ</th><th>Food</th><th>Iron</th><th>Gold</th><th>Time</th></tr>
+        </thead>
+        <tbody>
+<tr><td class="col-level">1</td><td>—</td><td>—</td><td>—</td><td>3s</td></tr>
+<tr><td class="col-level">2</td><td>68</td><td>68</td><td>—</td><td>4s</td></tr>
+<tr><td class="col-level">3</td><td>1K</td><td>1K</td><td>—</td><td>47s</td></tr>
+<tr><td class="col-level">4</td><td>2K</td><td>2K</td><td>—</td><td>1m 57s</td></tr>
+<tr><td class="col-level">5</td><td>20K</td><td>20K</td><td>—</td><td>11m 42s</td></tr>
+<tr><td class="col-level">6</td><td>91K</td><td>91K</td><td>—</td><td>35m 6s</td></tr>
+<tr><td class="col-level">7</td><td>240K</td><td>240K</td><td>—</td><td>1h 33m</td></tr>
+<tr><td class="col-level">8</td><td>390K</td><td>390K</td><td>—</td><td>3h 7m</td></tr>
+<tr><td class="col-level">9</td><td>620K</td><td>620K</td><td>200K</td><td>4h 22m</td></tr>
+<tr class="row-mile"><td class="col-level">10</td><td>750K</td><td>750K</td><td>240K</td><td>5h 40m</td></tr>
+<tr><td class="col-level">11</td><td>2M</td><td>2M</td><td>600K</td><td>7h 22m</td></tr>
+<tr><td class="col-level">12</td><td>3M</td><td>3M</td><td>1M</td><td>9h 35m</td></tr>
+<tr><td class="col-level">13</td><td>4M</td><td>4M</td><td>1M</td><td>12h 28m</td></tr>
+<tr><td class="col-level">14</td><td>5M</td><td>5M</td><td>2M</td><td>16h 13m</td></tr>
+<tr class="row-mile"><td class="col-level">15</td><td>7M</td><td>7M</td><td>2M</td><td>22h 42m</td></tr>
+<tr><td class="col-level">16</td><td>12M</td><td>12M</td><td>4M</td><td>1d 7h</td></tr>
+<tr><td class="col-level">17</td><td>16M</td><td>16M</td><td>5M</td><td>1d 20h</td></tr>
+<tr><td class="col-level">18</td><td>28M</td><td>28M</td><td>9M</td><td>2d 14h</td></tr>
+<tr><td class="col-level">19</td><td>33M</td><td>33M</td><td>11M</td><td>3d 15h</td></tr>
+<tr class="row-mile"><td class="col-level">20</td><td>60M</td><td>60M</td><td>19M</td><td>5d 2h</td></tr>
+<tr><td class="col-level">21</td><td>84M</td><td>84M</td><td>27M</td><td>6d 14h</td></tr>
+<tr><td class="col-level">22</td><td>110M</td><td>110M</td><td>35M</td><td>8d 14h</td></tr>
+<tr><td class="col-level">23</td><td>140M</td><td>140M</td><td>44M</td><td>11d 4h</td></tr>
+<tr><td class="col-level">24</td><td>170M</td><td>170M</td><td>54M</td><td>15d 15h</td></tr>
+<tr class="row-mile"><td class="col-level">25</td><td>290M</td><td>290M</td><td>93M</td><td>21d 21h</td></tr>
+<tr><td class="col-level">26</td><td>400M</td><td>400M</td><td>130M</td><td>30d 16h</td></tr>
+<tr><td class="col-level">27</td><td>530M</td><td>530M</td><td>170M</td><td>42d 22h</td></tr>
+<tr><td class="col-level">28</td><td>740M</td><td>740M</td><td>240M</td><td>60d 2h</td></tr>
+<tr><td class="col-level">29</td><td>1.0B</td><td>1.0B</td><td>330M</td><td>78d 3h</td></tr>
+<tr class="row-mile"><td class="col-level">30</td><td>1.4B</td><td>1.4B</td><td>460M</td><td>101d 14h</td></tr>
+<tr class="row-end"><td class="col-level">31</td><td>1.6B</td><td>1.6B</td><td>510M</td><td>111d 18h</td></tr>
+<tr class="row-end"><td class="col-level">32</td><td>1.7B</td><td>1.7B</td><td>560M</td><td>122d 22h</td></tr>
+<tr class="row-end"><td class="col-level">33</td><td>1.9B</td><td>1.9B</td><td>620M</td><td>135d 5h</td></tr>
+<tr class="row-end"><td class="col-level">34</td><td>2.0B</td><td>2.0B</td><td>650M</td><td>141d 23h</td></tr>
+<tr class="row-end"><td class="col-level">35</td><td>2.1B</td><td>2.1B</td><td>680M</td><td>149d 2h</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="card c-med" style="flex-shrink:0;">
+      <div class="card-title ct-cyan">Military Centers (Tank / Aircraft / Missile)</div>
+      <div class="note">All 3 have <b>identical costs and build times</b>. Only need 1 for HQ prereq.</div>
+      <table class="mil-table">
+        <tr><th>Lv</th><th>Food</th><th>Iron</th><th>Gold</th><th>Time</th><th>Tier</th></tr>
+        <tr><td><b>14</b></td><td>1M</td><td>4M</td><td>780K</td><td>12h 9m</td><td><span class="tag t-cyan">T5</span></td></tr>
+        <tr><td><b>17</b></td><td>4M</td><td>12M</td><td>2M</td><td>1d 9h</td><td><span class="tag t-cyan">T6</span></td></tr>
+        <tr><td><b>20</b></td><td>15M</td><td>45M</td><td>10M</td><td>3d 19h</td><td><span class="tag t-cyan">T7</span></td></tr>
+        <tr><td><b>24</b></td><td>43M</td><td>130M</td><td>27M</td><td>11d 17h</td><td><span class="tag t-cyan">T8</span></td></tr>
+        <tr><td><b>27</b></td><td>130M</td><td>390M</td><td>84M</td><td>32d 5h</td><td><span class="tag t-cyan">T9</span></td></tr>
+        <tr><td><b>30</b></td><td>360M</td><td>1.1B</td><td>230M</td><td>76d 5h</td><td><span class="tag t-cyan">T10</span></td></tr>
+      </table>
+    </div>
+    <div class="card c-low" style="flex-shrink:0;">
+      <div class="card-title ct-dark">Cost Comparison (Same Level)</div>
+      <div style="font-size:11px;">
+        <b>Cheapest:</b> Drill Ground, Alliance Center (food-heavy, low iron)<br>
+        <b>Moderate:</b> Hospital, Barracks, Tech Center<br>
+        <b>Most Expensive:</b> HQ, Wall (iron-heavy), Military Centers (iron-heavy)<br>
+        <b>Tip:</b> Wall & Military Ctrs cost iron:food at 3:1 ratio. HQ costs equal food & iron.
+      </div>
+    </div>
+  </div>
+
+  <!-- COLUMN 3: INDIVIDUAL BUILDING REFERENCES -->
+  <div class="col">
+    <div class="section-label">Key Building Reference</div>
+    <div class="sub-grid">
+
+      <!-- Hospital -->
+      <div class="sub-section">
+        <div style="font-size:13px;font-weight:800;color:#5a8a7e;">
+          Hospital
+          <span class="tag t-teal" style="font-size:9px;">Required HQ 10, 18, 26, 33, 35</span>
+        </div>
+        <div class="note">Stores wounded troops. Higher level = more beds. Upgrade before Enemy Buster!</div>
+        <div class="tbl-scroll">
+          <table class="bldg">
+            <thead><tr><th>Lv</th><th>Food</th><th>Iron</th><th>Gold</th><th>Time</th></tr></thead>
+            <tbody>
+<tr><td class="col-level">1</td><td>90</td><td>30</td><td>—</td><td>6s</td></tr>
+<tr><td class="col-level">2</td><td>230</td><td>75</td><td>—</td><td>12s</td></tr>
+<tr><td class="col-level">3</td><td>1K</td><td>340</td><td>—</td><td>47s</td></tr>
+<tr><td class="col-level">4</td><td>2K</td><td>840</td><td>—</td><td>1m 57s</td></tr>
+<tr><td class="col-level">5</td><td>20K</td><td>7K</td><td>—</td><td>11m 42s</td></tr>
+<tr><td class="col-level">6</td><td>91K</td><td>30K</td><td>—</td><td>35m 6s</td></tr>
+<tr><td class="col-level">7</td><td>180K</td><td>61K</td><td>—</td><td>1h 10m</td></tr>
+<tr><td class="col-level">8</td><td>290K</td><td>97K</td><td>—</td><td>2h 20m</td></tr>
+<tr><td class="col-level">9</td><td>470K</td><td>160K</td><td>120K</td><td>3h 16m</td></tr>
+<tr class="row-req"><td class="col-level">10</td><td>560K</td><td>190K</td><td>150K</td><td>4h 15m</td></tr>
+<tr><td class="col-level">11</td><td>1M</td><td>470K</td><td>370K</td><td>5h 32m</td></tr>
+<tr><td class="col-level">12</td><td>2M</td><td>790K</td><td>630K</td><td>7h 11m</td></tr>
+<tr><td class="col-level">13</td><td>3M</td><td>870K</td><td>700K</td><td>9h 21m</td></tr>
+<tr><td class="col-level">14</td><td>4M</td><td>1M</td><td>980K</td><td>12h 9m</td></tr>
+<tr><td class="col-level">15</td><td>5M</td><td>2M</td><td>1M</td><td>17h 1m</td></tr>
+<tr><td class="col-level">16</td><td>9M</td><td>3M</td><td>2M</td><td>23h 50m</td></tr>
+<tr><td class="col-level">17</td><td>12M</td><td>4M</td><td>3M</td><td>1d 9h</td></tr>
+<tr class="row-req"><td class="col-level">18</td><td>21M</td><td>7M</td><td>6M</td><td>1d 22h</td></tr>
+<tr><td class="col-level">19</td><td>25M</td><td>8M</td><td>7M</td><td>2d 17h</td></tr>
+<tr><td class="col-level">20</td><td>45M</td><td>15M</td><td>12M</td><td>3d 19h</td></tr>
+<tr><td class="col-level">21</td><td>63M</td><td>21M</td><td>17M</td><td>4d 23h</td></tr>
+<tr><td class="col-level">22</td><td>82M</td><td>27M</td><td>22M</td><td>6d 10h</td></tr>
+<tr><td class="col-level">23</td><td>100M</td><td>34M</td><td>27M</td><td>8d 9h</td></tr>
+<tr><td class="col-level">24</td><td>130M</td><td>43M</td><td>34M</td><td>11d 17h</td></tr>
+<tr><td class="col-level">25</td><td>220M</td><td>72M</td><td>58M</td><td>16d 10h</td></tr>
+<tr class="row-req"><td class="col-level">26</td><td>300M</td><td>100M</td><td>81M</td><td>23d 1h</td></tr>
+<tr><td class="col-level">27</td><td>390M</td><td>130M</td><td>110M</td><td>32d 5h</td></tr>
+<tr><td class="col-level">28</td><td>550M</td><td>180M</td><td>150M</td><td>45d 2h</td></tr>
+<tr><td class="col-level">29</td><td>770M</td><td>260M</td><td>210M</td><td>58d 14h</td></tr>
+<tr><td class="col-level">30</td><td>1.1B</td><td>360M</td><td>290M</td><td>76d 5h</td></tr>
+<tr><td class="col-level">31</td><td>1.2B</td><td>400M</td><td>320M</td><td>83d 19h</td></tr>
+<tr><td class="col-level">32</td><td>1.3B</td><td>440M</td><td>350M</td><td>92d 4h</td></tr>
+<tr class="row-req"><td class="col-level">33</td><td>1.4B</td><td>480M</td><td>380M</td><td>101d 10h</td></tr>
+<tr><td class="col-level">34</td><td>1.5B</td><td>500M</td><td>400M</td><td>106d 11h</td></tr>
+<tr class="row-req"><td class="col-level">35</td><td>1.6B</td><td>530M</td><td>420M</td><td>111d 19h</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Wall -->
+      <div class="sub-section">
+        <div style="font-size:13px;font-weight:800;color:#c47a30;">
+          Wall
+          <span class="tag t-ora" style="font-size:9px;">Required HQ 3,5,6,7,11,15,19,23,27,32,34</span>
+        </div>
+        <div class="note">Defensive durability. <b>IRON-heavy</b> (opposite of most buildings). Required most often!</div>
+        <div class="tbl-scroll">
+          <table class="bldg">
+            <thead><tr><th>Lv</th><th>Food</th><th>Iron</th><th>Gold</th><th>Time</th></tr></thead>
+            <tbody>
+<tr><td class="col-level">1</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
+<tr><td class="col-level">2</td><td>23</td><td>68</td><td>—</td><td>4s</td></tr>
+<tr class="row-req"><td class="col-level">3</td><td>340</td><td>1K</td><td>—</td><td>47s</td></tr>
+<tr><td class="col-level">4</td><td>840</td><td>2K</td><td>—</td><td>1m 57s</td></tr>
+<tr class="row-req"><td class="col-level">5</td><td>7K</td><td>20K</td><td>—</td><td>11m 42s</td></tr>
+<tr class="row-req"><td class="col-level">6</td><td>30K</td><td>91K</td><td>—</td><td>35m 6s</td></tr>
+<tr class="row-req"><td class="col-level">7</td><td>81K</td><td>240K</td><td>—</td><td>1h 33m</td></tr>
+<tr><td class="col-level">8</td><td>130K</td><td>390K</td><td>—</td><td>3h 7m</td></tr>
+<tr><td class="col-level">9</td><td>210K</td><td>620K</td><td>130K</td><td>4h 22m</td></tr>
+<tr><td class="col-level">10</td><td>250K</td><td>750K</td><td>160K</td><td>5h 40m</td></tr>
+<tr class="row-req"><td class="col-level">11</td><td>620K</td><td>2M</td><td>400K</td><td>7h 22m</td></tr>
+<tr><td class="col-level">12</td><td>1M</td><td>3M</td><td>680K</td><td>9h 35m</td></tr>
+<tr><td class="col-level">13</td><td>1M</td><td>4M</td><td>740K</td><td>12h 28m</td></tr>
+<tr><td class="col-level">14</td><td>2M</td><td>5M</td><td>1M</td><td>16h 13m</td></tr>
+<tr class="row-req"><td class="col-level">15</td><td>2M</td><td>7M</td><td>2M</td><td>22h 42m</td></tr>
+<tr><td class="col-level">16</td><td>4M</td><td>12M</td><td>3M</td><td>1d 7h</td></tr>
+<tr><td class="col-level">17</td><td>5M</td><td>16M</td><td>3M</td><td>1d 20h</td></tr>
+<tr><td class="col-level">18</td><td>9M</td><td>28M</td><td>6M</td><td>2d 14h</td></tr>
+<tr class="row-req"><td class="col-level">19</td><td>11M</td><td>33M</td><td>7M</td><td>3d 15h</td></tr>
+<tr><td class="col-level">20</td><td>20M</td><td>60M</td><td>13M</td><td>5d 2h</td></tr>
+<tr><td class="col-level">21</td><td>28M</td><td>84M</td><td>18M</td><td>6d 14h</td></tr>
+<tr><td class="col-level">22</td><td>36M</td><td>110M</td><td>23M</td><td>8d 14h</td></tr>
+<tr class="row-req"><td class="col-level">23</td><td>45M</td><td>140M</td><td>29M</td><td>11d 4h</td></tr>
+<tr><td class="col-level">24</td><td>57M</td><td>170M</td><td>36M</td><td>15d 15h</td></tr>
+<tr><td class="col-level">25</td><td>96M</td><td>290M</td><td>62M</td><td>21d 21h</td></tr>
+<tr><td class="col-level">26</td><td>130M</td><td>400M</td><td>86M</td><td>30d 16h</td></tr>
+<tr class="row-req"><td class="col-level">27</td><td>180M</td><td>530M</td><td>110M</td><td>42d 22h</td></tr>
+<tr><td class="col-level">28</td><td>250M</td><td>740M</td><td>160M</td><td>60d 2h</td></tr>
+<tr><td class="col-level">29</td><td>340M</td><td>1.0B</td><td>220M</td><td>78d 3h</td></tr>
+<tr><td class="col-level">30</td><td>480M</td><td>1.4B</td><td>310M</td><td>101d 14h</td></tr>
+<tr><td class="col-level">31</td><td>530M</td><td>1.6B</td><td>340M</td><td>111d 18h</td></tr>
+<tr class="row-req"><td class="col-level">32</td><td>580M</td><td>1.7B</td><td>370M</td><td>122d 22h</td></tr>
+<tr><td class="col-level">33</td><td>640M</td><td>1.9B</td><td>410M</td><td>135d 5h</td></tr>
+<tr class="row-req"><td class="col-level">34</td><td>673M</td><td>2.0B</td><td>430M</td><td>141d 23h</td></tr>
+<tr><td class="col-level">35</td><td>710M</td><td>2.1B</td><td>450M</td><td>149d 2h</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Alliance Center -->
+      <div class="sub-section">
+        <div style="font-size:13px;font-weight:800;color:#2a8fa8;">
+          Alliance Center
+          <span class="tag t-cyan" style="font-size:9px;">Required HQ 8, 16, 24, 34</span>
+        </div>
+        <div class="note">Help slots, rally capacity, shop access. Lv23 = 16 base helps (+6 Lawyers = 22)</div>
+        <div class="tbl-scroll">
+          <table class="bldg">
+            <thead><tr><th>Lv</th><th>Food</th><th>Iron</th><th>Gold</th><th>Time</th></tr></thead>
+            <tbody>
+<tr><td class="col-level">1</td><td>90</td><td>30</td><td>—</td><td>6s</td></tr>
+<tr><td class="col-level">2</td><td>230</td><td>75</td><td>—</td><td>12s</td></tr>
+<tr><td class="col-level">3</td><td>1K</td><td>340</td><td>—</td><td>47s</td></tr>
+<tr><td class="col-level">4</td><td>2K</td><td>840</td><td>—</td><td>1m 57s</td></tr>
+<tr><td class="col-level">5</td><td>20K</td><td>7K</td><td>—</td><td>11m 42s</td></tr>
+<tr><td class="col-level">6</td><td>61K</td><td>20K</td><td>—</td><td>23m 24s</td></tr>
+<tr><td class="col-level">7</td><td>120K</td><td>41K</td><td>—</td><td>46m 48s</td></tr>
+<tr class="row-req"><td class="col-level">8</td><td>190K</td><td>65K</td><td>—</td><td>1h 33m</td></tr>
+<tr><td class="col-level">9</td><td>310K</td><td>100K</td><td>100K</td><td>2h 11m</td></tr>
+<tr><td class="col-level">10</td><td>370K</td><td>120K</td><td>120K</td><td>2h 50m</td></tr>
+<tr><td class="col-level">11</td><td>930K</td><td>310K</td><td>300K</td><td>3h 41m</td></tr>
+<tr><td class="col-level">12</td><td>2M</td><td>530K</td><td>510K</td><td>4h 47m</td></tr>
+<tr><td class="col-level">13</td><td>2M</td><td>580K</td><td>560K</td><td>6h 14m</td></tr>
+<tr><td class="col-level">14</td><td>2M</td><td>810K</td><td>780K</td><td>8h 6m</td></tr>
+<tr><td class="col-level">15</td><td>3M</td><td>1M</td><td>1M</td><td>11h 21m</td></tr>
+<tr class="row-req"><td class="col-level">16</td><td>6M</td><td>2M</td><td>2M</td><td>15h 53m</td></tr>
+<tr><td class="col-level">17</td><td>8M</td><td>3M</td><td>2M</td><td>22h 15m</td></tr>
+<tr><td class="col-level">18</td><td>14M</td><td>5M</td><td>4M</td><td>1d 7h</td></tr>
+<tr><td class="col-level">19</td><td>17M</td><td>6M</td><td>5M</td><td>1d 19h</td></tr>
+<tr><td class="col-level">20</td><td>30M</td><td>10M</td><td>10M</td><td>2d 13h</td></tr>
+<tr><td class="col-level">21</td><td>42M</td><td>14M</td><td>13M</td><td>3d 7h</td></tr>
+<tr><td class="col-level">22</td><td>54M</td><td>18M</td><td>17M</td><td>4d 7h</td></tr>
+<tr><td class="col-level">23</td><td>68M</td><td>23M</td><td>22M</td><td>5d 14h</td></tr>
+<tr class="row-req"><td class="col-level">24</td><td>85M</td><td>28M</td><td>27M</td><td>7d 16h</td></tr>
+<tr><td class="col-level">25</td><td>140M</td><td>48M</td><td>46M</td><td>10d 19h</td></tr>
+<tr><td class="col-level">26</td><td>200M</td><td>67M</td><td>65M</td><td>15d 8h</td></tr>
+<tr><td class="col-level">27</td><td>260M</td><td>88M</td><td>84M</td><td>21d 12h</td></tr>
+<tr><td class="col-level">28</td><td>370M</td><td>120M</td><td>120M</td><td>30d 1h</td></tr>
+<tr><td class="col-level">29</td><td>520M</td><td>170M</td><td>170M</td><td>39d 1h</td></tr>
+<tr><td class="col-level">30</td><td>720M</td><td>240M</td><td>230M</td><td>50d 19h</td></tr>
+<tr><td class="col-level">31</td><td>790M</td><td>260M</td><td>250M</td><td>55d 21h</td></tr>
+<tr><td class="col-level">32</td><td>870M</td><td>290M</td><td>280M</td><td>61d 11h</td></tr>
+<tr><td class="col-level">33</td><td>960M</td><td>320M</td><td>310M</td><td>67d 14h</td></tr>
+<tr class="row-req"><td class="col-level">34</td><td>1.0B</td><td>340M</td><td>320M</td><td>70d 23h</td></tr>
+<tr><td class="col-level">35</td><td>1.1B</td><td>350M</td><td>340M</td><td>74d 13h</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+</div>
+
+<!-- FOOTER -->
+<div class="footer">
+  [OWOW] Old World Order -- Base Building Reference -- Data from cpt-hedge.com -- Build times shown without speed buffs -- (A/T/M)C = any 1 of Aircraft, Tank, or Missile Center -- Kristen OWOW SKYNET
+</div>
+
+</body>
+</html>
