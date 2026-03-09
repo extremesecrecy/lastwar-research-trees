@@ -341,6 +341,10 @@
     <input type="date" id="creationDate" value="2025-12-14">
   </div>
   <div class="config-group">
+    <label>HQ Level</label>
+    <input type="number" id="hqLevel" value="24" min="1" max="35" style="width:60px;padding:4px 8px;border:1px solid var(--gray);border-radius:4px;font-size:13px;font-family:inherit;background:#fff;text-align:center;">
+  </div>
+  <div class="config-group">
     <label>Region</label>
     <span style="font-size:13px;padding:4px 0;">Korea, North America, South America</span>
   </div>
@@ -690,10 +694,16 @@ function update() {
   document.getElementById('serverAge').textContent = ageWeeks + ' wks';
   document.getElementById('serverAgeDetail').textContent = '~' + ageMonths + ' months old';
 
-  // Hero level cap (HQ-based, but we show server-day-based estimate)
-  // Typical HQ progression: rough estimate
-  document.getElementById('heroLevelCap').textContent = '--';
-  document.getElementById('heroCapDetail').textContent = 'Set HQ level below';
+  // Hero level cap = HQ * 5 - 1
+  const hq = parseInt(document.getElementById('hqLevel').value) || 0;
+  if (hq > 0) {
+    const cap = hq * 5 - 1;
+    document.getElementById('heroLevelCap').textContent = cap;
+    document.getElementById('heroCapDetail').textContent = 'HQ ' + hq + ' (next: ' + (cap + 5) + ' at HQ ' + (hq + 1) + ')';
+  } else {
+    document.getElementById('heroLevelCap').textContent = '--';
+    document.getElementById('heroCapDetail').textContent = 'Set HQ level above';
+  }
 
   // Season progress bar
   document.getElementById('seasonBarFill').style.width = pct + '%';
@@ -796,9 +806,21 @@ document.getElementById('creationDate').addEventListener('change', function() {
   update();
 });
 
-// Load saved creation date
+// HQ level change
+document.getElementById('hqLevel').addEventListener('change', function() {
+  localStorage.setItem('owow-server-hq-level', this.value);
+  update();
+});
+document.getElementById('hqLevel').addEventListener('input', function() {
+  localStorage.setItem('owow-server-hq-level', this.value);
+  update();
+});
+
+// Load saved settings
 const saved = localStorage.getItem('owow-server-creation-date');
 if (saved) document.getElementById('creationDate').value = saved;
+const savedHQ = localStorage.getItem('owow-server-hq-level');
+if (savedHQ) document.getElementById('hqLevel').value = savedHQ;
 
 // Load stats from JSON file
 function loadStats() {
