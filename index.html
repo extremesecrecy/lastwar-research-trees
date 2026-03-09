@@ -1,12 +1,427 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<meta charset="utf-8">
-<meta http-equiv="refresh" content="0; url=research_trees_visual.html">
-<title>Last War Research Trees</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>OWOW SKYNET | Strategic Command Center</title>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='6' fill='%231a1a2e'/><text x='16' y='23' text-anchor='middle' font-size='20'>🛡️</text></svg>">
+<style>
+  @font-face {
+    font-family: 'DKCrayonCrumble';
+    src: url('researchtrees/DKCrayonCrumble.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --orange: #f4a261;
+    --cyan: #5bc0de;
+    --yellow: #f4d35e;
+    --teal: #7fb3a8;
+    --dark: #5a6a6a;
+    --text: #333;
+    --watermelon: #fc5c65;
+  }
+
+  body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: #fff;
+    color: var(--text);
+    padding: 8px;
+    min-height: 100vh;
+  }
+
+  h1, h2, h3, .section-label {
+    font-family: 'DKCrayonCrumble', 'Segoe UI', sans-serif;
+  }
+
+  /* Nav */
+  .guide-nav {
+    display: flex; flex-wrap: wrap; gap: 4px 12px; align-items: center;
+    padding: 6px 16px; background: #f0f5f4; border-bottom: 2px solid var(--teal);
+    font-size: 12px; margin: -8px -8px 12px -8px;
+  }
+  .guide-nav a { color: var(--dark); text-decoration: none; padding: 2px 6px; border-radius: 3px; white-space: nowrap; }
+  .guide-nav a:hover { color: var(--orange); background: #fff; }
+  .guide-nav a.current { color: var(--orange); font-weight: bold; background: #fff; border: 1px solid var(--orange); }
+  .guide-nav .nav-home { font-weight: bold; margin-right: 8px; padding-right: 12px; border-right: 1px solid var(--teal); }
+
+  /* Hero Section */
+  .hero {
+    text-align: center;
+    padding: 40px 20px 30px;
+    position: relative;
+  }
+  .hero::after {
+    content: '';
+    display: block;
+    width: 80%;
+    max-width: 500px;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--teal), var(--orange), var(--teal), transparent);
+    margin: 24px auto 0;
+  }
+  .hero-logo {
+    width: 180px;
+    height: auto;
+    margin-bottom: 16px;
+    filter: drop-shadow(0 2px 12px rgba(244,162,97,0.2));
+  }
+  .hero-art {
+    width: 100%;
+    max-width: 600px;
+    height: auto;
+    margin: 0 auto 8px;
+    display: block;
+    opacity: 0.85;
+  }
+  .hero h1 {
+    font-size: 36px;
+    color: var(--dark);
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    margin-bottom: 6px;
+  }
+  .hero .tagline {
+    font-size: 14px;
+    color: var(--teal);
+    text-transform: uppercase;
+    letter-spacing: 4px;
+    font-weight: 600;
+    margin-bottom: 16px;
+  }
+  .status-bar {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: #f0f5f4;
+    border: 1px solid var(--teal);
+    border-radius: 20px;
+    padding: 4px 16px;
+    font-size: 11px;
+    color: var(--dark);
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    font-weight: 600;
+  }
+  .status-dot {
+    width: 8px;
+    height: 8px;
+    background: #43a047;
+    border-radius: 50%;
+    animation: pulse 2s ease-in-out infinite;
+  }
+  @keyframes pulse {
+    0%, 100% { opacity: 1; box-shadow: 0 0 0 0 rgba(67,160,71,0.4); }
+    50% { opacity: 0.7; box-shadow: 0 0 0 6px rgba(67,160,71,0); }
+  }
+
+  /* Section Headers */
+  .section {
+    max-width: 1100px;
+    margin: 0 auto 32px;
+    padding: 0 12px;
+  }
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 16px;
+    padding-bottom: 8px;
+    position: relative;
+  }
+  .section-header::after {
+    content: '';
+    flex: 1;
+    height: 2px;
+    border-radius: 1px;
+  }
+  .section-header .section-icon {
+    font-size: 20px;
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px;
+    border: 2px solid;
+    background: #fff;
+  }
+  .section-header h2 {
+    font-size: 18px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    white-space: nowrap;
+  }
+
+  /* Section color themes */
+  .section-strategic .section-header::after { background: linear-gradient(90deg, var(--orange), transparent); }
+  .section-strategic .section-icon { border-color: var(--orange); color: var(--orange); }
+  .section-strategic h2 { color: var(--orange); }
+
+  .section-intel .section-header::after { background: linear-gradient(90deg, var(--cyan), transparent); }
+  .section-intel .section-icon { border-color: var(--cyan); color: var(--cyan); }
+  .section-intel h2 { color: var(--cyan); }
+
+  .section-tactical .section-header::after { background: linear-gradient(90deg, var(--teal), transparent); }
+  .section-tactical .section-icon { border-color: var(--teal); color: var(--teal); }
+  .section-tactical h2 { color: var(--teal); }
+
+  /* Tool Cards Grid */
+  .card-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 14px;
+  }
+
+  .tool-card {
+    background: #fff;
+    border: 1px solid #e0e8e6;
+    border-left: 4px solid var(--teal);
+    border-radius: 8px;
+    padding: 18px 18px 16px;
+    text-decoration: none;
+    color: var(--text);
+    transition: all 0.2s ease;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  .tool-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+    border-color: transparent;
+  }
+  .tool-card .card-icon {
+    font-size: 24px;
+    margin-bottom: 2px;
+  }
+  .tool-card h3 {
+    font-size: 16px;
+    color: var(--dark);
+    font-family: 'DKCrayonCrumble', 'Segoe UI', sans-serif;
+    letter-spacing: 0.5px;
+  }
+  .tool-card .card-desc {
+    font-size: 12px;
+    color: #777;
+    line-height: 1.4;
+  }
+  .tool-card .card-arrow {
+    position: absolute;
+    top: 18px;
+    right: 14px;
+    font-size: 14px;
+    color: #ccc;
+    transition: all 0.2s;
+  }
+  .tool-card:hover .card-arrow {
+    color: var(--orange);
+    transform: translateX(3px);
+  }
+
+  /* Section-specific card borders */
+  .section-strategic .tool-card { border-left-color: var(--orange); }
+  .section-strategic .tool-card:hover { border-left-color: var(--orange); box-shadow: 0 6px 20px rgba(244,162,97,0.12); }
+
+  .section-intel .tool-card { border-left-color: var(--cyan); }
+  .section-intel .tool-card:hover { border-left-color: var(--cyan); box-shadow: 0 6px 20px rgba(91,192,222,0.12); }
+
+  .section-tactical .tool-card { border-left-color: var(--teal); }
+  .section-tactical .tool-card:hover { border-left-color: var(--teal); box-shadow: 0 6px 20px rgba(127,179,168,0.12); }
+
+  /* Footer */
+  .footer {
+    text-align: center;
+    padding: 30px 20px 20px;
+    margin-top: 20px;
+    position: relative;
+  }
+  .footer::before {
+    content: '';
+    display: block;
+    width: 60%;
+    max-width: 400px;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--teal), var(--orange), var(--teal), transparent);
+    margin: 0 auto 24px;
+  }
+  .footer .motto {
+    font-family: 'DKCrayonCrumble', 'Segoe UI', sans-serif;
+    font-size: 15px;
+    color: var(--dark);
+    letter-spacing: 1px;
+    margin-bottom: 6px;
+  }
+  .footer .alliance-tag {
+    font-size: 11px;
+    color: var(--teal);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-weight: 600;
+  }
+  .footer .version {
+    font-size: 10px;
+    color: #bbb;
+    margin-top: 12px;
+  }
+
+  /* Mobile */
+  @media (max-width: 600px) {
+    body { padding: 4px; }
+    .guide-nav { margin: -4px -4px 8px -4px; padding: 4px 8px; gap: 3px 8px; font-size: 11px; }
+    .hero { padding: 24px 12px 20px; }
+    .hero-logo { width: 130px; }
+    .hero-art { max-width: 320px; }
+    .hero h1 { font-size: 24px; letter-spacing: 2px; }
+    .hero .tagline { font-size: 11px; letter-spacing: 2px; }
+    .card-grid { grid-template-columns: 1fr; gap: 10px; }
+    .section { margin-bottom: 24px; }
+    .section-header h2 { font-size: 14px; letter-spacing: 1px; }
+  }
+</style>
 </head>
 <body>
-<p>Redirecting to <a href="research_trees_visual.html">Research Trees</a>...</p>
+
+<nav class="guide-nav">
+  <a href="./" class="nav-home current">&#8592; Home</a>
+  <a href="guides/alliance_support_hub.html">Alliance Hub</a>
+  <a href="guides/building_planner.html">Building Planner</a>
+  <a href="guides/building_reference.html">Building Ref</a>
+  <a href="guides/capitol_positions.html">Capitol Positions</a>
+  <a href="guides/chip_lab_guide.html">Chip Lab</a>
+  <a href="guides/calendar.html">Calendar</a>
+  <a href="guides/radar_guide.html">Radar</a>
+  <a href="researchtrees/research_trees_visual.html">Research Trees</a>
+  <a href="guides/server_dashboard.html">Server</a>
+  <a href="guides/vs_weekly_planner.html">VS Planner</a>
+  <a href="guides/waterfall_guide.html">Waterfall</a>
+</nav>
+
+<!-- Hero Section -->
+<div class="hero">
+  <img src="pictures/Skynet_translucent.png" alt="OWOW SKYNET" class="hero-logo">
+  <h1>OWOW SKYNET</h1>
+  <div class="tagline">Strategic Command Center</div>
+  <img src="pictures/skynet_battlefield.png" alt="" class="hero-art">
+  <div class="status-bar">
+    <span class="status-dot"></span>
+    System Operational
+    <span style="margin-left: 8px; color: #aaa;">|</span>
+    <span id="currentDate" style="margin-left: 4px; color: var(--orange);"></span>
+  </div>
+</div>
+
+<!-- Strategic Operations -->
+<div class="section section-strategic">
+  <div class="section-header">
+    <div class="section-icon">⚔️</div>
+    <h2>Strategic Operations</h2>
+  </div>
+  <div class="card-grid">
+    <a href="researchtrees/research_trees_visual.html" class="tool-card">
+      <div class="card-icon">🔬</div>
+      <h3>Research Tree Tracker</h3>
+      <div class="card-desc">Track &amp; plan all 16 research trees with interactive progress visualization</div>
+      <span class="card-arrow">→</span>
+    </a>
+    <a href="guides/building_planner.html" class="tool-card">
+      <div class="card-icon">🏗️</div>
+      <h3>Building Planner</h3>
+      <div class="card-desc">Plan your HQ progression path with cost analysis &amp; power projections</div>
+      <span class="card-arrow">→</span>
+    </a>
+    <a href="guides/vs_weekly_planner.html" class="tool-card">
+      <div class="card-icon">🗓️</div>
+      <h3>VS Weekly Planner</h3>
+      <div class="card-desc">Optimize your weekly VS Duel strategy day by day</div>
+      <span class="card-arrow">→</span>
+    </a>
+    <a href="guides/calendar.html" class="tool-card">
+      <div class="card-icon">📅</div>
+      <h3>Event Calendar</h3>
+      <div class="card-desc">Server events, season transitions &amp; unlock timeline</div>
+      <span class="card-arrow">→</span>
+    </a>
+  </div>
+</div>
+
+<!-- Field Intelligence -->
+<div class="section section-intel">
+  <div class="section-header">
+    <div class="section-icon">📡</div>
+    <h2>Field Intelligence</h2>
+  </div>
+  <div class="card-grid">
+    <a href="guides/server_dashboard.html" class="tool-card">
+      <div class="card-icon">🌐</div>
+      <h3>Server Dashboard</h3>
+      <div class="card-desc">Live server stats, player data &amp; global game metrics</div>
+      <span class="card-arrow">→</span>
+    </a>
+    <a href="guides/capitol_positions.html" class="tool-card">
+      <div class="card-icon">🏛️</div>
+      <h3>Capitol Positions</h3>
+      <div class="card-desc">Officer buffs, rotation strategy &amp; queue mechanics</div>
+      <span class="card-arrow">→</span>
+    </a>
+    <a href="guides/waterfall_guide.html" class="tool-card">
+      <div class="card-icon">🏋️</div>
+      <h3>Waterfall Guide</h3>
+      <div class="card-desc">Maximize training event points with the waterfall method</div>
+      <span class="card-arrow">→</span>
+    </a>
+  </div>
+</div>
+
+<!-- Tactical Systems -->
+<div class="section section-tactical">
+  <div class="section-header">
+    <div class="section-icon">⚙️</div>
+    <h2>Tactical Systems</h2>
+  </div>
+  <div class="card-grid">
+    <a href="guides/chip_lab_guide.html" class="tool-card">
+      <div class="card-icon">🧪</div>
+      <h3>Chip Lab Guide</h3>
+      <div class="card-desc">Drone chip builds, loadouts &amp; upgrade priorities</div>
+      <span class="card-arrow">→</span>
+    </a>
+    <a href="guides/radar_guide.html" class="tool-card">
+      <div class="card-icon">📡</div>
+      <h3>Radar Guide</h3>
+      <div class="card-desc">Mission stacking, radar levels &amp; point optimization</div>
+      <span class="card-arrow">→</span>
+    </a>
+    <a href="guides/alliance_support_hub.html" class="tool-card">
+      <div class="card-icon">🤝</div>
+      <h3>Alliance Support Hub</h3>
+      <div class="card-desc">Alliance Center levels, help mechanics &amp; lawyer bonuses</div>
+      <span class="card-arrow">→</span>
+    </a>
+    <a href="guides/building_reference.html" class="tool-card">
+      <div class="card-icon">📋</div>
+      <h3>Building Reference</h3>
+      <div class="card-desc">Building costs, upgrade requirements &amp; power data</div>
+      <span class="card-arrow">→</span>
+    </a>
+  </div>
+</div>
+
+<!-- Footer -->
+<div class="footer">
+  <div class="motto">Kristen OWOW SKYNET. Ready for Judgment Day.</div>
+  <div class="alliance-tag">[OWOW] Old World Order</div>
+  <div class="version">Last War: Survival — Strategic Command Center v1.0</div>
+</div>
+
+<script>
+  document.getElementById('currentDate').textContent = new Date().toLocaleDateString('en-US', {
+    year: 'numeric', month: 'short', day: 'numeric'
+  });
+</script>
 </body>
 </html>
-<!-- v2 -->
