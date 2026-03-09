@@ -421,51 +421,49 @@
 
 <!-- Global Game Stats -->
 <div class="section">
-  <div class="section-title">Global Game Statistics</div>
-  <div class="stats-grid">
+  <div class="section-title">Global Game Statistics <span id="lastUpdatedBadge" style="font-size:11px;font-family:'Segoe UI',sans-serif;color:#888;font-weight:normal;text-transform:none;letter-spacing:0;margin-left:8px;"></span></div>
+  <div class="stats-grid" id="statsGrid">
     <div class="stat-card">
       <div class="stat-title">Monthly Active Players</div>
-      <div class="stat-row"><span class="stat-label">Combined</span><span class="stat-val">~10.8M</span></div>
-      <div class="stat-row"><span class="stat-label">Android</span><span class="stat-val">4.5M - 7.5M</span></div>
-      <div class="stat-row"><span class="stat-label">iOS</span><span class="stat-val">3.5M - 6.1M</span></div>
+      <div class="stat-row"><span class="stat-label">Combined</span><span class="stat-val" id="s-mau-combined">--</span></div>
+      <div class="stat-row"><span class="stat-label">Android</span><span class="stat-val" id="s-mau-android">--</span></div>
+      <div class="stat-row"><span class="stat-label">iOS</span><span class="stat-val" id="s-mau-ios">--</span></div>
     </div>
     <div class="stat-card">
       <div class="stat-title">Daily Active Players</div>
-      <div class="stat-row"><span class="stat-label">Android</span><span class="stat-val">750K - 1.2M</span></div>
-      <div class="stat-row"><span class="stat-label">iOS</span><span class="stat-val">910K - 1.5M</span></div>
-      <div class="stat-row"><span class="stat-label">Android share</span><span class="stat-val">2.1x more</span></div>
+      <div class="stat-row"><span class="stat-label">Android</span><span class="stat-val" id="s-dau-android">--</span></div>
+      <div class="stat-row"><span class="stat-label">iOS</span><span class="stat-val" id="s-dau-ios">--</span></div>
+      <div class="stat-row"><span class="stat-label">Android share</span><span class="stat-val" id="s-dau-share">--</span></div>
     </div>
     <div class="stat-card">
       <div class="stat-title">Downloads (All Time)</div>
-      <div class="stat-row"><span class="stat-label">Google Play</span><span class="stat-val">50M+</span></div>
-      <div class="stat-row"><span class="stat-label">App Store</span><span class="stat-val">48.4M+</span></div>
-      <div class="stat-row"><span class="stat-label">Total</span><span class="stat-val">~98M+</span></div>
+      <div class="stat-row"><span class="stat-label">Google Play</span><span class="stat-val" id="s-dl-gplay">--</span></div>
+      <div class="stat-row"><span class="stat-label">App Store</span><span class="stat-val" id="s-dl-appstore">--</span></div>
+      <div class="stat-row"><span class="stat-label">Total</span><span class="stat-val" id="s-dl-total">--</span></div>
     </div>
     <div class="stat-card">
       <div class="stat-title">Monthly Trend (Google Play)</div>
-      <div class="stat-row"><span class="stat-label">Mar 2026</span><span class="stat-val">4.1M</span><span class="stat-change down">-12.4%</span></div>
-      <div class="stat-row"><span class="stat-label">Feb 2026</span><span class="stat-val">4.7M</span><span class="stat-change down">-17.8%</span></div>
-      <div class="stat-row"><span class="stat-label">Jan 2026 (peak)</span><span class="stat-val">5.7M</span><span class="stat-change up">+9.4%</span></div>
-      <div class="stat-row"><span class="stat-label">Dec 2025</span><span class="stat-val">5.2M</span><span class="stat-change up">+9.6%</span></div>
+      <div id="s-trend-rows"></div>
     </div>
     <div class="stat-card">
       <div class="stat-title">Server Landscape</div>
-      <div class="stat-row"><span class="stat-label">Total Servers</span><span class="stat-val">2,194</span></div>
-      <div class="stat-row"><span class="stat-label">Newest</span><span class="stat-val">#2198 (Day 2)</span></div>
-      <div class="stat-row"><span class="stat-label">Oldest</span><span class="stat-val">#3 (Day 990)</span></div>
+      <div class="stat-row"><span class="stat-label">Total Servers</span><span class="stat-val" id="s-srv-total">--</span></div>
+      <div class="stat-row"><span class="stat-label">Newest</span><span class="stat-val" id="s-srv-newest">--</span></div>
+      <div class="stat-row"><span class="stat-label">Oldest</span><span class="stat-val" id="s-srv-oldest">--</span></div>
       <div class="stat-row"><span class="stat-label">Your Server</span><span class="stat-val">#2013</span></div>
     </div>
     <div class="stat-card">
       <div class="stat-title">Engagement</div>
-      <div class="stat-row"><span class="stat-label">Android rate</span><span class="stat-val">16.2%</span></div>
-      <div class="stat-row"><span class="stat-label">iOS rate</span><span class="stat-val">25.1%</span></div>
-      <div class="stat-row"><span class="stat-label">YoY growth</span><span class="stat-val">+18.2%</span></div>
-      <div class="stat-row"><span class="stat-label">vs peak</span><span class="stat-val">72.1%</span></div>
+      <div class="stat-row"><span class="stat-label">Android rate</span><span class="stat-val" id="s-eng-android">--</span></div>
+      <div class="stat-row"><span class="stat-label">iOS rate</span><span class="stat-val" id="s-eng-ios">--</span></div>
+      <div class="stat-row"><span class="stat-label">YoY growth</span><span class="stat-val" id="s-eng-yoy">--</span></div>
+      <div class="stat-row"><span class="stat-label">vs peak</span><span class="stat-val" id="s-eng-peak">--</span></div>
     </div>
   </div>
   <div class="freshness" style="margin-top:8px;">
-    Stats sourced from <a href="https://activeplayer.io/last-war-survival/" target="_blank" rel="noopener" style="color:var(--cyan);">ActivePlayer.io</a> (Mar 2026).
+    Stats sourced from <a href="https://activeplayer.io/last-war-survival/" target="_blank" rel="noopener" style="color:var(--cyan);">ActivePlayer.io</a>.
     Server data from <a href="https://cpt-hedge.com/servers" target="_blank" rel="noopener" style="color:var(--cyan);">cpt-hedge.com</a>.
+    Updated weekly by GitHub Action.
   </div>
 </div>
 
@@ -802,8 +800,53 @@ document.getElementById('creationDate').addEventListener('change', function() {
 const saved = localStorage.getItem('owow-server-creation-date');
 if (saved) document.getElementById('creationDate').value = saved;
 
+// Load stats from JSON file
+function loadStats() {
+  fetch('server_stats.json')
+    .then(r => r.json())
+    .then(d => {
+      // Last updated badge
+      if (d.lastUpdated) {
+        const dt = new Date(d.lastUpdated + 'T00:00:00');
+        document.getElementById('lastUpdatedBadge').textContent =
+          'Last updated: ' + dt.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+      }
+      // MAU
+      document.getElementById('s-mau-combined').textContent = d.monthlyActivePlayers.combined;
+      document.getElementById('s-mau-android').textContent = d.monthlyActivePlayers.android;
+      document.getElementById('s-mau-ios').textContent = d.monthlyActivePlayers.ios;
+      // DAU
+      document.getElementById('s-dau-android').textContent = d.dailyActivePlayers.android;
+      document.getElementById('s-dau-ios').textContent = d.dailyActivePlayers.ios;
+      document.getElementById('s-dau-share').textContent = d.dailyActivePlayers.androidShare;
+      // Downloads
+      document.getElementById('s-dl-gplay').textContent = d.downloads.googlePlay;
+      document.getElementById('s-dl-appstore').textContent = d.downloads.appStore;
+      document.getElementById('s-dl-total').textContent = d.downloads.total;
+      // Trends
+      const trendEl = document.getElementById('s-trend-rows');
+      trendEl.innerHTML = d.monthlyTrend.map(t =>
+        '<div class="stat-row"><span class="stat-label">' + escHtml(t.month) + '</span><span class="stat-val">' + escHtml(t.players) + '</span><span class="stat-change ' + t.direction + '">' + escHtml(t.change) + '</span></div>'
+      ).join('');
+      // Server landscape
+      document.getElementById('s-srv-total').textContent = d.serverLandscape.totalServers;
+      document.getElementById('s-srv-newest').textContent = d.serverLandscape.newest;
+      document.getElementById('s-srv-oldest').textContent = d.serverLandscape.oldest;
+      // Engagement
+      document.getElementById('s-eng-android').textContent = d.engagement.androidRate;
+      document.getElementById('s-eng-ios').textContent = d.engagement.iosRate;
+      document.getElementById('s-eng-yoy').textContent = d.engagement.yoyGrowth;
+      document.getElementById('s-eng-peak').textContent = d.engagement.vsPeak;
+    })
+    .catch(e => {
+      document.getElementById('lastUpdatedBadge').textContent = '(stats unavailable)';
+      console.warn('Could not load server_stats.json:', e);
+    });
+}
+
 // Initial render
 update();
+loadStats();
 
 // Auto-refresh every minute (for the live dot to feel live)
 setInterval(update, 60000);
