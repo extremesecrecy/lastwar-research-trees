@@ -1,0 +1,856 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Server Dashboard | OWOW SKYNET</title>
+<style>
+  @font-face {
+    font-family: 'DKCrayonCrumble';
+    src: url('DKCrayonCrumble.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --orange: #f4a261;
+    --cyan: #5bc0de;
+    --yellow: #f4d35e;
+    --teal: #7fb3a8;
+    --dark: #5a6a6a;
+    --text: #333;
+    --watermelon: #fc5c65;
+    --green: #43a047;
+    --red: #e53935;
+    --gray: #ccc;
+    --light-bg: #fafafa;
+    --hero: #9b59b6;
+    --war: #e53935;
+    --alliance-clr: #5bc0de;
+    --weapon: #f4d35e;
+    --season-clr: #f4a261;
+    --event-clr: #7fb3a8;
+  }
+
+  body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: #fff;
+    color: var(--text);
+    padding: 8px;
+    min-height: 100vh;
+  }
+
+  h1, h2, h3, .section-label, .alliance .name {
+    font-family: 'DKCrayonCrumble', 'Segoe UI', sans-serif;
+  }
+
+  /* Nav */
+  .guide-nav {
+    display: flex; flex-wrap: wrap; gap: 4px 12px; align-items: center;
+    padding: 6px 16px; background: #f0f5f4; border-bottom: 2px solid var(--teal);
+    font-size: 12px; margin: -8px -8px 12px -8px;
+  }
+  .guide-nav a { color: var(--dark); text-decoration: none; padding: 2px 6px; border-radius: 3px; white-space: nowrap; }
+  .guide-nav a:hover { color: var(--orange); background: #fff; }
+  .guide-nav a.current { color: var(--orange); font-weight: bold; background: #fff; border: 1px solid var(--orange); }
+  .guide-nav .nav-home { font-weight: bold; margin-right: 8px; padding-right: 12px; border-right: 1px solid var(--teal); }
+
+  /* Top bar */
+  .top-bar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; flex-wrap: wrap; gap: 8px; }
+  .top-bar h1 { font-size: 22px; letter-spacing: 1px; text-transform: uppercase; color: var(--dark); }
+  .top-bar .sub { font-size: 12px; color: #888; }
+  .alliance { display: flex; align-items: center; gap: 8px; background: #e8f4f1; border: 1px solid var(--teal); border-radius: 5px; padding: 4px 10px; }
+  .skynet-logo { height: 40px; width: auto; }
+  .alliance-text { text-align: right; }
+  .alliance .name { font-size: 14px; color: var(--dark); }
+  .alliance .tagline { font-size: 10px; color: var(--teal); letter-spacing: 2px; text-transform: uppercase; }
+
+  /* Summary cards row */
+  .cards-row {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 10px;
+    margin-bottom: 16px;
+  }
+  .card {
+    background: var(--light-bg);
+    border: 1px solid var(--gray);
+    border-radius: 8px;
+    padding: 14px 16px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .card .label { font-size: 10px; text-transform: uppercase; color: var(--dark); font-weight: 600; letter-spacing: 0.5px; margin-bottom: 4px; }
+  .card .value { font-size: 28px; font-family: 'DKCrayonCrumble', sans-serif; color: var(--text); line-height: 1.1; }
+  .card .detail { font-size: 11px; color: #888; margin-top: 4px; }
+  .card.highlight { border-color: var(--orange); background: #fef8f0; }
+  .card.highlight .value { color: var(--orange); }
+  .card.season-card { border-color: var(--season-clr); background: linear-gradient(135deg, #fef8f0 0%, #fff 100%); }
+
+  /* Season progress bar */
+  .season-progress { margin: 16px 0; }
+  .season-bar-bg {
+    height: 28px;
+    background: #eee;
+    border-radius: 14px;
+    overflow: hidden;
+    position: relative;
+    border: 1px solid var(--gray);
+  }
+  .season-bar-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--teal), var(--orange));
+    border-radius: 14px 0 0 14px;
+    transition: width 0.5s ease;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    padding-right: 8px;
+    font-size: 11px;
+    font-weight: bold;
+    color: #fff;
+    min-width: 40px;
+  }
+  .season-labels {
+    display: flex;
+    justify-content: space-between;
+    font-size: 11px;
+    color: var(--dark);
+    margin-top: 4px;
+  }
+  .season-labels .next-season { color: var(--orange); font-weight: 600; }
+
+  /* Sections */
+  .section { margin-bottom: 20px; }
+  .section-title {
+    font-size: 16px;
+    color: var(--dark);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    padding-bottom: 4px;
+    border-bottom: 2px solid var(--orange);
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  /* Timeline */
+  .timeline {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+  .timeline-col { }
+  .timeline-col h3 { font-size: 14px; color: var(--dark); margin-bottom: 8px; text-transform: uppercase; letter-spacing: 0.5px; }
+
+  .tl-item {
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+    padding: 8px 10px;
+    background: var(--light-bg);
+    border: 1px solid #e8e8e8;
+    border-left: 3px solid var(--gray);
+    border-radius: 0 6px 6px 0;
+    margin-bottom: 6px;
+    font-size: 13px;
+  }
+  .tl-item.unlocked { border-left-color: var(--green); background: #f0faf0; }
+  .tl-item.upcoming { border-left-color: var(--orange); background: #fef8f0; }
+  .tl-item.far { border-left-color: var(--gray); opacity: 0.7; }
+
+  .tl-day { font-size: 10px; font-weight: bold; color: #fff; background: var(--dark); padding: 2px 6px; border-radius: 3px; white-space: nowrap; min-width: 52px; text-align: center; }
+  .tl-item.unlocked .tl-day { background: var(--green); }
+  .tl-item.upcoming .tl-day { background: var(--orange); }
+  .tl-item .tl-body { flex: 1; }
+  .tl-item .tl-name { font-weight: 600; }
+  .tl-item .tl-detail { font-size: 11px; color: #888; margin-top: 2px; }
+  .tl-item .tl-countdown { font-size: 10px; color: var(--orange); font-weight: 600; margin-top: 2px; }
+
+  .type-badge {
+    display: inline-block;
+    font-size: 9px;
+    padding: 1px 5px;
+    border-radius: 3px;
+    font-weight: 600;
+    text-transform: uppercase;
+    margin-left: 4px;
+    vertical-align: middle;
+  }
+  .type-hero { background: #f3e5f5; color: #7b1fa2; }
+  .type-war { background: #ffebee; color: #c62828; }
+  .type-event { background: #e8f5e9; color: #2e7d32; }
+  .type-alliance { background: #e3f2fd; color: #1565c0; }
+  .type-weapon { background: #fff8e1; color: #f57f17; }
+  .type-season { background: #fff3e0; color: #e65100; }
+  .type-season-start { background: #fff3e0; color: #e65100; border: 1px solid #e65100; }
+
+  /* Global stats */
+  .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 10px;
+  }
+  .stat-card {
+    background: var(--light-bg);
+    border: 1px solid #e8e8e8;
+    border-radius: 8px;
+    padding: 12px 16px;
+  }
+  .stat-card .stat-title { font-size: 10px; text-transform: uppercase; color: var(--dark); font-weight: 600; letter-spacing: 0.5px; margin-bottom: 6px; }
+  .stat-row { display: flex; justify-content: space-between; font-size: 13px; padding: 2px 0; }
+  .stat-row .stat-label { color: #666; }
+  .stat-row .stat-val { font-weight: 600; color: var(--text); }
+  .stat-row .stat-change.down { color: var(--red); font-size: 11px; }
+  .stat-row .stat-change.up { color: var(--green); font-size: 11px; }
+
+  /* External links */
+  .ext-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 10px;
+  }
+  .ext-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 14px;
+    border: 1px solid var(--cyan);
+    border-radius: 6px;
+    color: var(--cyan);
+    text-decoration: none;
+    font-size: 12px;
+    font-weight: 600;
+    transition: all 0.2s;
+  }
+  .ext-link:hover { background: var(--cyan); color: #fff; }
+  .ext-link .arrow { font-size: 14px; }
+
+  /* Season names */
+  .season-name { font-weight: 600; }
+
+  /* Filter tabs */
+  .filter-row {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+    margin-bottom: 10px;
+  }
+  .filter-btn {
+    padding: 4px 12px;
+    border: 1px solid var(--gray);
+    border-radius: 4px;
+    background: #fff;
+    font-size: 11px;
+    cursor: pointer;
+    font-family: inherit;
+    color: var(--dark);
+    transition: all 0.15s;
+  }
+  .filter-btn:hover { border-color: var(--orange); color: var(--orange); }
+  .filter-btn.active { background: var(--orange); color: #fff; border-color: var(--orange); }
+
+  /* Config */
+  .config-bar {
+    display: flex; flex-wrap: wrap; gap: 12px; align-items: flex-end;
+    padding: 10px 14px; background: var(--light-bg); border: 1px solid var(--gray);
+    border-radius: 6px; margin-bottom: 14px;
+  }
+  .config-group { display: flex; flex-direction: column; gap: 2px; }
+  .config-group label { font-size: 10px; text-transform: uppercase; color: var(--dark); font-weight: 600; letter-spacing: 0.5px; }
+  .config-group input[type="date"] {
+    padding: 4px 8px; border: 1px solid var(--gray); border-radius: 4px;
+    font-size: 13px; font-family: inherit; background: #fff;
+  }
+
+  /* Data freshness */
+  .freshness {
+    font-size: 10px;
+    color: #aaa;
+    text-align: right;
+    margin-top: 4px;
+  }
+  .freshness .live-dot {
+    display: inline-block;
+    width: 6px;
+    height: 6px;
+    background: var(--green);
+    border-radius: 50%;
+    margin-right: 3px;
+    animation: pulse 2s infinite;
+  }
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.3; }
+  }
+
+  /* Responsive */
+  @media (max-width: 700px) {
+    .guide-nav { margin: -4px -4px 8px -4px; padding: 4px 8px; gap: 3px 8px; font-size: 11px; }
+    .cards-row { grid-template-columns: repeat(2, 1fr); }
+    .timeline { grid-template-columns: 1fr; }
+    .stats-grid { grid-template-columns: 1fr; }
+    .top-bar h1 { font-size: 18px; }
+    .card .value { font-size: 22px; }
+  }
+</style>
+</head>
+<body>
+
+<nav class="guide-nav">
+  <a href="../" class="nav-home">&#8592; Home</a>
+  <a href="alliance_support_hub.html">Alliance Hub</a>
+  <a href="building_planner.html">Building Planner</a>
+  <a href="building_reference.html">Building Ref</a>
+  <a href="capitol_positions.html">Capitol Positions</a>
+  <a href="chip_lab_guide.html">Chip Lab</a>
+  <a href="calendar.html">Calendar</a>
+  <a href="radar_guide.html">Radar</a>
+  <a href="server_dashboard.html" class="current">Server</a>
+  <a href="vs_weekly_planner.html">VS Planner</a>
+  <a href="waterfall_guide.html">Waterfall</a>
+</nav>
+
+<div class="top-bar">
+  <div class="left">
+    <h1>Server Dashboard</h1>
+    <div class="sub">Live Server Intelligence. Always Current.</div>
+  </div>
+  <div class="alliance">
+    <img src="skynet_logo.png" alt="OWOW SKYNET" class="skynet-logo">
+    <div class="alliance-text">
+      <div class="name">[OWOW]</div>
+      <div class="tagline">SKYNET</div>
+    </div>
+  </div>
+</div>
+
+<!-- Config bar -->
+<div class="config-bar">
+  <div class="config-group">
+    <label>Server Number</label>
+    <input type="text" id="serverNum" value="#2013" style="width:80px;padding:4px 8px;border:1px solid var(--gray);border-radius:4px;font-size:13px;font-family:inherit;background:#fff;" readonly>
+  </div>
+  <div class="config-group">
+    <label>Server Creation Date</label>
+    <input type="date" id="creationDate" value="2025-12-14">
+  </div>
+  <div class="config-group">
+    <label>Region</label>
+    <span style="font-size:13px;padding:4px 0;">Korea, North America, South America</span>
+  </div>
+  <div class="freshness">
+    <span class="live-dot"></span> Server day &amp; season calculated live from creation date
+  </div>
+</div>
+
+<!-- Summary Cards -->
+<div class="cards-row" id="summaryCards">
+  <div class="card highlight">
+    <div class="label">Server Day</div>
+    <div class="value" id="serverDay">--</div>
+    <div class="detail" id="serverDayDetail"></div>
+  </div>
+  <div class="card season-card">
+    <div class="label">Active Season</div>
+    <div class="value" id="activeSeason">--</div>
+    <div class="detail" id="seasonDetail"></div>
+  </div>
+  <div class="card">
+    <div class="label">Season Day</div>
+    <div class="value" id="seasonDay">--</div>
+    <div class="detail" id="seasonDayDetail"></div>
+  </div>
+  <div class="card">
+    <div class="label">Hero Level Cap</div>
+    <div class="value" id="heroLevelCap">--</div>
+    <div class="detail" id="heroCapDetail">Based on HQ level</div>
+  </div>
+  <div class="card">
+    <div class="label">Total Servers</div>
+    <div class="value">2,194</div>
+    <div class="detail">Oldest: #3 (Day 990)</div>
+  </div>
+  <div class="card">
+    <div class="label">Server Age</div>
+    <div class="value" id="serverAge">--</div>
+    <div class="detail" id="serverAgeDetail"></div>
+  </div>
+</div>
+
+<!-- Season Progress -->
+<div class="section season-progress">
+  <div class="section-title">Season Progress</div>
+  <div class="season-bar-bg">
+    <div class="season-bar-fill" id="seasonBarFill" style="width: 0%">0%</div>
+  </div>
+  <div class="season-labels">
+    <span id="seasonStartLabel">Season 0 start</span>
+    <span id="seasonEndLabel" class="next-season">Next season</span>
+  </div>
+</div>
+
+<!-- Timeline: Unlocked + Upcoming -->
+<div class="section">
+  <div class="section-title">Server Timeline</div>
+  <div class="filter-row" id="filterRow">
+    <button class="filter-btn active" data-filter="all">All</button>
+    <button class="filter-btn" data-filter="hero">Heroes</button>
+    <button class="filter-btn" data-filter="event">Events</button>
+    <button class="filter-btn" data-filter="war">Wars</button>
+    <button class="filter-btn" data-filter="alliance event">Alliance</button>
+    <button class="filter-btn" data-filter="exclusive weapon">Weapons</button>
+    <button class="filter-btn" data-filter="season-start">Seasons</button>
+  </div>
+  <div class="timeline" id="timeline">
+    <div class="timeline-col" id="recentCol">
+      <h3>Recently Unlocked</h3>
+      <div id="recentList"></div>
+    </div>
+    <div class="timeline-col" id="upcomingCol">
+      <h3>Coming Up Next</h3>
+      <div id="upcomingList"></div>
+    </div>
+  </div>
+</div>
+
+<!-- Global Game Stats -->
+<div class="section">
+  <div class="section-title">Global Game Statistics <span id="lastUpdatedBadge" style="font-size:11px;font-family:'Segoe UI',sans-serif;color:#888;font-weight:normal;text-transform:none;letter-spacing:0;margin-left:8px;"></span></div>
+  <div class="stats-grid" id="statsGrid">
+    <div class="stat-card">
+      <div class="stat-title">Monthly Active Players</div>
+      <div class="stat-row"><span class="stat-label">Combined</span><span class="stat-val" id="s-mau-combined">--</span></div>
+      <div class="stat-row"><span class="stat-label">Android</span><span class="stat-val" id="s-mau-android">--</span></div>
+      <div class="stat-row"><span class="stat-label">iOS</span><span class="stat-val" id="s-mau-ios">--</span></div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-title">Daily Active Players</div>
+      <div class="stat-row"><span class="stat-label">Android</span><span class="stat-val" id="s-dau-android">--</span></div>
+      <div class="stat-row"><span class="stat-label">iOS</span><span class="stat-val" id="s-dau-ios">--</span></div>
+      <div class="stat-row"><span class="stat-label">Android share</span><span class="stat-val" id="s-dau-share">--</span></div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-title">Downloads (All Time)</div>
+      <div class="stat-row"><span class="stat-label">Google Play</span><span class="stat-val" id="s-dl-gplay">--</span></div>
+      <div class="stat-row"><span class="stat-label">App Store</span><span class="stat-val" id="s-dl-appstore">--</span></div>
+      <div class="stat-row"><span class="stat-label">Total</span><span class="stat-val" id="s-dl-total">--</span></div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-title">Monthly Trend (Google Play)</div>
+      <div id="s-trend-rows"></div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-title">Server Landscape</div>
+      <div class="stat-row"><span class="stat-label">Total Servers</span><span class="stat-val" id="s-srv-total">--</span></div>
+      <div class="stat-row"><span class="stat-label">Newest</span><span class="stat-val" id="s-srv-newest">--</span></div>
+      <div class="stat-row"><span class="stat-label">Oldest</span><span class="stat-val" id="s-srv-oldest">--</span></div>
+      <div class="stat-row"><span class="stat-label">Your Server</span><span class="stat-val">#2013</span></div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-title">Engagement</div>
+      <div class="stat-row"><span class="stat-label">Android rate</span><span class="stat-val" id="s-eng-android">--</span></div>
+      <div class="stat-row"><span class="stat-label">iOS rate</span><span class="stat-val" id="s-eng-ios">--</span></div>
+      <div class="stat-row"><span class="stat-label">YoY growth</span><span class="stat-val" id="s-eng-yoy">--</span></div>
+      <div class="stat-row"><span class="stat-label">vs peak</span><span class="stat-val" id="s-eng-peak">--</span></div>
+    </div>
+  </div>
+  <div class="freshness" style="margin-top:8px;">
+    Stats sourced from <a href="https://activeplayer.io/last-war-survival/" target="_blank" rel="noopener" style="color:var(--cyan);">ActivePlayer.io</a>.
+    Server data from <a href="https://cpt-hedge.com/servers" target="_blank" rel="noopener" style="color:var(--cyan);">cpt-hedge.com</a>.
+    Updated weekly by GitHub Action.
+  </div>
+</div>
+
+<!-- External Links -->
+<div class="section">
+  <div class="section-title">Live Data Sources</div>
+  <div class="ext-links">
+    <a href="https://cpt-hedge.com/servers" target="_blank" rel="noopener" class="ext-link">
+      Cpt Hedgehog - Server List <span class="arrow">&#8599;</span>
+    </a>
+    <a href="https://activeplayer.io/last-war-survival/" target="_blank" rel="noopener" class="ext-link">
+      ActivePlayer.io - Player Stats <span class="arrow">&#8599;</span>
+    </a>
+    <a href="https://www.similarweb.com/app/google/com.fun.lastwar.gp/" target="_blank" rel="noopener" class="ext-link">
+      SimilarWeb - App Analytics <span class="arrow">&#8599;</span>
+    </a>
+    <a href="https://cpt-hedge.com/guides/hot-deals-events" target="_blank" rel="noopener" class="ext-link">
+      Hot Deals Event Calendar <span class="arrow">&#8599;</span>
+    </a>
+  </div>
+</div>
+
+<script>
+// === TIMELINE DATA (from cpt_hedge_timeline.json) ===
+const TIMELINE = [
+  {day:1,season:0,name:"Rocket Shadow - Kimberly (Paid)",details:"Unlocks Kimberly as paid hero (tank)",type:"hero"},
+  {day:1,season:0,name:"Secret Mobile Squad",details:"Unlocks the secret mobile squad daily event",type:"event"},
+  {day:1,season:0,name:"Unyielding Warrior - Murphy (Free)",details:"Unlocks Murphy in the Tavern (tank)",type:"hero"},
+  {day:3,season:0,name:"Arms Race",details:"Unlocks the daily arms race event",type:"event"},
+  {day:3,season:0,name:"Doomsday Leader",details:"Unlocks weekly world bosses",type:"event"},
+  {day:4,season:0,name:"Alliance Exercise",details:"Unlock marshal alliance event",type:"alliance event"},
+  {day:4,season:0,name:"Intercity Trade",details:"Unlocks trains",type:"event"},
+  {day:5,season:0,name:"Top Commander",details:"Top Commander event",type:"event"},
+  {day:5,season:0,name:"City Clash I",details:"Take level 1 villages",type:"war"},
+  {day:7,season:0,name:"Exercise Escalation",details:"Marshall up to level 3",type:"alliance event"},
+  {day:7,season:0,name:"City Clash II",details:"Level 2 villages",type:"war"},
+  {day:8,season:0,name:"Troublemaker - Carlie (Paid)",details:"Unlocks Carlie as paid hero (aircraft)",type:"hero"},
+  {day:8,season:0,name:"Blade Striker - DVA (Paid)",details:"Unlocks DVA as paid hero (aircraft)",type:"hero"},
+  {day:10,season:0,name:"City Clash III",details:"Level 3 villages",type:"war"},
+  {day:12,season:0,name:"Desert Storm",details:"Weekly alliance event",type:"alliance event"},
+  {day:13,season:0,name:"City Clash IV",details:"City Clash IV",type:"war"},
+  {day:14,season:0,name:"Exercise Escalation",details:"Marshall level 4",type:"alliance event"},
+  {day:15,season:0,name:"Magnetic Expert - Tesla (Paid)",details:"Unlocks Tesla as paid hero (missile)",type:"hero"},
+  {day:15,season:0,name:"Thunder - Swift (Paid)",details:"Unlocks Swift as paid hero (missile)",type:"hero"},
+  {day:17,season:0,name:"City Clash V",details:"Level 5 villages",type:"war"},
+  {day:19,season:0,name:"Alliance Duel",details:"Weekly VS event",type:"alliance event"},
+  {day:21,season:0,name:"Exercise Escalation",details:"Level 5",type:"alliance event"},
+  {day:21,season:0,name:"City Clash VI",details:"Level 6 villages",type:"war"},
+  {day:22,season:0,name:"Blade of Legion - Marshall (Free)",details:"Unlocks Marshall in the Tavern (tank)",type:"hero"},
+  {day:25,season:0,name:"Capitol Conquest",details:"Level 7 villages",type:"war"},
+  {day:29,season:0,name:"Unite and Prepare for War",details:"Unite and Prepare for war",type:"war"},
+  {day:29,season:0,name:"Storm Hunter - Williams (Paid)",details:"Unlocks Williams as paid hero (tank)",type:"hero"},
+  {day:29,season:0,name:"Cross Warzone Intercity Trade",details:"Trucks from other servers",type:"event"},
+  {day:30,season:0,name:"Exercise Escalation",details:"Level 6",type:"alliance event"},
+  {day:36,season:0,name:"Magblade - Schuyler (Paid)",details:"Unlocks Schuyler as paid hero (aircraft)",type:"hero"},
+  {day:43,season:0,name:"Ironclad General - McGregor (Paid)",details:"Unlocks McGregor as paid hero (missile)",type:"hero"},
+  {day:45,season:0,name:"Exercise Escalation",details:"Level 7",type:"alliance event"},
+  {day:57,season:0,name:"EM Hunter - Stetmann (Paid)",details:"Unlocks Stetmann as paid hero (tank)",type:"hero"},
+  {day:60,season:0,name:"Exercise Escalation",details:"Level 8",type:"alliance event"},
+  {day:61,season:0,name:"Hero Tavern Unlocks (Free)",details:"Kimberly, Tesla, Swift, DVA, and Carlie become available in the Tavern for free",type:"hero"},
+  {day:64,season:0,name:"Sky Night - Lucius (Paid)",details:"Unlocks Lucius as paid hero (aircraft)",type:"hero"},
+  {day:71,season:0,name:"The Reaper - Morrison (Paid)",details:"Unlocks Morrison as paid hero (aircraft)",type:"hero"},
+  {day:82,season:0,name:"Drone Combat Boost",details:"Drone skill chips",type:"event"},
+  {day:85,season:0,name:"Titan - Adam (Paid)",details:"Unlocks Adam as paid hero (missile)",type:"hero"},
+  {day:90,season:0,name:"Exercise Escalation",details:"Level 9",type:"alliance event"},
+  {day:99,season:0,name:"Lion Cub - Fiona (Paid)",details:"Unlocks Fiona as paid hero (missile)",type:"hero"},
+  {day:120,season:0,name:"Exercise Escalation",details:"Level 10",type:"alliance event"},
+  {day:0,season:1,name:"S1: The Crimson Plague",details:"Season 1 begins",type:"season-start"},
+  {day:1,season:1,name:"Season Boost",details:"Season Boost",type:"season"},
+  {day:1,season:1,name:"Zombie Siege",details:"Alliance event",type:"alliance event"},
+  {day:1,season:1,name:"S1: Hero's Return (Free)",details:"Adds Schuyler (aircraft) and Williams (tank) to the Tavern for free",type:"hero"},
+  {day:1,season:1,name:"Hidden Treasure Update",details:"Hero Choice Chests now include shards for Carlie, Tesla, and Swift",type:"hero"},
+  {day:4,season:1,name:"Kimberly Exclusive Weapon",details:"Kimberly Exclusive Weapon",type:"exclusive weapon"},
+  {day:18,season:1,name:"DVA Exclusive Weapon",details:"DVA Exclusive Weapon",type:"exclusive weapon"},
+  {day:39,season:1,name:"Tesla Exclusive Weapon",details:"Tesla Exclusive Weapon",type:"exclusive weapon"},
+  {day:57,season:1,name:"Black Market",details:"Black market unlocks",type:"event"},
+  {day:57,season:1,name:"Champions Duel",details:"Champions Duel",type:"event"},
+  {day:60,season:1,name:"Ghost Ops",details:"Access to remaining hero shards including Lucius, Morrison, Adam, Williams, Schuyler, McGregor, Stetmann and Fiona",type:"hero"},
+  {day:0,season:2,name:"S2: Polar World",details:"Season 2 begins",type:"season-start"},
+  {day:1,season:2,name:"Season Boost",details:"Season Boost",type:"season"},
+  {day:1,season:2,name:"S2: Legend Returns (Free)",details:"Adds McGregor (missile) to the Tavern for free",type:"hero"},
+  {day:1,season:2,name:"Hero Tavern Unlocks (Free)",details:"Adds Schuyler (aircraft) and Williams (tank) to the regular Tavern",type:"hero"},
+  {day:1,season:2,name:"Hidden Treasure Update",details:"Hero Choice Chests now include shards for Marshall, Williams, and Schuyler",type:"hero"},
+  {day:3,season:2,name:"S2: Weapons of Legends (Free)",details:"Weapon shards for Kimberly, DVA, and Tesla in Tavern",type:"exclusive weapon"},
+  {day:4,season:2,name:"Murphy Exclusive Weapon",details:"Murphy Exclusive Weapon",type:"exclusive weapon"},
+  {day:18,season:2,name:"Carlie Exclusive Weapon",details:"Carlie Exclusive Weapon",type:"exclusive weapon"},
+  {day:39,season:2,name:"Swift Exclusive Weapon",details:"Swift Exclusive Weapon",type:"exclusive weapon"},
+  {day:57,season:2,name:"Age of Oil",details:"Age of Oil unlocks",type:"event"},
+  {day:57,season:2,name:"General's Trial",details:"Advanced trials unlock",type:"event"},
+  {day:57,season:2,name:"Zombie Siege",details:"Unlocks level 9 and 10",type:"alliance event"},
+  {day:57,season:2,name:"Tempest Beast",details:"Glacieradon during zombie event",type:"event"},
+  {day:64,season:2,name:"General's Trial",details:"Unlocks sky predator boss",type:"event"},
+  {day:92,season:2,name:"The Doomsday",details:"Unlocks slugger doomwalkers",type:"event"},
+  {day:92,season:2,name:"Zombie Invasion",details:"Unlocks level 105-120 bosses",type:"event"},
+  {day:96,season:2,name:"Overlord",details:"Unlocks gorilla overlord",type:"hero"},
+  {day:0,season:3,name:"S3: Golden Realm",details:"Season 3 begins",type:"season-start"},
+  {day:1,season:3,name:"Season Boost",details:"Season Boost",type:"season"},
+  {day:1,season:3,name:"S3: Legend Returns (Free)",details:"Adds Lucius (aircraft) and Stetmann (tank) to the Tavern for free",type:"hero"},
+  {day:1,season:3,name:"Hero Tavern Unlocks (Free)",details:"Adds McGregor (missile) to the regular Tavern",type:"hero"},
+  {day:1,season:3,name:"Hidden Treasure Update",details:"Hero Choice Chests now include shards for McGregor, Stetmann and Lucius",type:"hero"},
+  {day:3,season:3,name:"S3: Weapons of Legends (Free)",details:"Weapon shards for Kimberly, DVA, Tesla, Murphy, Carlie, and Swift in Tavern",type:"exclusive weapon"},
+  {day:4,season:3,name:"Marshall Exclusive Weapon",details:"Marshall Exclusive Weapon",type:"exclusive weapon"},
+  {day:18,season:3,name:"Schuyler Exclusive Weapon",details:"Schuyler Exclusive Weapon",type:"exclusive weapon"},
+  {day:39,season:3,name:"McGregor Exclusive Weapon",details:"McGregor Exclusive Weapon",type:"exclusive weapon"},
+  {day:57,season:3,name:"Zombie Siege",details:"Unlocks level 11 and 12",type:"alliance event"},
+  {day:57,season:3,name:"Zombie Invasion",details:"Unlocks level 125-135 bosses",type:"event"},
+  {day:57,season:3,name:"Secret Mobile Squad",details:"Changes treasure hunt to different setup",type:"event"},
+  {day:57,season:3,name:"General's Trial",details:"Sky predator boss increase",type:"event"},
+  {day:64,season:3,name:"Alliance Exercise",details:"Marshal event changes to sandworm",type:"alliance event"},
+  {day:0,season:4,name:"S4: Evernight Isle",details:"Season 4 begins",type:"season-start"},
+  {day:1,season:4,name:"Season Boost",details:"Season Boost",type:"season"},
+  {day:1,season:4,name:"S4: Legend Returns (Free)",details:"Adds Adam, Morrison, and Fiona to the Tavern for free",type:"hero"},
+  {day:1,season:4,name:"Hero Tavern Unlocks (Free)",details:"Adds Lucius (aircraft) and Stetmann (tank) to the regular Tavern",type:"hero"},
+  {day:1,season:4,name:"Hidden Treasure Update",details:"ALL heroes now in Hero Choice Chest",type:"hero"},
+  {day:3,season:4,name:"S4: Weapons of Legends (Free)",details:"Weapon shards for 9 heroes in Tavern",type:"exclusive weapon"},
+  {day:4,season:4,name:"Lucius Exclusive Weapon",details:"Lucius Exclusive Weapon",type:"exclusive weapon"},
+  {day:18,season:4,name:"Adam Exclusive Weapon",details:"Adam Exclusive Weapon",type:"exclusive weapon"},
+  {day:39,season:4,name:"Williams Exclusive Weapon",details:"Williams Exclusive Weapon",type:"exclusive weapon"},
+  {day:57,season:4,name:"Black Market",details:"Black market",type:"event"},
+  {day:57,season:4,name:"Champions Duel",details:"Champions Duel",type:"event"},
+  {day:0,season:5,name:"S5: Wild West",details:"Season 5 begins",type:"season-start"},
+  {day:1,season:5,name:"Season Boost",details:"Season Boost",type:"season"},
+  {day:1,season:5,name:"S5: Legend Returns (Free)",details:"Weapon shards for Kimberly, Tesla, DVA + all UR hero shards in Tavern",type:"hero"},
+  {day:1,season:5,name:"Hero Tavern Unlocks (Free)",details:"Adds Morrison, Adam, and Fiona to the regular Tavern",type:"hero"},
+  {day:3,season:5,name:"S5: Weapons of Legends (Free)",details:"Weapon shards for 12 heroes in Tavern",type:"exclusive weapon"},
+  {day:4,season:5,name:"Fiona Exclusive Weapon",details:"Fiona Exclusive Weapon",type:"exclusive weapon"},
+  {day:18,season:5,name:"Stetmann Exclusive Weapon",details:"Stetmann Exclusive Weapon",type:"exclusive weapon"},
+  {day:39,season:5,name:"Morrison Exclusive Weapon",details:"Morrison Exclusive Weapon",type:"exclusive weapon"},
+  {day:57,season:5,name:"Black Market",details:"Black market",type:"event"},
+  {day:57,season:5,name:"Champions Duel",details:"Champions Duel",type:"event"}
+];
+
+// Season durations (approximate days per season based on community data)
+// Season 0 is variable but typically ~120-150 days; seasons 1-5 are ~97 days each
+const SEASON_NAMES = {
+  0: "Season 0 (Pre-Season)",
+  1: "S1: The Crimson Plague",
+  2: "S2: Polar World",
+  3: "S3: Golden Realm",
+  4: "S4: Evernight Isle",
+  5: "S5: Wild West"
+};
+
+// Find the last event day for each season to estimate season length
+function getSeasonLength(s) {
+  const evts = TIMELINE.filter(e => e.season === s);
+  if (evts.length === 0) return 120;
+  const maxDay = Math.max(...evts.map(e => e.day));
+  // Add buffer after last event
+  if (s === 0) return Math.max(maxDay + 10, 130);
+  return Math.max(maxDay + 10, 97);
+}
+
+function getAbsoluteDay(season, day) {
+  let total = 0;
+  for (let s = 0; s < season; s++) {
+    total += getSeasonLength(s);
+  }
+  return total + day;
+}
+
+function getSeasonFromAbsDay(absDay) {
+  let remaining = absDay;
+  let s = 0;
+  while (s <= 5) {
+    const len = getSeasonLength(s);
+    if (remaining < len) {
+      return { season: s, dayInSeason: remaining };
+    }
+    remaining -= len;
+    s++;
+  }
+  return { season: 5, dayInSeason: remaining };
+}
+
+function calcServerDay(creationDateStr) {
+  const creation = new Date(creationDateStr + 'T00:00:00');
+  const now = new Date();
+  const diffMs = now - creation;
+  return Math.floor(diffMs / (24 * 60 * 60 * 1000)) + 1;
+}
+
+function formatCountdown(days) {
+  if (days === 0) return 'Today!';
+  if (days === 1) return 'Tomorrow!';
+  if (days < 7) return 'In ' + days + ' days';
+  if (days < 30) {
+    const weeks = Math.floor(days / 7);
+    const d = days % 7;
+    return 'In ' + weeks + 'w ' + d + 'd';
+  }
+  const months = Math.floor(days / 30);
+  const d = days % 30;
+  return 'In ~' + months + 'mo ' + d + 'd';
+}
+
+let activeFilter = 'all';
+
+function update() {
+  const creationDate = document.getElementById('creationDate').value;
+  if (!creationDate) return;
+
+  const serverDay = calcServerDay(creationDate);
+  const { season, dayInSeason } = getSeasonFromAbsDay(serverDay - 1); // 0-indexed
+  const seasonLen = getSeasonLength(season);
+  const pct = Math.min(100, Math.round((dayInSeason / seasonLen) * 100));
+
+  // Summary cards
+  document.getElementById('serverDay').textContent = 'Day ' + serverDay;
+  const creation = new Date(creationDate + 'T00:00:00');
+  document.getElementById('serverDayDetail').textContent = 'Since ' + creation.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+
+  document.getElementById('activeSeason').textContent = 'Season ' + season;
+  document.getElementById('seasonDetail').textContent = SEASON_NAMES[season] || 'Season ' + season;
+
+  document.getElementById('seasonDay').textContent = dayInSeason;
+  document.getElementById('seasonDayDetail').textContent = 'of ~' + seasonLen + ' days';
+
+  // Server age
+  const now = new Date();
+  const ageMs = now - creation;
+  const ageWeeks = Math.floor(ageMs / (7 * 24 * 60 * 60 * 1000));
+  const ageMonths = Math.floor(ageMs / (30.44 * 24 * 60 * 60 * 1000));
+  document.getElementById('serverAge').textContent = ageWeeks + ' wks';
+  document.getElementById('serverAgeDetail').textContent = '~' + ageMonths + ' months old';
+
+  // Hero level cap (HQ-based, but we show server-day-based estimate)
+  // Typical HQ progression: rough estimate
+  document.getElementById('heroLevelCap').textContent = '--';
+  document.getElementById('heroCapDetail').textContent = 'Set HQ level below';
+
+  // Season progress bar
+  document.getElementById('seasonBarFill').style.width = pct + '%';
+  document.getElementById('seasonBarFill').textContent = pct + '%';
+  document.getElementById('seasonStartLabel').textContent = (SEASON_NAMES[season] || 'Season ' + season) + ' (Day ' + dayInSeason + ')';
+
+  const nextSeason = season + 1;
+  const daysToNext = seasonLen - dayInSeason;
+  if (nextSeason <= 5) {
+    document.getElementById('seasonEndLabel').textContent = (SEASON_NAMES[nextSeason] || 'Season ' + nextSeason) + ' in ~' + daysToNext + ' days';
+  } else {
+    document.getElementById('seasonEndLabel').textContent = 'Beyond Season 5';
+  }
+
+  // Build timeline
+  buildTimeline(serverDay);
+}
+
+function buildTimeline(serverDay) {
+  const recentList = document.getElementById('recentList');
+  const upcomingList = document.getElementById('upcomingList');
+  recentList.innerHTML = '';
+  upcomingList.innerHTML = '';
+
+  // Convert all events to absolute days
+  const events = TIMELINE.map(e => ({
+    ...e,
+    absDay: getAbsoluteDay(e.season, e.day),
+    seasonLabel: 'S' + e.season + ' Day ' + e.day
+  }));
+
+  // Filter
+  let filtered = events;
+  if (activeFilter !== 'all') {
+    filtered = events.filter(e => e.type === activeFilter);
+  }
+
+  // Split into unlocked (past) and upcoming (future)
+  const unlocked = filtered.filter(e => e.absDay <= serverDay).sort((a, b) => b.absDay - a.absDay);
+  const upcoming = filtered.filter(e => e.absDay > serverDay).sort((a, b) => a.absDay - b.absDay);
+
+  // Show recent 15
+  const recentSlice = unlocked.slice(0, 15);
+  if (recentSlice.length === 0) {
+    recentList.innerHTML = '<div style="color:#aaa;font-size:13px;padding:8px;">No events match this filter yet.</div>';
+  }
+  recentSlice.forEach(e => {
+    const daysAgo = serverDay - e.absDay;
+    recentList.appendChild(createTimelineItem(e, 'unlocked', daysAgo === 0 ? 'Today' : daysAgo + 'd ago'));
+  });
+
+  // Show next 15
+  const upcomingSlice = upcoming.slice(0, 15);
+  if (upcomingSlice.length === 0) {
+    upcomingList.innerHTML = '<div style="color:#aaa;font-size:13px;padding:8px;">No upcoming events for this filter.</div>';
+  }
+  upcomingSlice.forEach(e => {
+    const daysUntil = e.absDay - serverDay;
+    const cls = daysUntil <= 14 ? 'upcoming' : 'far';
+    upcomingList.appendChild(createTimelineItem(e, cls, formatCountdown(daysUntil)));
+  });
+}
+
+function createTimelineItem(e, cls, timeLabel) {
+  const div = document.createElement('div');
+  div.className = 'tl-item ' + cls;
+
+  const typeClass = 'type-' + e.type.replace(/\s+/g, '-').replace('exclusive-weapon', 'weapon');
+
+  div.innerHTML =
+    '<div class="tl-day">' + e.seasonLabel + '</div>' +
+    '<div class="tl-body">' +
+      '<div class="tl-name">' + escHtml(e.name) + ' <span class="type-badge ' + typeClass + '">' + escHtml(e.type) + '</span></div>' +
+      '<div class="tl-detail">' + escHtml(e.details) + '</div>' +
+      '<div class="tl-countdown">' + timeLabel + '</div>' +
+    '</div>';
+
+  return div;
+}
+
+function escHtml(s) {
+  const d = document.createElement('div');
+  d.textContent = s;
+  return d.innerHTML;
+}
+
+// Filter buttons
+document.getElementById('filterRow').addEventListener('click', function(ev) {
+  const btn = ev.target.closest('.filter-btn');
+  if (!btn) return;
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  activeFilter = btn.dataset.filter;
+  update();
+});
+
+// Creation date change
+document.getElementById('creationDate').addEventListener('change', function() {
+  localStorage.setItem('owow-server-creation-date', this.value);
+  update();
+});
+
+// Load saved creation date
+const saved = localStorage.getItem('owow-server-creation-date');
+if (saved) document.getElementById('creationDate').value = saved;
+
+// Load stats from JSON file
+function loadStats() {
+  fetch('server_stats.json')
+    .then(r => r.json())
+    .then(d => {
+      // Last updated badge
+      if (d.lastUpdated) {
+        const dt = new Date(d.lastUpdated + 'T00:00:00');
+        document.getElementById('lastUpdatedBadge').textContent =
+          'Last updated: ' + dt.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+      }
+      // MAU
+      document.getElementById('s-mau-combined').textContent = d.monthlyActivePlayers.combined;
+      document.getElementById('s-mau-android').textContent = d.monthlyActivePlayers.android;
+      document.getElementById('s-mau-ios').textContent = d.monthlyActivePlayers.ios;
+      // DAU
+      document.getElementById('s-dau-android').textContent = d.dailyActivePlayers.android;
+      document.getElementById('s-dau-ios').textContent = d.dailyActivePlayers.ios;
+      document.getElementById('s-dau-share').textContent = d.dailyActivePlayers.androidShare;
+      // Downloads
+      document.getElementById('s-dl-gplay').textContent = d.downloads.googlePlay;
+      document.getElementById('s-dl-appstore').textContent = d.downloads.appStore;
+      document.getElementById('s-dl-total').textContent = d.downloads.total;
+      // Trends
+      const trendEl = document.getElementById('s-trend-rows');
+      trendEl.innerHTML = d.monthlyTrend.map(t =>
+        '<div class="stat-row"><span class="stat-label">' + escHtml(t.month) + '</span><span class="stat-val">' + escHtml(t.players) + '</span><span class="stat-change ' + t.direction + '">' + escHtml(t.change) + '</span></div>'
+      ).join('');
+      // Server landscape
+      document.getElementById('s-srv-total').textContent = d.serverLandscape.totalServers;
+      document.getElementById('s-srv-newest').textContent = d.serverLandscape.newest;
+      document.getElementById('s-srv-oldest').textContent = d.serverLandscape.oldest;
+      // Engagement
+      document.getElementById('s-eng-android').textContent = d.engagement.androidRate;
+      document.getElementById('s-eng-ios').textContent = d.engagement.iosRate;
+      document.getElementById('s-eng-yoy').textContent = d.engagement.yoyGrowth;
+      document.getElementById('s-eng-peak').textContent = d.engagement.vsPeak;
+    })
+    .catch(e => {
+      document.getElementById('lastUpdatedBadge').textContent = '(stats unavailable)';
+      console.warn('Could not load server_stats.json:', e);
+    });
+}
+
+// Initial render
+update();
+loadStats();
+
+// Auto-refresh every minute (for the live dot to feel live)
+setInterval(update, 60000);
+</script>
+
+</body>
+</html>

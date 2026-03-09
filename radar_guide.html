@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Radar Mission System Guide - OWOW</title>
+<style>
+  @font-face {
+    font-family: 'DKCrayonCrumble';
+    src: url('DKCrayonCrumble.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+  }
+  /* HCI Brand: Orange #f4a261, Cyan #5bc0de, Yellow #f4d35e, Teal #7fb3a8, Dark #5a6a6a, Text #333 */
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: 'DKCrayonCrumble', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: #fff;
+    color: #333;
+    padding: 6px 10px;
+    height: 100vh;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* Header */
+  .top-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 4px;
+    flex-shrink: 0;
+  }
+  .top-bar h1 { font-size: 22px; letter-spacing: 1px; text-transform: uppercase; color: #5a6a6a; }
+  .top-bar .sub { font-size: 15px; color: #888; }
+  .alliance {
+    background: #e8f4f1;
+    border: 1px solid #7fb3a8;
+    border-radius: 5px;
+    padding: 2px 10px;
+    text-align: right;
+  }
+  .alliance .name { font-size: 19px; font-weight: 800; color: #5a6a6a; }
+  .alliance .info { font-size: 15px; color: #666; }
+
+  /* Section labels */
+  .section-label {
+    font-size: 17px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: #5a6a6a;
+    margin: 5px 0 3px 0;
+    padding-bottom: 2px;
+    border-bottom: 2px solid #7fb3a8;
+  }
+
+  /* Cards */
+  .card {
+    border-radius: 5px;
+    padding: 6px 8px;
+    font-size: 17px;
+    line-height: 1.35;
+  }
+  .c-prep { background: #e8f5e9; border: 2px solid #43a047; }
+  .c-low { background: #fafafa; border: 1px solid #ccc; }
+  .c-med { background: #e4f3f8; border: 2px solid #5bc0de; }
+  .c-high { background: #fef3e2; border: 2px solid #f4a261; }
+  .c-crit { background: #fce4ec; border: 2px solid #e53935; }
+  .c-teal { background: #e8f4f1; border: 2px solid #7fb3a8; }
+
+  .card-title { font-size: 18px; font-weight: 800; margin-bottom: 3px; }
+  .ct-dark { color: #5a6a6a; }
+  .ct-green { color: #2e7d32; }
+  .ct-orange { color: #c47a30; }
+  .ct-red { color: #c62828; }
+  .ct-cyan { color: #2a8fa8; }
+  .ct-teal { color: #5a8a7e; }
+
+  .tag {
+    display: inline-block;
+    font-size: 14px;
+    padding: 0 5px;
+    border-radius: 3px;
+    font-weight: 700;
+    color: #fff;
+    vertical-align: middle;
+  }
+  .t-red { background: #e53935; }
+  .t-ora { background: #f4a261; }
+  .t-teal { background: #7fb3a8; }
+  .t-cyan { background: #5bc0de; }
+  .t-grn { background: #2e7d32; }
+  .t-dark { background: #5a6a6a; }
+
+  /* Main layout: 3-column */
+  .main-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 6px;
+    flex: 1;
+    min-height: 0;
+  }
+  .col { display: flex; flex-direction: column; gap: 5px; min-height: 0; }
+
+  /* Two-layer diagram */
+  .two-layer { display: flex; gap: 6px; align-items: stretch; }
+  .layer-box { flex: 1; }
+  .layer-stat { font-size: 22px; font-weight: 900; text-align: center; margin: 4px 0; }
+  .layer-note { font-size: 15px; color: #666; font-style: italic; margin-top: 3px; }
+
+  .flow-arrow { display: flex; flex-direction: column; align-items: center; justify-content: center; min-width: 36px; }
+  .flow-arrow .arrow { font-size: 26px; color: #5a6a6a; font-weight: 900; }
+  .flow-arrow .arrow-label { font-size: 13px; color: #888; text-align: center; }
+
+  /* Refresh cycle */
+  .refresh-cycle { display: flex; align-items: center; justify-content: center; gap: 4px; flex-wrap: wrap; margin: 4px 0; }
+  .cycle-step { background: #fff; border: 1.5px solid #f4a261; border-radius: 5px; padding: 4px 6px; text-align: center; min-width: 80px; }
+  .cycle-step .step-num { font-size: 13px; color: #c47a30; font-weight: 700; text-transform: uppercase; }
+  .cycle-step .step-text { font-size: 15px; color: #333; }
+  .cycle-arrow { font-size: 18px; color: #f4a261; font-weight: 900; }
+
+  /* Level table */
+  table.levels { width: 100%; border-collapse: collapse; font-size: 16px; }
+  table.levels th { background: #5a6a6a; color: #fff; padding: 3px 4px; font-size: 14px; text-transform: uppercase; letter-spacing: 0.2px; white-space: nowrap; }
+  table.levels td { padding: 3px 4px; text-align: center; border-bottom: 1px solid #e8e8e8; }
+  table.levels tr:nth-child(even) { background: #f5f8f7; }
+  table.levels .col-level { font-weight: 700; }
+  table.levels .col-upgrade { text-align: left; font-size: 15px; color: #888; }
+  .hl-cyan { color: #2a8fa8; font-weight: 700; }
+  .hl-teal { color: #5a8a7e; font-weight: 700; }
+  .hl-green { color: #2e7d32; font-weight: 600; }
+
+  /* Stack math */
+  .formula {
+    font-family: 'Consolas', 'Courier New', monospace;
+    background: #fff;
+    padding: 2px 6px;
+    border-radius: 3px;
+    display: inline-block;
+    margin: 1px 0;
+    border: 1px solid #ddd;
+    font-size: 15px;
+  }
+
+  /* Schedule pills */
+  .sched-pill {
+    border-radius: 5px;
+    padding: 2px 8px;
+    font-size: 15px;
+    font-weight: 700;
+    text-align: center;
+    min-width: 60px;
+    display: inline-block;
+  }
+  .sp-stack { background: #e8f4f1; border: 1.5px solid #7fb3a8; color: #5a6a6a; }
+  .sp-collect { background: #5a6a6a; border: 1.5px solid #5a6a6a; color: #f4d35e; }
+  .sched-arrow { font-size: 18px; color: #7fb3a8; font-weight: 900; }
+
+  /* Step circles */
+  .step-circle {
+    background: #5a6a6a;
+    color: #fff;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 800;
+    font-size: 15px;
+    flex-shrink: 0;
+  }
+
+  /* VS day cards */
+  .vs-days { display: flex; gap: 3px; }
+  .vs-day { flex: 1; border-radius: 4px; padding: 4px; text-align: center; }
+  .vs-day .day-name { font-size: 16px; font-weight: 800; }
+  .vs-day .day-vp { font-size: 14px; margin-top: 1px; }
+
+  /* Rules */
+  .rule-list { list-style: none; font-size: 16px; line-height: 1.5; }
+  .rule-list li { padding: 0 0 0 14px; position: relative; }
+  .rule-list li::before { content: ''; position: absolute; left: 0; top: 7px; width: 7px; height: 7px; border-radius: 50%; }
+  .c-prep .rule-list li::before { background: #43a047; }
+  .c-crit .rule-list li::before { background: #e53935; }
+
+  /* Footer */
+  .footer { text-align: center; font-size: 14px; color: #999; padding: 3px; border-top: 1px solid #e0e0e0; flex-shrink: 0; }
+
+  /* Mobile responsive */
+  @media (max-width: 768px) {
+    html { height: auto !important; overflow: visible !important; }
+    body { height: auto !important; overflow: visible !important; min-height: 0 !important; display: block !important; }
+    .top-bar { flex-direction: column; gap: 6px; text-align: center; }
+    .top-bar h1 { font-size: 18px; }
+    .alliance { text-align: center; }
+    .main-grid { grid-template-columns: 1fr; }
+    .col { min-height: auto; }
+    .two-layer { flex-direction: column; }
+    .flow-arrow { flex-direction: row; min-width: auto; padding: 4px 0; }
+    .flow-arrow .arrow { font-size: 22px; transform: rotate(90deg); }
+    .refresh-cycle { flex-wrap: wrap; }
+    table.levels { display: block; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+    .vs-days { flex-wrap: wrap; gap: 4px; }
+    .vs-day { min-width: 44px; }
+    .card { font-size: 15px; }
+    .card-title { font-size: 16px; }
+    .section-label { font-size: 15px; }
+    .rule-list { font-size: 14px; }
+  }
+  @media (max-width: 480px) {
+    body { padding: 6px 8px; }
+    .top-bar h1 { font-size: 16px; }
+    .top-bar .sub { font-size: 12px; }
+    .alliance .name { font-size: 15px; }
+    .card { font-size: 13px; padding: 5px 6px; }
+    .card-title { font-size: 15px; }
+    .layer-stat { font-size: 18px; }
+    .cycle-step { min-width: 65px; padding: 3px 4px; }
+    .cycle-step .step-num { font-size: 11px; }
+    .cycle-step .step-text { font-size: 13px; }
+    .sched-pill { font-size: 13px; padding: 2px 6px; }
+    .step-circle { width: 20px; height: 20px; font-size: 13px; }
+    .formula { font-size: 13px; }
+    .vs-day .day-name { font-size: 13px; }
+    .vs-day .day-vp { font-size: 12px; }
+    .tag { font-size: 12px; }
+  }
+
+  /* Navigation Bar */
+  .guide-nav {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px 12px;
+    align-items: center;
+    padding: 6px 10px;
+    background: #f0f5f4;
+    border-bottom: 2px solid #7fb3a8;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 12px;
+    margin: -6px -10px 6px -10px;
+    flex-shrink: 0;
+  }
+  .guide-nav a {
+    color: #5a6a6a;
+    text-decoration: none;
+    padding: 2px 6px;
+    border-radius: 3px;
+    white-space: nowrap;
+  }
+  .guide-nav a:hover {
+    color: #f4a261;
+    background: #fff;
+  }
+  .guide-nav a.current {
+    color: #f4a261;
+    font-weight: bold;
+    background: #fff;
+    border: 1px solid #f4a261;
+  }
+  .guide-nav .nav-home {
+    font-weight: bold;
+    margin-right: 8px;
+    padding-right: 12px;
+    border-right: 1px solid #7fb3a8;
+  }
+  @media (max-width: 480px) {
+    .guide-nav {
+      padding: 4px 8px;
+      gap: 3px 8px;
+      font-size: 11px;
+    }
+  }
+</style>
+</head>
+<body>
+
+<nav class="guide-nav">
+  <a href="../" class="nav-home">&#8592; Home</a>
+  <a href="alliance_support_hub.html">Alliance Hub</a>
+  <a href="building_planner.html">Building Planner</a>
+  <a href="building_reference.html">Building Ref</a>
+  <a href="capitol_positions.html">Capitol Positions</a>
+  <a href="chip_lab_guide.html">Chip Lab</a>
+  <a href="radar_guide.html" class="current">Radar</a>
+  <a href="guides/server_dashboard.html">Server</a>
+  <a href="vs_weekly_planner.html">VS Planner</a>
+  <a href="waterfall_guide.html">Waterfall</a>
+</nav>
+
+<!-- HEADER -->
+<div class="top-bar">
+  <div>
+    <h1>Radar Mission System</h1>
+    <div class="sub">Complete Guide to Stacking, Scoring & Optimization</div>
+  </div>
+  <img src="skynet_logo.png" alt="OWOW SKYNET" style="height:60px;">
+  <div class="alliance">
+    <div class="name">[OWOW] Old World Order</div>
+    <div class="info">Last War: Survival</div>
+  </div>
+</div>
+
+<!-- MAIN 3-COLUMN LAYOUT -->
+<div class="main-grid">
+
+  <!-- ======================== COLUMN 1: How It Works + Level Table ======================== -->
+  <div class="col">
+    <div class="section-label">How Radar Works: Two-Layer System</div>
+    <div class="two-layer">
+      <div class="card c-prep layer-box">
+        <div class="card-title ct-green" style="font-size:17px;">Layer 1: World Map</div>
+        <div style="font-size:16px;">Missions appear as pins. Complete them (kill zombies, help allies, gather) to earn a <b>red dot</b>.</div>
+        <div class="layer-stat" style="color:#2e7d32;">5 &ndash; 12 visible</div>
+        <div class="layer-note">Depends on Radar level. Uncompleted missions expire ~8hrs.</div>
+      </div>
+      <div class="flow-arrow">
+        <div class="arrow-label">complete</div>
+        <div class="arrow">&#8594;</div>
+        <div class="arrow-label">red dot</div>
+      </div>
+      <div class="card c-med layer-box">
+        <div class="card-title ct-cyan" style="font-size:17px;">Layer 2: Storage Queue</div>
+        <div style="font-size:16px;">Completed missions go to storage. Counter shows <b>current/max</b>. Tap red dot to <b>collect</b> rewards + VS points.</div>
+        <div class="layer-stat" style="color:#2a8fa8;">25 &ndash; 45 stored</div>
+        <div class="layer-note">Depends on Radar level. Completed missions do <b>NOT</b> expire. (Some guides incorrectly claim 8-hour expiry &mdash; that timer applies only to uncompleted map missions, not completed storage.)</div>
+      </div>
+    </div>
+
+    <div class="card c-high" style="padding:5px 8px;">
+      <div class="card-title ct-orange" style="font-size:16px;">&#8635; 6-Hour Refresh Cycle</div>
+      <div class="refresh-cycle">
+        <div class="cycle-step">
+          <div class="step-num">Every 6 hrs</div>
+          <div class="step-text"><b>6&ndash;13</b> new missions</div>
+        </div>
+        <div class="cycle-arrow">&#8594;</div>
+        <div class="cycle-step">
+          <div class="step-num">Added to</div>
+          <div class="step-text">Storage queue</div>
+        </div>
+        <div class="cycle-arrow">&#8594;</div>
+        <div class="cycle-step">
+          <div class="step-num">Shown on</div>
+          <div class="step-text">Map pins</div>
+        </div>
+        <div class="cycle-arrow">&#8594;</div>
+        <div class="cycle-step">
+          <div class="step-num">You complete</div>
+          <div class="step-text">&#8594; red dot</div>
+        </div>
+      </div>
+      <div style="background:#fff; border-radius:4px; padding:4px 8px; border-left:3px solid #e53935; font-size:16px;">
+        <b style="color:#e53935;">CRITICAL:</b> At max capacity, the 6-hour refresh <b>STOPS</b>. Always keep 1 slot open!
+      </div>
+    </div>
+
+    <div class="section-label">Radar Level Progression (Lv 1&ndash;17)</div>
+    <div style="overflow-y:auto; flex:1; min-height:0;">
+    <table class="levels">
+      <thead>
+        <tr>
+          <th>Lv</th>
+          <th>Per 6hrs</th>
+          <th>Max Stored</th>
+          <th>On Map</th>
+          <th>Bonus</th>
+          <th>Upgrade</th>
+          <th>Fill Time</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td class="col-level">1</td><td>6</td><td class="hl-cyan">25</td><td>5</td><td>&mdash;</td><td class="col-upgrade">5 tasks</td><td class="hl-teal">24.0h</td></tr>
+        <tr><td class="col-level">2</td><td>6</td><td class="hl-cyan">25</td><td>6</td><td class="hl-green">+5%</td><td class="col-upgrade">30 tasks</td><td class="hl-teal">24.0h</td></tr>
+        <tr><td class="col-level">3</td><td>7</td><td class="hl-cyan">25</td><td>6</td><td class="hl-green">+5%</td><td class="col-upgrade">40 tasks</td><td class="hl-teal">20.6h</td></tr>
+        <tr><td class="col-level">4</td><td>8</td><td class="hl-cyan">25</td><td>6</td><td class="hl-green">+5%</td><td class="col-upgrade">50 tasks</td><td class="hl-teal">18.0h</td></tr>
+        <tr><td class="col-level">5</td><td>9</td><td class="hl-cyan">25</td><td>7</td><td class="hl-green">+5%</td><td class="col-upgrade">60 tasks</td><td class="hl-teal">16.0h</td></tr>
+        <tr><td class="col-level">6</td><td>10</td><td class="hl-cyan">25</td><td>7</td><td class="hl-green">+5%</td><td class="col-upgrade">250 tasks</td><td class="hl-teal">14.4h</td></tr>
+        <tr><td class="col-level">7</td><td>10</td><td class="hl-cyan">30</td><td>8</td><td class="hl-green">+10%</td><td class="col-upgrade">500 tasks</td><td class="hl-teal">17.4h</td></tr>
+        <tr><td class="col-level">8</td><td>10</td><td class="hl-cyan">35</td><td>8</td><td class="hl-green">+10%</td><td class="col-upgrade">1,000 tasks</td><td class="hl-teal">20.4h</td></tr>
+        <tr><td class="col-level">9</td><td>11</td><td class="hl-cyan">35</td><td>9</td><td class="hl-green">+10%</td><td class="col-upgrade">1,500 tasks</td><td class="hl-teal">18.5h</td></tr>
+        <tr><td class="col-level">10</td><td>11</td><td class="hl-cyan">40</td><td>9</td><td class="hl-green">+15%</td><td class="col-upgrade">2,000 tasks</td><td class="hl-teal">21.3h</td></tr>
+        <tr><td class="col-level">11</td><td>11</td><td class="hl-cyan">40</td><td>10</td><td class="hl-green">+15%</td><td class="col-upgrade">2,500 tasks</td><td class="hl-teal">21.3h</td></tr>
+        <tr><td class="col-level">12</td><td>12</td><td class="hl-cyan">40</td><td>10</td><td class="hl-green">+15%</td><td class="col-upgrade">3,000 tasks</td><td class="hl-teal">19.5h</td></tr>
+        <tr><td class="col-level">13</td><td>12</td><td class="hl-cyan">40</td><td>11</td><td class="hl-green">+20%</td><td class="col-upgrade">4,000 tasks</td><td class="hl-teal">19.5h</td></tr>
+        <tr><td class="col-level">14</td><td>12</td><td class="hl-cyan">40</td><td>12</td><td class="hl-green">+20%</td><td class="col-upgrade">5,000 tasks</td><td class="hl-teal">19.5h</td></tr>
+        <tr><td class="col-level">15</td><td>13</td><td class="hl-cyan">40</td><td>12</td><td class="hl-green">+20%</td><td class="col-upgrade">7,500 tasks</td><td class="hl-teal">18.0h</td></tr>
+        <tr><td class="col-level">16</td><td>13</td><td class="hl-cyan">40</td><td>12</td><td class="hl-green">+25%</td><td class="col-upgrade">10,000 tasks</td><td class="hl-teal">18.0h</td></tr>
+        <tr><td class="col-level">17</td><td>13</td><td class="hl-cyan">45</td><td>12</td><td class="hl-green">+25%</td><td class="col-upgrade">&mdash;</td><td class="hl-teal">20.3h</td></tr>
+      </tbody>
+    </table>
+    <div style="font-size:11px; color:#888; text-align:center; padding:3px 0;">Level progression data sourced from in-game observation. Level 8 data independently verified.</div>
+    </div>
+  </div>
+
+  <!-- ======================== COLUMN 2: Stacking Strategy ======================== -->
+  <div class="col">
+    <div class="section-label">Stacking Math & Golden Rule</div>
+    <div style="display:grid; grid-template-columns:1fr 1fr; gap:5px;">
+      <div class="card c-teal">
+        <div class="card-title ct-teal" style="font-size:17px;">Fill Time Formula</div>
+        <div style="font-size:16px;">
+          <span class="formula">(Max Stored - 1) &divide; Per 6hrs &times; 6 = Hours</span><br>
+          <b>Example at Lv.9:</b><br>
+          <span class="formula">(35 - 1) &divide; 11 &times; 6 = <b>18.5 hours</b></span><br>
+          Every level fills in <b>14&ndash;24 hours</b>.<br>
+          <b>Start stacking the night before!</b>
+        </div>
+      </div>
+      <div class="card c-crit">
+        <div class="card-title ct-red" style="font-size:17px;">The Golden Rule</div>
+        <div style="font-size:16px;">
+          <b>NEVER let storage hit max!</b><br>
+          At max, 6-hour refresh <b>STOPS</b>.<br>
+          <b>Safe limit = Max - 1</b><br>
+          <span class="formula">Lv.8: keep at 34/35</span><br>
+          <span class="formula">Lv.10: keep at 39/40</span><br>
+          <span class="formula">Lv.17: keep at 44/45</span><br>
+          Hit max? Collect 1 to restart timer.
+        </div>
+      </div>
+    </div>
+
+    <div class="section-label">When to Stack & Collect</div>
+    <div class="card c-teal">
+      <div style="font-size:16px; font-weight:700; color:#5a8a7e; margin-bottom:4px;">Radar scores on 3 VS days. Stack the night before each.</div>
+      <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:5px; margin-bottom:5px;">
+        <div style="background:#fff; border-radius:4px; padding:5px; border:1px solid #7fb3a8; text-align:center;">
+          <span class="tag t-dark">STACK 1</span><br>
+          <div style="display:flex; align-items:center; gap:2px; justify-content:center; margin:3px 0;">
+            <span class="sched-pill sp-stack">SUN</span>
+            <span class="sched-arrow">&#8594;</span>
+            <span class="sched-pill sp-collect">MON</span>
+          </div>
+          <div style="font-size:14px; color:#666;">Stop Sun night<br>Collect Mon reset +5m</div>
+        </div>
+        <div style="background:#fff; border-radius:4px; padding:5px; border:1px solid #7fb3a8; text-align:center;">
+          <span class="tag t-dark">STACK 2</span><br>
+          <div style="display:flex; align-items:center; gap:2px; justify-content:center; margin:3px 0;">
+            <span class="sched-pill sp-stack">TUE</span>
+            <span class="sched-arrow">&#8594;</span>
+            <span class="sched-pill sp-collect">WED</span>
+          </div>
+          <div style="font-size:14px; color:#666;">Stop Tue night<br>Collect Wed reset +5m</div>
+        </div>
+        <div style="background:#fff; border-radius:4px; padding:5px; border:1px solid #7fb3a8; text-align:center;">
+          <span class="tag t-dark">STACK 3</span><br>
+          <div style="display:flex; align-items:center; gap:2px; justify-content:center; margin:3px 0;">
+            <span class="sched-pill sp-stack">THU</span>
+            <span class="sched-arrow">&#8594;</span>
+            <span class="sched-pill sp-collect">FRI</span>
+          </div>
+          <div style="font-size:14px; color:#666;">Stop Thu night<br>Collect Fri reset +5m</div>
+        </div>
+      </div>
+      <div style="background:#fff; border-radius:4px; padding:4px 8px; border-left:3px solid #7fb3a8; font-size:16px;">
+        <b>Non-stacking days (Mon, Wed, Fri, Sat):</b> Do radar normally. Next scoring day is too far to refill.
+      </div>
+    </div>
+
+    <div class="section-label">Step-by-Step Stacking</div>
+    <div class="card c-low" style="flex:1; min-height:0;">
+      <div style="display:grid; grid-template-columns: auto 1fr; gap: 4px 8px; font-size:16px; line-height:1.4;">
+        <div class="step-circle">1</div>
+        <div><b>Night before scoring day</b> &mdash; STOP collecting. Let red dots pile up. Keep completing map tasks, just don't tap to collect.</div>
+        <div class="step-circle">2</div>
+        <div><b>Watch storage counter</b> &mdash; Stay at max-1. If at limit, stop completing until after reset.</div>
+        <div class="step-circle">3</div>
+        <div><b>Overnight</b> &mdash; Missions generate every 6hrs while you sleep. Storage not full = timer keeps running.</div>
+        <div class="step-circle">4</div>
+        <div><b>After reset + 5 min</b> &mdash; Collect ALL at once. Each = ~25K VS pts. Full stack = <b>~750K&ndash;1M+ points</b> burst.</div>
+        <div class="step-circle">5</div>
+        <div><b>Rest of day</b> &mdash; Do radar normally. Complete and collect for bonus points throughout the day.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ======================== COLUMN 3: Points, VS Days, Rules ======================== -->
+  <div class="col">
+    <div class="section-label">Why Stacking Matters</div>
+    <div style="display:grid; grid-template-columns:1fr 1fr; gap:5px;">
+      <div class="card c-crit" style="text-align:center;">
+        <div class="card-title ct-red" style="font-size:17px;">Without Stacking</div>
+        <div style="font-size:15px; color:#666;">Collect as they come</div>
+        <div style="font-size:16px;">~10 missions on scoring day</div>
+        <div style="font-size:26px; font-weight:900; color:#c62828;">~250K pts</div>
+      </div>
+      <div class="card c-prep" style="text-align:center;">
+        <div class="card-title ct-green" style="font-size:17px;">With Stacking</div>
+        <div style="font-size:15px; color:#666;">Stack overnight + day missions</div>
+        <div style="font-size:16px;">~30&ndash;40 stacked + ~10 day</div>
+        <div style="font-size:26px; font-weight:900; color:#2e7d32;">~1M+ pts</div>
+      </div>
+    </div>
+    <div style="text-align:center; font-size:17px; font-weight:700; color:#5a6a6a; margin:4px 0;">
+      Stacking = <b style="color:#f4a261;">4x+ more points</b> &mdash; do this 3 times/week
+    </div>
+
+    <div class="section-label">Which VS Days Score Radar?</div>
+    <div class="vs-days">
+      <div class="vs-day card c-prep" style="padding:4px;">
+        <div class="day-name" style="color:#2e7d32;">MON</div>
+        <div class="day-vp">1 VP</div>
+        <div><span class="tag t-grn">COLLECT</span></div>
+      </div>
+      <div class="vs-day card c-low" style="padding:4px; opacity:0.5;">
+        <div class="day-name" style="color:#999;">TUE</div>
+        <div class="day-vp">1 VP</div>
+      </div>
+      <div class="vs-day card c-prep" style="padding:4px;">
+        <div class="day-name" style="color:#2e7d32;">WED</div>
+        <div class="day-vp">1 VP</div>
+        <div><span class="tag t-grn">COLLECT</span></div>
+      </div>
+      <div class="vs-day card c-low" style="padding:4px; opacity:0.5;">
+        <div class="day-name" style="color:#999;">THU</div>
+        <div class="day-vp">2 VP</div>
+      </div>
+      <div class="vs-day card c-prep" style="padding:4px;">
+        <div class="day-name" style="color:#2e7d32;">FRI</div>
+        <div class="day-vp">3 VP</div>
+        <div><span class="tag t-grn">COLLECT</span></div>
+      </div>
+      <div class="vs-day card c-low" style="padding:4px; opacity:0.5;">
+        <div class="day-name" style="color:#999;">SAT</div>
+        <div class="day-vp">4 VP</div>
+      </div>
+      <div class="vs-day card c-high" style="padding:4px;">
+        <div class="day-name" style="color:#c47a30;">SUN</div>
+        <div class="day-vp">PREP</div>
+        <div><span class="tag t-ora">STACK</span></div>
+      </div>
+    </div>
+
+    <div class="section-label">Quick Reference Rules</div>
+    <div style="display:grid; grid-template-columns:1fr 1fr; gap:5px; flex:1; min-height:0;">
+      <div class="card c-prep">
+        <div class="card-title ct-green" style="font-size:17px;">DO</div>
+        <ul class="rule-list">
+          <li>Keep storage at <b>max - 1</b> so timer never stops</li>
+          <li>Start stacking <b>night before</b> every scoring day</li>
+          <li>Wait <b>5 min after reset</b> before collecting</li>
+          <li>Complete map tasks during stacking &mdash; don't collect red dots</li>
+          <li>Stack 3x/week: Sun&#8594;Mon, Tue&#8594;Wed, Thu&#8594;Fri</li>
+          <li>Collect normally on non-scoring days</li>
+        </ul>
+      </div>
+      <div class="card c-crit">
+        <div class="card-title ct-red" style="font-size:17px;">DON'T</div>
+        <ul class="rule-list">
+          <li><b>NEVER</b> let storage hit max &mdash; timer stops!</li>
+          <li>Don't collect red dots during stacking</li>
+          <li>Don't stack Mon/Wed/Fri nights</li>
+          <li>Don't collect within 5 min of reset</li>
+          <li>Don't ignore storage counter at bedtime</li>
+          <li>Don't leave map missions sitting &mdash; they expire ~8hrs</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- FOOTER -->
+<div class="footer">
+  [OWOW] Old World Order &mdash; Radar Mission System Guide &mdash; Last War: Survival &mdash; Kristen Command System
+</div>
+
+</body>
+</html>

@@ -1,0 +1,577 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Alliance Support Hub - OWOW</title>
+<style>
+  @font-face {
+    font-family: 'DKCrayonCrumble';
+    src: url('DKCrayonCrumble.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+  }
+  /* HCI Brand: Orange #f4a261, Cyan #5bc0de, Yellow #f4d35e, Teal #7fb3a8, Dark #5a6a6a, Text #333, Watermelon #fc5c65 */
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: 'DKCrayonCrumble', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: #fff;
+    color: #333;
+    padding: 12px 16px;
+    min-height: 100vh;
+  }
+
+  /* Header */
+  .top-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 6px;
+  }
+  .top-bar .left h1 {
+    font-size: 24px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: #5a6a6a;
+  }
+  .top-bar .left .sub {
+    font-size: 13px;
+    color: #888;
+  }
+  .top-bar .right {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .top-bar .right img { height: 60px; }
+  .top-bar .right .alliance-tag {
+    background: #e8f4f1;
+    border: 1px solid #7fb3a8;
+    border-radius: 5px;
+    padding: 3px 10px;
+    font-size: 13px;
+    color: #5a6a6a;
+    font-weight: bold;
+  }
+
+  /* Highlight box */
+  .highlight-box {
+    border-radius: 8px;
+    padding: 14px 20px;
+    margin: 0 auto 16px auto;
+    max-width: 620px;
+    text-align: center;
+  }
+  .highlight-box.info {
+    background: #e4f3f8;
+    border: 2px solid #5bc0de;
+  }
+  .highlight-box.info .label { color: #5bc0de; font-size: 11px; font-weight: bold; text-transform: uppercase; letter-spacing: 1px; }
+  .highlight-box.info .value { color: #333; font-size: 20px; font-weight: bold; margin-top: 2px; }
+  .highlight-box.info .tip { color: #7fb3a8; font-size: 12px; margin-top: 4px; }
+  .highlight-box.action {
+    background: #fff0f0;
+    border: 2px solid #fc5c65;
+  }
+  .highlight-box.action .label { color: #fc5c65; font-size: 11px; font-weight: bold; text-transform: uppercase; letter-spacing: 1px; }
+  .highlight-box.action .value { color: #333; font-size: 18px; font-weight: bold; margin-top: 2px; }
+  .highlight-box.action .tip { color: #888; font-size: 12px; margin-top: 4px; }
+
+  /* Section titles */
+  .section-title {
+    font-size: 16px;
+    color: #f4a261;
+    margin: 16px 0 8px 0;
+    border-bottom: 2px solid #f4d35e;
+    padding-bottom: 4px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+
+  /* Legend */
+  .legend {
+    display: flex;
+    gap: 16px;
+    justify-content: center;
+    margin-bottom: 12px;
+    flex-wrap: wrap;
+  }
+  .legend-item {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 12px;
+    color: #5a6a6a;
+  }
+  .legend-swatch {
+    width: 14px;
+    height: 14px;
+    border-radius: 3px;
+    display: inline-block;
+  }
+  .swatch-milestone { background: #fef3e2; border: 2px solid #f4a261; }
+
+  /* Tables */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+    font-size: 14px;
+  }
+  thead th {
+    background: #5a6a6a;
+    color: #fff;
+    padding: 8px 6px;
+    text-align: center;
+    font-weight: 600;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    position: sticky;
+    top: 0;
+    z-index: 2;
+  }
+  tbody td {
+    padding: 7px 6px;
+    text-align: center;
+    border-bottom: 1px solid #e8e8e8;
+  }
+  tbody tr:nth-child(even) { background: #fafafa; }
+  tbody tr:nth-child(odd) { background: #fff; }
+  tbody tr:hover { background: #f0f7ff; }
+
+  /* Max helps milestone */
+  tbody tr.target {
+    background: #fef3e2 !important;
+    border-left: 3px solid #f4a261;
+    border-right: 3px solid #f4a261;
+  }
+  tbody tr.target td { font-weight: bold; }
+
+  .level-col { color: #5a6a6a; font-weight: bold; font-size: 15px; }
+  .help-col { color: #7fb3a8; font-weight: bold; font-size: 15px; }
+  .oil-col { color: #f4a261; font-weight: bold; }
+  .power-col { color: #5bc0de; }
+  .marker { color: #fc5c65; font-weight: bold; font-size: 11px; }
+
+  .footer {
+    text-align: center;
+    color: #aaa;
+    font-size: 11px;
+    margin-top: 16px;
+  }
+
+  @media (max-width: 768px) {
+    .top-bar { flex-direction: column; gap: 6px; text-align: center; }
+    .top-bar .right { justify-content: center; }
+    .top-bar .left h1 { font-size: 20px; }
+    table { font-size: 12px; display: block; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+    thead, tbody, tr, th, td { white-space: nowrap; }
+    thead th, tbody td { padding: 5px 4px; }
+    .highlight-box { max-width: 100%; padding: 10px 14px; }
+    .highlight-box.info .value { font-size: 16px; }
+    .highlight-box.action .value { font-size: 15px; }
+  }
+  @media (max-width: 480px) {
+    body { padding: 8px 10px; }
+    .top-bar .left h1 { font-size: 17px; }
+    .top-bar .right img { height: 44px; }
+    .section-title { font-size: 14px; }
+    table { font-size: 11px; }
+    thead th, tbody td { padding: 4px 3px; }
+    .level-col { font-size: 13px; }
+    .help-col { font-size: 13px; }
+    .highlight-box.info .value { font-size: 14px; }
+  }
+
+  /* Navigation Bar */
+  .guide-nav {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px 12px;
+    align-items: center;
+    padding: 6px 16px;
+    background: #f0f5f4;
+    border-bottom: 2px solid #7fb3a8;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 12px;
+    margin: -12px -16px 12px -16px;
+  }
+  .guide-nav a {
+    color: #5a6a6a;
+    text-decoration: none;
+    padding: 2px 6px;
+    border-radius: 3px;
+    white-space: nowrap;
+  }
+  .guide-nav a:hover {
+    color: #f4a261;
+    background: #fff;
+  }
+  .guide-nav a.current {
+    color: #f4a261;
+    font-weight: bold;
+    background: #fff;
+    border: 1px solid #f4a261;
+  }
+  .guide-nav .nav-home {
+    font-weight: bold;
+    margin-right: 8px;
+    padding-right: 12px;
+    border-right: 1px solid #7fb3a8;
+  }
+  @media (max-width: 480px) {
+    .guide-nav {
+      padding: 4px 10px;
+      gap: 3px 8px;
+      font-size: 11px;
+      margin: -8px -10px 8px -10px;
+    }
+  }
+</style>
+</head>
+<body>
+
+<nav class="guide-nav">
+  <a href="../" class="nav-home">&#8592; Home</a>
+  <a href="alliance_support_hub.html" class="current">Alliance Hub</a>
+  <a href="building_planner.html">Building Planner</a>
+  <a href="building_reference.html">Building Ref</a>
+  <a href="capitol_positions.html">Capitol Positions</a>
+  <a href="chip_lab_guide.html">Chip Lab</a>
+  <a href="radar_guide.html">Radar</a>
+  <a href="guides/server_dashboard.html">Server</a>
+  <a href="vs_weekly_planner.html">VS Planner</a>
+  <a href="waterfall_guide.html">Waterfall</a>
+</nav>
+
+<div class="top-bar">
+  <div class="left">
+    <h1>Alliance Support Hub</h1>
+    <div class="sub">Level-by-Level Upgrade Reference</div>
+  </div>
+  <div class="right">
+    <img src="skynet_logo.png" alt="OWOW">
+    <div class="alliance-tag">[OWOW] Old World Order</div>
+  </div>
+</div>
+
+<div class="highlight-box info">
+  <div class="label">Alliance Help Mechanics</div>
+  <div class="value">Higher Level = More Alliance Helps Received</div>
+  <div class="tip">Helps increase by +1 every 2 levels, reaching a maximum of 23 at Level 35</div>
+</div>
+
+<h2 class="section-title">Levels 1 &ndash; 30</h2>
+<table>
+<thead>
+  <tr>
+    <th>Level</th>
+    <th>Food</th>
+    <th>Iron</th>
+    <th>Gold</th>
+    <th>Upgrade Time</th>
+    <th>Power</th>
+    <th>Helps</th>
+  </tr>
+</thead>
+<tbody>
+  <tr>
+    <td class="level-col">1</td>
+    <td>90</td><td>30</td><td>&mdash;</td>
+    <td>6s</td>
+    <td class="power-col">700</td>
+    <td class="help-col">5</td>
+  </tr>
+  <tr>
+    <td class="level-col">2</td>
+    <td>230</td><td>75</td><td>&mdash;</td>
+    <td>12s</td>
+    <td class="power-col">1,400</td>
+    <td class="help-col">5</td>
+  </tr>
+  <tr>
+    <td class="level-col">3</td>
+    <td>1,000</td><td>340</td><td>&mdash;</td>
+    <td>47s</td>
+    <td class="power-col">2,100</td>
+    <td class="help-col">6</td>
+  </tr>
+  <tr>
+    <td class="level-col">4</td>
+    <td>2,500</td><td>840</td><td>&mdash;</td>
+    <td>1m 57s</td>
+    <td class="power-col">2,800</td>
+    <td class="help-col">6</td>
+  </tr>
+  <tr>
+    <td class="level-col">5</td>
+    <td>20,000</td><td>6,800</td><td>&mdash;</td>
+    <td>11m 42s</td>
+    <td class="power-col">3,500</td>
+    <td class="help-col">7</td>
+  </tr>
+  <tr>
+    <td class="level-col">6</td>
+    <td>61,000</td><td>20,000</td><td>&mdash;</td>
+    <td>23m 24s</td>
+    <td class="power-col">4,200</td>
+    <td class="help-col">7</td>
+  </tr>
+  <tr>
+    <td class="level-col">7</td>
+    <td>120,000</td><td>41,000</td><td>&mdash;</td>
+    <td>46m 48s</td>
+    <td class="power-col">4,900</td>
+    <td class="help-col">8</td>
+  </tr>
+  <tr>
+    <td class="level-col">8</td>
+    <td>190,000</td><td>65,000</td><td>&mdash;</td>
+    <td>1h 33m</td>
+    <td class="power-col">5,600</td>
+    <td class="help-col">8</td>
+  </tr>
+  <tr>
+    <td class="level-col">9</td>
+    <td>310,000</td><td>100,000</td><td>100,000</td>
+    <td>2h 11m</td>
+    <td class="power-col">6,400</td>
+    <td class="help-col">9</td>
+  </tr>
+  <tr>
+    <td class="level-col">10</td>
+    <td>370,000</td><td>120,000</td><td>120,000</td>
+    <td>2h 50m</td>
+    <td class="power-col">7,300</td>
+    <td class="help-col">9</td>
+  </tr>
+  <tr>
+    <td class="level-col">11</td>
+    <td>930,000</td><td>310,000</td><td>300,000</td>
+    <td>3h 41m</td>
+    <td class="power-col">8,700</td>
+    <td class="help-col">10</td>
+  </tr>
+  <tr>
+    <td class="level-col">12</td>
+    <td>1,600,000</td><td>530,000</td><td>510,000</td>
+    <td>4h 47m</td>
+    <td class="power-col">10,500</td>
+    <td class="help-col">10</td>
+  </tr>
+  <tr>
+    <td class="level-col">13</td>
+    <td>1,700,000</td><td>580,000</td><td>560,000</td>
+    <td>6h 14m</td>
+    <td class="power-col">12,300</td>
+    <td class="help-col">11</td>
+  </tr>
+  <tr>
+    <td class="level-col">14</td>
+    <td>2,400,000</td><td>810,000</td><td>780,000</td>
+    <td>8h 6m</td>
+    <td class="power-col">14,500</td>
+    <td class="help-col">11</td>
+  </tr>
+  <tr>
+    <td class="level-col">15</td>
+    <td>3,400,000</td><td>1,100,000</td><td>1,100,000</td>
+    <td>11h 21m</td>
+    <td class="power-col">17,100</td>
+    <td class="help-col">12</td>
+  </tr>
+  <tr>
+    <td class="level-col">16</td>
+    <td>6,100,000</td><td>2,000,000</td><td>1,900,000</td>
+    <td>15h 53m</td>
+    <td class="power-col">20,500</td>
+    <td class="help-col">12</td>
+  </tr>
+  <tr>
+    <td class="level-col">17</td>
+    <td>7,900,000</td><td>2,600,000</td><td>2,500,000</td>
+    <td>22h 15m</td>
+    <td class="power-col">24,400</td>
+    <td class="help-col">13</td>
+  </tr>
+  <tr>
+    <td class="level-col">18</td>
+    <td>14,000,000</td><td>4,600,000</td><td>4,400,000</td>
+    <td>1d 7h 9m</td>
+    <td class="power-col">29,500</td>
+    <td class="help-col">13</td>
+  </tr>
+  <tr>
+    <td class="level-col">19</td>
+    <td>17,000,000</td><td>5,500,000</td><td>5,300,000</td>
+    <td>1d 19h 36m</td>
+    <td class="power-col">35,100</td>
+    <td class="help-col">14</td>
+  </tr>
+  <tr>
+    <td class="level-col">20</td>
+    <td>30,000,000</td><td>10,000,000</td><td>9,600,000</td>
+    <td>2d 13h 3m</td>
+    <td class="power-col">42,600</td>
+    <td class="help-col">14</td>
+  </tr>
+  <tr>
+    <td class="level-col">21</td>
+    <td>42,000,000</td><td>14,000,000</td><td>13,000,000</td>
+    <td>3d 7h 22m</td>
+    <td class="power-col">51,500</td>
+    <td class="help-col">15</td>
+  </tr>
+  <tr>
+    <td class="level-col">22</td>
+    <td>54,000,000</td><td>18,000,000</td><td>17,000,000</td>
+    <td>4d 7h 11m</td>
+    <td class="power-col">61,600</td>
+    <td class="help-col">15</td>
+  </tr>
+  <tr class="target">
+    <td class="level-col">23</td>
+    <td>68,000,000</td><td>23,000,000</td><td>22,000,000</td>
+    <td>5d 14h 21m</td>
+    <td class="power-col">72,900</td>
+    <td class="help-col">16 <span class="marker">&larr; YOUR LEVEL</span></td>
+  </tr>
+  <tr>
+    <td class="level-col">24</td>
+    <td>85,000,000</td><td>28,000,000</td><td>27,000,000</td>
+    <td>7d 16h 1m</td>
+    <td class="power-col">85,500</td>
+    <td class="help-col">16</td>
+  </tr>
+  <tr>
+    <td class="level-col">25</td>
+    <td>140,000,000</td><td>48,000,000</td><td>46,000,000</td>
+    <td>10d 19h 55m</td>
+    <td class="power-col">101,800</td>
+    <td class="help-col">17</td>
+  </tr>
+  <tr>
+    <td class="level-col">26</td>
+    <td>200,000,000</td><td>67,000,000</td><td>65,000,000</td>
+    <td>15d 8h 31m</td>
+    <td class="power-col">121,200</td>
+    <td class="help-col">17</td>
+  </tr>
+  <tr>
+    <td class="level-col">27</td>
+    <td>260,000,000</td><td>88,000,000</td><td>84,000,000</td>
+    <td>21d 12h 32m</td>
+    <td class="power-col">143,300</td>
+    <td class="help-col">18</td>
+  </tr>
+  <tr>
+    <td class="level-col">28</td>
+    <td>370,000,000</td><td>120,000,000</td><td>120,000,000</td>
+    <td>30d 1h 33m</td>
+    <td class="power-col">169,600</td>
+    <td class="help-col">18</td>
+  </tr>
+  <tr>
+    <td class="level-col">29</td>
+    <td>520,000,000</td><td>170,000,000</td><td>170,000,000</td>
+    <td>39d 1h 53m</td>
+    <td class="power-col">200,800</td>
+    <td class="help-col">19</td>
+  </tr>
+  <tr>
+    <td class="level-col">30</td>
+    <td>720,000,000</td><td>240,000,000</td><td>230,000,000</td>
+    <td>50d 19h 15m</td>
+    <td class="power-col">237,500</td>
+    <td class="help-col">20</td>
+  </tr>
+</tbody>
+</table>
+
+<h2 class="section-title">Levels 31 &ndash; 35 (Requires Oil)</h2>
+<table>
+<thead>
+  <tr>
+    <th>Level</th>
+    <th>Food</th>
+    <th>Iron</th>
+    <th>Gold</th>
+    <th>Oil</th>
+    <th>Upgrade Time</th>
+    <th>Power</th>
+    <th>Helps</th>
+  </tr>
+</thead>
+<tbody>
+  <tr>
+    <td class="level-col">31</td>
+    <td>790,000,000</td><td>260,000,000</td><td>250,000,000</td>
+    <td class="oil-col">202,500</td>
+    <td>55d 21h 10m</td>
+    <td class="power-col">275,800</td>
+    <td class="help-col">21</td>
+  </tr>
+  <tr>
+    <td class="level-col">32</td>
+    <td>870,000,000</td><td>290,000,000</td><td>280,000,000</td>
+    <td class="oil-col">324,000</td>
+    <td>61d 11h 17m</td>
+    <td class="power-col">316,200</td>
+    <td class="help-col">21</td>
+  </tr>
+  <tr>
+    <td class="level-col">33</td>
+    <td>960,000,000</td><td>320,000,000</td><td>310,000,000</td>
+    <td class="oil-col">550,800</td>
+    <td>67d 14h 49m</td>
+    <td class="power-col">358,600</td>
+    <td class="help-col">22</td>
+  </tr>
+  <tr>
+    <td class="level-col">34</td>
+    <td>1,000,000,000</td><td>340,000,000</td><td>320,000,000</td>
+    <td class="oil-col">991,440</td>
+    <td>70d 23h 45m</td>
+    <td class="power-col">401,900</td>
+    <td class="help-col">22</td>
+  </tr>
+  <tr class="target">
+    <td class="level-col">35</td>
+    <td>1,100,000,000</td><td>350,000,000</td><td>340,000,000</td>
+    <td class="oil-col">1,982,880</td>
+    <td>74d 13h 10m</td>
+    <td class="power-col">446,900</td>
+    <td class="help-col">23 <span class="marker">&larr; MAX HELPS</span></td>
+  </tr>
+</tbody>
+</table>
+
+<div class="highlight-box action">
+  <div class="label">Key Insight</div>
+  <div class="value">Helps increase by +1 every 2 levels, reaching 23 at Level 35</div>
+  <div class="tip">At AC Level 23 you get 16 base helps. Each help reduces timer by 0.5% (compounding).</div>
+</div>
+
+<h2 class="section-title">Time Savings Math</h2>
+<div class="highlight-box info" style="max-width:720px;">
+  <div class="label">Alliance Center Level 23 &mdash; 16 Base Helps</div>
+  <div class="value" style="font-size:16px;">16 helps &times; 0.5% = ~7.7% reduction (compounding)</div>
+  <div class="tip" style="text-align:left; line-height:1.7;">
+    &bull; 8-hour build: saves ~37 minutes<br>
+    &bull; 1-day build: saves ~1 hour 51 minutes<br>
+    &bull; 3-day build: saves ~5 hours 32 minutes<br><br>
+    <strong>With Lawyer survivors (+6 bonus helps, total 22):</strong><br>
+    &bull; 22 helps &times; 0.5% = ~10.4% reduction &rarr; 8-hour build saves ~50 minutes<br>
+    &bull; 1-day build: saves ~2 hours 30 minutes<br>
+    &bull; 3-day build: saves ~7 hours 30 minutes<br><br>
+    <em style="color:#888; font-size:11px;">Note: Lawyer survivor bonus (+6 helps) is based on in-game observation and not independently verified.</em>
+  </div>
+</div>
+
+<div class="footer">
+  [OWOW] Old World Order &bull; Alliance Support Hub Guide &bull; Last War: Survival &bull; Kristen OWOW SKYNET
+</div>
+
+</body>
+</html>
