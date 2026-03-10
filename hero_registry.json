@@ -1,0 +1,128 @@
+{
+  "heroes": {
+    "DVA": {
+      "rarity": "UR", "type": "Aircraft", "role": "DPS",
+      "skillCount": 3, "imageFile": "Screenshot 2026-03-10 145340.png"
+    },
+    "Schuyler": {
+      "rarity": "UR", "type": "Aircraft", "role": "DPS",
+      "skillCount": 3, "imageFile": "Screenshot 2026-03-10 145353.png"
+    },
+    "Carlie": {
+      "rarity": "UR", "type": "Aircraft", "role": "Defense",
+      "skillCount": 3, "imageFile": "Screenshot 2026-03-10 145333.png"
+    },
+    "Morrison": {
+      "rarity": "UR", "type": "Aircraft", "role": "DPS",
+      "skillCount": 3, "imageFile": "Screenshot 2026-03-10 145326.png"
+    },
+    "Lucius": {
+      "rarity": "UR", "type": "Aircraft", "role": "Defense",
+      "skillCount": 3, "imageFile": "Screenshot 2026-03-10 145346.png"
+    },
+    "Murphy": {
+      "rarity": "UR", "type": "Tank", "role": "Defense",
+      "skillCount": 3, "imageFile": "Screenshot 2026-03-10 145421.png"
+    },
+    "Kimberly": {
+      "rarity": "UR", "type": "Tank", "role": "DPS",
+      "skillCount": 3, "imageFile": "Screenshot 2026-03-10 145427.png"
+    },
+    "Marshall": {
+      "rarity": "UR", "type": "Tank", "role": "Buffer",
+      "skillCount": 3, "imageFile": "Screenshot 2026-03-10 145433.png"
+    },
+    "Williams": {
+      "rarity": "UR", "type": "Tank", "role": "Defense",
+      "skillCount": 3, "imageFile": "Screenshot 2026-03-10 145439.png"
+    },
+    "Swift": {
+      "rarity": "UR", "type": "Missile", "role": "DPS",
+      "skillCount": 3, "imageFile": "Screenshot 2026-03-10 145446.png"
+    },
+    "Tesla": {
+      "rarity": "UR", "type": "Missile", "role": "DPS",
+      "skillCount": 3, "imageFile": "Screenshot 2026-03-10 145458.png"
+    },
+    "Stetmann": {
+      "rarity": "UR", "type": "Tank", "role": "DPS",
+      "skillCount": 3, "imageFile": "Screenshot 2026-03-10 145505.png"
+    },
+    "Adam": {
+      "rarity": "UR", "type": "Missile", "role": "Defense",
+      "skillCount": 3, "imageFile": "Screenshot 2026-03-10 145453.png"
+    },
+    "McGregor": {
+      "rarity": "UR", "type": "Missile", "role": "Defense",
+      "skillCount": 3, "imageFile": "Screenshot 2026-03-10 145726.png"
+    },
+    "Mason": {
+      "rarity": "SSR", "type": "Tank", "role": "DPS",
+      "skillCount": 3, "imageFile": "Screenshot 2026-03-10 145517.png"
+    },
+    "Scarlett": {
+      "rarity": "SSR", "type": "Tank", "role": "Defense",
+      "skillCount": 3, "imageFile": "Screenshot 2026-03-10 145511.png"
+    },
+    "Sarah": {
+      "rarity": "SSR", "type": "Aircraft", "role": "Buffer",
+      "skillCount": 3, "imageFile": "Screenshot 2026-03-10 145535.png"
+    },
+    "Violet": {
+      "rarity": "SSR", "type": "Tank", "role": "Defense",
+      "skillCount": 3, "imageFile": "Screenshot 2026-03-10 145523.png"
+    },
+    "Elsa": {
+      "rarity": "SSR", "type": "Missile", "role": "Defense",
+      "skillCount": 3, "imageFile": "Screenshot 2026-03-10 145546.png"
+    },
+    "Monica": {
+      "rarity": "SSR", "type": "Tank", "role": "Buffer",
+      "skillCount": 3, "imageFile": "Screenshot 2026-03-10 145530.png"
+    },
+    "Venom": {
+      "rarity": "SSR", "type": "Missile", "role": "DPS",
+      "skillCount": 3, "imageFile": "Screenshot 2026-03-10 145554.png"
+    },
+    "Richard": {
+      "rarity": "SSR", "type": "Tank", "role": "DPS",
+      "skillCount": 3, "imageFile": "Screenshot 2026-03-10 145608.png"
+    },
+    "Farhad": {
+      "rarity": "SSR", "type": "Tank", "role": "DPS",
+      "skillCount": 3, "imageFile": "Screenshot 2026-03-10 145621.png"
+    },
+    "Braz": {
+      "rarity": "SSR", "type": "Missile", "role": "DPS",
+      "skillCount": 3, "imageFile": "Screenshot 2026-03-10 145602.png"
+    },
+    "Cage": {
+      "rarity": "SSR", "type": "Aircraft", "role": "Defense",
+      "skillCount": 3, "imageFile": "Screenshot 2026-03-10 145614.png"
+    },
+    "Maxwell": {
+      "rarity": "SSR", "type": "Aircraft", "role": "DPS",
+      "skillCount": 3, "imageFile": "Screenshot 2026-03-10 145629.png"
+    },
+    "Kane": {
+      "rarity": "SR", "type": "Missile", "role": "DPS",
+      "skillCount": 3, "imageFile": "Screenshot 2026-03-10 145716.png"
+    },
+    "Ambolt": {
+      "rarity": "SR", "type": "Aircraft", "role": "DPS",
+      "skillCount": 3, "imageFile": "Screenshot 2026-03-10 145710.png"
+    },
+    "Loki": {
+      "rarity": "SR", "type": "Tank", "role": "Defense",
+      "skillCount": 3, "imageFile": "Screenshot 2026-03-10 145656.png"
+    },
+    "Gump": {
+      "rarity": "SR", "type": "Tank", "role": "Defense",
+      "skillCount": 3, "imageFile": "Screenshot 2026-03-10 145703.png"
+    }
+  },
+  "futureHeroes": ["Fiona"],
+  "rarityOrder": ["UR", "SSR", "SR"],
+  "typeOrder": ["Aircraft", "Tank", "Missile"],
+  "roleOrder": ["DPS", "Defense", "Buffer"]
+}
