@@ -599,12 +599,7 @@
   }
   @media (min-width: 769px) {
     .guide-nav {
-      width: 100vw;
-      position: relative;
-      left: 50%;
-      transform: translateX(-50%);
-      margin: -16px 0 12px 0;
-      padding: 6px 16px;
+      margin: -16px -16px 12px -16px;
     }
   }
 
@@ -618,6 +613,99 @@
   .building-row.sub-instance .building-name::before {
     content: '\2514  '; color: #ccc;
   }
+
+  /* Info button */
+  .info-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: var(--cyan);
+    color: #fff;
+    font-size: 11px;
+    font-weight: 700;
+    font-style: italic;
+    font-family: Georgia, serif;
+    cursor: pointer;
+    flex-shrink: 0;
+    margin-left: 4px;
+    border: none;
+    line-height: 1;
+    position: relative;
+  }
+  .info-btn:hover { background: var(--teal); }
+  .info-btn:active { transform: scale(0.9); }
+
+  /* Info tooltip popup */
+  .info-popup {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: #fff;
+    border: 2px solid var(--cyan);
+    border-radius: 10px;
+    padding: 16px 20px;
+    max-width: 340px;
+    width: 90vw;
+    z-index: 999;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.18);
+    font-size: 13px;
+    color: var(--text);
+    line-height: 1.5;
+  }
+  .info-popup.show { display: block; }
+  .info-popup h4 {
+    font-family: 'DKCrayonCrumble', sans-serif;
+    font-size: 16px;
+    color: var(--dark);
+    margin-bottom: 6px;
+    padding-bottom: 4px;
+    border-bottom: 2px solid var(--cyan);
+  }
+  .info-popup .info-desc { margin-bottom: 8px; }
+  .info-popup .info-meta {
+    font-size: 11px;
+    color: #888;
+    border-top: 1px solid #eee;
+    padding-top: 6px;
+    margin-top: 6px;
+  }
+  .info-popup .info-meta span {
+    display: block;
+    margin-bottom: 2px;
+  }
+  .info-popup .info-close {
+    position: absolute;
+    top: 8px;
+    right: 12px;
+    font-size: 18px;
+    cursor: pointer;
+    color: #999;
+    background: none;
+    border: none;
+    font-weight: 700;
+  }
+  .info-popup .info-close:hover { color: var(--watermelon); }
+  .info-overlay {
+    display: none;
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(0,0,0,0.3);
+    z-index: 998;
+  }
+  .info-overlay.show { display: block; }
+
+  /* Research-unlock note */
+  .research-note {
+    font-size: 10px;
+    color: var(--cyan);
+    font-style: italic;
+    margin-left: 4px;
+  }
 </style>
 </head>
 <body>
@@ -628,8 +716,8 @@
   <a href="building_planner.html" class="current">Building Planner</a>
   <a href="building_reference.html">Building Ref</a>
   <a href="capitol_positions.html">Capitol Positions</a>
-  <a href="calendar.html">Calendar</a>
   <a href="chip_lab_guide.html">Chip Lab</a>
+  <a href="calendar.html">Calendar</a>
   <a href="plunder_guide.html">Plunder</a>
   <a href="radar_guide.html">Radar</a>
   <a href="../research_trees_visual.html">Research Trees</a>
@@ -741,6 +829,14 @@
   <div>Building data from <a href="https://cpt-hedge.com" style="color:var(--cyan);">cpt-hedge.com</a></div>
 </div>
 
+<div class="info-overlay" id="infoOverlay" onclick="closeBuildingInfo()"></div>
+<div class="info-popup" id="infoPopup">
+  <button class="info-close" onclick="closeBuildingInfo()">&times;</button>
+  <h4 class="info-title"></h4>
+  <div class="info-desc"></div>
+  <div class="info-meta"></div>
+</div>
+
 <div class="toast" id="toast"></div>
 
 <script>
@@ -786,14 +882,59 @@ for (const [bKey, bData] of Object.entries(buildings)) {
     if (ul.length > 1) MULTI_INSTANCE[bKey] = { count: ul.length, unlockHQ: [...ul] };
 }
 // Overrides for buildings with more instances than cpt-hedge tracks
-const MI_OVERRIDES = { 'barracks': 4, 'drill ground': 4 };
-for (const [bKey, count] of Object.entries(MI_OVERRIDES)) {
-    if (MULTI_INSTANCE[bKey]) {
-        while (MULTI_INSTANCE[bKey].unlockHQ.length < count)
-            MULTI_INSTANCE[bKey].unlockHQ.push(MULTI_INSTANCE[bKey].unlockHQ[MULTI_INSTANCE[bKey].unlockHQ.length - 1]);
-        MULTI_INSTANCE[bKey].count = count;
-    }
+// Format: { key: { count: N, unlockHQ: [...], researchNote: 'text for research-unlocked instances' } }
+const MI_OVERRIDES = {
+    'barracks':       { count: 4, unlockHQ: [0, 10, 0, 0], researchNote: 'Barrack Expansion (Development / Special Forces / Siege to Seize research)' },
+    'drill ground':   { count: 4, unlockHQ: [1, 16, 21, 0], researchNote: 'Extra Drill Ground (Siege to Seize research, requires HQ 30)' },
+    'hospital':       { count: 4, unlockHQ: [2, 13, 0, 0], researchNote: 'Extra Hospitals / Infirmary Expansion (Defense Fort / Development research)' },
+    'gold mine':      { count: 5, unlockHQ: [1, 1, 17, 0, 0], researchNote: 'More Gold Mines (Economy research)' },
+    'farmland':       { count: 5, unlockHQ: [1, 1, 12, 0, 0], researchNote: 'More Farmlands (Economy research)' },
+    'iron mine':      { count: 5, unlockHQ: [0, 0, 12, 0, 0], researchNote: 'More Iron Mines (Economy research)' },
+    'smelter':        { count: 5, unlockHQ: [6, 11, 0, 0, 0], researchNote: 'More Smelters (Economy research)' },
+    'training base':  { count: 5, unlockHQ: [0, 0, 13, 0, 0], researchNote: 'Economy research' },
+    'squad':          { count: 4, unlockHQ: [0, 0, 0, 0], researchNote: 'Linked to Drill Grounds \u2014 each drill ground = one march slot' },
+    'recon plane':    { count: 3, unlockHQ: [0, 0, 0], researchNote: '' }
+};
+for (const [bKey, override] of Object.entries(MI_OVERRIDES)) {
+    MULTI_INSTANCE[bKey] = { count: override.count, unlockHQ: override.unlockHQ.slice(0, override.count) };
+    if (override.researchNote) MULTI_INSTANCE[bKey].researchNote = override.researchNote;
 }
+
+/* ---------- BUILDING DESCRIPTIONS ---------- */
+const BUILDING_INFO = {
+    'headquarters': { desc: 'Central building that determines max level for ALL other buildings. Increases power, hero level cap (HQ \u00d7 5 - 1), and unlocks new buildings/features.', instances: '1', unlock: 'Starting building', category: 'Core' },
+    'tech center': { desc: 'Research facility for military, development, defense, and special forces upgrades. Higher levels increase research speed. A 2nd Tech Center can be purchased (District 102 + ~$10 pack). A 3rd unlocks via Age of Oil research (Season 2+, free).', instances: '1\u20133', unlock: '1st: HQ 7 | 2nd: District 102 + paid pack | 3rd: HQ 30 + Age of Oil research', category: 'Core' },
+    'wall': { desc: 'Reduces damage taken when your base is attacked. Provides defense stats and power. Higher levels = stronger base defense.', instances: '1', unlock: 'Starting building', category: 'Core' },
+    'alliance center': { desc: 'Join or create alliances, request construction help, access alliance store, and participate in alliance events. Higher levels increase max helps receivable per task.', instances: '1', unlock: 'HQ 4', category: 'Core' },
+    'builders hut': { desc: 'Provides free time reduction on building upgrades. Higher levels automatically shave more seconds off construction timers. Assign survivors here for bonus speed.', instances: '1', unlock: 'HQ 2', category: 'Core' },
+    'barracks': { desc: 'Train and upgrade troops. Higher tiers unlock at higher levels: T5 at Lv14, T6 at 17, T7 at 20, T8 at 24, T9 at 27, T10 at 30. Multiple barracks let you train/waterfall simultaneously.', instances: '4', unlock: '1st: Starting | 2nd: HQ 10 | 3rd\u20134th: Barrack Expansion research (Development / Special Forces / Siege to Seize)', category: 'Military' },
+    'tank center': { desc: 'Boosts all Tank-type hero stats (HP, ATK, DEF) and Tank march speed. Essential for Tank squad performance.', instances: '1', unlock: 'HQ 6', category: 'Military' },
+    'air center': { desc: 'Boosts all Aircraft-type hero stats (HP, ATK, DEF) and Aircraft march speed. Essential for Aircraft squad performance.', instances: '1', unlock: 'HQ 12', category: 'Military' },
+    'missile center': { desc: 'Boosts all Missile-type hero stats (HP, ATK, DEF) and Missile march speed. Essential for Missile squad performance.', instances: '1', unlock: 'HQ 11', category: 'Military' },
+    'drill ground': { desc: 'Houses troops and increases troop capacity per march. More drill grounds = more marches you can deploy simultaneously. Critical for rallies and gathering.', instances: '4', unlock: '1st: Starting | 2nd: HQ 16 | 3rd: HQ 21 | 4th: Extra Drill Ground (Siege to Seize research, HQ 30+)', category: 'Military' },
+    'squad': { desc: 'Parking Lots \u2014 each one represents a deployable march/squad slot. Higher levels increase that squad\'s march speed (+0.5% at Lv1 up to +17.5% at Lv35). Linked 1:1 with Drill Grounds.', instances: '4', unlock: 'Unlocked with each Drill Ground', category: 'Military' },
+    'recon plane': { desc: 'Scout other players\' bases. Higher levels increase scout plane flight speed. Plane level cannot exceed Alert Tower level.', instances: '3', unlock: 'Linked to Alert Tower', category: 'Military' },
+    'armament institute': { desc: 'Allows research of 4 Armaments to unlock T11 troops. Single-level building that unlocks in late game after Season 4.', instances: '1', unlock: 'HQ 27 + after Season 4 ends', category: 'Military' },
+    'training base': { desc: 'Passively generates hero EXP over time (works while offline). Higher levels increase XP output. Note: passive XP does NOT count for Arms Race Hero Advancement points.', instances: '3\u20135', unlock: '1st\u20132nd: Starting | 3rd: HQ 13 | 4th\u20135th: Economy research', category: 'Training & Heroes' },
+    'tavern': { desc: 'Recruit heroes and survivors. Higher levels decrease recruitment cooldown time. Check daily for free recruitment and hero fragments in rotation.', instances: '1', unlock: 'Early game', category: 'Training & Heroes' },
+    'tactical institute': { desc: 'Passively produces Training Guidebooks for the Overlord (Gorilla). Higher levels increase guidebook output (up to 70/hour at Lv35). Guidebooks used for Joint Attack, Defense Support, and Survival Training paths.', instances: '1', unlock: 'Early game', category: 'Training & Heroes' },
+    'hospital': { desc: 'Heals injured troops. Wounded troops go here instead of being permanently lost. Higher levels increase healing capacity. More hospitals = more troops saved in battle.', instances: '2\u20134', unlock: '1st: HQ 2 | 2nd: HQ 13 | 3rd\u20134th: Extra Hospitals / Infirmary Expansion research (Defense Fort / Development)', category: 'Defense' },
+    'emergency center': { desc: 'Overflow hospital \u2014 rescues "fainted" troops that would otherwise die permanently when your hospitals are full. Critical for PvP and Enemy Buster day.', instances: '1', unlock: 'HQ 22', category: 'Defense' },
+    'alert tower': { desc: 'Early warning and scouting intelligence hub. Defines scout plane levels and what intel is visible when scouting enemies. Higher levels reveal more enemy details (troops, heroes, power).', instances: '1', unlock: 'HQ 10', category: 'Defense' },
+    'gold mine': { desc: 'Produces gold for upgrades. Gold is required starting around Lv9+ buildings. Higher levels = more gold/hour. Extra mines unlocked via Economy research.', instances: '3\u20135', unlock: '1st\u20132nd: Starting | 3rd: HQ 17 | 4th\u20135th: More Gold Mines (Economy research)', category: 'Resources' },
+    'farmland': { desc: 'Produces food for troop upkeep and building upgrades. Higher levels = more food/hour. Extra farms unlocked via Economy research.', instances: '3\u20135', unlock: '1st\u20132nd: Starting | 3rd: HQ 12 | 4th\u20135th: More Farmlands (Economy research)', category: 'Resources' },
+    'iron mine': { desc: 'Produces iron for building and research upgrades. Higher levels = more iron/hour. Extra mines unlocked via Economy research.', instances: '3\u20135', unlock: '1st\u20132nd: Starting | 3rd: HQ 12 | 4th\u20135th: More Iron Mines (Economy research)', category: 'Resources' },
+    'smelter': { desc: 'Produces Upgrade Ore, used in the Gear Factory to upgrade hero gear. Higher levels = more ore/hour. Extra smelters unlocked via Economy research.', instances: '2\u20135', unlock: '1st: HQ 6 | 2nd: HQ 11 | 3rd\u20135th: More Smelters (Economy research)', category: 'Resources' },
+    'material workshop': { desc: 'Produces Screws \u2014 the base crafting material used in the Gear Factory to create gear components (cannons, shields, chips, radar). Higher levels = more screws/hour.', instances: '1', unlock: 'HQ 11', category: 'Resources' },
+    'oil well': { desc: 'Produces oil, the primary resource for HQ 31\u201335 upgrades. Oil is THE bottleneck for late-game progression. Build your first one immediately when unlocked!', instances: '5', unlock: 'Season 2+ (Age of Oil) | 2 from research | 3 from HQ 32/33/34', category: 'Resources' },
+    'food warehouse': { desc: 'Protects your food from being stolen during enemy raids. Higher levels = more food protected. Upgrade alongside your food production.', instances: '1', unlock: 'Early game', category: 'Resources' },
+    'iron warehouse': { desc: 'Protects your iron from being stolen during enemy raids. Higher levels = more iron protected. Upgrade alongside your iron production.', instances: '1', unlock: 'Early game', category: 'Resources' },
+    'coin vault': { desc: 'Protects your gold/coins from being stolen during enemy raids. Higher levels = more coins protected. Upgrade alongside your gold production.', instances: '1', unlock: 'Early game', category: 'Resources' },
+    'gear factory': { desc: 'Craft hero gear, merge materials (screws into refined modules, super alloys), and dismantle unwanted gear. Hub for all gear management. Higher levels unlock better gear crafting.', instances: '1', unlock: 'HQ 9', category: 'Production & Drones' },
+    'chip lab': { desc: 'Craft drone skill chips for your drone\'s Chip Lab slots. Higher levels unlock legendary (UR) chip crafting. Key chips: Memory Ultra Fission, Gravitational Resonance Armor, Lethal Firestorm.', instances: '1', unlock: 'HQ 5', category: 'Production & Drones' },
+    'component factory': { desc: 'Produces Level 1 Drone Component Chests for upgrading drone equipment (Radar, Engine, Armor, Missile, Fuel Cell, Thermal Imager). Higher levels = faster production.', instances: '1', unlock: 'HQ 15', category: 'Production & Drones' },
+    'drone parts workshop': { desc: 'Passively produces Drone Parts (up to ~6/day). Drone Parts are used every 5 levels for drone upgrades. Late-game building unlocked through Age of Oil.', instances: '1', unlock: 'HQ 30 + Age of Oil (Season 2+) + Base Expansion research', category: 'Production & Drones' }
+};
 
 /* ---------- MULTI-INSTANCE HELPERS ---------- */
 function getBaseKey(instanceKey) {
@@ -830,7 +971,10 @@ function isInstanceUnlocked(buildingKey, instanceNum) {
     var mi = MULTI_INSTANCE[buildingKey];
     if (!mi) return instanceNum === 1;
     if (instanceNum < 1 || instanceNum > mi.count) return false;
-    return (state['headquarters'] || 0) >= mi.unlockHQ[instanceNum - 1];
+    var reqHQ = mi.unlockHQ[instanceNum - 1];
+    // reqHQ = 0 means research-unlocked (always available to set level, but shown as research-note)
+    if (reqHQ === 0) return true;
+    return (state['headquarters'] || 0) >= reqHQ;
 }
 
 function getInstanceDisplayName(buildingKey, instanceNum) {
@@ -1008,12 +1152,28 @@ function renderBuildingRow(buildingKey, instanceNum) {
         options += '<option value="' + i + '"' + sel + '>' + i + '</option>';
     }
 
-    var lockNote = locked ? '<span class="lock-note">(HQ ' + lockHQ + ')</span>' : '';
+    var lockNote = '';
+    if (locked) {
+        if (lockHQ > 0) {
+            lockNote = '<span class="lock-note">(HQ ' + lockHQ + ')</span>';
+        } else {
+            var mi = MULTI_INSTANCE[buildingKey];
+            var rn = mi && mi.researchNote ? mi.researchNote : 'Research required';
+            lockNote = '<span class="research-note">(' + rn + ')</span>';
+        }
+    }
     var disabledAttr = locked ? ' disabled' : '';
     var rowClass = 'building-row' + (locked ? ' instance-locked' : '') + (isMulti && instanceNum > 1 ? ' sub-instance' : '');
 
+    // Info button only on primary instance (not sub-instances)
+    var infoBtn = '';
+    if (instanceNum === 1 && BUILDING_INFO[buildingKey]) {
+        infoBtn = '<button class="info-btn" onclick="event.stopPropagation();showBuildingInfo(\'' + buildingKey + '\')" title="Building info">i</button>';
+    }
+
     return '<div class="' + rowClass + '" data-building="' + instanceKey + '">' +
         '<span class="building-name" onclick="toggleBuildingDetail(\'' + instanceKey + '\')">' + dName + lockNote + '</span>' +
+        infoBtn +
         '<div class="building-level">' +
             '<select onchange="setBuildingLevel(\'' + instanceKey + '\', parseInt(this.value))"' + disabledAttr + '>' + options + '</select>' +
             '<div class="status-dot status-gray" id="status-' + safeKey + '"></div>' +
@@ -2037,6 +2197,33 @@ function getRemainingSpeedups(used) {
         rem[k] = (speedupState[k] || 0) - (used[k] || 0);
     }
     return rem;
+}
+
+/* ---------- BUILDING INFO POPUP ---------- */
+function showBuildingInfo(buildingKey) {
+    var info = BUILDING_INFO[buildingKey];
+    if (!info) return;
+    var dName = displayNames[buildingKey] || buildingKey;
+    var bData = buildings[buildingKey];
+    var maxLvl = bData ? bData.levels.length : '?';
+
+    var popup = document.getElementById('infoPopup');
+    var overlay = document.getElementById('infoOverlay');
+    popup.querySelector('.info-title').textContent = dName;
+    popup.querySelector('.info-desc').textContent = info.desc;
+
+    var metaHtml = '<span><b>Max Level:</b> ' + maxLvl + '</span>' +
+        '<span><b>Instances:</b> ' + info.instances + '</span>' +
+        '<span><b>Unlock:</b> ' + info.unlock + '</span>';
+    popup.querySelector('.info-meta').innerHTML = metaHtml;
+
+    popup.classList.add('show');
+    overlay.classList.add('show');
+}
+
+function closeBuildingInfo() {
+    document.getElementById('infoPopup').classList.remove('show');
+    document.getElementById('infoOverlay').classList.remove('show');
 }
 
 /* ---------- START ---------- */
