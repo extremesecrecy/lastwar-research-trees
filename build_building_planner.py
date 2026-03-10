@@ -578,6 +578,11 @@ def generate_css():
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     font-size: 12px;
     margin: -8px -8px 12px -8px;
+    width: 100vw;
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+    box-sizing: border-box;
   }
   .guide-nav a {
     color: #5a6a6a;
