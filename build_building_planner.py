@@ -780,7 +780,8 @@ const MI_OVERRIDES = {
     'smelter':        { count: 5, unlockHQ: [6, 11, 0, 0, 0], researchNote: 'More Smelters (Economy research)' },
     'training base':  { count: 5, unlockHQ: [0, 0, 13, 0, 0], researchNote: 'Economy research' },
     'squad':          { count: 4, unlockHQ: [0, 0, 0, 0], researchNote: 'Linked to Drill Grounds \u2014 each drill ground = one march slot' },
-    'recon plane':    { count: 3, unlockHQ: [0, 0, 0], researchNote: '' }
+    'recon plane':    { count: 3, unlockHQ: [1, 23, 30], researchNote: '' },
+    'material workshop': { count: 5, unlockHQ: [11, 0, 0, 0, 0], researchNote: 'Economy research' }
 };
 for (const [bKey, override] of Object.entries(MI_OVERRIDES)) {
     MULTI_INSTANCE[bKey] = { count: override.count, unlockHQ: override.unlockHQ.slice(0, override.count) };
@@ -800,7 +801,7 @@ const BUILDING_INFO = {
     'missile center': { desc: 'Boosts all Missile-type hero stats (HP, ATK, DEF) and Missile march speed. Essential for Missile squad performance.', instances: '1', unlock: 'HQ 11', category: 'Military' },
     'drill ground': { desc: 'Houses troops and increases troop capacity per march. More drill grounds = more marches you can deploy simultaneously. Critical for rallies and gathering.', instances: '4', unlock: '1st: Starting | 2nd: HQ 16 | 3rd: HQ 21 | 4th: Extra Drill Ground (Siege to Seize research, HQ 30+)', category: 'Military' },
     'squad': { desc: 'Parking Lots \u2014 each one represents a deployable march/squad slot. Higher levels increase that squad\'s march speed (+0.5% at Lv1 up to +17.5% at Lv35). Linked 1:1 with Drill Grounds.', instances: '4', unlock: 'Unlocked with each Drill Ground', category: 'Military' },
-    'recon plane': { desc: 'Scout other players\' bases. Higher levels increase scout plane flight speed. Plane level cannot exceed Alert Tower level.', instances: '3', unlock: 'Linked to Alert Tower', category: 'Military' },
+    'recon plane': { desc: 'Scout other players\' bases. Higher levels increase scout plane flight speed. Plane level cannot exceed Alert Tower level. Up to 35 levels.', instances: '3', unlock: '1st: HQ 1 | 2nd: HQ 23 | 3rd: HQ 30', category: 'Military' },
     'armament institute': { desc: 'Allows research of 4 Armaments to unlock T11 troops. Single-level building that unlocks in late game after Season 4.', instances: '1', unlock: 'HQ 27 + after Season 4 ends', category: 'Military' },
     'training base': { desc: 'Passively generates hero EXP over time (works while offline). Higher levels increase XP output. Note: passive XP does NOT count for Arms Race Hero Advancement points.', instances: '3\u20135', unlock: '1st\u20132nd: Starting | 3rd: HQ 13 | 4th\u20135th: Economy research', category: 'Training & Heroes' },
     'tavern': { desc: 'Recruit heroes and survivors. Higher levels decrease recruitment cooldown time. Check daily for free recruitment and hero fragments in rotation.', instances: '1', unlock: 'Early game', category: 'Training & Heroes' },
@@ -812,7 +813,7 @@ const BUILDING_INFO = {
     'farmland': { desc: 'Produces food for troop upkeep and building upgrades. Higher levels = more food/hour. Extra farms unlocked via Economy research.', instances: '3\u20135', unlock: '1st\u20132nd: Starting | 3rd: HQ 12 | 4th\u20135th: More Farmlands (Economy research)', category: 'Resources' },
     'iron mine': { desc: 'Produces iron for building and research upgrades. Higher levels = more iron/hour. Extra mines unlocked via Economy research.', instances: '3\u20135', unlock: '1st\u20132nd: Starting | 3rd: HQ 12 | 4th\u20135th: More Iron Mines (Economy research)', category: 'Resources' },
     'smelter': { desc: 'Produces Upgrade Ore, used in the Gear Factory to upgrade hero gear. Higher levels = more ore/hour. Extra smelters unlocked via Economy research.', instances: '2\u20135', unlock: '1st: HQ 6 | 2nd: HQ 11 | 3rd\u20135th: More Smelters (Economy research)', category: 'Resources' },
-    'material workshop': { desc: 'Produces Screws \u2014 the base crafting material used in the Gear Factory to create gear components (cannons, shields, chips, radar). Higher levels = more screws/hour.', instances: '1', unlock: 'HQ 11', category: 'Resources' },
+    'material workshop': { desc: 'Produces Screws \u2014 the base crafting material used in the Gear Factory to create gear components (cannons, shields, chips, radar). Higher levels = more screws/hour. Extra workshops unlocked via Economy research.', instances: '1\u20135', unlock: '1st: HQ 11 | 2nd\u20135th: Economy research', category: 'Resources' },
     'oil well': { desc: 'Produces oil, the primary resource for HQ 31\u201335 upgrades. Oil is THE bottleneck for late-game progression. Build your first one immediately when unlocked!', instances: '5', unlock: 'Season 2+ (Age of Oil) | 2 from research | 3 from HQ 32/33/34', category: 'Resources' },
     'food warehouse': { desc: 'Protects your food from being stolen during enemy raids. Higher levels = more food protected. Upgrade alongside your food production.', instances: '1', unlock: 'Early game', category: 'Resources' },
     'iron warehouse': { desc: 'Protects your iron from being stolen during enemy raids. Higher levels = more iron protected. Upgrade alongside your iron production.', instances: '1', unlock: 'Early game', category: 'Resources' },
