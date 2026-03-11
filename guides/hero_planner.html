@@ -301,6 +301,33 @@
   }
   .leftover-line { font-size: 12px; color: #666; padding: 2px 0; }
 
+  .hero-plan-card {
+    padding: 10px 12px; margin-bottom: 6px;
+    background: var(--light-bg); border: 1px solid #ddd; border-radius: 8px;
+    border-left: 4px solid var(--teal);
+  }
+  .hero-plan-name {
+    font-weight: 700; font-size: 14px; color: var(--dark); margin-bottom: 4px;
+  }
+  .hero-plan-changes {
+    display: flex; flex-wrap: wrap; gap: 4px; margin-bottom: 4px;
+  }
+  .badge {
+    display: inline-block; padding: 2px 8px; border-radius: 12px;
+    font-size: 11px; font-weight: 600;
+  }
+  .badge-star { background: #fef3e2; color: #d4a017; border: 1px solid #d4a017; }
+  .badge-skill { background: #e8f4f1; color: #2e7d6a; border: 1px solid var(--teal); }
+  .badge-level { background: #e3f2fd; color: #1565c0; border: 1px solid var(--cyan); }
+  .hero-plan-cost { font-size: 12px; color: #666; }
+  .hero-plan-pts { font-size: 11px; color: var(--orange); font-weight: 600; }
+  .detail-steps { margin-top: 10px; }
+  .detail-steps summary {
+    cursor: pointer; font-size: 12px; color: var(--cyan); font-weight: 600;
+    padding: 6px 0; user-select: none;
+  }
+  .detail-steps summary:hover { color: var(--teal); }
+
   .plan-output { margin-top: 10px; }
   .plan-step {
     padding: 10px 12px; margin-bottom: 6px;
@@ -1164,6 +1191,7 @@ function generatePlan() {
       steps.push({
         action: `Star up ${m.name} ${m.stars}\u2605 \u2192 ${m.stars + 1}\u2605`,
         cost: `${cost} shards (${sources.join(' + ')})`,
+        rawCost: cost,
         pts: 0,
         type: 'star',
         highlight: true
@@ -1203,6 +1231,7 @@ function generatePlan() {
       steps.push({
         action: `${cheapest.name} Skill ${cheapest.skillIdx + 1}: Lv${cheapest.fromLv} \u2192 ${cheapest.fromLv + 1}`,
         cost: `${fmtN(cheapest.cost)} medals`,
+        rawCost: cheapest.cost,
         pts: pts,
         type: 'skill'
       });
@@ -1227,6 +1256,7 @@ function generatePlan() {
     steps.push({
       action: `Level ${lowest.name} Lv${lowest.level} \u2192 ${lowest.level + 1}`,
       cost: `${fmt(cost)} XP`,
+      rawCost: cost,
       pts: pts,
       type: 'level'
     });
@@ -1274,11 +1304,89 @@ function generatePlan() {
       html = '<div class="rec-item"><div class="rec-action">All heroes maxed!</div><div class="rec-detail">Squad is at maximum level, stars, and skills.</div></div>';
     }
   } else {
+    // ---- Condensed per-hero summary ----
+    // Track original state for comparison
+    const origState = {};
+    for (const [name, h] of Object.entries(state.heroes)) {
+      if (h.squad === squadNum) origState[name] = { level: h.level, stars: h.stars, skills: [...h.skills] };
+    }
+
+    // Aggregate steps per hero
+    const heroAgg = {};
+    for (const m of members) {
+      const orig = origState[m.name] || { level: m.level, stars: m.stars, skills: [...m.skills] };
+      heroAgg[m.name] = {
+        levelFrom: orig.level, levelTo: m.level,
+        starsFrom: orig.stars, starsTo: m.stars,
+        skillsFrom: [...orig.skills], skillsTo: [...m.skills],
+        levelXP: 0, medalCost: 0, shardCost: 0, pts: 0
+      };
+    }
+    for (const s of steps) {
+      // Extract hero name from action text
+      const heroName = members.find(m => s.action.startsWith(m.name) || s.action.includes(m.name))?.name;
+      if (!heroName) continue;
+      const agg = heroAgg[heroName];
+      if (!agg) continue;
+      if (s.type === 'level') agg.levelXP += s.rawCost || 0;
+      if (s.type === 'skill') agg.medalCost += s.rawCost || 0;
+      if (s.type === 'star') agg.shardCost += s.rawCost || 0;
+      agg.pts += s.pts || 0;
+    }
+
+    html += '<div class="phase-header">Upgrade Plan by Hero</div>';
+    for (const m of members) {
+      const a = heroAgg[m.name];
+      if (!a) continue;
+      const changes = [];
+
+      if (a.starsTo > a.starsFrom) {
+        changes.push(`<span class="badge badge-star">${a.starsFrom}\u2605 \u2192 ${a.starsTo}\u2605</span>`);
+      }
+
+      // Skill changes - group
+      const skillChanges = [];
+      for (let i = 0; i < a.skillsFrom.length; i++) {
+        if (a.skillsTo[i] > a.skillsFrom[i]) {
+          skillChanges.push(`Sk${i+1}: ${a.skillsFrom[i]}\u2192${a.skillsTo[i]}`);
+        }
+      }
+      if (skillChanges.length > 0) {
+        // Check if all skills changed the same amount
+        const allSame = a.skillsFrom.every((sf, i) => (a.skillsTo[i] - sf) === (a.skillsTo[0] - a.skillsFrom[0])) && (a.skillsTo[0] > a.skillsFrom[0]);
+        if (allSame && skillChanges.length === a.skillsFrom.length) {
+          changes.push(`<span class="badge badge-skill">All skills ${a.skillsFrom[0]} \u2192 ${a.skillsTo[0]} (+${a.skillsTo[0] - a.skillsFrom[0]})</span>`);
+        } else {
+          changes.push(`<span class="badge badge-skill">${skillChanges.join(', ')}</span>`);
+        }
+      }
+
+      if (a.levelTo > a.levelFrom) {
+        changes.push(`<span class="badge badge-level">Lv${a.levelFrom} \u2192 ${a.levelTo} (+${a.levelTo - a.levelFrom})</span>`);
+      }
+
+      if (changes.length === 0) continue;
+
+      // Cost summary
+      const costs = [];
+      if (a.levelXP > 0) costs.push(fmt(a.levelXP) + ' XP');
+      if (a.medalCost > 0) costs.push(fmtN(a.medalCost) + ' medals');
+      if (a.shardCost > 0) costs.push(a.shardCost + ' shards');
+
+      html += `<div class="hero-plan-card">
+        <div class="hero-plan-name">${m.name}</div>
+        <div class="hero-plan-changes">${changes.join(' ')}</div>
+        <div class="hero-plan-cost">${costs.join(' + ')}</div>
+        ${a.pts > 0 ? `<div class="hero-plan-pts">+${fmtN(a.pts)} Thursday pts</div>` : ''}
+      </div>`;
+    }
+
+    // Collapsible detailed steps
+    html += `<details class="detail-steps"><summary>Show ${steps.length} detailed steps</summary>`;
     const starSteps = steps.filter(s => s.type === 'star');
     const skillSteps = steps.filter(s => s.type === 'skill');
     const levelSteps = steps.filter(s => s.type === 'level');
     let stepNum = 0;
-
     if (starSteps.length > 0) {
       html += '<div class="phase-header">Phase 1: Star Upgrades</div>';
       for (const s of starSteps) { stepNum++; html += renderStep(s, stepNum); }
@@ -1291,6 +1399,7 @@ function generatePlan() {
       html += '<div class="phase-header">Phase 3: Level-Ups</div>';
       for (const s of levelSteps) { stepNum++; html += renderStep(s, stepNum); }
     }
+    html += '</details>';
   }
 
   // ========== SUMMARY ==========
