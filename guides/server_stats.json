@@ -1,23 +1,23 @@
 {
-  "lastUpdated": "2026-03-09",
+  "lastUpdated": "2026-03-11",
   "sources": {
     "playerStats": "https://activeplayer.io/last-war-survival/",
     "serverData": "https://cpt-hedge.com/servers"
   },
   "monthlyActivePlayers": {
-    "combined": "~10.8M",
-    "android": "4.5M - 7.5M",
-    "ios": "3.5M - 6.1M"
+    "combined": "~7.4M",
+    "android": "4.1M",
+    "ios": "3.3M"
   },
   "dailyActivePlayers": {
     "android": "750K - 1.2M",
     "ios": "910K - 1.5M",
-    "androidShare": "2.1x more"
+    "androidShare": "~1.7M combined"
   },
   "downloads": {
     "googlePlay": "50M+",
     "appStore": "48.4M+",
-    "total": "~98M+"
+    "total": "~100M+"
   },
   "monthlyTrend": [
     { "month": "Mar 2026", "players": "4.1M", "change": "-12.4%", "direction": "down" },
@@ -27,8 +27,8 @@
   ],
   "serverLandscape": {
     "totalServers": "2,194",
-    "newest": "#2198 (Day 2)",
-    "oldest": "#3 (Day 990)"
+    "newest": "#2198 (Day 4)",
+    "oldest": "#3 (Day 992)"
   },
   "engagement": {
     "androidRate": "16.2%",
