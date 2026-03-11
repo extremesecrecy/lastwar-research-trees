@@ -315,6 +315,10 @@ def generate_css():
     font-size: 14px; background: #fff;
   }
   .planner-field input:focus { outline: none; border-color: var(--teal); }
+  .planner-field .helper-text { font-size: 10px; color: #999; line-height: 1.3; }
+  .plan-info-box { background: #fef3e2; border: 1.5px solid var(--orange); border-radius: 8px; padding: 12px; }
+  .plan-info-box h4 { font-family: 'DKCrayonCrumble', sans-serif; color: var(--dark); margin-bottom: 8px; font-size: 14px; }
+  .plan-info-box .rec-item { margin-bottom: 6px; padding: 6px 8px; border-left: 3px solid var(--cyan); }
   .thursday-toggle {
     display: flex; align-items: center; gap: 8px; padding: 8px 12px;
     background: #fef3e2; border: 1.5px solid var(--orange); border-radius: 8px;
@@ -874,6 +878,8 @@ function renderSquadView(squadNum) {
 
 function generateSquadRecs(members) {
   const recs = [];
+  const cap = heroLevelCap();
+  const slotNames = ['Cannon', 'Shield', 'Chip', 'Radar'];
 
   // Weakest link by level
   const lowest = members.reduce((min, m) => m.level < min.level ? m : min, members[0]);
@@ -885,34 +891,69 @@ function generateSquadRecs(members) {
     });
   }
 
-  // Skill cap warnings
-  for (const m of members) {
-    const cap = STAR_SKILL_CAP[m.stars] || 1;
-    const atCap = m.skills.filter(s => s >= cap).length;
-    if (atCap === m.skills.length && m.stars < 5) {
+  // Next level cost for lowest hero
+  if (lowest.level < cap) {
+    const nextCost = COST_DATA.xpTable[String(lowest.level)];
+    if (nextCost) {
       recs.push({
-        action: `Star up ${m.name} (${m.stars} -> ${m.stars + 1} stars)`,
-        detail: `All skills at cap Lv${cap}. Needs ${STAR_SHARD_COST[m.stars]} shards to unlock higher skill levels.`
+        action: `Next level-up: ${lowest.name} Lv${lowest.level} → ${lowest.level + 1}`,
+        detail: `Costs ${fmt(nextCost)} XP.`
       });
     }
   }
 
-  // Gear suggestions
+  // Skill upgrade opportunities (skills below star cap)
+  for (const m of members) {
+    const skillCap = STAR_SKILL_CAP[m.stars] || 1;
+    const belowCap = m.skills.map((s, i) => ({ skill: i + 1, lv: s, gap: skillCap - s })).filter(x => x.gap > 0);
+    if (belowCap.length > 0) {
+      const worst = belowCap.sort((a, b) => b.gap - a.gap)[0];
+      const rarity = HERO_REGISTRY.heroes[m.name]?.rarity || 'UR';
+      const table = COST_DATA.skillMedals[rarity];
+      const cost = table && worst.lv >= 1 && (worst.lv - 1) < table.length ? table[worst.lv - 1] : null;
+      recs.push({
+        action: `${m.name} Skill ${worst.skill}: Lv${worst.lv} → ${worst.lv + 1}`,
+        detail: `${worst.gap} levels below cap (Lv${skillCap}).${cost ? ' Costs ' + fmtN(cost) + ' medals.' : ''}`
+      });
+    }
+  }
+
+  // Skill cap warnings — suggest star up
+  for (const m of members) {
+    const skillCap = STAR_SKILL_CAP[m.stars] || 1;
+    const atCap = m.skills.filter(s => s >= skillCap).length;
+    if (atCap === m.skills.length && m.stars < 5) {
+      recs.push({
+        action: `Star up ${m.name} (${m.stars}★ → ${m.stars + 1}★)`,
+        detail: `All skills at cap Lv${skillCap}. Needs ${STAR_SHARD_COST[m.stars]} shards to unlock higher skill levels.`
+      });
+    }
+  }
+
+  // Gear imbalance (compare each hero's slots to their highest slot)
   for (const m of members) {
     const meta = HERO_REGISTRY.heroes[m.name];
     if (!meta) continue;
-    const minGear = Math.min(...m.gear.map(g => g.level));
-    if (minGear < 10 && m.level >= 50) {
-      const slotIdx = m.gear.findIndex(g => g.level === minGear);
-      const slotNames = ['Cannon', 'Shield', 'Chip', 'Radar'];
+    const gearLevels = m.gear.map(g => g.level);
+    const maxGear = Math.max(...gearLevels);
+    const minGear = Math.min(...gearLevels);
+    const gap = maxGear - minGear;
+    if (gap > 5 && maxGear >= 10) {
+      const minIdx = gearLevels.indexOf(minGear);
       recs.push({
-        action: `Upgrade ${m.name}'s ${slotNames[slotIdx]} (Lv${minGear})`,
+        action: `${m.name}: ${slotNames[minIdx]} Lv${minGear} (${gap} levels behind highest)`,
+        detail: `Highest slot is Lv${maxGear}. ${meta.role === 'DPS' ? 'DPS priority: Cannon > Chip > Shield > Radar.' : meta.role === 'Buffer' ? 'Buffer priority: Radar > Chip > Shield > Cannon.' : 'Defense priority: Shield > Radar > Cannon > Chip.'}`
+      });
+    } else if (minGear < 10 && m.level >= 50) {
+      const minIdx = gearLevels.indexOf(minGear);
+      recs.push({
+        action: `Upgrade ${m.name}'s ${slotNames[minIdx]} (Lv${minGear})`,
         detail: `Lowest gear slot. ${meta.role === 'DPS' ? 'DPS heroes need Cannon+Chip first.' : 'Defense heroes need Shield+Radar first.'}`
       });
     }
   }
 
-  return recs.slice(0, 5);
+  return recs.slice(0, 8);
 }
 
 /* ===== RENDER: PLANNER TAB ===== */
@@ -964,15 +1005,16 @@ function generatePlan() {
     lowest.level++;
   }
 
-  // Phase 2: Star upgrades where skills are capped
+  // Phase 2: Star upgrades (no longer requires all skills capped — you can star up anytime in-game)
   for (const m of members) {
-    const skillCap = STAR_SKILL_CAP[m.stars] || 1;
-    const allCapped = m.skills.every(s => s >= skillCap);
-    if (allCapped && m.stars < 5 && shardsLeft >= STAR_SHARD_COST[m.stars]) {
+    if (m.stars < 5 && shardsLeft >= STAR_SHARD_COST[m.stars]) {
+      const skillCap = STAR_SKILL_CAP[m.stars] || 1;
+      const allCapped = m.skills.every(s => s >= skillCap);
       const cost = STAR_SHARD_COST[m.stars];
       shardsLeft -= cost;
+      const note = allCapped ? '' : ' (tip: level skills to cap first for max value)';
       steps.push({
-        action: `Star up ${m.name} ${m.stars} -> ${m.stars + 1} stars`,
+        action: `Star up ${m.name} ${m.stars} -> ${m.stars + 1} stars${note}`,
         cost: `${cost} shards`,
         pts: 0,
         type: 'star',
@@ -982,45 +1024,90 @@ function generatePlan() {
     }
   }
 
-  // Phase 3: Skill upgrades (cheapest first)
-  let skillUpgrades = [];
-  for (const m of members) {
-    const rarity = m.meta?.rarity || 'UR';
-    const skillCap = STAR_SKILL_CAP[m.stars] || 1;
-    const table = COST_DATA.skillMedals[rarity];
-    if (!table) continue;
-    for (let si = 0; si < m.skills.length; si++) {
-      if (m.skills[si] < skillCap) {
-        const idx = m.skills[si] - 1;
-        if (idx >= 0 && idx < table.length) {
-          skillUpgrades.push({
-            name: m.name, skillIdx: si, fromLv: m.skills[si],
-            cost: table[idx], member: m
-          });
+  // Phase 3: Skill upgrades (cheapest first, loop until medals exhausted)
+  let keepUpgrading = true;
+  while (keepUpgrading && medalsLeft > 0) {
+    keepUpgrading = false;
+    let cheapest = null;
+
+    for (const m of members) {
+      const rarity = m.meta?.rarity || 'UR';
+      const skillCap = STAR_SKILL_CAP[m.stars] || 1;
+      const table = COST_DATA.skillMedals[rarity];
+      if (!table) continue;
+      for (let si = 0; si < m.skills.length; si++) {
+        if (m.skills[si] < skillCap) {
+          const idx = m.skills[si] - 1;
+          if (idx >= 0 && idx < table.length) {
+            const cost = table[idx];
+            if (cost <= medalsLeft && (!cheapest || cost < cheapest.cost)) {
+              cheapest = { name: m.name, skillIdx: si, fromLv: m.skills[si], cost, member: m };
+            }
+          }
         }
       }
     }
-  }
-  skillUpgrades.sort((a, b) => a.cost - b.cost);
 
-  for (const u of skillUpgrades) {
-    if (medalsLeft < u.cost) continue;
-    medalsLeft -= u.cost;
-    const pts = thursdayMode ? Math.floor(u.cost / 2) : 0; // rough approximation
-    totalPts += pts;
-    steps.push({
-      action: `${u.name} Skill ${u.skillIdx + 1}: Lv${u.fromLv} -> ${u.fromLv + 1}`,
-      cost: `${fmtN(u.cost)} medals`,
-      pts: pts,
-      type: 'skill'
-    });
-    u.member.skills[u.skillIdx]++;
+    if (cheapest) {
+      medalsLeft -= cheapest.cost;
+      const pts = thursdayMode ? Math.floor(cheapest.cost / 2) : 0;
+      totalPts += pts;
+      steps.push({
+        action: `${cheapest.name} Skill ${cheapest.skillIdx + 1}: Lv${cheapest.fromLv} -> ${cheapest.fromLv + 1}`,
+        cost: `${fmtN(cheapest.cost)} medals`,
+        pts: pts,
+        type: 'skill'
+      });
+      cheapest.member.skills[cheapest.skillIdx]++;
+      keepUpgrading = true;
+    }
   }
 
   // Render output
   let html = '';
   if (steps.length === 0) {
-    html = '<div class="rec-item"><div class="rec-action">No upgrades possible</div><div class="rec-detail">Increase budget or check hero assignments.</div></div>';
+    // Show informative feedback about what upgrades would cost
+    let hints = [];
+
+    // Cheapest next level
+    const levelable = members.filter(m => m.level < cap);
+    if (levelable.length > 0) {
+      const cheapestLvl = levelable
+        .map(m => ({ name: m.name, level: m.level, cost: COST_DATA.xpTable[String(m.level)] || 0 }))
+        .filter(x => x.cost > 0)
+        .sort((a, b) => a.cost - b.cost)[0];
+      if (cheapestLvl) {
+        hints.push(`<div class="rec-item"><div class="rec-action">Cheapest level-up: ${cheapestLvl.name} Lv${cheapestLvl.level} → ${cheapestLvl.level + 1}</div><div class="rec-detail">Costs ${fmt(cheapestLvl.cost)} XP. At Lv${cheapestLvl.level}+, each level = ${fmt(cheapestLvl.cost)} XP.</div></div>`);
+      }
+    }
+
+    // Cheapest next skill
+    const skillCandidates = members.flatMap(m => {
+      const skillCap = STAR_SKILL_CAP[m.stars] || 1;
+      const table = COST_DATA.skillMedals[m.meta?.rarity || 'UR'];
+      if (!table) return [];
+      return m.skills.map((s, i) => s < skillCap && s >= 1 && (s - 1) < table.length ? { name: m.name, skill: i + 1, fromLv: s, cost: table[s - 1] } : null).filter(Boolean);
+    }).sort((a, b) => a.cost - b.cost);
+    if (skillCandidates.length > 0) {
+      const cs = skillCandidates[0];
+      hints.push(`<div class="rec-item"><div class="rec-action">Cheapest skill upgrade: ${cs.name} Skill ${cs.skill} Lv${cs.fromLv} → ${cs.fromLv + 1}</div><div class="rec-detail">Costs ${fmtN(cs.cost)} medals.</div></div>`);
+    }
+
+    // Cheapest next star
+    const starCandidates = members
+      .filter(m => m.stars < 5)
+      .map(m => ({ name: m.name, stars: m.stars, cost: STAR_SHARD_COST[m.stars] }))
+      .sort((a, b) => a.cost - b.cost);
+    if (starCandidates.length > 0) {
+      const sc = starCandidates[0];
+      hints.push(`<div class="rec-item"><div class="rec-action">Cheapest star-up: ${sc.name} ${sc.stars}★ → ${sc.stars + 1}★</div><div class="rec-detail">Costs ${sc.cost} shards.</div></div>`);
+    }
+
+    if (hints.length > 0) {
+      html = `<div class="plan-info-box"><h4>Budget insufficient — here's what upgrades cost:</h4>${hints.join('')}</div>`;
+    } else {
+      html = '<div class="rec-item"><div class="rec-action">All heroes maxed!</div><div class="rec-detail">Squad is at maximum level, stars, and skills. Nothing left to upgrade.</div></div>';
+    }
   } else {
     for (let i = 0; i < steps.length; i++) {
       const s = steps[i];
@@ -1307,6 +1394,7 @@ def generate_html(registry, cost_data, images):
     <div class="planner-field">
       <label>Hero XP</label>
       <input type="number" id="planXP" min="0" value="0" placeholder="e.g. 1300000000">
+      <div class="helper-text" id="xpHelper">Lv100→101 = 35M, Lv110→111 = 51M, Lv120→121 = 75M</div>
     </div>
     <div class="planner-field">
       <label>Skill Medals</label>
