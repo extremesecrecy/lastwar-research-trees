@@ -611,6 +611,15 @@ function fmt(n) {
   return String(n);
 }
 function fmtN(n) { return n.toLocaleString(); }
+function fmtInput(el) {
+  var pos = el.selectionStart;
+  var raw = el.value.replace(/[^0-9]/g, '');
+  var formatted = raw.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+  var addedCommas = formatted.length - raw.length;
+  el.value = formatted;
+  var newPos = pos + (formatted.length - el.value.length + addedCommas);
+  el.setSelectionRange(Math.max(0, newPos), Math.max(0, newPos));
+}
 
 /* ===== TOAST ===== */
 function toast(msg) {
@@ -1061,9 +1070,9 @@ function renderStep(s, num) {
 
 function generatePlan() {
   const squadNum = parseInt(document.getElementById('planSquad').value);
-  const xpBudget = parseInt(document.getElementById('planXP').value) || 0;
-  const medalBudget = parseInt(document.getElementById('planMedals').value) || 0;
-  const universalShards = parseInt(document.getElementById('planShards').value) || 0;
+  const xpBudget = parseInt(document.getElementById('planXP').value.replace(/,/g, '')) || 0;
+  const medalBudget = parseInt(document.getElementById('planMedals').value.replace(/,/g, '')) || 0;
+  const universalShards = parseInt(document.getElementById('planShards').value.replace(/,/g, '')) || 0;
   const thursdayMode = document.getElementById('thursdayMode').checked;
   const cap = heroLevelCap();
 
@@ -1643,16 +1652,16 @@ def generate_html(registry, cost_data, images):
     </div>
     <div class="planner-field">
       <label>Hero XP</label>
-      <input type="number" id="planXP" min="0" value="0" placeholder="e.g. 1300000000">
+      <input type="text" id="planXP" inputmode="numeric" value="0" placeholder="e.g. 1,300,000,000" oninput="fmtInput(this)">
       <div class="helper-text" id="xpHelper">Lv100→101 = 35M, Lv110→111 = 51M, Lv120→121 = 75M</div>
     </div>
     <div class="planner-field">
       <label>Skill Medals</label>
-      <input type="number" id="planMedals" min="0" value="0" placeholder="e.g. 5000">
+      <input type="text" id="planMedals" inputmode="numeric" value="0" placeholder="e.g. 5,000" oninput="fmtInput(this)">
     </div>
     <div class="planner-field">
       <label>Universal Shards</label>
-      <input type="number" id="planShards" min="0" value="0" placeholder="e.g. 100">
+      <input type="text" id="planShards" inputmode="numeric" value="0" placeholder="e.g. 100" oninput="fmtInput(this)">
       <div class="helper-text">Shared across all heroes</div>
     </div>
   </div>
