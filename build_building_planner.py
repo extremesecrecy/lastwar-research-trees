@@ -780,7 +780,7 @@ const MI_OVERRIDES = {
     'smelter':        { count: 5, unlockHQ: [6, 11, 0, 0, 0], researchNote: 'More Smelters (Economy research)' },
     'training base':  { count: 5, unlockHQ: [0, 0, 13, 0, 0], researchNote: 'Economy research' },
     'squad':          { count: 4, unlockHQ: [0, 0, 0, 0], researchNote: 'Linked to Drill Grounds \u2014 each drill ground = one march slot' },
-    'recon plane':    { count: 3, unlockHQ: [1, 23, 30], researchNote: '' },
+    'recon plane':    { count: 3, unlockHQ: [1, 23, 25], researchNote: '' },
     'material workshop': { count: 5, unlockHQ: [11, 0, 0, 0, 0], researchNote: 'Economy research' }
 };
 for (const [bKey, override] of Object.entries(MI_OVERRIDES)) {
@@ -801,7 +801,7 @@ const BUILDING_INFO = {
     'missile center': { desc: 'Boosts all Missile-type hero stats (HP, ATK, DEF) and Missile march speed. Essential for Missile squad performance.', instances: '1', unlock: 'HQ 11', category: 'Military' },
     'drill ground': { desc: 'Houses troops and increases troop capacity per march. More drill grounds = more marches you can deploy simultaneously. Critical for rallies and gathering.', instances: '4', unlock: '1st: Starting | 2nd: HQ 16 | 3rd: HQ 21 | 4th: Extra Drill Ground (Siege to Seize research, HQ 30+)', category: 'Military' },
     'squad': { desc: 'Parking Lots \u2014 each one represents a deployable march/squad slot. Higher levels increase that squad\'s march speed (+0.5% at Lv1 up to +17.5% at Lv35). Linked 1:1 with Drill Grounds.', instances: '4', unlock: 'Unlocked with each Drill Ground', category: 'Military' },
-    'recon plane': { desc: 'Scout other players\' bases. Higher levels increase scout plane flight speed. Plane level cannot exceed Alert Tower level. Up to 35 levels.', instances: '3', unlock: '1st: HQ 1 | 2nd: HQ 23 | 3rd: HQ 30', category: 'Military' },
+    'recon plane': { desc: 'Scout other players\' bases. Higher levels increase scout plane flight speed. Plane level cannot exceed Alert Tower level. Up to 35 levels.', instances: '3', unlock: '1st: HQ 1 | 2nd: HQ 23 | 3rd: HQ 25', category: 'Military' },
     'armament institute': { desc: 'Allows research of 4 Armaments to unlock T11 troops. Single-level building that unlocks in late game after Season 4.', instances: '1', unlock: 'HQ 27 + after Season 4 ends', category: 'Military' },
     'training base': { desc: 'Passively generates hero EXP over time (works while offline). Higher levels increase XP output. Note: passive XP does NOT count for Arms Race Hero Advancement points.', instances: '3\u20135', unlock: '1st\u20132nd: Starting | 3rd: HQ 13 | 4th\u20135th: Economy research', category: 'Training & Heroes' },
     'tavern': { desc: 'Recruit heroes and survivors. Higher levels decrease recruitment cooldown time. Check daily for free recruitment and hero fragments in rotation.', instances: '1', unlock: 'Early game', category: 'Training & Heroes' },
@@ -2134,12 +2134,14 @@ def generate_html(data):
 
 <nav class="guide-nav">
   <a href="../" class="nav-home">&#8592; Home</a>
+  <a href="ai_advisor.html">AI Advisor</a>
   <a href="alliance_support_hub.html">Alliance Hub</a>
   <a href="building_planner.html" class="current">Building Planner</a>
   <a href="building_reference.html">Building Ref</a>
   <a href="capitol_positions.html">Capitol Positions</a>
   <a href="chip_lab_guide.html">Chip Lab</a>
   <a href="calendar.html">Calendar</a>
+  <a href="hero_planner.html">Hero Planner</a>
   <a href="plunder_guide.html">Plunder</a>
   <a href="radar_guide.html">Radar</a>
   <a href="../research_trees_visual.html">Research Trees</a>

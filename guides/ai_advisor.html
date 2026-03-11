@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Advisor Guide - OWOW</title>
+<style>
+  @font-face {
+    font-family: 'DKCrayonCrumble';
+    src: url('DKCrayonCrumble.ttf') format('truetype');
+    font-weight: normal; font-style: normal;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  :root {
+    --orange: #f4a261; --cyan: #5bc0de; --yellow: #f4d35e;
+    --teal: #7fb3a8; --dark: #5a6a6a; --text: #333;
+    --watermelon: #fc5c65; --green: #43a047; --gray: #ccc;
+    --light-bg: #fafafa;
+  }
+  body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: #fff; color: var(--text); padding: 8px; min-height: 100vh;
+    line-height: 1.6;
+  }
+  h1, h2, h3, .section-label, .alliance .name {
+    font-family: 'DKCrayonCrumble', 'Segoe UI', sans-serif;
+  }
+
+  /* Nav */
+  .guide-nav {
+    display: flex; flex-wrap: wrap; gap: 4px 12px; align-items: center;
+    padding: 6px 16px; background: #f0f5f4; border-bottom: 2px solid #7fb3a8;
+    font-size: 12px; margin: -8px -8px 12px -8px; width: 100vw;
+    position: relative; left: 50%; transform: translateX(-50%); box-sizing: border-box;
+  }
+  .guide-nav a { color: #5a6a6a; text-decoration: none; padding: 2px 6px; border-radius: 3px; white-space: nowrap; }
+  .guide-nav a:hover { color: #f4a261; background: #fff; }
+  .guide-nav a.current { color: #f4a261; font-weight: bold; background: #fff; border: 1px solid #f4a261; }
+  .guide-nav .nav-home { font-weight: bold; margin-right: 8px; padding-right: 12px; border-right: 1px solid #7fb3a8; }
+  @media (max-width: 480px) { .guide-nav { padding: 4px 10px; gap: 3px 8px; font-size: 11px; margin: -4px -4px 8px -4px; } }
+  @media (min-width: 769px) { .guide-nav { margin: -16px -16px 12px -16px; } }
+
+  /* Header */
+  .top-bar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; flex-wrap: wrap; gap: 8px; }
+  .top-bar h1 { font-size: 22px; letter-spacing: 1px; text-transform: uppercase; color: var(--dark); }
+  .top-bar .sub { font-size: 12px; color: #888; }
+  .alliance { background: #e8f4f1; border: 1px solid var(--teal); border-radius: 5px; padding: 2px 10px; text-align: right; }
+  .alliance .name { font-size: 17px; font-weight: 800; color: var(--dark); }
+  .alliance .info { font-size: 12px; color: #666; }
+
+  /* Content */
+  .intro {
+    background: #e8f4f1; border: 2px solid var(--teal); border-radius: 10px;
+    padding: 16px 20px; margin-bottom: 20px; font-size: 14px;
+  }
+  .intro strong { color: var(--dark); }
+
+  .tool-section {
+    border: 1.5px solid var(--gray); border-radius: 10px;
+    margin-bottom: 16px; overflow: hidden;
+  }
+  .tool-header {
+    display: flex; align-items: center; gap: 10px;
+    padding: 14px 18px; background: var(--light-bg);
+    border-bottom: 1px solid #eee;
+  }
+  .tool-icon {
+    width: 40px; height: 40px; border-radius: 8px; display: flex;
+    align-items: center; justify-content: center; font-size: 20px;
+    color: #fff; flex-shrink: 0;
+  }
+  .tool-icon.research { background: var(--teal); }
+  .tool-icon.building { background: var(--orange); }
+  .tool-icon.hero { background: var(--watermelon); }
+  .tool-header h2 { font-size: 18px; color: var(--dark); }
+  .tool-header .tool-desc { font-size: 12px; color: #888; }
+
+  .tool-body { padding: 16px 18px; }
+
+  .steps { counter-reset: step-counter; list-style: none; }
+  .steps li {
+    counter-increment: step-counter; position: relative;
+    padding: 10px 12px 10px 48px; margin-bottom: 8px;
+    background: var(--light-bg); border-radius: 8px;
+    border: 1px solid #eee; font-size: 13px;
+  }
+  .steps li::before {
+    content: counter(step-counter);
+    position: absolute; left: 12px; top: 10px;
+    width: 26px; height: 26px; border-radius: 50%;
+    background: var(--cyan); color: #fff; font-weight: 700;
+    font-size: 13px; display: flex; align-items: center; justify-content: center;
+  }
+  .steps li strong { color: var(--dark); }
+  .steps li code {
+    background: #e8e8e8; padding: 1px 5px; border-radius: 3px;
+    font-family: 'Consolas', monospace; font-size: 12px;
+  }
+
+  .prompt-box {
+    margin-top: 12px; padding: 12px 16px;
+    background: #2d2d2d; color: #e0e0e0; border-radius: 8px;
+    font-family: 'Consolas', monospace; font-size: 12px;
+    line-height: 1.5; overflow-x: auto;
+    border-left: 4px solid var(--cyan);
+  }
+  .prompt-box .comment { color: #6a9955; }
+  .prompt-box .highlight { color: var(--yellow); font-weight: 700; }
+
+  .download-btn {
+    display: inline-flex; align-items: center; gap: 6px;
+    padding: 8px 16px; border-radius: 6px; font-size: 13px;
+    font-weight: 700; text-decoration: none; color: #fff;
+    margin-top: 8px; margin-right: 8px; transition: opacity 0.2s;
+  }
+  .download-btn:hover { opacity: 0.85; }
+  .download-btn.teal { background: var(--teal); }
+  .download-btn.orange { background: var(--orange); }
+  .download-btn.watermelon { background: var(--watermelon); }
+
+  .tip-box {
+    margin-top: 12px; padding: 10px 14px;
+    background: #fef3e2; border: 1.5px solid var(--orange); border-radius: 8px;
+    font-size: 12px;
+  }
+  .tip-box strong { color: var(--dark); }
+
+  .ai-logos {
+    display: flex; gap: 12px; flex-wrap: wrap; margin-top: 12px;
+  }
+  .ai-logo {
+    padding: 6px 14px; border-radius: 6px;
+    font-size: 13px; font-weight: 600; border: 1.5px solid var(--gray);
+    color: var(--dark);
+  }
+
+  /* Footer */
+  .footer { text-align: center; padding: 12px 0; font-size: 12px; color: #888; border-top: 1px solid #eee; margin-top: 20px; }
+  .footer .tagline { font-family: 'DKCrayonCrumble', sans-serif; font-size: 14px; color: var(--dark); }
+
+  @media (max-width: 480px) {
+    body { padding: 4px; }
+    .top-bar h1 { font-size: 18px; }
+    .tool-body { padding: 12px; }
+    .steps li { padding-left: 42px; }
+  }
+  @media (min-width: 769px) {
+    body { max-width: 800px; margin: 0 auto; padding: 16px; }
+  }
+</style>
+</head>
+<body>
+
+<nav class="guide-nav">
+  <a href="../" class="nav-home">&#8592; Home</a>
+  <a href="ai_advisor.html" class="current">AI Advisor</a>
+  <a href="alliance_support_hub.html">Alliance Hub</a>
+  <a href="building_planner.html">Building Planner</a>
+  <a href="building_reference.html">Building Ref</a>
+  <a href="capitol_positions.html">Capitol Positions</a>
+  <a href="chip_lab_guide.html">Chip Lab</a>
+  <a href="calendar.html">Calendar</a>
+  <a href="hero_planner.html">Hero Planner</a>
+  <a href="plunder_guide.html">Plunder</a>
+  <a href="radar_guide.html">Radar</a>
+  <a href="../research_trees_visual.html">Research Trees</a>
+  <a href="server_dashboard.html">Server</a>
+  <a href="vs_weekly_planner.html">VS Planner</a>
+  <a href="waterfall_guide.html">Waterfall</a>
+</nav>
+
+<div class="top-bar">
+  <div>
+    <h1>AI Advisor Guide</h1>
+    <div class="sub">Get personalized strategy from ChatGPT, Claude, or Gemini</div>
+  </div>
+  <div class="alliance">
+    <div class="name">[OWOW]</div>
+    <div class="info">Old World Order</div>
+  </div>
+</div>
+
+<div class="intro">
+  <strong>How it works:</strong> Our tools let you export your game progress as CSV files.
+  Download the matching AI prompt, upload both to any AI chatbot, and get a personalized
+  strategic analysis of your base, research, and heroes. The AI reads your real data and
+  gives advice tailored to YOUR account &mdash; not generic tips.
+</div>
+
+<div class="ai-logos">
+  <div class="ai-logo">ChatGPT</div>
+  <div class="ai-logo">Claude</div>
+  <div class="ai-logo">Gemini</div>
+  <div class="ai-logo">Any AI chatbot</div>
+</div>
+
+<!-- ========== RESEARCH TREES ========== -->
+<div class="tool-section" style="margin-top: 20px;">
+  <div class="tool-header">
+    <div class="tool-icon research">&#x1F4D0;</div>
+    <div>
+      <h2>Research Tree Advisor</h2>
+      <div class="tool-desc">Analyze your research progress across all 16 tech trees</div>
+    </div>
+  </div>
+  <div class="tool-body">
+    <ol class="steps">
+      <li>Go to the <strong><a href="../research_trees_visual.html" style="color:var(--teal)">Research Tree Tracker</a></strong> and update your research levels (click each node, set your current level)</li>
+      <li>Click <strong>Export CSV</strong> at the bottom of the page &mdash; this downloads your research progress</li>
+      <li>Download the <strong>AI Advisor Prompt</strong> using the button below</li>
+      <li>Open your preferred AI chatbot (ChatGPT, Claude, Gemini)</li>
+      <li>Upload <strong>both files</strong> &mdash; the CSV and the prompt &mdash; in a single message</li>
+      <li>Ask: <code>"Analyze my research progress and tell me what to research next"</code></li>
+    </ol>
+
+    <a class="download-btn teal" href="https://raw.githubusercontent.com/extremesecrecy/lastwar-research-trees/main/ai_advisor_prompt.md" target="_blank">
+      &#x1F4E5; Download Research AI Prompt
+    </a>
+
+    <div class="tip-box">
+      <strong>What the AI will tell you:</strong> Which trees to prioritize, how many Valor Badges
+      you need for the next critical research, what prerequisites are blocking you, and whether
+      your research order matches the recommended 75-step path.
+    </div>
+  </div>
+</div>
+
+<!-- ========== BUILDING PLANNER ========== -->
+<div class="tool-section">
+  <div class="tool-header">
+    <div class="tool-icon building">&#x1F3D7;</div>
+    <div>
+      <h2>Building Upgrade Advisor</h2>
+      <div class="tool-desc">Analyze your building levels and plan the fastest path to your next HQ</div>
+    </div>
+  </div>
+  <div class="tool-body">
+    <ol class="steps">
+      <li>Go to the <strong><a href="building_planner.html" style="color:var(--orange)">Building Planner</a></strong> and set your current HQ level and all building levels</li>
+      <li>Click <strong>Export CSV</strong> &mdash; this downloads all 32 buildings with levels, power, and HQ requirements</li>
+      <li>Download the <strong>AI Advisor Prompt</strong> using the button below</li>
+      <li>Upload <strong>both files</strong> to your AI chatbot</li>
+      <li>Ask: <code>"What should I upgrade next to reach HQ 26?"</code> or <code>"Which buildings give the most power?"</code></li>
+    </ol>
+
+    <a class="download-btn orange" href="https://raw.githubusercontent.com/extremesecrecy/lastwar-research-trees/main/ai_building_advisor_prompt.md" target="_blank">
+      &#x1F4E5; Download Building AI Prompt
+    </a>
+
+    <div class="tip-box">
+      <strong>What the AI will tell you:</strong> The exact chain of buildings needed for your next
+      HQ level, which buildings give the best power-per-resource, builder queue optimization,
+      and whether your speedup inventory can cover the upgrades.
+    </div>
+  </div>
+</div>
+
+<!-- ========== HERO PLANNER ========== -->
+<div class="tool-section">
+  <div class="tool-header">
+    <div class="tool-icon hero">&#x1F9B8;</div>
+    <div>
+      <h2>Hero Advisor</h2>
+      <div class="tool-desc">Analyze your hero lineup, squad composition, and upgrade priorities</div>
+    </div>
+  </div>
+  <div class="tool-body">
+    <ol class="steps">
+      <li>Go to the <strong><a href="hero_planner.html" style="color:var(--watermelon)">Hero Planner</a></strong> and enter your hero levels, stars, skills, gear, and squad assignments</li>
+      <li>Click <strong>Export CSV</strong> &mdash; this downloads all your hero data</li>
+      <li>Upload the CSV to your AI chatbot along with this prompt:</li>
+    </ol>
+
+    <div class="prompt-box">
+      <span class="comment"># Copy and paste this into your AI chatbot along with your CSV:</span><br><br>
+      <span class="highlight">You are a Last War: Survival hero advisor.</span> I've uploaded my hero roster CSV.<br><br>
+      The CSV columns are: Hero, Rarity (UR/SSR/SR), Type (Aircraft/Tank/Missile),<br>
+      Role (DPS/Defense/Buffer), Level, Stars (0-5), Skill1/Skill2/Skill3 levels,<br>
+      GearCannon/GearShield/GearChip/GearRadar levels, WeaponLv, Squad (0=bench, 1-4).<br><br>
+      <span class="comment"># Key game rules:</span><br>
+      - Hero level cap = HQ x 5 - 1<br>
+      - Skill cap by stars: 0&#9733;=Lv1, 1&#9733;=Lv3, 2&#9733;=Lv6, 3&#9733;=Lv10, 4&#9733;=Lv20, 5&#9733;=Lv30<br>
+      - 5 same-type heroes in a squad = 20% damage bonus<br>
+      - Star costs: 1&#9733;=25, 2&#9733;=50, 3&#9733;=100, 4&#9733;=300, 5&#9733;=500 shards<br>
+      - DPS heroes: prioritize Cannon &gt; Chip &gt; Shield &gt; Radar<br>
+      - Defense heroes: prioritize Shield &gt; Radar &gt; Cannon &gt; Chip<br>
+      - Thursday scoring: 1 point per 2,000 Hero XP spent<br><br>
+      <span class="highlight">Analyze my roster and tell me:</span><br>
+      1. Squad composition analysis (synergy, type bonus)<br>
+      2. Which hero to level next for maximum power gain<br>
+      3. Which hero needs stars most urgently (skills at cap)<br>
+      4. Gear upgrade priorities per squad<br>
+      5. Thursday leveling plan if I have [X] Hero XP
+    </div>
+
+    <div class="tip-box">
+      <strong>What the AI will tell you:</strong> Whether your squads have full type synergy,
+      which heroes are bottlenecked by star level, optimal XP distribution for Thursday,
+      gear priority order, and which bench heroes to invest in next.
+    </div>
+  </div>
+</div>
+
+<!-- ========== COMBINED ANALYSIS ========== -->
+<div class="tool-section">
+  <div class="tool-header">
+    <div class="tool-icon" style="background: var(--dark);">&#x1F4CA;</div>
+    <div>
+      <h2>Full Base Analysis</h2>
+      <div class="tool-desc">Upload all 3 CSVs for a complete strategic review</div>
+    </div>
+  </div>
+  <div class="tool-body">
+    <ol class="steps">
+      <li>Export CSV from <strong>Research Trees</strong>, <strong>Building Planner</strong>, and <strong>Hero Planner</strong></li>
+      <li>Upload all 3 CSV files plus any advisor prompt to your AI chatbot</li>
+      <li>Ask: <code>"Give me a complete strategic review of my base. What are my biggest bottlenecks and what should I focus on this week?"</code></li>
+    </ol>
+    <div class="tip-box">
+      <strong>Pro tip:</strong> The AI can cross-reference your data. For example, it can see that
+      your HQ needs a building at level 24, check if you have the research to unlock it, and
+      verify your heroes are leveled enough for the content you're trying to push.
+      Upload everything for the most comprehensive advice.
+    </div>
+  </div>
+</div>
+
+<div class="footer">
+  <div class="tagline">Kristen OWOW SKYNET. Ready for Judgment Day.</div>
+  <div>AI Advisor Guide v1.0 | OWOW Alliance Tools</div>
+</div>
+
+</body>
+</html>
