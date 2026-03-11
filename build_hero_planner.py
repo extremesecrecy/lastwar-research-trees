@@ -328,6 +328,41 @@ def generate_css():
   .thursday-toggle .label { font-weight: 600; color: var(--dark); font-size: 13px; }
   .thursday-toggle .info { font-size: 11px; color: #888; }
 
+  .shard-inventory {
+    display: flex; flex-wrap: wrap; gap: 6px; padding: 8px 12px;
+    background: #f9f5ff; border: 1px solid #d4a017; border-radius: 8px;
+    margin-bottom: 10px;
+  }
+  .shard-inventory:empty { display: none; }
+  .shard-inventory h4 {
+    width: 100%; font-family: 'DKCrayonCrumble', sans-serif;
+    font-size: 13px; color: var(--dark); margin-bottom: 2px;
+  }
+  .shard-hero {
+    display: flex; align-items: center; gap: 4px;
+    background: #fff; border: 1px solid #eee; border-radius: 6px;
+    padding: 4px 8px; font-size: 12px;
+  }
+  .shard-hero .name { font-weight: 600; color: var(--dark); }
+  .shard-hero input {
+    width: 60px; padding: 3px 5px; border: 1px solid var(--gray);
+    border-radius: 4px; font-size: 12px; text-align: center;
+  }
+  .phase-header {
+    font-family: 'DKCrayonCrumble', sans-serif;
+    font-size: 14px; color: var(--dark); padding: 8px 0 4px 0;
+    border-bottom: 1px solid #eee; margin-top: 10px; margin-bottom: 6px;
+  }
+  .plan-leftovers {
+    background: #fef3e2; border: 1.5px solid var(--orange);
+    border-radius: 8px; padding: 10px 12px; margin-top: 10px;
+  }
+  .plan-leftovers h4 {
+    font-family: 'DKCrayonCrumble', sans-serif;
+    font-size: 13px; color: var(--dark); margin-bottom: 4px;
+  }
+  .leftover-line { font-size: 12px; color: #666; padding: 2px 0; }
+
   .plan-output { margin-top: 10px; }
   .plan-step {
     padding: 10px 12px; margin-bottom: 6px;
@@ -435,6 +470,7 @@ function initState() {
           { level: 0, stars: 0 }
         ],
         weaponLevel: 0,
+        shards: 0,
         squad: 0
       };
     }
@@ -674,6 +710,13 @@ function renderRoster() {
           </div>
         </div>
         <div class="field-group">
+          <div class="field-label">Shards</div>
+          <div class="field-row">
+            <input type="number" min="0" max="9999" value="${s.shards || 0}"
+              onchange="updateHero('${h.name}','shards',parseInt(this.value)||0)">
+          </div>
+        </div>
+        <div class="field-group">
           <div class="field-label">Squad</div>
           <div class="field-row">
             <select onchange="updateHero('${h.name}','squad',parseInt(this.value))">
@@ -835,6 +878,7 @@ function renderSquadView(squadNum) {
         <div class="stat-line">Skills: ${m.skills.join('/')}</div>
         <div class="stat-line">Gear avg: Lv${avgGear}</div>
         <div class="stat-line">Weapon: Lv${m.weaponLevel}</div>
+        <div class="stat-line">Shards: ${m.shards || 0}</div>
         <div class="stat-line" style="color:var(--teal);font-weight:700;">~${fmt(power)}</div>
       </div>`;
     } else {
@@ -957,18 +1001,53 @@ function generateSquadRecs(members) {
 }
 
 /* ===== RENDER: PLANNER TAB ===== */
+function updateShardInventory() {
+  const squadNum = parseInt(document.getElementById('planSquad').value);
+  const container = document.getElementById('shardInventory');
+  const members = [];
+  for (const [name, h] of Object.entries(state.heroes)) {
+    if (h.squad === squadNum) members.push({ name, shards: h.shards || 0, stars: h.stars || 0 });
+  }
+  if (members.length === 0) { container.innerHTML = ''; return; }
+
+  let html = '<h4>Hero-Specific Shards (editable, synced with Roster)</h4>';
+  for (const m of members) {
+    const needed = m.stars < 5 ? STAR_SHARD_COST[m.stars] : 0;
+    html += `<div class="shard-hero">
+      <span class="name">${m.name}</span>
+      <input type="number" min="0" value="${m.shards}"
+        onchange="updateHero('${m.name}','shards',parseInt(this.value)||0); updateShardInventory();">
+      ${needed > 0 ? `<span style="color:#999;font-size:10px;">(need ${needed} for ${m.stars+1}\u2605)</span>` : '<span style="color:var(--green);font-size:10px;">MAX\u2605</span>'}
+    </div>`;
+  }
+  container.innerHTML = html;
+}
+
+function renderStep(s, num) {
+  return `<div class="plan-step ${s.highlight ? 'highlight' : ''}">
+    <div class="step-num">Step ${num}</div>
+    <div class="step-action">${s.action}</div>
+    <div class="step-cost">${s.cost}</div>
+    ${s.pts > 0 ? `<div class="step-pts">+${fmtN(s.pts)} pts</div>` : ''}
+  </div>`;
+}
+
 function generatePlan() {
   const squadNum = parseInt(document.getElementById('planSquad').value);
   const xpBudget = parseInt(document.getElementById('planXP').value) || 0;
   const medalBudget = parseInt(document.getElementById('planMedals').value) || 0;
-  const shardBudget = parseInt(document.getElementById('planShards').value) || 0;
+  const universalShards = parseInt(document.getElementById('planShards').value) || 0;
   const thursdayMode = document.getElementById('thursdayMode').checked;
   const cap = heroLevelCap();
 
   const members = [];
   for (const [name, h] of Object.entries(state.heroes)) {
     if (h.squad === squadNum) {
-      members.push({ name, ...JSON.parse(JSON.stringify(h)), meta: HERO_REGISTRY.heroes[name] });
+      members.push({
+        name, ...JSON.parse(JSON.stringify(h)),
+        heroShards: h.shards || 0,
+        meta: HERO_REGISTRY.heroes[name]
+      });
     }
   }
 
@@ -980,42 +1059,27 @@ function generatePlan() {
   const steps = [];
   let xpLeft = xpBudget;
   let medalsLeft = medalBudget;
-  let shardsLeft = shardBudget;
+  let uniShardsLeft = universalShards;
   let totalPts = 0;
 
-  // Phase 1: Level equalization (round-robin, lowest first)
-  let leveling = true;
-  while (leveling && xpLeft > 0) {
-    members.sort((a, b) => a.level - b.level);
-    const lowest = members[0];
-    if (lowest.level >= cap) break;
-
-    const cost = COST_DATA.xpTable[String(lowest.level)];
-    if (!cost || cost > xpLeft) { leveling = false; break; }
-
-    xpLeft -= cost;
-    const pts = thursdayMode ? Math.floor(cost / 2000) : 0;
-    totalPts += pts;
-    steps.push({
-      action: `Level ${lowest.name} ${lowest.level} -> ${lowest.level + 1}`,
-      cost: `${fmt(cost)} XP`,
-      pts: pts,
-      type: 'level'
-    });
-    lowest.level++;
-  }
-
-  // Phase 2: Star upgrades (no longer requires all skills capped — you can star up anytime in-game)
-  for (const m of members) {
-    if (m.stars < 5 && shardsLeft >= STAR_SHARD_COST[m.stars]) {
-      const skillCap = STAR_SKILL_CAP[m.stars] || 1;
-      const allCapped = m.skills.every(s => s >= skillCap);
+  // ========== PHASE 1: STAR UPGRADES (first — unlocks higher skill caps) ==========
+  const starOrder = [...members].sort((a, b) => a.stars - b.stars);
+  for (const m of starOrder) {
+    while (m.stars < 5) {
       const cost = STAR_SHARD_COST[m.stars];
-      shardsLeft -= cost;
-      const note = allCapped ? '' : ' (tip: level skills to cap first for max value)';
+      const fromHero = Math.min(m.heroShards, cost);
+      const fromUni = cost - fromHero;
+      if (fromUni > uniShardsLeft) break;
+
+      m.heroShards -= fromHero;
+      uniShardsLeft -= fromUni;
+      const sources = [];
+      if (fromHero > 0) sources.push(fromHero + ' ' + m.name);
+      if (fromUni > 0) sources.push(fromUni + ' universal');
+
       steps.push({
-        action: `Star up ${m.name} ${m.stars} -> ${m.stars + 1} stars${note}`,
-        cost: `${cost} shards`,
+        action: `Star up ${m.name} ${m.stars}\u2605 \u2192 ${m.stars + 1}\u2605`,
+        cost: `${cost} shards (${sources.join(' + ')})`,
         pts: 0,
         type: 'star',
         highlight: true
@@ -1024,7 +1088,7 @@ function generatePlan() {
     }
   }
 
-  // Phase 3: Skill upgrades (cheapest first, loop until medals exhausted)
+  // ========== PHASE 2: SKILL UPGRADES (cheapest first, loop until medals exhausted) ==========
   let keepUpgrading = true;
   while (keepUpgrading && medalsLeft > 0) {
     keepUpgrading = false;
@@ -1053,7 +1117,7 @@ function generatePlan() {
       const pts = thursdayMode ? Math.floor(cheapest.cost / 2) : 0;
       totalPts += pts;
       steps.push({
-        action: `${cheapest.name} Skill ${cheapest.skillIdx + 1}: Lv${cheapest.fromLv} -> ${cheapest.fromLv + 1}`,
+        action: `${cheapest.name} Skill ${cheapest.skillIdx + 1}: Lv${cheapest.fromLv} \u2192 ${cheapest.fromLv + 1}`,
         cost: `${fmtN(cheapest.cost)} medals`,
         pts: pts,
         type: 'skill'
@@ -1063,13 +1127,32 @@ function generatePlan() {
     }
   }
 
-  // Render output
+  // ========== PHASE 3: LEVEL-UPS (round-robin, lowest first) ==========
+  let leveling = true;
+  while (leveling && xpLeft > 0) {
+    members.sort((a, b) => a.level - b.level);
+    const lowest = members[0];
+    if (lowest.level >= cap) break;
+
+    const cost = COST_DATA.xpTable[String(lowest.level)];
+    if (!cost || cost > xpLeft) { leveling = false; break; }
+
+    xpLeft -= cost;
+    const pts = thursdayMode ? Math.floor(cost / 2000) : 0;
+    totalPts += pts;
+    steps.push({
+      action: `Level ${lowest.name} Lv${lowest.level} \u2192 ${lowest.level + 1}`,
+      cost: `${fmt(cost)} XP`,
+      pts: pts,
+      type: 'level'
+    });
+    lowest.level++;
+  }
+
+  // ========== RENDER ==========
   let html = '';
   if (steps.length === 0) {
-    // Show informative feedback about what upgrades would cost
     let hints = [];
-
-    // Cheapest next level
     const levelable = members.filter(m => m.level < cap);
     if (levelable.length > 0) {
       const cheapestLvl = levelable
@@ -1077,11 +1160,9 @@ function generatePlan() {
         .filter(x => x.cost > 0)
         .sort((a, b) => a.cost - b.cost)[0];
       if (cheapestLvl) {
-        hints.push(`<div class="rec-item"><div class="rec-action">Cheapest level-up: ${cheapestLvl.name} Lv${cheapestLvl.level} → ${cheapestLvl.level + 1}</div><div class="rec-detail">Costs ${fmt(cheapestLvl.cost)} XP. At Lv${cheapestLvl.level}+, each level = ${fmt(cheapestLvl.cost)} XP.</div></div>`);
+        hints.push(`<div class="rec-item"><div class="rec-action">Cheapest level-up: ${cheapestLvl.name} Lv${cheapestLvl.level} \u2192 ${cheapestLvl.level + 1}</div><div class="rec-detail">Costs ${fmt(cheapestLvl.cost)} XP. At Lv${cheapestLvl.level}+, each level = ${fmt(cheapestLvl.cost)} XP.</div></div>`);
       }
     }
-
-    // Cheapest next skill
     const skillCandidates = members.flatMap(m => {
       const skillCap = STAR_SKILL_CAP[m.stars] || 1;
       const table = COST_DATA.skillMedals[m.meta?.rarity || 'UR'];
@@ -1090,57 +1171,115 @@ function generatePlan() {
     }).sort((a, b) => a.cost - b.cost);
     if (skillCandidates.length > 0) {
       const cs = skillCandidates[0];
-      hints.push(`<div class="rec-item"><div class="rec-action">Cheapest skill upgrade: ${cs.name} Skill ${cs.skill} Lv${cs.fromLv} → ${cs.fromLv + 1}</div><div class="rec-detail">Costs ${fmtN(cs.cost)} medals.</div></div>`);
+      hints.push(`<div class="rec-item"><div class="rec-action">Cheapest skill upgrade: ${cs.name} Skill ${cs.skill} Lv${cs.fromLv} \u2192 ${cs.fromLv + 1}</div><div class="rec-detail">Costs ${fmtN(cs.cost)} medals.</div></div>`);
     }
-
-    // Cheapest next star
     const starCandidates = members
       .filter(m => m.stars < 5)
-      .map(m => ({ name: m.name, stars: m.stars, cost: STAR_SHARD_COST[m.stars] }))
+      .map(m => {
+        const totalAvail = (m.heroShards || 0) + uniShardsLeft;
+        return { name: m.name, stars: m.stars, cost: STAR_SHARD_COST[m.stars], avail: totalAvail };
+      })
       .sort((a, b) => a.cost - b.cost);
     if (starCandidates.length > 0) {
       const sc = starCandidates[0];
-      hints.push(`<div class="rec-item"><div class="rec-action">Cheapest star-up: ${sc.name} ${sc.stars}★ → ${sc.stars + 1}★</div><div class="rec-detail">Costs ${sc.cost} shards.</div></div>`);
+      hints.push(`<div class="rec-item"><div class="rec-action">Cheapest star-up: ${sc.name} ${sc.stars}\u2605 \u2192 ${sc.stars + 1}\u2605</div><div class="rec-detail">Costs ${sc.cost} shards (you have ${sc.avail} available: hero + universal).</div></div>`);
     }
-
     if (hints.length > 0) {
-      html = `<div class="plan-info-box"><h4>Budget insufficient — here's what upgrades cost:</h4>${hints.join('')}</div>`;
+      html = `<div class="plan-info-box"><h4>Budget insufficient \u2014 here\u2019s what upgrades cost:</h4>${hints.join('')}</div>`;
     } else {
-      html = '<div class="rec-item"><div class="rec-action">All heroes maxed!</div><div class="rec-detail">Squad is at maximum level, stars, and skills. Nothing left to upgrade.</div></div>';
+      html = '<div class="rec-item"><div class="rec-action">All heroes maxed!</div><div class="rec-detail">Squad is at maximum level, stars, and skills.</div></div>';
     }
   } else {
-    for (let i = 0; i < steps.length; i++) {
-      const s = steps[i];
-      html += `<div class="plan-step ${s.highlight ? 'highlight' : ''}">
-        <div class="step-num">Step ${i + 1}</div>
-        <div class="step-action">${s.action}</div>
-        <div class="step-cost">${s.cost}</div>
-        ${s.pts > 0 ? `<div class="step-pts">+${fmtN(s.pts)} pts (Thursday)</div>` : ''}
-      </div>`;
+    const starSteps = steps.filter(s => s.type === 'star');
+    const skillSteps = steps.filter(s => s.type === 'skill');
+    const levelSteps = steps.filter(s => s.type === 'level');
+    let stepNum = 0;
+
+    if (starSteps.length > 0) {
+      html += '<div class="phase-header">Phase 1: Star Upgrades</div>';
+      for (const s of starSteps) { stepNum++; html += renderStep(s, stepNum); }
+    }
+    if (skillSteps.length > 0) {
+      html += '<div class="phase-header">Phase 2: Skill Upgrades</div>';
+      for (const s of skillSteps) { stepNum++; html += renderStep(s, stepNum); }
+    }
+    if (levelSteps.length > 0) {
+      html += '<div class="phase-header">Phase 3: Level-Ups</div>';
+      for (const s of levelSteps) { stepNum++; html += renderStep(s, stepNum); }
     }
   }
 
-  // Summary
+  // ========== SUMMARY ==========
   const levelsGained = steps.filter(s => s.type === 'level').length;
   const skillsGained = steps.filter(s => s.type === 'skill').length;
   const starsGained = steps.filter(s => s.type === 'star').length;
-  html += `<div class="plan-summary">
-    <h4>Plan Summary</h4>
-    <div class="row"><span>Level-ups</span><strong>${levelsGained}</strong></div>
-    <div class="row"><span>Skill upgrades</span><strong>${skillsGained}</strong></div>
-    <div class="row"><span>Star-ups</span><strong>${starsGained}</strong></div>
-    <div class="row"><span>XP remaining</span><strong>${fmt(xpLeft)}</strong></div>
-    <div class="row"><span>Medals remaining</span><strong>${fmtN(medalsLeft)}</strong></div>
-    <div class="row"><span>Shards remaining</span><strong>${fmtN(shardsLeft)}</strong></div>
-    ${thursdayMode ? `<div class="row total"><span>Est. Thursday Points</span><strong>${fmtN(totalPts)}</strong></div>` : ''}
-  </div>`;
+
+  // Leftover explanations
+  let leftovers = [];
+  if (xpLeft > 0 && steps.length > 0) {
+    const lowestAfter = [...members].sort((a,b) => a.level - b.level)[0];
+    if (lowestAfter.level >= cap) {
+      leftovers.push('XP: ' + fmt(xpLeft) + ' remaining \u2014 all heroes at level cap (' + cap + ')');
+    } else {
+      const nextCost = COST_DATA.xpTable[String(lowestAfter.level)];
+      if (nextCost) leftovers.push('XP: ' + fmt(xpLeft) + ' remaining \u2014 next level (' + lowestAfter.name + ' Lv' + lowestAfter.level + '\u2192' + (lowestAfter.level+1) + ') costs ' + fmt(nextCost));
+    }
+  }
+  if (medalsLeft > 0 && steps.length > 0) {
+    const anyUpgradeable = members.some(m => {
+      const skillCap = STAR_SKILL_CAP[m.stars] || 1;
+      return m.skills.some(s => s < skillCap);
+    });
+    if (!anyUpgradeable) {
+      const needsStar = members.find(m => m.stars < 5);
+      leftovers.push('Medals: ' + fmtN(medalsLeft) + ' remaining \u2014 all skills at star cap' + (needsStar ? '. Star up to unlock higher caps!' : ''));
+    } else {
+      let cheapestRemaining = Infinity;
+      for (const m of members) {
+        const table = COST_DATA.skillMedals[m.meta?.rarity || 'UR'];
+        const skillCap = STAR_SKILL_CAP[m.stars] || 1;
+        if (!table) continue;
+        for (const s of m.skills) {
+          if (s < skillCap && (s-1) < table.length) cheapestRemaining = Math.min(cheapestRemaining, table[s-1]);
+        }
+      }
+      if (cheapestRemaining < Infinity) leftovers.push('Medals: ' + fmtN(medalsLeft) + ' remaining \u2014 next skill costs ' + fmtN(cheapestRemaining));
+    }
+  }
+  if (uniShardsLeft > 0 && steps.length > 0) {
+    const needsStar = members.find(m => m.stars < 5);
+    if (needsStar) {
+      leftovers.push('Universal shards: ' + uniShardsLeft + ' remaining \u2014 ' + needsStar.name + ' needs ' + STAR_SHARD_COST[needsStar.stars] + ' total for next star');
+    } else {
+      leftovers.push('Universal shards: ' + uniShardsLeft + ' remaining \u2014 all heroes at 5\u2605');
+    }
+  }
+
+  if (steps.length > 0) {
+    html += `<div class="plan-summary">
+      <h4>Plan Summary</h4>
+      <div class="row"><span>Star-ups</span><strong>${starsGained}</strong></div>
+      <div class="row"><span>Skill upgrades</span><strong>${skillsGained}</strong></div>
+      <div class="row"><span>Level-ups</span><strong>${levelsGained}</strong></div>
+      <div class="row"><span>XP remaining</span><strong>${fmt(xpLeft)}</strong></div>
+      <div class="row"><span>Medals remaining</span><strong>${fmtN(medalsLeft)}</strong></div>
+      <div class="row"><span>Universal shards remaining</span><strong>${uniShardsLeft}</strong></div>
+      ${thursdayMode ? `<div class="row total"><span>Est. Thursday Points</span><strong>${fmtN(totalPts)}</strong></div>` : ''}
+    </div>`;
+  }
+
+  if (leftovers.length > 0) {
+    html += '<div class="plan-leftovers"><h4>Why resources remain</h4>';
+    for (const l of leftovers) html += '<div class="leftover-line">' + l + '</div>';
+    html += '</div>';
+  }
 
   document.getElementById('planOutput').innerHTML = html;
 }
 
 /* ===== CSV EXPORT / IMPORT ===== */
 function exportCSV() {
-  const lines = ['Hero,Rarity,Type,Role,Level,Stars,Skill1,Skill2,Skill3,GearCannon,GearShield,GearChip,GearRadar,WeaponLv,Squad'];
+  const lines = ['Hero,Rarity,Type,Role,Level,Stars,Skill1,Skill2,Skill3,GearCannon,GearShield,GearChip,GearRadar,WeaponLv,Squad,Shards'];
   for (const [name, meta] of Object.entries(HERO_REGISTRY.heroes)) {
     const h = state.heroes[name] || {};
     const skills = h.skills || [1,1,1];
@@ -1150,7 +1289,7 @@ function exportCSV() {
       h.level || 0, h.stars || 0,
       skills[0], skills[1], skills[2],
       gear[0].level, gear[1].level, gear[2].level, gear[3].level,
-      h.weaponLevel || 0, h.squad || 0
+      h.weaponLevel || 0, h.squad || 0, h.shards || 0
     ].join(','));
   }
 
@@ -1196,7 +1335,8 @@ function handleCSVImport(event) {
           { level: parseInt(cols[12]) || 0, stars: 0 }
         ],
         weaponLevel: parseInt(cols[13]) || 0,
-        squad: parseInt(cols[14]) || 0
+        squad: parseInt(cols[14]) || 0,
+        shards: cols.length > 15 ? (parseInt(cols[15]) || 0) : 0
       };
     }
     saveState();
@@ -1226,6 +1366,7 @@ function switchTab(tabName) {
   document.querySelectorAll('.tab-content').forEach(c => c.classList.toggle('active', c.id === 'tab-' + tabName));
   if (tabName === 'squad') renderSquadView();
   if (tabName === 'roster') renderRoster();
+  if (tabName === 'planner') updateShardInventory();
 }
 
 /* ===== INIT ===== */
@@ -1386,7 +1527,7 @@ def generate_html(registry, cost_data, images):
   <div class="planner-controls">
     <div class="planner-field">
       <label>Squad</label>
-      <select id="planSquad">
+      <select id="planSquad" onchange="updateShardInventory()">
         <option value="1">Squad 1</option><option value="2">Squad 2</option>
         <option value="3">Squad 3</option><option value="4">Squad 4</option>
       </select>
@@ -1401,10 +1542,12 @@ def generate_html(registry, cost_data, images):
       <input type="number" id="planMedals" min="0" value="0" placeholder="e.g. 5000">
     </div>
     <div class="planner-field">
-      <label>Hero Shards</label>
-      <input type="number" id="planShards" min="0" value="0" placeholder="e.g. 300">
+      <label>Universal Shards</label>
+      <input type="number" id="planShards" min="0" value="0" placeholder="e.g. 100">
+      <div class="helper-text">Shared across all heroes</div>
     </div>
   </div>
+  <div class="shard-inventory" id="shardInventory"></div>
   <div class="action-bar">
     <button class="action-btn btn-generate" onclick="generatePlan()">Generate Plan</button>
   </div>
