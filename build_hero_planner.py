@@ -553,8 +553,8 @@ function toast(msg) {
 }
 
 /* ===== RENDER: ROSTER TAB ===== */
-let currentSort = 'power';
-let sortDir = -1; // -1 = desc
+let currentSort = 'name';
+let sortDir = 1; // 1 = asc (for name default)
 
 function getFilteredHeroes() {
   const typeF = document.getElementById('filterType').value;
@@ -627,7 +627,7 @@ function renderRoster() {
           <div class="field-row">
             <input type="number" min="0" max="${cap}" value="${s.level}"
               onchange="updateHero('${h.name}','level',parseInt(this.value)||0)"
-              oninput="updateHero('${h.name}','level',parseInt(this.value)||0)">
+>
           </div>
         </div>
         <div class="field-group">
@@ -645,7 +645,7 @@ function renderRoster() {
             ${s.skills.map((sk, i) =>
               `<input type="number" min="1" max="${skillCap}" value="${sk}"
                 onchange="updateSkill('${h.name}',${i},parseInt(this.value)||1)"
-                oninput="updateSkill('${h.name}',${i},parseInt(this.value)||1)">`
+>`
             ).join('<span class="sep">/</span>')}
           </div>
         </div>
@@ -696,7 +696,11 @@ function updateHero(name, field, value) {
   if (field === 'stars') value = Math.max(0, Math.min(5, value));
   state.heroes[name][field] = value;
   saveState();
-  renderRoster();
+  if (field === 'squad') {
+    renderRoster();
+  } else {
+    refreshCard(name);
+  }
 }
 
 function updateSkill(name, idx, value) {
@@ -704,7 +708,7 @@ function updateSkill(name, idx, value) {
   const cap = STAR_SKILL_CAP[state.heroes[name].stars] || 1;
   state.heroes[name].skills[idx] = Math.max(1, Math.min(cap, value));
   saveState();
-  renderRoster();
+  refreshCard(name);
 }
 
 function updateGear(name, slotIdx, field, value) {
@@ -713,7 +717,37 @@ function updateGear(name, slotIdx, field, value) {
   if (field === 'stars') value = Math.max(0, Math.min(5, value));
   state.heroes[name].gear[slotIdx][field] = value;
   saveState();
-  renderRoster();
+  refreshCard(name);
+}
+
+function refreshCard(name) {
+  const card = document.querySelector(`.hero-card[data-hero="${name}"]`);
+  if (!card) return;
+  const power = estimatePower(name);
+  const powerEl = card.querySelector('.hero-power-est');
+  if (powerEl) powerEl.textContent = 'Power: ~' + fmt(power);
+  // Update skill cap display if stars changed
+  const s = state.heroes[name];
+  if (s) {
+    const skillCap = STAR_SKILL_CAP[s.stars] || 1;
+    const skillLabel = card.querySelector('.field-group:nth-child(3) .field-label');
+    if (skillLabel) skillLabel.textContent = 'Skills (cap Lv' + skillCap + ')';
+    // Clamp skill inputs to new cap
+    const skillInputs = card.querySelectorAll('.skill-inputs input');
+    skillInputs.forEach((inp, i) => {
+      inp.max = skillCap;
+      if (s.skills[i] > skillCap) {
+        s.skills[i] = skillCap;
+        inp.value = skillCap;
+      }
+    });
+    // Update star display
+    const stars = card.querySelectorAll('.star');
+    stars.forEach((star, i) => {
+      star.classList.toggle('filled', i < s.stars);
+    });
+  }
+  updatePowerDashboard();
 }
 
 function updatePowerDashboard() {
