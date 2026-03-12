@@ -1,27 +1,69 @@
-# [OWOW] Last War: Survival — Strategic Tools
+# [OWOW] Last War: Survival — Strategic Command Center
 
 ![OWOW SKYNET](skynet_banner.png)
 
 ## Live Site
 
-**[Open the Tools](https://extremesecrecy.github.io/lastwar-research-trees/)**
+### **[Open the Command Center](https://extremesecrecy.github.io/lastwar-research-trees/)**
 
-## Tools & Guides
+A complete suite of free tools and guides for Last War: Survival players. Track your research, plan your buildings, optimize your heroes, and get AI-powered strategy advice — all in your browser, no downloads required.
 
-| Tool | Description |
+---
+
+## Tools
+
+| Tool | What It Does |
 |------|-------------|
-| [Research Tree Tracker](https://extremesecrecy.github.io/lastwar-research-trees/research_trees_visual.html) | Interactive 16-tree research tracker with recommended path |
-| [Building Planner](https://extremesecrecy.github.io/lastwar-research-trees/guides/building_planner.html) | Building progression planner with upgrade paths & power dashboard |
-| [Event Calendar](https://extremesecrecy.github.io/lastwar-research-trees/guides/calendar.html) | Daily task reminders + server event timeline with ICS download |
-| [VS Weekly Planner](https://extremesecrecy.github.io/lastwar-research-trees/guides/vs_weekly_planner.html) | Arms Race + VS Duel weekly schedule |
-| [Waterfall Guide](https://extremesecrecy.github.io/lastwar-research-trees/guides/waterfall_guide.html) | Troop waterfall training method |
-| [Radar Guide](https://extremesecrecy.github.io/lastwar-research-trees/guides/radar_guide.html) | Radar mission stacking system |
-| [Alliance Support Hub](https://extremesecrecy.github.io/lastwar-research-trees/guides/alliance_support_hub.html) | Alliance Center levels & help mechanics |
-| [Capitol Positions](https://extremesecrecy.github.io/lastwar-research-trees/guides/capitol_positions.html) | Capitol officer positions & buffs |
-| [Chip Lab](https://extremesecrecy.github.io/lastwar-research-trees/guides/chip_lab_guide.html) | Chip Lab guide with real chip names |
-| [Building Reference](https://extremesecrecy.github.io/lastwar-research-trees/guides/building_reference.html) | Building upgrade costs reference |
+| [Research Tree Tracker](https://extremesecrecy.github.io/lastwar-research-trees/research_trees_visual.html) | Track all 16 research trees with interactive nodes, recommended 75-step path, and CSV export |
+| [Building Planner](https://extremesecrecy.github.io/lastwar-research-trees/guides/building_planner.html) | Plan HQ progression with cost analysis, power projections, speedup inventory, and upgrade recommendations |
+| [Hero Planner](https://extremesecrecy.github.io/lastwar-research-trees/guides/hero_planner.html) | Full hero roster tracker — levels, stars, skills, gear, squad assignments, and Thursday upgrade planning |
+| [VS Weekly Planner](https://extremesecrecy.github.io/lastwar-research-trees/guides/vs_weekly_planner.html) | Day-by-day Arms Race + VS Duel strategy with resource save checklists |
+| [Event Calendar](https://extremesecrecy.github.io/lastwar-research-trees/guides/calendar.html) | Server event timeline across all seasons with ICS calendar download |
+| [Server Dashboard](https://extremesecrecy.github.io/lastwar-research-trees/guides/server_dashboard.html) | Live server stats and game metrics |
 
-## Subscribe to the Calendar
+## Guides
+
+| Guide | What It Covers |
+|-------|---------------|
+| [Waterfall Guide](https://extremesecrecy.github.io/lastwar-research-trees/guides/waterfall_guide.html) | Troop waterfall training method for maximum event points |
+| [Radar Guide](https://extremesecrecy.github.io/lastwar-research-trees/guides/radar_guide.html) | Radar mission stacking — levels, timers, and collection strategy |
+| [Capitol Positions](https://extremesecrecy.github.io/lastwar-research-trees/guides/capitol_positions.html) | Capitol officer positions, buffs, rotation strategy, and queue mechanics |
+| [Chip Lab](https://extremesecrecy.github.io/lastwar-research-trees/guides/chip_lab_guide.html) | Drone chip builds with verified chip names and loadout recommendations |
+| [Alliance Support Hub](https://extremesecrecy.github.io/lastwar-research-trees/guides/alliance_support_hub.html) | Alliance Center levels, help mechanics, and lawyer survivor bonuses |
+| [Building Reference](https://extremesecrecy.github.io/lastwar-research-trees/guides/building_reference.html) | Complete building upgrade costs, times, and power data for all 32 buildings |
+| [Plunder Guide](https://extremesecrecy.github.io/lastwar-research-trees/guides/plunder_guide.html) | Cross-server truck raiding — step-by-step with screenshots |
+
+---
+
+## AI Advisor — Get Personalized Strategy
+
+**[Open the AI Advisor Guide](https://extremesecrecy.github.io/lastwar-research-trees/guides/ai_advisor.html)**
+
+Export your game data as CSV from any of our tools, then upload it to ChatGPT, Claude, or Gemini along with our pre-built prompt. The AI reads YOUR real data and gives advice tailored to your account — not generic tips.
+
+### How It Works
+
+1. **Open a tool** (Research Tracker, Building Planner, or Hero Planner)
+2. **Enter your data** — set your current levels, stars, gear, etc.
+3. **Click Export CSV** — downloads your progress as a file
+4. **Download the matching AI prompt** from the links below
+5. **Upload both files** to your favorite AI chatbot in one message
+6. **Ask your question** — the AI gives you a personalized strategic analysis
+
+### Available Advisors
+
+| Advisor | What To Export | Prompt Download | Example Questions |
+|---------|---------------|----------------|-------------------|
+| **Research** | CSV from [Research Tracker](https://extremesecrecy.github.io/lastwar-research-trees/research_trees_visual.html) | [Download Prompt](https://raw.githubusercontent.com/extremesecrecy/lastwar-research-trees/main/researchtrees/ai_advisor_prompt.md) | "What should I research next?" / "Am I on the recommended path?" |
+| **Building** | CSV from [Building Planner](https://extremesecrecy.github.io/lastwar-research-trees/guides/building_planner.html) | [Download Prompt](https://raw.githubusercontent.com/extremesecrecy/lastwar-research-trees/main/ai_building_advisor_prompt.md) | "What do I need for HQ 26?" / "Which buildings give the most power?" |
+| **Hero** | CSV from [Hero Planner](https://extremesecrecy.github.io/lastwar-research-trees/guides/hero_planner.html) | Prompt is embedded on the [AI Advisor page](https://extremesecrecy.github.io/lastwar-research-trees/guides/ai_advisor.html) — just copy & paste | "Who should I level next?" / "Plan my Thursday spending" |
+| **Full Base** | All 3 CSVs | Any prompt above | "Give me a complete strategic review of my base" |
+
+> **Pro tip:** Upload all 3 CSVs at once for a full strategic review. The AI can cross-reference your research, buildings, and heroes to find bottlenecks you'd never spot on your own.
+
+---
+
+## Subscribe to the Event Calendar
 
 Import this URL into Google Calendar, Apple Calendar, or Outlook:
 
@@ -29,45 +71,46 @@ Import this URL into Google Calendar, Apple Calendar, or Outlook:
 https://extremesecrecy.github.io/lastwar-research-trees/guides/lastwar_calendar.ics
 ```
 
-Or visit the [Event Calendar](https://extremesecrecy.github.io/lastwar-research-trees/guides/calendar.html) to set your server date and download a personalized calendar.
+Or visit the [Event Calendar](https://extremesecrecy.github.io/lastwar-research-trees/guides/calendar.html) to set your server creation date and download a personalized calendar.
 
-## AI Advisor
+---
 
-Export your progress as CSV, then upload it with the advisor prompt to get personalized strategic advice:
-
-- [Research AI Advisor](https://raw.githubusercontent.com/extremesecrecy/lastwar-research-trees/main/ai_advisor_prompt.md) — Analyzes your research tree progress
-- [Building AI Advisor](https://raw.githubusercontent.com/extremesecrecy/lastwar-research-trees/main/ai_building_advisor_prompt.md) — Analyzes your building progression
-
-## For Developers
-
-### Key Files
-
-| File | Purpose |
-|------|---------|
-| `research_trees_visual.html` | Interactive research tracker (16 trees, recommended path) |
-| `build_research_trees.py` | Build script for research tracker |
-| `research_trees.csv` | Research progress data (import/export) |
-| `recommended_path.json` | 75-step ordered research sequence |
-| `tree_data/*.json` | Raw tree structure data (16 files) |
-| `guides/*.html` | All guide pages (self-contained) |
-
-### Color Legend
+## Research Tracker Color Legend
 
 | Color | Meaning |
 |-------|---------|
 | Green | Maxed (all levels complete) |
 | Orange | In Progress |
-| Red dashed | Blocked (prerequisites not met) |
+| Red dashed | Blocked (prerequisites not met for next level) |
 | Blue | Available to research |
 | Gray | Locked |
 | Gold pulsing | Recommended next step |
 
-### Rebuilding
+---
+
+## For Developers
+
+### Build Scripts
 
 ```bash
-python build_research_trees.py    # Rebuild research tracker
-python build_calendar.py          # Rebuild calendar + ICS
+python build_research_trees.py    # Research tree tracker
+python build_building_planner.py  # Building planner
+python build_hero_planner.py      # Hero planner
+python build_calendar.py          # Event calendar + ICS file
 ```
+
+### Key Files
+
+| File | Purpose |
+|------|---------|
+| `research_trees_visual.html` | Research tracker (16 trees, 75-step path) |
+| `guides/*.html` | All guide pages (self-contained, no build step) |
+| `tree_data/*.json` | Raw research tree data (16 files) |
+| `research_trees.csv` | Research progress tracking (import/export) |
+| `building_data_complete.json` | All 32 buildings — costs, times, power |
+| `cpt_hedge_all_data.json` | Hero XP tables, skill costs, star requirements |
+| `researchtrees/ai_advisor_prompt.md` | AI prompt for research analysis |
+| `ai_building_advisor_prompt.md` | AI prompt for building analysis |
 
 ---
 
