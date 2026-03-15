@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" id="htmlRoot">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -231,6 +231,21 @@
     .tag { font-size: 11px; }
   }
 
+  /* Language Toggle */
+  .lang-toggle {
+    display: inline-flex; align-items: center; gap: 4px;
+    background: #f0f5f4; border: 2px solid #7fb3a8; border-radius: 20px;
+    padding: 2px 4px; cursor: pointer; font-family: 'Segoe UI', sans-serif;
+    font-size: 12px; font-weight: 700; user-select: none;
+  }
+  .lang-btn {
+    padding: 2px 10px; border-radius: 16px; border: none; cursor: pointer;
+    font-size: 12px; font-weight: 700; background: transparent; color: #888;
+    transition: all 0.2s;
+  }
+  .lang-btn.active { background: #5a6a6a; color: #fff; }
+  .lang-btn:hover:not(.active) { color: #5a6a6a; }
+
   /* Navigation Bar */
   .guide-nav {
     display: flex;
@@ -300,10 +315,16 @@
 <!-- HEADER -->
 <div class="top-bar">
   <div>
-    <h1>Waterfall Training Method</h1>
-    <div class="sub">Friday's Secret Weapon &mdash; 3.3x More Points Per Troop</div>
+    <h1 data-i18n="title">Waterfall Training Method</h1>
+    <div class="sub" data-i18n="subtitle">Friday's Secret Weapon &mdash; 3.3x More Points Per Troop</div>
   </div>
-  <img src="skynet_logo.png" alt="OWOW SKYNET" style="height:60px;">
+  <div style="display:flex; align-items:center; gap:10px;">
+    <div class="lang-toggle">
+      <button class="lang-btn active" id="btnEN" onclick="setLang('en')">EN</button>
+      <button class="lang-btn" id="btnES" onclick="setLang('es')">ES</button>
+    </div>
+    <img src="skynet_logo.png" alt="OWOW SKYNET" style="height:60px;">
+  </div>
   <div class="alliance">
     <div class="name">[OWOW] Old World Order</div>
     <div class="info">Last War: Survival</div>
@@ -315,10 +336,10 @@
 
   <!-- ======================== COLUMN 1: Understanding the System ======================== -->
   <div class="col">
-    <div class="section-label">What Is the Waterfall?</div>
+    <div class="section-label" data-i18n="sec_what">What Is the Waterfall?</div>
     <div class="card c-med">
-      <div class="card-title ct-cyan">Train Low, Upgrade Through Each Barracks</div>
-      <div style="font-size:15px; margin-bottom:3px;">Instead of training T8 directly, train T5 cheap &amp; fast, then <b>upgrade</b> through each barracks tier. Every upgrade scores the same points as fresh training!</div>
+      <div class="card-title ct-cyan" data-i18n="card_trainlow">Train Low, Upgrade Through Each Barracks</div>
+      <div style="font-size:15px; margin-bottom:3px;" data-i18n="card_trainlow_desc">Instead of training T8 directly, train T5 cheap &amp; fast, then <b>upgrade</b> through each barracks tier. Every upgrade scores the same points as fresh training!</div>
       <div class="wf-flow">
         <div class="wf-box" style="background:#e8f5e9; border:2px solid #43a047;">
           <div style="font-size:12px; color:#2e7d32;">Barracks A</div>
@@ -344,12 +365,12 @@
           <div style="font-size:11px; color:#666;">Lv 24</div>
         </div>
       </div>
-      <div style="font-size:14px; color:#666; text-align:center;">Each step = points! 4 steps &gt; 1 direct training</div>
+      <div style="font-size:14px; color:#666; text-align:center;" data-i18n="each_step">Each step = points! 4 steps &gt; 1 direct training</div>
     </div>
 
-    <div class="section-label">Barracks Stagger Setup</div>
+    <div class="section-label" data-i18n="sec_stagger">Barracks Stagger Setup</div>
     <div class="card c-teal" style="padding:5px 8px;">
-      <div class="card-title ct-teal" style="font-size:16px;">Target: One Barracks Per Tier</div>
+      <div class="card-title ct-teal" style="font-size:16px;" data-i18n="target_one">Target: One Barracks Per Tier</div>
       <div class="barracks-row">
         <div class="barracks-box" style="background:#e8f5e9; border:2px solid #43a047;">
           <div class="bk-label">Barracks A</div>
@@ -372,18 +393,18 @@
           <div class="bk-tier" style="color:#c62828;">T7&#8594;T8</div>
         </div>
       </div>
-      <div style="font-size:14px; color:#666; text-align:center;">Keep one barracks at each tier unlock level &mdash; don't over-upgrade!</div>
+      <div style="font-size:14px; color:#666; text-align:center;" data-i18n="keep_one">Keep one barracks at each tier unlock level &mdash; don't over-upgrade!</div>
     </div>
 
-    <div class="section-label">Troop Tier Unlock Table</div>
+    <div class="section-label" data-i18n="sec_unlock">Troop Tier Unlock Table</div>
     <table class="levels">
       <thead>
         <tr>
-          <th>Tier</th>
-          <th>Barracks Lv</th>
-          <th>Barracks Upgrade Time</th>
-          <th>Food + Iron</th>
-          <th>Gold</th>
+          <th data-i18n="th_tier">Tier</th>
+          <th data-i18n="th_blv">Barracks Lv</th>
+          <th data-i18n="th_btime">Barracks Upgrade Time</th>
+          <th data-i18n="th_fi">Food + Iron</th>
+          <th data-i18n="th_gold">Gold</th>
         </tr>
       </thead>
       <tbody>
@@ -395,45 +416,45 @@
         <tr><td class="col-level" style="color:#8e24aa;">T10</td><td>30</td><td class="hl-teal">76d 6h</td><td>720M ea</td><td>290M</td></tr>
       </tbody>
     </table>
-    <div style="font-size:13px; color:#888; text-align:center;">Build times shown are raw (before speed buffs). Costs = per level, not cumulative.</div>
+    <div style="font-size:13px; color:#888; text-align:center;" data-i18n="build_times_note">Build times shown are raw (before speed buffs). Costs = per level, not cumulative.</div>
 
-    <div class="section-label">How to Unlock All 4 Barracks</div>
+    <div class="section-label" data-i18n="sec_unlock4">How to Unlock All 4 Barracks</div>
     <div class="card c-low" style="font-size:15px;">
       <div style="display:grid; grid-template-columns:auto 1fr; gap:2px 6px;">
-        <span class="tag t-dark">1st</span><div>Starting barracks &mdash; everyone has it from HQ 1</div>
-        <span class="tag t-dark">2nd</span><div>HQ level progression &mdash; unlocked early game</div>
-        <span class="tag t-cyan">3rd</span><div><b>Extra Barracks</b> research &mdash; Development Tree Row 10 (1.19M gold + 397K food/iron)</div>
-        <span class="tag t-ora">4th</span><div>HQ level progression or additional research node</div>
+        <span class="tag t-dark">1st</span><div data-i18n="bk1">Starting barracks &mdash; everyone has it from HQ 1</div>
+        <span class="tag t-dark">2nd</span><div data-i18n="bk2">HQ level progression &mdash; unlocked early game</div>
+        <span class="tag t-cyan">3rd</span><div data-i18n="bk3"><b>Extra Barracks</b> research &mdash; Development Tree Row 10 (1.19M gold + 397K food/iron)</div>
+        <span class="tag t-ora">4th</span><div data-i18n="bk4">HQ level progression or additional research node</div>
       </div>
-      <div style="margin-top:3px; font-size:14px; color:#c47a30; font-weight:700;">All 4 barracks share the same per-level upgrade costs!</div>
+      <div style="margin-top:3px; font-size:14px; color:#c47a30; font-weight:700;" data-i18n="bk_same_cost">All 4 barracks share the same per-level upgrade costs!</div>
     </div>
   </div>
 
   <!-- ======================== COLUMN 2: The Strategy ======================== -->
   <div class="col">
-    <div class="section-label">Point Scoring: Direct vs Waterfall</div>
+    <div class="section-label" data-i18n="sec_scoring">Point Scoring: Direct vs Waterfall</div>
     <div class="comp-grid">
       <div class="card c-crit" style="text-align:center;">
-        <div class="card-title ct-red" style="font-size:16px;">Direct Training</div>
-        <div style="font-size:14px; color:#666;">Train T8 in one step</div>
-        <div style="font-size:15px;">1 training event</div>
+        <div class="card-title ct-red" style="font-size:16px;" data-i18n="direct_train">Direct Training</div>
+        <div style="font-size:14px; color:#666;" data-i18n="direct_desc">Train T8 in one step</div>
+        <div style="font-size:15px;" data-i18n="direct_events">1 training event</div>
         <div style="font-size:24px; font-weight:900; color:#c62828;">~220 pts</div>
-        <div style="font-size:13px; color:#666;">per troop</div>
+        <div style="font-size:13px; color:#666;" data-i18n="per_troop">per troop</div>
       </div>
       <div class="comp-vs">VS</div>
       <div class="card c-prep" style="text-align:center;">
-        <div class="card-title ct-green" style="font-size:16px;">Waterfall Method</div>
+        <div class="card-title ct-green" style="font-size:16px;" data-i18n="wf_method">Waterfall Method</div>
         <div style="font-size:14px; color:#666;">T5&#8594;T6&#8594;T7&#8594;T8</div>
-        <div style="font-size:15px;">4 training events</div>
+        <div style="font-size:15px;" data-i18n="wf_events">4 training events</div>
         <div style="font-size:24px; font-weight:900; color:#2e7d32;">~735 pts</div>
-        <div style="font-size:13px; color:#666;">per troop</div>
+        <div style="font-size:13px; color:#666;" data-i18n="per_troop2">per troop</div>
       </div>
     </div>
-    <div style="text-align:center; font-size:16px; font-weight:700; color:#f4a261; margin:2px 0;">
+    <div style="text-align:center; font-size:16px; font-weight:700; color:#f4a261; margin:2px 0;" data-i18n="wf_result">
       Waterfall = <b style="color:#2e7d32;">3.3x more points</b> for the same troop!
     </div>
 
-    <div class="section-label">Multiplier Stack (Why Friday is King)</div>
+    <div class="section-label" data-i18n="sec_mult">Multiplier Stack (Why Friday is King)</div>
     <div class="card c-yellow" style="padding:5px 8px;">
       <div class="mult-row">
         <div class="mult-box" style="background:#e8f5e9; border:2px solid #43a047; color:#2e7d32; font-size:16px;">Waterfall<br><span style="font-size:22px;">3.3x</span></div>
@@ -444,34 +465,34 @@
         <div class="mult-eq">=</div>
         <div class="mult-box" style="background:#fce4ec; border:2px solid #e53935; color:#c62828; font-size:16px;">TOTAL<br><span style="font-size:26px;">26x</span></div>
       </div>
-      <div style="text-align:center; font-size:14px; color:#666;">Direct T8 on a random day = 1x. Waterfall on Friday with Duel Expert = <b>26x</b> efficiency!</div>
+      <div style="text-align:center; font-size:14px; color:#666;" data-i18n="mult_desc">Direct T8 on a random day = 1x. Waterfall on Friday with Duel Expert = <b>26x</b> efficiency!</div>
     </div>
 
-    <div class="section-label">Weekly Prep Plan</div>
+    <div class="section-label" data-i18n="sec_prep">Weekly Prep Plan</div>
     <div class="card c-low" style="font-size:15px;">
       <div style="display:grid; grid-template-columns:auto 1fr; gap:2px 6px;">
-        <span class="tag t-teal">MON&ndash;THU</span>
-        <div><b>Stockpile Phase:</b> Train T5 troops in your Lv14 barracks. Queue batches every few hours. Let them pile up &mdash; do NOT upgrade yet.</div>
-        <span class="tag t-ora">THU Night</span>
-        <div><b>Final Prep:</b> Complete all T5 queues. Check your training speedup stockpile. Stack radar missions.</div>
-        <span class="tag t-red">FRIDAY</span>
-        <div><b>Execution Day:</b> After reset + 5 min, run the full waterfall cascade with all saved training speedups. Every troop flows T5&#8594;T6&#8594;T7&#8594;T8.</div>
-        <span class="tag t-dark">SAT&ndash;SUN</span>
-        <div><b>Recovery:</b> Resume normal training. Start building T5 stockpile again for next Friday.</div>
+        <span class="tag t-teal" data-i18n="tag_monthu">MON&ndash;THU</span>
+        <div data-i18n="prep_monthu"><b>Stockpile Phase:</b> Train T5 troops in your Lv14 barracks. Queue batches every few hours. Let them pile up &mdash; do NOT upgrade yet.</div>
+        <span class="tag t-ora" data-i18n="tag_thunight">THU Night</span>
+        <div data-i18n="prep_thu"><b>Final Prep:</b> Complete all T5 queues. Check your training speedup stockpile. Stack radar missions.</div>
+        <span class="tag t-red" data-i18n="tag_friday">FRIDAY</span>
+        <div data-i18n="prep_fri"><b>Execution Day:</b> After reset + 5 min, run the full waterfall cascade with all saved training speedups. Every troop flows T5&#8594;T6&#8594;T7&#8594;T8.</div>
+        <span class="tag t-dark" data-i18n="tag_satsun">SAT&ndash;SUN</span>
+        <div data-i18n="prep_sat"><b>Recovery:</b> Resume normal training. Start building T5 stockpile again for next Friday.</div>
       </div>
     </div>
 
-    <div class="section-label">Rung Racing: Growth Path by HQ Level</div>
+    <div class="section-label" data-i18n="sec_rung">Rung Racing: Growth Path by HQ Level</div>
     <table class="levels">
       <thead>
         <tr>
-          <th>Rung</th>
+          <th data-i18n="th_rung">Rung</th>
           <th>B-A</th>
           <th>B-B</th>
           <th>B-C</th>
           <th>B-D</th>
-          <th>Train</th>
-          <th>HQ Range</th>
+          <th data-i18n="th_train">Train</th>
+          <th data-i18n="th_hqrange">HQ Range</th>
         </tr>
       </thead>
       <tbody>
@@ -482,55 +503,55 @@
         <tr><td class="col-level">5</td><td>20</td><td>24</td><td>27</td><td>30</td><td style="color:#8e24aa; font-weight:700;">T7</td><td>28&ndash;30</td></tr>
       </tbody>
     </table>
-    <div style="font-size:13px; color:#888; text-align:center; margin-top:1px;">
+    <div style="font-size:13px; color:#888; text-align:center; margin-top:1px;" data-i18n="rung_note">
       Find your HQ range in the table &mdash; that's your current rung. Stagger barracks to match!
     </div>
 
-    <div class="section-label">Arms Race Chest Targets</div>
+    <div class="section-label" data-i18n="sec_arms">Arms Race Chest Targets</div>
     <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:4px;">
       <div class="card c-low" style="text-align:center; padding:4px;">
         <div style="font-size:13px; color:#666; text-transform:uppercase;">Bronze</div>
         <div style="font-size:20px; font-weight:900; color:#5a6a6a;">5,000</div>
-        <div style="font-size:12px; color:#888;">pts needed</div>
+        <div style="font-size:12px; color:#888;" data-i18n="pts1">pts needed</div>
       </div>
       <div class="card c-med" style="text-align:center; padding:4px;">
-        <div style="font-size:13px; color:#2a8fa8; text-transform:uppercase;">Silver</div>
+        <div style="font-size:13px; color:#2a8fa8; text-transform:uppercase;" data-i18n="silver">Silver</div>
         <div style="font-size:20px; font-weight:900; color:#2a8fa8;">10,000</div>
-        <div style="font-size:12px; color:#888;">pts needed</div>
+        <div style="font-size:12px; color:#888;" data-i18n="pts2">pts needed</div>
       </div>
       <div class="card c-high" style="text-align:center; padding:4px;">
-        <div style="font-size:13px; color:#c47a30; text-transform:uppercase;">Gold</div>
+        <div style="font-size:13px; color:#c47a30; text-transform:uppercase;" data-i18n="gold_label">Gold</div>
         <div style="font-size:20px; font-weight:900; color:#c47a30;">25,000</div>
-        <div style="font-size:12px; color:#888;">pts needed</div>
+        <div style="font-size:12px; color:#888;" data-i18n="pts3">pts needed</div>
       </div>
     </div>
   </div>
 
   <!-- ======================== COLUMN 3: Execution & Rules ======================== -->
   <div class="col">
-    <div class="section-label">Friday Execution: Step by Step</div>
+    <div class="section-label" data-i18n="sec_exec">Friday Execution: Step by Step</div>
     <div class="card c-low" style="flex-shrink:0;">
       <div style="display:grid; grid-template-columns: auto 1fr; gap: 3px 7px; font-size:15px; line-height:1.35;">
         <div class="step-circle">1</div>
-        <div><b>Wait 5 min after 6pm reset</b> &mdash; points don't count during reset window.</div>
+        <div data-i18n="step1"><b>Wait 5 min after 6pm reset</b> &mdash; points don't count during reset window.</div>
         <div class="step-circle">2</div>
-        <div><b>Collect stacked radar missions</b> &mdash; if you stacked Thu night, collect now for bonus pts.</div>
+        <div data-i18n="step2"><b>Collect stacked radar missions</b> &mdash; if you stacked Thu night, collect now for bonus pts.</div>
         <div class="step-circle">3</div>
-        <div><b>Collect completed T5</b> from Barracks A (Lv 14). These were trained Mon&ndash;Thu.</div>
+        <div data-i18n="step3"><b>Collect completed T5</b> from Barracks A (Lv 14). These were trained Mon&ndash;Thu.</div>
         <div class="step-circle">4</div>
-        <div><b>Upgrade T5 &#8594; T6</b> in Barracks B (Lv 17). Use training speedups to instant-finish.</div>
+        <div data-i18n="step4"><b>Upgrade T5 &#8594; T6</b> in Barracks B (Lv 17). Use training speedups to instant-finish.</div>
         <div class="step-circle">5</div>
-        <div><b>Upgrade T6 &#8594; T7</b> in Barracks C (Lv 20). Speedup again.</div>
+        <div data-i18n="step5"><b>Upgrade T6 &#8594; T7</b> in Barracks C (Lv 20). Speedup again.</div>
         <div class="step-circle">6</div>
-        <div><b>Upgrade T7 &#8594; T8</b> in Barracks D (Lv 24). Speedup to finish.</div>
+        <div data-i18n="step6"><b>Upgrade T7 &#8594; T8</b> in Barracks D (Lv 24). Speedup to finish.</div>
         <div class="step-circle">7</div>
-        <div><b>Repeat!</b> Queue another batch of T5 upgrades and cascade again until speedups run out.</div>
+        <div data-i18n="step7"><b>Repeat!</b> Queue another batch of T5 upgrades and cascade again until speedups run out.</div>
       </div>
     </div>
 
-    <div class="section-label">Speedup Math</div>
+    <div class="section-label" data-i18n="sec_speedup">Speedup Math</div>
     <div class="card c-teal" style="font-size:15px;">
-      <div style="margin-bottom:2px;">Training speedups score <b>10 pts per minute</b> of speedup used.</div>
+      <div style="margin-bottom:2px;" data-i18n="speedup_score">Training speedups score <b>10 pts per minute</b> of speedup used.</div>
       <div style="display:grid; grid-template-columns:1fr 1fr; gap:4px;">
         <div style="background:#fff; border-radius:4px; padding:3px 6px; border:1px solid #7fb3a8;">
           <span class="formula">1hr speedup = 600 pts</span>
@@ -539,16 +560,16 @@
           <span class="formula">8hr speedup = 4,800 pts</span>
         </div>
       </div>
-      <div style="margin-top:3px; font-size:14px; color:#5a8a7e;">
+      <div style="margin-top:3px; font-size:14px; color:#5a8a7e;" data-i18n="speedup_note">
         <b>Friday 4x multiplier</b> applies to ALL training activity. <b>Duel Expert 2x</b> stacks on top. Save EVERY training speedup for Friday!
       </div>
     </div>
 
-    <div class="section-label">Quick Reference Rules</div>
+    <div class="section-label" data-i18n="sec_rules">Quick Reference Rules</div>
     <div style="display:grid; grid-template-columns:1fr 1fr; gap:4px; flex:1; min-height:0;">
       <div class="card c-prep">
-        <div class="card-title ct-green" style="font-size:16px;">DO</div>
-        <ul class="rule-list">
+        <div class="card-title ct-green" style="font-size:16px;" data-i18n="do_title">DO</div>
+        <ul class="rule-list" data-i18n="do_list">
           <li>Keep barracks <b>staggered</b> at different tier levels</li>
           <li>Train T5 all week in your lowest barracks</li>
           <li>Save ALL training speedups for <b>Friday</b></li>
@@ -558,8 +579,8 @@
         </ul>
       </div>
       <div class="card c-crit">
-        <div class="card-title ct-red" style="font-size:16px;">DON'T</div>
-        <ul class="rule-list">
+        <div class="card-title ct-red" style="font-size:16px;" data-i18n="dont_title">DON'T</div>
+        <ul class="rule-list" data-i18n="dont_list">
           <li><b>NEVER</b> use training speedups outside Friday</li>
           <li>Don't upgrade all barracks to the same level</li>
           <li>Don't train T8 directly &mdash; you waste 3.3x points</li>
@@ -570,13 +591,13 @@
       </div>
     </div>
 
-    <div class="section-label">Common Mistakes</div>
+    <div class="section-label" data-i18n="sec_mistakes">Common Mistakes</div>
     <div class="card c-high" style="font-size:15px;">
       <div style="display:grid; grid-template-columns:auto 1fr; gap:2px 6px;">
-        <span class="tag t-red">&#10007;</span><div><b>All barracks at Lv 24</b> &mdash; you can only train T8 directly. No waterfall possible.</div>
-        <span class="tag t-red">&#10007;</span><div><b>Using speedups on Tuesday</b> &mdash; training speedups only score on Friday (for VS Duel &mdash; they still count for Arms Race Unit Progression phase any day). Wasted for VS!</div>
-        <span class="tag t-red">&#10007;</span><div><b>Forgetting to stockpile T5</b> &mdash; no T5 troops = nothing to cascade on Friday.</div>
-        <span class="tag t-red">&#10007;</span><div><b>Collecting before reset</b> &mdash; points earned in the 5-min window after 6pm don't count.</div>
+        <span class="tag t-red">&#10007;</span><div data-i18n="err1"><b>All barracks at Lv 24</b> &mdash; you can only train T8 directly. No waterfall possible.</div>
+        <span class="tag t-red">&#10007;</span><div data-i18n="err2"><b>Using speedups on Tuesday</b> &mdash; training speedups only score on Friday (for VS Duel &mdash; they still count for Arms Race Unit Progression phase any day). Wasted for VS!</div>
+        <span class="tag t-red">&#10007;</span><div data-i18n="err3"><b>Forgetting to stockpile T5</b> &mdash; no T5 troops = nothing to cascade on Friday.</div>
+        <span class="tag t-red">&#10007;</span><div data-i18n="err4"><b>Collecting before reset</b> &mdash; points earned in the 5-min window after 6pm don't count.</div>
       </div>
     </div>
   </div>
@@ -588,5 +609,110 @@
   [OWOW] Old World Order &bull; Waterfall Training Method &bull; Last War: Survival &bull; Kristen OWOW SKYNET
 </div>
 
+<script>
+const T = {
+  es: {
+    title: 'Método de Entrenamiento Cascada',
+    subtitle: 'El Arma Secreta del Viernes &mdash; 3.3x Más Puntos Por Tropa',
+    sec_what: '¿Qué Es la Cascada?',
+    card_trainlow: 'Entrena Bajo, Mejora Por Cada Cuartel',
+    card_trainlow_desc: 'En vez de entrenar T8 directo, entrena T5 barato y rápido, luego <b>mejora</b> por cada nivel de cuartel. ¡Cada mejora da los mismos puntos que entrenamiento nuevo!',
+    each_step: '¡Cada paso = puntos! 4 pasos &gt; 1 entrenamiento directo',
+    sec_stagger: 'Configuración Escalonada de Cuarteles',
+    target_one: 'Objetivo: Un Cuartel Por Tier',
+    keep_one: 'Mantén un cuartel en cada nivel de desbloqueo de tier &mdash; ¡no los subas de más!',
+    sec_unlock: 'Tabla de Desbloqueo de Tiers',
+    th_tier: 'Tier',
+    th_blv: 'Nivel Cuartel',
+    th_btime: 'Tiempo de Mejora',
+    th_fi: 'Comida + Hierro',
+    th_gold: 'Oro',
+    build_times_note: 'Tiempos mostrados son sin bonos de velocidad. Costos = por nivel, no acumulativos.',
+    sec_unlock4: 'Cómo Desbloquear los 4 Cuarteles',
+    bk1: 'Cuartel inicial &mdash; todos lo tienen desde HQ 1',
+    bk2: 'Progresión de nivel de HQ &mdash; se desbloquea temprano',
+    bk3: 'Investigación <b>Cuartel Extra</b> &mdash; Árbol de Desarrollo Fila 10 (1.19M oro + 397K comida/hierro)',
+    bk4: 'Progresión de nivel de HQ o nodo de investigación adicional',
+    bk_same_cost: '¡Los 4 cuarteles comparten los mismos costos de mejora por nivel!',
+    sec_scoring: 'Puntuación: Directo vs Cascada',
+    direct_train: 'Entrenamiento Directo',
+    direct_desc: 'Entrenar T8 en un paso',
+    direct_events: '1 evento de entrenamiento',
+    per_troop: 'por tropa',
+    per_troop2: 'por tropa',
+    wf_method: 'Método Cascada',
+    wf_events: '4 eventos de entrenamiento',
+    wf_result: 'Cascada = <b style="color:#2e7d32;">3.3x más puntos</b> ¡por la misma tropa!',
+    sec_mult: 'Multiplicadores (Por Qué el Viernes es Rey)',
+    mult_desc: 'T8 directo en un día cualquiera = 1x. Cascada el viernes con Duel Expert = <b>¡26x</b> eficiencia!',
+    sec_prep: 'Plan de Preparación Semanal',
+    tag_monthu: 'LUN&ndash;JUE',
+    prep_monthu: '<b>Fase de Acumulación:</b> Entrena tropas T5 en tu cuartel Lv14. Pon en cola cada pocas horas. Déjalas acumular &mdash; NO las mejores aún.',
+    tag_thunight: 'JUE Noche',
+    prep_thu: '<b>Prep Final:</b> Completa todas las colas de T5. Revisa tu inventario de aceleradores. Apila misiones de radar.',
+    tag_friday: 'VIERNES',
+    prep_fri: '<b>Día de Ejecución:</b> Después del reset + 5 min, ejecuta toda la cascada con todos los aceleradores guardados. Cada tropa fluye T5&#8594;T6&#8594;T7&#8594;T8.',
+    tag_satsun: 'SÁB&ndash;DOM',
+    prep_sat: '<b>Recuperación:</b> Reanuda entrenamiento normal. Empieza a acumular T5 otra vez para el próximo viernes.',
+    sec_rung: 'Escalones: Ruta de Crecimiento por Nivel de HQ',
+    th_rung: 'Escalón',
+    th_train: 'Entrenar',
+    th_hqrange: 'Rango HQ',
+    rung_note: 'Busca tu rango de HQ en la tabla &mdash; ¡ese es tu escalón actual. Escalona los cuarteles para que coincidan!',
+    sec_arms: 'Objetivos de Cofres Arms Race',
+    pts1: 'pts necesarios',
+    silver: 'Plata',
+    pts2: 'pts necesarios',
+    gold_label: 'Oro',
+    pts3: 'pts necesarios',
+    sec_exec: 'Ejecución del Viernes: Paso a Paso',
+    step1: '<b>Espera 5 min después del reset de las 6pm</b> &mdash; los puntos no cuentan durante la ventana de reset.',
+    step2: '<b>Recoge misiones de radar apiladas</b> &mdash; si apilaste el jueves por la noche, recoge ahora para puntos extra.',
+    step3: '<b>Recoge T5 completados</b> del Cuartel A (Lv 14). Estos se entrenaron de lun a jue.',
+    step4: '<b>Mejora T5 &#8594; T6</b> en Cuartel B (Lv 17). Usa aceleradores de entrenamiento para terminar al instante.',
+    step5: '<b>Mejora T6 &#8594; T7</b> en Cuartel C (Lv 20). Acelera de nuevo.',
+    step6: '<b>Mejora T7 &#8594; T8</b> en Cuartel D (Lv 24). Acelera para terminar.',
+    step7: '<b>¡Repite!</b> Pon en cola otro lote de mejoras T5 y haz otra cascada hasta que se acaben los aceleradores.',
+    sec_speedup: 'Matemáticas de Aceleradores',
+    speedup_score: 'Los aceleradores de entrenamiento dan <b>10 pts por minuto</b> de acelerador usado.',
+    speedup_note: 'El <b>multiplicador 4x del viernes</b> aplica a TODA la actividad de entrenamiento. <b>Duel Expert 2x</b> se apila encima. ¡Guarda TODOS los aceleradores de entrenamiento para el viernes!',
+    sec_rules: 'Reglas de Referencia Rápida',
+    do_title: 'HAZ',
+    do_list: '<li>Mantén cuarteles <b>escalonados</b> en diferentes niveles de tier</li><li>Entrena T5 toda la semana en tu cuartel más bajo</li><li>Guarda TODOS los aceleradores de entrenamiento para el <b>viernes</b></li><li>Usa aceleradores para terminar al instante cada paso de mejora</li><li>Investiga <b>Duel Expert</b> al máximo (¡duplica todos los pts VS!)</li><li>Haz cascadas múltiples si los aceleradores lo permiten</li>',
+    dont_title: 'NO HAGAS',
+    dont_list: '<li><b>NUNCA</b> uses aceleradores de entrenamiento fuera del viernes</li><li>No subas todos los cuarteles al mismo nivel</li><li>No entrenes T8 directo &mdash; desperdicias 3.3x puntos</li><li>No recojas tropas antes del reset + 5 min</li><li>No olvides poner en cola T5 durante la semana</li><li>No te saltes la cascada &mdash; ¡cada paso = más puntos!</li>',
+    sec_mistakes: 'Errores Comunes',
+    err1: '<b>Todos los cuarteles en Lv 24</b> &mdash; solo puedes entrenar T8 directo. No es posible hacer cascada.',
+    err2: '<b>Usar aceleradores el martes</b> &mdash; los aceleradores de entrenamiento solo dan puntos el viernes (para VS Duel &mdash; sí cuentan para Arms Race cualquier día). ¡Desperdiciados para VS!',
+    err3: '<b>Olvidar acumular T5</b> &mdash; sin tropas T5 = nada que hacer cascada el viernes.',
+    err4: '<b>Recoger antes del reset</b> &mdash; los puntos ganados en la ventana de 5 min después de las 6pm no cuentan.',
+  }
+};
+
+// Store English originals on first load
+const originals = {};
+document.querySelectorAll('[data-i18n]').forEach(el => {
+  originals[el.getAttribute('data-i18n')] = el.innerHTML;
+});
+
+function setLang(lang) {
+  document.getElementById('btnEN').classList.toggle('active', lang === 'en');
+  document.getElementById('btnES').classList.toggle('active', lang === 'es');
+  document.getElementById('htmlRoot').lang = lang;
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const key = el.getAttribute('data-i18n');
+    if (lang === 'es' && T.es[key]) {
+      el.innerHTML = T.es[key];
+    } else if (lang === 'en' && originals[key]) {
+      el.innerHTML = originals[key];
+    }
+  });
+  localStorage.setItem('owow-waterfall-lang', lang);
+}
+
+// Restore saved language preference
+const saved = localStorage.getItem('owow-waterfall-lang');
+if (saved === 'es') setLang('es');
+</script>
 </body>
 </html>
