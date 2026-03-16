@@ -45,6 +45,96 @@ DISPLAY_NAMES = {
     'tactical-weapon': 'Tactical Weapon',
 }
 
+# === TRANSLATIONS (ES) ===
+# Research NODE names stay in English (game data).
+# Tree section names, state labels, UI controls, and tooltip text translate.
+
+TRANSLATIONS_ES = {
+    # Page title & subtitle
+    'page_title': 'Rastreador de Tecnologias',
+    'page_subtitle_prefix': 'Rastreador Interactivo de Progreso Tecnologico',
+    'page_subtitle_all_servers': 'Todos los Servidores',
+    'game_badge': 'Last War: Survival',
+
+    # Tree display names
+    'tree_alliance-duel': 'Duelo de Alianza',
+    'tree_defense-fortifications': 'Fuerte de Defensa',
+    'tree_siege-to-seize': 'Asedio para Conquistar',
+    'tree_intercity-truck': 'Camion Interurbano',
+    'tree_special-forces': 'Fuerzas Especiales',
+    'tree_development': 'Desarrollo',
+    'tree_hero': 'Heroe',
+    'tree_squad-1': 'Escuadron 1',
+    'tree_squad-2': 'Escuadron 2',
+    'tree_squad-3': 'Escuadron 3',
+    'tree_squad-4': 'Escuadron 4',
+    'tree_tank-mastery': 'Maestria de Tanque',
+    'tree_aircraft-mastery': 'Maestria Aerea',
+    'tree_missile-mastery': 'Maestria de Misil',
+    'tree_age-of-oil': 'La Era del Petroleo',
+    'tree_tactical-weapon': 'Arma Tactica',
+
+    # State labels
+    'state_maxed': 'Completo',
+    'state_progress': 'En Progreso',
+    'state_blocked': 'Bloqueado',
+    'state_available': 'Disponible',
+    'state_locked': 'Cerrado',
+
+    # Legend
+    'legend_label': 'Leyenda:',
+    'legend_recommended': 'Recomendado',
+
+    # Band labels
+    'band1_label': 'Arboles de Estrategia y Soporte',
+    'band2_label': 'Arboles de Combate y Escuadron',
+    'band3_label': 'Arboles Avanzados y de Temporada',
+
+    # UI controls
+    'btn_export': 'Exportar CSV',
+    'btn_import': 'Importar CSV',
+    'btn_reset': 'Reiniciar',
+    'btn_expand_all': 'Expandir Todo',
+    'btn_collapse_all': 'Contraer Todo',
+
+    # Overall stats
+    'overall_prefix': 'General:',
+
+    # Tooltip text
+    'tt_level': 'Nivel:',
+    'tt_priority': 'Prioridad:',
+    'tt_tier_suffix': '-Nivel',
+    'tt_prereqs': 'Prerrequisitos:',
+    'tt_prereqs_for_lv': 'Prerrequisitos (para Nv.{lv}):',
+    'tt_next_level': 'Siguiente Nivel ({lv}):',
+    'tt_total_remaining': 'Total Restante:',
+    'tt_rec_step': 'Paso Recomendado #{num}',
+    'tt_up_next': '(SIGUIENTE!)',
+
+    # Cost labels
+    'cost_gold': 'Oro',
+    'cost_food': 'Comida',
+    'cost_iron': 'Hierro',
+    'cost_valor': 'Valor',
+    'cost_oil': 'Petroleo',
+
+    # Editor popup
+    'ep_blocked_prefix': 'Bloqueado — necesita: ',
+    'ep_prereqs_not_met': 'Prerrequisitos no cumplidos: ',
+    'ep_next_prefix': 'Sig:',
+    'ep_maxed': 'COMPLETO',
+
+    # Import/Export messages
+    'import_msg': 'Importados {n} nodos',
+    'csv_alert': 'El CSV debe tener columnas: Tree, Node, Level, HaveIt',
+    'reset_confirm': 'Reiniciar TODO el progreso de investigacion a cero? Esto borra todo. Puedes re-importar tu CSV para restaurar tus datos.',
+
+    # Footer
+    'footer_text': 'Hecho para jugadores de Last War: Survival',
+    'footer_data_from': 'Datos de',
+    'footer_created_by': 'Creado por Extremesecrecy',
+}
+
 # Abbreviation rules — applied in order (multi-word first, then single-word)
 ABBREV_RULES = [
     # Multi-word (longest/most specific first)
@@ -314,7 +404,7 @@ def generate_tree_html(tree_key, data):
 
     lines = []
     lines.append(f'<div class="tree-col" id="tree-{tree_key}" style="width:{col_w}px">')
-    lines.append(f'  <div class="tree-header">{html_mod.escape(display_name)}{incomplete}<br>'
+    lines.append(f'  <div class="tree-header"><span data-i18n="tree_{tree_key}">{html_mod.escape(display_name)}</span>{incomplete}<br>'
                  f'<span class="tree-pct">{s["done"]}/{s["total"]} &mdash; {s["pct"]}%</span>'
                  f'<div class="tree-progress-bar"><div class="tree-progress-fill" style="width:{s["pct"]}%"></div></div></div>')
     lines.append(f'  <div class="tree-body">')
@@ -889,6 +979,33 @@ body {
     .legend-swatch { width: 14px; height: 14px; }
 }
 
+/* Language toggle */
+.lang-toggle {
+    display: inline-flex;
+    gap: 0;
+    margin-left: 12px;
+    border-radius: 4px;
+    overflow: hidden;
+    border: 1px solid rgba(255,255,255,0.25);
+    vertical-align: middle;
+}
+.lang-btn {
+    padding: 3px 10px;
+    font-size: 11px;
+    font-weight: 600;
+    cursor: pointer;
+    border: none;
+    background: rgba(255,255,255,0.08);
+    color: rgba(255,255,255,0.6);
+    transition: all 0.2s;
+    letter-spacing: 0.5px;
+}
+.lang-btn:hover { background: rgba(255,255,255,0.15); color: #fff; }
+.lang-btn.active {
+    background: rgba(244,162,97,0.25);
+    color: #f4a261;
+}
+
 /* Navigation Bar */
 .guide-nav {
     display: flex;
@@ -941,6 +1058,8 @@ let editorOpen = false;
 const isMobile = () => window.innerWidth <= 768;
 
 document.addEventListener('DOMContentLoaded', () => {
+    // Apply saved language before rendering
+    if (currentLang !== 'en') setLang(currentLang);
     loadProgress();
     recomputeAll();
     drawAllLines();
@@ -1168,7 +1287,7 @@ function updateGrandStats() {
     }
     const gPct = gTotal ? Math.round(gDone / gTotal * 100) : 0;
     const sub = document.getElementById('grand-stats');
-    if (sub) sub.textContent = `Overall: ${gDone}/${gTotal} (${gPct}%)`;
+    if (sub) sub.textContent = `${t('overall_prefix', 'Overall:')} ${gDone}/${gTotal} (${gPct}%)`;
 }
 
 // ============ TOOLTIPS ============
@@ -1180,10 +1299,11 @@ function setupTooltips() {
             if (editorOpen) return;
             const d = TREE_DATA[node.dataset.tree]?.nodes?.[node.dataset.id];
             if (!d) return;
-            let h = `<div class="tt-name">${esc(d.name)} <span class="tt-badge ${d.state}">${d.state}</span></div>`;
-            h += `<div>Level: <b>${d.currentLevel}/${d.maxLevel}</b></div>`;
+            const stateLabel = t('state_' + d.state, d.state);
+            let h = `<div class="tt-name">${esc(d.name)} <span class="tt-badge ${d.state}">${stateLabel}</span></div>`;
+            h += `<div>${t('tt_level', 'Level:')} <b>${d.currentLevel}/${d.maxLevel}</b></div>`;
             if (d.priority) {
-                h += `<div>Priority: <span class="tt-pri ${d.priority}">${d.priority}-Tier</span></div>`;
+                h += `<div>${t('tt_priority', 'Priority:')} <span class="tt-pri ${d.priority}">${d.priority}${t('tt_tier_suffix', '-Tier')}</span></div>`;
             }
             // Show prerequisites for the NEXT level to research
             const nextIdx = d.currentLevel;
@@ -1191,8 +1311,8 @@ function setupTooltips() {
             const ttReqs = (nextLv && nextLv.requirements) ? nextLv.requirements : d.requirements;
             if (ttReqs.length) {
                 const label = d.currentLevel > 0
-                    ? `Prerequisites (for Lv.${d.currentLevel + 1}):`
-                    : `Prerequisites:`;
+                    ? t('tt_prereqs_for_lv', 'Prerequisites (for Lv.{lv}):').replace('{lv}', d.currentLevel + 1)
+                    : t('tt_prereqs', 'Prerequisites:');
                 h += `<div class="tt-sep"></div><div class="tt-label">${label}</div>`;
                 const nodes = TREE_DATA[node.dataset.tree]?.nodes;
                 ttReqs.forEach(req => {
@@ -1211,13 +1331,13 @@ function setupTooltips() {
             const nextCost = getNextCost(d);
             if (nextCost && d.state !== 'maxed') {
                 h += `<div class="tt-sep"></div>`;
-                h += `<div class="tt-label">Next Level (${d.currentLevel + 1}):</div>`;
+                h += `<div class="tt-label">${t('tt_next_level', 'Next Level ({lv}):').replace('{lv}', d.currentLevel + 1)}</div>`;
                 h += fmtCost(nextCost);
             }
             // Total remaining
             const rem = getTotalRemaining(d);
             if (d.state !== 'maxed' && (rem.gold || rem.food || rem.iron || rem.valor)) {
-                h += `<div class="tt-label">Total Remaining:</div>`;
+                h += `<div class="tt-label">${t('tt_total_remaining', 'Total Remaining:')}</div>`;
                 h += fmtCost(rem);
             }
             if (d.notes) {
@@ -1228,8 +1348,8 @@ function setupTooltips() {
             const recStep = window._recLookup?.[recKey];
             if (recStep) {
                 h += `<div class="tt-sep"></div>`;
-                h += `<div class="tt-rec">Recommended Step #${recStep.stepNum}`;
-                if (recStep.status === 'next') h += ' (UP NEXT!)';
+                h += `<div class="tt-rec">${t('tt_rec_step', 'Recommended Step #{num}').replace('{num}', recStep.stepNum)}`;
+                if (recStep.status === 'next') h += ` ${t('tt_up_next', '(UP NEXT!)')}`;
                 h += `</div>`;
                 h += `<div class="tt-rec" style="font-weight:400">${esc(recStep.reason)}</div>`;
             }
@@ -1264,11 +1384,11 @@ function getTotalRemaining(d) {
 
 function fmtCost(c) {
     let p = [];
-    if (c.gold) p.push(`<span style="color:#b8860b">Gold: ${fN(c.gold)}</span>`);
-    if (c.food) p.push(`<span style="color:#5a8a3c">Food: ${fN(c.food)}</span>`);
-    if (c.iron) p.push(`<span style="color:#7a8a9a">Iron: ${fN(c.iron)}</span>`);
-    if (c.valor) p.push(`<span style="color:#8b5cf6">Valor: ${fN(c.valor)}</span>`);
-    if (c.oil) p.push(`<span style="color:#2a2a2a">Oil: ${fN(c.oil)}</span>`);
+    if (c.gold) p.push(`<span style="color:#b8860b">${t('cost_gold','Gold')}: ${fN(c.gold)}</span>`);
+    if (c.food) p.push(`<span style="color:#5a8a3c">${t('cost_food','Food')}: ${fN(c.food)}</span>`);
+    if (c.iron) p.push(`<span style="color:#7a8a9a">${t('cost_iron','Iron')}: ${fN(c.iron)}</span>`);
+    if (c.valor) p.push(`<span style="color:#8b5cf6">${t('cost_valor','Valor')}: ${fN(c.valor)}</span>`);
+    if (c.oil) p.push(`<span style="color:#2a2a2a">${t('cost_oil','Oil')}: ${fN(c.oil)}</span>`);
     return `<div class="tt-cost">${p.join(' ')}</div>`;
 }
 
@@ -1374,7 +1494,7 @@ function setupEditor() {
                 const rn = nodes?.[r.elementId];
                 return (rn ? rn.name : r.elementId) + ' Lv.' + r.minLevel;
             });
-            const prefix = blocked ? 'Blocked — need: ' : 'Prereqs not met: ';
+            const prefix = blocked ? t('ep_blocked_prefix', 'Blocked — need: ') : t('ep_prereqs_not_met', 'Prereqs not met: ');
             epCost.innerHTML = '<span style="color:#c00">' + prefix + missing.map(esc).join(', ') + '</span>';
         } else {
             const nc = getNextCost(d);
@@ -1384,9 +1504,9 @@ function setupEditor() {
                 if (nc.food) parts.push(`<span style="color:#5a8a3c">F:${fN(nc.food)}</span>`);
                 if (nc.iron) parts.push(`<span style="color:#7a8a9a">I:${fN(nc.iron)}</span>`);
                 if (nc.valor) parts.push(`<span style="color:#8b5cf6">V:${fN(nc.valor)}</span>`);
-                epCost.innerHTML = parts.length ? `Next: ${parts.join(' ')}` : '';
+                epCost.innerHTML = parts.length ? `${t('ep_next_prefix', 'Next:')} ${parts.join(' ')}` : '';
             } else {
-                epCost.innerHTML = d.currentLevel >= d.maxLevel ? 'MAXED' : '';
+                epCost.innerHTML = d.currentLevel >= d.maxLevel ? t('ep_maxed', 'MAXED') : '';
             }
         }
 
@@ -1403,7 +1523,7 @@ function setupEditor() {
             const recKey = curTree + '-' + curId;
             const recStep = window._recLookup?.[recKey];
             if (recStep) {
-                epRec.innerHTML = `Step #${recStep.stepNum}${recStep.status === 'next' ? ' (UP NEXT!)' : ''}: ${esc(recStep.reason)}`;
+                epRec.innerHTML = `${t('tt_rec_step', 'Recommended Step #{num}').replace('{num}', recStep.stepNum)}${recStep.status === 'next' ? ` ${t('tt_up_next', '(UP NEXT!)')}` : ''}: ${esc(recStep.reason)}`;
             } else {
                 epRec.innerHTML = '';
             }
@@ -1419,8 +1539,8 @@ function setupEditor() {
             const detReqs = (nextLv && nextLv.requirements) ? nextLv.requirements : d.requirements;
             if (detReqs.length) {
                 const label = d.currentLevel > 0
-                    ? `Prerequisites (for Lv.${d.currentLevel + 1}):`
-                    : `Prerequisites:`;
+                    ? t('tt_prereqs_for_lv', 'Prerequisites (for Lv.{lv}):').replace('{lv}', d.currentLevel + 1)
+                    : t('tt_prereqs', 'Prerequisites:');
                 dh += `<div class="tt-sep"></div><div class="tt-label">${label}</div>`;
                 const nodes = TREE_DATA[curTree]?.nodes;
                 detReqs.forEach(req => {
@@ -1440,14 +1560,14 @@ function setupEditor() {
                 const nc = getNextCost(d);
                 if (nc) {
                     dh += `<div class="tt-sep"></div>`;
-                    dh += `<div class="tt-label">Next Level (${d.currentLevel + 1}):</div>`;
+                    dh += `<div class="tt-label">${t('tt_next_level', 'Next Level ({lv}):').replace('{lv}', d.currentLevel + 1)}</div>`;
                     dh += fmtCost(nc);
                 }
             }
             // Total remaining
             const rem = getTotalRemaining(d);
             if (d.state !== 'maxed' && (rem.gold || rem.food || rem.iron || rem.valor)) {
-                dh += `<div class="tt-label">Total Remaining:</div>`;
+                dh += `<div class="tt-label">${t('tt_total_remaining', 'Total Remaining:')}</div>`;
                 dh += fmtCost(rem);
             }
             // Notes
@@ -1625,7 +1745,7 @@ function importCSV(e) {
         const iLevel = header.indexOf('Level');
         const iHaveIt = header.indexOf('HaveIt');
         if (iTree < 0 || iNode < 0 || iLevel < 0 || iHaveIt < 0) {
-            alert('CSV must have columns: Tree, Node, Level, HaveIt');
+            alert(t('csv_alert', 'CSV must have columns: Tree, Node, Level, HaveIt'));
             return;
         }
 
@@ -1684,7 +1804,7 @@ function importCSV(e) {
         renderRecommendedBadges();
 
         // Show confirmation
-        showImportMsg('Imported ' + updated + ' nodes');
+        showImportMsg(t('import_msg', 'Imported {n} nodes').replace('{n}', updated));
 
         // Reset file input so same file can be re-imported (setTimeout avoids double-trigger)
         setTimeout(() => { e.target.value = ''; }, 100);
@@ -1740,7 +1860,7 @@ function showImportMsg(text) {
 // ============ RESET ============
 
 function resetProgress() {
-    if (!confirm('Reset ALL research progress to zero? This clears everything. You can re-import your CSV to restore your data.')) return;
+    if (!confirm(t('reset_confirm', 'Reset ALL research progress to zero? This clears everything. You can re-import your CSV to restore your data.'))) return;
     try { localStorage.removeItem(LS_KEY); } catch(e) {}
     // Set every node to level 0
     for (const [tk, tree] of Object.entries(TREE_DATA)) {
@@ -1903,8 +2023,11 @@ def main():
     grand_total = sum(d['stats']['total'] for d in processed.values())
     grand_pct = round(grand_done / grand_total * 100) if grand_total else 0
 
+    # Build the ES translations JS object
+    translations_es_js = json.dumps(TRANSLATIONS_ES, separators=(',', ':'), ensure_ascii=False)
+
     html = f'''<!DOCTYPE html>
-<html lang="en">
+<html lang="en" id="htmlRoot">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=3">
@@ -1934,44 +2057,48 @@ def main():
 </nav>
 
 <div class="page-header">
-    <div class="game-badge">Last War: Survival</div>
+    <div class="game-badge" data-i18n="game_badge">Last War: Survival</div>
     <img src="skynet_logo.png" class="logo" alt="">
-    <h1>Research Tree Tracker</h1>
-    <p class="subtitle">Interactive Tech Tree Progress Tracker &bull; All Servers &bull; <span id="grand-stats">Overall: {grand_done}/{grand_total} ({grand_pct}%)</span></p>
+    <h1 data-i18n="page_title">Research Tree Tracker</h1>
+    <p class="subtitle"><span data-i18n="page_subtitle_prefix">Interactive Tech Tree Progress Tracker</span> &bull; <span data-i18n="page_subtitle_all_servers">All Servers</span> &bull; <span id="grand-stats">Overall: {grand_done}/{grand_total} ({grand_pct}%)</span></p>
     <div class="header-actions">
-        <button class="header-btn export" id="btn-export">Export CSV</button>
-        <label for="csv-file-input" class="header-btn import" style="cursor:pointer;display:inline-block">Import CSV</label>
+        <button class="header-btn export" id="btn-export" data-i18n="btn_export">Export CSV</button>
+        <label for="csv-file-input" class="header-btn import" style="cursor:pointer;display:inline-block" data-i18n="btn_import">Import CSV</label>
         <input type="file" id="csv-file-input" accept=".csv" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0);opacity:0">
-        <button class="header-btn reset" id="btn-reset">Reset</button>
+        <button class="header-btn reset" id="btn-reset" data-i18n="btn_reset">Reset</button>
+        <span class="lang-toggle">
+            <button class="lang-btn active" id="lang-en" onclick="setLang('en')">EN</button>
+            <button class="lang-btn" id="lang-es" onclick="setLang('es')">ES</button>
+        </span>
     </div>
 </div>
 
 <div class="legend">
-    <span class="legend-label">Legend:</span>
-    <div class="legend-item"><span class="legend-swatch sw-maxed"></span> Maxed</div>
-    <div class="legend-item"><span class="legend-swatch sw-progress"></span> In Progress</div>
-    <div class="legend-item"><span class="legend-swatch sw-blocked"></span> Blocked</div>
-    <div class="legend-item"><span class="legend-swatch sw-available"></span> Available</div>
-    <div class="legend-item"><span class="legend-swatch sw-locked"></span> Locked</div>
-    <div class="legend-item"><span class="legend-swatch sw-rec">1</span> Recommended</div>
+    <span class="legend-label" data-i18n="legend_label">Legend:</span>
+    <div class="legend-item"><span class="legend-swatch sw-maxed"></span> <span data-i18n="state_maxed">Maxed</span></div>
+    <div class="legend-item"><span class="legend-swatch sw-progress"></span> <span data-i18n="state_progress">In Progress</span></div>
+    <div class="legend-item"><span class="legend-swatch sw-blocked"></span> <span data-i18n="state_blocked">Blocked</span></div>
+    <div class="legend-item"><span class="legend-swatch sw-available"></span> <span data-i18n="state_available">Available</span></div>
+    <div class="legend-item"><span class="legend-swatch sw-locked"></span> <span data-i18n="state_locked">Locked</span></div>
+    <div class="legend-item"><span class="legend-swatch sw-rec">1</span> <span data-i18n="legend_recommended">Recommended</span></div>
 </div>
 
-<div class="band-label">Strategy &amp; Support Trees</div>
+<div class="band-label" data-i18n="band1_label">Strategy &amp; Support Trees</div>
 <div class="band" id="band1">
 {band1_html}
 </div>
 
-<div class="band-label">Combat &amp; Squad Trees</div>
+<div class="band-label" data-i18n="band2_label">Combat &amp; Squad Trees</div>
 <div class="band" id="band2">
 {band2_html}
 </div>
 
-<div class="band-label">Advanced &amp; Seasonal Trees</div>
+<div class="band-label" data-i18n="band3_label">Advanced &amp; Seasonal Trees</div>
 <div class="band" id="band3">
 {band3_html}
 </div>
 
-<div class="page-footer">Built for Last War: Survival players &bull; Data from <a href="https://cpt-hedge.com/calculators/research" target="_blank">cpt-hedge.com</a> &bull; Created by Extremesecrecy</div>
+<div class="page-footer"><span data-i18n="footer_text">Built for Last War: Survival players</span> &bull; <span data-i18n="footer_data_from">Data from</span> <a href="https://cpt-hedge.com/calculators/research" target="_blank">cpt-hedge.com</a> &bull; <span data-i18n="footer_created_by">Created by Extremesecrecy</span></div>
 
 <div id="tooltip" class="tooltip"></div>
 
@@ -1992,6 +2119,57 @@ def main():
 </div>
 
 <script>
+const T = {{en: {{}}, es: {translations_es_js}}};
+const LANG_LS_KEY = 'owow-research-lang';
+let currentLang = 'en';
+
+function t(key, fallback) {{
+    if (currentLang === 'en') return fallback !== undefined ? fallback : key;
+    return T.es[key] || (fallback !== undefined ? fallback : key);
+}}
+
+function setLang(lang) {{
+    currentLang = lang;
+    try {{ localStorage.setItem(LANG_LS_KEY, lang); }} catch(e) {{}}
+    document.getElementById('htmlRoot').setAttribute('lang', lang);
+    // Update toggle button active state
+    document.getElementById('lang-en').classList.toggle('active', lang === 'en');
+    document.getElementById('lang-es').classList.toggle('active', lang === 'es');
+    // Update all data-i18n elements
+    document.querySelectorAll('[data-i18n]').forEach(el => {{
+        const key = el.getAttribute('data-i18n');
+        if (lang === 'en') {{
+            // Restore original English text
+            if (el._i18nOriginal !== undefined) el.textContent = el._i18nOriginal;
+        }} else {{
+            if (el._i18nOriginal === undefined) el._i18nOriginal = el.textContent;
+            const translated = T.es[key];
+            if (translated) el.textContent = translated;
+        }}
+    }});
+    refreshUI();
+}}
+
+function refreshUI() {{
+    // Re-render tree stats with translated "Overall:" prefix
+    updateGrandStats();
+    // Re-render tooltips are dynamic so they pick up t() on hover
+    // Re-render recommended badges (they use t() for text)
+    renderRecommendedBadges();
+    // Re-render editor if open
+    if (editorOpen) {{
+        const ep = document.getElementById('editor-popup');
+        // Trigger re-render through existing editor render logic
+        // The editor renderEditor() is scoped, but we can re-click the current node
+    }}
+}}
+
+// Load saved language preference
+try {{
+    const savedLang = localStorage.getItem(LANG_LS_KEY);
+    if (savedLang === 'es') currentLang = 'es';
+}} catch(e) {{}}
+
 const TREE_DATA = {json.dumps(js_data, separators=(',', ':'))};
 const TREE_ORDER = {json.dumps(tree_order)};
 const ORIGINAL_LEVELS = {json.dumps(original_levels, separators=(',', ':'))};
