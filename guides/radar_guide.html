@@ -426,9 +426,9 @@
       <div class="card c-teal">
         <div class="card-title ct-teal" style="font-size:17px;" data-i18n="fill_time_title">Fill Time Formula</div>
         <div style="font-size:16px;">
-          <span class="formula">(Max Stored - 1) &divide; Per 6hrs &times; 6 = Hours</span><br>
+          <span class="formula" data-i18n="formula_fill">(Max Stored - 1) &divide; Per 6hrs &times; 6 = Hours</span><br>
           <b data-i18n="fill_example_label">Example at Lv.9:</b><br>
-          <span class="formula">(35 - 1) &divide; 11 &times; 6 = <b>18.5 hours</b></span><br>
+          <span class="formula" data-i18n="formula_example">(35 - 1) &divide; 11 &times; 6 = <b>18.5 hours</b></span><br>
           <span data-i18n="fill_range">Every level fills in <b>14&ndash;24 hours</b>.</span><br>
           <b data-i18n="fill_start_night">Start stacking the night before!</b>
         </div>
@@ -439,9 +439,9 @@
           <b data-i18n="golden_rule_never">NEVER let storage hit max!</b><br>
           <span data-i18n="golden_rule_stops">At max, 6-hour refresh <b>STOPS</b>.</span><br>
           <b data-i18n="golden_rule_safe">Safe limit = Max - 1</b><br>
-          <span class="formula">Lv.8: keep at 34/35</span><br>
-          <span class="formula">Lv.10: keep at 39/40</span><br>
-          <span class="formula">Lv.17: keep at 44/45</span><br>
+          <span class="formula" data-i18n="safe_lv8">Lv.8: keep at 34/35</span><br>
+          <span class="formula" data-i18n="safe_lv10">Lv.10: keep at 39/40</span><br>
+          <span class="formula" data-i18n="safe_lv17">Lv.17: keep at 44/45</span><br>
           <span data-i18n="golden_rule_hitmax">Hit max? Collect 1 to restart timer.</span>
         </div>
       </div>
@@ -452,7 +452,7 @@
       <div style="font-size:16px; font-weight:700; color:#5a8a7e; margin-bottom:4px;" data-i18n="stack_intro">Radar scores on 3 VS days. Stack the night before each.</div>
       <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:5px; margin-bottom:5px;">
         <div style="background:#fff; border-radius:4px; padding:5px; border:1px solid #7fb3a8; text-align:center;">
-          <span class="tag t-dark">STACK 1</span><br>
+          <span class="tag t-dark" data-i18n="stack1_label">STACK 1</span><br>
           <div style="display:flex; align-items:center; gap:2px; justify-content:center; margin:3px 0;">
             <span class="sched-pill sp-stack" data-i18n="day_sun">SUN</span>
             <span class="sched-arrow">&#8594;</span>
@@ -461,7 +461,7 @@
           <div style="font-size:14px; color:#666;" data-i18n="stack1_desc">Stop Sun night<br>Collect Mon reset +5m</div>
         </div>
         <div style="background:#fff; border-radius:4px; padding:5px; border:1px solid #7fb3a8; text-align:center;">
-          <span class="tag t-dark">STACK 2</span><br>
+          <span class="tag t-dark" data-i18n="stack2_label">STACK 2</span><br>
           <div style="display:flex; align-items:center; gap:2px; justify-content:center; margin:3px 0;">
             <span class="sched-pill sp-stack" data-i18n="day_tue">TUE</span>
             <span class="sched-arrow">&#8594;</span>
@@ -470,7 +470,7 @@
           <div style="font-size:14px; color:#666;" data-i18n="stack2_desc">Stop Tue night<br>Collect Wed reset +5m</div>
         </div>
         <div style="background:#fff; border-radius:4px; padding:5px; border:1px solid #7fb3a8; text-align:center;">
-          <span class="tag t-dark">STACK 3</span><br>
+          <span class="tag t-dark" data-i18n="stack3_label">STACK 3</span><br>
           <div style="display:flex; align-items:center; gap:2px; justify-content:center; margin:3px 0;">
             <span class="sched-pill sp-stack" data-i18n="day_thu">THU</span>
             <span class="sched-arrow">&#8594;</span>
@@ -662,6 +662,15 @@ const T = {
     golden_rule_stops: 'Al maximo, la actualizacion de 6 horas <b>SE DETIENE</b>.',
     golden_rule_safe: 'Limite seguro = Max - 1',
     golden_rule_hitmax: 'Llegaste al max? Recolecta 1 para reiniciar el temporizador.',
+    formula_fill: '(Max Almacenado - 1) &divide; Por 6hrs &times; 6 = Horas',
+    formula_example: '(35 - 1) &divide; 11 &times; 6 = <b>18.5 horas</b>',
+    safe_lv8: 'Nv.8: mantener en 34/35',
+    safe_lv10: 'Nv.10: mantener en 39/40',
+    safe_lv17: 'Nv.17: mantener en 44/45',
+
+    stack1_label: 'ACUM 1',
+    stack2_label: 'ACUM 2',
+    stack3_label: 'ACUM 3',
 
     sec_when_stack: 'Cuando Acumular y Recolectar',
     stack_intro: 'El radar puntua en 3 dias VS. Acumula la noche anterior a cada uno.',
