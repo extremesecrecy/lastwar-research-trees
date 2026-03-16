@@ -193,6 +193,22 @@
   /* Footer */
   .footer { text-align: center; font-size: 14px; color: #999; padding: 3px; border-top: 1px solid #e0e0e0; flex-shrink: 0; }
 
+  /* Inner grids that need responsive behavior */
+  .rules-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4px; flex: 1; min-height: 0; }
+  .speedup-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4px; }
+  .errors-grid { display: grid; grid-template-columns: auto 1fr; gap: 2px 6px; }
+
+  /* Narrow desktop — 3 cols too tight below 1400px */
+  @media (max-width: 1400px) {
+    html, body { height: auto !important; overflow: visible !important; min-height: 0 !important; display: block !important; }
+    body { padding: 6px 10px; }
+    .main-grid { grid-template-columns: 1fr 1fr; }
+  }
+  @media (max-width: 900px) {
+    .main-grid { grid-template-columns: 1fr; }
+    .rules-grid { grid-template-columns: 1fr; }
+  }
+
   /* Mobile responsive */
   @media (max-width: 768px) {
     html { height: auto !important; overflow: visible !important; }
@@ -552,7 +568,7 @@
     <div class="section-label" data-i18n="sec_speedup">Speedup Math</div>
     <div class="card c-teal" style="font-size:15px;">
       <div style="margin-bottom:2px;" data-i18n="speedup_score">Training speedups score <b>10 pts per minute</b> of speedup used.</div>
-      <div style="display:grid; grid-template-columns:1fr 1fr; gap:4px;">
+      <div class="speedup-grid">
         <div style="background:#fff; border-radius:4px; padding:3px 6px; border:1px solid #7fb3a8;">
           <span class="formula">1hr speedup = 600 pts</span>
         </div>
@@ -566,7 +582,7 @@
     </div>
 
     <div class="section-label" data-i18n="sec_rules">Quick Reference Rules</div>
-    <div style="display:grid; grid-template-columns:1fr 1fr; gap:4px; flex:1; min-height:0;">
+    <div class="rules-grid">
       <div class="card c-prep">
         <div class="card-title ct-green" style="font-size:16px;" data-i18n="do_title">DO</div>
         <ul class="rule-list" data-i18n="do_list">
@@ -593,7 +609,7 @@
 
     <div class="section-label" data-i18n="sec_mistakes">Common Mistakes</div>
     <div class="card c-high" style="font-size:15px;">
-      <div style="display:grid; grid-template-columns:auto 1fr; gap:2px 6px;">
+      <div class="errors-grid">
         <span class="tag t-red">&#10007;</span><div data-i18n="err1"><b>All barracks at Lv 24</b> &mdash; you can only train T8 directly. No waterfall possible.</div>
         <span class="tag t-red">&#10007;</span><div data-i18n="err2"><b>Using speedups on Tuesday</b> &mdash; training speedups only score on Friday (for VS Duel &mdash; they still count for Arms Race Unit Progression phase any day). Wasted for VS!</div>
         <span class="tag t-red">&#10007;</span><div data-i18n="err3"><b>Forgetting to stockpile T5</b> &mdash; no T5 troops = nothing to cascade on Friday.</div>
