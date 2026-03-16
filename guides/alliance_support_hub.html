@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" id="htmlRoot">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -228,6 +228,21 @@
       margin: -8px -10px 8px -10px;
     }
   }
+
+  /* Language Toggle */
+  .lang-toggle {
+    display: inline-flex; align-items: center; gap: 4px;
+    background: #f0f5f4; border: 2px solid #7fb3a8; border-radius: 20px;
+    padding: 2px 4px; cursor: pointer; font-family: 'Segoe UI', sans-serif;
+    font-size: 12px; font-weight: 700; user-select: none;
+  }
+  .lang-btn {
+    padding: 2px 10px; border-radius: 16px; border: none; cursor: pointer;
+    font-size: 12px; font-weight: 700; background: transparent; color: #888;
+    transition: all 0.2s;
+  }
+  .lang-btn.active { background: #5a6a6a; color: #fff; }
+  .lang-btn:hover:not(.active) { color: #5a6a6a; }
 </style>
 </head>
 <body>
@@ -252,32 +267,36 @@
 
 <div class="top-bar">
   <div class="left">
-    <h1>Alliance Support Hub</h1>
-    <div class="sub">Level-by-Level Upgrade Reference</div>
+    <h1 data-i18n="title">Alliance Support Hub</h1>
+    <div class="sub" data-i18n="subtitle">Level-by-Level Upgrade Reference</div>
   </div>
   <div class="right">
+    <div class="lang-toggle">
+      <button class="lang-btn active" id="btnEN" onclick="setLang('en')">EN</button>
+      <button class="lang-btn" id="btnES" onclick="setLang('es')">ES</button>
+    </div>
     <img src="skynet_logo.png" alt="OWOW">
     <div class="alliance-tag">[OWOW] Old World Order</div>
   </div>
 </div>
 
 <div class="highlight-box info">
-  <div class="label">Alliance Help Mechanics</div>
-  <div class="value">Higher Level = More Alliance Helps Received</div>
-  <div class="tip">Helps increase by +1 every 2 levels, reaching a maximum of 23 at Level 35</div>
+  <div class="label" data-i18n="info_label">Alliance Help Mechanics</div>
+  <div class="value" data-i18n="info_value">Higher Level = More Alliance Helps Received</div>
+  <div class="tip" data-i18n="info_tip">Helps increase by +1 every 2 levels, reaching a maximum of 23 at Level 35</div>
 </div>
 
-<h2 class="section-title">Levels 1 &ndash; 30</h2>
+<h2 class="section-title" data-i18n="sec_1_30">Levels 1 &ndash; 30</h2>
 <table>
 <thead>
   <tr>
-    <th>Level</th>
-    <th>Food</th>
-    <th>Iron</th>
-    <th>Gold</th>
-    <th>Upgrade Time</th>
-    <th>Power</th>
-    <th>Helps</th>
+    <th data-i18n="th_level">Level</th>
+    <th data-i18n="th_food">Food</th>
+    <th data-i18n="th_iron">Iron</th>
+    <th data-i18n="th_gold">Gold</th>
+    <th data-i18n="th_time">Upgrade Time</th>
+    <th data-i18n="th_power">Power</th>
+    <th data-i18n="th_helps">Helps</th>
   </tr>
 </thead>
 <tbody>
@@ -440,7 +459,7 @@
     <td>68,000,000</td><td>23,000,000</td><td>22,000,000</td>
     <td>5d 14h 21m</td>
     <td class="power-col">72,900</td>
-    <td class="help-col">16 <span class="marker">&larr; YOUR LEVEL</span></td>
+    <td class="help-col">16 <span class="marker" data-i18n="marker_your">&larr; YOUR LEVEL</span></td>
   </tr>
   <tr>
     <td class="level-col">24</td>
@@ -494,18 +513,18 @@
 </tbody>
 </table>
 
-<h2 class="section-title">Levels 31 &ndash; 35 (Requires Oil)</h2>
+<h2 class="section-title" data-i18n="sec_31_35">Levels 31 &ndash; 35 (Requires Oil)</h2>
 <table>
 <thead>
   <tr>
-    <th>Level</th>
-    <th>Food</th>
-    <th>Iron</th>
-    <th>Gold</th>
-    <th>Oil</th>
-    <th>Upgrade Time</th>
-    <th>Power</th>
-    <th>Helps</th>
+    <th data-i18n="th_level2">Level</th>
+    <th data-i18n="th_food2">Food</th>
+    <th data-i18n="th_iron2">Iron</th>
+    <th data-i18n="th_gold2">Gold</th>
+    <th data-i18n="th_oil">Oil</th>
+    <th data-i18n="th_time2">Upgrade Time</th>
+    <th data-i18n="th_power2">Power</th>
+    <th data-i18n="th_helps2">Helps</th>
   </tr>
 </thead>
 <tbody>
@@ -547,22 +566,22 @@
     <td class="oil-col">1,982,880</td>
     <td>74d 13h 10m</td>
     <td class="power-col">446,900</td>
-    <td class="help-col">23 <span class="marker">&larr; MAX HELPS</span></td>
+    <td class="help-col">23 <span class="marker" data-i18n="marker_max">&larr; MAX HELPS</span></td>
   </tr>
 </tbody>
 </table>
 
 <div class="highlight-box action">
-  <div class="label">Key Insight</div>
-  <div class="value">Helps increase by +1 every 2 levels, reaching 23 at Level 35</div>
-  <div class="tip">At AC Level 23 you get 16 base helps. Each help reduces timer by 0.5% (compounding).</div>
+  <div class="label" data-i18n="insight_label">Key Insight</div>
+  <div class="value" data-i18n="insight_value">Helps increase by +1 every 2 levels, reaching 23 at Level 35</div>
+  <div class="tip" data-i18n="insight_tip">At AC Level 23 you get 16 base helps. Each help reduces timer by 0.5% (compounding).</div>
 </div>
 
-<h2 class="section-title">Time Savings Math</h2>
+<h2 class="section-title" data-i18n="sec_timesave">Time Savings Math</h2>
 <div class="highlight-box info" style="max-width:720px;">
-  <div class="label">Alliance Center Level 23 &mdash; 16 Base Helps</div>
-  <div class="value" style="font-size:16px;">16 helps &times; 0.5% = ~7.7% reduction (compounding)</div>
-  <div class="tip" style="text-align:left; line-height:1.7;">
+  <div class="label" data-i18n="timesave_label">Alliance Center Level 23 &mdash; 16 Base Helps</div>
+  <div class="value" style="font-size:16px;" data-i18n="timesave_value">16 helps &times; 0.5% = ~7.7% reduction (compounding)</div>
+  <div class="tip" style="text-align:left; line-height:1.7;" data-i18n="timesave_detail">
     &bull; 8-hour build: saves ~37 minutes<br>
     &bull; 1-day build: saves ~1 hour 51 minutes<br>
     &bull; 3-day build: saves ~5 hours 32 minutes<br><br>
@@ -574,9 +593,72 @@
   </div>
 </div>
 
-<div class="footer">
+<div class="footer" data-i18n="footer">
   [OWOW] Old World Order &bull; Alliance Support Hub Guide &bull; Last War: Survival &bull; Kristen OWOW SKYNET
 </div>
 
+<script>
+const T = {
+  es: {
+    title: 'Centro de Apoyo de Alianza',
+    subtitle: 'Referencia de Mejora Nivel por Nivel',
+    info_label: 'Mecánicas de Ayuda de Alianza',
+    info_value: 'Mayor Nivel = Más Ayudas de Alianza Recibidas',
+    info_tip: 'Las ayudas aumentan +1 cada 2 niveles, alcanzando un máximo de 23 en el Nivel 35',
+    sec_1_30: 'Niveles 1 &ndash; 30',
+    th_level: 'Nivel',
+    th_food: 'Comida',
+    th_iron: 'Hierro',
+    th_gold: 'Oro',
+    th_time: 'Tiempo de Mejora',
+    th_power: 'Poder',
+    th_helps: 'Ayudas',
+    marker_your: '&larr; TU NIVEL',
+    sec_31_35: 'Niveles 31 &ndash; 35 (Requiere Petróleo)',
+    th_level2: 'Nivel',
+    th_food2: 'Comida',
+    th_iron2: 'Hierro',
+    th_gold2: 'Oro',
+    th_oil: 'Petróleo',
+    th_time2: 'Tiempo de Mejora',
+    th_power2: 'Poder',
+    th_helps2: 'Ayudas',
+    marker_max: '&larr; MÁXIMO AYUDAS',
+    insight_label: 'Dato Clave',
+    insight_value: 'Las ayudas aumentan +1 cada 2 niveles, alcanzando 23 en el Nivel 35',
+    insight_tip: 'En el Nivel 23 del CA obtienes 16 ayudas base. Cada ayuda reduce el temporizador en 0.5% (acumulativo).',
+    sec_timesave: 'Matemáticas de Ahorro de Tiempo',
+    timesave_label: 'Centro de Alianza Nivel 23 &mdash; 16 Ayudas Base',
+    timesave_value: '16 ayudas &times; 0.5% = ~7.7% reducción (acumulativo)',
+    timesave_detail: '&bull; Construcción de 8 horas: ahorra ~37 minutos<br>&bull; Construcción de 1 día: ahorra ~1 hora 51 minutos<br>&bull; Construcción de 3 días: ahorra ~5 horas 32 minutos<br><br><strong>Con sobrevivientes Abogados (+6 ayudas extra, total 22):</strong><br>&bull; 22 ayudas &times; 0.5% = ~10.4% reducción &rarr; construcción de 8 horas ahorra ~50 minutos<br>&bull; Construcción de 1 día: ahorra ~2 horas 30 minutos<br>&bull; Construcción de 3 días: ahorra ~7 horas 30 minutos<br><br><em style="color:#888; font-size:11px;">Nota: El bono de sobrevivientes Abogados (+6 ayudas) se basa en observación del juego y no ha sido verificado independientemente.</em>',
+    footer: '[OWOW] Old World Order &bull; Guía del Centro de Apoyo de Alianza &bull; Last War: Survival &bull; Kristen OWOW SKYNET',
+  }
+};
+
+// Store English originals on first load
+const originals = {};
+document.querySelectorAll('[data-i18n]').forEach(el => {
+  originals[el.getAttribute('data-i18n')] = el.innerHTML;
+});
+
+function setLang(lang) {
+  document.getElementById('btnEN').classList.toggle('active', lang === 'en');
+  document.getElementById('btnES').classList.toggle('active', lang === 'es');
+  document.getElementById('htmlRoot').lang = lang;
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const key = el.getAttribute('data-i18n');
+    if (lang === 'es' && T.es[key]) {
+      el.innerHTML = T.es[key];
+    } else if (lang === 'en' && originals[key]) {
+      el.innerHTML = originals[key];
+    }
+  });
+  localStorage.setItem('owow-alliance-hub-lang', lang);
+}
+
+// Restore saved language preference
+const saved = localStorage.getItem('owow-alliance-hub-lang');
+if (saved === 'es') setLang('es');
+</script>
 </body>
 </html>

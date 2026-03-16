@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" id="htmlRoot">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -320,6 +320,21 @@
     border-right: 1px solid #7fb3a8;
   }
 
+  /* Language Toggle */
+  .lang-toggle {
+    display: inline-flex; align-items: center; gap: 4px;
+    background: #f0f5f4; border: 2px solid #7fb3a8; border-radius: 20px;
+    padding: 2px 4px; cursor: pointer; font-family: 'Segoe UI', sans-serif;
+    font-size: 12px; font-weight: 700; user-select: none;
+  }
+  .lang-btn {
+    padding: 2px 10px; border-radius: 16px; border: none; cursor: pointer;
+    font-size: 12px; font-weight: 700; background: transparent; color: #888;
+    transition: all 0.2s;
+  }
+  .lang-btn.active { background: #5a6a6a; color: #fff; }
+  .lang-btn:hover:not(.active) { color: #5a6a6a; }
+
   /* Responsive */
   @media (max-width: 600px) {
     body { padding: 8px 10px; }
@@ -362,129 +377,133 @@
 
 <div class="top-bar">
   <div class="left">
-    <h1>Chip Lab Guide</h1>
-    <div class="sub">Master Your Drones. Dominate the Sky.</div>
+    <h1 data-i18n="title">Chip Lab Guide</h1>
+    <div class="sub" data-i18n="subtitle">Master Your Drones. Dominate the Sky.</div>
   </div>
   <div class="right">
+    <div class="lang-toggle">
+      <button class="lang-btn active" onclick="setLang('en')">EN</button>
+      <button class="lang-btn" onclick="setLang('es')">ES</button>
+    </div>
     <img src="skynet_logo.png" alt="OWOW">
     <div class="alliance-tag">[OWOW] Old World Order</div>
   </div>
 </div>
 
 <div class="highlight-box info">
-  <div class="label">Drone Skill Chips</div>
-  <div class="value">Permanent power boosts &mdash; craft smart, upgrade consistently, dominate!</div>
-  <div class="tip">Chip Lab building unlocks at HQ 15. Upgrade it to Lv 15 for first legendary, Lv 20 for all legendaries.</div>
+  <div class="label" data-i18n="hb1_label">Drone Skill Chips</div>
+  <div class="value" data-i18n="hb1_value">Permanent power boosts &mdash; craft smart, upgrade consistently, dominate!</div>
+  <div class="tip" data-i18n="hb1_tip">Chip Lab building unlocks at HQ 15. Upgrade it to Lv 15 for first legendary, Lv 20 for all legendaries.</div>
 </div>
 
 <!-- SECTION 1: What is the Chip Lab? -->
-<h2 class="section-title">1. What is the Chip Lab?</h2>
+<h2 class="section-title" data-i18n="s1_title">1. What is the Chip Lab?</h2>
 
-<p class="section-desc">
+<p class="section-desc" data-i18n="s1_desc">
   The Chip Lab is a building that lets you craft drone skill chips from materials. Chips are equipped to your drone and provide permanent combat bonuses that scale with upgrades and stars. Unlike gear or research, chip power carries across all game modes.
 </p>
 
 <ul class="fact-list">
-  <li><strong>Building Unlocks:</strong> HQ Level 15 (and approximately server day 80&ndash;82)</li>
-  <li><strong>Chip Lab Max Level:</strong> 35 (Levels 31&ndash;35 require Oil &mdash; Season 2+)</li>
-  <li><strong>Chip Lab Lv 15:</strong> First legendary chip recipe available (Initial Move)</li>
-  <li><strong>Chip Lab Lv 20:</strong> All legendary chip recipes unlocked</li>
-  <li><strong>Chip Lab Lv 21&ndash;35:</strong> Power increases only (no new recipes)</li>
-  <li><strong>Key rule:</strong> Always craft the highest rarity you can. Never waste materials on lower tiers.</li>
+  <li data-i18n="s1_f1"><strong>Building Unlocks:</strong> HQ Level 15 (and approximately server day 80&ndash;82)</li>
+  <li data-i18n="s1_f2"><strong>Chip Lab Max Level:</strong> 35 (Levels 31&ndash;35 require Oil &mdash; Season 2+)</li>
+  <li data-i18n="s1_f3"><strong>Chip Lab Lv 15:</strong> First legendary chip recipe available (Initial Move)</li>
+  <li data-i18n="s1_f4"><strong>Chip Lab Lv 20:</strong> All legendary chip recipes unlocked</li>
+  <li data-i18n="s1_f5"><strong>Chip Lab Lv 21&ndash;35:</strong> Power increases only (no new recipes)</li>
+  <li data-i18n="s1_f6"><strong>Key rule:</strong> Always craft the highest rarity you can. Never waste materials on lower tiers.</li>
 </ul>
 
 <!-- SECTION 2: Chip Types & Categories -->
-<h2 class="section-title">2. Chip Types &amp; Categories</h2>
+<h2 class="section-title" data-i18n="s2_title">2. Chip Types &amp; Categories</h2>
 
-<p class="section-desc">
+<p class="section-desc" data-i18n="s2_desc">
   All chips fall into 4 functional categories. Each category serves a different combat role. A balanced loadout uses chips from multiple categories.
 </p>
 
 <table>
   <thead>
     <tr>
-      <th>Category</th>
-      <th>Icon Color</th>
-      <th>Role</th>
-      <th>Best For</th>
+      <th data-i18n="th_category">Category</th>
+      <th data-i18n="th_icon_color">Icon Color</th>
+      <th data-i18n="th_role">Role</th>
+      <th data-i18n="th_best_for">Best For</th>
     </tr>
   </thead>
   <tbody>
     <tr>
       <td class="name-col">Attack</td>
-      <td style="color:#e53935;">Red</td>
-      <td class="effect-col">Boost drone damage, expand target range</td>
-      <td>DPS heroes (DVA, Kimberly, Schuyler)</td>
+      <td style="color:#e53935;" data-i18n="color_red">Red</td>
+      <td class="effect-col" data-i18n="s2_role_attack">Boost drone damage, expand target range</td>
+      <td data-i18n="s2_best_attack">DPS heroes (DVA, Kimberly, Schuyler)</td>
     </tr>
     <tr>
       <td class="name-col">Defense</td>
-      <td style="color:#1976d2;">Blue</td>
-      <td class="effect-col">Increase HP, armor, damage resistance</td>
-      <td>Tanks (Murphy, Williams, Carlie, Lucius)</td>
+      <td style="color:#1976d2;" data-i18n="color_blue">Blue</td>
+      <td class="effect-col" data-i18n="s2_role_defense">Increase HP, armor, damage resistance</td>
+      <td data-i18n="s2_best_defense">Tanks (Murphy, Williams, Carlie, Lucius)</td>
     </tr>
     <tr>
       <td class="name-col">Initial Move</td>
-      <td style="color:#43a047;">Green</td>
-      <td class="effect-col">Shield at battle start (~10 seconds)</td>
-      <td>Opening protection for all squads</td>
+      <td style="color:#43a047;" data-i18n="color_green">Green</td>
+      <td class="effect-col" data-i18n="s2_role_initial">Shield at battle start (~10 seconds)</td>
+      <td data-i18n="s2_best_initial">Opening protection for all squads</td>
     </tr>
     <tr>
       <td class="name-col">Interference</td>
-      <td style="color:#7b1fa2;">Purple</td>
-      <td class="effect-col">Extends damage duration, reduces enemy tactic damage</td>
-      <td>PvP disruption, utility builds</td>
+      <td style="color:#7b1fa2;" data-i18n="color_purple">Purple</td>
+      <td class="effect-col" data-i18n="s2_role_interference">Extends damage duration, reduces enemy tactic damage</td>
+      <td data-i18n="s2_best_interference">PvP disruption, utility builds</td>
     </tr>
   </tbody>
 </table>
 
-<h3 style="font-size:14px; color:#5a6a6a; margin: 8px 0;">Quality Tiers</h3>
+<h3 style="font-size:14px; color:#5a6a6a; margin: 8px 0;" data-i18n="s2_quality_title">Quality Tiers</h3>
 
 <table>
   <thead>
     <tr>
-      <th>Rarity</th>
-      <th>Color</th>
-      <th>Material Type</th>
-      <th>Craft Cost</th>
-      <th>Notes</th>
+      <th data-i18n="th_rarity">Rarity</th>
+      <th data-i18n="th_color">Color</th>
+      <th data-i18n="th_material_type">Material Type</th>
+      <th data-i18n="th_craft_cost">Craft Cost</th>
+      <th data-i18n="th_notes">Notes</th>
     </tr>
   </thead>
   <tbody>
     <tr>
       <td><span class="rarity rarity-r">R</span></td>
-      <td>Green</td>
-      <td>None</td>
-      <td>Minimal</td>
-      <td>Starter chips, replace ASAP</td>
+      <td data-i18n="color_green2">Green</td>
+      <td data-i18n="mat_none">None</td>
+      <td data-i18n="cost_minimal">Minimal</td>
+      <td data-i18n="s2_note_r">Starter chips, replace ASAP</td>
     </tr>
     <tr>
       <td><span class="rarity rarity-sr">SR</span></td>
-      <td>Blue</td>
-      <td>None</td>
-      <td>Low</td>
-      <td>Filler until epic/legendary</td>
+      <td data-i18n="color_blue2">Blue</td>
+      <td data-i18n="mat_none2">None</td>
+      <td data-i18n="cost_low">Low</td>
+      <td data-i18n="s2_note_sr">Filler until epic/legendary</td>
     </tr>
     <tr>
       <td><span class="rarity rarity-ssr">SSR</span></td>
-      <td>Purple</td>
-      <td>Basic Materials</td>
+      <td data-i18n="color_purple2">Purple</td>
+      <td data-i18n="mat_basic">Basic Materials</td>
       <td>400&ndash;800</td>
-      <td>Solid chips &mdash; one per slot (Armor-Piercing Pulse III, Photon Armor III, etc.)</td>
+      <td data-i18n="s2_note_ssr">Solid chips &mdash; one per slot (Armor-Piercing Pulse III, Photon Armor III, etc.)</td>
     </tr>
     <tr class="priority-high">
       <td><span class="rarity rarity-ur">UR</span></td>
-      <td>Gold</td>
-      <td>Premium Materials</td>
-      <td>800 each</td>
-      <td><strong>Top priority. 4 exist: MUF, GRA, Lethal Firestorm, AQF</strong></td>
+      <td data-i18n="color_gold">Gold</td>
+      <td data-i18n="mat_premium">Premium Materials</td>
+      <td>800</td>
+      <td data-i18n="s2_note_ur"><strong>Top priority. 4 exist: MUF, GRA, Lethal Firestorm, AQF</strong></td>
     </tr>
   </tbody>
 </table>
 
 <!-- SECTION 3: Top Chips by Priority -->
-<h2 class="section-title">3. Top Chips &mdash; Priority Order</h2>
+<h2 class="section-title" data-i18n="s3_title">3. Top Chips &mdash; Priority Order</h2>
 
-<p class="section-desc">
+<p class="section-desc" data-i18n="s3_desc">
   Focus your materials on crafting these chips in priority order. The top 4 are Legendary (UR) &mdash; craft them first. The rest are Epic (SSR) and are cheaper but still powerful.
 </p>
 
@@ -492,11 +511,11 @@
   <thead>
     <tr>
       <th>#</th>
-      <th>Chip Name</th>
-      <th>Rarity</th>
-      <th>Category</th>
-      <th>Effect</th>
-      <th>Best For</th>
+      <th data-i18n="th_chip_name">Chip Name</th>
+      <th data-i18n="th_rarity2">Rarity</th>
+      <th data-i18n="th_category2">Category</th>
+      <th data-i18n="th_effect">Effect</th>
+      <th data-i18n="th_best_for2">Best For</th>
     </tr>
   </thead>
   <tbody>
@@ -505,84 +524,84 @@
       <td class="name-col">Memory Ultra Fission</td>
       <td><span class="rarity rarity-ur">UR</span></td>
       <td class="cat-col">Interference</td>
-      <td class="effect-col">Back-row damage increase + enemy tactic damage reduction. Type-matched: Tank/Aircraft/Missile versions</td>
-      <td>ALL squads</td>
+      <td class="effect-col" data-i18n="s3_effect_muf">Back-row damage increase + enemy tactic damage reduction. Type-matched: Tank/Aircraft/Missile versions</td>
+      <td data-i18n="s3_best_muf">ALL squads</td>
     </tr>
     <tr class="priority-high">
       <td class="priority-col" style="color:#fc5c65;">2</td>
       <td class="name-col">Gravitational Resonance Armor</td>
       <td><span class="rarity rarity-ur">UR</span></td>
       <td class="cat-col">Defense</td>
-      <td class="effect-col">Team defense boost + extra front-row defense</td>
-      <td>ALL squads</td>
+      <td class="effect-col" data-i18n="s3_effect_gra">Team defense boost + extra front-row defense</td>
+      <td data-i18n="s3_best_gra">ALL squads</td>
     </tr>
     <tr class="priority-high">
       <td class="priority-col" style="color:#fc5c65;">3</td>
       <td class="name-col">Lethal Firestorm</td>
       <td><span class="rarity rarity-ur">UR</span></td>
       <td class="cat-col">Attack</td>
-      <td class="effect-col">Attack boost with expanded target hitting capability</td>
-      <td>DPS heroes</td>
+      <td class="effect-col" data-i18n="s3_effect_lf">Attack boost with expanded target hitting capability</td>
+      <td data-i18n="s3_best_lf">DPS heroes</td>
     </tr>
     <tr class="priority-high">
       <td class="priority-col" style="color:#f4a261;">4</td>
       <td class="name-col">Absolute Quantum Field</td>
       <td><span class="rarity rarity-ur">UR</span></td>
       <td class="cat-col">Initial Move</td>
-      <td class="effect-col">Shield + damage reduction at battle start</td>
-      <td>All squads (PvP)</td>
+      <td class="effect-col" data-i18n="s3_effect_aqf">Shield + damage reduction at battle start</td>
+      <td data-i18n="s3_best_aqf">All squads (PvP)</td>
     </tr>
     <tr>
       <td class="priority-col" style="color:#f4a261;">5</td>
       <td class="name-col">Armor-Piercing Pulse III</td>
       <td><span class="rarity rarity-ssr">SSR</span></td>
       <td class="cat-col">Interference</td>
-      <td class="effect-col">Enhanced armor penetration damage</td>
-      <td>Anti-tank builds</td>
+      <td class="effect-col" data-i18n="s3_effect_app">Enhanced armor penetration damage</td>
+      <td data-i18n="s3_best_app">Anti-tank builds</td>
     </tr>
     <tr>
       <td class="priority-col" style="color:#f4a261;">6</td>
       <td class="name-col">Photon Armor III</td>
       <td><span class="rarity rarity-ssr">SSR</span></td>
       <td class="cat-col">Defense</td>
-      <td class="effect-col">Defense boost throughout battle</td>
-      <td>Tanks</td>
+      <td class="effect-col" data-i18n="s3_effect_pa">Defense boost throughout battle</td>
+      <td data-i18n="s3_best_pa">Tanks</td>
     </tr>
     <tr>
       <td class="priority-col">7</td>
       <td class="name-col">Ultra Frequency Resonance III</td>
       <td><span class="rarity rarity-ssr">SSR</span></td>
       <td class="cat-col">Attack</td>
-      <td class="effect-col">Attack power amplification</td>
-      <td>DPS heroes</td>
+      <td class="effect-col" data-i18n="s3_effect_ufr">Attack power amplification</td>
+      <td data-i18n="s3_best_ufr">DPS heroes</td>
     </tr>
     <tr>
       <td class="priority-col">8</td>
       <td class="name-col">EM Shield III</td>
       <td><span class="rarity rarity-ssr">SSR</span></td>
       <td class="cat-col">Initial Move</td>
-      <td class="effect-col">Opening shield protection</td>
-      <td>PvP defense</td>
+      <td class="effect-col" data-i18n="s3_effect_ems">Opening shield protection</td>
+      <td data-i18n="s3_best_ems">PvP defense</td>
     </tr>
   </tbody>
 </table>
 
 <div class="highlight-box action wide">
-  <div class="label">Crafting Priority</div>
-  <div class="value">Memory Ultra Fission FIRST (UR). Gravitational Resonance Armor SECOND (UR). Then Lethal Firestorm + Absolute Quantum Field.</div>
-  <div class="tip">Craft the Aircraft version of Memory Ultra Fission for your Squad 1. Tank version for Squad 2. Epic (SSR) chips like Armor-Piercing Pulse III are cheaper &mdash; good filler while saving for legendaries.</div>
+  <div class="label" data-i18n="hb2_label">Crafting Priority</div>
+  <div class="value" data-i18n="hb2_value">Memory Ultra Fission FIRST (UR). Gravitational Resonance Armor SECOND (UR). Then Lethal Firestorm + Absolute Quantum Field.</div>
+  <div class="tip" data-i18n="hb2_tip">Craft the Aircraft version of Memory Ultra Fission for your Squad 1. Tank version for Squad 2. Epic (SSR) chips like Armor-Piercing Pulse III are cheaper &mdash; good filler while saving for legendaries.</div>
 </div>
 
 <!-- SECTION 4: Recommended Loadouts -->
-<h2 class="section-title">4. Recommended Loadouts</h2>
+<h2 class="section-title" data-i18n="s4_title">4. Recommended Loadouts</h2>
 
-<p class="section-desc">
+<p class="section-desc" data-i18n="s4_desc">
   Equip 4 chips per drone loadout. Here are optimized setups for each squad type.
 </p>
 
 <div class="loadout-grid">
   <div class="loadout-card aircraft">
-    <h3>Aircraft Heroes (Squad 1)</h3>
+    <h3 data-i18n="s4_aircraft_title">Aircraft Heroes (Squad 1)</h3>
     <ul class="chip-list">
       <li><span class="chip-num">1</span> Memory Ultra Fission (Aircraft)</li>
       <li><span class="chip-num">2</span> Lethal Firestorm</li>
@@ -592,7 +611,7 @@
   </div>
 
   <div class="loadout-card tank">
-    <h3>Tank Heroes (Squad 2)</h3>
+    <h3 data-i18n="s4_tank_title">Tank Heroes (Squad 2)</h3>
     <ul class="chip-list">
       <li><span class="chip-num">1</span> Gravitational Resonance Armor</li>
       <li><span class="chip-num">2</span> Memory Ultra Fission (Tank)</li>
@@ -602,7 +621,7 @@
   </div>
 
   <div class="loadout-card anti-tank">
-    <h3>Anti-Tank Build (Your Advantage)</h3>
+    <h3 data-i18n="s4_antitank_title">Anti-Tank Build (Your Advantage)</h3>
     <ul class="chip-list">
       <li><span class="chip-num">1</span> Memory Ultra Fission (Aircraft)</li>
       <li><span class="chip-num">2</span> Lethal Firestorm</li>
@@ -612,7 +631,7 @@
   </div>
 
   <div class="loadout-card support">
-    <h3>Support / Buffer (Marshall)</h3>
+    <h3 data-i18n="s4_support_title">Support / Buffer (Marshall)</h3>
     <ul class="chip-list">
       <li><span class="chip-num">1</span> Gravitational Resonance Armor</li>
       <li><span class="chip-num">2</span> Absolute Quantum Field</li>
@@ -623,208 +642,395 @@
 </div>
 
 <div class="highlight-box action wide">
-  <div class="label">Your Key Advantage</div>
-  <div class="value">Aircraft chips + Armor-Piercing Pulse SHRED tank formations!</div>
-  <div class="tip">Most players on Server #2013 run tanks. Your Aircraft squad with anti-tank chips = built-in type advantage AND armor penetration.</div>
+  <div class="label" data-i18n="hb3_label">Your Key Advantage</div>
+  <div class="value" data-i18n="hb3_value">Aircraft chips + Armor-Piercing Pulse SHRED tank formations!</div>
+  <div class="tip" data-i18n="hb3_tip">Most players on Server #2013 run tanks. Your Aircraft squad with anti-tank chips = built-in type advantage AND armor penetration.</div>
 </div>
 
 <!-- SECTION 5: Combat Boost & Stars -->
-<h2 class="section-title">5. Combat Boost &amp; Star Progression</h2>
+<h2 class="section-title" data-i18n="s5_title">5. Combat Boost &amp; Star Progression</h2>
 
-<p class="section-desc">
+<p class="section-desc" data-i18n="s5_desc">
   Combat Boost is a universal progression system that enhances ALL equipped chips. Level it consistently &mdash; benefits are massive at key milestones.
 </p>
 
 <div class="milestone-bar">
   <div class="milestone">
     <div class="dot" style="background:#7fb3a8;">150</div>
-    <div class="m-desc">Extra Chip Sets</div>
-    <div class="m-label">First milestone</div>
+    <div class="m-desc" data-i18n="ms1_desc">Extra Chip Sets</div>
+    <div class="m-label" data-i18n="ms1_label">First milestone</div>
   </div>
   <div class="milestone">
     <div class="dot" style="background:#f4a261;">300</div>
-    <div class="m-desc">Enhanced Stars</div>
-    <div class="m-label">Major breakpoint</div>
+    <div class="m-desc" data-i18n="ms2_desc">Enhanced Stars</div>
+    <div class="m-label" data-i18n="ms2_label">Major breakpoint</div>
   </div>
   <div class="milestone">
     <div class="dot" style="background:#fc5c65;">450</div>
-    <div class="m-desc">Max Efficiency</div>
-    <div class="m-label">Endgame target</div>
+    <div class="m-desc" data-i18n="ms3_desc">Max Efficiency</div>
+    <div class="m-label" data-i18n="ms3_label">Endgame target</div>
   </div>
 </div>
 
-<h3 style="font-size:14px; color:#5a6a6a; margin: 12px 0 8px 0;">Star Progression</h3>
+<h3 style="font-size:14px; color:#5a6a6a; margin: 12px 0 8px 0;" data-i18n="s5_star_title">Star Progression</h3>
 
 <table>
   <thead>
     <tr>
-      <th>Stars</th>
-      <th>Requirement</th>
-      <th>Bonus</th>
-      <th>Notes</th>
+      <th data-i18n="th_stars">Stars</th>
+      <th data-i18n="th_requirement">Requirement</th>
+      <th data-i18n="th_bonus">Bonus</th>
+      <th data-i18n="th_notes2">Notes</th>
     </tr>
   </thead>
   <tbody>
     <tr>
       <td style="color:#f57f17; font-weight:bold;">1-star</td>
-      <td>Base craft</td>
-      <td>Base stats</td>
-      <td>Starting point</td>
+      <td data-i18n="s5_req_1">Base craft</td>
+      <td data-i18n="s5_bonus_1">Base stats</td>
+      <td data-i18n="s5_note_1">Starting point</td>
     </tr>
     <tr class="priority-high">
       <td style="color:#f57f17; font-weight:bold;">2-star</td>
-      <td>Duplicate chips + materials</td>
-      <td>Special bonus unlocked</td>
-      <td>First power spike</td>
+      <td data-i18n="s5_req_2">Duplicate chips + materials</td>
+      <td data-i18n="s5_bonus_2">Special bonus unlocked</td>
+      <td data-i18n="s5_note_2">First power spike</td>
     </tr>
     <tr>
       <td style="color:#f57f17; font-weight:bold;">3-star</td>
-      <td>More duplicates</td>
-      <td>Stat boost</td>
-      <td>Steady improvement</td>
+      <td data-i18n="s5_req_3">More duplicates</td>
+      <td data-i18n="s5_bonus_3">Stat boost</td>
+      <td data-i18n="s5_note_3">Steady improvement</td>
     </tr>
     <tr>
       <td style="color:#f57f17; font-weight:bold;">4-star</td>
-      <td>More duplicates</td>
-      <td>Stat boost</td>
-      <td>Near max</td>
+      <td data-i18n="s5_req_4">More duplicates</td>
+      <td data-i18n="s5_bonus_4">Stat boost</td>
+      <td data-i18n="s5_note_4">Near max</td>
     </tr>
     <tr class="priority-high">
       <td style="color:#f57f17; font-weight:bold;">5-star</td>
-      <td>Max duplicates + materials</td>
-      <td>Second special bonus</td>
-      <td>Full power (Armor-Piercing Pulse III = max armor pen!)</td>
+      <td data-i18n="s5_req_5">Max duplicates + materials</td>
+      <td data-i18n="s5_bonus_5">Second special bonus</td>
+      <td data-i18n="s5_note_5">Full power (Armor-Piercing Pulse III = max armor pen!)</td>
     </tr>
   </tbody>
 </table>
 
 <div class="highlight-box info">
-  <div class="label">Key Rule</div>
-  <div class="value">Keep all chip levels roughly equal for maximum efficiency.</div>
-  <div class="tip">Leveling one chip to max while others sit at low levels wastes resources. Balanced leveling = more total power.</div>
+  <div class="label" data-i18n="hb4_label">Key Rule</div>
+  <div class="value" data-i18n="hb4_value">Keep all chip levels roughly equal for maximum efficiency.</div>
+  <div class="tip" data-i18n="hb4_tip">Leveling one chip to max while others sit at low levels wastes resources. Balanced leveling = more total power.</div>
 </div>
 
 <!-- SECTION 6: Farming Guide & Progression -->
-<h2 class="section-title">6. Farming Guide &amp; F2P Timeline</h2>
+<h2 class="section-title" data-i18n="s6_title">6. Farming Guide &amp; F2P Timeline</h2>
 
-<p class="section-desc">
+<p class="section-desc" data-i18n="s6_desc">
   Premium materials are the bottleneck. Here's where to farm them and what to expect as F2P.
 </p>
 
 <table>
   <thead>
     <tr>
-      <th>Source</th>
-      <th>Yield</th>
-      <th>Time</th>
-      <th>Priority</th>
+      <th data-i18n="th_source">Source</th>
+      <th data-i18n="th_yield">Yield</th>
+      <th data-i18n="th_time">Time</th>
+      <th data-i18n="th_priority">Priority</th>
     </tr>
   </thead>
   <tbody>
     <tr class="priority-high">
-      <td class="name-col">Versus Mode</td>
+      <td class="name-col" data-i18n="s6_src_versus">Versus Mode</td>
       <td>~30 Premium</td>
       <td>5&ndash;8 min</td>
-      <td class="priority-col" style="color:#fc5c65;">Highest</td>
+      <td class="priority-col" style="color:#fc5c65;" data-i18n="prio_highest">Highest</td>
     </tr>
     <tr>
-      <td class="name-col">Campaign Store</td>
+      <td class="name-col" data-i18n="s6_src_campaign">Campaign Store</td>
       <td>15&ndash;25</td>
-      <td>Check 2&ndash;3x daily</td>
-      <td class="priority-col" style="color:#f4a261;">High</td>
+      <td data-i18n="s6_time_campaign">Check 2&ndash;3x daily</td>
+      <td class="priority-col" style="color:#f4a261;" data-i18n="prio_high">High</td>
     </tr>
     <tr>
-      <td class="name-col">Alliance Exercises</td>
+      <td class="name-col" data-i18n="s6_src_alliance">Alliance Exercises</td>
       <td>8&ndash;15 Premium</td>
-      <td>Varies</td>
-      <td class="priority-col">Medium</td>
+      <td data-i18n="s6_time_varies">Varies</td>
+      <td class="priority-col" data-i18n="prio_medium">Medium</td>
     </tr>
     <tr>
-      <td class="name-col">Ghost Ops</td>
+      <td class="name-col" data-i18n="s6_src_ghost">Ghost Ops</td>
       <td>10&ndash;20</td>
-      <td>Varies</td>
-      <td class="priority-col">Medium</td>
+      <td data-i18n="s6_time_varies2">Varies</td>
+      <td class="priority-col" data-i18n="prio_medium2">Medium</td>
     </tr>
   </tbody>
 </table>
 
-<p class="section-desc">
+<p class="section-desc" data-i18n="s6_weekly_total">
   <strong>Weekly total:</strong> 420&ndash;750 Premium Materials depending on effort. Each UR chip costs 800 Premium Materials to craft.
 </p>
 
-<h3 style="font-size:14px; color:#5a6a6a; margin: 12px 0 8px 0;">F2P Timeline</h3>
+<h3 style="font-size:14px; color:#5a6a6a; margin: 12px 0 8px 0;" data-i18n="s6_f2p_title">F2P Timeline</h3>
 
 <table>
   <thead>
     <tr>
-      <th>Timeframe</th>
-      <th>Goal</th>
-      <th>Details</th>
+      <th data-i18n="th_timeframe">Timeframe</th>
+      <th data-i18n="th_goal">Goal</th>
+      <th data-i18n="th_details">Details</th>
     </tr>
   </thead>
   <tbody>
     <tr>
-      <td class="name-col">Month 1</td>
-      <td>First Legendary</td>
-      <td class="effect-col">Craft Memory Ultra Fission (Aircraft). Equip immediately. (~800 Premium Materials)</td>
+      <td class="name-col" data-i18n="s6_tf_m1">Month 1</td>
+      <td data-i18n="s6_goal_m1">First Legendary</td>
+      <td class="effect-col" data-i18n="s6_detail_m1">Craft Memory Ultra Fission (Aircraft). Equip immediately. (~800 Premium Materials)</td>
     </tr>
     <tr>
-      <td class="name-col">Month 2&ndash;3</td>
-      <td>Combat Boost 150 + 2 Legendaries</td>
-      <td class="effect-col">Add Gravitational Resonance Armor. Fill remaining slots with SSR chips.</td>
+      <td class="name-col" data-i18n="s6_tf_m23">Month 2&ndash;3</td>
+      <td data-i18n="s6_goal_m23">Combat Boost 150 + 2 Legendaries</td>
+      <td class="effect-col" data-i18n="s6_detail_m23">Add Gravitational Resonance Armor. Fill remaining slots with SSR chips.</td>
     </tr>
     <tr>
-      <td class="name-col">Month 4&ndash;6</td>
-      <td>All 4 UR Chips + CB 300</td>
-      <td class="effect-col">Complete all 4 legendary chips (Lethal Firestorm + Absolute Quantum Field). Combat Boost 300.</td>
+      <td class="name-col" data-i18n="s6_tf_m46">Month 4&ndash;6</td>
+      <td data-i18n="s6_goal_m46">All 4 UR Chips + CB 300</td>
+      <td class="effect-col" data-i18n="s6_detail_m46">Complete all 4 legendary chips (Lethal Firestorm + Absolute Quantum Field). Combat Boost 300.</td>
     </tr>
   </tbody>
 </table>
 
-<h3 style="font-size:14px; color:#5a6a6a; margin: 12px 0 8px 0;">Resource Allocation (Suggested Split)</h3>
+<h3 style="font-size:14px; color:#5a6a6a; margin: 12px 0 8px 0;" data-i18n="s6_alloc_title">Resource Allocation (Suggested Split)</h3>
 
 <table>
   <thead>
     <tr>
-      <th>Category</th>
-      <th>% of Materials</th>
-      <th>Why</th>
+      <th data-i18n="th_category3">Category</th>
+      <th data-i18n="th_pct_materials">% of Materials</th>
+      <th data-i18n="th_why">Why</th>
     </tr>
   </thead>
   <tbody>
     <tr class="priority-high">
-      <td class="name-col">Attack Chips</td>
+      <td class="name-col" data-i18n="s6_cat_attack">Attack Chips</td>
       <td><strong>60%</strong></td>
-      <td class="effect-col">Damage wins fights. Prioritize offense first.</td>
+      <td class="effect-col" data-i18n="s6_why_attack">Damage wins fights. Prioritize offense first.</td>
     </tr>
     <tr>
-      <td class="name-col">Defense Chips</td>
+      <td class="name-col" data-i18n="s6_cat_defense">Defense Chips</td>
       <td><strong>25%</strong></td>
-      <td class="effect-col">Survivability so your DPS stays alive to deal damage.</td>
+      <td class="effect-col" data-i18n="s6_why_defense">Survivability so your DPS stays alive to deal damage.</td>
     </tr>
     <tr>
       <td class="name-col">Initial Move</td>
       <td>10%</td>
-      <td class="effect-col">Opening shield matters in PvP.</td>
+      <td class="effect-col" data-i18n="s6_why_initial">Opening shield matters in PvP.</td>
     </tr>
     <tr>
       <td class="name-col">Interference</td>
       <td>5%</td>
-      <td class="effect-col">Luxury &mdash; only after core chips are done.</td>
+      <td class="effect-col" data-i18n="s6_why_interference">Luxury &mdash; only after core chips are done.</td>
     </tr>
   </tbody>
 </table>
 
 <div class="highlight-box info wide">
-  <div class="label">Event Timing</div>
-  <div class="value">Open drone data CHIP chests on MONDAY (Radar Training VS day)</div>
-  <div class="tip">Drone data chip chests score points on Monday's VS Duel phase. Save chip materials for event bonus periods (20&ndash;50% efficiency gains).</div>
+  <div class="label" data-i18n="hb5_label">Event Timing</div>
+  <div class="value" data-i18n="hb5_value">Open drone data CHIP chests on MONDAY (Radar Training VS day)</div>
+  <div class="tip" data-i18n="hb5_tip">Drone data chip chests score points on Monday's VS Duel phase. Save chip materials for event bonus periods (20&ndash;50% efficiency gains).</div>
 </div>
 
 <div class="footer">
-  [OWOW] Old World Order &bull; Chip Lab Guide &bull; Last War: Survival &bull; Kristen OWOW SKYNET
-  <br>Chip data verified against Last War Fandom Wiki, Aegis blog, and TreyExGaming guides.
+  <span data-i18n="footer_line1">[OWOW] Old World Order &bull; Chip Lab Guide &bull; Last War: Survival &bull; Kristen OWOW SKYNET</span>
+  <br><span data-i18n="footer_line2">Chip data verified against Last War Fandom Wiki, Aegis blog, and TreyExGaming guides.</span>
 </div>
+
+<script>
+const T = { es: {
+  title: 'Guia del Chip Lab',
+  subtitle: 'Domina Tus Drones. Conquista el Cielo.',
+  hb1_label: 'Chips de Habilidad del Dron',
+  hb1_value: 'Mejoras permanentes de poder \u2014 fabrica inteligente, mejora consistentemente, domina!',
+  hb1_tip: 'El edificio Chip Lab se desbloquea en HQ 15. Mejoralo a Nv 15 para la primera receta legendaria, Nv 20 para todas las legendarias.',
+  s1_title: '1. Que es el Chip Lab?',
+  s1_desc: 'El Chip Lab es un edificio que te permite fabricar chips de habilidad para drones a partir de materiales. Los chips se equipan en tu dron y proporcionan bonificaciones de combate permanentes que escalan con mejoras y estrellas. A diferencia del equipo o la investigacion, el poder de los chips funciona en todos los modos de juego.',
+  s1_f1: '<strong>Desbloqueo:</strong> HQ Nivel 15 (y aproximadamente dia de servidor 80\u201382)',
+  s1_f2: '<strong>Nivel Maximo del Chip Lab:</strong> 35 (Niveles 31\u201335 requieren Petroleo \u2014 Temporada 2+)',
+  s1_f3: '<strong>Chip Lab Nv 15:</strong> Primera receta de chip legendario disponible (Initial Move)',
+  s1_f4: '<strong>Chip Lab Nv 20:</strong> Todas las recetas de chips legendarios desbloqueadas',
+  s1_f5: '<strong>Chip Lab Nv 21\u201335:</strong> Solo aumentos de poder (sin recetas nuevas)',
+  s1_f6: '<strong>Regla clave:</strong> Siempre fabrica la rareza mas alta que puedas. Nunca desperdicies materiales en niveles inferiores.',
+  s2_title: '2. Tipos de Chips y Categorias',
+  s2_desc: 'Todos los chips se dividen en 4 categorias funcionales. Cada categoria cumple un rol de combate diferente. Un equipamiento equilibrado usa chips de multiples categorias.',
+  th_category: 'Categoria',
+  th_icon_color: 'Color de Icono',
+  th_role: 'Rol',
+  th_best_for: 'Mejor Para',
+  color_red: 'Rojo',
+  color_blue: 'Azul',
+  color_green: 'Verde',
+  color_purple: 'Morado',
+  s2_role_attack: 'Aumenta el dano del dron, expande el rango de objetivo',
+  s2_role_defense: 'Aumenta HP, armadura, resistencia al dano',
+  s2_role_initial: 'Escudo al inicio de la batalla (~10 segundos)',
+  s2_role_interference: 'Extiende la duracion del dano, reduce el dano tactico enemigo',
+  s2_best_attack: 'Heroes DPS (DVA, Kimberly, Schuyler)',
+  s2_best_defense: 'Tanques (Murphy, Williams, Carlie, Lucius)',
+  s2_best_initial: 'Proteccion inicial para todos los escuadrones',
+  s2_best_interference: 'Disrupcion PvP, builds de utilidad',
+  s2_quality_title: 'Niveles de Calidad',
+  th_rarity: 'Rareza',
+  th_color: 'Color',
+  th_material_type: 'Tipo de Material',
+  th_craft_cost: 'Costo de Fabricacion',
+  th_notes: 'Notas',
+  color_green2: 'Verde',
+  color_blue2: 'Azul',
+  color_purple2: 'Morado',
+  color_gold: 'Dorado',
+  mat_none: 'Ninguno',
+  mat_none2: 'Ninguno',
+  mat_basic: 'Materiales Basicos',
+  mat_premium: 'Materiales Premium',
+  cost_minimal: 'Minimo',
+  cost_low: 'Bajo',
+  s2_note_r: 'Chips iniciales, reemplaza lo antes posible',
+  s2_note_sr: 'Relleno hasta conseguir epicos/legendarios',
+  s2_note_ssr: 'Chips solidos \u2014 uno por ranura (Armor-Piercing Pulse III, Photon Armor III, etc.)',
+  s2_note_ur: '<strong>Maxima prioridad. Existen 4: MUF, GRA, Lethal Firestorm, AQF</strong>',
+  s3_title: '3. Mejores Chips \u2014 Orden de Prioridad',
+  s3_desc: 'Enfoca tus materiales en fabricar estos chips en orden de prioridad. Los 4 primeros son Legendarios (UR) \u2014 fabrircalos primero. El resto son Epicos (SSR) y son mas baratos pero aun poderosos.',
+  th_chip_name: 'Nombre del Chip',
+  th_rarity2: 'Rareza',
+  th_category2: 'Categoria',
+  th_effect: 'Efecto',
+  th_best_for2: 'Mejor Para',
+  s3_effect_muf: 'Aumento de dano a fila trasera + reduccion de dano tactico enemigo. Con tipo: versiones Tank/Aircraft/Missile',
+  s3_effect_gra: 'Aumento de defensa del equipo + defensa extra en fila frontal',
+  s3_effect_lf: 'Aumento de ataque con capacidad expandida de impacto',
+  s3_effect_aqf: 'Escudo + reduccion de dano al inicio de la batalla',
+  s3_effect_app: 'Dano mejorado de penetracion de armadura',
+  s3_effect_pa: 'Aumento de defensa durante toda la batalla',
+  s3_effect_ufr: 'Amplificacion de poder de ataque',
+  s3_effect_ems: 'Proteccion de escudo de apertura',
+  s3_best_muf: 'TODOS los escuadrones',
+  s3_best_gra: 'TODOS los escuadrones',
+  s3_best_lf: 'Heroes DPS',
+  s3_best_aqf: 'Todos los escuadrones (PvP)',
+  s3_best_app: 'Builds anti-tanque',
+  s3_best_pa: 'Tanques',
+  s3_best_ufr: 'Heroes DPS',
+  s3_best_ems: 'Defensa PvP',
+  hb2_label: 'Prioridad de Fabricacion',
+  hb2_value: 'Memory Ultra Fission PRIMERO (UR). Gravitational Resonance Armor SEGUNDO (UR). Luego Lethal Firestorm + Absolute Quantum Field.',
+  hb2_tip: 'Fabrica la version Aircraft de Memory Ultra Fission para tu Escuadron 1. Version Tank para el Escuadron 2. Los chips Epicos (SSR) como Armor-Piercing Pulse III son mas baratos \u2014 buen relleno mientras ahorras para legendarios.',
+  s4_title: '4. Equipamientos Recomendados',
+  s4_desc: 'Equipa 4 chips por carga de dron. Aqui tienes configuraciones optimizadas para cada tipo de escuadron.',
+  s4_aircraft_title: 'Heroes Aircraft (Escuadron 1)',
+  s4_tank_title: 'Heroes Tank (Escuadron 2)',
+  s4_antitank_title: 'Build Anti-Tanque (Tu Ventaja)',
+  s4_support_title: 'Soporte / Buffer (Marshall)',
+  hb3_label: 'Tu Ventaja Clave',
+  hb3_value: 'Chips Aircraft + Armor-Piercing Pulse DESTRUYEN formaciones de tanques!',
+  hb3_tip: 'La mayoria de jugadores en el Servidor #2013 usan tanques. Tu escuadron Aircraft con chips anti-tanque = ventaja de tipo incorporada Y penetracion de armadura.',
+  s5_title: '5. Combat Boost y Progresion de Estrellas',
+  s5_desc: 'Combat Boost es un sistema de progresion universal que mejora TODOS los chips equipados. Subelo consistentemente \u2014 los beneficios son enormes en hitos clave.',
+  ms1_desc: 'Sets de Chips Extra',
+  ms1_label: 'Primer hito',
+  ms2_desc: 'Estrellas Mejoradas',
+  ms2_label: 'Punto clave',
+  ms3_desc: 'Eficiencia Maxima',
+  ms3_label: 'Objetivo endgame',
+  s5_star_title: 'Progresion de Estrellas',
+  th_stars: 'Estrellas',
+  th_requirement: 'Requisito',
+  th_bonus: 'Bonificacion',
+  th_notes2: 'Notas',
+  s5_req_1: 'Fabricacion base',
+  s5_req_2: 'Chips duplicados + materiales',
+  s5_req_3: 'Mas duplicados',
+  s5_req_4: 'Mas duplicados',
+  s5_req_5: 'Maximo de duplicados + materiales',
+  s5_bonus_1: 'Stats base',
+  s5_bonus_2: 'Bonificacion especial desbloqueada',
+  s5_bonus_3: 'Aumento de stats',
+  s5_bonus_4: 'Aumento de stats',
+  s5_bonus_5: 'Segunda bonificacion especial',
+  s5_note_1: 'Punto de inicio',
+  s5_note_2: 'Primer pico de poder',
+  s5_note_3: 'Mejora constante',
+  s5_note_4: 'Casi al maximo',
+  s5_note_5: 'Poder total (Armor-Piercing Pulse III = max penetracion de armadura!)',
+  hb4_label: 'Regla Clave',
+  hb4_value: 'Manten todos los chips en niveles similares para maxima eficiencia.',
+  hb4_tip: 'Subir un chip al maximo mientras los demas estan en niveles bajos desperdicia recursos. Subida equilibrada = mas poder total.',
+  s6_title: '6. Guia de Farmeo y Linea de Tiempo F2P',
+  s6_desc: 'Los materiales premium son el cuello de botella. Aqui esta donde farmearlos y que esperar como F2P.',
+  th_source: 'Fuente',
+  th_yield: 'Rendimiento',
+  th_time: 'Tiempo',
+  th_priority: 'Prioridad',
+  s6_src_versus: 'Modo Versus',
+  s6_src_campaign: 'Tienda de Campana',
+  s6_src_alliance: 'Ejercicios de Alianza',
+  s6_src_ghost: 'Ghost Ops',
+  s6_time_campaign: 'Revisar 2\u20133x al dia',
+  s6_time_varies: 'Variable',
+  s6_time_varies2: 'Variable',
+  prio_highest: 'Maxima',
+  prio_high: 'Alta',
+  prio_medium: 'Media',
+  prio_medium2: 'Media',
+  s6_weekly_total: '<strong>Total semanal:</strong> 420\u2013750 Materiales Premium dependiendo del esfuerzo. Cada chip UR cuesta 800 Materiales Premium para fabricar.',
+  s6_f2p_title: 'Linea de Tiempo F2P',
+  th_timeframe: 'Periodo',
+  th_goal: 'Objetivo',
+  th_details: 'Detalles',
+  s6_tf_m1: 'Mes 1',
+  s6_tf_m23: 'Mes 2\u20133',
+  s6_tf_m46: 'Mes 4\u20136',
+  s6_goal_m1: 'Primer Legendario',
+  s6_goal_m23: 'Combat Boost 150 + 2 Legendarios',
+  s6_goal_m46: 'Los 4 Chips UR + CB 300',
+  s6_detail_m1: 'Fabrica Memory Ultra Fission (Aircraft). Equipalo inmediatamente. (~800 Materiales Premium)',
+  s6_detail_m23: 'Agrega Gravitational Resonance Armor. Llena las ranuras restantes con chips SSR.',
+  s6_detail_m46: 'Completa los 4 chips legendarios (Lethal Firestorm + Absolute Quantum Field). Combat Boost 300.',
+  s6_alloc_title: 'Asignacion de Recursos (Division Sugerida)',
+  th_category3: 'Categoria',
+  th_pct_materials: '% de Materiales',
+  th_why: 'Por Que',
+  s6_cat_attack: 'Chips de Attack',
+  s6_cat_defense: 'Chips de Defense',
+  s6_why_attack: 'El dano gana peleas. Prioriza la ofensiva primero.',
+  s6_why_defense: 'Supervivencia para que tu DPS se mantenga vivo y haga dano.',
+  s6_why_initial: 'El escudo de apertura importa en PvP.',
+  s6_why_interference: 'Lujo \u2014 solo despues de completar los chips principales.',
+  hb5_label: 'Momento del Evento',
+  hb5_value: 'Abre los cofres de datos CHIP del dron el LUNES (dia VS de Radar Training)',
+  hb5_tip: 'Los cofres de datos chip del dron dan puntos en la fase VS del Lunes. Guarda materiales de chips para periodos de bonificacion de eventos (20\u201350% de ganancia en eficiencia).',
+  footer_line1: '[OWOW] Old World Order \u2022 Guia del Chip Lab \u2022 Last War: Survival \u2022 Kristen OWOW SKYNET',
+  footer_line2: 'Datos de chips verificados contra Last War Fandom Wiki, blog de Aegis y guias de TreyExGaming.'
+}};
+
+const originals = {};
+function setLang(lang) {
+  document.querySelectorAll('.lang-btn').forEach(b => b.classList.toggle('active', b.textContent === lang.toUpperCase()));
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const key = el.getAttribute('data-i18n');
+    if (!originals[key]) originals[key] = el.innerHTML;
+    el.innerHTML = (lang === 'es' && T.es[key]) ? T.es[key] : originals[key];
+  });
+  document.getElementById('htmlRoot').lang = lang;
+  try { localStorage.setItem('owow-chip-lab-lang', lang); } catch(e) {}
+}
+// Restore saved language
+(function() {
+  try {
+    const saved = localStorage.getItem('owow-chip-lab-lang');
+    if (saved === 'es') setLang('es');
+  } catch(e) {}
+})();
+</script>
 
 </body>
 </html>

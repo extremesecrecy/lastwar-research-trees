@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" id="htmlRoot">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -289,6 +289,21 @@
     50% { opacity: 0.3; }
   }
 
+  /* Language Toggle */
+  .lang-toggle {
+    display: inline-flex; align-items: center; gap: 4px;
+    background: #f0f5f4; border: 2px solid #7fb3a8; border-radius: 20px;
+    padding: 2px 4px; cursor: pointer; font-family: 'Segoe UI', sans-serif;
+    font-size: 12px; font-weight: 700; user-select: none;
+  }
+  .lang-btn {
+    padding: 2px 10px; border-radius: 16px; border: none; cursor: pointer;
+    font-size: 12px; font-weight: 700; background: transparent; color: #888;
+    transition: all 0.2s;
+  }
+  .lang-btn.active { background: #5a6a6a; color: #fff; }
+  .lang-btn:hover:not(.active) { color: #5a6a6a; }
+
   /* Responsive */
   @media (max-width: 700px) {
     .guide-nav { margin: -4px -4px 8px -4px; padding: 4px 8px; gap: 3px 8px; font-size: 11px; }
@@ -322,14 +337,20 @@
 
 <div class="top-bar">
   <div class="left">
-    <h1>Server Dashboard</h1>
-    <div class="sub">Live Server Intelligence. Always Current.</div>
+    <h1 data-i18n="title">Server Dashboard</h1>
+    <div class="sub" data-i18n="subtitle">Live Server Intelligence. Always Current.</div>
   </div>
-  <div class="alliance">
-    <img src="skynet_logo.png" alt="OWOW SKYNET" class="skynet-logo">
-    <div class="alliance-text">
-      <div class="name">[OWOW]</div>
-      <div class="tagline">SKYNET</div>
+  <div style="display:flex;align-items:center;gap:12px;">
+    <div class="lang-toggle" id="langToggle">
+      <button class="lang-btn active" data-lang="en">EN</button>
+      <button class="lang-btn" data-lang="es">ES</button>
+    </div>
+    <div class="alliance">
+      <img src="skynet_logo.png" alt="OWOW SKYNET" class="skynet-logo">
+      <div class="alliance-text">
+        <div class="name">[OWOW]</div>
+        <div class="tagline">SKYNET</div>
+      </div>
     </div>
   </div>
 </div>
@@ -337,55 +358,55 @@
 <!-- Config bar -->
 <div class="config-bar">
   <div class="config-group">
-    <label>Server Number</label>
+    <label data-i18n="cfg_server_num">Server Number</label>
     <input type="text" id="serverNum" value="#2013" style="width:80px;padding:4px 8px;border:1px solid var(--gray);border-radius:4px;font-size:13px;font-family:inherit;background:#fff;" readonly>
   </div>
   <div class="config-group">
-    <label>Server Creation Date</label>
+    <label data-i18n="cfg_creation_date">Server Creation Date</label>
     <input type="date" id="creationDate" value="2025-12-14">
   </div>
   <div class="config-group">
-    <label>HQ Level</label>
+    <label data-i18n="cfg_hq_level">HQ Level</label>
     <input type="number" id="hqLevel" value="24" min="1" max="35" style="width:60px;padding:4px 8px;border:1px solid var(--gray);border-radius:4px;font-size:13px;font-family:inherit;background:#fff;text-align:center;">
   </div>
   <div class="config-group">
-    <label>Region</label>
-    <span style="font-size:13px;padding:4px 0;">Korea, North America, South America</span>
+    <label data-i18n="cfg_region">Region</label>
+    <span style="font-size:13px;padding:4px 0;" data-i18n="cfg_region_val">Korea, North America, South America</span>
   </div>
   <div class="freshness">
-    <span class="live-dot"></span> Server day &amp; season calculated live from creation date
+    <span class="live-dot"></span> <span data-i18n="freshness_live">Server day &amp; season calculated live from creation date</span>
   </div>
 </div>
 
 <!-- Summary Cards -->
 <div class="cards-row" id="summaryCards">
   <div class="card highlight">
-    <div class="label">Server Day</div>
+    <div class="label" data-i18n="card_server_day">Server Day</div>
     <div class="value" id="serverDay">--</div>
     <div class="detail" id="serverDayDetail"></div>
   </div>
   <div class="card season-card">
-    <div class="label">Active Season</div>
+    <div class="label" data-i18n="card_active_season">Active Season</div>
     <div class="value" id="activeSeason">--</div>
     <div class="detail" id="seasonDetail"></div>
   </div>
   <div class="card">
-    <div class="label">Season Day</div>
+    <div class="label" data-i18n="card_season_day">Season Day</div>
     <div class="value" id="seasonDay">--</div>
     <div class="detail" id="seasonDayDetail"></div>
   </div>
   <div class="card">
-    <div class="label">Hero Level Cap</div>
+    <div class="label" data-i18n="card_hero_cap">Hero Level Cap</div>
     <div class="value" id="heroLevelCap">--</div>
-    <div class="detail" id="heroCapDetail">Based on HQ level</div>
+    <div class="detail" id="heroCapDetail" data-i18n="card_hero_cap_detail">Based on HQ level</div>
   </div>
   <div class="card">
-    <div class="label">Total Servers</div>
+    <div class="label" data-i18n="card_total_servers">Total Servers</div>
     <div class="value">2,194</div>
-    <div class="detail">Oldest: #3 (Day 990)</div>
+    <div class="detail" data-i18n="card_oldest_server">Oldest: #3 (Day 990)</div>
   </div>
   <div class="card">
-    <div class="label">Server Age</div>
+    <div class="label" data-i18n="card_server_age">Server Age</div>
     <div class="value" id="serverAge">--</div>
     <div class="detail" id="serverAgeDetail"></div>
   </div>
@@ -393,7 +414,7 @@
 
 <!-- Season Progress -->
 <div class="section season-progress">
-  <div class="section-title">Season Progress</div>
+  <div class="section-title" data-i18n="sect_season_progress">Season Progress</div>
   <div class="season-bar-bg">
     <div class="season-bar-fill" id="seasonBarFill" style="width: 0%">0%</div>
   </div>
@@ -405,23 +426,23 @@
 
 <!-- Timeline: Unlocked + Upcoming -->
 <div class="section">
-  <div class="section-title">Server Timeline</div>
+  <div class="section-title" data-i18n="sect_server_timeline">Server Timeline</div>
   <div class="filter-row" id="filterRow">
-    <button class="filter-btn active" data-filter="all">All</button>
-    <button class="filter-btn" data-filter="hero">Heroes</button>
-    <button class="filter-btn" data-filter="event">Events</button>
-    <button class="filter-btn" data-filter="war">Wars</button>
-    <button class="filter-btn" data-filter="alliance event">Alliance</button>
-    <button class="filter-btn" data-filter="exclusive weapon">Weapons</button>
-    <button class="filter-btn" data-filter="season-start">Seasons</button>
+    <button class="filter-btn active" data-filter="all" data-i18n="filter_all">All</button>
+    <button class="filter-btn" data-filter="hero" data-i18n="filter_heroes">Heroes</button>
+    <button class="filter-btn" data-filter="event" data-i18n="filter_events">Events</button>
+    <button class="filter-btn" data-filter="war" data-i18n="filter_wars">Wars</button>
+    <button class="filter-btn" data-filter="alliance event" data-i18n="filter_alliance">Alliance</button>
+    <button class="filter-btn" data-filter="exclusive weapon" data-i18n="filter_weapons">Weapons</button>
+    <button class="filter-btn" data-filter="season-start" data-i18n="filter_seasons">Seasons</button>
   </div>
   <div class="timeline" id="timeline">
     <div class="timeline-col" id="recentCol">
-      <h3>Recently Unlocked</h3>
+      <h3 data-i18n="tl_recently_unlocked">Recently Unlocked</h3>
       <div id="recentList"></div>
     </div>
     <div class="timeline-col" id="upcomingCol">
-      <h3>Coming Up Next</h3>
+      <h3 data-i18n="tl_coming_up">Coming Up Next</h3>
       <div id="upcomingList"></div>
     </div>
   </div>
@@ -429,46 +450,46 @@
 
 <!-- Global Game Stats -->
 <div class="section">
-  <div class="section-title">Global Game Statistics <span id="lastUpdatedBadge" style="font-size:11px;font-family:'Segoe UI',sans-serif;color:#888;font-weight:normal;text-transform:none;letter-spacing:0;margin-left:8px;"></span></div>
+  <div class="section-title"><span data-i18n="sect_global_stats">Global Game Statistics</span> <span id="lastUpdatedBadge" style="font-size:11px;font-family:'Segoe UI',sans-serif;color:#888;font-weight:normal;text-transform:none;letter-spacing:0;margin-left:8px;"></span></div>
   <div class="stats-grid" id="statsGrid">
     <div class="stat-card">
-      <div class="stat-title">Monthly Active Players</div>
-      <div class="stat-row"><span class="stat-label">Combined</span><span class="stat-val" id="s-mau-combined">--</span></div>
+      <div class="stat-title" data-i18n="stat_mau">Monthly Active Players</div>
+      <div class="stat-row"><span class="stat-label" data-i18n="stat_combined">Combined</span><span class="stat-val" id="s-mau-combined">--</span></div>
       <div class="stat-row"><span class="stat-label">Android</span><span class="stat-val" id="s-mau-android">--</span></div>
       <div class="stat-row"><span class="stat-label">iOS</span><span class="stat-val" id="s-mau-ios">--</span></div>
     </div>
     <div class="stat-card">
-      <div class="stat-title">Daily Active Players</div>
+      <div class="stat-title" data-i18n="stat_dau">Daily Active Players</div>
       <div class="stat-row"><span class="stat-label">Android</span><span class="stat-val" id="s-dau-android">--</span></div>
       <div class="stat-row"><span class="stat-label">iOS</span><span class="stat-val" id="s-dau-ios">--</span></div>
-      <div class="stat-row"><span class="stat-label">Android share</span><span class="stat-val" id="s-dau-share">--</span></div>
+      <div class="stat-row"><span class="stat-label" data-i18n="stat_android_share">Android share</span><span class="stat-val" id="s-dau-share">--</span></div>
     </div>
     <div class="stat-card">
-      <div class="stat-title">Downloads (All Time)</div>
+      <div class="stat-title" data-i18n="stat_downloads">Downloads (All Time)</div>
       <div class="stat-row"><span class="stat-label">Google Play</span><span class="stat-val" id="s-dl-gplay">--</span></div>
       <div class="stat-row"><span class="stat-label">App Store</span><span class="stat-val" id="s-dl-appstore">--</span></div>
       <div class="stat-row"><span class="stat-label">Total</span><span class="stat-val" id="s-dl-total">--</span></div>
     </div>
     <div class="stat-card">
-      <div class="stat-title">Monthly Trend (Google Play)</div>
+      <div class="stat-title" data-i18n="stat_trend">Monthly Trend (Google Play)</div>
       <div id="s-trend-rows"></div>
     </div>
     <div class="stat-card">
-      <div class="stat-title">Server Landscape</div>
-      <div class="stat-row"><span class="stat-label">Total Servers</span><span class="stat-val" id="s-srv-total">--</span></div>
-      <div class="stat-row"><span class="stat-label">Newest</span><span class="stat-val" id="s-srv-newest">--</span></div>
-      <div class="stat-row"><span class="stat-label">Oldest</span><span class="stat-val" id="s-srv-oldest">--</span></div>
-      <div class="stat-row"><span class="stat-label">Your Server</span><span class="stat-val">#2013</span></div>
+      <div class="stat-title" data-i18n="stat_landscape">Server Landscape</div>
+      <div class="stat-row"><span class="stat-label" data-i18n="stat_total_servers">Total Servers</span><span class="stat-val" id="s-srv-total">--</span></div>
+      <div class="stat-row"><span class="stat-label" data-i18n="stat_newest">Newest</span><span class="stat-val" id="s-srv-newest">--</span></div>
+      <div class="stat-row"><span class="stat-label" data-i18n="stat_oldest">Oldest</span><span class="stat-val" id="s-srv-oldest">--</span></div>
+      <div class="stat-row"><span class="stat-label" data-i18n="stat_your_server">Your Server</span><span class="stat-val">#2013</span></div>
     </div>
     <div class="stat-card">
-      <div class="stat-title">Engagement</div>
-      <div class="stat-row"><span class="stat-label">Android rate</span><span class="stat-val" id="s-eng-android">--</span></div>
-      <div class="stat-row"><span class="stat-label">iOS rate</span><span class="stat-val" id="s-eng-ios">--</span></div>
-      <div class="stat-row"><span class="stat-label">YoY growth</span><span class="stat-val" id="s-eng-yoy">--</span></div>
-      <div class="stat-row"><span class="stat-label">vs peak</span><span class="stat-val" id="s-eng-peak">--</span></div>
+      <div class="stat-title" data-i18n="stat_engagement">Engagement</div>
+      <div class="stat-row"><span class="stat-label" data-i18n="stat_android_rate">Android rate</span><span class="stat-val" id="s-eng-android">--</span></div>
+      <div class="stat-row"><span class="stat-label" data-i18n="stat_ios_rate">iOS rate</span><span class="stat-val" id="s-eng-ios">--</span></div>
+      <div class="stat-row"><span class="stat-label" data-i18n="stat_yoy">YoY growth</span><span class="stat-val" id="s-eng-yoy">--</span></div>
+      <div class="stat-row"><span class="stat-label" data-i18n="stat_vs_peak">vs peak</span><span class="stat-val" id="s-eng-peak">--</span></div>
     </div>
   </div>
-  <div class="freshness" style="margin-top:8px;">
+  <div class="freshness" style="margin-top:8px;" data-i18n-html="stats_source">
     Stats sourced from <a href="https://activeplayer.io/last-war-survival/" target="_blank" rel="noopener" style="color:var(--cyan);">ActivePlayer.io</a>.
     Server data from <a href="https://cpt-hedge.com/servers" target="_blank" rel="noopener" style="color:var(--cyan);">cpt-hedge.com</a>.
     Updated weekly by GitHub Action.
@@ -477,7 +498,7 @@
 
 <!-- External Links -->
 <div class="section">
-  <div class="section-title">Live Data Sources</div>
+  <div class="section-title" data-i18n="sect_live_sources">Live Data Sources</div>
   <div class="ext-links">
     <a href="https://cpt-hedge.com/servers" target="_blank" rel="noopener" class="ext-link">
       Cpt Hedgehog - Server List <span class="arrow">&#8599;</span>
@@ -654,18 +675,27 @@ function calcServerDay(creationDateStr) {
   return Math.floor(diffMs / (24 * 60 * 60 * 1000)) + 1;
 }
 
+function _t(key, ...args) {
+  if (window._currentLang === 'es' && window._T && window._T.es[key]) {
+    let s = window._T.es[key];
+    args.forEach((a, i) => { s = s.replace('{' + i + '}', a); });
+    return s;
+  }
+  return null; // fallback to English inline
+}
+
 function formatCountdown(days) {
-  if (days === 0) return 'Today!';
-  if (days === 1) return 'Tomorrow!';
-  if (days < 7) return 'In ' + days + ' days';
+  if (days === 0) return _t('dyn_today') || 'Today!';
+  if (days === 1) return _t('dyn_tomorrow') || 'Tomorrow!';
+  if (days < 7) return _t('dyn_in_days', days) || ('In ' + days + ' days');
   if (days < 30) {
     const weeks = Math.floor(days / 7);
     const d = days % 7;
-    return 'In ' + weeks + 'w ' + d + 'd';
+    return _t('dyn_in_w_d', weeks, d) || ('In ' + weeks + 'w ' + d + 'd');
   }
   const months = Math.floor(days / 30);
   const d = days % 30;
-  return 'In ~' + months + 'mo ' + d + 'd';
+  return _t('dyn_in_mo_d', months, d) || ('In ~' + months + 'mo ' + d + 'd');
 }
 
 let activeFilter = 'all';
@@ -680,46 +710,52 @@ function update() {
   const pct = Math.min(100, Math.round((dayInSeason / seasonLen) * 100));
 
   // Summary cards
-  document.getElementById('serverDay').textContent = 'Day ' + serverDay;
+  const dayLabel = _t('dyn_day') || 'Day';
+  document.getElementById('serverDay').textContent = dayLabel + ' ' + serverDay;
   const creation = new Date(creationDate + 'T00:00:00');
-  document.getElementById('serverDayDetail').textContent = 'Since ' + creation.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+  const sinceLabel = _t('dyn_since') || 'Since';
+  const locale = (window._currentLang === 'es') ? 'es-ES' : 'en-US';
+  document.getElementById('serverDayDetail').textContent = sinceLabel + ' ' + creation.toLocaleDateString(locale, { month: 'short', day: 'numeric', year: 'numeric' });
 
-  document.getElementById('activeSeason').textContent = 'Season ' + season;
-  document.getElementById('seasonDetail').textContent = SEASON_NAMES[season] || 'Season ' + season;
+  const seasonLabel = _t('dyn_season') || 'Season';
+  document.getElementById('activeSeason').textContent = seasonLabel + ' ' + season;
+  document.getElementById('seasonDetail').textContent = SEASON_NAMES[season] || (seasonLabel + ' ' + season);
 
   document.getElementById('seasonDay').textContent = dayInSeason;
-  document.getElementById('seasonDayDetail').textContent = 'of ~' + seasonLen + ' days';
+  document.getElementById('seasonDayDetail').textContent = _t('dyn_of_days', seasonLen) || ('of ~' + seasonLen + ' days');
 
   // Server age
   const now = new Date();
   const ageMs = now - creation;
   const ageWeeks = Math.floor(ageMs / (7 * 24 * 60 * 60 * 1000));
   const ageMonths = Math.floor(ageMs / (30.44 * 24 * 60 * 60 * 1000));
-  document.getElementById('serverAge').textContent = ageWeeks + ' wks';
-  document.getElementById('serverAgeDetail').textContent = '~' + ageMonths + ' months old';
+  document.getElementById('serverAge').textContent = ageWeeks + ' ' + (_t('dyn_wks') || 'wks');
+  document.getElementById('serverAgeDetail').textContent = _t('dyn_months_old', ageMonths) || ('~' + ageMonths + ' months old');
 
   // Hero level cap = HQ * 5 - 1
   const hq = parseInt(document.getElementById('hqLevel').value) || 0;
   if (hq > 0) {
     const cap = hq * 5 - 1;
     document.getElementById('heroLevelCap').textContent = cap;
-    document.getElementById('heroCapDetail').textContent = 'HQ ' + hq + ' (next: ' + (cap + 5) + ' at HQ ' + (hq + 1) + ')';
+    document.getElementById('heroCapDetail').textContent = _t('dyn_next_at_hq', hq, cap + 5, hq + 1) || ('HQ ' + hq + ' (next: ' + (cap + 5) + ' at HQ ' + (hq + 1) + ')');
   } else {
     document.getElementById('heroLevelCap').textContent = '--';
-    document.getElementById('heroCapDetail').textContent = 'Set HQ level above';
+    document.getElementById('heroCapDetail').textContent = _t('dyn_set_hq') || 'Set HQ level above';
   }
 
   // Season progress bar
   document.getElementById('seasonBarFill').style.width = pct + '%';
   document.getElementById('seasonBarFill').textContent = pct + '%';
-  document.getElementById('seasonStartLabel').textContent = (SEASON_NAMES[season] || 'Season ' + season) + ' (Day ' + dayInSeason + ')';
+  const dayWord = _t('dyn_season_day_label', dayInSeason) || ('(Day ' + dayInSeason + ')');
+  document.getElementById('seasonStartLabel').textContent = (SEASON_NAMES[season] || (seasonLabel + ' ' + season)) + ' ' + dayWord;
 
   const nextSeason = season + 1;
   const daysToNext = seasonLen - dayInSeason;
   if (nextSeason <= 5) {
-    document.getElementById('seasonEndLabel').textContent = (SEASON_NAMES[nextSeason] || 'Season ' + nextSeason) + ' in ~' + daysToNext + ' days';
+    const nextIn = _t('dyn_next_season_in', daysToNext) || ('in ~' + daysToNext + ' days');
+    document.getElementById('seasonEndLabel').textContent = (SEASON_NAMES[nextSeason] || (seasonLabel + ' ' + nextSeason)) + ' ' + nextIn;
   } else {
-    document.getElementById('seasonEndLabel').textContent = 'Beyond Season 5';
+    document.getElementById('seasonEndLabel').textContent = _t('dyn_beyond_s5') || 'Beyond Season 5';
   }
 
   // Build timeline
@@ -752,17 +788,18 @@ function buildTimeline(serverDay) {
   // Show recent 15
   const recentSlice = unlocked.slice(0, 15);
   if (recentSlice.length === 0) {
-    recentList.innerHTML = '<div style="color:#aaa;font-size:13px;padding:8px;">No events match this filter yet.</div>';
+    recentList.innerHTML = '<div style="color:#aaa;font-size:13px;padding:8px;">' + (_t('dyn_no_events_filter') || 'No events match this filter yet.') + '</div>';
   }
   recentSlice.forEach(e => {
     const daysAgo = serverDay - e.absDay;
-    recentList.appendChild(createTimelineItem(e, 'unlocked', daysAgo === 0 ? 'Today' : daysAgo + 'd ago'));
+    const agoLabel = daysAgo === 0 ? (_t('dyn_today') || 'Today') : (_t('dyn_d_ago', daysAgo) || (daysAgo + 'd ago'));
+    recentList.appendChild(createTimelineItem(e, 'unlocked', agoLabel));
   });
 
   // Show next 15
   const upcomingSlice = upcoming.slice(0, 15);
   if (upcomingSlice.length === 0) {
-    upcomingList.innerHTML = '<div style="color:#aaa;font-size:13px;padding:8px;">No upcoming events for this filter.</div>';
+    upcomingList.innerHTML = '<div style="color:#aaa;font-size:13px;padding:8px;">' + (_t('dyn_no_upcoming_filter') || 'No upcoming events for this filter.') + '</div>';
   }
   upcomingSlice.forEach(e => {
     const daysUntil = e.absDay - serverDay;
@@ -834,8 +871,10 @@ function loadStats() {
       // Last updated badge
       if (d.lastUpdated) {
         const dt = new Date(d.lastUpdated + 'T00:00:00');
+        const updLabel = _t('dyn_last_updated') || 'Last updated:';
+        const loc = (window._currentLang === 'es') ? 'es-ES' : 'en-US';
         document.getElementById('lastUpdatedBadge').textContent =
-          'Last updated: ' + dt.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+          updLabel + ' ' + dt.toLocaleDateString(loc, { month: 'short', day: 'numeric', year: 'numeric' });
       }
       // MAU
       document.getElementById('s-mau-combined').textContent = d.monthlyActivePlayers.combined;
@@ -865,7 +904,7 @@ function loadStats() {
       document.getElementById('s-eng-peak').textContent = d.engagement.vsPeak;
     })
     .catch(e => {
-      document.getElementById('lastUpdatedBadge').textContent = '(stats unavailable)';
+      document.getElementById('lastUpdatedBadge').textContent = _t('dyn_stats_unavail') || '(stats unavailable)';
       console.warn('Could not load server_stats.json:', e);
     });
 }
@@ -876,6 +915,147 @@ loadStats();
 
 // Auto-refresh every minute (for the live dot to feel live)
 setInterval(update, 60000);
+</script>
+
+<script>
+// === BILINGUAL EN/ES TRANSLATION ===
+window._T = {
+  es: {
+    // Title & subtitle
+    title: 'Panel del Servidor',
+    subtitle: 'Inteligencia de Servidor en Vivo. Siempre Actualizado.',
+    // Config bar
+    cfg_server_num: 'Numero de Servidor',
+    cfg_creation_date: 'Fecha de Creacion del Servidor',
+    cfg_hq_level: 'Nivel de HQ',
+    cfg_region: 'Region',
+    cfg_region_val: 'Corea, Norteamerica, Sudamerica',
+    freshness_live: 'Dia del servidor y temporada calculados en vivo desde la fecha de creacion',
+    // Summary cards
+    card_server_day: 'Dia del Servidor',
+    card_active_season: 'Temporada Activa',
+    card_season_day: 'Dia de Temporada',
+    card_hero_cap: 'Nivel Max de Heroes',
+    card_hero_cap_detail: 'Basado en nivel de HQ',
+    card_total_servers: 'Total de Servidores',
+    card_oldest_server: 'Mas antiguo: #3 (Dia 990)',
+    card_server_age: 'Edad del Servidor',
+    // Section titles
+    sect_season_progress: 'Progreso de Temporada',
+    sect_server_timeline: 'Linea de Tiempo del Servidor',
+    sect_global_stats: 'Estadisticas Globales del Juego',
+    sect_live_sources: 'Fuentes de Datos en Vivo',
+    // Filters
+    filter_all: 'Todos',
+    filter_heroes: 'Heroes',
+    filter_events: 'Eventos',
+    filter_wars: 'Guerras',
+    filter_alliance: 'Alianza',
+    filter_weapons: 'Armas',
+    filter_seasons: 'Temporadas',
+    // Timeline columns
+    tl_recently_unlocked: 'Desbloqueados Recientemente',
+    tl_coming_up: 'Proximos Eventos',
+    // Stats card titles
+    stat_mau: 'Jugadores Activos Mensuales',
+    stat_dau: 'Jugadores Activos Diarios',
+    stat_downloads: 'Descargas (Total)',
+    stat_trend: 'Tendencia Mensual (Google Play)',
+    stat_landscape: 'Panorama de Servidores',
+    stat_engagement: 'Participacion',
+    // Stats labels
+    stat_combined: 'Combinado',
+    stat_android_share: 'Cuota Android',
+    stat_total_servers: 'Total de Servidores',
+    stat_newest: 'Mas nuevo',
+    stat_oldest: 'Mas antiguo',
+    stat_your_server: 'Tu Servidor',
+    stat_android_rate: 'Tasa Android',
+    stat_ios_rate: 'Tasa iOS',
+    stat_yoy: 'Crecimiento anual',
+    stat_vs_peak: 'vs pico',
+    // Stats source footer (HTML)
+    stats_source: 'Estadisticas de <a href="https://activeplayer.io/last-war-survival/" target="_blank" rel="noopener" style="color:var(--cyan);">ActivePlayer.io</a>. Datos de servidores de <a href="https://cpt-hedge.com/servers" target="_blank" rel="noopener" style="color:var(--cyan);">cpt-hedge.com</a>. Actualizado semanalmente por GitHub Action.',
+    // Dynamic text (used in JS)
+    dyn_day: 'Dia',
+    dyn_since: 'Desde',
+    dyn_season: 'Temporada',
+    dyn_of_days: 'de ~{0} dias',
+    dyn_wks: 'sem',
+    dyn_months_old: '~{0} meses',
+    dyn_next_at_hq: 'HQ {0} (siguiente: {1} en HQ {2})',
+    dyn_set_hq: 'Establece el nivel de HQ arriba',
+    dyn_today: 'Hoy!',
+    dyn_tomorrow: 'Manana!',
+    dyn_in_days: 'En {0} dias',
+    dyn_in_w_d: 'En {0}s {1}d',
+    dyn_in_mo_d: 'En ~{0}m {1}d',
+    dyn_d_ago: 'hace {0}d',
+    dyn_no_events_filter: 'No hay eventos para este filtro todavia.',
+    dyn_no_upcoming_filter: 'No hay eventos proximos para este filtro.',
+    dyn_season_day_label: '(Dia {0})',
+    dyn_next_season_in: 'en ~{0} dias',
+    dyn_beyond_s5: 'Mas alla de la Temporada 5',
+    dyn_last_updated: 'Ultima actualizacion:',
+    dyn_stats_unavail: '(estadisticas no disponibles)',
+  }
+};
+
+// Capture originals on first load
+const _originals = {};
+document.querySelectorAll('[data-i18n]').forEach(el => {
+  _originals[el.getAttribute('data-i18n')] = el.textContent;
+});
+const _originalsHtml = {};
+document.querySelectorAll('[data-i18n-html]').forEach(el => {
+  _originalsHtml[el.getAttribute('data-i18n-html')] = el.innerHTML;
+});
+
+window._currentLang = localStorage.getItem('owow-server-dash-lang') || 'en';
+
+function setLang(lang) {
+  window._currentLang = lang;
+  localStorage.setItem('owow-server-dash-lang', lang);
+  document.getElementById('htmlRoot').setAttribute('lang', lang);
+
+  // Update toggle buttons
+  document.querySelectorAll('#langToggle .lang-btn').forEach(b => {
+    b.classList.toggle('active', b.dataset.lang === lang);
+  });
+
+  // Translate static data-i18n elements
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const key = el.getAttribute('data-i18n');
+    if (lang === 'es' && window._T.es[key]) {
+      el.textContent = window._T.es[key];
+    } else if (lang === 'en' && _originals[key] !== undefined) {
+      el.textContent = _originals[key];
+    }
+  });
+
+  // Translate data-i18n-html elements (contain HTML)
+  document.querySelectorAll('[data-i18n-html]').forEach(el => {
+    const key = el.getAttribute('data-i18n-html');
+    if (lang === 'es' && window._T.es[key]) {
+      el.innerHTML = window._T.es[key];
+    } else if (lang === 'en' && _originalsHtml[key] !== undefined) {
+      el.innerHTML = _originalsHtml[key];
+    }
+  });
+
+  // Re-run dynamic update to translate JS-generated text
+  update();
+}
+
+// Language toggle click handler
+document.getElementById('langToggle').addEventListener('click', function(ev) {
+  const btn = ev.target.closest('.lang-btn');
+  if (!btn) return;
+  setLang(btn.dataset.lang);
+});
+
+// Apply saved language on load
+if (window._currentLang !== 'en') setLang(window._currentLang);
 </script>
 
 </body>
