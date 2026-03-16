@@ -18,8 +18,7 @@
     background: #fff;
     color: #333;
     padding: 6px 10px;
-    height: 100vh;
-    overflow: hidden;
+    min-height: 100vh;
     display: flex;
     flex-direction: column;
   }
@@ -200,8 +199,6 @@
 
   /* Narrow desktop — 3 cols too tight below 1400px */
   @media (max-width: 1400px) {
-    html, body { height: auto !important; overflow: visible !important; min-height: 0 !important; display: block !important; }
-    body { padding: 6px 10px; }
     .main-grid { grid-template-columns: 1fr 1fr; }
   }
   @media (max-width: 900px) {
