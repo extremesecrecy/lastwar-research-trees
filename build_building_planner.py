@@ -10,6 +10,167 @@ import json
 import os
 
 
+# ============================================================
+# SPANISH TRANSLATIONS for all UI strings
+# Building names stay in English (game terms).
+# ============================================================
+TRANSLATIONS_ES = {
+    # Title / subtitle
+    "Building Progression Planner": "Planificador de Progreso de Edificios",
+    "Last War: Survival": "Last War: Survival",
+
+    # Alliance
+    "Old World Order": "Old World Order",
+
+    # Commander bar labels
+    "Current HQ:": "CG Actual:",
+    "Target HQ:": "CG Objetivo:",
+    "Builders:": "Constructores:",
+    "VIP Level:": "Nivel VIP:",
+
+    # Power dashboard
+    "Current Power": "Poder Actual",
+    "Target Power": "Poder Objetivo",
+    "Power Needed": "Poder Necesario",
+
+    # Section labels
+    "Your Buildings": "Tus Edificios",
+    "Upgrade Path": "Ruta de Mejora",
+
+    # Tab labels
+    "Cheapest": "Mas Barato",
+    "Fastest": "Mas Rapido",
+    "Power ROI": "ROI de Poder",
+
+    # Action buttons
+    "Export CSV": "Exportar CSV",
+    "Import CSV": "Importar CSV",
+    "Reset": "Reiniciar",
+    "AI Advisor": "Asesor IA",
+
+    # Speedup section
+    "Speedup Inventory": "Inventario de Aceleradores",
+    "5 min": "5 min",
+    "15 min": "15 min",
+    "30 min": "30 min",
+    "1 hour": "1 hora",
+    "3 hour": "3 horas",
+    "8 hour": "8 horas",
+    "24 hour": "24 horas",
+
+    # Footer
+    "Kristen OWOW SKYNET. Ready for Judgment Day.": "Kristen OWOW SKYNET. Lista para el Dia del Juicio.",
+    "Building data from": "Datos de edificios de",
+
+    # Category names
+    "Military": "Militar",
+    "Economy": "Economia",
+    "Defense": "Defensa",
+    "Resources": "Recursos",
+    "Core": "Central",
+    "Training & Heroes": "Entrenamiento y Heroes",
+    "Production & Drones": "Produccion y Drones",
+
+    # Summary / steps
+    "Food:": "Comida:",
+    "Iron:": "Hierro:",
+    "Gold:": "Oro:",
+    "Build Time:": "Tiempo:",
+    "Power:": "Poder:",
+    "After Speedups:": "Con Aceleradores:",
+    "Speedups Used:": "Aceleradores Usados:",
+    "Remaining Speedups:": "Aceleradores Restantes:",
+    "Total": "Total",
+    "(sequential)": "(secuencial)",
+    "(with parallel builders)": "(con constructores paralelos)",
+
+    # Status / messages
+    "Target HQ must be higher than current HQ.": "El CG objetivo debe ser mayor que el CG actual.",
+    "All requirements met! Ready to upgrade.": "Todos los requisitos cumplidos! Listo para mejorar.",
+    "All buildings maxed or no power data available.": "Todos los edificios al maximo o sin datos de poder.",
+    "CSV exported!": "CSV exportado!",
+    "Imported": "Importados",
+    "buildings!": "edificios!",
+    "All levels reset.": "Todos los niveles reiniciados.",
+    "Reset all building levels and speedups? You can re-import your CSV to restore.":
+        "Reiniciar todos los niveles de edificios y aceleradores? Puedes reimportar tu CSV para restaurar.",
+    "Invalid CSV format. Need Building and CurrentLevel columns.":
+        "Formato CSV invalido. Se necesitan columnas Building y CurrentLevel.",
+
+    # Badges
+    "HQ": "CG",
+    "REQ": "REQ",
+    "REQUIRED": "REQUERIDO",
+    "ROI": "ROI",
+
+    # Building detail
+    "Next: Level": "Siguiente: Nivel",
+    "Food": "Comida",
+    "Iron": "Hierro",
+    "Gold": "Oro",
+    "Time": "Tiempo",
+    "Power": "Poder",
+    "MAXED!": "MAXIMO!",
+
+    # Info popup
+    "Max Level:": "Nivel Max:",
+    "Instances:": "Instancias:",
+    "Unlock:": "Desbloqueo:",
+
+    # Status dots
+    "Meets HQ": "Cumple CG",
+    "requirement": "requisito",
+    "needs Lv.": "necesita Nv.",
+    "Another instance meets Lv.": "Otra instancia cumple Nv.",
+    "for HQ": "para CG",
+    "currently Lv.": "actualmente Nv.",
+    "not started!": "no iniciado!",
+    "Not required for target HQ": "No requerido para el CG objetivo",
+    "Locked until HQ": "Bloqueado hasta CG",
+
+    # ROI description
+    "Ranked by power gained per resource spent. Required buildings for target HQ shown first.":
+        "Clasificado por poder ganado por recurso gastado. Edificios requeridos para el CG objetivo primero.",
+
+    # Cheapest path
+    "Cheapest of:": "Mas barato de:",
+
+    # Building descriptions (BUILDING_INFO)
+    "desc_headquarters": "Edificio central que determina el nivel maximo de TODOS los demas edificios. Aumenta el poder, limite de nivel de heroe (CG x 5 - 1), y desbloquea nuevos edificios/funciones.",
+    "desc_tech center": "Centro de investigacion para mejoras militares, de desarrollo, defensa y fuerzas especiales. Niveles mas altos aumentan la velocidad de investigacion. Un 2do Centro Tecnologico se puede comprar (Distrito 102 + paquete ~$10). Un 3ro se desbloquea via investigacion de Era del Petroleo (Temporada 2+, gratis).",
+    "desc_wall": "Reduce el dano recibido cuando tu base es atacada. Proporciona estadisticas de defensa y poder. Niveles mas altos = defensa de base mas fuerte.",
+    "desc_alliance center": "Unete o crea alianzas, solicita ayuda de construccion, accede a la tienda de alianza y participa en eventos. Niveles mas altos aumentan las ayudas maximas por tarea.",
+    "desc_builders hut": "Proporciona reduccion de tiempo gratuita en mejoras de edificios. Niveles mas altos reducen automaticamente mas segundos de los temporizadores de construccion. Asigna sobrevivientes aqui para bonificacion de velocidad.",
+    "desc_barracks": "Entrena y mejora tropas. Niveles superiores desbloquean en niveles mas altos: T5 en Nv14, T6 en 17, T7 en 20, T8 en 24, T9 en 27, T10 en 30. Multiples cuarteles permiten entrenar/cascada simultaneamente.",
+    "desc_tank center": "Mejora todas las estadisticas de heroes tipo Tanque (HP, ATQ, DEF) y velocidad de marcha de Tanque. Esencial para el rendimiento del escuadron de Tanques.",
+    "desc_air center": "Mejora todas las estadisticas de heroes tipo Aeronave (HP, ATQ, DEF) y velocidad de marcha de Aeronave. Esencial para el rendimiento del escuadron de Aeronaves.",
+    "desc_missile center": "Mejora todas las estadisticas de heroes tipo Misil (HP, ATQ, DEF) y velocidad de marcha de Misil. Esencial para el rendimiento del escuadron de Misiles.",
+    "desc_drill ground": "Aloja tropas y aumenta la capacidad por marcha. Mas campos de entrenamiento = mas marchas simultaneas. Critico para rallies y recoleccion.",
+    "desc_squad": "Estacionamientos -- cada uno representa un slot de marcha/escuadron desplegable. Niveles mas altos aumentan la velocidad de marcha de ese escuadron (+0.5% en Nv1 hasta +17.5% en Nv35). Vinculado 1:1 con Campos de Entrenamiento.",
+    "desc_recon plane": "Explora las bases de otros jugadores. Niveles mas altos aumentan la velocidad del avion explorador. El nivel del avion no puede exceder el nivel de la Torre de Alerta. Hasta 35 niveles.",
+    "desc_armament institute": "Permite investigar 4 Armamentos para desbloquear tropas T11. Edificio de un solo nivel que se desbloquea en el juego tardio despues de la Temporada 4.",
+    "desc_training base": "Genera EXP de heroe pasivamente con el tiempo (funciona sin conexion). Niveles mas altos aumentan la produccion de EXP. Nota: EXP pasiva NO cuenta para puntos de Avance de Heroe en Carrera Armamentista.",
+    "desc_tavern": "Recluta heroes y sobrevivientes. Niveles mas altos reducen el tiempo de enfriamiento de reclutamiento. Revisa diariamente para reclutamiento gratuito y fragmentos de heroe en rotacion.",
+    "desc_tactical institute": "Produce pasivamente Manuales de Entrenamiento para el Overlord (Gorila). Niveles mas altos aumentan la produccion de manuales (hasta 70/hora en Nv35). Los manuales se usan para Ataque Conjunto, Apoyo Defensivo y rutas de Entrenamiento de Supervivencia.",
+    "desc_hospital": "Cura tropas heridas. Las tropas heridas van aqui en lugar de perderse permanentemente. Niveles mas altos aumentan la capacidad de curacion. Mas hospitales = mas tropas salvadas en batalla.",
+    "desc_emergency center": "Hospital de desbordamiento -- rescata tropas 'desmayadas' que de otro modo moririan permanentemente cuando tus hospitales estan llenos. Critico para PvP y dia de Destructor de Enemigos.",
+    "desc_alert tower": "Centro de alerta temprana e inteligencia de exploracion. Define los niveles de aviones exploradores y que informacion es visible al explorar enemigos. Niveles mas altos revelan mas detalles del enemigo (tropas, heroes, poder).",
+    "desc_gold mine": "Produce oro para mejoras. El oro se requiere a partir de edificios Nv9+. Niveles mas altos = mas oro/hora. Minas extra desbloqueadas via investigacion de Economia.",
+    "desc_farmland": "Produce comida para mantenimiento de tropas y mejoras de edificios. Niveles mas altos = mas comida/hora. Granjas extra desbloqueadas via investigacion de Economia.",
+    "desc_iron mine": "Produce hierro para mejoras de edificios e investigacion. Niveles mas altos = mas hierro/hora. Minas extra desbloqueadas via investigacion de Economia.",
+    "desc_smelter": "Produce Mineral de Mejora, usado en la Fabrica de Equipo para mejorar equipo de heroe. Niveles mas altos = mas mineral/hora. Fundiciones extra desbloqueadas via investigacion de Economia.",
+    "desc_material workshop": "Produce Tornillos -- el material base de fabricacion usado en la Fabrica de Equipo para crear componentes de equipo (canones, escudos, chips, radar). Niveles mas altos = mas tornillos/hora. Talleres extra desbloqueados via investigacion de Economia.",
+    "desc_oil well": "Produce petroleo, el recurso principal para mejoras de CG 31-35. El petroleo ES el cuello de botella para progresion tardio. Construye el primero inmediatamente cuando se desbloquee!",
+    "desc_food warehouse": "Protege tu comida de ser robada durante ataques enemigos. Niveles mas altos = mas comida protegida. Mejora junto con tu produccion de comida.",
+    "desc_iron warehouse": "Protege tu hierro de ser robado durante ataques enemigos. Niveles mas altos = mas hierro protegido. Mejora junto con tu produccion de hierro.",
+    "desc_coin vault": "Protege tu oro/monedas de ser robadas durante ataques enemigos. Niveles mas altos = mas monedas protegidas. Mejora junto con tu produccion de oro.",
+    "desc_gear factory": "Fabrica equipo de heroe, fusiona materiales (tornillos en modulos refinados, super aleaciones) y desmantela equipo no deseado. Centro de gestion de todo el equipo. Niveles mas altos desbloquean mejor fabricacion de equipo.",
+    "desc_chip lab": "Fabrica chips de habilidad de dron para los slots del Laboratorio de Chips de tu dron. Niveles mas altos desbloquean fabricacion de chips legendarios (UR). Chips clave: Memory Ultra Fission, Gravitational Resonance Armor, Lethal Firestorm.",
+    "desc_component factory": "Produce Cofres de Componentes de Dron Nivel 1 para mejorar equipo de dron (Radar, Motor, Armadura, Misil, Celda de Combustible, Imagen Termica). Niveles mas altos = produccion mas rapida.",
+    "desc_drone parts workshop": "Produce pasivamente Partes de Dron (hasta ~6/dia). Las Partes de Dron se usan cada 5 niveles para mejoras de dron. Edificio de juego tardio desbloqueado a traves de Era del Petroleo.",
+}
+
+
 def load_building_data(path):
     """Load the complete building data JSON."""
     with open(path, 'r', encoding='utf-8') as f:
@@ -724,14 +885,98 @@ def generate_css():
     font-style: italic;
     margin-left: 4px;
   }
+
+  /* Language toggle */
+  .lang-toggle {
+    display: inline-flex;
+    gap: 0;
+    border: 1.5px solid var(--teal);
+    border-radius: 5px;
+    overflow: hidden;
+    margin-left: 8px;
+    flex-shrink: 0;
+  }
+  .lang-btn {
+    padding: 3px 10px;
+    font-size: 12px;
+    font-weight: 700;
+    border: none;
+    background: #fff;
+    color: var(--dark);
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+  .lang-btn.active {
+    background: var(--teal);
+    color: #fff;
+  }
+  .lang-btn:hover:not(.active) {
+    background: #e8f4f1;
+  }
 </style>'''
 
 
 def generate_js():
+    import json as _json
+    translations_json = _json.dumps(TRANSLATIONS_ES, ensure_ascii=False, separators=(',', ':'))
     return r'''
 /* ========================================
    BUILDING PROGRESSION PLANNER - CORE JS
    ======================================== */
+
+/* ---------- i18n SYSTEM ---------- */
+const LS_LANG_KEY = 'owow-building-planner-lang';
+var T = { es: ''' + translations_json + r''' };
+var currentLang = 'en';
+
+function t(key, fallback) {
+    if (currentLang === 'es' && T.es[key]) return T.es[key];
+    return fallback !== undefined ? fallback : key;
+}
+
+function setLang(lang) {
+    currentLang = lang;
+    try { localStorage.setItem(LS_LANG_KEY, lang); } catch(e) {}
+    var root = document.getElementById('htmlRoot');
+    if (root) root.setAttribute('lang', lang);
+    // Update toggle buttons
+    document.getElementById('langEN').classList.toggle('active', lang === 'en');
+    document.getElementById('langES').classList.toggle('active', lang === 'es');
+    // Swap all data-i18n static elements
+    var els = document.querySelectorAll('[data-i18n]');
+    for (var i = 0; i < els.length; i++) {
+        var key = els[i].getAttribute('data-i18n');
+        els[i].textContent = t(key, key);
+    }
+    // Re-render dynamic sections
+    refreshUI();
+}
+
+function refreshUI() {
+    renderBuildingTracker();
+    recalcAll();
+    updateSpeedupDisplay();
+}
+
+function loadLang() {
+    try {
+        var saved = localStorage.getItem(LS_LANG_KEY);
+        if (saved === 'es' || saved === 'en') {
+            currentLang = saved;
+            document.getElementById('langEN').classList.toggle('active', saved === 'en');
+            document.getElementById('langES').classList.toggle('active', saved === 'es');
+            var root = document.getElementById('htmlRoot');
+            if (root) root.setAttribute('lang', saved);
+            if (saved === 'es') {
+                var els = document.querySelectorAll('[data-i18n]');
+                for (var i = 0; i < els.length; i++) {
+                    var key = els[i].getAttribute('data-i18n');
+                    els[i].textContent = t(key, key);
+                }
+            }
+        }
+    } catch(e) {}
+}
 
 const LS_KEY = 'owow-building-planner';
 const buildings = BUILDING_DATA.buildings;
@@ -873,6 +1118,9 @@ function getInstanceDisplayName(buildingKey, instanceNum) {
 
 /* ---------- INIT ---------- */
 function init() {
+    // Load language preference first
+    loadLang();
+
     // Init state with 0 for all buildings (including multi-instance)
     for (const bName of Object.keys(buildings)) {
         state[bName] = 0;
@@ -1009,7 +1257,7 @@ function renderBuildingTracker() {
 
         catDiv.innerHTML =
             '<div class="category-header" onclick="toggleCategory(this)">' +
-                '<span class="cat-name">' + catName + '</span>' +
+                '<span class="cat-name">' + t(catName, catName) + '</span>' +
                 '<span class="cat-info">' +
                     '<span class="cat-progress" id="cat-prog-' + catId + '">' + reqCount.met + '/' + reqCount.total + '</span>' +
                     '<span class="cat-arrow">&#9654;</span>' +
@@ -1127,7 +1375,7 @@ function toggleBuildingDetail(instanceKey) {
     var currentLevel = state[instanceKey] || 0;
 
     if (currentLevel >= bData.levels.length) {
-        el.innerHTML = '<div style="padding:4px;color:var(--green);font-weight:700;">MAXED!</div>';
+        el.innerHTML = '<div style="padding:4px;color:var(--green);font-weight:700;">' + t('MAXED!', 'MAXED!') + '</div>';
     } else {
         var nextLvl = bData.levels[currentLevel];
         var power = nextLvl.power || '?';
@@ -1137,12 +1385,12 @@ function toggleBuildingDetail(instanceKey) {
         var time = nextLvl.time || '?';
 
         el.innerHTML =
-            '<div style="font-weight:700;margin-bottom:4px;color:var(--dark);">Next: Level ' + (currentLevel + 1) + '</div>' +
-            '<div class="stat-row"><span>Food:</span><span>' + food + '</span></div>' +
-            '<div class="stat-row"><span>Iron:</span><span>' + iron + '</span></div>' +
-            '<div class="stat-row"><span>Gold:</span><span>' + gold + '</span></div>' +
-            '<div class="stat-row"><span>Time:</span><span>' + time + '</span></div>' +
-            '<div class="stat-row"><span>Power:</span><span>+' + fN(power) + '</span></div>';
+            '<div style="font-weight:700;margin-bottom:4px;color:var(--dark);">' + t('Next: Level', 'Next: Level') + ' ' + (currentLevel + 1) + '</div>' +
+            '<div class="stat-row"><span>' + t('Food', 'Food') + ':</span><span>' + food + '</span></div>' +
+            '<div class="stat-row"><span>' + t('Iron', 'Iron') + ':</span><span>' + iron + '</span></div>' +
+            '<div class="stat-row"><span>' + t('Gold', 'Gold') + ':</span><span>' + gold + '</span></div>' +
+            '<div class="stat-row"><span>' + t('Time', 'Time') + ':</span><span>' + time + '</span></div>' +
+            '<div class="stat-row"><span>' + t('Power', 'Power') + ':</span><span>+' + fN(power) + '</span></div>';
     }
 
     el.classList.add('show');
@@ -1278,28 +1526,28 @@ function updateStatusDots() {
         var mi = MULTI_INSTANCE[baseKey];
         if (mi && mi.unlockHQ[instNum - 1] > (state['headquarters'] || 0)) {
             dot.classList.add('status-gray');
-            dot.title = 'Locked until HQ ' + mi.unlockHQ[instNum - 1];
+            dot.title = t('Locked until HQ', 'Locked until HQ') + ' ' + mi.unlockHQ[instNum - 1];
             continue;
         }
 
         if (requiredLvl > 0) {
             if (currentLvl >= requiredLvl) {
                 dot.classList.add('status-green');
-                dot.title = 'Meets HQ ' + targetHQ + ' requirement (needs Lv.' + requiredLvl + ')';
+                dot.title = t('Meets HQ', 'Meets HQ') + ' ' + targetHQ + ' ' + t('requirement', 'requirement') + ' (' + t('needs Lv.', 'needs Lv.') + requiredLvl + ')';
             } else if (anyMet) {
-                // Another instance meets it — show gray-green
+                // Another instance meets it
                 dot.classList.add('status-gray');
-                dot.title = 'Another instance meets Lv.' + requiredLvl + ' for HQ ' + targetHQ;
+                dot.title = t('Another instance meets Lv.', 'Another instance meets Lv.') + requiredLvl + ' ' + t('for HQ', 'for HQ') + ' ' + targetHQ;
             } else if (currentLvl > 0) {
                 dot.classList.add('status-orange');
-                dot.title = 'Needs Lv.' + requiredLvl + ' for HQ ' + targetHQ + ' (currently Lv.' + currentLvl + ')';
+                dot.title = t('needs Lv.', 'Needs Lv.') + requiredLvl + ' ' + t('for HQ', 'for HQ') + ' ' + targetHQ + ' (' + t('currently Lv.', 'currently Lv.') + currentLvl + ')';
             } else {
                 dot.classList.add('status-red');
-                dot.title = 'Needs Lv.' + requiredLvl + ' for HQ ' + targetHQ + ' (not started!)';
+                dot.title = t('needs Lv.', 'Needs Lv.') + requiredLvl + ' ' + t('for HQ', 'for HQ') + ' ' + targetHQ + ' (' + t('not started!', 'not started!') + ')';
             }
         } else {
             dot.classList.add('status-gray');
-            dot.title = 'Not required for target HQ';
+            dot.title = t('Not required for target HQ', 'Not required for target HQ');
         }
     }
 }
@@ -1382,7 +1630,7 @@ function computeCheapestPath() {
     var targetHQ = parseInt(document.getElementById('targetHQ').value) || 1;
 
     if (targetHQ <= currentHQ) {
-        container.innerHTML = '<div style="padding:20px;text-align:center;color:#888;">Target HQ must be higher than current HQ.</div>';
+        container.innerHTML = '<div style="padding:20px;text-align:center;color:#888;">' + t('Target HQ must be higher than current HQ.', 'Target HQ must be higher than current HQ.') + '</div>';
         return;
     }
 
@@ -1521,7 +1769,7 @@ function computeFastestPath() {
     var speedBonus = VIP_SPEED[vipLvl] || 0;
 
     if (targetHQ <= currentHQ) {
-        container.innerHTML = '<div style="padding:20px;text-align:center;color:#888;">Target HQ must be higher than current HQ.</div>';
+        container.innerHTML = '<div style="padding:20px;text-align:center;color:#888;">' + t('Target HQ must be higher than current HQ.', 'Target HQ must be higher than current HQ.') + '</div>';
         return;
     }
 
@@ -1695,7 +1943,7 @@ function computePowerROI() {
 /* ---------- RENDER STEPS ---------- */
 function renderSteps(container, steps, mode, totalParallelTime) {
     if (steps.length === 0) {
-        container.innerHTML = '<div style="padding:20px;text-align:center;color:var(--green);font-weight:700;">All requirements met! Ready to upgrade.</div>';
+        container.innerHTML = '<div style="padding:20px;text-align:center;color:var(--green);font-weight:700;">' + t('All requirements met! Ready to upgrade.', 'All requirements met! Ready to upgrade.') + '</div>';
         return;
     }
 
@@ -1706,8 +1954,8 @@ function renderSteps(container, steps, mode, totalParallelTime) {
         var step = steps[i];
         var typeClass = step.type === 'hq' ? 'hq-upgrade' : 'required';
         var badgeClass = step.type === 'hq' ? 'badge-hq' : 'badge-req';
-        var badgeText = step.type === 'hq' ? 'HQ' : 'REQ HQ' + step.forHQ;
-        var choiceNote = step.isChoice ? '<div style="font-size:11px;color:#888;margin-top:4px;">Cheapest of: ' + (step.choices || []).join(', ') + '</div>' : '';
+        var badgeText = step.type === 'hq' ? t('HQ', 'HQ') : t('REQ', 'REQ') + ' ' + t('HQ', 'HQ') + step.forHQ;
+        var choiceNote = step.isChoice ? '<div style="font-size:11px;color:#888;margin-top:4px;">' + t('Cheapest of:', 'Cheapest of:') + ' ' + (step.choices || []).join(', ') + '</div>' : '';
 
         html += '<div class="upgrade-step ' + typeClass + '">' +
             '<div class="step-header">' +
@@ -1715,11 +1963,11 @@ function renderSteps(container, steps, mode, totalParallelTime) {
                 '<span class="step-badge ' + badgeClass + '">' + badgeText + '</span>' +
             '</div>' +
             '<div class="step-stats">' +
-                '<span>Food: ' + fN(step.cost.food) + '</span>' +
-                '<span>Iron: ' + fN(step.cost.iron) + '</span>' +
-                '<span>Gold: ' + fN(step.cost.gold) + '</span>' +
-                '<span>Time: ' + formatTime(step.cost.time) + '</span>' +
-                '<span>Power: +' + fN(step.cost.power) + '</span>' +
+                '<span>' + t('Food', 'Food') + ': ' + fN(step.cost.food) + '</span>' +
+                '<span>' + t('Iron', 'Iron') + ': ' + fN(step.cost.iron) + '</span>' +
+                '<span>' + t('Gold', 'Gold') + ': ' + fN(step.cost.gold) + '</span>' +
+                '<span>' + t('Time', 'Time') + ': ' + formatTime(step.cost.time) + '</span>' +
+                '<span>' + t('Power', 'Power') + ': +' + fN(step.cost.power) + '</span>' +
             '</div>' +
             choiceNote +
         '</div>';
@@ -1732,10 +1980,10 @@ function renderSteps(container, steps, mode, totalParallelTime) {
     }
 
     var displayTime = totalTime;
-    var timeLabel = '(sequential)';
+    var timeLabel = t('(sequential)', '(sequential)');
     if (mode === 'fastest' && totalParallelTime) {
         displayTime = totalParallelTime;
-        timeLabel = '(with parallel builders)';
+        timeLabel = t('(with parallel builders)', '(with parallel builders)');
     }
 
     // Apply speedups to display time
@@ -1744,25 +1992,25 @@ function renderSteps(container, steps, mode, totalParallelTime) {
     var hasSpeedups = speedupTotal > 0;
 
     html += '<div class="summary-box">' +
-        '<h4>Total ' + timeLabel + '</h4>' +
-        '<div class="summary-row"><span>Food:</span><span>' + fN(totalFood) + '</span></div>' +
-        '<div class="summary-row"><span>Iron:</span><span>' + fN(totalIron) + '</span></div>' +
-        '<div class="summary-row"><span>Gold:</span><span>' + fN(totalGold) + '</span></div>' +
-        '<div class="summary-row"><span>Build Time:</span><span>' + formatTime(displayTime) + ' ' + timeLabel + '</span></div>';
+        '<h4>' + t('Total', 'Total') + ' ' + timeLabel + '</h4>' +
+        '<div class="summary-row"><span>' + t('Food:', 'Food:') + '</span><span>' + fN(totalFood) + '</span></div>' +
+        '<div class="summary-row"><span>' + t('Iron:', 'Iron:') + '</span><span>' + fN(totalIron) + '</span></div>' +
+        '<div class="summary-row"><span>' + t('Gold:', 'Gold:') + '</span><span>' + fN(totalGold) + '</span></div>' +
+        '<div class="summary-row"><span>' + t('Build Time:', 'Build Time:') + '</span><span>' + formatTime(displayTime) + ' ' + timeLabel + '</span></div>';
 
     if (hasSpeedups) {
         html +=
-            '<div class="summary-row" style="color:var(--cyan);font-weight:700;"><span>After Speedups:</span><span>' + formatTime(speedupResult.remainingTime) + '</span></div>' +
-            '<div class="summary-row" style="font-size:11px;color:#888;"><span>Speedups Used:</span><span>' + formatSpeedupsUsed(speedupResult.used) + '</span></div>';
+            '<div class="summary-row" style="color:var(--cyan);font-weight:700;"><span>' + t('After Speedups:', 'After Speedups:') + '</span><span>' + formatTime(speedupResult.remainingTime) + '</span></div>' +
+            '<div class="summary-row" style="font-size:11px;color:#888;"><span>' + t('Speedups Used:', 'Speedups Used:') + '</span><span>' + formatSpeedupsUsed(speedupResult.used) + '</span></div>';
         var remSp = getRemainingSpeedups(speedupResult.used);
         var remTotal = 0;
         for (var ri = 0; ri < SPEEDUP_TYPES.length; ri++) remTotal += (remSp[SPEEDUP_TYPES[ri].key] || 0) * SPEEDUP_TYPES[ri].secs;
         if (remTotal > 0) {
-            html += '<div class="summary-row" style="font-size:11px;color:#888;"><span>Remaining Speedups:</span><span>' + formatTime(remTotal) + '</span></div>';
+            html += '<div class="summary-row" style="font-size:11px;color:#888;"><span>' + t('Remaining Speedups:', 'Remaining Speedups:') + '</span><span>' + formatTime(remTotal) + '</span></div>';
         }
     }
 
-    html += '<div class="summary-row"><span>Power:</span><span>+' + fN(totalPower) + '</span></div>' +
+    html += '<div class="summary-row"><span>' + t('Power:', 'Power:') + '</span><span>+' + fN(totalPower) + '</span></div>' +
     '</div>';
 
     container.innerHTML = html;
@@ -1770,16 +2018,16 @@ function renderSteps(container, steps, mode, totalParallelTime) {
 
 function renderROISteps(container, steps) {
     if (steps.length === 0) {
-        container.innerHTML = '<div style="padding:20px;text-align:center;color:#888;">All buildings maxed or no power data available.</div>';
+        container.innerHTML = '<div style="padding:20px;text-align:center;color:#888;">' + t('All buildings maxed or no power data available.', 'All buildings maxed or no power data available.') + '</div>';
         return;
     }
 
-    var html = '<div style="font-size:12px;color:#888;margin-bottom:8px;">Ranked by power gained per resource spent. Required buildings for target HQ shown first.</div>';
+    var html = '<div style="font-size:12px;color:#888;margin-bottom:8px;">' + t('Ranked by power gained per resource spent. Required buildings for target HQ shown first.', 'Ranked by power gained per resource spent. Required buildings for target HQ shown first.') + '</div>';
 
     for (var i = 0; i < steps.length; i++) {
         var step = steps[i];
         var badgeClass = step.isRequired ? 'badge-req' : 'badge-roi';
-        var badgeText = step.isRequired ? 'REQUIRED' : 'ROI';
+        var badgeText = step.isRequired ? t('REQUIRED', 'REQUIRED') : t('ROI', 'ROI');
         var typeClass = step.isRequired ? 'required' : '';
 
         html += '<div class="upgrade-step ' + typeClass + '">' +
@@ -1788,11 +2036,11 @@ function renderROISteps(container, steps) {
                 '<span class="step-badge ' + badgeClass + '">' + badgeText + '</span>' +
             '</div>' +
             '<div class="step-stats">' +
-                '<span style="color:var(--teal);font-weight:700;">ROI: ' + fN(step.efficiency) + '</span>' +
-                '<span>Power: +' + fN(step.cost.power) + '</span>' +
-                '<span>Food: ' + fN(step.cost.food) + '</span>' +
-                '<span>Iron: ' + fN(step.cost.iron) + '</span>' +
-                '<span>Gold: ' + fN(step.cost.gold) + '</span>' +
+                '<span style="color:var(--teal);font-weight:700;">' + t('ROI', 'ROI') + ': ' + fN(step.efficiency) + '</span>' +
+                '<span>' + t('Power', 'Power') + ': +' + fN(step.cost.power) + '</span>' +
+                '<span>' + t('Food', 'Food') + ': ' + fN(step.cost.food) + '</span>' +
+                '<span>' + t('Iron', 'Iron') + ': ' + fN(step.cost.iron) + '</span>' +
+                '<span>' + t('Gold', 'Gold') + ': ' + fN(step.cost.gold) + '</span>' +
             '</div>' +
         '</div>';
     }
@@ -1866,7 +2114,7 @@ function exportCSV() {
     a.download = 'building_planner_export.csv';
     a.click();
     URL.revokeObjectURL(url);
-    showToast('CSV exported!');
+    showToast(t('CSV exported!', 'CSV exported!'));
 }
 
 function importCSV(event) {
@@ -1904,7 +2152,7 @@ function importCSV(event) {
         var instanceIdx = header.indexOf('Instance');
 
         if (buildingIdx < 0 || levelIdx < 0) {
-            alert('Invalid CSV format. Need Building and CurrentLevel columns.');
+            alert(t('Invalid CSV format. Need Building and CurrentLevel columns.', 'Invalid CSV format. Need Building and CurrentLevel columns.'));
             return;
         }
 
@@ -1929,7 +2177,7 @@ function importCSV(event) {
         renderBuildingTracker();
         recalcAll();
         saveProgress();
-        showToast('Imported ' + imported + ' buildings!');
+        showToast(t('Imported', 'Imported') + ' ' + imported + ' ' + t('buildings!', 'buildings!'));
     };
     reader.readAsText(file);
     event.target.value = '';
@@ -1965,14 +2213,14 @@ function csvEsc(s) {
 }
 
 function resetAll() {
-    if (!confirm('Reset all building levels and speedups? You can re-import your CSV to restore.')) return;
+    if (!confirm(t('Reset all building levels and speedups? You can re-import your CSV to restore.', 'Reset all building levels and speedups? You can re-import your CSV to restore.'))) return;
     for (var b in state) state[b] = 0;
     for (var k in speedupState) speedupState[k] = 0;
     localStorage.removeItem(LS_KEY);
     renderBuildingTracker();
     loadSpeedupUI();
     recalcAll();
-    showToast('All levels reset.');
+    showToast(t('All levels reset.', 'All levels reset.'));
 }
 
 /* ---------- UTILITY ---------- */
@@ -2031,9 +2279,9 @@ function updateSpeedupDisplay() {
     var h = Math.floor(total / 3600);
     var m = Math.floor((total % 3600) / 60);
     var lbl = document.getElementById('speedupTotalLabel');
-    if (lbl) lbl.textContent = h + 'h ' + m + 'm total';
+    if (lbl) lbl.textContent = h + 'h ' + m + 'm ' + t('Total', 'total').toLowerCase();
     var sum = document.getElementById('speedupSummaryText');
-    if (sum) sum.textContent = 'Total: ' + h + 'h ' + m + 'm (' + formatTime(total) + ')';
+    if (sum) sum.textContent = t('Total', 'Total') + ': ' + h + 'h ' + m + 'm (' + formatTime(total) + ')';
 }
 
 function applySpeedups(totalSeconds) {
@@ -2098,11 +2346,11 @@ function showBuildingInfo(buildingKey) {
     var popup = document.getElementById('infoPopup');
     var overlay = document.getElementById('infoOverlay');
     popup.querySelector('.info-title').textContent = dName;
-    popup.querySelector('.info-desc').textContent = info.desc;
+    popup.querySelector('.info-desc').textContent = t('desc_' + buildingKey, info.desc);
 
-    var metaHtml = '<span><b>Max Level:</b> ' + maxLvl + '</span>' +
-        '<span><b>Instances:</b> ' + info.instances + '</span>' +
-        '<span><b>Unlock:</b> ' + info.unlock + '</span>';
+    var metaHtml = '<span><b>' + t('Max Level:', 'Max Level:') + '</b> ' + maxLvl + '</span>' +
+        '<span><b>' + t('Instances:', 'Instances:') + '</b> ' + info.instances + '</span>' +
+        '<span><b>' + t('Unlock:', 'Unlock:') + '</b> ' + info.unlock + '</span>';
     popup.querySelector('.info-meta').innerHTML = metaHtml;
 
     popup.classList.add('show');
@@ -2123,7 +2371,7 @@ def generate_html(data):
     data_json = json.dumps(data, separators=(',', ':'))
 
     return '''<!DOCTYPE html>
-<html lang="en">
+<html lang="en" id="htmlRoot">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -2152,56 +2400,62 @@ def generate_html(data):
 
 <div class="top-bar">
   <div>
-    <h1>Building Progression Planner</h1>
-    <div class="sub">Last War: Survival</div>
+    <h1 data-i18n="Building Progression Planner">Building Progression Planner</h1>
+    <div class="sub" data-i18n="Last War: Survival">Last War: Survival</div>
   </div>
-  <div class="alliance">
-    <div class="name">[OWOW]</div>
-    <div class="info">Old World Order</div>
+  <div style="display:flex;align-items:center;gap:8px;">
+    <div class="lang-toggle">
+      <button class="lang-btn active" id="langEN" onclick="setLang('en')">EN</button>
+      <button class="lang-btn" id="langES" onclick="setLang('es')">ES</button>
+    </div>
+    <div class="alliance">
+      <div class="name">[OWOW]</div>
+      <div class="info" data-i18n="Old World Order">Old World Order</div>
+    </div>
   </div>
 </div>
 
 <div class="commander-bar">
-  <label>Current HQ: <select id="currentHQ"></select></label>
-  <label>Target HQ: <select id="targetHQ"></select></label>
-  <label>Builders: <input type="number" id="builderCount" min="1" max="5" value="3"></label>
-  <label>VIP Level: <select id="vipLevel"></select></label>
+  <label><span data-i18n="Current HQ:">Current HQ:</span> <select id="currentHQ"></select></label>
+  <label><span data-i18n="Target HQ:">Target HQ:</span> <select id="targetHQ"></select></label>
+  <label><span data-i18n="Builders:">Builders:</span> <input type="number" id="builderCount" min="1" max="5" value="3"></label>
+  <label><span data-i18n="VIP Level:">VIP Level:</span> <select id="vipLevel"></select></label>
 </div>
 
 <div class="speedup-section" id="speedupSection">
   <div class="speedup-toggle" onclick="toggleSpeedups()">
     <span class="arrow">&#9654;</span>
-    <span>Speedup Inventory</span>
+    <span data-i18n="Speedup Inventory">Speedup Inventory</span>
     <span class="total-hours" id="speedupTotalLabel">0h total</span>
   </div>
   <div class="speedup-body">
     <div class="speedup-grid">
       <div class="speedup-field">
-        <label>5 min</label>
+        <label data-i18n="5 min">5 min</label>
         <input type="number" id="sp-m5" min="0" value="0" onchange="onSpeedupChange()" oninput="onSpeedupChange()">
       </div>
       <div class="speedup-field">
-        <label>15 min</label>
+        <label data-i18n="15 min">15 min</label>
         <input type="number" id="sp-m15" min="0" value="0" onchange="onSpeedupChange()" oninput="onSpeedupChange()">
       </div>
       <div class="speedup-field">
-        <label>30 min</label>
+        <label data-i18n="30 min">30 min</label>
         <input type="number" id="sp-m30" min="0" value="0" onchange="onSpeedupChange()" oninput="onSpeedupChange()">
       </div>
       <div class="speedup-field">
-        <label>1 hour</label>
+        <label data-i18n="1 hour">1 hour</label>
         <input type="number" id="sp-h1" min="0" value="0" onchange="onSpeedupChange()" oninput="onSpeedupChange()">
       </div>
       <div class="speedup-field">
-        <label>3 hour</label>
+        <label data-i18n="3 hour">3 hour</label>
         <input type="number" id="sp-h3" min="0" value="0" onchange="onSpeedupChange()" oninput="onSpeedupChange()">
       </div>
       <div class="speedup-field">
-        <label>8 hour</label>
+        <label data-i18n="8 hour">8 hour</label>
         <input type="number" id="sp-h8" min="0" value="0" onchange="onSpeedupChange()" oninput="onSpeedupChange()">
       </div>
       <div class="speedup-field">
-        <label>24 hour</label>
+        <label data-i18n="24 hour">24 hour</label>
         <input type="number" id="sp-h24" min="0" value="0" onchange="onSpeedupChange()" oninput="onSpeedupChange()">
       </div>
     </div>
@@ -2214,43 +2468,43 @@ def generate_html(data):
 
 <div class="power-dashboard">
   <div class="power-card pc-current">
-    <div class="label">Current Power</div>
+    <div class="label" data-i18n="Current Power">Current Power</div>
     <div class="value" id="currentPower">0</div>
   </div>
   <div class="power-card pc-target">
-    <div class="label">Target Power</div>
+    <div class="label" data-i18n="Target Power">Target Power</div>
     <div class="value" id="targetPower">0</div>
   </div>
   <div class="power-card pc-needed">
-    <div class="label">Power Needed</div>
+    <div class="label" data-i18n="Power Needed">Power Needed</div>
     <div class="value" id="neededPower">0</div>
   </div>
 </div>
 
-<div class="section-label">Your Buildings</div>
+<div class="section-label" data-i18n="Your Buildings">Your Buildings</div>
 <div id="buildingTracker"></div>
 
-<div class="section-label">Upgrade Path</div>
+<div class="section-label" data-i18n="Upgrade Path">Upgrade Path</div>
 <div class="tab-bar">
-  <button class="tab-btn active" data-tab="cheapest">Cheapest</button>
-  <button class="tab-btn" data-tab="fastest">Fastest</button>
-  <button class="tab-btn" data-tab="powerroi">Power ROI</button>
+  <button class="tab-btn active" data-tab="cheapest" data-i18n="Cheapest">Cheapest</button>
+  <button class="tab-btn" data-tab="fastest" data-i18n="Fastest">Fastest</button>
+  <button class="tab-btn" data-tab="powerroi" data-i18n="Power ROI">Power ROI</button>
 </div>
 <div id="tab-cheapest" class="tab-content active"></div>
 <div id="tab-fastest" class="tab-content"></div>
 <div id="tab-powerroi" class="tab-content"></div>
 
 <div class="action-bar">
-  <button class="action-btn btn-export" onclick="exportCSV()">Export CSV</button>
-  <button class="action-btn btn-import" onclick="document.getElementById('csvFileInput').click()">Import CSV</button>
+  <button class="action-btn btn-export" onclick="exportCSV()" data-i18n="Export CSV">Export CSV</button>
+  <button class="action-btn btn-import" onclick="document.getElementById('csvFileInput').click()" data-i18n="Import CSV">Import CSV</button>
   <input type="file" id="csvFileInput" accept=".csv" onchange="importCSV(event)">
-  <button class="action-btn btn-reset" onclick="resetAll()">Reset</button>
-  <a class="action-btn btn-ai" href="ai_building_advisor_prompt.md" download>AI Advisor</a>
+  <button class="action-btn btn-reset" onclick="resetAll()" data-i18n="Reset">Reset</button>
+  <a class="action-btn btn-ai" href="ai_building_advisor_prompt.md" download data-i18n="AI Advisor">AI Advisor</a>
 </div>
 
 <div class="footer">
-  <div class="tagline">Kristen OWOW SKYNET. Ready for Judgment Day.</div>
-  <div>Building data from <a href="https://cpt-hedge.com" style="color:var(--cyan);">cpt-hedge.com</a></div>
+  <div class="tagline" data-i18n="Kristen OWOW SKYNET. Ready for Judgment Day.">Kristen OWOW SKYNET. Ready for Judgment Day.</div>
+  <div><span data-i18n="Building data from">Building data from</span> <a href="https://cpt-hedge.com" style="color:var(--cyan);">cpt-hedge.com</a></div>
 </div>
 
 <div class="info-overlay" id="infoOverlay" onclick="closeBuildingInfo()"></div>

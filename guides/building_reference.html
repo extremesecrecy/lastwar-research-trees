@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" id="htmlRoot">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -251,6 +251,21 @@
     padding-right: 12px;
     border-right: 1px solid #7fb3a8;
   }
+
+  /* Language Toggle */
+  .lang-toggle {
+    display: inline-flex; align-items: center; gap: 4px;
+    background: #f0f5f4; border: 2px solid #7fb3a8; border-radius: 20px;
+    padding: 2px 4px; cursor: pointer; font-family: 'Segoe UI', sans-serif;
+    font-size: 12px; font-weight: 700; user-select: none;
+  }
+  .lang-btn {
+    padding: 2px 10px; border-radius: 16px; border: none; cursor: pointer;
+    font-size: 12px; font-weight: 700; background: transparent; color: #888;
+    transition: all 0.2s;
+  }
+  .lang-btn.active { background: #5a6a6a; color: #fff; }
+  .lang-btn:hover:not(.active) { color: #5a6a6a; }
 </style>
 </head>
 <body>
@@ -276,10 +291,16 @@
 <!-- HEADER -->
 <div class="top-bar">
   <div>
-    <h1>Base Building Reference</h1>
-    <div class="sub">HQ Requirements, Costs & Building Guides -- All Levels 1-35</div>
+    <h1 data-i18n="title">Base Building Reference</h1>
+    <div class="sub" data-i18n="subtitle">HQ Requirements, Costs & Building Guides -- All Levels 1-35</div>
   </div>
-  <img src="skynet_logo.png" alt="OWOW SKYNET" style="height:60px;">
+  <div style="display:flex;align-items:center;gap:10px;">
+    <div class="lang-toggle">
+      <button class="lang-btn active" onclick="setLang('en')">EN</button>
+      <button class="lang-btn" onclick="setLang('es')">ES</button>
+    </div>
+    <img src="skynet_logo.png" alt="OWOW SKYNET" style="height:60px;">
+  </div>
   <div class="alliance">
     <div class="name">[OWOW] Old World Order</div>
     <div class="info">Last War: Survival</div>
@@ -291,11 +312,11 @@
 
   <!-- COLUMN 1: HQ REQUIREMENTS -->
   <div class="col">
-    <div class="section-label">HQ Requirements -- What You Need to Upgrade</div>
+    <div class="section-label" data-i18n="sec_hq_req">HQ Requirements -- What You Need to Upgrade</div>
     <div class="tbl-auto">
       <table class="bldg">
         <thead>
-          <tr><th>HQ</th><th>Prereq 1</th><th>Prereq 2+</th><th>Hero Cap</th></tr>
+          <tr><th>HQ</th><th data-i18n="th_prereq1">Prereq 1</th><th data-i18n="th_prereq2">Prereq 2+</th><th data-i18n="th_hero_cap">Hero Cap</th></tr>
         </thead>
         <tbody>
 <tr><td class="col-level">1</td><td>—</td><td>—</td><td>4</td></tr>
@@ -337,28 +358,26 @@
       </table>
     </div>
     <div class="card c-low" style="flex-shrink:0;">
-      <div class="card-title ct-dark">Legend</div>
+      <div class="card-title ct-dark" data-i18n="legend_title">Legend</div>
       <div style="font-size:12px;display:flex;gap:10px;flex-wrap:wrap;">
-        <span><b>TC</b> = Tech Center</span>
-        <span><b>ALC</b> = Alliance Center</span>
-        <span><b>(A/T/M)C</b> = Aircraft, Tank, or Missile Center</span>
-        <span><b>Hosp</b> = Hospital</span>
-        <span><b>Barr</b> = Barracks</span>
-        <span><b>DG</b> = Drill Ground</span>
+        <span><b>TC</b> = <span data-i18n="leg_tc">Tech Center</span></span>
+        <span><b>ALC</b> = <span data-i18n="leg_alc">Alliance Center</span></span>
+        <span><b>(A/T/M)C</b> = <span data-i18n="leg_atmc">Aircraft, Tank, or Missile Center</span></span>
+        <span><b>Hosp</b> = <span data-i18n="leg_hosp">Hospital</span></span>
+        <span><b>Barr</b> = <span data-i18n="leg_barr">Barracks</span></span>
+        <span><b>DG</b> = <span data-i18n="leg_dg">Drill Ground</span></span>
       </div>
     </div>
     <div class="card c-teal" style="flex-shrink:0;">
-      <div class="card-title ct-teal">Requirement Patterns</div>
-      <div style="font-size:12px;">
-        <b>TC</b> required at EVERY level from HQ 8+<br>
+      <div class="card-title ct-teal" data-i18n="patterns_title">Requirement Patterns</div>
+      <div style="font-size:12px;" data-i18n="patterns_body"><b>TC</b> required at EVERY level from HQ 8+<br>
         <b>2nd prereq rotates (8-level cycle):</b> ALC - (A/T/M)C - Hosp - Wall - Barr - (A/T/M)C - DG - Wall<br>
         <b>(A/T/M)C</b> = any 1 of the 3 military centers qualifies<br>
         <b>HQ 31+</b> needs 3-5 buildings simultaneously<br>
-        <b>Hero Cap</b> = HQ x 5 - 1
-      </div>
+        <b>Hero Cap</b> = HQ x 5 - 1</div>
     </div>
     <div class="card c-high" style="flex-shrink:0;">
-      <div class="card-title ct-orange">Troop Tier Unlocks (Barracks Level)</div>
+      <div class="card-title ct-orange" data-i18n="troop_tier_title">Troop Tier Unlocks (Barracks Level)</div>
       <div style="font-size:12px;">
         Lv 14 = <span class="tag t-cyan">T5</span> |
         Lv 17 = <span class="tag t-cyan">T6</span> |
@@ -372,11 +391,11 @@
 
   <!-- COLUMN 2: HQ COSTS + MILITARY CENTERS -->
   <div class="col">
-    <div class="section-label">HQ Upgrade Costs & Build Times</div>
+    <div class="section-label" data-i18n="sec_hq_costs">HQ Upgrade Costs & Build Times</div>
     <div class="tbl-auto">
       <table class="bldg">
         <thead>
-          <tr><th>HQ</th><th>Food</th><th>Iron</th><th>Gold</th><th>Time</th></tr>
+          <tr><th>HQ</th><th data-i18n="th_food">Food</th><th data-i18n="th_iron">Iron</th><th data-i18n="th_gold">Gold</th><th data-i18n="th_time">Time</th></tr>
         </thead>
         <tbody>
 <tr><td class="col-level">1</td><td>—</td><td>—</td><td>—</td><td>3s</td></tr>
@@ -418,10 +437,10 @@
       </table>
     </div>
     <div class="card c-med" style="flex-shrink:0;">
-      <div class="card-title ct-cyan">Military Centers (Tank / Aircraft / Missile)</div>
-      <div class="note">All 3 have <b>identical costs and build times</b>. Only need 1 for HQ prereq.</div>
+      <div class="card-title ct-cyan" data-i18n="mil_title">Military Centers (Tank / Aircraft / Missile)</div>
+      <div class="note" data-i18n="mil_note">All 3 have <b>identical costs and build times</b>. Only need 1 for HQ prereq.</div>
       <table class="mil-table">
-        <tr><th>Lv</th><th>Food</th><th>Iron</th><th>Gold</th><th>Time</th><th>Tier</th></tr>
+        <tr><th data-i18n="th_lv">Lv</th><th data-i18n="th_food2">Food</th><th data-i18n="th_iron2">Iron</th><th data-i18n="th_gold2">Gold</th><th data-i18n="th_time2">Time</th><th data-i18n="th_tier">Tier</th></tr>
         <tr><td><b>14</b></td><td>1M</td><td>4M</td><td>780K</td><td>12h 9m</td><td><span class="tag t-cyan">T5</span></td></tr>
         <tr><td><b>17</b></td><td>4M</td><td>12M</td><td>2M</td><td>1d 9h</td><td><span class="tag t-cyan">T6</span></td></tr>
         <tr><td><b>20</b></td><td>15M</td><td>45M</td><td>10M</td><td>3d 19h</td><td><span class="tag t-cyan">T7</span></td></tr>
@@ -431,31 +450,29 @@
       </table>
     </div>
     <div class="card c-low" style="flex-shrink:0;">
-      <div class="card-title ct-dark">Cost Comparison (Same Level)</div>
-      <div style="font-size:11px;">
-        <b>Cheapest:</b> Drill Ground, Alliance Center (food-heavy, low iron)<br>
+      <div class="card-title ct-dark" data-i18n="cost_comp_title">Cost Comparison (Same Level)</div>
+      <div style="font-size:11px;" data-i18n="cost_comp_body"><b>Cheapest:</b> Drill Ground, Alliance Center (food-heavy, low iron)<br>
         <b>Moderate:</b> Hospital, Barracks, Tech Center<br>
         <b>Most Expensive:</b> HQ, Wall (iron-heavy), Military Centers (iron-heavy)<br>
-        <b>Tip:</b> Wall & Military Ctrs cost iron:food at 3:1 ratio. HQ costs equal food & iron.
-      </div>
+        <b>Tip:</b> Wall & Military Ctrs cost iron:food at 3:1 ratio. HQ costs equal food & iron.</div>
     </div>
   </div>
 
   <!-- COLUMN 3: INDIVIDUAL BUILDING REFERENCES -->
   <div class="col">
-    <div class="section-label">Key Building Reference</div>
+    <div class="section-label" data-i18n="sec_key_bldg">Key Building Reference</div>
     <div class="sub-grid">
 
       <!-- Hospital -->
       <div class="sub-section">
         <div style="font-size:13px;font-weight:800;color:#5a8a7e;">
           Hospital
-          <span class="tag t-teal" style="font-size:9px;">Required HQ 10, 18, 26, 33, 35</span>
+          <span class="tag t-teal" style="font-size:9px;" data-i18n="hosp_req">Required HQ 10, 18, 26, 33, 35</span>
         </div>
-        <div class="note">Stores wounded troops. Higher level = more beds. Upgrade before Enemy Buster!</div>
+        <div class="note" data-i18n="hosp_note">Stores wounded troops. Higher level = more beds. Upgrade before Enemy Buster!</div>
         <div class="tbl-scroll">
           <table class="bldg">
-            <thead><tr><th>Lv</th><th>Food</th><th>Iron</th><th>Gold</th><th>Time</th></tr></thead>
+            <thead><tr><th data-i18n="th_lv3">Lv</th><th data-i18n="th_food3">Food</th><th data-i18n="th_iron3">Iron</th><th data-i18n="th_gold3">Gold</th><th data-i18n="th_time3">Time</th></tr></thead>
             <tbody>
 <tr><td class="col-level">1</td><td>90</td><td>30</td><td>—</td><td>6s</td></tr>
 <tr><td class="col-level">2</td><td>230</td><td>75</td><td>—</td><td>12s</td></tr>
@@ -501,12 +518,12 @@
       <div class="sub-section">
         <div style="font-size:13px;font-weight:800;color:#c47a30;">
           Wall
-          <span class="tag t-ora" style="font-size:9px;">Required HQ 3,5,6,7,11,15,19,23,27,32,34</span>
+          <span class="tag t-ora" style="font-size:9px;" data-i18n="wall_req">Required HQ 3,5,6,7,11,15,19,23,27,32,34</span>
         </div>
-        <div class="note">Defensive durability. <b>IRON-heavy</b> (opposite of most buildings). Required most often!</div>
+        <div class="note" data-i18n="wall_note">Defensive durability. <b>IRON-heavy</b> (opposite of most buildings). Required most often!</div>
         <div class="tbl-scroll">
           <table class="bldg">
-            <thead><tr><th>Lv</th><th>Food</th><th>Iron</th><th>Gold</th><th>Time</th></tr></thead>
+            <thead><tr><th data-i18n="th_lv4">Lv</th><th data-i18n="th_food4">Food</th><th data-i18n="th_iron4">Iron</th><th data-i18n="th_gold4">Gold</th><th data-i18n="th_time4">Time</th></tr></thead>
             <tbody>
 <tr><td class="col-level">1</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
 <tr><td class="col-level">2</td><td>23</td><td>68</td><td>—</td><td>4s</td></tr>
@@ -552,12 +569,12 @@
       <div class="sub-section">
         <div style="font-size:13px;font-weight:800;color:#2a8fa8;">
           Alliance Center
-          <span class="tag t-cyan" style="font-size:9px;">Required HQ 8, 16, 24, 34</span>
+          <span class="tag t-cyan" style="font-size:9px;" data-i18n="alc_req">Required HQ 8, 16, 24, 34</span>
         </div>
-        <div class="note">Help slots, rally capacity, shop access. Lv23 = 16 base helps (+6 Lawyers = 22)</div>
+        <div class="note" data-i18n="alc_note">Help slots, rally capacity, shop access. Lv23 = 16 base helps (+6 Lawyers = 22)</div>
         <div class="tbl-scroll">
           <table class="bldg">
-            <thead><tr><th>Lv</th><th>Food</th><th>Iron</th><th>Gold</th><th>Time</th></tr></thead>
+            <thead><tr><th data-i18n="th_lv5">Lv</th><th data-i18n="th_food5">Food</th><th data-i18n="th_iron5">Iron</th><th data-i18n="th_gold5">Gold</th><th data-i18n="th_time5">Time</th></tr></thead>
             <tbody>
 <tr><td class="col-level">1</td><td>90</td><td>30</td><td>—</td><td>6s</td></tr>
 <tr><td class="col-level">2</td><td>230</td><td>75</td><td>—</td><td>12s</td></tr>
@@ -605,9 +622,69 @@
 </div>
 
 <!-- FOOTER -->
-<div class="footer">
+<div class="footer" data-i18n="footer">
   [OWOW] Old World Order -- Base Building Reference -- Data from cpt-hedge.com -- Build times shown without speed buffs -- (A/T/M)C = any 1 of Aircraft, Tank, or Missile Center -- Kristen OWOW SKYNET
 </div>
 
+<script>
+(function(){
+  const T = { es: {
+    title: 'Referencia de Edificios Base',
+    subtitle: 'Requisitos de HQ, Costos y Guias de Edificios -- Todos los Niveles 1-35',
+    sec_hq_req: 'Requisitos de HQ -- Lo Que Necesitas Para Mejorar',
+    th_prereq1: 'Prereq 1',
+    th_prereq2: 'Prereq 2+',
+    th_hero_cap: 'Limite Heroe',
+    legend_title: 'Leyenda',
+    leg_tc: 'Centro Tecnologico',
+    leg_alc: 'Centro de Alianza',
+    leg_atmc: 'Centro Aereo, Tanque o Misil',
+    leg_hosp: 'Hospital',
+    leg_barr: 'Cuartel',
+    leg_dg: 'Campo de Entrenamiento',
+    patterns_title: 'Patrones de Requisitos',
+    patterns_body: '<b>TC</b> requerido en CADA nivel desde HQ 8+<br><b>2do prereq rota (ciclo de 8 niveles):</b> ALC - (A/T/M)C - Hosp - Wall - Barr - (A/T/M)C - DG - Wall<br><b>(A/T/M)C</b> = cualquiera de los 3 centros militares califica<br><b>HQ 31+</b> necesita 3-5 edificios simultaneamente<br><b>Limite Heroe</b> = HQ x 5 - 1',
+    troop_tier_title: 'Desbloqueo de Tropas por Nivel (Nivel de Cuartel)',
+    sec_hq_costs: 'Costos de Mejora de HQ y Tiempos',
+    th_food: 'Comida', th_iron: 'Hierro', th_gold: 'Oro', th_time: 'Tiempo',
+    th_food2: 'Comida', th_iron2: 'Hierro', th_gold2: 'Oro', th_time2: 'Tiempo', th_lv: 'Nv', th_tier: 'Tier',
+    th_food3: 'Comida', th_iron3: 'Hierro', th_gold3: 'Oro', th_time3: 'Tiempo', th_lv3: 'Nv',
+    th_food4: 'Comida', th_iron4: 'Hierro', th_gold4: 'Oro', th_time4: 'Tiempo', th_lv4: 'Nv',
+    th_food5: 'Comida', th_iron5: 'Hierro', th_gold5: 'Oro', th_time5: 'Tiempo', th_lv5: 'Nv',
+    mil_title: 'Centros Militares (Tanque / Aereo / Misil)',
+    mil_note: 'Los 3 tienen <b>costos y tiempos identicos</b>. Solo necesitas 1 para prereq de HQ.',
+    cost_comp_title: 'Comparacion de Costos (Mismo Nivel)',
+    cost_comp_body: '<b>Mas Barato:</b> Campo de Entrenamiento, Centro de Alianza (mucha comida, poco hierro)<br><b>Moderado:</b> Hospital, Cuartel, Centro Tecnologico<br><b>Mas Caro:</b> HQ, Muralla (mucho hierro), Centros Militares (mucho hierro)<br><b>Tip:</b> Muralla y Centros Militares cuestan hierro:comida en proporcion 3:1. HQ cuesta comida y hierro igual.',
+    sec_key_bldg: 'Referencia de Edificios Clave',
+    hosp_req: 'Requerido HQ 10, 18, 26, 33, 35',
+    hosp_note: 'Almacena tropas heridas. Mayor nivel = mas camas. Mejora antes de Enemy Buster!',
+    wall_req: 'Requerido HQ 3,5,6,7,11,15,19,23,27,32,34',
+    wall_note: 'Durabilidad defensiva. <b>Mucho HIERRO</b> (opuesto a la mayoria). Requerido mas frecuentemente!',
+    alc_req: 'Requerido HQ 8, 16, 24, 34',
+    alc_note: 'Slots de ayuda, capacidad de rally, acceso a tienda. Nv23 = 16 ayudas base (+6 Abogados = 22)',
+    footer: '[OWOW] Old World Order -- Referencia de Edificios Base -- Datos de cpt-hedge.com -- Tiempos sin mejoras de velocidad -- (A/T/M)C = cualquiera de Aereo, Tanque o Centro de Misil -- Kristen OWOW SKYNET'
+  }};
+
+  const originals = {};
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    originals[el.getAttribute('data-i18n')] = el.innerHTML;
+  });
+
+  window.setLang = function(lang) {
+    document.querySelectorAll('[data-i18n]').forEach(el => {
+      const key = el.getAttribute('data-i18n');
+      el.innerHTML = (lang === 'es' && T.es[key]) ? T.es[key] : originals[key];
+    });
+    document.querySelectorAll('.lang-btn').forEach(b => {
+      b.classList.toggle('active', b.textContent === lang.toUpperCase());
+    });
+    document.getElementById('htmlRoot').setAttribute('lang', lang);
+    localStorage.setItem('owow-building-ref-lang', lang);
+  }
+
+  const saved = localStorage.getItem('owow-building-ref-lang');
+  if (saved && saved !== 'en') setLang(saved);
+})();
+</script>
 </body>
 </html>

@@ -16,6 +16,180 @@ from datetime import datetime, timedelta
 SERVER_2013_CREATION = datetime(2025, 12, 14)
 SEASON_LENGTHS = [120, 90, 90, 90, 90, 90]  # Season 0-5 in days
 
+# Spanish translations for all UI strings in the generated HTML
+TRANSLATIONS_ES = {
+    # Day names
+    "Monday": "Lunes",
+    "Tuesday": "Martes",
+    "Wednesday": "Mi\u00e9rcoles",
+    "Thursday": "Jueves",
+    "Friday": "Viernes",
+    "Saturday": "S\u00e1bado",
+    "Sunday": "Domingo",
+    # Short day names (calendar header)
+    "Mon": "Lun",
+    "Tue": "Mar",
+    "Wed": "Mi\u00e9",
+    "Thu": "Jue",
+    "Fri": "Vie",
+    "Sat": "S\u00e1b",
+    "Sun": "Dom",
+    # Month names
+    "January": "Enero",
+    "February": "Febrero",
+    "March": "Marzo",
+    "April": "Abril",
+    "May": "Mayo",
+    "June": "Junio",
+    "July": "Julio",
+    "August": "Agosto",
+    "September": "Septiembre",
+    "October": "Octubre",
+    "November": "Noviembre",
+    "December": "Diciembre",
+    # Short month names
+    "Jan": "Ene",
+    "Feb": "Feb",
+    "Mar": "Mar",
+    "Apr": "Abr",
+    "Jun": "Jun",
+    "Jul": "Jul",
+    "Aug": "Ago",
+    "Sep": "Sep",
+    "Oct": "Oct",
+    "Nov": "Nov",
+    "Dec": "Dic",
+    # Top bar
+    "title": "Calendario de Eventos",
+    "subtitle": "Conoce Tu D\u00eda. Gana Tu Guerra.",
+    # Setup banner
+    "setup_strong": "Configura TU servidor",
+    "setup_text": "Cambia la fecha de creaci\u00f3n abajo para tu servidor. Todos los eventos, fechas y la descarga del calendario se ajustar\u00e1n autom\u00e1ticamente.",
+    # Config bar labels
+    "config_server_created": "Servidor Creado",
+    "config_timezone": "Tu Zona Horaria",
+    "config_reset_hour": "Hora de Reinicio",
+    "config_server_day": "D\u00eda del Servidor",
+    "config_season": "Temporada",
+    # Calendar navigation
+    "btn_today": "Hoy",
+    # Calendar weekday headers
+    "weekday_mon": "Lun",
+    "weekday_tue": "Mar",
+    "weekday_wed": "Mi\u00e9",
+    "weekday_thu": "Jue",
+    "weekday_fri": "Vie",
+    "weekday_sat": "S\u00e1b",
+    "weekday_sun": "Dom",
+    # Sidebar
+    "upcoming_events": "Pr\u00f3ximos Eventos",
+    "legend_title": "Leyenda",
+    "legend_hero": "Desbloqueo de H\u00e9roe",
+    "legend_war": "Guerra / PvP",
+    "legend_alliance": "Evento de Alianza",
+    "legend_weapon": "Arma Exclusiva",
+    "legend_season": "Inicio de Temporada",
+    "legend_event": "Evento General",
+    "download_title": "Descargar Calendario",
+    "ics_desc": "Descarga un archivo .ics personalizado usando TU fecha de servidor, zona horaria y hora de reinicio configuradas arriba.",
+    "ics_btn": "Descargar .ics para Tu Servidor",
+    "subscribe_summary": "URL de Suscripci\u00f3n (solo Servidor #2013)",
+    "subscribe_label": "URL de sincronizaci\u00f3n autom\u00e1tica para miembros de la alianza [OWOW]:",
+    "subscribe_hint": "Pega en Google Calendar &rarr; Otros calendarios &rarr; Desde URL<br>Este archivo est\u00e1tico es solo para el Servidor #2013. Otros servidores: usa el bot\u00f3n de Descarga arriba.",
+    # Day detail panel
+    "detail_what_to_do": "Qu\u00e9 HACER",
+    "detail_what_to_save": "Qu\u00e9 GUARDAR",
+    "detail_special_events": "Eventos Especiales",
+    # Radar tips
+    "radar_collect": "RECOGER",
+    "radar_collect_tip": "misiones de radar acumuladas despu\u00e9s del reinicio de las 6:05 PM!",
+    "radar_stack": "ACUMULAR",
+    "radar_stack_tip": "misiones de radar esta noche (~10 PM) &mdash; \u00a1completa pero NO recojas!",
+    # Priority labels
+    "priority_low": "baja",
+    "priority_medium": "media",
+    "priority_high": "alta",
+    "priority_critical": "cr\u00edtica",
+    "priority_prep": "preparaci\u00f3n",
+    # VS Duel phase names
+    "Radar Training": "Entrenamiento de Radar",
+    "Base Expansion": "Expansi\u00f3n de Base",
+    "Age of Science": "Era de la Ciencia",
+    "Train Heroes": "Entrenar H\u00e9roes",
+    "Total Mobilization": "Movilizaci\u00f3n Total",
+    "Enemy Buster": "Destructor de Enemigos",
+    "PREP DAY (no VS)": "D\u00cdA DE PREPARACI\u00d3N (sin VS)",
+    "PREP": "PREP",
+    # Arms Race phase names
+    "Drone Boost": "Impulso de Dron",
+    "City Building": "Construcci\u00f3n de Ciudad",
+    "Tech Research": "Investigaci\u00f3n Tecnol\u00f3gica",
+    "Hero Advancement": "Avance de H\u00e9roes",
+    "Unit Progression": "Progresi\u00f3n de Unidades",
+    "Recovery / Prep": "Recuperaci\u00f3n / Preparaci\u00f3n",
+    # Upcoming events
+    "no_events_30": "Sin eventos en los pr\u00f3ximos 30 d\u00edas",
+    "badge_today": "HOY",
+    "badge_tomorrow": "MA\u00d1ANA",
+    # Detail meta
+    "server_day": "D\u00eda del Servidor",
+    "prep_day_label": "D\u00cdA DE PREPARACI\u00d3N",
+    "prep_day_suffix": "\u00a1Guarda todo!",
+    # Footer
+    "footer": "[OWOW] Old World Order &mdash; Calendario de Eventos &mdash; Last War: Survival &mdash; Sistema de Comando Kristen",
+    # whatToDo translations (keyed by English text)
+    "todo_mon_1": "Recoger misiones de radar acumuladas (despu\u00e9s del reinicio de las 6:05 PM)",
+    "todo_mon_2": "Gastar toda la energ\u00eda en ataques/reuniones/radar",
+    "todo_mon_3": "Abrir cofres de CHIPS de datos de dron (chips de habilidad para Laboratorio de Chips)",
+    "todo_mon_4": "Usar datos de combate de dron + entrenar partes de dron",
+    "todo_mon_5": "Recoger recursos de minas (casillas de oro = m\u00e1s puntos, territorio de alianza +25%)",
+    "todo_tue_1": "Abrir TODOS los regalos de construcci\u00f3n completada (cajas de regalo)",
+    "todo_tue_2": "Usar TODOS los aceleradores de construcci\u00f3n para terminar mejoras",
+    "todo_tue_3": "Despachar camiones comerciales UR (dorados) \u2014 \u00a1actualiza para Legendarios!",
+    "todo_tue_4": "Iniciar tareas secretas Legendarias",
+    "todo_tue_5": "Usar boletos de reclutamiento de sobrevivientes",
+    "todo_wed_1": "Usar TODOS los aceleradores de investigaci\u00f3n para completar proyectos tecnol\u00f3gicos",
+    "todo_wed_2": "Abrir cofres de COMPONENTES de dron (\u00a1SOLO cuentan hoy!)",
+    "todo_wed_3": "Gastar Insignias de Valor en investigaci\u00f3n de Duelo de Alianza",
+    "todo_wed_4": "Recoger misiones de radar acumuladas (despu\u00e9s de las 6:05 PM)",
+    "todo_wed_5": "Iniciar nueva investigaci\u00f3n \u2192 acelerar \u2192 repetir para m\u00e1ximas completaciones",
+    "todo_thu_1": "Invertir TODA la XP de h\u00e9roe en h\u00e9roes prioritarios",
+    "todo_thu_2": "Usar TODOS los fragmentos de h\u00e9roe (subir estrellas)",
+    "todo_thu_3": "Aplicar TODAS las medallas de habilidad",
+    "todo_thu_4": "Usar fragmentos de arma de h\u00e9roe",
+    "todo_thu_5": "Usar boletos de reclutamiento (Legendario/Nueva Era/Retorno de H\u00e9roe)",
+    "todo_thu_6": "\u00a1La Campa\u00f1a Honorable se reinicia hoy!",
+    "todo_fri_1": "CASCADA: Entrenar T5 \u2192 mejorar T6 \u2192 T7 \u2192 T8 (\u00a1cada nivel = m\u00e1s puntos!)",
+    "todo_fri_2": "\u00a1Usar TODOS los aceleradores de entrenamiento (multiplicador 4x de puntos!)",
+    "todo_fri_3": "Recoger misiones de radar acumuladas (despu\u00e9s de las 6:05 PM)",
+    "todo_fri_4": "Usar aceleradores sobrantes de construcci\u00f3n/investigaci\u00f3n",
+    "todo_fri_5": "Entrenar tantas tandas como sea posible \u2014 \u00a1cada tropa cuenta!",
+    "todo_sat_1": "Comprar escudo de 24hrs (5,000 diamantes) DESPU\u00c9S de atacar",
+    "todo_sat_2": "Explorar objetivos PRIMERO \u2014 encontrar bases con tropas defendiendo",
+    "todo_sat_3": "\u00a1Atacar bases enemigas (coordinarse con la alianza para el momento!)",
+    "todo_sat_4": "Usar aceleradores de curaci\u00f3n para revivir y atacar de nuevo",
+    "todo_sat_5": "Quitar TU formaci\u00f3n defensiva para minimizar p\u00e9rdidas si te atacan",
+    "todo_sat_6": "Atacar a las ~4:05am hora del servidor si es posible (oponentes durmiendo)",
+    "todo_sun_1": "Enviar escuadrones de recolecci\u00f3n programados para regresar DESPU\u00c9S del reinicio del lunes a las 6 PM",
+    "todo_sun_2": "Acumular misiones de radar ~10 PM (completar pero NO recoger)",
+    "todo_sun_3": "Guardar TODOS los aceleradores, XP de h\u00e9roe, fragmentos, medallas \u2014 no tocar NADA",
+    "todo_sun_4": "Revisar tiendas para partes de dron/chips de datos (VIP, Alianza, Campa\u00f1a, Honor)",
+    "todo_sun_5": "Iniciar una mejora de construcci\u00f3n larga para terminar Lun/Mar (\u00a1regalo!)",
+    # whatToSave translations
+    "save_hero_thu": "XP/fragmentos/medallas de h\u00e9roe \u2192 JUEVES",
+    "save_construction_tue": "Aceleradores de construcci\u00f3n \u2192 MARTES",
+    "save_research_wed": "Aceleradores de investigaci\u00f3n \u2192 MI\u00c9RCOLES",
+    "save_training_fri": "Aceleradores de entrenamiento \u2192 VIERNES",
+    "save_drone_comp_wed": "Cofres de COMPONENTES de dron \u2192 MI\u00c9RCOLES",
+    "save_hero_thu2": "XP/fragmentos/medallas de h\u00e9roe \u2192 JUEVES",
+    "save_training_fri2": "Aceleradores de entrenamiento \u2192 VIERNES",
+    "save_training_fri_big": "\u00a1Aceleradores de entrenamiento \u2192 VIERNES (ma\u00f1ana, el gran d\u00eda!)",
+    "save_construction_next_tue": "Aceleradores de construcci\u00f3n \u2192 pr\u00f3ximo MARTES",
+    "save_healing_sat": "Aceleradores de curaci\u00f3n \u2192 S\u00c1BADO",
+    "save_everything_next": "\u00a1Empieza a guardar todo para el ciclo de la pr\u00f3xima semana!",
+    "save_everything_sun": "TODO \u2014 El domingo es pura preparaci\u00f3n, no hay puntos disponibles",
+}
+
 
 def load_timeline(path):
     with open(path, 'r', encoding='utf-8') as f:
@@ -277,8 +451,9 @@ def generate_ics(timeline, server_creation, reset_hour=18):
 
 def generate_html(timeline_json, schedule_json):
     """Generate the full self-contained calendar HTML page."""
+    translations_json = json.dumps(TRANSLATIONS_ES, ensure_ascii=False, separators=(',', ':'))
     return f'''<!DOCTYPE html>
-<html lang="en">
+<html lang="en" id="htmlRoot">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -307,10 +482,14 @@ def generate_html(timeline_json, schedule_json):
 
 <div class="top-bar">
   <div class="left">
-    <h1>Event Calendar</h1>
-    <div class="sub">Know Your Day. Win Your War.</div>
+    <h1 data-i18n="title">Event Calendar</h1>
+    <div class="sub" data-i18n="subtitle">Know Your Day. Win Your War.</div>
   </div>
   <div class="alliance">
+    <div class="lang-toggle">
+      <button class="lang-btn active" id="btnEN" onclick="setLang('en')">EN</button>
+      <button class="lang-btn" id="btnES" onclick="setLang('es')">ES</button>
+    </div>
     <img src="skynet_logo.png" alt="OWOW SKYNET" class="skynet-logo">
     <div class="alliance-text">
       <div class="name">[OWOW]</div>
@@ -322,18 +501,18 @@ def generate_html(timeline_json, schedule_json):
 <div id="setupBanner" class="setup-banner" style="display:none">
   <div class="setup-icon">&#9881;</div>
   <div class="setup-text">
-    <strong>Set up YOUR server</strong> &mdash; Change the creation date below to match your server. All events, dates, and the calendar download will adjust automatically.
+    <strong data-i18n="setup_strong">Set up YOUR server</strong> &mdash; <span data-i18n="setup_text">Change the creation date below to match your server. All events, dates, and the calendar download will adjust automatically.</span>
   </div>
   <button id="dismissSetup" class="setup-dismiss">&times;</button>
 </div>
 
 <div class="config-bar">
   <div class="config-group">
-    <label for="serverDate">Your Server Created</label>
+    <label for="serverDate" data-i18n="config_server_created">Your Server Created</label>
     <input type="date" id="serverDate" value="2025-12-14">
   </div>
   <div class="config-group">
-    <label for="timezone">Your Timezone</label>
+    <label for="timezone" data-i18n="config_timezone">Your Timezone</label>
     <select id="timezone">
       <option value="-12">UTC-12</option>
       <option value="-11">UTC-11</option>
@@ -367,7 +546,7 @@ def generate_html(timeline_json, schedule_json):
     </select>
   </div>
   <div class="config-group">
-    <label for="resetHour">Reset Hour</label>
+    <label for="resetHour" data-i18n="config_reset_hour">Reset Hour</label>
     <select id="resetHour">
       <option value="0">12 AM</option>
       <option value="1">1 AM</option>
@@ -396,11 +575,11 @@ def generate_html(timeline_json, schedule_json):
     </select>
   </div>
   <div class="config-group">
-    <label>Server Day</label>
+    <label data-i18n="config_server_day">Server Day</label>
     <div id="serverDayDisplay" class="server-day-badge">Day --</div>
   </div>
   <div class="config-group">
-    <label>Season</label>
+    <label data-i18n="config_season">Season</label>
     <div id="seasonDisplay" class="season-badge">--</div>
   </div>
 </div>
@@ -411,42 +590,42 @@ def generate_html(timeline_json, schedule_json):
       <button id="prevMonth" class="cal-nav">&larr;</button>
       <h2 id="monthTitle">March 2026</h2>
       <button id="nextMonth" class="cal-nav">&rarr;</button>
-      <button id="todayBtn" class="today-btn">Today</button>
+      <button id="todayBtn" class="today-btn" data-i18n="btn_today">Today</button>
     </div>
     <div class="cal-weekdays">
-      <div>Mon</div><div>Tue</div><div>Wed</div><div>Thu</div><div>Fri</div><div>Sat</div><div>Sun</div>
+      <div data-i18n="weekday_mon">Mon</div><div data-i18n="weekday_tue">Tue</div><div data-i18n="weekday_wed">Wed</div><div data-i18n="weekday_thu">Thu</div><div data-i18n="weekday_fri">Fri</div><div data-i18n="weekday_sat">Sat</div><div data-i18n="weekday_sun">Sun</div>
     </div>
     <div id="calGrid" class="cal-grid"></div>
   </div>
 
   <div class="sidebar">
     <div class="sidebar-section">
-      <h3>Upcoming Events</h3>
+      <h3 data-i18n="upcoming_events">Upcoming Events</h3>
       <div id="upcomingEvents" class="upcoming-list"></div>
     </div>
     <div class="sidebar-section">
-      <h3>Legend</h3>
+      <h3 data-i18n="legend_title">Legend</h3>
       <div class="legend">
-        <div class="legend-item"><span class="dot dot-hero"></span> Hero Unlock</div>
-        <div class="legend-item"><span class="dot dot-war"></span> War / PvP</div>
-        <div class="legend-item"><span class="dot dot-alliance"></span> Alliance Event</div>
-        <div class="legend-item"><span class="dot dot-weapon"></span> Exclusive Weapon</div>
-        <div class="legend-item"><span class="dot dot-season"></span> Season Start</div>
-        <div class="legend-item"><span class="dot dot-event"></span> General Event</div>
+        <div class="legend-item"><span class="dot dot-hero"></span> <span data-i18n="legend_hero">Hero Unlock</span></div>
+        <div class="legend-item"><span class="dot dot-war"></span> <span data-i18n="legend_war">War / PvP</span></div>
+        <div class="legend-item"><span class="dot dot-alliance"></span> <span data-i18n="legend_alliance">Alliance Event</span></div>
+        <div class="legend-item"><span class="dot dot-weapon"></span> <span data-i18n="legend_weapon">Exclusive Weapon</span></div>
+        <div class="legend-item"><span class="dot dot-season"></span> <span data-i18n="legend_season">Season Start</span></div>
+        <div class="legend-item"><span class="dot dot-event"></span> <span data-i18n="legend_event">General Event</span></div>
       </div>
     </div>
     <div class="sidebar-section ics-section">
-      <h3>Download Calendar</h3>
-      <p class="ics-desc">Downloads a personalized .ics file using YOUR server date, timezone, and reset hour settings above.</p>
-      <button id="downloadIcs" class="ics-btn">Download .ics for Your Server</button>
+      <h3 data-i18n="download_title">Download Calendar</h3>
+      <p class="ics-desc" data-i18n="ics_desc">Downloads a personalized .ics file using YOUR server date, timezone, and reset hour settings above.</p>
+      <button id="downloadIcs" class="ics-btn" data-i18n="ics_btn">Download .ics for Your Server</button>
       <details class="subscribe-details">
-        <summary>Subscribe URL (Server #2013 only)</summary>
+        <summary data-i18n="subscribe_summary">Subscribe URL (Server #2013 only)</summary>
         <div class="subscribe-box">
-          <div class="subscribe-label">Auto-sync URL for [OWOW] alliance members:</div>
+          <div class="subscribe-label" data-i18n="subscribe_label">Auto-sync URL for [OWOW] alliance members:</div>
           <input type="text" readonly class="subscribe-url"
             value="https://extremesecrecy.github.io/lastwar-research-trees/guides/lastwar_calendar.ics"
             onclick="this.select()">
-          <div class="subscribe-hint">Paste into Google Calendar &rarr; Other calendars &rarr; From URL<br>This static file is for Server #2013 only. Other servers: use the Download button above.</div>
+          <div class="subscribe-hint" data-i18n="subscribe_hint">Paste into Google Calendar &rarr; Other calendars &rarr; From URL<br>This static file is for Server #2013 only. Other servers: use the Download button above.</div>
         </div>
       </details>
     </div>
@@ -461,11 +640,11 @@ def generate_html(timeline_json, schedule_json):
   </div>
   <div class="detail-body">
     <div class="detail-col">
-      <h4>What To Do</h4>
+      <h4 data-i18n="detail_what_to_do">What To Do</h4>
       <ul id="detailToDo" class="checklist"></ul>
     </div>
     <div class="detail-col">
-      <h4>What To Save</h4>
+      <h4 data-i18n="detail_what_to_save">What To Save</h4>
       <ul id="detailSave" class="savelist"></ul>
     </div>
   </div>
@@ -473,15 +652,53 @@ def generate_html(timeline_json, schedule_json):
   <div id="detailRadar" class="detail-radar"></div>
 </div>
 
+<div class="footer" data-i18n="footer">
+  [OWOW] Old World Order &mdash; Event Calendar &mdash; Last War: Survival &mdash; Kristen Command System
+</div>
+
 <script>
 const TIMELINE_EVENTS = {timeline_json};
 const WEEKLY_SCHEDULE = {schedule_json};
 const SEASON_LENGTHS = [120, 90, 90, 90, 90, 90];
 
+const T = {{ es: {translations_json} }};
+const originals = {{}};
+let currentLang = 'en';
+
+function t(key, fallback) {{
+  if (currentLang === 'es' && T.es[key]) return T.es[key];
+  return fallback;
+}}
+
+function setLang(lang) {{
+  currentLang = lang;
+  document.querySelectorAll('[data-i18n]').forEach(function(el) {{
+    var key = el.getAttribute('data-i18n');
+    if (lang === 'es' && T.es[key]) {{
+      el.innerHTML = T.es[key];
+    }} else if (lang === 'en' && originals[key]) {{
+      el.innerHTML = originals[key];
+    }}
+  }});
+  document.getElementById('btnEN').classList.toggle('active', lang === 'en');
+  document.getElementById('btnES').classList.toggle('active', lang === 'es');
+  document.getElementById('htmlRoot').setAttribute('lang', lang);
+  localStorage.setItem('owow-calendar-lang', lang);
+  render();
+  updateServerDay();
+}}
+
 let currentMonth, currentYear;
 let serverCreation, resetHour;
 
 function init() {{
+  document.querySelectorAll('[data-i18n]').forEach(function(el) {{
+    originals[el.getAttribute('data-i18n')] = el.innerHTML;
+  }});
+  const savedLang = localStorage.getItem('owow-calendar-lang');
+  if (savedLang && savedLang !== 'en') {{
+    currentLang = savedLang;
+  }}
   const saved = localStorage.getItem('owow-calendar-config');
   if (saved) {{
     try {{
@@ -523,6 +740,9 @@ function init() {{
   document.getElementById('serverDate').onchange = () => {{ saveConfig(); loadConfig(); render(); }};
   document.getElementById('timezone').onchange = () => {{ saveConfig(); loadConfig(); render(); }};
   document.getElementById('resetHour').onchange = () => {{ saveConfig(); loadConfig(); render(); }};
+  if (currentLang !== 'en') {{
+    setLang(currentLang);
+  }}
 }}
 
 function saveConfig() {{
@@ -548,7 +768,7 @@ function updateServerDay() {{
   const sc = new Date(serverCreation);
   sc.setHours(0,0,0,0);
   const diff = Math.floor((today - sc) / 86400000) + 1;
-  document.getElementById('serverDayDisplay').textContent = 'Day ' + Math.max(1, diff);
+  document.getElementById('serverDayDisplay').textContent = (currentLang === 'es' ? 'D\u00eda' : 'Day') + ' ' + Math.max(1, diff);
   let cumulative = 0;
   let season = 0;
   for (let s = 0; s < SEASON_LENGTHS.length; s++) {{
@@ -616,9 +836,10 @@ function render() {{
 }}
 
 function renderCalendar() {{
-  const monthNames = ['January','February','March','April','May','June',
+  const monthNamesEN = ['January','February','March','April','May','June',
     'July','August','September','October','November','December'];
-  document.getElementById('monthTitle').textContent = monthNames[currentMonth] + ' ' + currentYear;
+  const monthName = t(monthNamesEN[currentMonth], monthNamesEN[currentMonth]);
+  document.getElementById('monthTitle').textContent = monthName + ' ' + currentYear;
 
   const grid = document.getElementById('calGrid');
   grid.innerHTML = '';
@@ -666,7 +887,7 @@ function renderCalendar() {{
     if (sched && sched.vp > 0) {{
       const phase = document.createElement('div');
       phase.className = 'cell-phase';
-      phase.textContent = sched.vsDuel;
+      phase.textContent = t(sched.vsDuel, sched.vsDuel);
       cell.appendChild(phase);
 
       const vp = document.createElement('div');
@@ -676,7 +897,7 @@ function renderCalendar() {{
     }} else if (sched) {{
       const phase = document.createElement('div');
       phase.className = 'cell-phase prep';
-      phase.textContent = 'PREP';
+      phase.textContent = t('PREP', 'PREP');
       cell.appendChild(phase);
     }}
 
@@ -701,7 +922,7 @@ function renderCalendar() {{
       const radar = document.createElement('div');
       radar.className = 'cell-radar';
       radar.textContent = sched.collectRadar ? '\\ud83d\\udce1' : '\\ud83d\\udce6';
-      radar.title = sched.collectRadar ? 'Collect radar today' : 'Stack radar tonight';
+      radar.title = sched.collectRadar ? t('radar_collect', 'Collect') + ' radar' : t('radar_stack', 'Stack') + ' radar';
       cell.appendChild(radar);
     }}
 
@@ -726,15 +947,16 @@ function renderUpcoming() {{
   }}
   upcoming.sort((a, b) => a.daysAway - b.daysAway);
   if (upcoming.length === 0) {{
-    container.innerHTML = '<div class="upcoming-empty">No events in the next 30 days</div>';
+    container.innerHTML = '<div class="upcoming-empty">' + t('no_events_30', 'No events in the next 30 days') + '</div>';
     return;
   }}
   for (const evt of upcoming.slice(0, 12)) {{
     const item = document.createElement('div');
     item.className = 'upcoming-item type-' + evt.type.replace(/\\s+/g, '-');
-    const dateStr = evt.realDate.toLocaleDateString('en-US', {{ month: 'short', day: 'numeric' }});
-    const badge = evt.daysAway === 0 ? '<span class="badge-today">TODAY</span>'
-      : evt.daysAway === 1 ? '<span class="badge-tomorrow">TOMORROW</span>'
+    const locale = currentLang === 'es' ? 'es' : 'en-US';
+    const dateStr = evt.realDate.toLocaleDateString(locale, {{ month: 'short', day: 'numeric' }});
+    const badge = evt.daysAway === 0 ? '<span class="badge-today">' + t('badge_today', 'TODAY') + '</span>'
+      : evt.daysAway === 1 ? '<span class="badge-tomorrow">' + t('badge_tomorrow', 'TOMORROW') + '</span>'
       : '<span class="badge-days">' + evt.daysAway + 'd</span>';
     item.innerHTML = '<div class="upcoming-top"><span class="dot dot-' + evt.type.replace(/\\s+/g, '-') + '"></span>'
       + '<span class="upcoming-name">' + evt.name + '</span>' + badge + '</div>'
@@ -747,11 +969,13 @@ function showDayDetail(date) {{
   const panel = document.getElementById('dayDetail');
   const sched = getScheduleForDate(date);
   const events = getEventsForDate(date);
-  const dayNames = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
-  const monthNames = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  const dayNamesEN = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+  const monthNamesEN = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  const dayName = t(dayNamesEN[date.getDay()], dayNamesEN[date.getDay()]);
+  const monthName = t(monthNamesEN[date.getMonth()], monthNamesEN[date.getMonth()]);
 
   document.getElementById('detailTitle').textContent =
-    dayNames[date.getDay()] + ', ' + monthNames[date.getMonth()] + ' ' + date.getDate();
+    dayName + ', ' + monthName + ' ' + date.getDate();
 
   const sc = new Date(serverCreation);
   sc.setHours(0,0,0,0);
@@ -759,40 +983,42 @@ function showDayDetail(date) {{
   d2.setHours(0,0,0,0);
   const serverDay = Math.floor((d2 - sc) / 86400000) + 1;
 
-  let meta = 'Server Day ' + serverDay;
+  let meta = t('server_day', 'Server Day') + ' ' + serverDay;
   if (sched && sched.vp > 0) {{
-    meta += ' &middot; <strong>' + sched.armsRace + '</strong> + <strong>' + sched.vsDuel + '</strong>';
+    meta += ' &middot; <strong>' + t(sched.armsRace, sched.armsRace) + '</strong> + <strong>' + t(sched.vsDuel, sched.vsDuel) + '</strong>';
     meta += ' &middot; <span class="vp-inline vp-' + sched.vp + '">' + sched.vp + ' VP</span>';
   }} else if (sched) {{
-    meta += ' &middot; <strong>PREP DAY</strong> &mdash; Save everything!';
+    meta += ' &middot; <strong>' + t('prep_day_label', 'PREP DAY') + '</strong> &mdash; ' + t('prep_day_suffix', 'Save everything!');
   }}
   document.getElementById('detailMeta').innerHTML = meta;
 
   const todoList = document.getElementById('detailToDo');
   todoList.innerHTML = '';
   if (sched) {{
-    for (const item of sched.whatToDo) {{
+    const todoKeys = getTodoKeys(sched.dow);
+    sched.whatToDo.forEach(function(item, i) {{
       const li = document.createElement('li');
-      li.textContent = item;
+      li.textContent = (todoKeys[i] && currentLang === 'es' && T.es[todoKeys[i]]) ? T.es[todoKeys[i]] : item;
       todoList.appendChild(li);
-    }}
+    }});
   }}
 
   const saveList = document.getElementById('detailSave');
   saveList.innerHTML = '';
   if (sched) {{
-    for (const item of sched.whatToSave) {{
+    const saveKeys = getSaveKeys(sched.dow);
+    sched.whatToSave.forEach(function(item, i) {{
       const li = document.createElement('li');
-      li.textContent = item;
+      li.textContent = (saveKeys[i] && currentLang === 'es' && T.es[saveKeys[i]]) ? T.es[saveKeys[i]] : item;
       saveList.appendChild(li);
-    }}
+    }});
   }}
 
   const evtDiv = document.getElementById('detailEvents');
   evtDiv.innerHTML = '';
   if (events.length > 0) {{
     const h4 = document.createElement('h4');
-    h4.textContent = 'Special Events';
+    h4.textContent = t('detail_special_events', 'Special Events');
     evtDiv.appendChild(h4);
     for (const evt of events) {{
       const card = document.createElement('div');
@@ -806,13 +1032,39 @@ function showDayDetail(date) {{
   const radarDiv = document.getElementById('detailRadar');
   radarDiv.innerHTML = '';
   if (sched && sched.collectRadar) {{
-    radarDiv.innerHTML = '<div class="radar-tip collect">\\ud83d\\udce1 <strong>COLLECT</strong> stacked radar missions after 6:05 PM reset!</div>';
+    radarDiv.innerHTML = '<div class="radar-tip collect">\\ud83d\\udce1 <strong>' + t('radar_collect', 'COLLECT') + '</strong> ' + t('radar_collect_tip', 'stacked radar missions after 6:05 PM reset!') + '</div>';
   }} else if (sched && sched.stackRadar) {{
-    radarDiv.innerHTML = '<div class="radar-tip stack">\\ud83d\\udce6 <strong>STACK</strong> radar missions tonight (~10 PM) \\u2014 complete but DON\\\'T collect!</div>';
+    radarDiv.innerHTML = '<div class="radar-tip stack">\\ud83d\\udce6 <strong>' + t('radar_stack', 'STACK') + '</strong> ' + t('radar_stack_tip', 'radar missions tonight (~10 PM) \\u2014 complete but DON\\\'T collect!') + '</div>';
   }}
 
   panel.style.display = 'block';
   panel.scrollIntoView({{ behavior: 'smooth', block: 'nearest' }});
+}}
+
+function getTodoKeys(dow) {{
+  const map = {{
+    1: ['todo_mon_1','todo_mon_2','todo_mon_3','todo_mon_4','todo_mon_5'],
+    2: ['todo_tue_1','todo_tue_2','todo_tue_3','todo_tue_4','todo_tue_5'],
+    3: ['todo_wed_1','todo_wed_2','todo_wed_3','todo_wed_4','todo_wed_5'],
+    4: ['todo_thu_1','todo_thu_2','todo_thu_3','todo_thu_4','todo_thu_5','todo_thu_6'],
+    5: ['todo_fri_1','todo_fri_2','todo_fri_3','todo_fri_4','todo_fri_5'],
+    6: ['todo_sat_1','todo_sat_2','todo_sat_3','todo_sat_4','todo_sat_5','todo_sat_6'],
+    0: ['todo_sun_1','todo_sun_2','todo_sun_3','todo_sun_4','todo_sun_5']
+  }};
+  return map[dow] || [];
+}}
+
+function getSaveKeys(dow) {{
+  const map = {{
+    1: ['save_hero_thu','save_construction_tue','save_research_wed','save_training_fri','save_drone_comp_wed'],
+    2: ['save_research_wed','save_hero_thu2','save_training_fri2','save_drone_comp_wed'],
+    3: ['save_hero_thu','save_training_fri'],
+    4: ['save_training_fri_big','save_construction_next_tue'],
+    5: ['save_healing_sat'],
+    6: ['save_everything_next'],
+    0: ['save_everything_sun']
+  }};
+  return map[dow] || [];
 }}
 
 function downloadIcs() {{
@@ -1183,6 +1435,25 @@ def generate_css():
   .vp-inline.vp-2 { background: rgba(255,255,255,0.3); }
   .vp-inline.vp-3 { background: rgba(255,255,255,0.35); }
   .vp-inline.vp-4 { background: rgba(255,255,255,0.4); }
+
+  /* Language Toggle */
+  .lang-toggle {
+    display: inline-flex; align-items: center; gap: 4px;
+    background: #f0f5f4; border: 2px solid #7fb3a8; border-radius: 20px;
+    padding: 2px 4px; cursor: pointer; font-family: 'Segoe UI', sans-serif;
+    font-size: 12px; font-weight: 700; user-select: none;
+    margin-right: 8px;
+  }
+  .lang-btn {
+    padding: 2px 10px; border-radius: 16px; border: none; cursor: pointer;
+    font-size: 12px; font-weight: 700; background: transparent; color: #888;
+    transition: all 0.2s;
+  }
+  .lang-btn.active { background: #5a6a6a; color: #fff; }
+  .lang-btn:hover:not(.active) { color: #5a6a6a; }
+
+  /* Footer */
+  .footer { text-align: center; font-size: 12px; color: #999; padding: 12px 8px 4px; margin-top: 16px; border-top: 1px solid #e0e0e0; }
 
   /* Responsive */
   @media (max-width: 900px) {

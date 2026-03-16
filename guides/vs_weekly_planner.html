@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" id="htmlRoot">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -393,6 +393,21 @@
       font-size: 11px;
     }
   }
+
+  /* Language Toggle */
+  .lang-toggle {
+    display: inline-flex; align-items: center; gap: 4px;
+    background: #f0f5f4; border: 2px solid #7fb3a8; border-radius: 20px;
+    padding: 2px 4px; cursor: pointer; font-family: 'Segoe UI', sans-serif;
+    font-size: 12px; font-weight: 700; user-select: none;
+  }
+  .lang-btn {
+    padding: 2px 10px; border-radius: 16px; border: none; cursor: pointer;
+    font-size: 12px; font-weight: 700; background: transparent; color: #888;
+    transition: all 0.2s;
+  }
+  .lang-btn.active { background: #5a6a6a; color: #fff; }
+  .lang-btn:hover:not(.active) { color: #5a6a6a; }
 </style>
 </head>
 <body>
@@ -417,136 +432,142 @@
 
 <div class="top-bar">
   <div>
-    <h1>VS Duel Weekly Battle Plan</h1>
-    <div class="sub">Server #2013 | Season 0 | Reset 6:00 PM</div>
+    <h1 data-i18n="title">VS Duel Weekly Battle Plan</h1>
+    <div class="sub" data-i18n="subtitle">Server #2013 | Season 0 | Reset 6:00 PM</div>
     <div class="stats-row">
       <span class="stat-pill">HQ 24</span>
       <span class="stat-pill amber">VIP 13</span>
-      <span class="stat-pill green">Squad 1: COMPLETE</span>
-      <span class="stat-pill green">Squad 2: MAXED</span>
-      <span class="stat-pill">AC 23 + Lawyers = 22 helps</span>
+      <span class="stat-pill green" data-i18n="pill_sq1">Squad 1: COMPLETE</span>
+      <span class="stat-pill green" data-i18n="pill_sq2">Squad 2: MAXED</span>
+      <span class="stat-pill" data-i18n="pill_ac">AC 23 + Lawyers = 22 helps</span>
     </div>
   </div>
-  <img src="skynet_logo.png" alt="OWOW SKYNET" style="height:60px; max-width:300px; object-fit:contain;">
+  <div style="display:flex; flex-direction:column; align-items:center; gap:4px;">
+    <img src="skynet_logo.png" alt="OWOW SKYNET" style="height:60px; max-width:300px; object-fit:contain;">
+    <div class="lang-toggle">
+      <button class="lang-btn active" id="btnEN" onclick="setLang('en')">EN</button>
+      <button class="lang-btn" id="btnES" onclick="setLang('es')">ES</button>
+    </div>
+  </div>
   <div class="alliance">
     <div class="name">[OWOW] Old World Order</div>
-    <div class="info">Leader: Brutus</div>
+    <div class="info" data-i18n="alliance_info">Leader: Brutus</div>
   </div>
 </div>
 
-<div class="win">
+<div class="win" data-i18n="win_banner">
   Win: <span class="gold">7 VP</span> out of 12 &nbsp;|&nbsp; Fastest: <b>Saturday (4) + Friday (3) = 7 VP</b> &nbsp;|&nbsp; Research <b>Duel Expert</b> tech to DOUBLE all points &nbsp;|&nbsp; Wait <b>5 min</b> after 6pm reset
 </div>
 
-<div style="background:#fff8e1; border:2px solid #f4d35e; border-radius:8px; padding:8px 12px; margin:6px 0; font-size:13px; color:#5a4a00;">
+<div style="background:#fff8e1; border:2px solid #f4d35e; border-radius:8px; padding:8px 12px; margin:6px 0; font-size:13px; color:#5a4a00;" data-i18n="vp_dispute">
   <b>Note:</b> VP values are disputed across sources. This guide uses 1-1-1-2-3-4 (total 12). Some sources report 1-2-2-2-2-4 (total 13). Verify in-game for your server. Either way, <b>7 VP wins</b>.
 </div>
 
-<!-- ═══════════════════ DAY CARDS ═══════════════════ -->
-<div class="section-label">Daily Battle Plan</div>
+<!-- DAY CARDS -->
+<div class="section-label" data-i18n="sec_daily">Daily Battle Plan</div>
 
 <!-- ROW 1: Sun Mon Tue Wed -->
 <div class="row">
 
   <div class="card c-prep">
     <div class="card-head">
-      <div><div class="dname">SUNDAY</div><div class="dtheme">Prep Day — Stack & Save</div></div>
+      <div><div class="dname" data-i18n="day_sun">SUNDAY</div><div class="dtheme" data-i18n="theme_sun">Prep Day &mdash; Stack &amp; Save</div></div>
       <div class="vp v0">0 VP</div>
     </div>
-    <div class="sec s-do">Do:</div>
+    <div class="sec s-do" data-i18n="sec_do">Do:</div>
     <ul>
-      <li class="h">Send gathering to mines (gold = most pts!) return after Mon 6pm</li>
-      <li class="h">Stack radar: complete tasks but DON'T collect (red dot)</li>
-      <li class="m">Start long building upgrade to finish Mon/Tue (becomes present)</li>
-      <li>Check stores (VIP, Alliance, Campaign) for drone parts/data chips</li>
-      <li>Save ALL speedups, hero XP, shards, medals — touch NOTHING</li>
+      <li class="h" data-i18n="sun_do1">Send gathering to mines (gold = most pts!) return after Mon 6pm</li>
+      <li class="h" data-i18n="sun_do2">Stack radar: complete tasks but DON'T collect (red dot)</li>
+      <li class="m" data-i18n="sun_do3">Start long building upgrade to finish Mon/Tue (becomes present)</li>
+      <li data-i18n="sun_do4">Check stores (VIP, Alliance, Campaign) for drone parts/data chips</li>
+      <li data-i18n="sun_do5">Save ALL speedups, hero XP, shards, medals &mdash; touch NOTHING</li>
     </ul>
-    <div class="sec s-radar">Radar Stacking for Monday (~10pm start):</div>
+    <div class="sec s-radar" data-i18n="sun_radar_title">Radar Stacking for Monday (~10pm start):</div>
     <ul>
-      <li class="h">~10pm: STOP collecting. Complete missions on map but leave red dots.</li>
-      <li>Keep storage at 34/35 max so refresh timer keeps running</li>
-      <li>Completed missions in storage DO NOT expire — stack safely overnight!</li>
-    </ul>
-  </div>
-
-  <div class="card c-low">
-    <div class="card-head">
-      <div><div class="dname">MONDAY</div><div class="dtheme">Radar Training + Drone Boost</div></div>
-      <div class="vp v1">1 VP</div>
-    </div>
-    <div class="sec s-buy">Buy (Stores reset today!):</div>
-    <ul>
-      <li class="b">VIP Store: Stamina x5 (300 diamonds) <span class="tag t-blu">PRIORITY</span></li>
-      <li class="b">VIP Store: 8hr + 3hr Speedups (672 diamonds)</li>
-      <li class="b">Alliance: Hero Shards x5, Drone Parts x10, Speedups x10</li>
-      <li class="b">Alliance: Shields for Saturday (24hr + 8hr)</li>
-    </ul>
-    <div class="sec s-do">Do:</div>
-    <ul>
-      <li class="h">Wait 5 min after reset, then collect ALL stacked radar missions</li>
-      <li class="h">Spend ALL stamina (attacks, rallies, radar)</li>
-      <li class="m">Open drone data CHIP chests (skill chips — score today!)</li>
-      <li>Use drone combat data + train drone parts</li>
-      <li>Gather resources from mines (gold tiles = most pts)</li>
-    </ul>
-    <div class="sec s-save">Save for later:</div>
-    <ul>
-      <li class="h">Hero EXP/shards/medals → <b>THURSDAY</b></li>
-      <li>Construction speedups → Tuesday</li>
-      <li>Research speedups → Wednesday</li>
-      <li>Training speedups → Friday</li>
-      <li>Drone COMPONENT chests → Wed <span class="tag t-pur">WED ONLY</span></li>
+      <li class="h" data-i18n="sun_radar1">~10pm: STOP collecting. Complete missions on map but leave red dots.</li>
+      <li data-i18n="sun_radar2">Keep storage at 34/35 max so refresh timer keeps running</li>
+      <li data-i18n="sun_radar3">Completed missions in storage DO NOT expire &mdash; stack safely overnight!</li>
     </ul>
   </div>
 
   <div class="card c-low">
     <div class="card-head">
-      <div><div class="dname">TUESDAY</div><div class="dtheme">Base Expansion + City Building</div></div>
+      <div><div class="dname" data-i18n="day_mon">MONDAY</div><div class="dtheme" data-i18n="theme_mon">Radar Training + Drone Boost</div></div>
       <div class="vp v1">1 VP</div>
     </div>
-    <div class="sec s-do">Do:</div>
+    <div class="sec s-buy" data-i18n="mon_buy_title">Buy (Stores reset today!):</div>
     <ul>
-      <li class="h">Open ALL building completion presents (gift boxes)</li>
-      <li class="h">Use ALL construction speedups (30+ hrs target)</li>
-      <li class="h">Dispatch UR (gold) Trade Trucks — refresh for Legendary!</li>
-      <li class="m">Start Legendary secret tasks</li>
-      <li>Use survivor recruitment tickets</li>
+      <li class="b" data-i18n="mon_buy1">VIP Store: Stamina x5 (300 diamonds) <span class="tag t-blu">PRIORITY</span></li>
+      <li class="b" data-i18n="mon_buy2">VIP Store: 8hr + 3hr Speedups (672 diamonds)</li>
+      <li class="b" data-i18n="mon_buy3">Alliance: Hero Shards x5, Drone Parts x10, Speedups x10</li>
+      <li class="b" data-i18n="mon_buy4">Alliance: Shields for Saturday (24hr + 8hr)</li>
     </ul>
-    <div class="sec s-save">Save for later:</div>
+    <div class="sec s-do" data-i18n="sec_do2">Do:</div>
     <ul>
-      <li>Research speedups → Wednesday</li>
-      <li>Hero XP/shards/medals → Thursday</li>
-      <li>Training speedups → Friday</li>
+      <li class="h" data-i18n="mon_do1">Wait 5 min after reset, then collect ALL stacked radar missions</li>
+      <li class="h" data-i18n="mon_do2">Spend ALL stamina (attacks, rallies, radar)</li>
+      <li class="m" data-i18n="mon_do3">Open drone data CHIP chests (skill chips &mdash; score today!)</li>
+      <li data-i18n="mon_do4">Use drone combat data + train drone parts</li>
+      <li data-i18n="mon_do5">Gather resources from mines (gold tiles = most pts)</li>
     </ul>
-    <div class="sec s-radar">Radar Stacking for Wednesday (~10pm start):</div>
+    <div class="sec s-save" data-i18n="sec_save">Save for later:</div>
     <ul>
-      <li class="h">~10pm: STOP collecting. Complete missions, leave red dots in storage.</li>
-      <li>Start research timed to finish Wed (press Complete on Wed for pts!)</li>
+      <li class="h" data-i18n="mon_save1">Hero EXP/shards/medals &rarr; <b>THURSDAY</b></li>
+      <li data-i18n="mon_save2">Construction speedups &rarr; Tuesday</li>
+      <li data-i18n="mon_save3">Research speedups &rarr; Wednesday</li>
+      <li data-i18n="mon_save4">Training speedups &rarr; Friday</li>
+      <li data-i18n="mon_save5">Drone COMPONENT chests &rarr; Wed <span class="tag t-pur">WED ONLY</span></li>
     </ul>
   </div>
 
   <div class="card c-low">
     <div class="card-head">
-      <div><div class="dname">WEDNESDAY</div><div class="dtheme">Age of Science + Tech Research</div></div>
+      <div><div class="dname" data-i18n="day_tue">TUESDAY</div><div class="dtheme" data-i18n="theme_tue">Base Expansion + City Building</div></div>
       <div class="vp v1">1 VP</div>
     </div>
-    <div class="sec s-do">Do:</div>
+    <div class="sec s-do" data-i18n="sec_do3">Do:</div>
     <ul>
-      <li class="h">Press Complete on any pending research (tech power = pts!)</li>
-      <li class="h">Use ALL research speedups (30+ hrs target)</li>
-      <li class="h">Open drone COMPONENT chests (gear parts) <span class="tag t-pur">ONLY TODAY</span></li>
-      <li class="m">Collect stacked radar missions</li>
-      <li class="m">Spend Valor Badges on Alliance Duel research</li>
-      <li>Start new research → speedup → complete → repeat</li>
+      <li class="h" data-i18n="tue_do1">Open ALL building completion presents (gift boxes)</li>
+      <li class="h" data-i18n="tue_do2">Use ALL construction speedups (30+ hrs target)</li>
+      <li class="h" data-i18n="tue_do3">Dispatch UR (gold) Trade Trucks &mdash; refresh for Legendary!</li>
+      <li class="m" data-i18n="tue_do4">Start Legendary secret tasks</li>
+      <li data-i18n="tue_do5">Use survivor recruitment tickets</li>
     </ul>
-    <div class="sec s-save">Save for later:</div>
+    <div class="sec s-save" data-i18n="sec_save2">Save for later:</div>
     <ul>
-      <li>Hero XP/shards/medals → Thursday</li>
-      <li>Training speedups → Friday</li>
+      <li data-i18n="tue_save1">Research speedups &rarr; Wednesday</li>
+      <li data-i18n="tue_save2">Hero XP/shards/medals &rarr; Thursday</li>
+      <li data-i18n="tue_save3">Training speedups &rarr; Friday</li>
     </ul>
-    <div class="sec s-radar">Radar:</div>
+    <div class="sec s-radar" data-i18n="tue_radar_title">Radar Stacking for Wednesday (~10pm start):</div>
     <ul>
-      <li>Do radar normally — no stacking (too early for Fri)</li>
+      <li class="h" data-i18n="tue_radar1">~10pm: STOP collecting. Complete missions, leave red dots in storage.</li>
+      <li data-i18n="tue_radar2">Start research timed to finish Wed (press Complete on Wed for pts!)</li>
+    </ul>
+  </div>
+
+  <div class="card c-low">
+    <div class="card-head">
+      <div><div class="dname" data-i18n="day_wed">WEDNESDAY</div><div class="dtheme" data-i18n="theme_wed">Age of Science + Tech Research</div></div>
+      <div class="vp v1">1 VP</div>
+    </div>
+    <div class="sec s-do" data-i18n="sec_do4">Do:</div>
+    <ul>
+      <li class="h" data-i18n="wed_do1">Press Complete on any pending research (tech power = pts!)</li>
+      <li class="h" data-i18n="wed_do2">Use ALL research speedups (30+ hrs target)</li>
+      <li class="h" data-i18n="wed_do3">Open drone COMPONENT chests (gear parts) <span class="tag t-pur">ONLY TODAY</span></li>
+      <li class="m" data-i18n="wed_do4">Collect stacked radar missions</li>
+      <li class="m" data-i18n="wed_do5">Spend Valor Badges on Alliance Duel research</li>
+      <li data-i18n="wed_do6">Start new research &rarr; speedup &rarr; complete &rarr; repeat</li>
+    </ul>
+    <div class="sec s-save" data-i18n="sec_save3">Save for later:</div>
+    <ul>
+      <li data-i18n="wed_save1">Hero XP/shards/medals &rarr; Thursday</li>
+      <li data-i18n="wed_save2">Training speedups &rarr; Friday</li>
+    </ul>
+    <div class="sec s-radar" data-i18n="wed_radar_title">Radar:</div>
+    <ul>
+      <li data-i18n="wed_radar1">Do radar normally &mdash; no stacking (too early for Fri)</li>
     </ul>
   </div>
 
@@ -557,290 +578,576 @@
 
   <div class="card c-med">
     <div class="card-head">
-      <div><div class="dname">THURSDAY</div><div class="dtheme">Train Heroes + Hero Advancement</div></div>
+      <div><div class="dname" data-i18n="day_thu">THURSDAY</div><div class="dtheme" data-i18n="theme_thu">Train Heroes + Hero Advancement</div></div>
       <div class="vp v2">2 VP</div>
     </div>
-    <div class="sec s-do">Do:</div>
+    <div class="sec s-do" data-i18n="sec_do5">Do:</div>
     <ul>
-      <li class="h">ALL hero EXP → priority heroes <span class="tag t-red">HIGH</span></li>
-      <li class="h">ALL hero shards (star up heroes)</li>
-      <li class="h">ALL skill medals on hero skills</li>
-      <li class="h">Hero exclusive weapon shards</li>
-      <li class="m">Use recruitment tickets (Legendary/New Era)</li>
-      <li>Do Honorable Campaign (resets today!)</li>
+      <li class="h" data-i18n="thu_do1">ALL hero EXP &rarr; priority heroes <span class="tag t-red">HIGH</span></li>
+      <li class="h" data-i18n="thu_do2">ALL hero shards (star up heroes)</li>
+      <li class="h" data-i18n="thu_do3">ALL skill medals on hero skills</li>
+      <li class="h" data-i18n="thu_do4">Hero exclusive weapon shards</li>
+      <li class="m" data-i18n="thu_do5">Use recruitment tickets (Legendary/New Era)</li>
+      <li data-i18n="thu_do6">Do Honorable Campaign (resets today!)</li>
     </ul>
-    <div class="sec s-save">Save for later:</div>
+    <div class="sec s-save" data-i18n="sec_save4">Save for later:</div>
     <ul>
-      <li>Training speedups → FRIDAY <span class="tag t-ora">4x TOMORROW</span></li>
-      <li>Pre-train low-tier troops tonight for waterfall</li>
+      <li data-i18n="thu_save1">Training speedups &rarr; FRIDAY <span class="tag t-ora">4x TOMORROW</span></li>
+      <li data-i18n="thu_save2">Pre-train low-tier troops tonight for waterfall</li>
     </ul>
-    <div class="sec s-radar">Radar Stacking for Friday (~10pm start):</div>
+    <div class="sec s-radar" data-i18n="thu_radar_title">Radar Stacking for Friday (~10pm start):</div>
     <ul>
-      <li class="h">~10pm: STOP collecting. Complete missions, leave red dots in storage.</li>
+      <li class="h" data-i18n="thu_radar1">~10pm: STOP collecting. Complete missions, leave red dots in storage.</li>
     </ul>
   </div>
 
   <div class="card c-high">
     <div class="card-head">
-      <div><div class="dname">FRIDAY</div><div class="dtheme">Total Mobilization + Unit Progression</div></div>
+      <div><div class="dname" data-i18n="day_fri">FRIDAY</div><div class="dtheme" data-i18n="theme_fri">Total Mobilization + Unit Progression</div></div>
       <div class="vp v3">3 VP</div>
     </div>
-    <div class="sec s-do">Do:</div>
+    <div class="sec s-do" data-i18n="sec_do6">Do:</div>
     <ul>
-      <li class="h">WATERFALL: Train T5 → T6 → T7 → T8 <span class="tag t-ora">4x POINTS</span></li>
-      <li class="h">Use ALL training speedups (50+ hrs!) — THIS IS THE DAY</li>
-      <li class="h">Collect completed troops (points on completion!)</li>
-      <li class="m">Collect stacked radar missions</li>
-      <li class="m">Use leftover construction/research speedups</li>
-      <li>Use generic/universal speedups here if needed for VP</li>
+      <li class="h" data-i18n="fri_do1">WATERFALL: Train T5 &rarr; T6 &rarr; T7 &rarr; T8 <span class="tag t-ora">4x POINTS</span></li>
+      <li class="h" data-i18n="fri_do2">Use ALL training speedups (50+ hrs!) &mdash; THIS IS THE DAY</li>
+      <li class="h" data-i18n="fri_do3">Collect completed troops (points on completion!)</li>
+      <li class="m" data-i18n="fri_do4">Collect stacked radar missions</li>
+      <li class="m" data-i18n="fri_do5">Use leftover construction/research speedups</li>
+      <li data-i18n="fri_do6">Use generic/universal speedups here if needed for VP</li>
     </ul>
-    <div class="sec s-save">Save for later:</div>
+    <div class="sec s-save" data-i18n="sec_save5">Save for later:</div>
     <ul>
-      <li>Healing speedups → Saturday</li>
-      <li>Train MAX troops tonight for Saturday battles</li>
+      <li data-i18n="fri_save1">Healing speedups &rarr; Saturday</li>
+      <li data-i18n="fri_save2">Train MAX troops tonight for Saturday battles</li>
     </ul>
   </div>
 
   <div class="card c-crit">
     <div class="card-head">
-      <div><div class="dname">SATURDAY</div><div class="dtheme">Enemy Buster — MOST VALUABLE</div></div>
+      <div><div class="dname" data-i18n="day_sat">SATURDAY</div><div class="dtheme" data-i18n="theme_sat">Enemy Buster &mdash; MOST VALUABLE</div></div>
       <div class="vp v4">4 VP</div>
     </div>
-    <div class="sec s-do">Do:</div>
+    <div class="sec s-do" data-i18n="sec_do7">Do:</div>
     <ul>
-      <li class="h">Scout targets FIRST — empty bases = 0 points! <span class="tag t-red">CRITICAL</span></li>
-      <li class="h">Attack bases WITH troops defending</li>
-      <li class="h">Coordinate attack timing with OWOW alliance</li>
-      <li class="h">Use healing speedups → revive → attack again</li>
-      <li class="m">Buy/activate 24hr shield (5,000 diamonds) — AFTER attacking</li>
-      <li class="m">Remove YOUR defense lineup (uncheck squads)</li>
-      <li>Dispatch UR trade trucks + Legendary secret tasks</li>
+      <li class="h" data-i18n="sat_do1">Scout targets FIRST &mdash; empty bases = 0 points! <span class="tag t-red">CRITICAL</span></li>
+      <li class="h" data-i18n="sat_do2">Attack bases WITH troops defending</li>
+      <li class="h" data-i18n="sat_do3">Coordinate attack timing with OWOW alliance</li>
+      <li class="h" data-i18n="sat_do4">Use healing speedups &rarr; revive &rarr; attack again</li>
+      <li class="m" data-i18n="sat_do5">Buy/activate 24hr shield (5,000 diamonds) &mdash; AFTER attacking</li>
+      <li class="m" data-i18n="sat_do6">Remove YOUR defense lineup (uncheck squads)</li>
+      <li data-i18n="sat_do7">Dispatch UR trade trucks + Legendary secret tasks</li>
     </ul>
-    <div class="sec s-radar">Radar:</div>
+    <div class="sec s-radar" data-i18n="sat_radar_title">Radar:</div>
     <ul>
-      <li>Do radar normally — no stacking (too early for Mon)</li>
+      <li data-i18n="sat_radar1">Do radar normally &mdash; no stacking (too early for Mon)</li>
     </ul>
   </div>
 
   <!-- REFERENCE PANEL -->
   <div class="card c-ref">
-    <div class="ref-title rt-orange">Resource Save Priority</div>
-    <div class="res-row"><span class="n">1. Training Speedups</span><span class="d">FRIDAY (4x)</span></div>
-    <div class="res-row"><span class="n">2. Construction Speedups</span><span class="d">TUESDAY</span></div>
-    <div class="res-row"><span class="n">3. Research Speedups</span><span class="d">WEDNESDAY</span></div>
-    <div class="res-row"><span class="n">4. Hero XP/Shards/Medals</span><span class="d">THURSDAY</span></div>
-    <div class="res-row"><span class="n">5. Drone Component Chests</span><span class="d">WED ONLY</span></div>
-    <div class="res-row"><span class="n">6. Healing Speedups</span><span class="d">SATURDAY</span></div>
-    <div class="res-row"><span class="n">7. Recruitment Tickets</span><span class="d">THURSDAY</span></div>
-    <div class="res-row"><span class="n">8. Valor Badges</span><span class="d">WEDNESDAY</span></div>
-    <div class="res-row"><span class="n">9. Trade Truck Refreshes</span><span class="d">TUE / SAT</span></div>
-    <div class="res-row"><span class="n">10. Drone Chip Chests</span><span class="d">MONDAY</span></div>
+    <div class="ref-title rt-orange" data-i18n="ref_save_title">Resource Save Priority</div>
+    <div class="res-row"><span class="n" data-i18n="res1">1. Training Speedups</span><span class="d" data-i18n="res1d">FRIDAY (4x)</span></div>
+    <div class="res-row"><span class="n" data-i18n="res2">2. Construction Speedups</span><span class="d" data-i18n="res2d">TUESDAY</span></div>
+    <div class="res-row"><span class="n" data-i18n="res3">3. Research Speedups</span><span class="d" data-i18n="res3d">WEDNESDAY</span></div>
+    <div class="res-row"><span class="n" data-i18n="res4">4. Hero XP/Shards/Medals</span><span class="d" data-i18n="res4d">THURSDAY</span></div>
+    <div class="res-row"><span class="n" data-i18n="res5">5. Drone Component Chests</span><span class="d" data-i18n="res5d">WED ONLY</span></div>
+    <div class="res-row"><span class="n" data-i18n="res6">6. Healing Speedups</span><span class="d" data-i18n="res6d">SATURDAY</span></div>
+    <div class="res-row"><span class="n" data-i18n="res7">7. Recruitment Tickets</span><span class="d" data-i18n="res7d">THURSDAY</span></div>
+    <div class="res-row"><span class="n" data-i18n="res8">8. Valor Badges</span><span class="d" data-i18n="res8d">WEDNESDAY</span></div>
+    <div class="res-row"><span class="n" data-i18n="res9">9. Trade Truck Refreshes</span><span class="d" data-i18n="res9d">TUE / SAT</span></div>
+    <div class="res-row"><span class="n" data-i18n="res10">10. Drone Chip Chests</span><span class="d" data-i18n="res10d">MONDAY</span></div>
 
-    <div class="ref-title rt-purple" style="margin-top:8px;">Radar Stacking (Lv.8: 35 storage, 10/6hrs)</div>
-    <div style="font-size:14px; margin-bottom:3px;">Start ~10pm night before. Complete missions → storage. Collect 34 at once on scoring day!</div>
-    <div style="font-size:13px; color:#2e7d32; font-weight:600; margin-bottom:3px;">Completed missions DO NOT expire. Only uncompleted ones time out (~8hrs).</div>
-    <div style="padding:4px 6px; background:#fce4ec; border-radius:4px; font-size:13px; margin-bottom:4px;">
-      <b style="color:#e53935;">NEVER hit 35/35!</b> At 35/35 the 6-hour refresh timer STOPS — no new missions generate.<br>
+    <div class="ref-title rt-purple" style="margin-top:8px;" data-i18n="ref_radar_title">Radar Stacking (Lv.8: 35 storage, 10/6hrs)</div>
+    <div style="font-size:14px; margin-bottom:3px;" data-i18n="radar_desc">Start ~10pm night before. Complete missions &rarr; storage. Collect 34 at once on scoring day!</div>
+    <div style="font-size:13px; color:#2e7d32; font-weight:600; margin-bottom:3px;" data-i18n="radar_expire">Completed missions DO NOT expire. Only uncompleted ones time out (~8hrs).</div>
+    <div style="padding:4px 6px; background:#fce4ec; border-radius:4px; font-size:13px; margin-bottom:4px;" data-i18n="radar_warn">
+      <b style="color:#e53935;">NEVER hit 35/35!</b> At 35/35 the 6-hour refresh timer STOPS &mdash; no new missions generate.<br>
       <b style="color:#e53935;">Always keep at 34/35.</b> If you hit 35, collect 1 to restart the timer.
     </div>
     <div class="flow">
-      <div class="fl">Stack<br><b>SUN 10pm</b></div>
-      <div class="fa">→</div>
-      <div class="fl">Collect<br><b>MON 6:05pm</b></div>
+      <div class="fl" data-i18n="fl_stack_sun">Stack<br><b>SUN 10pm</b></div>
+      <div class="fa">&rarr;</div>
+      <div class="fl" data-i18n="fl_collect_mon">Collect<br><b>MON 6:05pm</b></div>
       <div class="fa">|</div>
-      <div class="fl">Stack<br><b>TUE 10pm</b></div>
-      <div class="fa">→</div>
-      <div class="fl">Collect<br><b>WED 6:05pm</b></div>
+      <div class="fl" data-i18n="fl_stack_tue">Stack<br><b>TUE 10pm</b></div>
+      <div class="fa">&rarr;</div>
+      <div class="fl" data-i18n="fl_collect_wed">Collect<br><b>WED 6:05pm</b></div>
       <div class="fa">|</div>
-      <div class="fl">Stack<br><b>THU 10pm</b></div>
-      <div class="fa">→</div>
-      <div class="fl">Collect<br><b>FRI 6:05pm</b></div>
+      <div class="fl" data-i18n="fl_stack_thu">Stack<br><b>THU 10pm</b></div>
+      <div class="fa">&rarr;</div>
+      <div class="fl" data-i18n="fl_collect_fri">Collect<br><b>FRI 6:05pm</b></div>
     </div>
 
-    <div class="ref-title rt-blue" style="margin-top:8px;">Quick Rules</div>
-    <div class="rule"><b>Wait 5 min</b> after 6pm reset before earning points</div>
-    <div class="rule"><b>Duel Expert</b> tech = DOUBLES all VS points</div>
-    <div class="rule"><b>Fri + Sat</b> = 7 VP = instant win</div>
-    <div class="rule"><b>vs 12AM</b> — our Aircraft > their Tanks</div>
+    <div class="ref-title rt-blue" style="margin-top:8px;" data-i18n="ref_rules_title">Quick Rules</div>
+    <div class="rule" data-i18n="rule1"><b>Wait 5 min</b> after 6pm reset before earning points</div>
+    <div class="rule" data-i18n="rule2"><b>Duel Expert</b> tech = DOUBLES all VS points</div>
+    <div class="rule" data-i18n="rule3"><b>Fri + Sat</b> = 7 VP = instant win</div>
+    <div class="rule" data-i18n="rule4"><b>vs 12AM</b> &mdash; our Aircraft > their Tanks</div>
   </div>
 
 </div>
 
-<!-- ═══════════════════ STORES & RESOURCES ═══════════════════ -->
-<div class="section-label">Weekly Shopping & Resource Management</div>
+<!-- STORES & RESOURCES -->
+<div class="section-label" data-i18n="sec_shopping">Weekly Shopping &amp; Resource Management</div>
 
 <div class="row-3col">
 
   <!-- STORE SHOPPING -->
   <div class="card c-store">
-    <div class="panel-title pt-blue">Monday Shopping List (Stores Reset!)</div>
+    <div class="panel-title pt-blue" data-i18n="panel_shopping">Monday Shopping List (Stores Reset!)</div>
 
-    <div class="sec s-buy" style="margin-top:2px;">VIP Store (Diamonds):</div>
+    <div class="sec s-buy" style="margin-top:2px;" data-i18n="store_vip_title">VIP Store (Diamonds):</div>
     <table class="store-tbl">
-      <tr><th>Item</th><th>Cost</th><th>Qty</th></tr>
-      <tr class="pri1"><td>Stamina</td><td class="cost">300 diamonds</td><td class="qty">5 (250 stam)</td></tr>
-      <tr class="pri1"><td>8-Hour Speedup</td><td class="cost">480 diamonds</td><td class="qty">buy all</td></tr>
-      <tr><td>3-Hour Speedup</td><td class="cost">192 diamonds</td><td class="qty">buy all</td></tr>
-      <tr class="avoid"><td>5-Min Speedup</td><td class="cost">—</td><td class="qty">SKIP (bad value)</td></tr>
-      <tr class="avoid"><td>Gear Materials / Hero EXP</td><td class="cost">—</td><td class="qty">SKIP</td></tr>
+      <tr><th data-i18n="th_item">Item</th><th data-i18n="th_cost">Cost</th><th data-i18n="th_qty">Qty</th></tr>
+      <tr class="pri1"><td data-i18n="vip_stamina">Stamina</td><td class="cost">300 diamonds</td><td class="qty" data-i18n="vip_stam_qty">5 (250 stam)</td></tr>
+      <tr class="pri1"><td data-i18n="vip_8hr">8-Hour Speedup</td><td class="cost">480 diamonds</td><td class="qty" data-i18n="vip_8hr_qty">buy all</td></tr>
+      <tr><td data-i18n="vip_3hr">3-Hour Speedup</td><td class="cost">192 diamonds</td><td class="qty" data-i18n="vip_3hr_qty">buy all</td></tr>
+      <tr class="avoid"><td data-i18n="vip_5min">5-Min Speedup</td><td class="cost">&mdash;</td><td class="qty" data-i18n="vip_5min_qty">SKIP (bad value)</td></tr>
+      <tr class="avoid"><td data-i18n="vip_gear">Gear Materials / Hero EXP</td><td class="cost">&mdash;</td><td class="qty" data-i18n="vip_gear_qty">SKIP</td></tr>
     </table>
 
-    <div class="sec s-buy" style="margin-top:6px;">Alliance Store (Contribution Pts):</div>
+    <div class="sec s-buy" style="margin-top:6px;" data-i18n="store_alliance_title">Alliance Store (Contribution Pts):</div>
     <table class="store-tbl">
-      <tr><th>Item</th><th>Cost</th><th>Qty</th></tr>
-      <tr class="pri1"><td>Legendary Hero Shards</td><td class="cost">3,000 ea</td><td class="qty">5/week</td></tr>
-      <tr class="pri1"><td>Drone Parts</td><td class="cost">1,000 ea</td><td class="qty">10/week</td></tr>
-      <tr><td>24hr Shield</td><td class="cost">20,000 ea</td><td class="qty">1-3/week</td></tr>
-      <tr><td>8hr Shield</td><td class="cost">7,500 ea</td><td class="qty">as needed</td></tr>
-      <tr><td>1-Hour Speedups</td><td class="cost">900 ea</td><td class="qty">10/week</td></tr>
-      <tr class="avoid"><td>Survivors / Resource Chests</td><td class="cost">—</td><td class="qty">SKIP</td></tr>
+      <tr><th data-i18n="th_item2">Item</th><th data-i18n="th_cost2">Cost</th><th data-i18n="th_qty2">Qty</th></tr>
+      <tr class="pri1"><td data-i18n="ali_shards">Legendary Hero Shards</td><td class="cost">3,000 ea</td><td class="qty" data-i18n="ali_shards_qty">5/week</td></tr>
+      <tr class="pri1"><td data-i18n="ali_drone">Drone Parts</td><td class="cost">1,000 ea</td><td class="qty" data-i18n="ali_drone_qty">10/week</td></tr>
+      <tr><td data-i18n="ali_shield24">24hr Shield</td><td class="cost">20,000 ea</td><td class="qty" data-i18n="ali_shield24_qty">1-3/week</td></tr>
+      <tr><td data-i18n="ali_shield8">8hr Shield</td><td class="cost">7,500 ea</td><td class="qty" data-i18n="ali_shield8_qty">as needed</td></tr>
+      <tr><td data-i18n="ali_speedups">1-Hour Speedups</td><td class="cost">900 ea</td><td class="qty" data-i18n="ali_speedups_qty">10/week</td></tr>
+      <tr class="avoid"><td data-i18n="ali_skip">Survivors / Resource Chests</td><td class="cost">&mdash;</td><td class="qty" data-i18n="ali_skip_qty">SKIP</td></tr>
     </table>
 
-    <div class="sec s-buy" style="margin-top:6px;">Honor Shop (Monthly):</div>
+    <div class="sec s-buy" style="margin-top:6px;" data-i18n="store_honor_title">Honor Shop (Monthly):</div>
     <table class="store-tbl">
-      <tr class="pri1"><td>Legendary Gear Blueprints</td><td class="cost">Honor pts</td><td class="qty">50/month max</td></tr>
+      <tr class="pri1"><td data-i18n="honor_gear">Legendary Gear Blueprints</td><td class="cost" data-i18n="honor_gear_cost">Honor pts</td><td class="qty" data-i18n="honor_gear_qty">50/month max</td></tr>
     </table>
-    <div style="font-size:13px; color:#c62828; font-weight:700; margin-top:2px;">ONLY non-paid source for gear blueprints!</div>
+    <div style="font-size:13px; color:#c62828; font-weight:700; margin-top:2px;" data-i18n="honor_note">ONLY non-paid source for gear blueprints!</div>
 
-    <div class="sec s-buy" style="margin-top:6px;">Campaign Store (Medals):</div>
+    <div class="sec s-buy" style="margin-top:6px;" data-i18n="store_campaign_title">Campaign Store (Medals):</div>
     <table class="store-tbl">
-      <tr class="pri1"><td>UR Universal Shards</td><td class="cost">Medals</td><td class="qty">all avail</td></tr>
-      <tr><td>Weapon Shards</td><td class="cost">Medals</td><td class="qty">all avail</td></tr>
+      <tr class="pri1"><td data-i18n="camp_shards">UR Universal Shards</td><td class="cost" data-i18n="camp_shards_cost">Medals</td><td class="qty" data-i18n="camp_shards_qty">all avail</td></tr>
+      <tr><td data-i18n="camp_weapon">Weapon Shards</td><td class="cost" data-i18n="camp_weapon_cost">Medals</td><td class="qty" data-i18n="camp_weapon_qty">all avail</td></tr>
     </table>
   </div>
 
   <!-- SPEEDUP TARGETS -->
   <div class="card c-speed">
-    <div class="panel-title pt-amber">Weekly Speedup Budget</div>
-    <div style="font-size:13px; color:#e65100; font-weight:600; margin-bottom:6px;">NEVER use speedups outside their designated day!</div>
+    <div class="panel-title pt-amber" data-i18n="panel_speedup">Weekly Speedup Budget</div>
+    <div style="font-size:13px; color:#e65100; font-weight:600; margin-bottom:6px;" data-i18n="speedup_warn">NEVER use speedups outside their designated day!</div>
 
     <div class="target-row">
-      <span class="target-type">Training Speedups</span>
+      <span class="target-type" data-i18n="spd_training">Training Speedups</span>
       <span class="target-hrs">50+ hrs</span>
-      <span class="target-day">→ FRIDAY (4x!)</span>
+      <span class="target-day" data-i18n="spd_training_day">&rarr; FRIDAY (4x!)</span>
     </div>
     <div class="target-row">
-      <span class="target-type">Construction Speedups</span>
+      <span class="target-type" data-i18n="spd_construction">Construction Speedups</span>
       <span class="target-hrs">30+ hrs</span>
-      <span class="target-day">→ TUESDAY</span>
+      <span class="target-day" data-i18n="spd_construction_day">&rarr; TUESDAY</span>
     </div>
     <div class="target-row">
-      <span class="target-type">Research Speedups</span>
+      <span class="target-type" data-i18n="spd_research">Research Speedups</span>
       <span class="target-hrs">30+ hrs</span>
-      <span class="target-day">→ WEDNESDAY</span>
+      <span class="target-day" data-i18n="spd_research_day">&rarr; WEDNESDAY</span>
     </div>
     <div class="target-row">
-      <span class="target-type">Healing Speedups</span>
+      <span class="target-type" data-i18n="spd_healing">Healing Speedups</span>
       <span class="target-hrs">20+ hrs</span>
-      <span class="target-day">→ SATURDAY</span>
+      <span class="target-day" data-i18n="spd_healing_day">&rarr; SATURDAY</span>
     </div>
     <div class="target-row">
-      <span class="target-type">Hero Advancement</span>
+      <span class="target-type" data-i18n="spd_hero">Hero Advancement</span>
       <span class="target-hrs">10+ hrs</span>
-      <span class="target-day">→ THURSDAY</span>
+      <span class="target-day" data-i18n="spd_hero_day">&rarr; THURSDAY</span>
     </div>
     <div class="target-row">
-      <span class="target-type">Generic / Universal</span>
+      <span class="target-type" data-i18n="spd_generic">Generic / Universal</span>
       <span class="target-hrs">50+ hrs</span>
-      <span class="target-day">→ FRI or SAT</span>
+      <span class="target-day" data-i18n="spd_generic_day">&rarr; FRI or SAT</span>
     </div>
 
-    <div style="margin-top:10px; font-size:14px; font-weight:700; color:#e65100;">Speedup Sources (Weekly):</div>
+    <div style="margin-top:10px; font-size:14px; font-weight:700; color:#e65100;" data-i18n="spd_sources_title">Speedup Sources (Weekly):</div>
     <table class="store-tbl">
-      <tr><td>VIP Store</td><td>8hr + 3hr speedups (buy Monday)</td></tr>
-      <tr><td>Alliance Store</td><td>10x 1-hour speedups (buy Monday)</td></tr>
-      <tr><td>Arms Race Chests</td><td>Daily (18 badges = 3 chests/day)</td></tr>
-      <tr><td>VS Duel Rewards</td><td>Win VP days for bonus speedups</td></tr>
-      <tr><td>Radar / Events</td><td>Occasional drops from missions</td></tr>
-      <tr><td>Alliance Gifts</td><td>When members buy packs</td></tr>
+      <tr><td data-i18n="src_vip">VIP Store</td><td data-i18n="src_vip_desc">8hr + 3hr speedups (buy Monday)</td></tr>
+      <tr><td data-i18n="src_alliance">Alliance Store</td><td data-i18n="src_alliance_desc">10x 1-hour speedups (buy Monday)</td></tr>
+      <tr><td data-i18n="src_arms">Arms Race Chests</td><td data-i18n="src_arms_desc">Daily (18 badges = 3 chests/day)</td></tr>
+      <tr><td data-i18n="src_vs">VS Duel Rewards</td><td data-i18n="src_vs_desc">Win VP days for bonus speedups</td></tr>
+      <tr><td data-i18n="src_radar">Radar / Events</td><td data-i18n="src_radar_desc">Occasional drops from missions</td></tr>
+      <tr><td data-i18n="src_gifts">Alliance Gifts</td><td data-i18n="src_gifts_desc">When members buy packs</td></tr>
     </table>
 
-    <div style="margin-top:8px; font-size:14px; font-weight:700; color:#e65100;">Arms Race Badge Targets:</div>
-    <div style="font-size:14px;">18 badges/day = Bronze + Silver + Gold chests</div>
+    <div style="margin-top:8px; font-size:14px; font-weight:700; color:#e65100;" data-i18n="arms_badge_title">Arms Race Badge Targets:</div>
+    <div style="font-size:14px;" data-i18n="arms_badge_desc">18 badges/day = Bronze + Silver + Gold chests</div>
   </div>
 
   <!-- CONSTRUCTION SPEED BUFFS -->
   <div class="card c-buff">
-    <div class="panel-title pt-purple">Speed Buffs & Alliance Help</div>
-    <div style="font-size:13px; color:#6a1b9a; font-weight:600; margin-bottom:6px;">All bonuses are MULTIPLICATIVE (they stack powerfully!)</div>
+    <div class="panel-title pt-purple" data-i18n="panel_buffs">Speed Buffs &amp; Alliance Help</div>
+    <div style="font-size:13px; color:#6a1b9a; font-weight:600; margin-bottom:6px;" data-i18n="buffs_mult">All bonuses are MULTIPLICATIVE (they stack powerfully!)</div>
 
-    <div style="font-size:14px; font-weight:700; color:#6a1b9a; margin-bottom:3px;">Construction Speed Sources:</div>
+    <div style="font-size:14px; font-weight:700; color:#6a1b9a; margin-bottom:3px;" data-i18n="buffs_speed_title">Construction Speed Sources:</div>
     <div class="buff-row">
       <span class="buff-src">VIP 13</span>
       <span class="buff-val">+60%</span>
-      <span class="buff-note">biggest single jump</span>
+      <span class="buff-note" data-i18n="buff_vip_note">biggest single jump</span>
     </div>
     <div class="buff-row">
-      <span class="buff-src">Secretary of Dev</span>
+      <span class="buff-src" data-i18n="buff_sec">Secretary of Dev</span>
       <span class="buff-val">+50%</span>
-      <span class="buff-note">capitol officer</span>
+      <span class="buff-note" data-i18n="buff_sec_note">capitol officer</span>
     </div>
     <div class="buff-row">
-      <span class="buff-src">Fast Builder I-IV</span>
+      <span class="buff-src" data-i18n="buff_builder">Fast Builder I-IV</span>
       <span class="buff-val">~+40%</span>
-      <span class="buff-note">Dev research tree</span>
+      <span class="buff-note" data-i18n="buff_builder_note">Dev research tree</span>
     </div>
     <div class="buff-row">
-      <span class="buff-src">Alliance Tech</span>
-      <span class="buff-val">up to +45%</span>
-      <span class="buff-note">Coop Construction</span>
+      <span class="buff-src" data-i18n="buff_allitech">Alliance Tech</span>
+      <span class="buff-val" data-i18n="buff_allitech_val">up to +45%</span>
+      <span class="buff-note" data-i18n="buff_allitech_note">Coop Construction</span>
     </div>
     <div class="buff-row">
-      <span class="buff-src">Speed Boost Items</span>
+      <span class="buff-src" data-i18n="buff_boost">Speed Boost Items</span>
       <span class="buff-val">25-50%</span>
-      <span class="buff-note">temporary consumable</span>
+      <span class="buff-note" data-i18n="buff_boost_note">temporary consumable</span>
     </div>
 
-    <div style="font-size:14px; font-weight:700; color:#6a1b9a; margin-top:10px; margin-bottom:3px;">Alliance Help (AC23 + 4 Lawyers = 22 helps!):</div>
+    <div style="font-size:14px; font-weight:700; color:#6a1b9a; margin-top:10px; margin-bottom:3px;" data-i18n="buffs_help_title">Alliance Help (AC23 + 4 Lawyers = 22 helps!):</div>
     <div class="buff-row">
-      <span class="buff-src">Per Help</span>
+      <span class="buff-src" data-i18n="help_per">Per Help</span>
       <span class="buff-val">0.5%</span>
-      <span class="buff-note">of remaining time (or 1 min min)</span>
+      <span class="buff-note" data-i18n="help_per_note">of remaining time (or 1 min min)</span>
     </div>
     <div class="buff-row">
-      <span class="buff-src">22 helps on 8hr build</span>
+      <span class="buff-src" data-i18n="help_8hr">22 helps on 8hr build</span>
       <span class="buff-val">-53 min</span>
-      <span class="buff-note">11% total reduction</span>
+      <span class="buff-note" data-i18n="help_8hr_note">11% total reduction</span>
     </div>
     <div class="buff-row">
-      <span class="buff-src">22 helps on 1-day build</span>
+      <span class="buff-src" data-i18n="help_1day">22 helps on 1-day build</span>
       <span class="buff-val">-2hr 38m</span>
-      <span class="buff-note">11% total reduction</span>
+      <span class="buff-note" data-i18n="help_1day_note">11% total reduction</span>
     </div>
     <div class="buff-row">
-      <span class="buff-src">22 helps on 3-day build</span>
+      <span class="buff-src" data-i18n="help_3day">22 helps on 3-day build</span>
       <span class="buff-val">-7hr 55m</span>
-      <span class="buff-note">11% total reduction</span>
+      <span class="buff-note" data-i18n="help_3day_note">11% total reduction</span>
     </div>
 
-    <div style="margin-top:8px; padding:4px 6px; background:#f3e5f5; border-radius:4px; font-size:13px;">
+    <div style="margin-top:8px; padding:4px 6px; background:#f3e5f5; border-radius:4px; font-size:13px;" data-i18n="help_tips">
       <b style="color:#6a1b9a;">VIP 4+ = Auto-complete helps</b> (you have VIP 13)<br>
       <b style="color:#c62828;">Must be in alliance BEFORE starting build!</b>
     </div>
 
-    <div style="font-size:14px; font-weight:700; color:#6a1b9a; margin-top:10px; margin-bottom:3px;">VIP Activation (Keep Active!):</div>
+    <div style="font-size:14px; font-weight:700; color:#6a1b9a; margin-top:10px; margin-bottom:3px;" data-i18n="vip_act_title">VIP Activation (Keep Active!):</div>
     <div class="buff-row">
-      <span class="buff-src">30 days</span>
+      <span class="buff-src" data-i18n="vip_30d">30 days</span>
       <span class="buff-val">10,000 diamonds</span>
-      <span class="buff-note">BEST VALUE (333/day)</span>
+      <span class="buff-note" data-i18n="vip_30d_note">BEST VALUE (333/day)</span>
     </div>
     <div class="buff-row">
-      <span class="buff-src">7 days</span>
+      <span class="buff-src" data-i18n="vip_7d">7 days</span>
       <span class="buff-val">3,000 diamonds</span>
       <span class="buff-note">429/day</span>
     </div>
     <div class="buff-row">
-      <span class="buff-src" style="color:#999;">24 hours</span>
+      <span class="buff-src" style="color:#999;" data-i18n="vip_1d">24 hours</span>
       <span class="buff-val" style="color:#999;">1,000 diamonds</span>
-      <span class="buff-note">worst value — avoid</span>
+      <span class="buff-note" data-i18n="vip_1d_note">worst value &mdash; avoid</span>
     </div>
   </div>
 
 </div>
 
-<div class="footer">
-  [OWOW] Old World Order — VS Duel Battle Plan — Updated Feb 26, 2026 — HQ 24 | VIP 13 | All 5 Heroes Lv.107 | Kristen Command System
+<div class="footer" data-i18n="footer">
+  [OWOW] Old World Order &mdash; VS Duel Battle Plan &mdash; Updated Feb 26, 2026 &mdash; HQ 24 | VIP 13 | All 5 Heroes Lv.107 | Kristen Command System
 </div>
+
+<script>
+const T = {
+  es: {
+    // Header
+    title: 'Plan de Batalla Semanal VS Duel',
+    subtitle: 'Servidor #2013 | Temporada 0 | Reset 6:00 PM',
+    pill_sq1: 'Escuadr\u00f3n 1: COMPLETO',
+    pill_sq2: 'Escuadr\u00f3n 2: AL M\u00c1XIMO',
+    pill_ac: 'AC 23 + Abogados = 22 ayudas',
+    alliance_info: 'L\u00edder: Brutus',
+    win_banner: 'Ganar: <span class="gold">7 VP</span> de 12 &nbsp;|&nbsp; M\u00e1s r\u00e1pido: <b>S\u00e1bado (4) + Viernes (3) = 7 VP</b> &nbsp;|&nbsp; Investiga <b>Duel Expert</b> para DUPLICAR todos los puntos &nbsp;|&nbsp; Espera <b>5 min</b> despu\u00e9s del reset de las 6pm',
+    vp_dispute: '<b>Nota:</b> Los valores de VP est\u00e1n disputados entre fuentes. Esta gu\u00eda usa 1-1-1-2-3-4 (total 12). Algunas fuentes reportan 1-2-2-2-2-4 (total 13). Verifica en el juego para tu servidor. De cualquier manera, <b>7 VP gana</b>.',
+    sec_daily: 'Plan de Batalla Diario',
+    sec_shopping: 'Compras Semanales y Gesti\u00f3n de Recursos',
+
+    // Section headers (reused across days)
+    sec_do: 'Hacer:', sec_do2: 'Hacer:', sec_do3: 'Hacer:', sec_do4: 'Hacer:',
+    sec_do5: 'Hacer:', sec_do6: 'Hacer:', sec_do7: 'Hacer:',
+    sec_save: 'Guardar para despu\u00e9s:', sec_save2: 'Guardar para despu\u00e9s:',
+    sec_save3: 'Guardar para despu\u00e9s:', sec_save4: 'Guardar para despu\u00e9s:',
+    sec_save5: 'Guardar para despu\u00e9s:',
+
+    // SUNDAY
+    day_sun: 'DOMINGO',
+    theme_sun: 'D\u00eda de Preparaci\u00f3n &mdash; Apilar y Guardar',
+    sun_do1: 'Enviar recolecci\u00f3n a minas (\u00a1oro = m\u00e1s pts!) regresar despu\u00e9s del lunes 6pm',
+    sun_do2: 'Apilar radar: completa tareas pero NO recojas (punto rojo)',
+    sun_do3: 'Iniciar mejora larga para terminar lun/mar (se convierte en regalo)',
+    sun_do4: 'Revisar tiendas (VIP, Alianza, Campa\u00f1a) por partes de dron/chips de datos',
+    sun_do5: 'Guardar TODOS los aceleradores, EXP de h\u00e9roe, fragmentos, medallas &mdash; NO TOCAR NADA',
+    sun_radar_title: 'Apilamiento de Radar para Lunes (~10pm inicio):',
+    sun_radar1: '~10pm: DEJA de recoger. Completa misiones en el mapa pero deja los puntos rojos.',
+    sun_radar2: 'Mant\u00e9n almac\u00e9n en 34/35 m\u00e1x para que el temporizador siga corriendo',
+    sun_radar3: '\u00a1Las misiones completadas en almac\u00e9n NO expiran &mdash; apila tranquilo toda la noche!',
+
+    // MONDAY
+    day_mon: 'LUNES',
+    theme_mon: 'Entrenamiento Radar + Impulso de Dron',
+    mon_buy_title: '\u00a1Comprar (Las tiendas se reinician hoy!):',
+    mon_buy1: 'Tienda VIP: Stamina x5 (300 diamantes) <span class="tag t-blu">PRIORIDAD</span>',
+    mon_buy2: 'Tienda VIP: Aceleradores de 8hr + 3hr (672 diamantes)',
+    mon_buy3: 'Alianza: Fragmentos de H\u00e9roe x5, Partes de Dron x10, Aceleradores x10',
+    mon_buy4: 'Alianza: Escudos para el S\u00e1bado (24hr + 8hr)',
+    mon_do1: 'Espera 5 min despu\u00e9s del reset, luego recoge TODAS las misiones de radar apiladas',
+    mon_do2: 'Gasta TODA la stamina (ataques, rallies, radar)',
+    mon_do3: 'Abre cofres de CHIP de datos de dron (chips de habilidad &mdash; \u00a1puntean hoy!)',
+    mon_do4: 'Usa datos de combate de dron + entrena partes de dron',
+    mon_do5: 'Recolecta recursos de minas (casillas de oro = m\u00e1s pts)',
+    mon_save1: 'EXP/fragmentos/medallas de h\u00e9roe &rarr; <b>JUEVES</b>',
+    mon_save2: 'Aceleradores de construcci\u00f3n &rarr; Martes',
+    mon_save3: 'Aceleradores de investigaci\u00f3n &rarr; Mi\u00e9rcoles',
+    mon_save4: 'Aceleradores de entrenamiento &rarr; Viernes',
+    mon_save5: 'Cofres de COMPONENTE de dron &rarr; Mi\u00e9 <span class="tag t-pur">SOLO MI\u00c9</span>',
+
+    // TUESDAY
+    day_tue: 'MARTES',
+    theme_tue: 'Expansi\u00f3n de Base + Construcci\u00f3n',
+    tue_do1: 'Abre TODOS los regalos de construcci\u00f3n completada (cajas de regalo)',
+    tue_do2: 'Usa TODOS los aceleradores de construcci\u00f3n (objetivo 30+ hrs)',
+    tue_do3: '\u00a1Despacha Camiones Comerciales UR (dorados) &mdash; refresca por Legendarios!',
+    tue_do4: 'Inicia tareas secretas Legendarias',
+    tue_do5: 'Usa boletos de reclutamiento de sobrevivientes',
+    tue_save1: 'Aceleradores de investigaci\u00f3n &rarr; Mi\u00e9rcoles',
+    tue_save2: 'EXP/fragmentos/medallas de h\u00e9roe &rarr; Jueves',
+    tue_save3: 'Aceleradores de entrenamiento &rarr; Viernes',
+    tue_radar_title: 'Apilamiento de Radar para Mi\u00e9rcoles (~10pm inicio):',
+    tue_radar1: '~10pm: DEJA de recoger. Completa misiones, deja puntos rojos en almac\u00e9n.',
+    tue_radar2: '\u00a1Inicia investigaci\u00f3n para terminar el mi\u00e9 (presiona Completar el mi\u00e9 para pts!)',
+
+    // WEDNESDAY
+    day_wed: 'MI\u00c9RCOLES',
+    theme_wed: 'Era de Ciencia + Investigaci\u00f3n',
+    wed_do1: '\u00a1Presiona Completar en investigaciones pendientes (poder t\u00e9cnico = pts!)',
+    wed_do2: 'Usa TODOS los aceleradores de investigaci\u00f3n (objetivo 30+ hrs)',
+    wed_do3: 'Abre cofres de COMPONENTE de dron (partes de equipo) <span class="tag t-pur">SOLO HOY</span>',
+    wed_do4: 'Recoge misiones de radar apiladas',
+    wed_do5: 'Gasta Insignias de Valor en investigaci\u00f3n de Alliance Duel',
+    wed_do6: 'Inicia nueva investigaci\u00f3n &rarr; acelerar &rarr; completar &rarr; repetir',
+    wed_save1: 'EXP/fragmentos/medallas de h\u00e9roe &rarr; Jueves',
+    wed_save2: 'Aceleradores de entrenamiento &rarr; Viernes',
+    wed_radar_title: 'Radar:',
+    wed_radar1: 'Haz radar normal &mdash; sin apilamiento (muy temprano para viernes)',
+
+    // THURSDAY
+    day_thu: 'JUEVES',
+    theme_thu: 'Entrenar H\u00e9roes + Avance de H\u00e9roe',
+    thu_do1: 'TODA la EXP de h\u00e9roe &rarr; h\u00e9roes prioritarios <span class="tag t-red">ALTO</span>',
+    thu_do2: 'TODOS los fragmentos de h\u00e9roe (subir estrellas)',
+    thu_do3: 'TODAS las medallas de habilidad en habilidades de h\u00e9roe',
+    thu_do4: 'Fragmentos de arma exclusiva de h\u00e9roe',
+    thu_do5: 'Usa boletos de reclutamiento (Legendario/New Era)',
+    thu_do6: '\u00a1Haz Campa\u00f1a Honorable (se reinicia hoy!)',
+    thu_save1: 'Aceleradores de entrenamiento &rarr; VIERNES <span class="tag t-ora">4x MA\u00d1ANA</span>',
+    thu_save2: 'Pre-entrena tropas de bajo nivel esta noche para cascada',
+    thu_radar_title: 'Apilamiento de Radar para Viernes (~10pm inicio):',
+    thu_radar1: '~10pm: DEJA de recoger. Completa misiones, deja puntos rojos en almac\u00e9n.',
+
+    // FRIDAY
+    day_fri: 'VIERNES',
+    theme_fri: 'Movilizaci\u00f3n Total + Progresi\u00f3n de Unidades',
+    fri_do1: 'CASCADA: Entrena T5 &rarr; T6 &rarr; T7 &rarr; T8 <span class="tag t-ora">4x PUNTOS</span>',
+    fri_do2: '\u00a1Usa TODOS los aceleradores de entrenamiento (50+ hrs!) &mdash; ESTE ES EL D\u00cdA',
+    fri_do3: '\u00a1Recoge tropas completadas (puntos al completar!)',
+    fri_do4: 'Recoge misiones de radar apiladas',
+    fri_do5: 'Usa aceleradores de construcci\u00f3n/investigaci\u00f3n sobrantes',
+    fri_do6: 'Usa aceleradores gen\u00e9ricos/universales aqu\u00ed si necesitas VP',
+    fri_save1: 'Aceleradores de curaci\u00f3n &rarr; S\u00e1bado',
+    fri_save2: 'Entrena M\u00c1X tropas esta noche para batallas del s\u00e1bado',
+
+    // SATURDAY
+    day_sat: 'S\u00c1BADO',
+    theme_sat: 'Enemy Buster &mdash; M\u00c1S VALIOSO',
+    sat_do1: '\u00a1Espiar objetivos PRIMERO &mdash; bases vac\u00edas = 0 puntos! <span class="tag t-red">CR\u00cdTICO</span>',
+    sat_do2: 'Ataca bases CON tropas defendiendo',
+    sat_do3: 'Coordina el momento del ataque con la alianza OWOW',
+    sat_do4: 'Usa aceleradores de curaci\u00f3n &rarr; revivir &rarr; atacar de nuevo',
+    sat_do5: 'Compra/activa escudo de 24hr (5,000 diamantes) &mdash; DESPU\u00c9S de atacar',
+    sat_do6: 'Quita TU formaci\u00f3n de defensa (desmarca escuadrones)',
+    sat_do7: 'Despacha camiones UR + tareas secretas Legendarias',
+    sat_radar_title: 'Radar:',
+    sat_radar1: 'Haz radar normal &mdash; sin apilamiento (muy temprano para lunes)',
+
+    // Reference panel
+    ref_save_title: 'Prioridad de Ahorro de Recursos',
+    res1: '1. Aceleradores de Entrenamiento', res1d: 'VIERNES (4x)',
+    res2: '2. Aceleradores de Construcci\u00f3n', res2d: 'MARTES',
+    res3: '3. Aceleradores de Investigaci\u00f3n', res3d: 'MI\u00c9RCOLES',
+    res4: '4. EXP/Fragmentos/Medallas de H\u00e9roe', res4d: 'JUEVES',
+    res5: '5. Cofres de Componente de Dron', res5d: 'SOLO MI\u00c9',
+    res6: '6. Aceleradores de Curaci\u00f3n', res6d: 'S\u00c1BADO',
+    res7: '7. Boletos de Reclutamiento', res7d: 'JUEVES',
+    res8: '8. Insignias de Valor', res8d: 'MI\u00c9RCOLES',
+    res9: '9. Refrescos de Cami\u00f3n Comercial', res9d: 'MAR / S\u00c1B',
+    res10: '10. Cofres de Chip de Dron', res10d: 'LUNES',
+
+    ref_radar_title: 'Apilamiento de Radar (Nv.8: 35 almac\u00e9n, 10/6hrs)',
+    radar_desc: '\u00a1Inicia ~10pm la noche anterior. Completa misiones &rarr; almac\u00e9n. Recoge 34 de golpe el d\u00eda de puntuaci\u00f3n!',
+    radar_expire: 'Las misiones completadas NO expiran. Solo las no completadas expiran (~8hrs).',
+    radar_warn: '<b style="color:#e53935;">\u00a1NUNCA llegues a 35/35!</b> A 35/35 el temporizador de 6 horas SE DETIENE &mdash; no se generan nuevas misiones.<br><b style="color:#e53935;">Siempre mant\u00e9n en 34/35.</b> Si llegas a 35, recoge 1 para reiniciar el temporizador.',
+    fl_stack_sun: 'Apilar<br><b>DOM 10pm</b>',
+    fl_collect_mon: 'Recoger<br><b>LUN 6:05pm</b>',
+    fl_stack_tue: 'Apilar<br><b>MAR 10pm</b>',
+    fl_collect_wed: 'Recoger<br><b>MI\u00c9 6:05pm</b>',
+    fl_stack_thu: 'Apilar<br><b>JUE 10pm</b>',
+    fl_collect_fri: 'Recoger<br><b>VIE 6:05pm</b>',
+
+    ref_rules_title: 'Reglas R\u00e1pidas',
+    rule1: '<b>Espera 5 min</b> despu\u00e9s del reset de las 6pm antes de ganar puntos',
+    rule2: '<b>Duel Expert</b> tech = DUPLICA todos los puntos VS',
+    rule3: '<b>Vie + S\u00e1b</b> = 7 VP = victoria instant\u00e1nea',
+    rule4: '<b>vs 12AM</b> &mdash; nuestros Aircraft > sus Tanks',
+
+    // Store panel
+    panel_shopping: '\u00a1Lista de Compras del Lunes (Tiendas se Reinician!)',
+    store_vip_title: 'Tienda VIP (Diamantes):',
+    th_item: 'Art\u00edculo', th_cost: 'Costo', th_qty: 'Cant.',
+    th_item2: 'Art\u00edculo', th_cost2: 'Costo', th_qty2: 'Cant.',
+    vip_stamina: 'Stamina',
+    vip_stam_qty: '5 (250 stam)',
+    vip_8hr: 'Acelerador de 8 Horas',
+    vip_8hr_qty: 'comprar todos',
+    vip_3hr: 'Acelerador de 3 Horas',
+    vip_3hr_qty: 'comprar todos',
+    vip_5min: 'Acelerador de 5 Min',
+    vip_5min_qty: 'OMITIR (mal valor)',
+    vip_gear: 'Materiales de Equipo / EXP de H\u00e9roe',
+    vip_gear_qty: 'OMITIR',
+    store_alliance_title: 'Tienda de Alianza (Pts de Contribuci\u00f3n):',
+    ali_shards: 'Fragmentos Legendarios de H\u00e9roe',
+    ali_shards_qty: '5/semana',
+    ali_drone: 'Partes de Dron',
+    ali_drone_qty: '10/semana',
+    ali_shield24: 'Escudo de 24hr',
+    ali_shield24_qty: '1-3/semana',
+    ali_shield8: 'Escudo de 8hr',
+    ali_shield8_qty: 'seg\u00fan necesidad',
+    ali_speedups: 'Aceleradores de 1 Hora',
+    ali_speedups_qty: '10/semana',
+    ali_skip: 'Sobrevivientes / Cofres de Recursos',
+    ali_skip_qty: 'OMITIR',
+    store_honor_title: 'Tienda de Honor (Mensual):',
+    honor_gear: 'Planos de Equipo Legendario',
+    honor_gear_cost: 'Pts de Honor',
+    honor_gear_qty: '50/mes m\u00e1x',
+    honor_note: '\u00a1\u00daNICA fuente no pagada de planos de equipo!',
+    store_campaign_title: 'Tienda de Campa\u00f1a (Medallas):',
+    camp_shards: 'Fragmentos Universales UR',
+    camp_shards_cost: 'Medallas',
+    camp_shards_qty: 'todos disp.',
+    camp_weapon: 'Fragmentos de Arma',
+    camp_weapon_cost: 'Medallas',
+    camp_weapon_qty: 'todos disp.',
+
+    // Speedup panel
+    panel_speedup: 'Presupuesto Semanal de Aceleradores',
+    speedup_warn: '\u00a1NUNCA uses aceleradores fuera de su d\u00eda designado!',
+    spd_training: 'Aceleradores de Entrenamiento',
+    spd_training_day: '&rarr; VIERNES (\u00a14x!)',
+    spd_construction: 'Aceleradores de Construcci\u00f3n',
+    spd_construction_day: '&rarr; MARTES',
+    spd_research: 'Aceleradores de Investigaci\u00f3n',
+    spd_research_day: '&rarr; MI\u00c9RCOLES',
+    spd_healing: 'Aceleradores de Curaci\u00f3n',
+    spd_healing_day: '&rarr; S\u00c1BADO',
+    spd_hero: 'Avance de H\u00e9roe',
+    spd_hero_day: '&rarr; JUEVES',
+    spd_generic: 'Gen\u00e9ricos / Universales',
+    spd_generic_day: '&rarr; VIE o S\u00c1B',
+    spd_sources_title: 'Fuentes de Aceleradores (Semanal):',
+    src_vip: 'Tienda VIP',
+    src_vip_desc: 'Aceleradores de 8hr + 3hr (comprar lunes)',
+    src_alliance: 'Tienda de Alianza',
+    src_alliance_desc: '10x aceleradores de 1 hora (comprar lunes)',
+    src_arms: 'Cofres de Arms Race',
+    src_arms_desc: 'Diario (18 insignias = 3 cofres/d\u00eda)',
+    src_vs: 'Recompensas de VS Duel',
+    src_vs_desc: 'Gana d\u00edas de VP para aceleradores bonus',
+    src_radar: 'Radar / Eventos',
+    src_radar_desc: 'Drops ocasionales de misiones',
+    src_gifts: 'Regalos de Alianza',
+    src_gifts_desc: 'Cuando miembros compran paquetes',
+    arms_badge_title: 'Objetivos de Insignias Arms Race:',
+    arms_badge_desc: '18 insignias/d\u00eda = cofres Bronce + Plata + Oro',
+
+    // Speed buffs panel
+    panel_buffs: 'Bonos de Velocidad y Ayuda de Alianza',
+    buffs_mult: '\u00a1Todos los bonos son MULTIPLICATIVOS (se acumulan poderosamente!)',
+    buffs_speed_title: 'Fuentes de Velocidad de Construcci\u00f3n:',
+    buff_vip_note: 'mayor salto individual',
+    buff_sec: 'Secretario de Desarrollo',
+    buff_sec_note: 'oficial del capitolio',
+    buff_builder: 'Constructor R\u00e1pido I-IV',
+    buff_builder_note: '\u00e1rbol de investigaci\u00f3n de Desarrollo',
+    buff_allitech: 'Tecnolog\u00eda de Alianza',
+    buff_allitech_val: 'hasta +45%',
+    buff_allitech_note: 'Construcci\u00f3n Cooperativa',
+    buff_boost: 'Items de Impulso de Velocidad',
+    buff_boost_note: 'consumible temporal',
+    buffs_help_title: '\u00a1Ayuda de Alianza (AC23 + 4 Abogados = 22 ayudas!):',
+    help_per: 'Por Ayuda',
+    help_per_note: 'del tiempo restante (o 1 min m\u00edn)',
+    help_8hr: '22 ayudas en construcci\u00f3n de 8hr',
+    help_8hr_note: '11% reducci\u00f3n total',
+    help_1day: '22 ayudas en construcci\u00f3n de 1 d\u00eda',
+    help_1day_note: '11% reducci\u00f3n total',
+    help_3day: '22 ayudas en construcci\u00f3n de 3 d\u00edas',
+    help_3day_note: '11% reducci\u00f3n total',
+    help_tips: '<b style="color:#6a1b9a;">VIP 4+ = Auto-completar ayudas</b> (tienes VIP 13)<br><b style="color:#c62828;">\u00a1Debes estar en la alianza ANTES de iniciar la construcci\u00f3n!</b>',
+    vip_act_title: '\u00a1Activaci\u00f3n VIP (Mant\u00e9n Activo!):',
+    vip_30d: '30 d\u00edas',
+    vip_30d_note: 'MEJOR VALOR (333/d\u00eda)',
+    vip_7d: '7 d\u00edas',
+    vip_1d: '24 horas',
+    vip_1d_note: 'peor valor &mdash; evitar',
+
+    // Footer
+    footer: '[OWOW] Old World Order &mdash; Plan de Batalla VS Duel &mdash; Actualizado Feb 26, 2026 &mdash; HQ 24 | VIP 13 | Los 5 H\u00e9roes Nv.107 | Sistema de Comando Kristen'
+  }
+};
+
+// Store English originals on first load
+const originals = {};
+document.querySelectorAll('[data-i18n]').forEach(el => {
+  originals[el.getAttribute('data-i18n')] = el.innerHTML;
+});
+
+function setLang(lang) {
+  document.getElementById('btnEN').classList.toggle('active', lang === 'en');
+  document.getElementById('btnES').classList.toggle('active', lang === 'es');
+  document.getElementById('htmlRoot').lang = lang;
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const key = el.getAttribute('data-i18n');
+    if (lang === 'es' && T.es[key]) {
+      el.innerHTML = T.es[key];
+    } else if (lang === 'en' && originals[key]) {
+      el.innerHTML = originals[key];
+    }
+  });
+  localStorage.setItem('owow-vs-planner-lang', lang);
+}
+
+// Restore saved language preference
+const saved = localStorage.getItem('owow-vs-planner-lang');
+if (saved === 'es') setLang('es');
+</script>
 
 </body>
 </html>

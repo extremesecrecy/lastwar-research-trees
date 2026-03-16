@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" id="htmlRoot">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -189,6 +189,21 @@
   /* Footer */
   .footer { text-align: center; font-size: 14px; color: #999; padding: 3px; border-top: 1px solid #e0e0e0; flex-shrink: 0; }
 
+  /* Language Toggle */
+  .lang-toggle {
+    display: inline-flex; align-items: center; gap: 4px;
+    background: #f0f5f4; border: 2px solid #7fb3a8; border-radius: 20px;
+    padding: 2px 4px; cursor: pointer; font-family: 'Segoe UI', sans-serif;
+    font-size: 12px; font-weight: 700; user-select: none;
+  }
+  .lang-btn {
+    padding: 2px 10px; border-radius: 16px; border: none; cursor: pointer;
+    font-size: 12px; font-weight: 700; background: transparent; color: #888;
+    transition: all 0.2s;
+  }
+  .lang-btn.active { background: #5a6a6a; color: #fff; }
+  .lang-btn:hover:not(.active) { color: #5a6a6a; }
+
   /* Mobile responsive */
   @media (max-width: 768px) {
     html { height: auto !important; overflow: visible !important; }
@@ -298,13 +313,17 @@
 <!-- HEADER -->
 <div class="top-bar">
   <div>
-    <h1>Radar Mission System</h1>
-    <div class="sub">Complete Guide to Stacking, Scoring & Optimization</div>
+    <h1 data-i18n="title">Radar Mission System</h1>
+    <div class="sub" data-i18n="subtitle">Complete Guide to Stacking, Scoring & Optimization</div>
   </div>
   <img src="skynet_logo.png" alt="OWOW SKYNET" style="height:60px;">
   <div class="alliance">
     <div class="name">[OWOW] Old World Order</div>
     <div class="info">Last War: Survival</div>
+    <div class="lang-toggle">
+      <button class="lang-btn active" id="btnEN" onclick="setLang('en')">EN</button>
+      <button class="lang-btn" id="btnES" onclick="setLang('es')">ES</button>
+    </div>
   </div>
 </div>
 
@@ -313,254 +332,254 @@
 
   <!-- ======================== COLUMN 1: How It Works + Level Table ======================== -->
   <div class="col">
-    <div class="section-label">How Radar Works: Two-Layer System</div>
+    <div class="section-label" data-i18n="sec_how_radar">How Radar Works: Two-Layer System</div>
     <div class="two-layer">
       <div class="card c-prep layer-box">
-        <div class="card-title ct-green" style="font-size:17px;">Layer 1: World Map</div>
-        <div style="font-size:16px;">Missions appear as pins. Complete them (kill zombies, help allies, gather) to earn a <b>red dot</b>.</div>
-        <div class="layer-stat" style="color:#2e7d32;">5 &ndash; 12 visible</div>
-        <div class="layer-note">Depends on Radar level. Uncompleted missions expire ~8hrs.</div>
+        <div class="card-title ct-green" style="font-size:17px;" data-i18n="layer1_title">Layer 1: World Map</div>
+        <div style="font-size:16px;" data-i18n="layer1_desc">Missions appear as pins. Complete them (kill zombies, help allies, gather) to earn a <b>red dot</b>.</div>
+        <div class="layer-stat" style="color:#2e7d32;" data-i18n="layer1_stat">5 &ndash; 12 visible</div>
+        <div class="layer-note" data-i18n="layer1_note">Depends on Radar level. Uncompleted missions expire ~8hrs.</div>
       </div>
       <div class="flow-arrow">
-        <div class="arrow-label">complete</div>
+        <div class="arrow-label" data-i18n="flow_complete">complete</div>
         <div class="arrow">&#8594;</div>
-        <div class="arrow-label">red dot</div>
+        <div class="arrow-label" data-i18n="flow_reddot">red dot</div>
       </div>
       <div class="card c-med layer-box">
-        <div class="card-title ct-cyan" style="font-size:17px;">Layer 2: Storage Queue</div>
-        <div style="font-size:16px;">Completed missions go to storage. Counter shows <b>current/max</b>. Tap red dot to <b>collect</b> rewards + VS points.</div>
-        <div class="layer-stat" style="color:#2a8fa8;">25 &ndash; 45 stored</div>
-        <div class="layer-note">Depends on Radar level. Completed missions do <b>NOT</b> expire. (Some guides incorrectly claim 8-hour expiry &mdash; that timer applies only to uncompleted map missions, not completed storage.)</div>
+        <div class="card-title ct-cyan" style="font-size:17px;" data-i18n="layer2_title">Layer 2: Storage Queue</div>
+        <div style="font-size:16px;" data-i18n="layer2_desc">Completed missions go to storage. Counter shows <b>current/max</b>. Tap red dot to <b>collect</b> rewards + VS points.</div>
+        <div class="layer-stat" style="color:#2a8fa8;" data-i18n="layer2_stat">25 &ndash; 45 stored</div>
+        <div class="layer-note" data-i18n="layer2_note">Depends on Radar level. Completed missions do <b>NOT</b> expire. (Some guides incorrectly claim 8-hour expiry &mdash; that timer applies only to uncompleted map missions, not completed storage.)</div>
       </div>
     </div>
 
     <div class="card c-high" style="padding:5px 8px;">
-      <div class="card-title ct-orange" style="font-size:16px;">&#8635; 6-Hour Refresh Cycle</div>
+      <div class="card-title ct-orange" style="font-size:16px;" data-i18n="refresh_title">&#8635; 6-Hour Refresh Cycle</div>
       <div class="refresh-cycle">
         <div class="cycle-step">
-          <div class="step-num">Every 6 hrs</div>
-          <div class="step-text"><b>6&ndash;13</b> new missions</div>
+          <div class="step-num" data-i18n="cycle_every6">Every 6 hrs</div>
+          <div class="step-text" data-i18n="cycle_newmissions"><b>6&ndash;13</b> new missions</div>
         </div>
         <div class="cycle-arrow">&#8594;</div>
         <div class="cycle-step">
-          <div class="step-num">Added to</div>
-          <div class="step-text">Storage queue</div>
+          <div class="step-num" data-i18n="cycle_addedto">Added to</div>
+          <div class="step-text" data-i18n="cycle_storagequeue">Storage queue</div>
         </div>
         <div class="cycle-arrow">&#8594;</div>
         <div class="cycle-step">
-          <div class="step-num">Shown on</div>
-          <div class="step-text">Map pins</div>
+          <div class="step-num" data-i18n="cycle_shownon">Shown on</div>
+          <div class="step-text" data-i18n="cycle_mappins">Map pins</div>
         </div>
         <div class="cycle-arrow">&#8594;</div>
         <div class="cycle-step">
-          <div class="step-num">You complete</div>
+          <div class="step-num" data-i18n="cycle_youcomplete">You complete</div>
           <div class="step-text">&#8594; red dot</div>
         </div>
       </div>
       <div style="background:#fff; border-radius:4px; padding:4px 8px; border-left:3px solid #e53935; font-size:16px;">
-        <b style="color:#e53935;">CRITICAL:</b> At max capacity, the 6-hour refresh <b>STOPS</b>. Always keep 1 slot open!
+        <b style="color:#e53935;" data-i18n="critical_label">CRITICAL:</b> <span data-i18n="critical_refresh">At max capacity, the 6-hour refresh <b>STOPS</b>. Always keep 1 slot open!</span>
       </div>
     </div>
 
-    <div class="section-label">Radar Level Progression (Lv 1&ndash;17)</div>
+    <div class="section-label" data-i18n="sec_level_progression">Radar Level Progression (Lv 1&ndash;17)</div>
     <div style="overflow-y:auto; flex:1; min-height:0;">
     <table class="levels">
       <thead>
         <tr>
-          <th>Lv</th>
-          <th>Per 6hrs</th>
-          <th>Max Stored</th>
-          <th>On Map</th>
-          <th>Bonus</th>
-          <th>Upgrade</th>
-          <th>Fill Time</th>
+          <th data-i18n="th_lv">Lv</th>
+          <th data-i18n="th_per6hrs">Per 6hrs</th>
+          <th data-i18n="th_maxstored">Max Stored</th>
+          <th data-i18n="th_onmap">On Map</th>
+          <th data-i18n="th_bonus">Bonus</th>
+          <th data-i18n="th_upgrade">Upgrade</th>
+          <th data-i18n="th_filltime">Fill Time</th>
         </tr>
       </thead>
       <tbody>
-        <tr><td class="col-level">1</td><td>6</td><td class="hl-cyan">25</td><td>5</td><td>&mdash;</td><td class="col-upgrade">5 tasks</td><td class="hl-teal">24.0h</td></tr>
-        <tr><td class="col-level">2</td><td>6</td><td class="hl-cyan">25</td><td>6</td><td class="hl-green">+5%</td><td class="col-upgrade">30 tasks</td><td class="hl-teal">24.0h</td></tr>
-        <tr><td class="col-level">3</td><td>7</td><td class="hl-cyan">25</td><td>6</td><td class="hl-green">+5%</td><td class="col-upgrade">40 tasks</td><td class="hl-teal">20.6h</td></tr>
-        <tr><td class="col-level">4</td><td>8</td><td class="hl-cyan">25</td><td>6</td><td class="hl-green">+5%</td><td class="col-upgrade">50 tasks</td><td class="hl-teal">18.0h</td></tr>
-        <tr><td class="col-level">5</td><td>9</td><td class="hl-cyan">25</td><td>7</td><td class="hl-green">+5%</td><td class="col-upgrade">60 tasks</td><td class="hl-teal">16.0h</td></tr>
-        <tr><td class="col-level">6</td><td>10</td><td class="hl-cyan">25</td><td>7</td><td class="hl-green">+5%</td><td class="col-upgrade">250 tasks</td><td class="hl-teal">14.4h</td></tr>
-        <tr><td class="col-level">7</td><td>10</td><td class="hl-cyan">30</td><td>8</td><td class="hl-green">+10%</td><td class="col-upgrade">500 tasks</td><td class="hl-teal">17.4h</td></tr>
-        <tr><td class="col-level">8</td><td>10</td><td class="hl-cyan">35</td><td>8</td><td class="hl-green">+10%</td><td class="col-upgrade">1,000 tasks</td><td class="hl-teal">20.4h</td></tr>
-        <tr><td class="col-level">9</td><td>11</td><td class="hl-cyan">35</td><td>9</td><td class="hl-green">+10%</td><td class="col-upgrade">1,500 tasks</td><td class="hl-teal">18.5h</td></tr>
-        <tr><td class="col-level">10</td><td>11</td><td class="hl-cyan">40</td><td>9</td><td class="hl-green">+15%</td><td class="col-upgrade">2,000 tasks</td><td class="hl-teal">21.3h</td></tr>
-        <tr><td class="col-level">11</td><td>11</td><td class="hl-cyan">40</td><td>10</td><td class="hl-green">+15%</td><td class="col-upgrade">2,500 tasks</td><td class="hl-teal">21.3h</td></tr>
-        <tr><td class="col-level">12</td><td>12</td><td class="hl-cyan">40</td><td>10</td><td class="hl-green">+15%</td><td class="col-upgrade">3,000 tasks</td><td class="hl-teal">19.5h</td></tr>
-        <tr><td class="col-level">13</td><td>12</td><td class="hl-cyan">40</td><td>11</td><td class="hl-green">+20%</td><td class="col-upgrade">4,000 tasks</td><td class="hl-teal">19.5h</td></tr>
-        <tr><td class="col-level">14</td><td>12</td><td class="hl-cyan">40</td><td>12</td><td class="hl-green">+20%</td><td class="col-upgrade">5,000 tasks</td><td class="hl-teal">19.5h</td></tr>
-        <tr><td class="col-level">15</td><td>13</td><td class="hl-cyan">40</td><td>12</td><td class="hl-green">+20%</td><td class="col-upgrade">7,500 tasks</td><td class="hl-teal">18.0h</td></tr>
-        <tr><td class="col-level">16</td><td>13</td><td class="hl-cyan">40</td><td>12</td><td class="hl-green">+25%</td><td class="col-upgrade">10,000 tasks</td><td class="hl-teal">18.0h</td></tr>
+        <tr><td class="col-level">1</td><td>6</td><td class="hl-cyan">25</td><td>5</td><td>&mdash;</td><td class="col-upgrade" data-i18n="upgrade_tasks_5">5 tasks</td><td class="hl-teal">24.0h</td></tr>
+        <tr><td class="col-level">2</td><td>6</td><td class="hl-cyan">25</td><td>6</td><td class="hl-green">+5%</td><td class="col-upgrade" data-i18n="upgrade_tasks_30">30 tasks</td><td class="hl-teal">24.0h</td></tr>
+        <tr><td class="col-level">3</td><td>7</td><td class="hl-cyan">25</td><td>6</td><td class="hl-green">+5%</td><td class="col-upgrade" data-i18n="upgrade_tasks_40">40 tasks</td><td class="hl-teal">20.6h</td></tr>
+        <tr><td class="col-level">4</td><td>8</td><td class="hl-cyan">25</td><td>6</td><td class="hl-green">+5%</td><td class="col-upgrade" data-i18n="upgrade_tasks_50">50 tasks</td><td class="hl-teal">18.0h</td></tr>
+        <tr><td class="col-level">5</td><td>9</td><td class="hl-cyan">25</td><td>7</td><td class="hl-green">+5%</td><td class="col-upgrade" data-i18n="upgrade_tasks_60">60 tasks</td><td class="hl-teal">16.0h</td></tr>
+        <tr><td class="col-level">6</td><td>10</td><td class="hl-cyan">25</td><td>7</td><td class="hl-green">+5%</td><td class="col-upgrade" data-i18n="upgrade_tasks_250">250 tasks</td><td class="hl-teal">14.4h</td></tr>
+        <tr><td class="col-level">7</td><td>10</td><td class="hl-cyan">30</td><td>8</td><td class="hl-green">+10%</td><td class="col-upgrade" data-i18n="upgrade_tasks_500">500 tasks</td><td class="hl-teal">17.4h</td></tr>
+        <tr><td class="col-level">8</td><td>10</td><td class="hl-cyan">35</td><td>8</td><td class="hl-green">+10%</td><td class="col-upgrade" data-i18n="upgrade_tasks_1000">1,000 tasks</td><td class="hl-teal">20.4h</td></tr>
+        <tr><td class="col-level">9</td><td>11</td><td class="hl-cyan">35</td><td>9</td><td class="hl-green">+10%</td><td class="col-upgrade" data-i18n="upgrade_tasks_1500">1,500 tasks</td><td class="hl-teal">18.5h</td></tr>
+        <tr><td class="col-level">10</td><td>11</td><td class="hl-cyan">40</td><td>9</td><td class="hl-green">+15%</td><td class="col-upgrade" data-i18n="upgrade_tasks_2000">2,000 tasks</td><td class="hl-teal">21.3h</td></tr>
+        <tr><td class="col-level">11</td><td>11</td><td class="hl-cyan">40</td><td>10</td><td class="hl-green">+15%</td><td class="col-upgrade" data-i18n="upgrade_tasks_2500">2,500 tasks</td><td class="hl-teal">21.3h</td></tr>
+        <tr><td class="col-level">12</td><td>12</td><td class="hl-cyan">40</td><td>10</td><td class="hl-green">+15%</td><td class="col-upgrade" data-i18n="upgrade_tasks_3000">3,000 tasks</td><td class="hl-teal">19.5h</td></tr>
+        <tr><td class="col-level">13</td><td>12</td><td class="hl-cyan">40</td><td>11</td><td class="hl-green">+20%</td><td class="col-upgrade" data-i18n="upgrade_tasks_4000">4,000 tasks</td><td class="hl-teal">19.5h</td></tr>
+        <tr><td class="col-level">14</td><td>12</td><td class="hl-cyan">40</td><td>12</td><td class="hl-green">+20%</td><td class="col-upgrade" data-i18n="upgrade_tasks_5000">5,000 tasks</td><td class="hl-teal">19.5h</td></tr>
+        <tr><td class="col-level">15</td><td>13</td><td class="hl-cyan">40</td><td>12</td><td class="hl-green">+20%</td><td class="col-upgrade" data-i18n="upgrade_tasks_7500">7,500 tasks</td><td class="hl-teal">18.0h</td></tr>
+        <tr><td class="col-level">16</td><td>13</td><td class="hl-cyan">40</td><td>12</td><td class="hl-green">+25%</td><td class="col-upgrade" data-i18n="upgrade_tasks_10000">10,000 tasks</td><td class="hl-teal">18.0h</td></tr>
         <tr><td class="col-level">17</td><td>13</td><td class="hl-cyan">45</td><td>12</td><td class="hl-green">+25%</td><td class="col-upgrade">&mdash;</td><td class="hl-teal">20.3h</td></tr>
       </tbody>
     </table>
-    <div style="font-size:11px; color:#888; text-align:center; padding:3px 0;">Level progression data sourced from in-game observation. Level 8 data independently verified.</div>
+    <div style="font-size:11px; color:#888; text-align:center; padding:3px 0;" data-i18n="table_source">Level progression data sourced from in-game observation. Level 8 data independently verified.</div>
     </div>
   </div>
 
   <!-- ======================== COLUMN 2: Stacking Strategy ======================== -->
   <div class="col">
-    <div class="section-label">Stacking Math & Golden Rule</div>
+    <div class="section-label" data-i18n="sec_stacking_math">Stacking Math & Golden Rule</div>
     <div style="display:grid; grid-template-columns:1fr 1fr; gap:5px;">
       <div class="card c-teal">
-        <div class="card-title ct-teal" style="font-size:17px;">Fill Time Formula</div>
+        <div class="card-title ct-teal" style="font-size:17px;" data-i18n="fill_time_title">Fill Time Formula</div>
         <div style="font-size:16px;">
-          <span class="formula">(Max Stored - 1) &divide; Per 6hrs &times; 6 = Hours</span><br>
-          <b>Example at Lv.9:</b><br>
-          <span class="formula">(35 - 1) &divide; 11 &times; 6 = <b>18.5 hours</b></span><br>
-          Every level fills in <b>14&ndash;24 hours</b>.<br>
-          <b>Start stacking the night before!</b>
+          <span class="formula" data-i18n="formula_fill">(Max Stored - 1) &divide; Per 6hrs &times; 6 = Hours</span><br>
+          <b data-i18n="fill_example_label">Example at Lv.9:</b><br>
+          <span class="formula" data-i18n="formula_example">(35 - 1) &divide; 11 &times; 6 = <b>18.5 hours</b></span><br>
+          <span data-i18n="fill_range">Every level fills in <b>14&ndash;24 hours</b>.</span><br>
+          <b data-i18n="fill_start_night">Start stacking the night before!</b>
         </div>
       </div>
       <div class="card c-crit">
-        <div class="card-title ct-red" style="font-size:17px;">The Golden Rule</div>
+        <div class="card-title ct-red" style="font-size:17px;" data-i18n="golden_rule_title">The Golden Rule</div>
         <div style="font-size:16px;">
-          <b>NEVER let storage hit max!</b><br>
-          At max, 6-hour refresh <b>STOPS</b>.<br>
-          <b>Safe limit = Max - 1</b><br>
-          <span class="formula">Lv.8: keep at 34/35</span><br>
-          <span class="formula">Lv.10: keep at 39/40</span><br>
-          <span class="formula">Lv.17: keep at 44/45</span><br>
-          Hit max? Collect 1 to restart timer.
+          <b data-i18n="golden_rule_never">NEVER let storage hit max!</b><br>
+          <span data-i18n="golden_rule_stops">At max, 6-hour refresh <b>STOPS</b>.</span><br>
+          <b data-i18n="golden_rule_safe">Safe limit = Max - 1</b><br>
+          <span class="formula" data-i18n="safe_lv8">Lv.8: keep at 34/35</span><br>
+          <span class="formula" data-i18n="safe_lv10">Lv.10: keep at 39/40</span><br>
+          <span class="formula" data-i18n="safe_lv17">Lv.17: keep at 44/45</span><br>
+          <span data-i18n="golden_rule_hitmax">Hit max? Collect 1 to restart timer.</span>
         </div>
       </div>
     </div>
 
-    <div class="section-label">When to Stack & Collect</div>
+    <div class="section-label" data-i18n="sec_when_stack">When to Stack & Collect</div>
     <div class="card c-teal">
-      <div style="font-size:16px; font-weight:700; color:#5a8a7e; margin-bottom:4px;">Radar scores on 3 VS days. Stack the night before each.</div>
+      <div style="font-size:16px; font-weight:700; color:#5a8a7e; margin-bottom:4px;" data-i18n="stack_intro">Radar scores on 3 VS days. Stack the night before each.</div>
       <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:5px; margin-bottom:5px;">
         <div style="background:#fff; border-radius:4px; padding:5px; border:1px solid #7fb3a8; text-align:center;">
-          <span class="tag t-dark">STACK 1</span><br>
+          <span class="tag t-dark" data-i18n="stack1_label">STACK 1</span><br>
           <div style="display:flex; align-items:center; gap:2px; justify-content:center; margin:3px 0;">
-            <span class="sched-pill sp-stack">SUN</span>
+            <span class="sched-pill sp-stack" data-i18n="day_sun">SUN</span>
             <span class="sched-arrow">&#8594;</span>
-            <span class="sched-pill sp-collect">MON</span>
+            <span class="sched-pill sp-collect" data-i18n="day_mon">MON</span>
           </div>
-          <div style="font-size:14px; color:#666;">Stop Sun night<br>Collect Mon reset +5m</div>
+          <div style="font-size:14px; color:#666;" data-i18n="stack1_desc">Stop Sun night<br>Collect Mon reset +5m</div>
         </div>
         <div style="background:#fff; border-radius:4px; padding:5px; border:1px solid #7fb3a8; text-align:center;">
-          <span class="tag t-dark">STACK 2</span><br>
+          <span class="tag t-dark" data-i18n="stack2_label">STACK 2</span><br>
           <div style="display:flex; align-items:center; gap:2px; justify-content:center; margin:3px 0;">
-            <span class="sched-pill sp-stack">TUE</span>
+            <span class="sched-pill sp-stack" data-i18n="day_tue">TUE</span>
             <span class="sched-arrow">&#8594;</span>
-            <span class="sched-pill sp-collect">WED</span>
+            <span class="sched-pill sp-collect" data-i18n="day_wed">WED</span>
           </div>
-          <div style="font-size:14px; color:#666;">Stop Tue night<br>Collect Wed reset +5m</div>
+          <div style="font-size:14px; color:#666;" data-i18n="stack2_desc">Stop Tue night<br>Collect Wed reset +5m</div>
         </div>
         <div style="background:#fff; border-radius:4px; padding:5px; border:1px solid #7fb3a8; text-align:center;">
-          <span class="tag t-dark">STACK 3</span><br>
+          <span class="tag t-dark" data-i18n="stack3_label">STACK 3</span><br>
           <div style="display:flex; align-items:center; gap:2px; justify-content:center; margin:3px 0;">
-            <span class="sched-pill sp-stack">THU</span>
+            <span class="sched-pill sp-stack" data-i18n="day_thu">THU</span>
             <span class="sched-arrow">&#8594;</span>
-            <span class="sched-pill sp-collect">FRI</span>
+            <span class="sched-pill sp-collect" data-i18n="day_fri">FRI</span>
           </div>
-          <div style="font-size:14px; color:#666;">Stop Thu night<br>Collect Fri reset +5m</div>
+          <div style="font-size:14px; color:#666;" data-i18n="stack3_desc">Stop Thu night<br>Collect Fri reset +5m</div>
         </div>
       </div>
       <div style="background:#fff; border-radius:4px; padding:4px 8px; border-left:3px solid #7fb3a8; font-size:16px;">
-        <b>Non-stacking days (Mon, Wed, Fri, Sat):</b> Do radar normally. Next scoring day is too far to refill.
+        <b data-i18n="nonstack_label">Non-stacking days (Mon, Wed, Fri, Sat):</b> <span data-i18n="nonstack_desc">Do radar normally. Next scoring day is too far to refill.</span>
       </div>
     </div>
 
-    <div class="section-label">Step-by-Step Stacking</div>
+    <div class="section-label" data-i18n="sec_step_by_step">Step-by-Step Stacking</div>
     <div class="card c-low" style="flex:1; min-height:0;">
       <div style="display:grid; grid-template-columns: auto 1fr; gap: 4px 8px; font-size:16px; line-height:1.4;">
         <div class="step-circle">1</div>
-        <div><b>Night before scoring day</b> &mdash; STOP collecting. Let red dots pile up. Keep completing map tasks, just don't tap to collect.</div>
+        <div data-i18n="step1"><b>Night before scoring day</b> &mdash; STOP collecting. Let red dots pile up. Keep completing map tasks, just don't tap to collect.</div>
         <div class="step-circle">2</div>
-        <div><b>Watch storage counter</b> &mdash; Stay at max-1. If at limit, stop completing until after reset.</div>
+        <div data-i18n="step2"><b>Watch storage counter</b> &mdash; Stay at max-1. If at limit, stop completing until after reset.</div>
         <div class="step-circle">3</div>
-        <div><b>Overnight</b> &mdash; Missions generate every 6hrs while you sleep. Storage not full = timer keeps running.</div>
+        <div data-i18n="step3"><b>Overnight</b> &mdash; Missions generate every 6hrs while you sleep. Storage not full = timer keeps running.</div>
         <div class="step-circle">4</div>
-        <div><b>After reset + 5 min</b> &mdash; Collect ALL at once. Each = ~25K VS pts. Full stack = <b>~750K&ndash;1M+ points</b> burst.</div>
+        <div data-i18n="step4"><b>After reset + 5 min</b> &mdash; Collect ALL at once. Each = ~25K VS pts. Full stack = <b>~750K&ndash;1M+ points</b> burst.</div>
         <div class="step-circle">5</div>
-        <div><b>Rest of day</b> &mdash; Do radar normally. Complete and collect for bonus points throughout the day.</div>
+        <div data-i18n="step5"><b>Rest of day</b> &mdash; Do radar normally. Complete and collect for bonus points throughout the day.</div>
       </div>
     </div>
   </div>
 
   <!-- ======================== COLUMN 3: Points, VS Days, Rules ======================== -->
   <div class="col">
-    <div class="section-label">Why Stacking Matters</div>
+    <div class="section-label" data-i18n="sec_why_stacking">Why Stacking Matters</div>
     <div style="display:grid; grid-template-columns:1fr 1fr; gap:5px;">
       <div class="card c-crit" style="text-align:center;">
-        <div class="card-title ct-red" style="font-size:17px;">Without Stacking</div>
-        <div style="font-size:15px; color:#666;">Collect as they come</div>
-        <div style="font-size:16px;">~10 missions on scoring day</div>
+        <div class="card-title ct-red" style="font-size:17px;" data-i18n="without_stacking">Without Stacking</div>
+        <div style="font-size:15px; color:#666;" data-i18n="without_desc">Collect as they come</div>
+        <div style="font-size:16px;" data-i18n="without_missions">~10 missions on scoring day</div>
         <div style="font-size:26px; font-weight:900; color:#c62828;">~250K pts</div>
       </div>
       <div class="card c-prep" style="text-align:center;">
-        <div class="card-title ct-green" style="font-size:17px;">With Stacking</div>
-        <div style="font-size:15px; color:#666;">Stack overnight + day missions</div>
-        <div style="font-size:16px;">~30&ndash;40 stacked + ~10 day</div>
+        <div class="card-title ct-green" style="font-size:17px;" data-i18n="with_stacking">With Stacking</div>
+        <div style="font-size:15px; color:#666;" data-i18n="with_desc">Stack overnight + day missions</div>
+        <div style="font-size:16px;" data-i18n="with_missions">~30&ndash;40 stacked + ~10 day</div>
         <div style="font-size:26px; font-weight:900; color:#2e7d32;">~1M+ pts</div>
       </div>
     </div>
-    <div style="text-align:center; font-size:17px; font-weight:700; color:#5a6a6a; margin:4px 0;">
+    <div style="text-align:center; font-size:17px; font-weight:700; color:#5a6a6a; margin:4px 0;" data-i18n="stacking_summary">
       Stacking = <b style="color:#f4a261;">4x+ more points</b> &mdash; do this 3 times/week
     </div>
 
-    <div class="section-label">Which VS Days Score Radar?</div>
+    <div class="section-label" data-i18n="sec_vs_days">Which VS Days Score Radar?</div>
     <div class="vs-days">
       <div class="vs-day card c-prep" style="padding:4px;">
-        <div class="day-name" style="color:#2e7d32;">MON</div>
+        <div class="day-name" style="color:#2e7d32;" data-i18n="vs_mon">MON</div>
         <div class="day-vp">1 VP</div>
-        <div><span class="tag t-grn">COLLECT</span></div>
+        <div><span class="tag t-grn" data-i18n="tag_collect">COLLECT</span></div>
       </div>
       <div class="vs-day card c-low" style="padding:4px; opacity:0.5;">
-        <div class="day-name" style="color:#999;">TUE</div>
+        <div class="day-name" style="color:#999;" data-i18n="vs_tue">TUE</div>
         <div class="day-vp">1 VP</div>
       </div>
       <div class="vs-day card c-prep" style="padding:4px;">
-        <div class="day-name" style="color:#2e7d32;">WED</div>
+        <div class="day-name" style="color:#2e7d32;" data-i18n="vs_wed">WED</div>
         <div class="day-vp">1 VP</div>
-        <div><span class="tag t-grn">COLLECT</span></div>
+        <div><span class="tag t-grn" data-i18n="tag_collect2">COLLECT</span></div>
       </div>
       <div class="vs-day card c-low" style="padding:4px; opacity:0.5;">
-        <div class="day-name" style="color:#999;">THU</div>
+        <div class="day-name" style="color:#999;" data-i18n="vs_thu">THU</div>
         <div class="day-vp">2 VP</div>
       </div>
       <div class="vs-day card c-prep" style="padding:4px;">
-        <div class="day-name" style="color:#2e7d32;">FRI</div>
+        <div class="day-name" style="color:#2e7d32;" data-i18n="vs_fri">FRI</div>
         <div class="day-vp">3 VP</div>
-        <div><span class="tag t-grn">COLLECT</span></div>
+        <div><span class="tag t-grn" data-i18n="tag_collect3">COLLECT</span></div>
       </div>
       <div class="vs-day card c-low" style="padding:4px; opacity:0.5;">
-        <div class="day-name" style="color:#999;">SAT</div>
+        <div class="day-name" style="color:#999;" data-i18n="vs_sat">SAT</div>
         <div class="day-vp">4 VP</div>
       </div>
       <div class="vs-day card c-high" style="padding:4px;">
-        <div class="day-name" style="color:#c47a30;">SUN</div>
+        <div class="day-name" style="color:#c47a30;" data-i18n="vs_sun">SUN</div>
         <div class="day-vp">PREP</div>
-        <div><span class="tag t-ora">STACK</span></div>
+        <div><span class="tag t-ora" data-i18n="tag_stack">STACK</span></div>
       </div>
     </div>
 
-    <div class="section-label">Quick Reference Rules</div>
+    <div class="section-label" data-i18n="sec_rules">Quick Reference Rules</div>
     <div style="display:grid; grid-template-columns:1fr 1fr; gap:5px; flex:1; min-height:0;">
       <div class="card c-prep">
-        <div class="card-title ct-green" style="font-size:17px;">DO</div>
+        <div class="card-title ct-green" style="font-size:17px;" data-i18n="do_title">DO</div>
         <ul class="rule-list">
-          <li>Keep storage at <b>max - 1</b> so timer never stops</li>
-          <li>Start stacking <b>night before</b> every scoring day</li>
-          <li>Wait <b>5 min after reset</b> before collecting</li>
-          <li>Complete map tasks during stacking &mdash; don't collect red dots</li>
-          <li>Stack 3x/week: Sun&#8594;Mon, Tue&#8594;Wed, Thu&#8594;Fri</li>
-          <li>Collect normally on non-scoring days</li>
+          <li data-i18n="do_1">Keep storage at <b>max - 1</b> so timer never stops</li>
+          <li data-i18n="do_2">Start stacking <b>night before</b> every scoring day</li>
+          <li data-i18n="do_3">Wait <b>5 min after reset</b> before collecting</li>
+          <li data-i18n="do_4">Complete map tasks during stacking &mdash; don't collect red dots</li>
+          <li data-i18n="do_5">Stack 3x/week: Sun&#8594;Mon, Tue&#8594;Wed, Thu&#8594;Fri</li>
+          <li data-i18n="do_6">Collect normally on non-scoring days</li>
         </ul>
       </div>
       <div class="card c-crit">
-        <div class="card-title ct-red" style="font-size:17px;">DON'T</div>
+        <div class="card-title ct-red" style="font-size:17px;" data-i18n="dont_title">DON'T</div>
         <ul class="rule-list">
-          <li><b>NEVER</b> let storage hit max &mdash; timer stops!</li>
-          <li>Don't collect red dots during stacking</li>
-          <li>Don't stack Mon/Wed/Fri nights</li>
-          <li>Don't collect within 5 min of reset</li>
-          <li>Don't ignore storage counter at bedtime</li>
-          <li>Don't leave map missions sitting &mdash; they expire ~8hrs</li>
+          <li data-i18n="dont_1"><b>NEVER</b> let storage hit max &mdash; timer stops!</li>
+          <li data-i18n="dont_2">Don't collect red dots during stacking</li>
+          <li data-i18n="dont_3">Don't stack Mon/Wed/Fri nights</li>
+          <li data-i18n="dont_4">Don't collect within 5 min of reset</li>
+          <li data-i18n="dont_5">Don't ignore storage counter at bedtime</li>
+          <li data-i18n="dont_6">Don't leave map missions sitting &mdash; they expire ~8hrs</li>
         </ul>
       </div>
     </div>
@@ -569,9 +588,180 @@
 </div>
 
 <!-- FOOTER -->
-<div class="footer">
+<div class="footer" data-i18n="footer">
   [OWOW] Old World Order &mdash; Radar Mission System Guide &mdash; Last War: Survival &mdash; Kristen Command System
 </div>
+
+<script>
+const T = {
+  es: {
+    // Header
+    title: 'Sistema de Misiones de Radar',
+    subtitle: 'Guia Completa de Acumulacion, Puntuacion y Optimizacion',
+
+    // Column 1 - How It Works
+    sec_how_radar: 'Como Funciona el Radar: Sistema de Dos Capas',
+    layer1_title: 'Capa 1: Mapa Mundial',
+    layer1_desc: 'Las misiones aparecen como pines. Completalas (matar zombis, ayudar aliados, recolectar) para ganar un <b>punto rojo</b>.',
+    layer1_stat: '5 &ndash; 12 visibles',
+    layer1_note: 'Depende del nivel de Radar. Las misiones sin completar expiran en ~8hrs.',
+    flow_complete: 'completar',
+    flow_reddot: 'punto rojo',
+    layer2_title: 'Capa 2: Cola de Almacenamiento',
+    layer2_desc: 'Las misiones completadas van al almacenamiento. El contador muestra <b>actual/max</b>. Toca el punto rojo para <b>recolectar</b> recompensas + puntos VS.',
+    layer2_stat: '25 &ndash; 45 almacenadas',
+    layer2_note: 'Depende del nivel de Radar. Las misiones completadas <b>NO</b> expiran. (Algunas guias dicen incorrectamente que expiran en 8 horas &mdash; ese temporizador aplica solo a misiones del mapa sin completar, no al almacenamiento.)',
+
+    // Refresh cycle
+    refresh_title: '&#8635; Ciclo de Actualizacion cada 6 Horas',
+    cycle_every6: 'Cada 6 hrs',
+    cycle_newmissions: '<b>6&ndash;13</b> misiones nuevas',
+    cycle_addedto: 'Agregadas a',
+    cycle_storagequeue: 'Cola de almacenamiento',
+    cycle_shownon: 'Mostradas en',
+    cycle_mappins: 'Pines del mapa',
+    cycle_youcomplete: 'Tu completas',
+    critical_label: 'CRITICO:',
+    critical_refresh: 'Al llegar al maximo, la actualizacion de 6 horas <b>SE DETIENE</b>. Siempre manten 1 espacio libre!',
+
+    // Level table
+    sec_level_progression: 'Progresion de Nivel de Radar (Nv 1&ndash;17)',
+    th_lv: 'Nv',
+    th_per6hrs: 'Por 6hrs',
+    th_maxstored: 'Max Almac.',
+    th_onmap: 'En Mapa',
+    th_bonus: 'Bonus',
+    th_upgrade: 'Mejora',
+    th_filltime: 'Tiempo Llenado',
+    upgrade_tasks_5: '5 tareas',
+    upgrade_tasks_30: '30 tareas',
+    upgrade_tasks_40: '40 tareas',
+    upgrade_tasks_50: '50 tareas',
+    upgrade_tasks_60: '60 tareas',
+    upgrade_tasks_250: '250 tareas',
+    upgrade_tasks_500: '500 tareas',
+    upgrade_tasks_1000: '1,000 tareas',
+    upgrade_tasks_1500: '1,500 tareas',
+    upgrade_tasks_2000: '2,000 tareas',
+    upgrade_tasks_2500: '2,500 tareas',
+    upgrade_tasks_3000: '3,000 tareas',
+    upgrade_tasks_4000: '4,000 tareas',
+    upgrade_tasks_5000: '5,000 tareas',
+    upgrade_tasks_7500: '7,500 tareas',
+    upgrade_tasks_10000: '10,000 tareas',
+    table_source: 'Datos de progresion de nivel obtenidos de observacion en el juego. Datos del nivel 8 verificados independientemente.',
+
+    // Column 2 - Stacking
+    sec_stacking_math: 'Matematica de Acumulacion y Regla de Oro',
+    fill_time_title: 'Formula de Tiempo de Llenado',
+    fill_example_label: 'Ejemplo en Nv.9:',
+    fill_range: 'Cada nivel se llena en <b>14&ndash;24 horas</b>.',
+    fill_start_night: 'Empieza a acumular la noche anterior!',
+    golden_rule_title: 'La Regla de Oro',
+    golden_rule_never: 'NUNCA dejes que el almacenamiento llegue al maximo!',
+    golden_rule_stops: 'Al maximo, la actualizacion de 6 horas <b>SE DETIENE</b>.',
+    golden_rule_safe: 'Limite seguro = Max - 1',
+    golden_rule_hitmax: 'Llegaste al max? Recolecta 1 para reiniciar el temporizador.',
+    formula_fill: '(Max Almacenado - 1) &divide; Por 6hrs &times; 6 = Horas',
+    formula_example: '(35 - 1) &divide; 11 &times; 6 = <b>18.5 horas</b>',
+    safe_lv8: 'Nv.8: mantener en 34/35',
+    safe_lv10: 'Nv.10: mantener en 39/40',
+    safe_lv17: 'Nv.17: mantener en 44/45',
+
+    stack1_label: 'ACUM 1',
+    stack2_label: 'ACUM 2',
+    stack3_label: 'ACUM 3',
+
+    sec_when_stack: 'Cuando Acumular y Recolectar',
+    stack_intro: 'El radar puntua en 3 dias VS. Acumula la noche anterior a cada uno.',
+    day_sun: 'DOM',
+    day_mon: 'LUN',
+    day_tue: 'MAR',
+    day_wed: 'MIE',
+    day_thu: 'JUE',
+    day_fri: 'VIE',
+    stack1_desc: 'Detener Dom noche<br>Recolectar Lun reset +5m',
+    stack2_desc: 'Detener Mar noche<br>Recolectar Mie reset +5m',
+    stack3_desc: 'Detener Jue noche<br>Recolectar Vie reset +5m',
+    nonstack_label: 'Dias sin acumulacion (Lun, Mie, Vie, Sab):',
+    nonstack_desc: 'Haz radar normalmente. El proximo dia de puntuacion esta muy lejos para rellenar.',
+
+    sec_step_by_step: 'Acumulacion Paso a Paso',
+    step1: '<b>Noche antes del dia de puntuacion</b> &mdash; DEJA de recolectar. Deja que se acumulen los puntos rojos. Sigue completando tareas del mapa, solo no toques para recolectar.',
+    step2: '<b>Vigila el contador de almacenamiento</b> &mdash; Manten en max-1. Si llegas al limite, deja de completar hasta despues del reset.',
+    step3: '<b>Durante la noche</b> &mdash; Las misiones se generan cada 6hrs mientras duermes. Almacenamiento no lleno = el temporizador sigue corriendo.',
+    step4: '<b>Despues del reset + 5 min</b> &mdash; Recolecta TODO de una vez. Cada una = ~25K pts VS. Stack completo = <b>~750K&ndash;1M+ puntos</b> de golpe.',
+    step5: '<b>Resto del dia</b> &mdash; Haz radar normalmente. Completa y recolecta para puntos bonus durante el dia.',
+
+    // Column 3 - Points & Rules
+    sec_why_stacking: 'Por Que Importa Acumular',
+    without_stacking: 'Sin Acumulacion',
+    without_desc: 'Recolectar conforme llegan',
+    without_missions: '~10 misiones en dia de puntuacion',
+    with_stacking: 'Con Acumulacion',
+    with_desc: 'Acumular de noche + misiones del dia',
+    with_missions: '~30&ndash;40 acumuladas + ~10 del dia',
+    stacking_summary: 'Acumular = <b style="color:#f4a261;">4x+ mas puntos</b> &mdash; hazlo 3 veces/semana',
+
+    sec_vs_days: 'Que Dias VS Puntuan Radar?',
+    vs_mon: 'LUN',
+    vs_tue: 'MAR',
+    vs_wed: 'MIE',
+    vs_thu: 'JUE',
+    vs_fri: 'VIE',
+    vs_sat: 'SAB',
+    vs_sun: 'DOM',
+    tag_collect: 'RECOLECTAR',
+    tag_collect2: 'RECOLECTAR',
+    tag_collect3: 'RECOLECTAR',
+    tag_stack: 'ACUMULAR',
+
+    sec_rules: 'Reglas de Referencia Rapida',
+    do_title: 'HAZ',
+    do_1: 'Manten el almacenamiento en <b>max - 1</b> para que el temporizador nunca pare',
+    do_2: 'Empieza a acumular la <b>noche anterior</b> a cada dia de puntuacion',
+    do_3: 'Espera <b>5 min despues del reset</b> antes de recolectar',
+    do_4: 'Completa tareas del mapa durante la acumulacion &mdash; no recolectes puntos rojos',
+    do_5: 'Acumula 3x/semana: Dom&#8594;Lun, Mar&#8594;Mie, Jue&#8594;Vie',
+    do_6: 'Recolecta normalmente en dias sin puntuacion',
+    dont_title: 'NO HAGAS',
+    dont_1: '<b>NUNCA</b> dejes que el almacenamiento llegue al max &mdash; el temporizador se detiene!',
+    dont_2: 'No recolectes puntos rojos durante la acumulacion',
+    dont_3: 'No acumules noches de Lun/Mie/Vie',
+    dont_4: 'No recolectes dentro de 5 min del reset',
+    dont_5: 'No ignores el contador de almacenamiento antes de dormir',
+    dont_6: 'No dejes misiones del mapa sin hacer &mdash; expiran en ~8hrs',
+
+    // Footer
+    footer: '[OWOW] Old World Order &mdash; Guia del Sistema de Misiones de Radar &mdash; Last War: Survival &mdash; Sistema de Comando Kristen'
+  }
+};
+
+const originals = {};
+
+document.addEventListener('DOMContentLoaded', function() {
+  document.querySelectorAll('[data-i18n]').forEach(function(el) {
+    originals[el.getAttribute('data-i18n')] = el.innerHTML;
+  });
+  var saved = localStorage.getItem('owow-radar-lang');
+  if (saved && saved !== 'en') setLang(saved);
+});
+
+function setLang(lang) {
+  document.querySelectorAll('[data-i18n]').forEach(function(el) {
+    var key = el.getAttribute('data-i18n');
+    if (lang === 'es' && T.es[key]) {
+      el.innerHTML = T.es[key];
+    } else if (lang === 'en' && originals[key]) {
+      el.innerHTML = originals[key];
+    }
+  });
+  document.getElementById('btnEN').classList.toggle('active', lang === 'en');
+  document.getElementById('btnES').classList.toggle('active', lang === 'es');
+  document.getElementById('htmlRoot').setAttribute('lang', lang);
+  localStorage.setItem('owow-radar-lang', lang);
+}
+</script>
 
 </body>
 </html>

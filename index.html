@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" id="htmlRoot">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -269,6 +269,21 @@
     margin-top: 12px;
   }
 
+  /* Language Toggle */
+  .lang-toggle {
+    display: inline-flex; align-items: center; gap: 4px;
+    background: #f0f5f4; border: 2px solid #7fb3a8; border-radius: 20px;
+    padding: 2px 4px; cursor: pointer; font-family: 'Segoe UI', sans-serif;
+    font-size: 12px; font-weight: 700; user-select: none;
+  }
+  .lang-btn {
+    padding: 2px 10px; border-radius: 16px; border: none; cursor: pointer;
+    font-size: 12px; font-weight: 700; background: transparent; color: #888;
+    transition: all 0.2s;
+  }
+  .lang-btn.active { background: #5a6a6a; color: #fff; }
+  .lang-btn:hover:not(.active) { color: #5a6a6a; }
+
   /* Mobile */
   @media (max-width: 600px) {
     body { padding: 4px; }
@@ -308,13 +323,19 @@
 <div class="hero">
   <img src="skynet_logo.png" alt="OWOW SKYNET" class="hero-logo">
   <h1>OWOW SKYNET</h1>
-  <div class="tagline">Strategic Command Center</div>
+  <div class="tagline" data-i18n="tagline">Strategic Command Center</div>
   <img src="pictures/skynet_battlefield.png" alt="" class="hero-art">
   <div class="status-bar">
     <span class="status-dot"></span>
-    System Operational
+    <span data-i18n="statusBar">System Operational</span>
     <span style="margin-left: 8px; color: #aaa;">|</span>
     <span id="currentDate" style="margin-left: 4px; color: var(--orange);"></span>
+  </div>
+  <div style="margin-top: 12px;">
+    <div class="lang-toggle" id="langToggle">
+      <button class="lang-btn active" data-lang="en">EN</button>
+      <button class="lang-btn" data-lang="es">ES</button>
+    </div>
   </div>
 </div>
 
@@ -322,37 +343,37 @@
 <div class="section section-strategic">
   <div class="section-header">
     <div class="section-icon">⚔️</div>
-    <h2>Strategic Operations</h2>
+    <h2 data-i18n="sectionStrategic">Strategic Operations</h2>
   </div>
   <div class="card-grid">
     <a href="research_trees_visual.html" class="tool-card">
       <div class="card-icon">🔬</div>
-      <h3>Research Tree Tracker</h3>
-      <div class="card-desc">Track &amp; plan all 16 research trees with interactive progress visualization</div>
+      <h3 data-i18n="cardResearchTitle">Research Tree Tracker</h3>
+      <div class="card-desc" data-i18n="cardResearchDesc">Track &amp; plan all 16 research trees with interactive progress visualization</div>
       <span class="card-arrow">→</span>
     </a>
     <a href="guides/building_planner.html" class="tool-card">
       <div class="card-icon">🏗️</div>
-      <h3>Building Planner</h3>
-      <div class="card-desc">Plan your HQ progression path with cost analysis &amp; power projections</div>
+      <h3 data-i18n="cardBuildingTitle">Building Planner</h3>
+      <div class="card-desc" data-i18n="cardBuildingDesc">Plan your HQ progression path with cost analysis &amp; power projections</div>
       <span class="card-arrow">→</span>
     </a>
     <a href="guides/vs_weekly_planner.html" class="tool-card">
       <div class="card-icon">🗓️</div>
-      <h3>VS Weekly Planner</h3>
-      <div class="card-desc">Optimize your weekly VS Duel strategy day by day</div>
+      <h3 data-i18n="cardVSTitle">VS Weekly Planner</h3>
+      <div class="card-desc" data-i18n="cardVSDesc">Optimize your weekly VS Duel strategy day by day</div>
       <span class="card-arrow">→</span>
     </a>
     <a href="guides/calendar.html" class="tool-card">
       <div class="card-icon">📅</div>
-      <h3>Event Calendar</h3>
-      <div class="card-desc">Server events, season transitions &amp; unlock timeline</div>
+      <h3 data-i18n="cardCalendarTitle">Event Calendar</h3>
+      <div class="card-desc" data-i18n="cardCalendarDesc">Server events, season transitions &amp; unlock timeline</div>
       <span class="card-arrow">→</span>
     </a>
     <a href="guides/hero_planner.html" class="tool-card">
       <div class="card-icon">🦸</div>
-      <h3>Hero Planner</h3>
-      <div class="card-desc">Track hero levels, stars, skills, gear &amp; plan Thursday upgrades</div>
+      <h3 data-i18n="cardHeroTitle">Hero Planner</h3>
+      <div class="card-desc" data-i18n="cardHeroDesc">Track hero levels, stars, skills, gear &amp; plan Thursday upgrades</div>
       <span class="card-arrow">→</span>
     </a>
   </div>
@@ -362,31 +383,31 @@
 <div class="section section-intel">
   <div class="section-header">
     <div class="section-icon">📡</div>
-    <h2>Field Intelligence</h2>
+    <h2 data-i18n="sectionIntel">Field Intelligence</h2>
   </div>
   <div class="card-grid">
     <a href="guides/server_dashboard.html" class="tool-card">
       <div class="card-icon">🌐</div>
-      <h3>Server Dashboard</h3>
-      <div class="card-desc">Live server stats, player data &amp; global game metrics</div>
+      <h3 data-i18n="cardServerTitle">Server Dashboard</h3>
+      <div class="card-desc" data-i18n="cardServerDesc">Live server stats, player data &amp; global game metrics</div>
       <span class="card-arrow">→</span>
     </a>
     <a href="guides/capitol_positions.html" class="tool-card">
       <div class="card-icon">🏛️</div>
-      <h3>Capitol Positions</h3>
-      <div class="card-desc">Officer buffs, rotation strategy &amp; queue mechanics</div>
+      <h3 data-i18n="cardCapitolTitle">Capitol Positions</h3>
+      <div class="card-desc" data-i18n="cardCapitolDesc">Officer buffs, rotation strategy &amp; queue mechanics</div>
       <span class="card-arrow">→</span>
     </a>
     <a href="guides/waterfall_guide.html" class="tool-card">
       <div class="card-icon">🏋️</div>
-      <h3>Waterfall Guide</h3>
-      <div class="card-desc">Maximize training event points with the waterfall method</div>
+      <h3 data-i18n="cardWaterfallTitle">Waterfall Guide</h3>
+      <div class="card-desc" data-i18n="cardWaterfallDesc">Maximize training event points with the waterfall method</div>
       <span class="card-arrow">→</span>
     </a>
     <a href="guides/plunder_guide.html" class="tool-card">
       <div class="card-icon">🏴‍☠️</div>
-      <h3>Plunder Guide</h3>
-      <div class="card-desc">Cross-server truck raiding &mdash; step-by-step with screenshots</div>
+      <h3 data-i18n="cardPlunderTitle">Plunder Guide</h3>
+      <div class="card-desc" data-i18n="cardPlunderDesc">Cross-server truck raiding &mdash; step-by-step with screenshots</div>
       <span class="card-arrow">→</span>
     </a>
   </div>
@@ -396,37 +417,37 @@
 <div class="section section-tactical">
   <div class="section-header">
     <div class="section-icon">⚙️</div>
-    <h2>Tactical Systems</h2>
+    <h2 data-i18n="sectionTactical">Tactical Systems</h2>
   </div>
   <div class="card-grid">
     <a href="guides/chip_lab_guide.html" class="tool-card">
       <div class="card-icon">🧪</div>
-      <h3>Chip Lab Guide</h3>
-      <div class="card-desc">Drone chip builds, loadouts &amp; upgrade priorities</div>
+      <h3 data-i18n="cardChipTitle">Chip Lab Guide</h3>
+      <div class="card-desc" data-i18n="cardChipDesc">Drone chip builds, loadouts &amp; upgrade priorities</div>
       <span class="card-arrow">→</span>
     </a>
     <a href="guides/radar_guide.html" class="tool-card">
       <div class="card-icon">📡</div>
-      <h3>Radar Guide</h3>
-      <div class="card-desc">Mission stacking, radar levels &amp; point optimization</div>
+      <h3 data-i18n="cardRadarTitle">Radar Guide</h3>
+      <div class="card-desc" data-i18n="cardRadarDesc">Mission stacking, radar levels &amp; point optimization</div>
       <span class="card-arrow">→</span>
     </a>
     <a href="guides/alliance_support_hub.html" class="tool-card">
       <div class="card-icon">🤝</div>
-      <h3>Alliance Support Hub</h3>
-      <div class="card-desc">Alliance Center levels, help mechanics &amp; lawyer bonuses</div>
+      <h3 data-i18n="cardAllianceTitle">Alliance Support Hub</h3>
+      <div class="card-desc" data-i18n="cardAllianceDesc">Alliance Center levels, help mechanics &amp; lawyer bonuses</div>
       <span class="card-arrow">→</span>
     </a>
     <a href="guides/building_reference.html" class="tool-card">
       <div class="card-icon">📋</div>
-      <h3>Building Reference</h3>
-      <div class="card-desc">Building costs, upgrade requirements &amp; power data</div>
+      <h3 data-i18n="cardBuildRefTitle">Building Reference</h3>
+      <div class="card-desc" data-i18n="cardBuildRefDesc">Building costs, upgrade requirements &amp; power data</div>
       <span class="card-arrow">→</span>
     </a>
     <a href="guides/ai_advisor.html" class="tool-card">
       <div class="card-icon">🤖</div>
-      <h3>AI Advisor</h3>
-      <div class="card-desc">Export your data &amp; get personalized strategy from ChatGPT, Claude, or Gemini</div>
+      <h3 data-i18n="cardAITitle">AI Advisor</h3>
+      <div class="card-desc" data-i18n="cardAIDesc">Export your data &amp; get personalized strategy from ChatGPT, Claude, or Gemini</div>
       <span class="card-arrow">→</span>
     </a>
   </div>
@@ -434,15 +455,91 @@
 
 <!-- Footer -->
 <div class="footer">
-  <div class="motto">Kristen OWOW SKYNET. Ready for Judgment Day.</div>
-  <div class="alliance-tag">[OWOW] Old World Order</div>
-  <div class="version">Last War: Survival — Strategic Command Center v1.0</div>
+  <div class="motto" data-i18n="footerMotto">Kristen OWOW SKYNET. Ready for Judgment Day.</div>
+  <div class="alliance-tag" data-i18n="footerAlliance">[OWOW] Old World Order</div>
+  <div class="version" data-i18n="footerVersion">Last War: Survival — Strategic Command Center v1.0</div>
 </div>
 
 <script>
-  document.getElementById('currentDate').textContent = new Date().toLocaleDateString('en-US', {
-    year: 'numeric', month: 'short', day: 'numeric'
+(function() {
+  const T = {
+    es: {
+      tagline: 'Centro de Comando Estrat\u00e9gico',
+      statusBar: 'Sistema Operativo',
+      sectionStrategic: 'Operaciones Estrat\u00e9gicas',
+      sectionIntel: 'Inteligencia de Campo',
+      sectionTactical: 'Sistemas T\u00e1cticos',
+      cardResearchTitle: 'Rastreador de \u00c1rboles de Investigaci\u00f3n',
+      cardResearchDesc: 'Rastrea y planifica los 16 \u00e1rboles de investigaci\u00f3n con visualizaci\u00f3n interactiva',
+      cardBuildingTitle: 'Planificador de Edificios',
+      cardBuildingDesc: 'Planifica tu ruta de progresi\u00f3n de HQ con an\u00e1lisis de costos y proyecciones de poder',
+      cardVSTitle: 'Planificador Semanal VS',
+      cardVSDesc: 'Optimiza tu estrategia semanal de VS Duel d\u00eda a d\u00eda',
+      cardCalendarTitle: 'Calendario de Eventos',
+      cardCalendarDesc: 'Eventos del servidor, transiciones de temporada y cronolog\u00eda de desbloqueos',
+      cardHeroTitle: 'Planificador de H\u00e9roes',
+      cardHeroDesc: 'Rastrea niveles, estrellas, habilidades, equipo y planifica mejoras del jueves',
+      cardServerTitle: 'Panel del Servidor',
+      cardServerDesc: 'Estad\u00edsticas del servidor en vivo, datos de jugadores y m\u00e9tricas globales',
+      cardCapitolTitle: 'Posiciones del Capitolio',
+      cardCapitolDesc: 'Bonificaciones de oficiales, estrategia de rotaci\u00f3n y mec\u00e1nicas de cola',
+      cardWaterfallTitle: 'Gu\u00eda de Cascada',
+      cardWaterfallDesc: 'Maximiza puntos de eventos de entrenamiento con el m\u00e9todo cascada',
+      cardPlunderTitle: 'Gu\u00eda de Saqueo',
+      cardPlunderDesc: 'Saqueo de camiones entre servidores \u2014 paso a paso con capturas',
+      cardChipTitle: 'Gu\u00eda del Laboratorio de Chips',
+      cardChipDesc: 'Configuraciones de chips de dron, equipamientos y prioridades de mejora',
+      cardRadarTitle: 'Gu\u00eda de Radar',
+      cardRadarDesc: 'Apilamiento de misiones, niveles de radar y optimizaci\u00f3n de puntos',
+      cardAllianceTitle: 'Centro de Apoyo de Alianza',
+      cardAllianceDesc: 'Niveles del Centro de Alianza, mec\u00e1nicas de ayuda y bonos de abogados',
+      cardBuildRefTitle: 'Referencia de Edificios',
+      cardBuildRefDesc: 'Costos de edificios, requisitos de mejora y datos de poder',
+      cardAITitle: 'Asesor IA',
+      cardAIDesc: 'Exporta tus datos y obt\u00e9n estrategia personalizada de ChatGPT, Claude o Gemini',
+      footerMotto: 'Kristen OWOW SKYNET. Lista para el D\u00eda del Juicio.',
+      footerAlliance: '[OWOW] Old World Order',
+      footerVersion: 'Last War: Survival \u2014 Centro de Comando Estrat\u00e9gico v1.0'
+    }
+  };
+
+  const originals = {};
+  document.querySelectorAll('[data-i18n]').forEach(function(el) {
+    originals[el.getAttribute('data-i18n')] = el.innerHTML;
   });
+
+  function updateDate(lang) {
+    var locale = lang === 'es' ? 'es-ES' : 'en-US';
+    document.getElementById('currentDate').textContent = new Date().toLocaleDateString(locale, {
+      year: 'numeric', month: 'short', day: 'numeric'
+    });
+  }
+
+  function setLang(lang) {
+    document.getElementById('htmlRoot').setAttribute('lang', lang);
+    document.querySelectorAll('[data-i18n]').forEach(function(el) {
+      var key = el.getAttribute('data-i18n');
+      if (lang === 'es' && T.es[key]) {
+        el.textContent = T.es[key];
+      } else {
+        el.innerHTML = originals[key];
+      }
+    });
+    document.querySelectorAll('.lang-btn').forEach(function(btn) {
+      btn.classList.toggle('active', btn.getAttribute('data-lang') === lang);
+    });
+    updateDate(lang);
+    localStorage.setItem('owow-home-lang', lang);
+  }
+
+  document.getElementById('langToggle').addEventListener('click', function(e) {
+    var btn = e.target.closest('.lang-btn');
+    if (btn) setLang(btn.getAttribute('data-lang'));
+  });
+
+  var saved = localStorage.getItem('owow-home-lang') || 'en';
+  setLang(saved);
+})();
 </script>
 </body>
 </html>
