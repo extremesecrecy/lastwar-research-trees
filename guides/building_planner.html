@@ -746,77 +746,86 @@
     display: none;
     position: fixed;
     top: 0; left: 0; right: 0; bottom: 0;
-    background: #f5f8f7;
+    background: linear-gradient(135deg, #2d3436 0%, #3d4f4f 50%, #2d3436 100%);
     z-index: 9999;
     overflow-y: auto;
   }
   .dash-overlay.open { display: flex; flex-direction: column; }
+
+  /* Topbar */
   .dash-topbar {
     display: flex;
     align-items: center;
     justify-content: space-between;
     padding: 6px 16px;
-    background: var(--dark);
-    color: #fff;
+    background: linear-gradient(90deg, #1a2323 0%, #2d3a3a 50%, #1a2323 100%);
+    border-bottom: 2px solid var(--orange);
     flex-shrink: 0;
   }
   .dash-topbar h2 {
     font-size: 16px;
     font-family: 'DKCrayonCrumble', sans-serif;
     text-transform: uppercase;
-    letter-spacing: 1px;
+    letter-spacing: 2px;
     margin: 0;
+    color: var(--orange);
   }
   .dash-topbar .dash-sub {
     font-size: 12px;
     color: var(--teal);
-    margin-left: 10px;
+    margin-left: 12px;
+    font-weight: 600;
   }
   .dash-close {
     font-size: 22px;
     cursor: pointer;
-    color: #fff;
+    color: #888;
     background: none;
     border: none;
     font-weight: 700;
     padding: 0 4px;
+    transition: color 0.15s;
   }
   .dash-close:hover { color: var(--watermelon); }
+
+  /* Stat Cards */
   .dash-stats {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    gap: 4px;
-    padding: 6px 10px;
+    gap: 6px;
+    padding: 8px 10px;
     flex-shrink: 0;
   }
   .dash-stat {
     text-align: center;
-    padding: 4px 4px;
-    border-radius: 6px;
-    background: #fff;
-    border: 2px solid #e0e0e0;
+    padding: 6px 4px;
+    border-radius: 8px;
+    background: rgba(255,255,255,0.07);
+    border: 1px solid rgba(255,255,255,0.12);
+    backdrop-filter: blur(4px);
+  }
+  .dash-stat .ds-icon {
+    font-size: 16px;
+    display: block;
+    margin-bottom: 1px;
   }
   .dash-stat .ds-label {
     font-size: 9px;
     text-transform: uppercase;
     letter-spacing: 0.5px;
-    color: #888;
+    color: rgba(255,255,255,0.5);
     font-weight: 700;
   }
   .dash-stat .ds-value {
-    font-size: 16px;
+    font-size: 18px;
     font-weight: 800;
-    color: var(--dark);
   }
-  .dash-stat.ds-power { border-color: var(--teal); }
   .dash-stat.ds-power .ds-value { color: var(--teal); }
-  .dash-stat.ds-hq { border-color: var(--orange); }
   .dash-stat.ds-hq .ds-value { color: var(--orange); }
-  .dash-stat.ds-vip { border-color: var(--cyan); }
-  .dash-stat.ds-vip .ds-value { color: var(--cyan); }
-  .dash-stat.ds-builders { border-color: var(--yellow); }
-  .dash-stat.ds-builders .ds-value { color: #c49a20; }
+  .dash-stat.ds-vip .ds-value { color: var(--yellow); }
+  .dash-stat.ds-builders .ds-value { color: var(--cyan); }
 
+  /* Body Grid */
   .dash-body {
     flex: 1;
     overflow-y: auto;
@@ -826,43 +835,57 @@
     gap: 6px;
     align-content: start;
   }
+
+  /* Category Cards */
   .dash-cat {
     display: flex;
     flex-direction: column;
+    border-radius: 6px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.3);
   }
   .dash-cat-title {
     font-size: 11px;
     font-weight: 800;
     color: #fff;
-    background: var(--dark);
-    padding: 3px 8px;
-    border-radius: 4px 4px 0 0;
+    padding: 4px 8px;
     text-transform: uppercase;
     letter-spacing: 0.5px;
     display: flex;
     justify-content: space-between;
     align-items: center;
   }
+  .dash-cat-title .dct-icon { margin-right: 5px; font-size: 13px; }
   .dash-cat-title .dct-power {
     font-size: 10px;
     font-weight: 600;
-    color: var(--teal);
+    color: rgba(255,255,255,0.8);
   }
+  /* Category colors */
+  .dash-cat[data-cat="Core"] .dash-cat-title { background: linear-gradient(90deg, #c47a30, #f4a261); }
+  .dash-cat[data-cat="Military"] .dash-cat-title { background: linear-gradient(90deg, #c0392b, #fc5c65); }
+  .dash-cat[data-cat="Training & Heroes"] .dash-cat-title { background: linear-gradient(90deg, #2980b9, #5bc0de); }
+  .dash-cat[data-cat="Resources"] .dash-cat-title { background: linear-gradient(90deg, #b8860b, #d4a017); }
+  .dash-cat[data-cat="Defense"] .dash-cat-title { background: linear-gradient(90deg, #4a7a6e, #7fb3a8); }
+  .dash-cat[data-cat="Production & Drones"] .dash-cat-title { background: linear-gradient(90deg, #3d4f4f, #5a6a6a); }
+  .dash-cat[data-cat="Special"] .dash-cat-title { background: linear-gradient(90deg, #6c3483, #9b59b6); }
+
+  /* Building Grid */
   .dash-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(90px, 1fr));
     gap: 1px;
-    background: #ddd;
-    border: 1px solid #ddd;
-    border-radius: 0 0 4px 4px;
+    background: rgba(255,255,255,0.08);
     flex: 1;
   }
   .dash-building {
-    background: #fff;
+    background: rgba(255,255,255,0.95);
     padding: 3px 5px;
     display: flex;
     flex-direction: column;
+    transition: background 0.15s;
   }
+  .dash-building:hover { background: #fff; }
   .dash-building .db-name {
     font-size: 10px;
     font-weight: 700;
@@ -891,20 +914,21 @@
   .dash-building .db-level.lv-low { color: var(--watermelon); }
   .dash-building .db-level.lv-none { color: #ccc; }
   .dash-building.db-locked {
-    opacity: 0.35;
-    background: #f9f9f9;
+    opacity: 0.25;
+    background: rgba(200,200,200,0.3);
   }
 
+  /* Legend */
   .dash-legend {
     display: flex;
-    gap: 10px;
+    gap: 12px;
     justify-content: center;
-    padding: 4px 0;
+    padding: 5px 0;
     flex-shrink: 0;
-    background: #fff;
-    border-top: 1px solid #e0e0e0;
+    background: rgba(0,0,0,0.3);
+    border-top: 1px solid rgba(255,255,255,0.1);
     font-size: 10px;
-    color: #888;
+    color: rgba(255,255,255,0.6);
   }
   .dash-legend span::before {
     content: '';
@@ -918,12 +942,13 @@
   .dash-legend .dl-good::before { background: #43a047; }
   .dash-legend .dl-mid::before { background: var(--orange); }
   .dash-legend .dl-low::before { background: var(--watermelon); }
-  .dash-legend .dl-none::before { background: #ccc; }
+  .dash-legend .dl-none::before { background: #666; }
 
   @media (max-width: 600px) {
-    .dash-stats { grid-template-columns: repeat(4, 1fr); gap: 3px; padding: 4px 6px; }
+    .dash-stats { grid-template-columns: repeat(2, 1fr); gap: 4px; padding: 6px; }
     .dash-body { grid-template-columns: 1fr; padding: 4px 6px; }
     .dash-grid { grid-template-columns: repeat(3, 1fr); }
+    .dash-stat .ds-icon { font-size: 14px; }
   }
 </style>
 </head>
@@ -2443,10 +2468,10 @@ function renderDashboard() {
 
     // Stats bar
     var statsHTML = '';
-    statsHTML += '<div class="dash-stat ds-power"><div class="ds-label">' + t('Building Power', 'Building Power') + '</div><div class="ds-value">' + fN(totalPower) + '</div></div>';
-    statsHTML += '<div class="dash-stat ds-hq"><div class="ds-label">' + t('HQ Level', 'HQ Level') + '</div><div class="ds-value">' + curHQ + '</div></div>';
-    statsHTML += '<div class="dash-stat ds-vip"><div class="ds-label">' + t('VIP', 'VIP') + '</div><div class="ds-value">' + vipLvl + '</div></div>';
-    statsHTML += '<div class="dash-stat ds-builders"><div class="ds-label">' + t('Buildings', 'Buildings') + '</div><div class="ds-value">' + builtCount + '/' + totalBuildings + '</div></div>';
+    statsHTML += '<div class="dash-stat ds-power"><span class="ds-icon">\u26A1</span><div class="ds-label">' + t('Building Power', 'Building Power') + '</div><div class="ds-value">' + fN(totalPower) + '</div></div>';
+    statsHTML += '<div class="dash-stat ds-hq"><span class="ds-icon">\uD83C\uDFDB\uFE0F</span><div class="ds-label">' + t('HQ Level', 'HQ Level') + '</div><div class="ds-value">' + curHQ + '</div></div>';
+    statsHTML += '<div class="dash-stat ds-vip"><span class="ds-icon">\uD83D\uDC51</span><div class="ds-label">' + t('VIP', 'VIP') + '</div><div class="ds-value">' + vipLvl + '</div></div>';
+    statsHTML += '<div class="dash-stat ds-builders"><span class="ds-icon">\uD83C\uDFD7\uFE0F</span><div class="ds-label">' + t('Buildings', 'Buildings') + '</div><div class="ds-value">' + builtCount + '/' + totalBuildings + '</div></div>';
     document.getElementById('dashStats').innerHTML = statsHTML;
 
     // Build category grids
@@ -2472,8 +2497,10 @@ function renderDashboard() {
         }
 
         var catLabel = t(catName, catName);
-        bodyHTML += '<div class="dash-cat">';
-        bodyHTML += '<div class="dash-cat-title"><span>' + catLabel + '</span><span class="dct-power">' + fN(catPower) + ' ' + t('power', 'power') + '</span></div>';
+        var catIcons = {'Core':'\uD83C\uDFDB\uFE0F','Military':'\u2694\uFE0F','Training & Heroes':'\uD83C\uDF96\uFE0F','Resources':'\u26CF\uFE0F','Defense':'\uD83D\uDEE1\uFE0F','Production & Drones':'\u2699\uFE0F','Special':'\u2B50'};
+        var catIcon = catIcons[catName] || '\u25A0';
+        bodyHTML += '<div class="dash-cat" data-cat="' + catName + '">';
+        bodyHTML += '<div class="dash-cat-title"><span><span class="dct-icon">' + catIcon + '</span>' + catLabel + '</span><span class="dct-power">' + fN(catPower) + ' ' + t('power', 'power') + '</span></div>';
         bodyHTML += '<div class="dash-grid">';
 
         for (var j = 0; j < instances.length; j++) {
