@@ -739,6 +739,182 @@
   .lang-btn:hover:not(.active) {
     background: #e8f4f1;
   }
+
+  /* Dashboard Modal */
+  .btn-dashboard { background: var(--dark); color: #fff; }
+  .dash-overlay {
+    display: none;
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(0,0,0,0.6);
+    z-index: 9999;
+    overflow-y: auto;
+    padding: 20px;
+  }
+  .dash-overlay.open { display: block; }
+  .dash-container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: #fff;
+    border-radius: 12px;
+    padding: 20px;
+    position: relative;
+  }
+  .dash-close {
+    position: absolute;
+    top: 10px; right: 14px;
+    font-size: 24px;
+    cursor: pointer;
+    color: var(--dark);
+    background: none;
+    border: none;
+    font-weight: 700;
+  }
+  .dash-header {
+    text-align: center;
+    margin-bottom: 16px;
+  }
+  .dash-header h2 {
+    font-size: 22px;
+    color: var(--dark);
+    font-family: 'DKCrayonCrumble', sans-serif;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+  .dash-header .dash-sub {
+    font-size: 13px;
+    color: #888;
+    margin-top: 2px;
+  }
+  .dash-stats {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 8px;
+    margin-bottom: 16px;
+  }
+  .dash-stat {
+    text-align: center;
+    padding: 10px 6px;
+    border-radius: 8px;
+    border: 2px solid #e0e0e0;
+  }
+  .dash-stat .ds-label {
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: #888;
+    font-weight: 700;
+  }
+  .dash-stat .ds-value {
+    font-size: 20px;
+    font-weight: 800;
+    color: var(--dark);
+    margin-top: 2px;
+  }
+  .dash-stat.ds-power { border-color: var(--teal); }
+  .dash-stat.ds-power .ds-value { color: var(--teal); }
+  .dash-stat.ds-hq { border-color: var(--orange); }
+  .dash-stat.ds-hq .ds-value { color: var(--orange); }
+  .dash-stat.ds-vip { border-color: var(--cyan); }
+  .dash-stat.ds-vip .ds-value { color: var(--cyan); }
+  .dash-stat.ds-builders { border-color: var(--yellow); }
+  .dash-stat.ds-builders .ds-value { color: #c49a20; }
+
+  .dash-cat {
+    margin-bottom: 12px;
+  }
+  .dash-cat-title {
+    font-size: 14px;
+    font-weight: 800;
+    color: #fff;
+    background: var(--dark);
+    padding: 6px 12px;
+    border-radius: 6px 6px 0 0;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .dash-cat-title .dct-power {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--teal);
+  }
+  .dash-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    gap: 1px;
+    background: #e0e0e0;
+    border: 1px solid #e0e0e0;
+    border-radius: 0 0 6px 6px;
+  }
+  .dash-building {
+    background: #fff;
+    padding: 8px 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+  .dash-building .db-name {
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--dark);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .dash-building .db-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .dash-building .db-level {
+    font-size: 18px;
+    font-weight: 900;
+  }
+  .dash-building .db-power {
+    font-size: 11px;
+    color: #888;
+  }
+  .dash-building .db-level.lv-max { color: var(--teal); }
+  .dash-building .db-level.lv-good { color: #43a047; }
+  .dash-building .db-level.lv-mid { color: var(--orange); }
+  .dash-building .db-level.lv-low { color: var(--watermelon); }
+  .dash-building .db-level.lv-none { color: #ccc; }
+  .dash-building.db-locked {
+    opacity: 0.4;
+    background: #f9f9f9;
+  }
+
+  .dash-legend {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+    margin-top: 12px;
+    flex-wrap: wrap;
+    font-size: 11px;
+    color: #888;
+  }
+  .dash-legend span::before {
+    content: '';
+    display: inline-block;
+    width: 10px; height: 10px;
+    border-radius: 50%;
+    margin-right: 4px;
+    vertical-align: middle;
+  }
+  .dash-legend .dl-max::before { background: var(--teal); }
+  .dash-legend .dl-good::before { background: #43a047; }
+  .dash-legend .dl-mid::before { background: var(--orange); }
+  .dash-legend .dl-low::before { background: var(--watermelon); }
+  .dash-legend .dl-none::before { background: #ccc; }
+
+  @media (max-width: 480px) {
+    .dash-stats { grid-template-columns: repeat(2, 1fr); }
+    .dash-grid { grid-template-columns: repeat(2, 1fr); }
+    .dash-container { padding: 12px; }
+  }
 </style>
 </head>
 <body>
@@ -858,11 +1034,32 @@
 <div id="tab-powerroi" class="tab-content"></div>
 
 <div class="action-bar">
+  <button class="action-btn btn-dashboard" onclick="openDashboard()" data-i18n="Dashboard">Dashboard</button>
   <button class="action-btn btn-export" onclick="exportCSV()" data-i18n="Export CSV">Export CSV</button>
   <button class="action-btn btn-import" onclick="document.getElementById('csvFileInput').click()" data-i18n="Import CSV">Import CSV</button>
   <input type="file" id="csvFileInput" accept=".csv" onchange="importCSV(event)">
   <button class="action-btn btn-reset" onclick="resetAll()" data-i18n="Reset">Reset</button>
   <a class="action-btn btn-ai" href="ai_building_advisor_prompt.md" download data-i18n="AI Advisor">AI Advisor</a>
+</div>
+
+<!-- Dashboard Overlay -->
+<div class="dash-overlay" id="dashOverlay" onclick="if(event.target===this)closeDashboard()">
+  <div class="dash-container">
+    <button class="dash-close" onclick="closeDashboard()">&times;</button>
+    <div class="dash-header">
+      <h2 data-i18n="Base Overview">Base Overview</h2>
+      <div class="dash-sub" id="dashSub"></div>
+    </div>
+    <div class="dash-stats" id="dashStats"></div>
+    <div id="dashBody"></div>
+    <div class="dash-legend">
+      <span class="dl-max" data-i18n="Maxed">Maxed</span>
+      <span class="dl-good" data-i18n="On Track">On Track</span>
+      <span class="dl-mid" data-i18n="Needs Work">Needs Work</span>
+      <span class="dl-low" data-i18n="Behind">Behind</span>
+      <span class="dl-none" data-i18n="Not Built">Not Built</span>
+    </div>
+  </div>
 </div>
 
 <div class="footer">
@@ -889,7 +1086,7 @@ const BUILDING_DATA = {"buildings":{"alliance center":{"levels":[{"level":1,"rss
 
 /* ---------- i18n SYSTEM ---------- */
 const LS_LANG_KEY = 'owow-building-planner-lang';
-var T = { es: {"Building Progression Planner":"Planificador de Progreso de Edificios","Last War: Survival":"Last War: Survival","Old World Order":"Old World Order","Current HQ:":"CG Actual:","Target HQ:":"CG Objetivo:","Builders:":"Constructores:","VIP Level:":"Nivel VIP:","Current Power":"Poder Actual","Target Power":"Poder Objetivo","Power Needed":"Poder Necesario","Your Buildings":"Tus Edificios","Upgrade Path":"Ruta de Mejora","Cheapest":"Mas Barato","Fastest":"Mas Rapido","Power ROI":"ROI de Poder","Export CSV":"Exportar CSV","Import CSV":"Importar CSV","Reset":"Reiniciar","AI Advisor":"Asesor IA","Speedup Inventory":"Inventario de Aceleradores","5 min":"5 min","15 min":"15 min","30 min":"30 min","1 hour":"1 hora","3 hour":"3 horas","8 hour":"8 horas","24 hour":"24 horas","Kristen OWOW SKYNET. Ready for Judgment Day.":"Kristen OWOW SKYNET. Lista para el Dia del Juicio.","Building data from":"Datos de edificios de","Military":"Militar","Economy":"Economia","Defense":"Defensa","Resources":"Recursos","Core":"Central","Training & Heroes":"Entrenamiento y Heroes","Production & Drones":"Produccion y Drones","Special":"Especial","Food:":"Comida:","Iron:":"Hierro:","Gold:":"Oro:","Build Time:":"Tiempo:","Power:":"Poder:","After Speedups:":"Con Aceleradores:","Speedups Used:":"Aceleradores Usados:","Remaining Speedups:":"Aceleradores Restantes:","Total":"Total","(sequential)":"(secuencial)","(with parallel builders)":"(con constructores paralelos)","Target HQ must be higher than current HQ.":"El CG objetivo debe ser mayor que el CG actual.","All requirements met! Ready to upgrade.":"Todos los requisitos cumplidos! Listo para mejorar.","All buildings maxed or no power data available.":"Todos los edificios al maximo o sin datos de poder.","CSV exported!":"CSV exportado!","Imported":"Importados","buildings!":"edificios!","All levels reset.":"Todos los niveles reiniciados.","Reset all building levels and speedups? You can re-import your CSV to restore.":"Reiniciar todos los niveles de edificios y aceleradores? Puedes reimportar tu CSV para restaurar.","Invalid CSV format. Need Building and CurrentLevel columns.":"Formato CSV invalido. Se necesitan columnas Building y CurrentLevel.","HQ":"CG","REQ":"REQ","REQUIRED":"REQUERIDO","ROI":"ROI","Next: Level":"Siguiente: Nivel","Food":"Comida","Iron":"Hierro","Gold":"Oro","Time":"Tiempo","Power":"Poder","MAXED!":"MAXIMO!","Max Level:":"Nivel Max:","Instances:":"Instancias:","Unlock:":"Desbloqueo:","Meets HQ":"Cumple CG","requirement":"requisito","needs Lv.":"necesita Nv.","Another instance meets Lv.":"Otra instancia cumple Nv.","for HQ":"para CG","currently Lv.":"actualmente Nv.","not started!":"no iniciado!","Not required for target HQ":"No requerido para el CG objetivo","Locked until HQ":"Bloqueado hasta CG","Ranked by power gained per resource spent. Required buildings for target HQ shown first.":"Clasificado por poder ganado por recurso gastado. Edificios requeridos para el CG objetivo primero.","Cheapest of:":"Mas barato de:","desc_headquarters":"Edificio central que determina el nivel maximo de TODOS los demas edificios. Aumenta el poder, limite de nivel de heroe (CG x 5 - 1), y desbloquea nuevos edificios/funciones.","desc_tech center":"Centro de investigacion para mejoras militares, de desarrollo, defensa y fuerzas especiales. Niveles mas altos aumentan la velocidad de investigacion. Un 2do Centro Tecnologico se puede comprar (Distrito 102 + paquete ~$10). Un 3ro se desbloquea via investigacion de Era del Petroleo (Temporada 2+, gratis).","desc_wall":"Reduce el dano recibido cuando tu base es atacada. Proporciona estadisticas de defensa y poder. Niveles mas altos = defensa de base mas fuerte.","desc_alliance center":"Unete o crea alianzas, solicita ayuda de construccion, accede a la tienda de alianza y participa en eventos. Niveles mas altos aumentan las ayudas maximas por tarea.","desc_builders hut":"Proporciona reduccion de tiempo gratuita en mejoras de edificios. Niveles mas altos reducen automaticamente mas segundos de los temporizadores de construccion. Asigna sobrevivientes aqui para bonificacion de velocidad.","desc_barracks":"Entrena y mejora tropas. Niveles superiores desbloquean en niveles mas altos: T5 en Nv14, T6 en 17, T7 en 20, T8 en 24, T9 en 27, T10 en 30. Multiples cuarteles permiten entrenar/cascada simultaneamente.","desc_tank center":"Mejora todas las estadisticas de heroes tipo Tanque (HP, ATQ, DEF) y velocidad de marcha de Tanque. Esencial para el rendimiento del escuadron de Tanques.","desc_air center":"Mejora todas las estadisticas de heroes tipo Aeronave (HP, ATQ, DEF) y velocidad de marcha de Aeronave. Esencial para el rendimiento del escuadron de Aeronaves.","desc_missile center":"Mejora todas las estadisticas de heroes tipo Misil (HP, ATQ, DEF) y velocidad de marcha de Misil. Esencial para el rendimiento del escuadron de Misiles.","desc_drill ground":"Aloja tropas y aumenta la capacidad por marcha. Mas campos de entrenamiento = mas marchas simultaneas. Critico para rallies y recoleccion.","desc_squad":"Estacionamientos -- cada uno representa un slot de marcha/escuadron desplegable. Niveles mas altos aumentan la velocidad de marcha de ese escuadron (+0.5% en Nv1 hasta +17.5% en Nv35). Vinculado 1:1 con Campos de Entrenamiento.","desc_recon plane":"Explora las bases de otros jugadores. Niveles mas altos aumentan la velocidad del avion explorador. El nivel del avion no puede exceder el nivel de la Torre de Alerta. Hasta 35 niveles.","desc_armament institute":"Permite investigar 4 Armamentos para desbloquear tropas T11. Edificio de un solo nivel que se desbloquea en el juego tardio despues de la Temporada 4.","desc_training base":"Genera EXP de heroe pasivamente con el tiempo (funciona sin conexion). Niveles mas altos aumentan la produccion de EXP. Nota: EXP pasiva NO cuenta para puntos de Avance de Heroe en Carrera Armamentista.","desc_tavern":"Recluta heroes y sobrevivientes. Niveles mas altos reducen el tiempo de enfriamiento de reclutamiento. Revisa diariamente para reclutamiento gratuito y fragmentos de heroe en rotacion.","desc_tactical institute":"Produce pasivamente Manuales de Entrenamiento para el Overlord (Gorila). Niveles mas altos aumentan la produccion de manuales (hasta 70/hora en Nv35). Los manuales se usan para Ataque Conjunto, Apoyo Defensivo y rutas de Entrenamiento de Supervivencia.","desc_hospital":"Cura tropas heridas. Las tropas heridas van aqui en lugar de perderse permanentemente. Niveles mas altos aumentan la capacidad de curacion. Mas hospitales = mas tropas salvadas en batalla.","desc_emergency center":"Hospital de desbordamiento -- rescata tropas 'desmayadas' que de otro modo moririan permanentemente cuando tus hospitales estan llenos. Critico para PvP y dia de Destructor de Enemigos.","desc_alert tower":"Centro de alerta temprana e inteligencia de exploracion. Define los niveles de aviones exploradores y que informacion es visible al explorar enemigos. Niveles mas altos revelan mas detalles del enemigo (tropas, heroes, poder).","desc_gold mine":"Produce oro para mejoras. El oro se requiere a partir de edificios Nv9+. Niveles mas altos = mas oro/hora. Minas extra desbloqueadas via investigacion de Economia.","desc_farmland":"Produce comida para mantenimiento de tropas y mejoras de edificios. Niveles mas altos = mas comida/hora. Granjas extra desbloqueadas via investigacion de Economia.","desc_iron mine":"Produce hierro para mejoras de edificios e investigacion. Niveles mas altos = mas hierro/hora. Minas extra desbloqueadas via investigacion de Economia.","desc_smelter":"Produce Mineral de Mejora, usado en la Fabrica de Equipo para mejorar equipo de heroe. Niveles mas altos = mas mineral/hora. Fundiciones extra desbloqueadas via investigacion de Economia.","desc_material workshop":"Produce Tornillos -- el material base de fabricacion usado en la Fabrica de Equipo para crear componentes de equipo (canones, escudos, chips, radar). Niveles mas altos = mas tornillos/hora. Talleres extra desbloqueados via investigacion de Economia.","desc_oil well":"Produce petroleo, el recurso principal para mejoras de CG 31-35. El petroleo ES el cuello de botella para progresion tardio. Construye el primero inmediatamente cuando se desbloquee!","desc_food warehouse":"Protege tu comida de ser robada durante ataques enemigos. Niveles mas altos = mas comida protegida. Mejora junto con tu produccion de comida.","desc_iron warehouse":"Protege tu hierro de ser robado durante ataques enemigos. Niveles mas altos = mas hierro protegido. Mejora junto con tu produccion de hierro.","desc_coin vault":"Protege tu oro/monedas de ser robadas durante ataques enemigos. Niveles mas altos = mas monedas protegidas. Mejora junto con tu produccion de oro.","desc_gear factory":"Fabrica equipo de heroe, fusiona materiales (tornillos en modulos refinados, super aleaciones) y desmantela equipo no deseado. Centro de gestion de todo el equipo. Niveles mas altos desbloquean mejor fabricacion de equipo.","desc_chip lab":"Fabrica chips de habilidad de dron para los slots del Laboratorio de Chips de tu dron. Niveles mas altos desbloquean fabricacion de chips legendarios (UR). Chips clave: Memory Ultra Fission, Gravitational Resonance Armor, Lethal Firestorm.","desc_component factory":"Produce Cofres de Componentes de Dron Nivel 1 para mejorar equipo de dron (Radar, Motor, Armadura, Misil, Celda de Combustible, Imagen Termica). Niveles mas altos = produccion mas rapida.","desc_drone parts workshop":"Produce pasivamente Partes de Dron (hasta ~6/dia). Las Partes de Dron se usan cada 5 niveles para mejoras de dron. Edificio de juego tardio desbloqueado a traves de Era del Petroleo."} };
+var T = { es: {"Building Progression Planner":"Planificador de Progreso de Edificios","Last War: Survival":"Last War: Survival","Old World Order":"Old World Order","Current HQ:":"CG Actual:","Target HQ:":"CG Objetivo:","Builders:":"Constructores:","VIP Level:":"Nivel VIP:","Current Power":"Poder Actual","Target Power":"Poder Objetivo","Power Needed":"Poder Necesario","Your Buildings":"Tus Edificios","Upgrade Path":"Ruta de Mejora","Cheapest":"Mas Barato","Fastest":"Mas Rapido","Power ROI":"ROI de Poder","Dashboard":"Panel General","Export CSV":"Exportar CSV","Import CSV":"Importar CSV","Reset":"Reiniciar","AI Advisor":"Asesor IA","Base Overview":"Vista General de la Base","Building Power":"Poder de Edificios","HQ Level":"Nivel CG","VIP":"VIP","Buildings":"Edificios","power":"poder","Maxed":"Maximo","On Track":"En Camino","Needs Work":"Necesita Trabajo","Behind":"Atrasado","Not Built":"Sin Construir","Speedup Inventory":"Inventario de Aceleradores","5 min":"5 min","15 min":"15 min","30 min":"30 min","1 hour":"1 hora","3 hour":"3 horas","8 hour":"8 horas","24 hour":"24 horas","Kristen OWOW SKYNET. Ready for Judgment Day.":"Kristen OWOW SKYNET. Lista para el Dia del Juicio.","Building data from":"Datos de edificios de","Military":"Militar","Economy":"Economia","Defense":"Defensa","Resources":"Recursos","Core":"Central","Training & Heroes":"Entrenamiento y Heroes","Production & Drones":"Produccion y Drones","Special":"Especial","Food:":"Comida:","Iron:":"Hierro:","Gold:":"Oro:","Build Time:":"Tiempo:","Power:":"Poder:","After Speedups:":"Con Aceleradores:","Speedups Used:":"Aceleradores Usados:","Remaining Speedups:":"Aceleradores Restantes:","Total":"Total","(sequential)":"(secuencial)","(with parallel builders)":"(con constructores paralelos)","Target HQ must be higher than current HQ.":"El CG objetivo debe ser mayor que el CG actual.","All requirements met! Ready to upgrade.":"Todos los requisitos cumplidos! Listo para mejorar.","All buildings maxed or no power data available.":"Todos los edificios al maximo o sin datos de poder.","CSV exported!":"CSV exportado!","Imported":"Importados","buildings!":"edificios!","All levels reset.":"Todos los niveles reiniciados.","Reset all building levels and speedups? You can re-import your CSV to restore.":"Reiniciar todos los niveles de edificios y aceleradores? Puedes reimportar tu CSV para restaurar.","Invalid CSV format. Need Building and CurrentLevel columns.":"Formato CSV invalido. Se necesitan columnas Building y CurrentLevel.","HQ":"CG","REQ":"REQ","REQUIRED":"REQUERIDO","ROI":"ROI","Next: Level":"Siguiente: Nivel","Food":"Comida","Iron":"Hierro","Gold":"Oro","Time":"Tiempo","Power":"Poder","MAXED!":"MAXIMO!","Max Level:":"Nivel Max:","Instances:":"Instancias:","Unlock:":"Desbloqueo:","Meets HQ":"Cumple CG","requirement":"requisito","needs Lv.":"necesita Nv.","Another instance meets Lv.":"Otra instancia cumple Nv.","for HQ":"para CG","currently Lv.":"actualmente Nv.","not started!":"no iniciado!","Not required for target HQ":"No requerido para el CG objetivo","Locked until HQ":"Bloqueado hasta CG","Ranked by power gained per resource spent. Required buildings for target HQ shown first.":"Clasificado por poder ganado por recurso gastado. Edificios requeridos para el CG objetivo primero.","Cheapest of:":"Mas barato de:","desc_headquarters":"Edificio central que determina el nivel maximo de TODOS los demas edificios. Aumenta el poder, limite de nivel de heroe (CG x 5 - 1), y desbloquea nuevos edificios/funciones.","desc_tech center":"Centro de investigacion para mejoras militares, de desarrollo, defensa y fuerzas especiales. Niveles mas altos aumentan la velocidad de investigacion. Un 2do Centro Tecnologico se puede comprar (Distrito 102 + paquete ~$10). Un 3ro se desbloquea via investigacion de Era del Petroleo (Temporada 2+, gratis).","desc_wall":"Reduce el dano recibido cuando tu base es atacada. Proporciona estadisticas de defensa y poder. Niveles mas altos = defensa de base mas fuerte.","desc_alliance center":"Unete o crea alianzas, solicita ayuda de construccion, accede a la tienda de alianza y participa en eventos. Niveles mas altos aumentan las ayudas maximas por tarea.","desc_builders hut":"Proporciona reduccion de tiempo gratuita en mejoras de edificios. Niveles mas altos reducen automaticamente mas segundos de los temporizadores de construccion. Asigna sobrevivientes aqui para bonificacion de velocidad.","desc_barracks":"Entrena y mejora tropas. Niveles superiores desbloquean en niveles mas altos: T5 en Nv14, T6 en 17, T7 en 20, T8 en 24, T9 en 27, T10 en 30. Multiples cuarteles permiten entrenar/cascada simultaneamente.","desc_tank center":"Mejora todas las estadisticas de heroes tipo Tanque (HP, ATQ, DEF) y velocidad de marcha de Tanque. Esencial para el rendimiento del escuadron de Tanques.","desc_air center":"Mejora todas las estadisticas de heroes tipo Aeronave (HP, ATQ, DEF) y velocidad de marcha de Aeronave. Esencial para el rendimiento del escuadron de Aeronaves.","desc_missile center":"Mejora todas las estadisticas de heroes tipo Misil (HP, ATQ, DEF) y velocidad de marcha de Misil. Esencial para el rendimiento del escuadron de Misiles.","desc_drill ground":"Aloja tropas y aumenta la capacidad por marcha. Mas campos de entrenamiento = mas marchas simultaneas. Critico para rallies y recoleccion.","desc_squad":"Estacionamientos -- cada uno representa un slot de marcha/escuadron desplegable. Niveles mas altos aumentan la velocidad de marcha de ese escuadron (+0.5% en Nv1 hasta +17.5% en Nv35). Vinculado 1:1 con Campos de Entrenamiento.","desc_recon plane":"Explora las bases de otros jugadores. Niveles mas altos aumentan la velocidad del avion explorador. El nivel del avion no puede exceder el nivel de la Torre de Alerta. Hasta 35 niveles.","desc_armament institute":"Permite investigar 4 Armamentos para desbloquear tropas T11. Edificio de un solo nivel que se desbloquea en el juego tardio despues de la Temporada 4.","desc_training base":"Genera EXP de heroe pasivamente con el tiempo (funciona sin conexion). Niveles mas altos aumentan la produccion de EXP. Nota: EXP pasiva NO cuenta para puntos de Avance de Heroe en Carrera Armamentista.","desc_tavern":"Recluta heroes y sobrevivientes. Niveles mas altos reducen el tiempo de enfriamiento de reclutamiento. Revisa diariamente para reclutamiento gratuito y fragmentos de heroe en rotacion.","desc_tactical institute":"Produce pasivamente Manuales de Entrenamiento para el Overlord (Gorila). Niveles mas altos aumentan la produccion de manuales (hasta 70/hora en Nv35). Los manuales se usan para Ataque Conjunto, Apoyo Defensivo y rutas de Entrenamiento de Supervivencia.","desc_hospital":"Cura tropas heridas. Las tropas heridas van aqui en lugar de perderse permanentemente. Niveles mas altos aumentan la capacidad de curacion. Mas hospitales = mas tropas salvadas en batalla.","desc_emergency center":"Hospital de desbordamiento -- rescata tropas 'desmayadas' que de otro modo moririan permanentemente cuando tus hospitales estan llenos. Critico para PvP y dia de Destructor de Enemigos.","desc_alert tower":"Centro de alerta temprana e inteligencia de exploracion. Define los niveles de aviones exploradores y que informacion es visible al explorar enemigos. Niveles mas altos revelan mas detalles del enemigo (tropas, heroes, poder).","desc_gold mine":"Produce oro para mejoras. El oro se requiere a partir de edificios Nv9+. Niveles mas altos = mas oro/hora. Minas extra desbloqueadas via investigacion de Economia.","desc_farmland":"Produce comida para mantenimiento de tropas y mejoras de edificios. Niveles mas altos = mas comida/hora. Granjas extra desbloqueadas via investigacion de Economia.","desc_iron mine":"Produce hierro para mejoras de edificios e investigacion. Niveles mas altos = mas hierro/hora. Minas extra desbloqueadas via investigacion de Economia.","desc_smelter":"Produce Mineral de Mejora, usado en la Fabrica de Equipo para mejorar equipo de heroe. Niveles mas altos = mas mineral/hora. Fundiciones extra desbloqueadas via investigacion de Economia.","desc_material workshop":"Produce Tornillos -- el material base de fabricacion usado en la Fabrica de Equipo para crear componentes de equipo (canones, escudos, chips, radar). Niveles mas altos = mas tornillos/hora. Talleres extra desbloqueados via investigacion de Economia.","desc_oil well":"Produce petroleo, el recurso principal para mejoras de CG 31-35. El petroleo ES el cuello de botella para progresion tardio. Construye el primero inmediatamente cuando se desbloquee!","desc_food warehouse":"Protege tu comida de ser robada durante ataques enemigos. Niveles mas altos = mas comida protegida. Mejora junto con tu produccion de comida.","desc_iron warehouse":"Protege tu hierro de ser robado durante ataques enemigos. Niveles mas altos = mas hierro protegido. Mejora junto con tu produccion de hierro.","desc_coin vault":"Protege tu oro/monedas de ser robadas durante ataques enemigos. Niveles mas altos = mas monedas protegidas. Mejora junto con tu produccion de oro.","desc_gear factory":"Fabrica equipo de heroe, fusiona materiales (tornillos en modulos refinados, super aleaciones) y desmantela equipo no deseado. Centro de gestion de todo el equipo. Niveles mas altos desbloquean mejor fabricacion de equipo.","desc_chip lab":"Fabrica chips de habilidad de dron para los slots del Laboratorio de Chips de tu dron. Niveles mas altos desbloquean fabricacion de chips legendarios (UR). Chips clave: Memory Ultra Fission, Gravitational Resonance Armor, Lethal Firestorm.","desc_component factory":"Produce Cofres de Componentes de Dron Nivel 1 para mejorar equipo de dron (Radar, Motor, Armadura, Misil, Celda de Combustible, Imagen Termica). Niveles mas altos = produccion mas rapida.","desc_drone parts workshop":"Produce pasivamente Partes de Dron (hasta ~6/dia). Las Partes de Dron se usan cada 5 niveles para mejoras de dron. Edificio de juego tardio desbloqueado a traves de Era del Petroleo."} };
 var currentLang = 'en';
 
 function t(key, fallback) {
@@ -2196,6 +2393,121 @@ function fN(v) {
     if (v >= 1000) return (v / 1000).toFixed(1) + 'K';
     if (v !== Math.floor(v)) return v.toFixed(1);
     return v.toString();
+}
+
+/* ---------- DASHBOARD ---------- */
+function openDashboard() {
+    var overlay = document.getElementById('dashOverlay');
+    renderDashboard();
+    overlay.classList.add('open');
+    document.body.style.overflow = 'hidden';
+}
+
+function closeDashboard() {
+    document.getElementById('dashOverlay').classList.remove('open');
+    document.body.style.overflow = '';
+}
+
+function renderDashboard() {
+    var curHQ = parseInt(document.getElementById('currentHQ').value) || 1;
+    var tgtHQ = parseInt(document.getElementById('targetHQ').value) || curHQ;
+    var vipLvl = parseInt(document.getElementById('vipLevel').value) || 0;
+    var builders = parseInt(document.getElementById('builderCount').value) || 1;
+
+    // Subtitle
+    document.getElementById('dashSub').textContent = t('HQ', 'HQ') + ' ' + curHQ + ' → ' + tgtHQ;
+
+    // Calculate totals
+    var totalPower = 0;
+    var totalBuildings = 0;
+    var builtCount = 0;
+
+    var allKeys = Object.keys(state);
+    for (var i = 0; i < allKeys.length; i++) {
+        var k = allKeys[i];
+        var lv = state[k] || 0;
+        if (lv > 0) builtCount++;
+        totalBuildings++;
+        totalPower += getBuildingPower(k, lv) || 0;
+    }
+
+    // Stats bar
+    var statsHTML = '';
+    statsHTML += '<div class="dash-stat ds-power"><div class="ds-label">' + t('Building Power', 'Building Power') + '</div><div class="ds-value">' + fN(totalPower) + '</div></div>';
+    statsHTML += '<div class="dash-stat ds-hq"><div class="ds-label">' + t('HQ Level', 'HQ Level') + '</div><div class="ds-value">' + curHQ + '</div></div>';
+    statsHTML += '<div class="dash-stat ds-vip"><div class="ds-label">' + t('VIP', 'VIP') + '</div><div class="ds-value">' + vipLvl + '</div></div>';
+    statsHTML += '<div class="dash-stat ds-builders"><div class="ds-label">' + t('Buildings', 'Buildings') + '</div><div class="ds-value">' + builtCount + '/' + totalBuildings + '</div></div>';
+    document.getElementById('dashStats').innerHTML = statsHTML;
+
+    // Build category grids
+    var bodyHTML = '';
+    var catKeys = Object.keys(categories);
+
+    for (var ci = 0; ci < catKeys.length; ci++) {
+        var catName = catKeys[ci];
+        var catBuildings = categories[catName];
+        var catPower = 0;
+
+        // Collect all instance keys for this category
+        var instances = [];
+        for (var bi = 0; bi < catBuildings.length; bi++) {
+            var bKey = catBuildings[bi];
+            var allInst = getAllInstanceKeys(bKey);
+            for (var ii = 0; ii < allInst.length; ii++) {
+                var instKey = allInst[ii];
+                var lv = state[instKey] || 0;
+                catPower += getBuildingPower(instKey, lv) || 0;
+                instances.push(instKey);
+            }
+        }
+
+        var catLabel = t(catName, catName);
+        bodyHTML += '<div class="dash-cat">';
+        bodyHTML += '<div class="dash-cat-title"><span>' + catLabel + '</span><span class="dct-power">' + fN(catPower) + ' ' + t('power', 'power') + '</span></div>';
+        bodyHTML += '<div class="dash-grid">';
+
+        for (var j = 0; j < instances.length; j++) {
+            var ik = instances[j];
+            var baseK = getBaseKey(ik);
+            var instNum = getInstanceNum(ik);
+            var lv = state[ik] || 0;
+            var bData = buildings[baseK];
+            if (!bData) continue;
+            var maxLv = bData.levels.length;
+            var pw = getBuildingPower(ik, lv) || 0;
+            var dn = displayNames[baseK] || baseK;
+            if (instNum > 1) dn += ' ' + instNum;
+
+            // Determine level class
+            var lvClass = 'lv-none';
+            var locked = false;
+            if (lv === 0) {
+                lvClass = 'lv-none';
+                if (MULTI_INSTANCE[baseK] && instNum > 1 && !isInstanceUnlocked(baseK, instNum)) {
+                    locked = true;
+                }
+            } else if (lv >= maxLv) {
+                lvClass = 'lv-max';
+            } else {
+                var pct = lv / maxLv;
+                if (pct >= 0.7) lvClass = 'lv-good';
+                else if (pct >= 0.4) lvClass = 'lv-mid';
+                else lvClass = 'lv-low';
+            }
+
+            bodyHTML += '<div class="dash-building' + (locked ? ' db-locked' : '') + '">';
+            bodyHTML += '<div class="db-name">' + dn + '</div>';
+            bodyHTML += '<div class="db-row">';
+            bodyHTML += '<span class="db-level ' + lvClass + '">' + (lv > 0 ? lv : '—') + '<span style="font-size:11px;font-weight:400;color:#aaa;">/' + maxLv + '</span></span>';
+            bodyHTML += '<span class="db-power">' + (pw > 0 ? fN(pw) : '') + '</span>';
+            bodyHTML += '</div>';
+            bodyHTML += '</div>';
+        }
+
+        bodyHTML += '</div></div>';
+    }
+
+    document.getElementById('dashBody').innerHTML = bodyHTML;
 }
 
 function showToast(msg) {
