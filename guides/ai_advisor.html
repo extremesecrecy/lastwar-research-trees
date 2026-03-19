@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" id="htmlRoot">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -138,21 +138,6 @@
   .footer { text-align: center; padding: 12px 0; font-size: 12px; color: #888; border-top: 1px solid #eee; margin-top: 20px; }
   .footer .tagline { font-family: 'DKCrayonCrumble', sans-serif; font-size: 14px; color: var(--dark); }
 
-  /* Language Toggle */
-  .lang-toggle {
-    display: inline-flex; align-items: center; gap: 4px;
-    background: #f0f5f4; border: 2px solid #7fb3a8; border-radius: 20px;
-    padding: 2px 4px; cursor: pointer; font-family: 'Segoe UI', sans-serif;
-    font-size: 12px; font-weight: 700; user-select: none;
-  }
-  .lang-btn {
-    padding: 2px 10px; border-radius: 16px; border: none; cursor: pointer;
-    font-size: 12px; font-weight: 700; background: transparent; color: #888;
-    transition: all 0.2s;
-  }
-  .lang-btn.active { background: #5a6a6a; color: #fff; }
-  .lang-btn:hover:not(.active) { color: #5a6a6a; }
-
   @media (max-width: 480px) {
     body { padding: 4px; }
     .top-bar h1 { font-size: 18px; }
@@ -166,53 +151,32 @@
 </head>
 <body>
 
-<nav class="guide-nav">
-  <a href="../" class="nav-home">&#8592; Home</a>
-  <a href="ai_advisor.html" class="current">AI Advisor</a>
-  <a href="alliance_support_hub.html">Alliance Hub</a>
-  <a href="building_planner.html">Building Planner</a>
-  <a href="building_reference.html">Building Ref</a>
-  <a href="capitol_positions.html">Capitol Positions</a>
-  <a href="chip_lab_guide.html">Chip Lab</a>
-  <a href="calendar.html">Calendar</a>
-  <a href="hero_planner.html">Hero Planner</a>
-  <a href="plunder_guide.html">Plunder</a>
-  <a href="radar_guide.html">Radar</a>
-  <a href="../research_trees_visual.html">Research Trees</a>
-  <a href="server_dashboard.html">Server</a>
-  <a href="vs_weekly_planner.html">VS Planner</a>
-  <a href="waterfall_guide.html">Waterfall</a>
-</nav>
+<nav class="guide-nav" id="guide-nav"></nav>
+<script src="../nav.js"></script>
 
 <div class="top-bar">
   <div>
-    <h1 data-i18n="title">AI Advisor Guide</h1>
-    <div class="sub" data-i18n="subtitle">Get personalized strategy from ChatGPT, Claude, or Gemini</div>
+    <h1>AI Advisor Guide</h1>
+    <div class="sub">Get personalized strategy from ChatGPT, Claude, or Gemini</div>
   </div>
-  <div style="display:flex; align-items:center; gap:10px;">
-    <div class="lang-toggle">
-      <button class="lang-btn active" onclick="setLang('en')">EN</button>
-      <button class="lang-btn" onclick="setLang('es')">ES</button>
-    </div>
-    <div class="alliance">
-      <div class="name">[OWOW]</div>
-      <div class="info">Old World Order</div>
-    </div>
+  <div class="alliance">
+    <div class="name">[OWOW]</div>
+    <div class="info">Old World Order</div>
   </div>
 </div>
 
 <div class="intro">
-  <strong data-i18n="introLabel">How it works:</strong> <span data-i18n="introText">Our tools let you export your game progress as CSV files.
+  <strong>How it works:</strong> Our tools let you export your game progress as CSV files.
   Download the matching AI prompt, upload both to any AI chatbot, and get a personalized
   strategic analysis of your base, research, and heroes. The AI reads your real data and
-  gives advice tailored to YOUR account &mdash; not generic tips.</span>
+  gives advice tailored to YOUR account &mdash; not generic tips.
 </div>
 
 <div class="ai-logos">
   <div class="ai-logo">ChatGPT</div>
   <div class="ai-logo">Claude</div>
   <div class="ai-logo">Gemini</div>
-  <div class="ai-logo" data-i18n="anyAi">Any AI chatbot</div>
+  <div class="ai-logo">Any AI chatbot</div>
 </div>
 
 <!-- ========== RESEARCH TREES ========== -->
@@ -220,28 +184,28 @@
   <div class="tool-header">
     <div class="tool-icon research">&#x1F4D0;</div>
     <div>
-      <h2 data-i18n="researchTitle">Research Tree Advisor</h2>
-      <div class="tool-desc" data-i18n="researchDesc">Analyze your research progress across all 16 tech trees</div>
+      <h2>Research Tree Advisor</h2>
+      <div class="tool-desc">Analyze your research progress across all 16 tech trees</div>
     </div>
   </div>
   <div class="tool-body">
     <ol class="steps">
-      <li data-i18n="researchStep1">Go to the <strong><a href="../research_trees_visual.html" style="color:var(--teal)">Research Tree Tracker</a></strong> and update your research levels (click each node, set your current level)</li>
-      <li data-i18n="researchStep2">Click <strong>Export CSV</strong> at the bottom of the page &mdash; this downloads your research progress</li>
-      <li data-i18n="researchStep3">Download the <strong>AI Advisor Prompt</strong> using the button below</li>
-      <li data-i18n="researchStep4">Open your preferred AI chatbot (ChatGPT, Claude, Gemini)</li>
-      <li data-i18n="researchStep5">Upload <strong>both files</strong> &mdash; the CSV and the prompt &mdash; in a single message</li>
-      <li data-i18n="researchStep6">Ask: <code>"Analyze my research progress and tell me what to research next"</code></li>
+      <li>Go to the <strong><a href="../research_trees_visual.html" style="color:var(--teal)">Research Tree Tracker</a></strong> and update your research levels (click each node, set your current level)</li>
+      <li>Click <strong>Export CSV</strong> at the bottom of the page &mdash; this downloads your research progress</li>
+      <li>Download the <strong>AI Advisor Prompt</strong> using the button below</li>
+      <li>Open your preferred AI chatbot (ChatGPT, Claude, Gemini)</li>
+      <li>Upload <strong>both files</strong> &mdash; the CSV and the prompt &mdash; in a single message</li>
+      <li>Ask: <code>"Analyze my research progress and tell me what to research next"</code></li>
     </ol>
 
     <a class="download-btn teal" href="https://raw.githubusercontent.com/extremesecrecy/lastwar-research-trees/main/ai_advisor_prompt.md" target="_blank">
-      <span>&#x1F4E5;</span> <span data-i18n="researchDownload">Download Research AI Prompt</span>
+      &#x1F4E5; Download Research AI Prompt
     </a>
 
     <div class="tip-box">
-      <strong data-i18n="researchTipLabel">What the AI will tell you:</strong> <span data-i18n="researchTipText">Which trees to prioritize, how many Valor Badges
+      <strong>What the AI will tell you:</strong> Which trees to prioritize, how many Valor Badges
       you need for the next critical research, what prerequisites are blocking you, and whether
-      your research order matches the recommended 75-step path.</span>
+      your research order matches the recommended 75-step path.
     </div>
   </div>
 </div>
@@ -251,27 +215,27 @@
   <div class="tool-header">
     <div class="tool-icon building">&#x1F3D7;</div>
     <div>
-      <h2 data-i18n="buildingTitle">Building Upgrade Advisor</h2>
-      <div class="tool-desc" data-i18n="buildingDesc">Analyze your building levels and plan the fastest path to your next HQ</div>
+      <h2>Building Upgrade Advisor</h2>
+      <div class="tool-desc">Analyze your building levels and plan the fastest path to your next HQ</div>
     </div>
   </div>
   <div class="tool-body">
     <ol class="steps">
-      <li data-i18n="buildingStep1">Go to the <strong><a href="building_planner.html" style="color:var(--orange)">Building Planner</a></strong> and set your current HQ level and all building levels</li>
-      <li data-i18n="buildingStep2">Click <strong>Export CSV</strong> &mdash; this downloads all 32 buildings with levels, power, and HQ requirements</li>
-      <li data-i18n="buildingStep3">Download the <strong>AI Advisor Prompt</strong> using the button below</li>
-      <li data-i18n="buildingStep4">Upload <strong>both files</strong> to your AI chatbot</li>
-      <li data-i18n="buildingStep5">Ask: <code>"What should I upgrade next to reach HQ 26?"</code> or <code>"Which buildings give the most power?"</code></li>
+      <li>Go to the <strong><a href="building_planner.html" style="color:var(--orange)">Building Planner</a></strong> and set your current HQ level and all building levels</li>
+      <li>Click <strong>Export CSV</strong> &mdash; this downloads all 32 buildings with levels, power, and HQ requirements</li>
+      <li>Download the <strong>AI Advisor Prompt</strong> using the button below</li>
+      <li>Upload <strong>both files</strong> to your AI chatbot</li>
+      <li>Ask: <code>"What should I upgrade next to reach HQ 26?"</code> or <code>"Which buildings give the most power?"</code></li>
     </ol>
 
     <a class="download-btn orange" href="https://raw.githubusercontent.com/extremesecrecy/lastwar-research-trees/main/ai_building_advisor_prompt.md" target="_blank">
-      <span>&#x1F4E5;</span> <span data-i18n="buildingDownload">Download Building AI Prompt</span>
+      &#x1F4E5; Download Building AI Prompt
     </a>
 
     <div class="tip-box">
-      <strong data-i18n="buildingTipLabel">What the AI will tell you:</strong> <span data-i18n="buildingTipText">The exact chain of buildings needed for your next
+      <strong>What the AI will tell you:</strong> The exact chain of buildings needed for your next
       HQ level, which buildings give the best power-per-resource, builder queue optimization,
-      and whether your speedup inventory can cover the upgrades.</span>
+      and whether your speedup inventory can cover the upgrades.
     </div>
   </div>
 </div>
@@ -281,15 +245,15 @@
   <div class="tool-header">
     <div class="tool-icon hero">&#x1F9B8;</div>
     <div>
-      <h2 data-i18n="heroTitle">Hero Advisor</h2>
-      <div class="tool-desc" data-i18n="heroDesc">Analyze your hero lineup, squad composition, and upgrade priorities</div>
+      <h2>Hero Advisor</h2>
+      <div class="tool-desc">Analyze your hero lineup, squad composition, and upgrade priorities</div>
     </div>
   </div>
   <div class="tool-body">
     <ol class="steps">
-      <li data-i18n="heroStep1">Go to the <strong><a href="hero_planner.html" style="color:var(--watermelon)">Hero Planner</a></strong> and enter your hero levels, stars, skills, gear, and squad assignments</li>
-      <li data-i18n="heroStep2">Click <strong>Export CSV</strong> &mdash; this downloads all your hero data</li>
-      <li data-i18n="heroStep3">Upload the CSV to your AI chatbot along with this prompt:</li>
+      <li>Go to the <strong><a href="hero_planner.html" style="color:var(--watermelon)">Hero Planner</a></strong> and enter your hero levels, stars, skills, gear, and squad assignments</li>
+      <li>Click <strong>Export CSV</strong> &mdash; this downloads all your hero data</li>
+      <li>Upload the CSV to your AI chatbot along with this prompt:</li>
     </ol>
 
     <div class="prompt-box">
@@ -315,9 +279,9 @@
     </div>
 
     <div class="tip-box">
-      <strong data-i18n="heroTipLabel">What the AI will tell you:</strong> <span data-i18n="heroTipText">Whether your squads have full type synergy,
+      <strong>What the AI will tell you:</strong> Whether your squads have full type synergy,
       which heroes are bottlenecked by star level, optimal XP distribution for Thursday,
-      gear priority order, and which bench heroes to invest in next.</span>
+      gear priority order, and which bench heroes to invest in next.
     </div>
   </div>
 </div>
@@ -327,108 +291,29 @@
   <div class="tool-header">
     <div class="tool-icon" style="background: var(--dark);">&#x1F4CA;</div>
     <div>
-      <h2 data-i18n="fullTitle">Full Base Analysis</h2>
-      <div class="tool-desc" data-i18n="fullDesc">Upload all 3 CSVs for a complete strategic review</div>
+      <h2>Full Base Analysis</h2>
+      <div class="tool-desc">Upload all 3 CSVs for a complete strategic review</div>
     </div>
   </div>
   <div class="tool-body">
     <ol class="steps">
-      <li data-i18n="fullStep1">Export CSV from <strong>Research Trees</strong>, <strong>Building Planner</strong>, and <strong>Hero Planner</strong></li>
-      <li data-i18n="fullStep2">Upload all 3 CSV files plus any advisor prompt to your AI chatbot</li>
-      <li data-i18n="fullStep3">Ask: <code>"Give me a complete strategic review of my base. What are my biggest bottlenecks and what should I focus on this week?"</code></li>
+      <li>Export CSV from <strong>Research Trees</strong>, <strong>Building Planner</strong>, and <strong>Hero Planner</strong></li>
+      <li>Upload all 3 CSV files plus any advisor prompt to your AI chatbot</li>
+      <li>Ask: <code>"Give me a complete strategic review of my base. What are my biggest bottlenecks and what should I focus on this week?"</code></li>
     </ol>
     <div class="tip-box">
-      <strong data-i18n="fullTipLabel">Pro tip:</strong> <span data-i18n="fullTipText">The AI can cross-reference your data. For example, it can see that
+      <strong>Pro tip:</strong> The AI can cross-reference your data. For example, it can see that
       your HQ needs a building at level 24, check if you have the research to unlock it, and
       verify your heroes are leveled enough for the content you're trying to push.
-      Upload everything for the most comprehensive advice.</span>
+      Upload everything for the most comprehensive advice.
     </div>
   </div>
 </div>
 
 <div class="footer">
-  <div class="tagline" data-i18n="tagline">Kristen OWOW SKYNET. Ready for Judgment Day.</div>
-  <div data-i18n="footerVersion">AI Advisor Guide v1.0 | OWOW Alliance Tools</div>
+  <div class="tagline">Kristen OWOW SKYNET. Ready for Judgment Day.</div>
+  <div>AI Advisor Guide v1.0 | OWOW Alliance Tools</div>
 </div>
-
-<script>
-const T = { es: {
-  title: 'Guia del Asesor IA',
-  subtitle: 'Obtiene estrategia personalizada de ChatGPT, Claude o Gemini',
-  introLabel: 'Como funciona:',
-  introText: 'Nuestras herramientas te permiten exportar tu progreso del juego como archivos CSV. Descarga el prompt de IA correspondiente, sube ambos a cualquier chatbot de IA, y obtiene un analisis estrategico personalizado de tu base, investigacion y heroes. La IA lee tus datos reales y da consejos adaptados a TU cuenta \u2014 no consejos genericos.',
-  anyAi: 'Cualquier chatbot de IA',
-  researchTitle: 'Asesor de Arbol de Investigacion',
-  researchDesc: 'Analiza tu progreso de investigacion en los 16 arboles tecnologicos',
-  researchStep1: 'Ve al <strong><a href="../research_trees_visual.html" style="color:var(--teal)">Rastreador de Arboles de Investigacion</a></strong> y actualiza tus niveles de investigacion (haz clic en cada nodo, establece tu nivel actual)',
-  researchStep2: 'Haz clic en <strong>Export CSV</strong> en la parte inferior de la pagina \u2014 esto descarga tu progreso de investigacion',
-  researchStep3: 'Descarga el <strong>Prompt del Asesor IA</strong> usando el boton de abajo',
-  researchStep4: 'Abre tu chatbot de IA preferido (ChatGPT, Claude, Gemini)',
-  researchStep5: 'Sube <strong>ambos archivos</strong> \u2014 el CSV y el prompt \u2014 en un solo mensaje',
-  researchStep6: 'Pregunta: <code>"Analyze my research progress and tell me what to research next"</code>',
-  researchDownload: 'Descargar Prompt IA de Investigacion',
-  researchTipLabel: 'Lo que la IA te dira:',
-  researchTipText: 'Que arboles priorizar, cuantas Insignias de Valor necesitas para la proxima investigacion critica, que prerequisitos te bloquean, y si tu orden de investigacion coincide con la ruta recomendada de 75 pasos.',
-  buildingTitle: 'Asesor de Mejora de Edificios',
-  buildingDesc: 'Analiza tus niveles de edificios y planifica la ruta mas rapida a tu proximo HQ',
-  buildingStep1: 'Ve al <strong><a href="building_planner.html" style="color:var(--orange)">Planificador de Edificios</a></strong> y establece tu nivel de HQ actual y todos los niveles de edificios',
-  buildingStep2: 'Haz clic en <strong>Export CSV</strong> \u2014 esto descarga los 32 edificios con niveles, poder y requisitos de HQ',
-  buildingStep3: 'Descarga el <strong>Prompt del Asesor IA</strong> usando el boton de abajo',
-  buildingStep4: 'Sube <strong>ambos archivos</strong> a tu chatbot de IA',
-  buildingStep5: 'Pregunta: <code>"What should I upgrade next to reach HQ 26?"</code> o <code>"Which buildings give the most power?"</code>',
-  buildingDownload: 'Descargar Prompt IA de Edificios',
-  buildingTipLabel: 'Lo que la IA te dira:',
-  buildingTipText: 'La cadena exacta de edificios necesarios para tu proximo nivel de HQ, que edificios dan el mejor poder-por-recurso, optimizacion de la cola de constructores, y si tu inventario de aceleradores cubre las mejoras.',
-  heroTitle: 'Asesor de Heroes',
-  heroDesc: 'Analiza tu alineacion de heroes, composicion de escuadron y prioridades de mejora',
-  heroStep1: 'Ve al <strong><a href="hero_planner.html" style="color:var(--watermelon)">Planificador de Heroes</a></strong> e ingresa los niveles, estrellas, habilidades, equipo y asignaciones de escuadron de tus heroes',
-  heroStep2: 'Haz clic en <strong>Export CSV</strong> \u2014 esto descarga todos los datos de tus heroes',
-  heroStep3: 'Sube el CSV a tu chatbot de IA junto con este prompt:',
-  heroTipLabel: 'Lo que la IA te dira:',
-  heroTipText: 'Si tus escuadrones tienen sinergia de tipo completa, que heroes estan limitados por nivel de estrellas, distribucion optima de XP para el jueves, orden de prioridad de equipo, y en que heroes del banco invertir despues.',
-  fullTitle: 'Analisis Completo de Base',
-  fullDesc: 'Sube los 3 CSVs para una revision estrategica completa',
-  fullStep1: 'Exporta CSV de <strong>Research Trees</strong>, <strong>Building Planner</strong> y <strong>Hero Planner</strong>',
-  fullStep2: 'Sube los 3 archivos CSV mas cualquier prompt de asesor a tu chatbot de IA',
-  fullStep3: 'Pregunta: <code>"Give me a complete strategic review of my base. What are my biggest bottlenecks and what should I focus on this week?"</code>',
-  fullTipLabel: 'Consejo pro:',
-  fullTipText: 'La IA puede cruzar referencias de tus datos. Por ejemplo, puede ver que tu HQ necesita un edificio en nivel 24, verificar si tienes la investigacion para desbloquearlo, y confirmar que tus heroes estan suficientemente nivelados para el contenido que intentas avanzar. Sube todo para el consejo mas completo.',
-  tagline: 'Kristen OWOW SKYNET. Lista para el Dia del Juicio.',
-  footerVersion: 'Guia del Asesor IA v1.0 | Herramientas de Alianza OWOW'
-}};
-
-const originals = {};
-let currentLang = 'en';
-
-function captureLang() {
-  document.querySelectorAll('[data-i18n]').forEach(el => {
-    originals[el.getAttribute('data-i18n')] = el.innerHTML;
-  });
-}
-
-function setLang(lang) {
-  currentLang = lang;
-  localStorage.setItem('owow-ai-advisor-lang', lang);
-  document.querySelectorAll('[data-i18n]').forEach(el => {
-    const key = el.getAttribute('data-i18n');
-    if (lang === 'es' && T.es[key]) {
-      el.innerHTML = T.es[key];
-    } else if (originals[key]) {
-      el.innerHTML = originals[key];
-    }
-  });
-  document.querySelectorAll('.lang-btn').forEach(btn => {
-    btn.classList.toggle('active', btn.textContent === lang.toUpperCase());
-  });
-  document.getElementById('htmlRoot').lang = lang;
-}
-
-document.addEventListener('DOMContentLoaded', () => {
-  captureLang();
-  const saved = localStorage.getItem('owow-ai-advisor-lang');
-  if (saved && saved !== 'en') setLang(saved);
-});
-</script>
 
 </body>
 </html>
