@@ -1,0 +1,41 @@
+name: Update Server Stats
+
+on:
+  schedule:
+    # Every Sunday at 12:00 UTC
+    - cron: '0 12 * * 0'
+  workflow_dispatch: # Allow manual trigger
+
+permissions:
+  contents: write
+
+jobs:
+  update-stats:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout main branch
+        uses: actions/checkout@v4
+        with:
+          ref: main
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Run stats scraper
+        run: python update_server_stats.py
+
+      - name: Check for changes
+        id: changes
+        run: |
+          git diff --quiet guides/server_stats.json && echo "changed=false" >> $GITHUB_OUTPUT || echo "changed=true" >> $GITHUB_OUTPUT
+
+      - name: Commit and push to main
+        if: steps.changes.outputs.changed == 'true'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add guides/server_stats.json
+          git commit -m "chore: update server stats ($(date -u +%Y-%m-%d))"
+          git push origin main
