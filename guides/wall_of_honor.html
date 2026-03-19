@@ -1,0 +1,607 @@
+<!DOCTYPE html>
+<html lang="en" id="htmlRoot">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Wall of Honor Guide - OWOW</title>
+<style>
+  @font-face {
+    font-family: 'DKCrayonCrumble';
+    src: url('DKCrayonCrumble.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: 'DKCrayonCrumble', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: #fff;
+    color: #333;
+    padding: 4px 8px;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* Header */
+  .top-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 6px;
+    flex-shrink: 0;
+  }
+  .top-bar h1 { font-size: 22px; letter-spacing: 1px; text-transform: uppercase; color: #5a6a6a; }
+  .top-bar .sub { font-size: 14px; color: #888; }
+  .alliance {
+    background: #e8f4f1;
+    border: 1px solid #7fb3a8;
+    border-radius: 5px;
+    padding: 2px 10px;
+    text-align: right;
+  }
+  .alliance .name { font-size: 19px; font-weight: 800; color: #5a6a6a; }
+  .alliance .info { font-size: 14px; color: #666; }
+
+  /* Section labels */
+  .section-label {
+    font-size: 17px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: #5a6a6a;
+    margin: 14px 0 6px 0;
+    padding-bottom: 3px;
+    border-bottom: 2px solid #7fb3a8;
+  }
+
+  /* Cards */
+  .card {
+    border-radius: 6px;
+    padding: 10px 14px;
+    font-size: 14px;
+    line-height: 1.5;
+    margin-bottom: 10px;
+  }
+  .c-prep { background: #e8f5e9; border: 1.5px solid #43a047; }
+  .c-low { background: #fafafa; border: 1px solid #ccc; }
+  .c-med { background: #e4f3f8; border: 1.5px solid #5bc0de; }
+  .c-high { background: #fef3e2; border: 1.5px solid #f4a261; }
+  .c-crit { background: #fce4ec; border: 1.5px solid #e53935; }
+  .c-teal { background: #e8f4f1; border: 1.5px solid #7fb3a8; }
+  .c-watermelon { background: #fff0f1; border: 2px solid #fc5c65; }
+
+  .card-title { font-size: 16px; font-weight: 800; margin-bottom: 4px; }
+  .ct-dark { color: #5a6a6a; }
+  .ct-green { color: #2e7d32; }
+  .ct-orange { color: #c47a30; }
+  .ct-red { color: #c62828; }
+  .ct-cyan { color: #2a8fa8; }
+  .ct-teal { color: #5a8a7e; }
+  .ct-watermelon { color: #fc5c65; }
+
+  .tag {
+    display: inline-block;
+    font-size: 11px;
+    padding: 1px 6px;
+    border-radius: 3px;
+    font-weight: 700;
+    color: #fff;
+    vertical-align: middle;
+  }
+  .t-red { background: #e53935; }
+  .t-ora { background: #f4a261; }
+  .t-teal { background: #7fb3a8; }
+  .t-cyan { background: #5bc0de; }
+  .t-grn { background: #2e7d32; }
+  .t-dark { background: #5a6a6a; }
+  .t-watermelon { background: #fc5c65; }
+  .t-yellow { background: #d4a017; }
+
+  /* Content area */
+  .content {
+    max-width: 1100px;
+    margin: 0 auto;
+    width: 100%;
+    flex: 1;
+  }
+
+  /* Tables */
+  .hero-table { width: 100%; border-collapse: collapse; font-size: 13px; margin-bottom: 12px; }
+  .hero-table th {
+    background: #5a6a6a;
+    color: #fff;
+    padding: 5px 8px;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+    white-space: nowrap;
+    text-align: left;
+  }
+  .hero-table td {
+    padding: 4px 8px;
+    border-bottom: 1px solid #eee;
+    line-height: 1.4;
+  }
+  .hero-table .hero-name { font-weight: 700; }
+
+  /* Buff type colored rows */
+  .row-atk { background: #fef6ee; }
+  .row-def { background: #eef6fe; }
+  .row-hp { background: #eefee8; }
+  .row-load { background: #fefce8; }
+  .row-atk:nth-child(even) { background: #fdf0e0; }
+  .row-def:nth-child(even) { background: #e4eef8; }
+  .row-hp:nth-child(even) { background: #e4f8de; }
+  .row-load:nth-child(even) { background: #f8f6d8; }
+
+  /* Troop type table headers */
+  .th-tank { background: #43a047 !important; }
+  .th-aircraft { background: #5bc0de !important; }
+  .th-missile { background: #f4a261 !important; }
+
+  /* Two-column layout for buff types */
+  .buff-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-bottom: 10px;
+  }
+
+  /* Key insight box */
+  .insight-box {
+    background: #fff0f1;
+    border: 2px solid #fc5c65;
+    border-radius: 8px;
+    padding: 14px 18px;
+    margin: 14px 0;
+    font-size: 15px;
+    line-height: 1.6;
+  }
+  .insight-box .insight-title {
+    font-size: 17px;
+    font-weight: 800;
+    color: #fc5c65;
+    margin-bottom: 4px;
+  }
+
+  /* Unlock requirements card */
+  .req-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+    margin-top: 8px;
+  }
+  .req-item {
+    background: #f8f8f8;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    padding: 8px 10px;
+    text-align: center;
+    font-size: 13px;
+  }
+  .req-item .req-num { font-size: 22px; font-weight: 800; color: #f4a261; }
+  .req-item .req-label { font-size: 12px; color: #888; }
+
+  /* Strategy list */
+  .strat-list { list-style: none; padding: 0; }
+  .strat-list li {
+    padding: 6px 0 6px 24px;
+    position: relative;
+    font-size: 14px;
+    border-bottom: 1px solid #f0f0f0;
+  }
+  .strat-list li::before {
+    content: '\25B6';
+    position: absolute;
+    left: 4px;
+    color: #f4a261;
+    font-size: 10px;
+    top: 9px;
+  }
+
+  /* Sources */
+  .sources { font-size: 12px; color: #888; margin-top: 10px; }
+  .sources a { color: #5bc0de; text-decoration: none; }
+  .sources a:hover { text-decoration: underline; }
+
+  /* Footer */
+  .footer {
+    text-align: center;
+    font-size: 12px;
+    color: #999;
+    padding: 6px 2px;
+    border-top: 1px solid #e0e0e0;
+    flex-shrink: 0;
+    margin-top: 14px;
+  }
+
+  /* Navigation Bar */
+  .guide-nav {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px 12px;
+    align-items: center;
+    padding: 6px 10px;
+    background: #f0f5f4;
+    border-bottom: 2px solid #7fb3a8;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 12px;
+    margin: -4px -8px 4px -8px;
+    flex-shrink: 0;
+  }
+  .guide-nav a {
+    color: #5a6a6a;
+    text-decoration: none;
+    padding: 2px 6px;
+    border-radius: 3px;
+    white-space: nowrap;
+  }
+  .guide-nav a:hover {
+    color: #f4a261;
+    background: #fff;
+  }
+  .guide-nav a.current {
+    color: #f4a261;
+    font-weight: bold;
+    background: #fff;
+    border: 1px solid #f4a261;
+  }
+  .guide-nav .nav-home {
+    font-weight: bold;
+    margin-right: 8px;
+    padding-right: 12px;
+    border-right: 1px solid #7fb3a8;
+  }
+
+  /* Language Toggle */
+  .lang-toggle {
+    display: inline-flex; align-items: center; gap: 4px;
+    background: #f0f5f4; border: 2px solid #7fb3a8; border-radius: 20px;
+    padding: 2px 4px; cursor: pointer; font-family: 'Segoe UI', sans-serif;
+    font-size: 12px; font-weight: 700; user-select: none;
+  }
+  .lang-btn {
+    padding: 2px 10px; border-radius: 16px; border: none; cursor: pointer;
+    font-size: 12px; font-weight: 700; background: transparent; color: #888;
+    transition: all 0.2s;
+  }
+  .lang-btn.active { background: #5a6a6a; color: #fff; }
+  .lang-btn:hover:not(.active) { color: #5a6a6a; }
+
+  /* Mobile responsive */
+  @media (max-width: 768px) {
+    .top-bar { flex-direction: column; gap: 6px; text-align: center; }
+    .top-bar h1 { font-size: 18px; }
+    .alliance { text-align: center; }
+    .buff-grid { grid-template-columns: 1fr; }
+    .req-grid { grid-template-columns: 1fr; }
+    .hero-table { font-size: 12px; display: block; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+    .hero-table th { font-size: 10px; padding: 4px 6px; }
+    .hero-table td { padding: 3px 6px; }
+  }
+  @media (max-width: 480px) {
+    body { padding: 4px 6px; }
+    .top-bar h1 { font-size: 16px; }
+    .top-bar .sub { font-size: 12px; }
+    .alliance .name { font-size: 15px; }
+    .section-label { font-size: 15px; }
+    .card { font-size: 13px; padding: 8px 10px; }
+  }
+</style>
+</head>
+<body>
+
+<nav class="guide-nav">
+  <a href="../" class="nav-home">&#8592; Home</a>
+  <a href="ai_advisor.html">AI Advisor</a>
+  <a href="alliance_support_hub.html">Alliance Hub</a>
+  <a href="building_planner.html">Building Planner</a>
+  <a href="building_reference.html">Building Ref</a>
+  <a href="capitol_positions.html">Capitol Positions</a>
+  <a href="chip_lab_guide.html">Chip Lab</a>
+  <a href="calendar.html">Calendar</a>
+  <a href="hero_planner.html">Hero Planner</a>
+  <a href="plunder_guide.html">Plunder</a>
+  <a href="radar_guide.html">Radar</a>
+  <a href="../research_trees_visual.html">Research Trees</a>
+  <a href="server_dashboard.html">Server</a>
+  <a href="vs_weekly_planner.html">VS Planner</a>
+  <a href="wall_of_honor.html" class="current">Wall of Honor</a>
+  <a href="waterfall_guide.html">Waterfall</a>
+</nav>
+
+<!-- HEADER -->
+<div class="top-bar">
+  <div>
+    <h1 data-i18n="title">&#127942; Wall of Honor Guide</h1>
+    <div class="sub" data-i18n="subtitle">Hero Honor Levels, Buffs & Investment Strategy</div>
+  </div>
+  <div style="display:flex;align-items:center;gap:10px;">
+    <div class="lang-toggle">
+      <button class="lang-btn active" onclick="setLang('en')">EN</button>
+      <button class="lang-btn" onclick="setLang('es')">ES</button>
+    </div>
+    <img src="skynet_logo.png" alt="OWOW SKYNET" style="height:60px;">
+  </div>
+  <div class="alliance">
+    <div class="name">[OWOW] Old World Order</div>
+    <div class="info">Last War: Survival</div>
+  </div>
+</div>
+
+<div class="content">
+
+  <!-- SECTION 1: HOW IT WORKS -->
+  <div class="section-label" data-i18n="sec_how">&#128272; How It Works</div>
+
+  <div class="card c-teal">
+    <div class="card-title ct-teal" data-i18n="unlock_title">Unlock Requirements</div>
+    <div class="req-grid">
+      <div class="req-item">
+        <div class="req-num">5&#9733;</div>
+        <div class="req-label" data-i18n="req_star">Hero must reach 5-Star</div>
+      </div>
+      <div class="req-item">
+        <div class="req-num">Lv 20</div>
+        <div class="req-label" data-i18n="req_building">Matching military building<br>(Tank/Aircraft/Missile Center)</div>
+      </div>
+      <div class="req-item">
+        <div class="req-num">10</div>
+        <div class="req-label" data-i18n="req_shards">Shards per honor level<br>(hero-specific or universal purple)</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card c-low">
+    <div class="card-title ct-dark" data-i18n="mechanics_title">&#9881;&#65039; Core Mechanics</div>
+    <ul style="margin-left:18px;font-size:14px;line-height:1.7;">
+      <li data-i18n="mech_1">Heroes must reach <b>5&#9733;</b> (five stars) to enter the Wall of Honor</li>
+      <li data-i18n="mech_2">The corresponding military building must be at <b>Level 20</b> (Tank Center for tank heroes, Aircraft Center for aircraft heroes, Missile Center for missile heroes)</li>
+      <li data-i18n="mech_3">Once unlocked, spend hero shards to increase the hero's Honor Level</li>
+      <li data-i18n="mech_4">Cost: <b>10 shards per honor level</b> (hero-specific shards OR universal purple shards)</li>
+      <li data-i18n="mech_5"><b>No level cap</b> &mdash; upgrades are infinite</li>
+      <li data-i18n="mech_6">SSR hero shards invested are <b>refunded</b> when that hero promotes to UR</li>
+    </ul>
+  </div>
+
+  <!-- SECTION 2: TWO TYPES OF BUFFS -->
+  <div class="section-label" data-i18n="sec_buffs">&#128170; Two Types of Buffs</div>
+
+  <div class="buff-grid">
+    <div class="card c-high">
+      <div class="card-title ct-orange" data-i18n="buff_a_title">Type A &mdash; Per-Level Passive Buff</div>
+      <div style="font-size:14px;" data-i18n="buff_a_desc">
+        Every honor level gained gives <b>+0.1% HP</b> to <b>ALL heroes of that troop type</b>.<br><br>
+        <b>Example:</b> Leveling any Tank hero's honor gives +0.1% HP to ALL Tank heroes per level.<br><br>
+        <span class="tag t-ora">APPLIES TO ALL</span> heroes of the same type &mdash; not just the upgraded hero!
+      </div>
+    </div>
+    <div class="card c-med">
+      <div class="card-title ct-cyan" data-i18n="buff_b_title">Type B &mdash; Milestone Buff (Every 50 Levels)</div>
+      <div style="font-size:14px;" data-i18n="buff_b_desc">
+        Every <b>50 honor levels</b>, a hero-specific milestone buff activates:<br><br>
+        <span class="tag t-dark">UR</span> heroes: <b>+0.50%</b> per 50 levels<br>
+        <span class="tag t-teal">SSR</span> heroes: <b>+0.25%</b> per 50 levels<br>
+        <span class="tag t-yellow">Troop Load</span> heroes: <b>+1.00%</b> per 50 levels<br><br>
+        These buffs <b>also apply to ALL heroes</b> of the same troop type.
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION 3: HERO BUFF TABLES -->
+  <div class="section-label" data-i18n="sec_tables">&#128218; Complete Hero Buff Table</div>
+
+  <!-- TANK TABLE -->
+  <div style="margin-bottom:6px;font-size:15px;font-weight:800;color:#43a047;">&#128993; <span data-i18n="tank_title">Tank Heroes (13)</span></div>
+  <table class="hero-table">
+    <thead>
+      <tr class="th-tank">
+        <th data-i18n="th_hero">Hero</th>
+        <th data-i18n="th_rarity">Rarity</th>
+        <th data-i18n="th_buff">Buff Type</th>
+        <th data-i18n="th_per50">Per 50 Lvls</th>
+        <th data-i18n="th_applies">Applies To</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr class="row-atk"><td class="hero-name">Kimberly</td><td><span class="tag t-dark">UR</span></td><td>ATK</td><td>+0.50%</td><td data-i18n="all_tank">All Tank heroes</td></tr>
+      <tr class="row-def"><td class="hero-name">Marshall</td><td><span class="tag t-dark">UR</span></td><td>DEF</td><td>+0.50%</td><td data-i18n="all_tank2">All Tank heroes</td></tr>
+      <tr class="row-hp"><td class="hero-name">Murphy</td><td><span class="tag t-dark">UR</span></td><td>HP</td><td>+0.50%</td><td data-i18n="all_tank3">All Tank heroes</td></tr>
+      <tr class="row-def"><td class="hero-name">Stetmann</td><td><span class="tag t-dark">UR</span></td><td>DEF</td><td>+0.50%</td><td data-i18n="all_tank4">All Tank heroes</td></tr>
+      <tr class="row-hp"><td class="hero-name">Williams</td><td><span class="tag t-dark">UR</span></td><td>HP</td><td>+0.50%</td><td data-i18n="all_tank5">All Tank heroes</td></tr>
+      <tr class="row-atk"><td class="hero-name">Mason</td><td><span class="tag t-teal">SSR&#8594;UR</span></td><td>ATK</td><td>+0.25% / +0.50%</td><td data-i18n="all_tank6">All Tank heroes</td></tr>
+      <tr class="row-hp"><td class="hero-name">Violet</td><td><span class="tag t-teal">SSR&#8594;UR</span></td><td>HP</td><td>+0.25% / +0.50%</td><td data-i18n="all_tank7">All Tank heroes</td></tr>
+      <tr class="row-hp"><td class="hero-name">Monica</td><td><span class="tag t-teal">SSR</span></td><td>HP</td><td>+0.25%</td><td data-i18n="all_tank8">All Tank heroes</td></tr>
+      <tr class="row-def"><td class="hero-name">Richard</td><td><span class="tag t-teal">SSR</span></td><td>DEF</td><td>+0.25%</td><td data-i18n="all_tank9">All Tank heroes</td></tr>
+      <tr class="row-hp"><td class="hero-name">Scarlett</td><td><span class="tag t-teal">SSR</span></td><td>HP</td><td>+0.25%</td><td data-i18n="all_tank10">All Tank heroes</td></tr>
+      <tr class="row-def"><td class="hero-name">Farhad</td><td><span class="tag t-teal">SSR</span></td><td>DEF</td><td>+0.25%</td><td data-i18n="all_tank11">All Tank heroes</td></tr>
+      <tr class="row-load"><td class="hero-name">Loki</td><td><span class="tag t-yellow">SR</span></td><td data-i18n="troop_load">Troop Load</td><td>+1.00%</td><td data-i18n="all_tank12">All Tank heroes</td></tr>
+      <tr class="row-load"><td class="hero-name">Gump</td><td><span class="tag t-yellow">SR</span></td><td data-i18n="troop_load2">Troop Load</td><td>+1.00%</td><td data-i18n="all_tank13">All Tank heroes</td></tr>
+    </tbody>
+  </table>
+
+  <!-- AIRCRAFT TABLE -->
+  <div style="margin-bottom:6px;font-size:15px;font-weight:800;color:#5bc0de;">&#128309; <span data-i18n="aircraft_title">Aircraft Heroes (9)</span></div>
+  <table class="hero-table">
+    <thead>
+      <tr class="th-aircraft">
+        <th data-i18n="th_hero2">Hero</th>
+        <th data-i18n="th_rarity2">Rarity</th>
+        <th data-i18n="th_buff2">Buff Type</th>
+        <th data-i18n="th_per502">Per 50 Lvls</th>
+        <th data-i18n="th_applies2">Applies To</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr class="row-def"><td class="hero-name">DVA</td><td><span class="tag t-dark">UR</span></td><td>DEF</td><td>+0.50%</td><td data-i18n="all_air">All Aircraft heroes</td></tr>
+      <tr class="row-hp"><td class="hero-name">Carlie</td><td><span class="tag t-dark">UR</span></td><td>HP</td><td>+0.50%</td><td data-i18n="all_air2">All Aircraft heroes</td></tr>
+      <tr class="row-def"><td class="hero-name">Lucius</td><td><span class="tag t-dark">UR</span></td><td>DEF</td><td>+0.50%</td><td data-i18n="all_air3">All Aircraft heroes</td></tr>
+      <tr class="row-atk"><td class="hero-name">Morrison</td><td><span class="tag t-dark">UR</span></td><td>ATK</td><td>+0.50%</td><td data-i18n="all_air4">All Aircraft heroes</td></tr>
+      <tr class="row-atk"><td class="hero-name">Schuyler</td><td><span class="tag t-dark">UR</span></td><td>ATK</td><td>+0.50%</td><td data-i18n="all_air5">All Aircraft heroes</td></tr>
+      <tr class="row-atk"><td class="hero-name">Maxwell</td><td><span class="tag t-teal">SSR</span></td><td>ATK</td><td>+0.25%</td><td data-i18n="all_air6">All Aircraft heroes</td></tr>
+      <tr class="row-hp"><td class="hero-name">Cage</td><td><span class="tag t-teal">SSR</span></td><td>HP</td><td>+0.25%</td><td data-i18n="all_air7">All Aircraft heroes</td></tr>
+      <tr class="row-def"><td class="hero-name">Sarah</td><td><span class="tag t-teal">SSR</span></td><td>DEF</td><td>+0.25%</td><td data-i18n="all_air8">All Aircraft heroes</td></tr>
+      <tr class="row-load"><td class="hero-name">Ambolt</td><td><span class="tag t-yellow">SR</span></td><td data-i18n="troop_load3">Troop Load</td><td>+1.00%</td><td data-i18n="all_air9">All Aircraft heroes</td></tr>
+    </tbody>
+  </table>
+
+  <!-- MISSILE TABLE -->
+  <div style="margin-bottom:6px;font-size:15px;font-weight:800;color:#f4a261;">&#128308; <span data-i18n="missile_title">Missile Heroes (9)</span></div>
+  <table class="hero-table">
+    <thead>
+      <tr class="th-missile">
+        <th data-i18n="th_hero3">Hero</th>
+        <th data-i18n="th_rarity3">Rarity</th>
+        <th data-i18n="th_buff3">Buff Type</th>
+        <th data-i18n="th_per503">Per 50 Lvls</th>
+        <th data-i18n="th_applies3">Applies To</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr class="row-hp"><td class="hero-name">Adam</td><td><span class="tag t-dark">UR</span></td><td>HP</td><td>+0.50%</td><td data-i18n="all_mis">All Missile heroes</td></tr>
+      <tr class="row-atk"><td class="hero-name">Fiona</td><td><span class="tag t-dark">UR</span></td><td>ATK</td><td>+0.50%</td><td data-i18n="all_mis2">All Missile heroes</td></tr>
+      <tr class="row-hp"><td class="hero-name">McGregor</td><td><span class="tag t-dark">UR</span></td><td>HP</td><td>+0.50%</td><td data-i18n="all_mis3">All Missile heroes</td></tr>
+      <tr class="row-atk"><td class="hero-name">Swift</td><td><span class="tag t-dark">UR</span></td><td>ATK</td><td>+0.50%</td><td data-i18n="all_mis4">All Missile heroes</td></tr>
+      <tr class="row-def"><td class="hero-name">Tesla</td><td><span class="tag t-dark">UR</span></td><td>DEF</td><td>+0.50%</td><td data-i18n="all_mis5">All Missile heroes</td></tr>
+      <tr class="row-atk"><td class="hero-name">Braz</td><td><span class="tag t-teal">SSR</span></td><td>ATK</td><td>+0.25%</td><td data-i18n="all_mis6">All Missile heroes</td></tr>
+      <tr class="row-hp"><td class="hero-name">Esla</td><td><span class="tag t-teal">SSR</span></td><td>HP</td><td>+0.25%</td><td data-i18n="all_mis7">All Missile heroes</td></tr>
+      <tr class="row-def"><td class="hero-name">Venom</td><td><span class="tag t-teal">SSR</span></td><td>DEF</td><td>+0.25%</td><td data-i18n="all_mis8">All Missile heroes</td></tr>
+      <tr class="row-load"><td class="hero-name">Kane</td><td><span class="tag t-yellow">SR</span></td><td data-i18n="troop_load4">Troop Load</td><td>+1.00%</td><td data-i18n="all_mis9">All Missile heroes</td></tr>
+    </tbody>
+  </table>
+
+  <!-- Color legend for tables -->
+  <div class="card c-low" style="padding:6px 12px;">
+    <div style="font-size:12px;display:flex;gap:14px;flex-wrap:wrap;align-items:center;">
+      <span data-i18n="legend_title">&#127912; Table Color Legend:</span>
+      <span style="background:#fef6ee;padding:2px 8px;border-radius:3px;border:1px solid #f4a261;">ATK</span>
+      <span style="background:#eef6fe;padding:2px 8px;border-radius:3px;border:1px solid #5bc0de;">DEF</span>
+      <span style="background:#eefee8;padding:2px 8px;border-radius:3px;border:1px solid #43a047;">HP</span>
+      <span style="background:#fefce8;padding:2px 8px;border-radius:3px;border:1px solid #d4a017;" data-i18n="legend_load">Troop Load</span>
+    </div>
+  </div>
+
+  <!-- SECTION 4: PRIORITY STRATEGY -->
+  <div class="section-label" data-i18n="sec_strategy">&#127919; Priority Strategy</div>
+
+  <div class="card c-high">
+    <div class="card-title ct-orange" data-i18n="strat_title">Investment Priority Order</div>
+    <ul class="strat-list">
+      <li data-i18n="strat_1">UR heroes give <b>DOUBLE</b> the buff of SSR heroes (+0.50% vs +0.25%) &mdash; always prioritize UR heroes first</li>
+      <li data-i18n="strat_2">Focus on your <b>main squad type first</b> (for Gabriel/Extremesecrecy: Aircraft)</li>
+      <li data-i18n="strat_3"><b>ATK buffs</b> are generally most impactful for DPS-focused squads</li>
+      <li data-i18n="strat_4"><b>HP/DEF buffs</b> help survivability &mdash; great for front-line tank heroes</li>
+      <li data-i18n="strat_5"><b>Troop Load</b> buffs from SR heroes (Loki, Gump, Ambolt, Kane) are surprisingly good value &mdash; <b>+1.00% per 50 levels</b></li>
+      <li data-i18n="strat_6"><b>Do NOT invest in SSR heroes you plan to promote to UR</b> &mdash; shards refund but progress resets</li>
+    </ul>
+  </div>
+
+  <!-- SECTION 5: KEY INSIGHT -->
+  <div class="section-label" data-i18n="sec_insight">&#128161; Key Insight</div>
+
+  <div class="insight-box">
+    <div class="insight-title" data-i18n="insight_title">&#9733; Squad-Wide Benefits</div>
+    <div data-i18n="insight_body">Every hero you level in the Wall of Honor benefits your <b>ENTIRE squad of that type</b>. This is one of the few systems where investing in benched heroes still helps your main team. Even an SSR hero you never use in combat will contribute passive HP and milestone buffs to every hero of the same troop type &mdash; including your top-tier UR carries.</div>
+  </div>
+
+  <!-- SECTION 6: SOURCES -->
+  <div class="section-label" data-i18n="sec_sources">&#128214; Sources</div>
+
+  <div class="sources">
+    <div data-i18n="sources_body">
+      Data verified from the following community guides:<br>
+      &#8226; <a href="https://grindnstrat.com/last-war-wall-of-honor-guide/" target="_blank" rel="noopener">grindnstrat.com/last-war-wall-of-honor-guide/</a><br>
+      &#8226; <a href="https://guides.lastwarguide.org/wall-of-honor-and-bonuses" target="_blank" rel="noopener">guides.lastwarguide.org/wall-of-honor-and-bonuses</a><br>
+      &#8226; <a href="https://caraguatatuba.de/chapter33/en/" target="_blank" rel="noopener">caraguatatuba.de/chapter33/en/</a>
+    </div>
+  </div>
+
+</div>
+
+<!-- FOOTER -->
+<div class="footer" data-i18n="footer">
+  [OWOW] Old World Order &bull; Wall of Honor Guide &bull; Last War: Survival &bull; Kristen OWOW SKYNET
+</div>
+
+<script>
+(function(){
+  const T = { es: {
+    title: '\ud83c\udfc6 Guia del Muro de Honor',
+    subtitle: 'Niveles de Honor de Heroes, Mejoras y Estrategia de Inversion',
+    sec_how: '\ud83d\udd10 Como Funciona',
+    unlock_title: 'Requisitos de Desbloqueo',
+    req_star: 'El heroe debe alcanzar 5 Estrellas',
+    req_building: 'Edificio militar correspondiente<br>(Centro de Tanques/Aereo/Misiles)',
+    req_shards: 'Fragmentos por nivel de honor<br>(especificos del heroe o universales morados)',
+    mechanics_title: '\u2699\ufe0f Mecanicas Principales',
+    mech_1: 'Los heroes deben alcanzar <b>5\u2733</b> (cinco estrellas) para entrar al Muro de Honor',
+    mech_2: 'El edificio militar correspondiente debe estar en <b>Nivel 20</b> (Centro de Tanques para heroes tanque, Centro Aereo para heroes aereos, Centro de Misiles para heroes misil)',
+    mech_3: 'Una vez desbloqueado, gastas fragmentos de heroe para aumentar el Nivel de Honor',
+    mech_4: 'Costo: <b>10 fragmentos por nivel de honor</b> (fragmentos especificos del heroe O fragmentos universales morados)',
+    mech_5: '<b>Sin limite de nivel</b> \u2014 las mejoras son infinitas',
+    mech_6: 'Los fragmentos de heroes SSR invertidos se <b>reembolsan</b> cuando ese heroe asciende a UR',
+    sec_buffs: '\ud83d\udcaa Dos Tipos de Mejoras',
+    buff_a_title: 'Tipo A \u2014 Mejora Pasiva Por Nivel',
+    buff_a_desc: 'Cada nivel de honor ganado otorga <b>+0.1% HP</b> a <b>TODOS los heroes del mismo tipo de tropa</b>.<br><br><b>Ejemplo:</b> Subir el honor de cualquier heroe Tanque da +0.1% HP a TODOS los heroes Tanque por nivel.<br><br><span class="tag t-ora">SE APLICA A TODOS</span> los heroes del mismo tipo \u2014 \u00a1no solo al heroe mejorado!',
+    buff_b_title: 'Tipo B \u2014 Mejora por Hito (Cada 50 Niveles)',
+    buff_b_desc: 'Cada <b>50 niveles de honor</b>, una mejora especifica del heroe se activa:<br><br><span class="tag t-dark">UR</span> heroes: <b>+0.50%</b> por cada 50 niveles<br><span class="tag t-teal">SSR</span> heroes: <b>+0.25%</b> por cada 50 niveles<br><span class="tag t-yellow">Carga de Tropas</span> heroes: <b>+1.00%</b> por cada 50 niveles<br><br>Estas mejoras <b>tambien se aplican a TODOS los heroes</b> del mismo tipo de tropa.',
+    sec_tables: '\ud83d\udcda Tabla Completa de Mejoras por Heroe',
+    tank_title: 'Heroes Tanque (13)',
+    aircraft_title: 'Heroes Aereos (9)',
+    missile_title: 'Heroes Misil (9)',
+    th_hero: 'Heroe', th_rarity: 'Rareza', th_buff: 'Tipo de Mejora', th_per50: 'Por 50 Nvls', th_applies: 'Se Aplica A',
+    th_hero2: 'Heroe', th_rarity2: 'Rareza', th_buff2: 'Tipo de Mejora', th_per502: 'Por 50 Nvls', th_applies2: 'Se Aplica A',
+    th_hero3: 'Heroe', th_rarity3: 'Rareza', th_buff3: 'Tipo de Mejora', th_per503: 'Por 50 Nvls', th_applies3: 'Se Aplica A',
+    all_tank: 'Todos los heroes Tanque', all_tank2: 'Todos los heroes Tanque', all_tank3: 'Todos los heroes Tanque',
+    all_tank4: 'Todos los heroes Tanque', all_tank5: 'Todos los heroes Tanque', all_tank6: 'Todos los heroes Tanque',
+    all_tank7: 'Todos los heroes Tanque', all_tank8: 'Todos los heroes Tanque', all_tank9: 'Todos los heroes Tanque',
+    all_tank10: 'Todos los heroes Tanque', all_tank11: 'Todos los heroes Tanque', all_tank12: 'Todos los heroes Tanque',
+    all_tank13: 'Todos los heroes Tanque',
+    all_air: 'Todos los heroes Aereos', all_air2: 'Todos los heroes Aereos', all_air3: 'Todos los heroes Aereos',
+    all_air4: 'Todos los heroes Aereos', all_air5: 'Todos los heroes Aereos', all_air6: 'Todos los heroes Aereos',
+    all_air7: 'Todos los heroes Aereos', all_air8: 'Todos los heroes Aereos', all_air9: 'Todos los heroes Aereos',
+    all_mis: 'Todos los heroes Misil', all_mis2: 'Todos los heroes Misil', all_mis3: 'Todos los heroes Misil',
+    all_mis4: 'Todos los heroes Misil', all_mis5: 'Todos los heroes Misil', all_mis6: 'Todos los heroes Misil',
+    all_mis7: 'Todos los heroes Misil', all_mis8: 'Todos los heroes Misil', all_mis9: 'Todos los heroes Misil',
+    troop_load: 'Carga de Tropas', troop_load2: 'Carga de Tropas', troop_load3: 'Carga de Tropas', troop_load4: 'Carga de Tropas',
+    legend_title: '\ud83c\udfa8 Leyenda de Colores:',
+    legend_load: 'Carga de Tropas',
+    sec_strategy: '\ud83c\udfaf Estrategia de Prioridad',
+    strat_title: 'Orden de Prioridad de Inversion',
+    strat_1: 'Los heroes UR dan el <b>DOBLE</b> de mejora que los SSR (+0.50% vs +0.25%) \u2014 siempre prioriza heroes UR',
+    strat_2: 'Enfocate en tu <b>tipo de escuadron principal primero</b> (para Gabriel/Extremesecrecy: Aereo)',
+    strat_3: 'Las mejoras de <b>ATK</b> son generalmente mas impactantes para escuadrones enfocados en DPS',
+    strat_4: 'Las mejoras de <b>HP/DEF</b> ayudan a la supervivencia \u2014 excelentes para heroes tanque en primera linea',
+    strat_5: 'Las mejoras de <b>Carga de Tropas</b> de heroes SR (Loki, Gump, Ambolt, Kane) tienen sorprendentemente buen valor \u2014 <b>+1.00% por cada 50 niveles</b>',
+    strat_6: '<b>NO inviertas en heroes SSR que planeas ascender a UR</b> \u2014 los fragmentos se reembolsan pero el progreso se reinicia',
+    sec_insight: '\ud83d\udca1 Informacion Clave',
+    insight_title: '\u2733 Beneficios Para Todo el Escuadron',
+    insight_body: 'Cada heroe que subes en el Muro de Honor beneficia a tu <b>ESCUADRON COMPLETO de ese tipo</b>. Este es uno de los pocos sistemas donde invertir en heroes en banca aun ayuda a tu equipo principal. Incluso un heroe SSR que nunca uses en combate contribuira HP pasivo y mejoras por hito a cada heroe del mismo tipo de tropa \u2014 incluyendo tus mejores heroes UR.',
+    sec_sources: '\ud83d\udcd6 Fuentes',
+    sources_body: 'Datos verificados de las siguientes guias de la comunidad:<br>\u2022 <a href="https://grindnstrat.com/last-war-wall-of-honor-guide/" target="_blank" rel="noopener">grindnstrat.com/last-war-wall-of-honor-guide/</a><br>\u2022 <a href="https://guides.lastwarguide.org/wall-of-honor-and-bonuses" target="_blank" rel="noopener">guides.lastwarguide.org/wall-of-honor-and-bonuses</a><br>\u2022 <a href="https://caraguatatuba.de/chapter33/en/" target="_blank" rel="noopener">caraguatatuba.de/chapter33/en/</a>',
+    footer: '[OWOW] Old World Order \u2022 Guia del Muro de Honor \u2022 Last War: Survival \u2022 Kristen OWOW SKYNET'
+  }};
+
+  const originals = {};
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    originals[el.getAttribute('data-i18n')] = el.innerHTML;
+  });
+
+  window.setLang = function(lang) {
+    document.querySelectorAll('[data-i18n]').forEach(el => {
+      const key = el.getAttribute('data-i18n');
+      el.innerHTML = (lang === 'es' && T.es[key]) ? T.es[key] : originals[key];
+    });
+    document.querySelectorAll('.lang-btn').forEach(b => {
+      b.classList.toggle('active', b.textContent === lang.toUpperCase());
+    });
+    document.getElementById('htmlRoot').setAttribute('lang', lang);
+    localStorage.setItem('owow-wall-honor-lang', lang);
+  }
+
+  const saved = localStorage.getItem('owow-wall-honor-lang');
+  if (saved && saved !== 'en') setLang(saved);
+})();
+</script>
+</body>
+</html>
