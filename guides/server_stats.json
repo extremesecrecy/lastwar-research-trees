@@ -1,29 +1,49 @@
 {
-  "lastUpdated": "2026-03-11",
+  "lastUpdated": "2026-03-19",
   "sources": {
     "playerStats": "https://activeplayer.io/last-war-survival/",
     "serverData": "https://cpt-hedge.com/servers"
   },
   "monthlyActivePlayers": {
-    "combined": "~7.4M",
-    "android": "4.1M",
-    "ios": "3.3M"
+    "combined": "~12.0M",
+    "android": "4.5M - 7.5M",
+    "ios": "4.5M - 7.5M"
   },
   "dailyActivePlayers": {
-    "android": "750K - 1.2M",
-    "ios": "910K - 1.5M",
-    "androidShare": "~1.7M combined"
+    "android": "750.0K - 1.2M",
+    "ios": "155.0K - 380.0K",
+    "androidShare": "3.6x more"
   },
   "downloads": {
-    "googlePlay": "50M+",
+    "googlePlay": "48.4M+",
     "appStore": "48.4M+",
-    "total": "~100M+"
+    "total": "~97M+"
   },
   "monthlyTrend": [
-    { "month": "Mar 2026", "players": "4.1M", "change": "-12.4%", "direction": "down" },
-    { "month": "Feb 2026", "players": "4.7M", "change": "-17.8%", "direction": "down" },
-    { "month": "Jan 2026 (peak)", "players": "5.7M", "change": "+9.4%", "direction": "up" },
-    { "month": "Dec 2025", "players": "5.2M", "change": "+9.6%", "direction": "up" }
+    {
+      "month": "March 2026",
+      "players": "4.1M",
+      "change": "-12.4%",
+      "direction": "down"
+    },
+    {
+      "month": "February 2026",
+      "players": "4.7M",
+      "change": "-17.8%",
+      "direction": "down"
+    },
+    {
+      "month": "January 2026",
+      "players": "5.7M",
+      "change": "+9.4%",
+      "direction": "up"
+    },
+    {
+      "month": "December 2025",
+      "players": "5.2M",
+      "change": "+9.6%",
+      "direction": "up"
+    }
   ],
   "serverLandscape": {
     "totalServers": "2,194",
@@ -32,8 +52,8 @@
   },
   "engagement": {
     "androidRate": "16.2%",
-    "iosRate": "25.1%",
+    "iosRate": "16.2%",
     "yoyGrowth": "+18.2%",
-    "vsPeak": "72.1%"
+    "vsPeak": "2.1%"
   }
 }
