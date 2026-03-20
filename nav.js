@@ -42,10 +42,12 @@
 
     // Adjust paths based on current location
     if (inGuides) {
-      if (link.root) href = '../' + href;
-      // guides/ links stay as-is (already relative to guides/)
-    } else {
-      // At root level, all hrefs are already correct
+      if (link.root) {
+        href = '../' + href;
+      } else {
+        // Strip 'guides/' prefix — we're already in guides/
+        href = href.replace('guides/', '');
+      }
     }
 
     // Determine if this is the current page
