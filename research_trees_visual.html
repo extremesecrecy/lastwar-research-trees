@@ -644,21 +644,21 @@ body {
 
 .rdash-overlay {
   display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0;
-  background: linear-gradient(135deg, #1a2323 0%, #2d3a3a 50%, #1a2323 100%);
+  background: #fff;
   z-index: 9999;
 }
 .rdash-overlay.open { display: flex; flex-direction: column; }
 
 .rdash-topbar {
   display: flex; align-items: center; justify-content: space-between;
-  padding: 6px 16px;
-  background: linear-gradient(90deg, #111818 0%, #1a2828 50%, #111818 100%);
-  border-bottom: 2px solid #f4a261;
+  padding: 8px 16px;
+  background: #f0f5f4;
+  border-bottom: 3px solid #7fb3a8;
   flex-shrink: 0;
 }
-.rdash-topbar h2 { font-size: 16px; font-family: 'DKCrayonCrumble', sans-serif; text-transform: uppercase; letter-spacing: 2px; margin: 0; color: #f4a261; }
-.rdash-topbar .rdash-sub { font-size: 12px; color: #7fb3a8; margin-left: 12px; font-weight: 600; }
-.rdash-close { font-size: 22px; cursor: pointer; color: #888; background: none; border: none; font-weight: 700; }
+.rdash-topbar h2 { font-size: 18px; font-family: 'DKCrayonCrumble', sans-serif; text-transform: uppercase; letter-spacing: 1px; margin: 0; color: #5a6a6a; }
+.rdash-topbar .rdash-sub { font-size: 12px; color: #f4a261; margin-left: 12px; font-weight: 700; }
+.rdash-close { font-size: 22px; cursor: pointer; color: #5a6a6a; background: none; border: none; font-weight: 700; }
 .rdash-close:hover { color: #fc5c65; }
 
 .rdash-stats {
@@ -666,16 +666,21 @@ body {
 }
 .rdash-stat {
   text-align: center; padding: 6px 4px; border-radius: 8px;
-  background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.12);
+  background: #fafafa; border: 2px solid #e0e0e0;
 }
 .rdash-stat .rs-icon { font-size: 16px; display: block; margin-bottom: 1px; }
-.rdash-stat .rs-label { font-size: 9px; text-transform: uppercase; letter-spacing: 0.5px; color: rgba(255,255,255,0.5); font-weight: 700; }
+.rdash-stat .rs-label { font-size: 9px; text-transform: uppercase; letter-spacing: 0.5px; color: #888; font-weight: 700; }
 .rdash-stat .rs-value { font-size: 18px; font-weight: 800; }
+.rdash-stat.rs-total { border-color: #7fb3a8; }
 .rdash-stat.rs-total .rs-value { color: #7fb3a8; }
+.rdash-stat.rs-done { border-color: #43a047; }
 .rdash-stat.rs-done .rs-value { color: #43a047; }
+.rdash-stat.rs-pct { border-color: #f4a261; }
 .rdash-stat.rs-pct .rs-value { color: #f4a261; }
+.rdash-stat.rs-maxed { border-color: #5bc0de; }
 .rdash-stat.rs-maxed .rs-value { color: #5bc0de; }
-.rdash-stat.rs-avail .rs-value { color: #f4d35e; }
+.rdash-stat.rs-avail { border-color: #f4d35e; }
+.rdash-stat.rs-avail .rs-value { color: #c49a20; }
 
 .rdash-body {
   flex: 1; overflow-y: auto; padding: 6px 10px;
@@ -685,23 +690,25 @@ body {
 
 .rdash-tree {
   border-radius: 6px; overflow: hidden;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+  box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+  border: 1px solid #e0e0e0;
   display: flex; flex-direction: column;
 }
 .rdash-tree-header {
   padding: 5px 10px; display: flex; justify-content: space-between; align-items: center;
-  font-size: 12px; font-weight: 800; color: #fff; text-transform: uppercase; letter-spacing: 0.5px;
+  font-family: 'DKCrayonCrumble', sans-serif;
+  font-size: 13px; font-weight: 800; color: #fff; text-transform: uppercase; letter-spacing: 0.5px;
 }
 .rdash-tree-header .rth-icon { margin-right: 4px; }
-.rdash-tree-header .rth-pct { font-size: 11px; font-weight: 600; color: rgba(255,255,255,0.8); }
+.rdash-tree-header .rth-pct { font-size: 11px; font-weight: 600; color: rgba(255,255,255,0.9); }
 
-/* Band colors */
-.rdash-tree[data-band="1"] .rdash-tree-header { background: linear-gradient(90deg, #c0392b, #fc5c65); }
-.rdash-tree[data-band="2"] .rdash-tree-header { background: linear-gradient(90deg, #2980b9, #5bc0de); }
-.rdash-tree[data-band="3"] .rdash-tree-header { background: linear-gradient(90deg, #6c3483, #9b59b6); }
+/* Band colors — using OWOW palette */
+.rdash-tree[data-band="1"] .rdash-tree-header { background: #fc5c65; }
+.rdash-tree[data-band="2"] .rdash-tree-header { background: #5bc0de; }
+.rdash-tree[data-band="3"] .rdash-tree-header { background: #7fb3a8; }
 
 .rdash-tree-body {
-  background: rgba(255,255,255,0.95); padding: 4px; flex: 1;
+  background: #fff; padding: 4px; flex: 1;
   display: grid; grid-template-columns: repeat(auto-fill, minmax(70px, 1fr)); gap: 2px;
 }
 
@@ -730,8 +737,8 @@ body {
 
 .rdash-legend {
   display: flex; gap: 12px; justify-content: center; padding: 5px 0;
-  flex-shrink: 0; background: rgba(0,0,0,0.3); border-top: 1px solid rgba(255,255,255,0.1);
-  font-size: 10px; color: rgba(255,255,255,0.6);
+  flex-shrink: 0; background: #f0f5f4; border-top: 2px solid #e0e0e0;
+  font-size: 10px; color: #888;
 }
 .rdash-legend span::before { content: ''; display: inline-block; width: 8px; height: 8px; border-radius: 50%; margin-right: 3px; vertical-align: middle; }
 .rdash-legend .rl-maxed::before { background: #7fb3a8; }
