@@ -148,7 +148,32 @@ body {
     padding: 4px 12px 12px;
     align-items: flex-start;
     overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
     min-width: 0;
+    position: relative;
+}
+.band::-webkit-scrollbar { height: 8px; }
+.band::-webkit-scrollbar-track { background: #f0f0f0; border-radius: 4px; }
+.band::-webkit-scrollbar-thumb { background: #7fb3a8; border-radius: 4px; }
+.band::-webkit-scrollbar-thumb:hover { background: #5a8a7e; }
+
+/* Scroll hint arrow for bands that overflow */
+.band-scroll-hint {
+    position: sticky;
+    right: 0;
+    top: 50%;
+    align-self: center;
+    flex-shrink: 0;
+    width: 28px;
+    height: 40px;
+    background: linear-gradient(90deg, transparent, rgba(127,179,168,0.3));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    color: #7fb3a8;
+    pointer-events: none;
+    z-index: 2;
 }
 
 /* Tree column */
@@ -1704,6 +1729,29 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('btn-export')?.addEventListener('click', exportCSV);
     document.getElementById('csv-file-input')?.addEventListener('change', importCSV);
     document.getElementById('btn-reset')?.addEventListener('click', resetProgress);
+
+    // Add scroll hints to bands that overflow
+    document.querySelectorAll('.band').forEach(band => {
+        const checkScroll = () => {
+            const canScroll = band.scrollWidth > band.clientWidth + 10;
+            const atEnd = band.scrollLeft + band.clientWidth >= band.scrollWidth - 10;
+            let hint = band.querySelector('.band-scroll-hint');
+            if (canScroll && !atEnd) {
+                if (!hint) {
+                    hint = document.createElement('div');
+                    hint.className = 'band-scroll-hint';
+                    hint.textContent = '\u25B6';
+                    band.appendChild(hint);
+                }
+                hint.style.display = 'flex';
+            } else if (hint) {
+                hint.style.display = 'none';
+            }
+        };
+        checkScroll();
+        band.addEventListener('scroll', checkScroll);
+        window.addEventListener('resize', checkScroll);
+    });
 });
 
 // ============ COLLAPSIBLE TREES (MOBILE) ============
