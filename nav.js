@@ -17,6 +17,7 @@
     { href: 'research_trees_visual.html', label: 'Research Trees', root: true },
     { href: 'guides/server_dashboard.html', label: 'Server' },
     { href: 'guides/vs_weekly_planner.html', label: 'VS Planner' },
+    { href: 'guides/interior_test_report.html', label: 'Interior Test' },
     { href: 'guides/wall_of_honor.html', label: 'Wall of Honor' },
     { href: 'guides/waterfall_guide.html', label: 'Waterfall' }
   ];
