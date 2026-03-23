@@ -746,7 +746,7 @@
     display: none;
     position: fixed;
     top: 0; left: 0; right: 0; bottom: 0;
-    background: linear-gradient(135deg, #2d3436 0%, #3d4f4f 50%, #2d3436 100%);
+    background: #fff;
     z-index: 9999;
     overflow-y: auto;
   }
@@ -758,8 +758,8 @@
     align-items: center;
     justify-content: space-between;
     padding: 6px 16px;
-    background: linear-gradient(90deg, #1a2323 0%, #2d3a3a 50%, #1a2323 100%);
-    border-bottom: 2px solid var(--orange);
+    background: #f0f5f4;
+    border-bottom: 3px solid var(--teal);
     flex-shrink: 0;
   }
   .dash-topbar h2 {
@@ -768,18 +768,18 @@
     text-transform: uppercase;
     letter-spacing: 2px;
     margin: 0;
-    color: var(--orange);
+    color: var(--dark);
   }
   .dash-topbar .dash-sub {
     font-size: 12px;
-    color: var(--teal);
+    color: var(--orange);
     margin-left: 12px;
     font-weight: 600;
   }
   .dash-close {
     font-size: 22px;
     cursor: pointer;
-    color: #888;
+    color: var(--dark);
     background: none;
     border: none;
     font-weight: 700;
@@ -800,9 +800,8 @@
     text-align: center;
     padding: 6px 4px;
     border-radius: 8px;
-    background: rgba(255,255,255,0.07);
-    border: 1px solid rgba(255,255,255,0.12);
-    backdrop-filter: blur(4px);
+    background: #fafafa;
+    border: 2px solid #e0e0e0;
   }
   .dash-stat .ds-icon {
     font-size: 16px;
@@ -813,17 +812,22 @@
     font-size: 9px;
     text-transform: uppercase;
     letter-spacing: 0.5px;
-    color: rgba(255,255,255,0.5);
+    color: #888;
     font-weight: 700;
   }
   .dash-stat .ds-value {
     font-size: 18px;
     font-weight: 800;
+    color: var(--dark);
   }
+  .dash-stat.ds-power { border-color: var(--teal); }
   .dash-stat.ds-power .ds-value { color: var(--teal); }
+  .dash-stat.ds-hq { border-color: var(--orange); }
   .dash-stat.ds-hq .ds-value { color: var(--orange); }
-  .dash-stat.ds-vip .ds-value { color: var(--yellow); }
-  .dash-stat.ds-builders .ds-value { color: var(--cyan); }
+  .dash-stat.ds-vip { border-color: var(--cyan); }
+  .dash-stat.ds-vip .ds-value { color: var(--cyan); }
+  .dash-stat.ds-builders { border-color: var(--yellow); }
+  .dash-stat.ds-builders .ds-value { color: #c49a20; }
 
   /* Body Grid */
   .dash-body {
@@ -842,10 +846,12 @@
     flex-direction: column;
     border-radius: 6px;
     overflow: hidden;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+    box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+    border: 1px solid #e0e0e0;
   }
   .dash-cat-title {
-    font-size: 11px;
+    font-family: 'DKCrayonCrumble', sans-serif;
+    font-size: 12px;
     font-weight: 800;
     color: #fff;
     padding: 4px 8px;
@@ -862,24 +868,24 @@
     color: rgba(255,255,255,0.8);
   }
   /* Category colors */
-  .dash-cat[data-cat="Core"] .dash-cat-title { background: linear-gradient(90deg, #c47a30, #f4a261); }
-  .dash-cat[data-cat="Military"] .dash-cat-title { background: linear-gradient(90deg, #c0392b, #fc5c65); }
-  .dash-cat[data-cat="Training & Heroes"] .dash-cat-title { background: linear-gradient(90deg, #2980b9, #5bc0de); }
-  .dash-cat[data-cat="Resources"] .dash-cat-title { background: linear-gradient(90deg, #b8860b, #d4a017); }
-  .dash-cat[data-cat="Defense"] .dash-cat-title { background: linear-gradient(90deg, #4a7a6e, #7fb3a8); }
-  .dash-cat[data-cat="Production & Drones"] .dash-cat-title { background: linear-gradient(90deg, #3d4f4f, #5a6a6a); }
-  .dash-cat[data-cat="Special"] .dash-cat-title { background: linear-gradient(90deg, #6c3483, #9b59b6); }
+  .dash-cat[data-cat="Core"] .dash-cat-title { background: #f4a261; }
+  .dash-cat[data-cat="Military"] .dash-cat-title { background: #fc5c65; }
+  .dash-cat[data-cat="Training & Heroes"] .dash-cat-title { background: #5bc0de; }
+  .dash-cat[data-cat="Resources"] .dash-cat-title { background: #d4a017; }
+  .dash-cat[data-cat="Defense"] .dash-cat-title { background: #7fb3a8; }
+  .dash-cat[data-cat="Production & Drones"] .dash-cat-title { background: #5a6a6a; }
+  .dash-cat[data-cat="Special"] .dash-cat-title { background: #9b59b6; }
 
   /* Building Grid */
   .dash-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(90px, 1fr));
     gap: 1px;
-    background: rgba(255,255,255,0.08);
+    background: #e8e8e8;
     flex: 1;
   }
   .dash-building {
-    background: rgba(255,255,255,0.95);
+    background: #fff;
     padding: 3px 5px;
     display: flex;
     flex-direction: column;
@@ -914,8 +920,8 @@
   .dash-building .db-level.lv-low { color: var(--watermelon); }
   .dash-building .db-level.lv-none { color: #ccc; }
   .dash-building.db-locked {
-    opacity: 0.25;
-    background: rgba(200,200,200,0.3);
+    opacity: 0.35;
+    background: #f5f5f5;
   }
 
   /* Legend */
@@ -925,10 +931,10 @@
     justify-content: center;
     padding: 5px 0;
     flex-shrink: 0;
-    background: rgba(0,0,0,0.3);
-    border-top: 1px solid rgba(255,255,255,0.1);
+    background: #f0f5f4;
+    border-top: 2px solid #e0e0e0;
     font-size: 10px;
-    color: rgba(255,255,255,0.6);
+    color: #888;
   }
   .dash-legend span::before {
     content: '';
