@@ -5,12 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Hero Planner - OWOW | Planificador de Heroes</title>
 <style>
-  @font-face {
-    font-family: 'DKCrayonCrumble';
-    src: url('DKCrayonCrumble.ttf') format('truetype');
-    font-weight: normal; font-style: normal;
-  }
-  * { margin: 0; padding: 0; box-sizing: border-box; }
+  @import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&display=swap');
+* { margin: 0; padding: 0; box-sizing: border-box; }
   :root {
     --orange: #f4a261; --cyan: #5bc0de; --yellow: #f4d35e;
     --teal: #7fb3a8; --dark: #5a6a6a; --text: #333;
@@ -23,7 +19,7 @@
     background: #fff; color: var(--text); padding: 8px; min-height: 100vh;
   }
   h1, h2, h3, .section-label, .alliance .name {
-    font-family: 'DKCrayonCrumble', 'Segoe UI', sans-serif;
+    font-family: 'Fredoka', 'Segoe UI', sans-serif;
   }
 
   /* Navigation Bar */
@@ -92,7 +88,7 @@
   .power-dashboard { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-bottom: 10px; }
   .power-card { border-radius: 8px; padding: 10px 12px; text-align: center; }
   .power-card .label { font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px; color: var(--dark); margin-bottom: 4px; }
-  .power-card .value { font-family: 'DKCrayonCrumble', sans-serif; font-size: 22px; font-weight: 800; }
+  .power-card .value { font-family: 'Fredoka', sans-serif; font-size: 22px; font-weight: 800; }
   .pc-squad1 { background: #e8f4f1; border: 1.5px solid var(--teal); }
   .pc-squad1 .value { color: var(--teal); }
   .pc-squad2 { background: #fef3e2; border: 1.5px solid var(--orange); }
@@ -186,7 +182,7 @@
     font-size: 12px; flex: 1;
   }
   .hero-power-est {
-    font-family: 'DKCrayonCrumble', sans-serif;
+    font-family: 'Fredoka', sans-serif;
     font-size: 14px; color: var(--teal); font-weight: 700;
     text-align: right; margin-top: 4px;
   }
@@ -225,14 +221,14 @@
     background: #e8f4f1; border: 2px solid var(--teal); border-radius: 8px;
     padding: 12px; margin-top: 10px;
   }
-  .squad-summary h4 { font-family: 'DKCrayonCrumble', sans-serif; color: var(--dark); margin-bottom: 6px; }
+  .squad-summary h4 { font-family: 'Fredoka', sans-serif; color: var(--dark); margin-bottom: 6px; }
   .squad-summary .row { display: flex; justify-content: space-between; padding: 3px 0; font-size: 13px; }
 
   .recommendations {
     margin-top: 10px; padding: 12px;
     background: #fef3e2; border: 1.5px solid var(--orange); border-radius: 8px;
   }
-  .recommendations h4 { font-family: 'DKCrayonCrumble', sans-serif; color: var(--dark); margin-bottom: 8px; }
+  .recommendations h4 { font-family: 'Fredoka', sans-serif; color: var(--dark); margin-bottom: 8px; }
   .rec-item {
     padding: 6px 8px; margin-bottom: 4px;
     background: #fff; border-radius: 6px; font-size: 12px; border-left: 3px solid var(--orange);
@@ -255,7 +251,7 @@
   .planner-field input:focus { outline: none; border-color: var(--teal); }
   .planner-field .helper-text { font-size: 10px; color: #999; line-height: 1.3; }
   .plan-info-box { background: #fef3e2; border: 1.5px solid var(--orange); border-radius: 8px; padding: 12px; }
-  .plan-info-box h4 { font-family: 'DKCrayonCrumble', sans-serif; color: var(--dark); margin-bottom: 8px; font-size: 14px; }
+  .plan-info-box h4 { font-family: 'Fredoka', sans-serif; color: var(--dark); margin-bottom: 8px; font-size: 14px; }
   .plan-info-box .rec-item { margin-bottom: 6px; padding: 6px 8px; border-left: 3px solid var(--cyan); }
   .thursday-toggle {
     display: flex; align-items: center; gap: 8px; padding: 8px 12px;
@@ -273,7 +269,7 @@
   }
   .shard-inventory:empty { display: none; }
   .shard-inventory h4 {
-    width: 100%; font-family: 'DKCrayonCrumble', sans-serif;
+    width: 100%; font-family: 'Fredoka', sans-serif;
     font-size: 13px; color: var(--dark); margin-bottom: 2px;
   }
   .shard-hero {
@@ -287,7 +283,7 @@
     border-radius: 4px; font-size: 12px; text-align: center;
   }
   .phase-header {
-    font-family: 'DKCrayonCrumble', sans-serif;
+    font-family: 'Fredoka', sans-serif;
     font-size: 14px; color: var(--dark); padding: 8px 0 4px 0;
     border-bottom: 1px solid #eee; margin-top: 10px; margin-bottom: 6px;
   }
@@ -296,7 +292,7 @@
     border-radius: 8px; padding: 10px 12px; margin-top: 10px;
   }
   .plan-leftovers h4 {
-    font-family: 'DKCrayonCrumble', sans-serif;
+    font-family: 'Fredoka', sans-serif;
     font-size: 13px; color: var(--dark); margin-bottom: 4px;
   }
   .leftover-line { font-size: 12px; color: #666; padding: 2px 0; }
@@ -344,7 +340,7 @@
     background: #e8f4f1; border: 2px solid var(--teal); border-radius: 8px;
     padding: 12px; margin-top: 10px;
   }
-  .plan-summary h4 { font-family: 'DKCrayonCrumble', sans-serif; color: var(--dark); margin-bottom: 6px; }
+  .plan-summary h4 { font-family: 'Fredoka', sans-serif; color: var(--dark); margin-bottom: 6px; }
   .plan-summary .row { display: flex; justify-content: space-between; padding: 3px 0; font-size: 13px; }
   .plan-summary .row.total { font-weight: 700; border-top: 1px solid var(--teal); padding-top: 6px; margin-top: 4px; }
 
@@ -365,7 +361,7 @@
 
   /* Footer */
   .footer { text-align: center; padding: 12px 0; font-size: 12px; color: #888; border-top: 1px solid #eee; margin-top: 12px; }
-  .footer .tagline { font-family: 'DKCrayonCrumble', sans-serif; font-size: 14px; color: var(--dark); }
+  .footer .tagline { font-family: 'Fredoka', sans-serif; font-size: 14px; color: var(--dark); }
 
   /* Toast */
   .toast {
