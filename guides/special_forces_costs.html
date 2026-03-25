@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en" id="htmlRoot">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Special Forces Final 5 — Cost Breakdown | OWOW SKYNET</title>
+<style>
+  @font-face { font-family: 'DKCrayonCrumble'; src: url('DKCrayonCrumble.ttf') format('truetype'); }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'Segoe UI', Tahoma, sans-serif; background: #fff; color: #333; padding: 8px; min-height: 100vh; }
+  h1,h2,h3,.section-label { font-family: 'DKCrayonCrumble', sans-serif; }
+
+  .guide-nav { display:flex; flex-wrap:wrap; gap:4px 12px; align-items:center; padding:6px 16px; background:#f0f5f4; border-bottom:2px solid #7fb3a8; font-size:12px; margin:-8px -8px 12px -8px; }
+  .guide-nav a { color:#5a6a6a; text-decoration:none; padding:2px 6px; border-radius:3px; white-space:nowrap; }
+  .guide-nav a:hover { color:#f4a261; background:#fff; }
+  .guide-nav a.current { color:#f4a261; font-weight:bold; background:#fff; border:1px solid #f4a261; }
+
+  .top-bar { display:flex; justify-content:space-between; align-items:center; margin-bottom:12px; flex-wrap:wrap; gap:8px; }
+  .top-bar .left h1 { font-size:22px; letter-spacing:1px; text-transform:uppercase; color:#5a6a6a; }
+  .top-bar .left .sub { font-size:12px; color:#888; }
+  .alliance { display:flex; align-items:center; gap:8px; background:#e8f4f1; border:1px solid #7fb3a8; border-radius:5px; padding:4px 10px; }
+  .alliance .name { font-family:'DKCrayonCrumble',sans-serif; font-size:14px; color:#5a6a6a; }
+  .alliance .tagline { font-size:10px; color:#7fb3a8; }
+  .skynet-logo { height:40px; }
+
+  .section-label { font-size:16px; color:#5a6a6a; text-transform:uppercase; letter-spacing:1px; border-bottom:2px solid #f4d35e; padding-bottom:4px; margin:16px 0 10px; }
+
+  /* Grand total banner */
+  .grand-total {
+    background: #f0f5f4; border: 2px solid #7fb3a8; border-radius:10px;
+    padding:16px; margin-bottom:16px; text-align:center;
+  }
+  .grand-total h2 { font-size:18px; color:#5a6a6a; margin-bottom:8px; }
+  .gt-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:8px; }
+  .gt-card { background:#fff; border-radius:8px; padding:10px 6px; border:2px solid #e0e0e0; text-align:center; }
+  .gt-card .gt-label { font-size:10px; text-transform:uppercase; color:#888; font-weight:700; letter-spacing:0.5px; }
+  .gt-card .gt-value { font-size:20px; font-weight:900; margin-top:2px; }
+  .gt-card.gt-gold { border-color:#d4a017; }
+  .gt-card.gt-gold .gt-value { color:#d4a017; }
+  .gt-card.gt-food { border-color:#43a047; }
+  .gt-card.gt-food .gt-value { color:#43a047; }
+  .gt-card.gt-iron { border-color:#78909c; }
+  .gt-card.gt-iron .gt-value { color:#78909c; }
+  .gt-card.gt-valor { border-color:#7c4dff; }
+  .gt-card.gt-valor .gt-value { color:#7c4dff; }
+
+  /* Node summary cards */
+  .node-summaries { display:grid; grid-template-columns:repeat(auto-fit, minmax(160px,1fr)); gap:8px; margin-bottom:16px; }
+  .node-sum {
+    background:#fafafa; border:1px solid #e0e0e0; border-radius:8px; padding:10px;
+    border-left:4px solid #5a6a6a;
+  }
+  .node-sum h3 { font-size:13px; color:#5a6a6a; margin-bottom:6px; }
+  .node-sum .ns-row { display:flex; justify-content:space-between; font-size:12px; padding:1px 0; }
+  .node-sum .ns-row .ns-label { color:#888; }
+  .node-sum .ns-row .ns-val { font-weight:700; }
+  .node-sum.ns-ap { border-left-color:#f4a261; }
+  .node-sum.ns-ap h3 { color:#f4a261; }
+  .node-sum.ns-hp { border-left-color:#43a047; }
+  .node-sum.ns-hp h3 { color:#43a047; }
+  .node-sum.ns-atk { border-left-color:#fc5c65; }
+  .node-sum.ns-atk h3 { color:#fc5c65; }
+  .node-sum.ns-def { border-left-color:#5bc0de; }
+  .node-sum.ns-def h3 { color:#5bc0de; }
+  .node-sum.ns-ux { border-left-color:#7c4dff; }
+  .node-sum.ns-ux h3 { color:#7c4dff; }
+
+  /* Detail tables in 2-col grid */
+  .details-grid { display:grid; grid-template-columns:repeat(auto-fit, minmax(340px,1fr)); gap:10px; }
+  .detail-card {
+    background:#fafafa; border:1px solid #e0e0e0; border-radius:8px; overflow:hidden;
+  }
+  .detail-header {
+    padding:6px 10px; color:#fff; font-family:'DKCrayonCrumble',sans-serif;
+    font-size:14px; text-transform:uppercase; letter-spacing:0.5px;
+    display:flex; justify-content:space-between; align-items:center;
+  }
+  .detail-header .dh-max { font-size:11px; font-weight:400; opacity:0.8; }
+  .dh-ap { background:#f4a261; }
+  .dh-hp { background:#43a047; }
+  .dh-atk { background:#fc5c65; }
+  .dh-def { background:#5bc0de; }
+  .dh-ux { background:#7c4dff; }
+
+  table { width:100%; border-collapse:collapse; font-size:12px; }
+  th { background:#5a6a6a; color:#fff; padding:4px 6px; text-align:right; font-size:10px; text-transform:uppercase; letter-spacing:0.3px; }
+  th:first-child { text-align:center; width:30px; }
+  td { padding:4px 6px; text-align:right; border-bottom:1px solid #eee; }
+  td:first-child { text-align:center; font-weight:700; color:#5a6a6a; }
+  tr:nth-child(even) { background:#f5f8f7; }
+  tr:last-child td { font-weight:700; background:#e8f4f1; border-top:2px solid #7fb3a8; }
+
+  .footer { text-align:center; font-size:11px; color:#999; padding:12px; border-top:1px solid #e0e0e0; margin-top:16px; }
+
+  @media (max-width:480px) {
+    .gt-grid { grid-template-columns:repeat(2,1fr); }
+    .node-summaries { grid-template-columns:1fr 1fr; }
+    .details-grid { grid-template-columns:1fr; }
+    body { padding:4px; }
+  }
+</style>
+</head>
+<body>
+
+<nav class="guide-nav" id="guide-nav"></nav>
+<script src="../nav.js"></script>
+
+<div class="top-bar">
+  <div class="left">
+    <h1>&#x1F4AA; Special Forces — Final 5 Nodes</h1>
+    <div class="sub">The Road to T10 Troops (Unit X) — Complete Cost Breakdown</div>
+  </div>
+  <div class="alliance">
+    <img src="skynet_logo.png" alt="OWOW" class="skynet-logo">
+    <div>
+      <div class="name">[OWOW] Old World Order</div>
+      <div class="tagline">Last War: Survival</div>
+    </div>
+  </div>
+</div>
+
+<!-- GRAND TOTAL -->
+<div class="grand-total">
+  <h2>&#x1F4B0; Grand Total — All 5 Nodes Combined</h2>
+  <div class="gt-grid">
+    <div class="gt-card gt-gold">
+      <div class="gt-label">Gold</div>
+      <div class="gt-value">11.47B</div>
+    </div>
+    <div class="gt-card gt-food">
+      <div class="gt-label">Food</div>
+      <div class="gt-value">3.82B</div>
+    </div>
+    <div class="gt-card gt-iron">
+      <div class="gt-label">Iron</div>
+      <div class="gt-value">3.82B</div>
+    </div>
+    <div class="gt-card gt-valor">
+      <div class="gt-label">Valor</div>
+      <div class="gt-value">77,200</div>
+    </div>
+  </div>
+</div>
+
+<!-- NODE SUMMARIES -->
+<div class="section-label">&#x1F4CB; Node Summaries</div>
+<div class="node-summaries">
+  <div class="node-sum ns-ap">
+    <h3>&#x1F6E1;&#xFE0F; Advanced Protection II</h3>
+    <div class="ns-row"><span class="ns-label">Gold</span><span class="ns-val">2,254.4M</span></div>
+    <div class="ns-row"><span class="ns-label">Food</span><span class="ns-val">751.3M</span></div>
+    <div class="ns-row"><span class="ns-label">Iron</span><span class="ns-val">751.3M</span></div>
+    <div class="ns-row"><span class="ns-label">Valor</span><span class="ns-val">17,680</span></div>
+  </div>
+  <div class="node-sum ns-hp">
+    <h3>&#x1F49A; HP Boost III</h3>
+    <div class="ns-row"><span class="ns-label">Gold</span><span class="ns-val">2,878.0M</span></div>
+    <div class="ns-row"><span class="ns-label">Food</span><span class="ns-val">959.1M</span></div>
+    <div class="ns-row"><span class="ns-label">Iron</span><span class="ns-val">959.1M</span></div>
+    <div class="ns-row"><span class="ns-label">Valor</span><span class="ns-val">19,040</span></div>
+  </div>
+  <div class="node-sum ns-atk">
+    <h3>&#x2694;&#xFE0F; Attack Boost III</h3>
+    <div class="ns-row"><span class="ns-label">Gold</span><span class="ns-val">2,878.0M</span></div>
+    <div class="ns-row"><span class="ns-label">Food</span><span class="ns-val">959.1M</span></div>
+    <div class="ns-row"><span class="ns-label">Iron</span><span class="ns-val">959.1M</span></div>
+    <div class="ns-row"><span class="ns-label">Valor</span><span class="ns-val">19,040</span></div>
+  </div>
+  <div class="node-sum ns-def">
+    <h3>&#x1F6E1;&#xFE0F; Defense Boost III</h3>
+    <div class="ns-row"><span class="ns-label">Gold</span><span class="ns-val">2,878.0M</span></div>
+    <div class="ns-row"><span class="ns-label">Food</span><span class="ns-val">959.1M</span></div>
+    <div class="ns-row"><span class="ns-label">Iron</span><span class="ns-val">959.1M</span></div>
+    <div class="ns-row"><span class="ns-label">Valor</span><span class="ns-val">19,040</span></div>
+  </div>
+  <div class="node-sum ns-ux">
+    <h3>&#x1F52C; Unit X (T10 Unlock)</h3>
+    <div class="ns-row"><span class="ns-label">Gold</span><span class="ns-val">580.3M</span></div>
+    <div class="ns-row"><span class="ns-label">Food</span><span class="ns-val">193.4M</span></div>
+    <div class="ns-row"><span class="ns-label">Iron</span><span class="ns-val">193.4M</span></div>
+    <div class="ns-row"><span class="ns-label">Valor</span><span class="ns-val">2,400</span></div>
+  </div>
+</div>
+
+<!-- DETAIL TABLES -->
+<div class="section-label">&#x1F4CA; Level-by-Level Breakdown</div>
+<div class="details-grid">
+
+  <!-- Advanced Protection II -->
+  <div class="detail-card">
+    <div class="detail-header dh-ap"><span>&#x1F6E1;&#xFE0F; Advanced Protection II</span><span class="dh-max">Max Lv10</span></div>
+    <table>
+      <thead><tr><th>Lv</th><th>Gold</th><th>Food</th><th>Iron</th><th>Valor</th></tr></thead>
+      <tbody>
+        <tr><td>1</td><td>76.6M</td><td>25.5M</td><td>25.5M</td><td>1,280</td></tr>
+        <tr><td>2</td><td>162.7M</td><td>54.2M</td><td>54.2M</td><td>1,600</td></tr>
+        <tr><td>3</td><td>162.7M</td><td>54.2M</td><td>54.2M</td><td>1,600</td></tr>
+        <tr><td>4</td><td>162.7M</td><td>54.2M</td><td>54.2M</td><td>1,600</td></tr>
+        <tr><td>5</td><td>227.7M</td><td>75.9M</td><td>75.9M</td><td>1,800</td></tr>
+        <tr><td>6</td><td>227.7M</td><td>75.9M</td><td>75.9M</td><td>1,800</td></tr>
+        <tr><td>7</td><td>227.7M</td><td>75.9M</td><td>75.9M</td><td>1,800</td></tr>
+        <tr><td>8</td><td>296.0M</td><td>98.7M</td><td>98.7M</td><td>2,000</td></tr>
+        <tr><td>9</td><td>296.0M</td><td>98.7M</td><td>98.7M</td><td>2,000</td></tr>
+        <tr><td>10</td><td>414.6M</td><td>138.1M</td><td>138.1M</td><td>2,200</td></tr>
+        <tr><td>Total</td><td>2,254.4M</td><td>751.3M</td><td>751.3M</td><td>17,680</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- HP Boost III -->
+  <div class="detail-card">
+    <div class="detail-header dh-hp"><span>&#x1F49A; HP Boost III</span><span class="dh-max">Max Lv10</span></div>
+    <table>
+      <thead><tr><th>Lv</th><th>Gold</th><th>Food</th><th>Iron</th><th>Valor</th></tr></thead>
+      <tbody>
+        <tr><td>1</td><td>95.7M</td><td>31.9M</td><td>31.9M</td><td>1,440</td></tr>
+        <tr><td>2</td><td>162.7M</td><td>54.2M</td><td>54.2M</td><td>1,600</td></tr>
+        <tr><td>3</td><td>162.7M</td><td>54.2M</td><td>54.2M</td><td>1,600</td></tr>
+        <tr><td>4</td><td>227.7M</td><td>75.9M</td><td>75.9M</td><td>1,800</td></tr>
+        <tr><td>5</td><td>227.7M</td><td>75.9M</td><td>75.9M</td><td>1,800</td></tr>
+        <tr><td>6</td><td>296.0M</td><td>98.7M</td><td>98.7M</td><td>2,000</td></tr>
+        <tr><td>7</td><td>296.0M</td><td>98.7M</td><td>98.7M</td><td>2,000</td></tr>
+        <tr><td>8</td><td>414.6M</td><td>138.1M</td><td>138.1M</td><td>2,200</td></tr>
+        <tr><td>9</td><td>414.6M</td><td>138.1M</td><td>138.1M</td><td>2,200</td></tr>
+        <tr><td>10</td><td>580.3M</td><td>193.4M</td><td>193.4M</td><td>2,400</td></tr>
+        <tr><td>Total</td><td>2,878.0M</td><td>959.1M</td><td>959.1M</td><td>19,040</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Attack Boost III -->
+  <div class="detail-card">
+    <div class="detail-header dh-atk"><span>&#x2694;&#xFE0F; Attack Boost III</span><span class="dh-max">Max Lv10</span></div>
+    <table>
+      <thead><tr><th>Lv</th><th>Gold</th><th>Food</th><th>Iron</th><th>Valor</th></tr></thead>
+      <tbody>
+        <tr><td>1</td><td>95.7M</td><td>31.9M</td><td>31.9M</td><td>1,440</td></tr>
+        <tr><td>2</td><td>162.7M</td><td>54.2M</td><td>54.2M</td><td>1,600</td></tr>
+        <tr><td>3</td><td>162.7M</td><td>54.2M</td><td>54.2M</td><td>1,600</td></tr>
+        <tr><td>4</td><td>227.7M</td><td>75.9M</td><td>75.9M</td><td>1,800</td></tr>
+        <tr><td>5</td><td>227.7M</td><td>75.9M</td><td>75.9M</td><td>1,800</td></tr>
+        <tr><td>6</td><td>296.0M</td><td>98.7M</td><td>98.7M</td><td>2,000</td></tr>
+        <tr><td>7</td><td>296.0M</td><td>98.7M</td><td>98.7M</td><td>2,000</td></tr>
+        <tr><td>8</td><td>414.6M</td><td>138.1M</td><td>138.1M</td><td>2,200</td></tr>
+        <tr><td>9</td><td>414.6M</td><td>138.1M</td><td>138.1M</td><td>2,200</td></tr>
+        <tr><td>10</td><td>580.3M</td><td>193.4M</td><td>193.4M</td><td>2,400</td></tr>
+        <tr><td>Total</td><td>2,878.0M</td><td>959.1M</td><td>959.1M</td><td>19,040</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Defense Boost III -->
+  <div class="detail-card">
+    <div class="detail-header dh-def"><span>&#x1F6E1;&#xFE0F; Defense Boost III</span><span class="dh-max">Max Lv10</span></div>
+    <table>
+      <thead><tr><th>Lv</th><th>Gold</th><th>Food</th><th>Iron</th><th>Valor</th></tr></thead>
+      <tbody>
+        <tr><td>1</td><td>95.7M</td><td>31.9M</td><td>31.9M</td><td>1,440</td></tr>
+        <tr><td>2</td><td>162.7M</td><td>54.2M</td><td>54.2M</td><td>1,600</td></tr>
+        <tr><td>3</td><td>162.7M</td><td>54.2M</td><td>54.2M</td><td>1,600</td></tr>
+        <tr><td>4</td><td>227.7M</td><td>75.9M</td><td>75.9M</td><td>1,800</td></tr>
+        <tr><td>5</td><td>227.7M</td><td>75.9M</td><td>75.9M</td><td>1,800</td></tr>
+        <tr><td>6</td><td>296.0M</td><td>98.7M</td><td>98.7M</td><td>2,000</td></tr>
+        <tr><td>7</td><td>296.0M</td><td>98.7M</td><td>98.7M</td><td>2,000</td></tr>
+        <tr><td>8</td><td>414.6M</td><td>138.1M</td><td>138.1M</td><td>2,200</td></tr>
+        <tr><td>9</td><td>414.6M</td><td>138.1M</td><td>138.1M</td><td>2,200</td></tr>
+        <tr><td>10</td><td>580.3M</td><td>193.4M</td><td>193.4M</td><td>2,400</td></tr>
+        <tr><td>Total</td><td>2,878.0M</td><td>959.1M</td><td>959.1M</td><td>19,040</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Unit X -->
+  <div class="detail-card">
+    <div class="detail-header dh-ux"><span>&#x1F52C; Unit X — T10 Troop Unlock</span><span class="dh-max">Max Lv1</span></div>
+    <table>
+      <thead><tr><th>Lv</th><th>Gold</th><th>Food</th><th>Iron</th><th>Valor</th></tr></thead>
+      <tbody>
+        <tr><td>1</td><td>580.3M</td><td>193.4M</td><td>193.4M</td><td>2,400</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+</div>
+
+<div class="footer">
+  [OWOW] Old World Order &bull; Special Forces Cost Analysis &bull; Last War: Survival &bull; Data from cpt-hedge.com &bull; Kristen OWOW SKYNET
+</div>
+
+</body>
+</html>
