@@ -1,0 +1,636 @@
+<!DOCTYPE html>
+<html lang="en" id="htmlRoot">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Training Optimization Guide - OWOW</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&display=swap');
+* { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: 'Fredoka', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: #fff;
+    color: #333;
+    padding: 4px 8px;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* Header */
+  .top-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 6px;
+    flex-shrink: 0;
+  }
+  .top-bar h1 { font-size: 22px; letter-spacing: 1px; text-transform: uppercase; color: #5a6a6a; }
+  .top-bar .sub { font-size: 14px; color: #888; }
+  .alliance {
+    background: #e8f4f1;
+    border: 1px solid #7fb3a8;
+    border-radius: 5px;
+    padding: 2px 10px;
+    text-align: right;
+  }
+  .alliance .name { font-size: 19px; font-weight: 800; color: #5a6a6a; }
+  .alliance .info { font-size: 14px; color: #666; }
+
+  /* Section labels */
+  .section-label {
+    font-size: 17px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: #5a6a6a;
+    margin: 14px 0 6px 0;
+    padding-bottom: 3px;
+    border-bottom: 2px solid #7fb3a8;
+  }
+
+  /* Cards */
+  .card {
+    border-radius: 6px;
+    padding: 10px 14px;
+    font-size: 14px;
+    line-height: 1.5;
+    margin-bottom: 10px;
+  }
+  .c-low { background: #fafafa; border: 1px solid #ccc; }
+  .c-med { background: #e4f3f8; border: 1.5px solid #5bc0de; }
+  .c-high { background: #fef3e2; border: 1.5px solid #f4a261; }
+  .c-teal { background: #e8f4f1; border: 1.5px solid #7fb3a8; }
+  .c-watermelon { background: #fff0f1; border: 2px solid #fc5c65; }
+
+  .card-title { font-size: 16px; font-weight: 800; margin-bottom: 4px; }
+  .ct-dark { color: #5a6a6a; }
+  .ct-orange { color: #c47a30; }
+  .ct-cyan { color: #2a8fa8; }
+  .ct-teal { color: #5a8a7e; }
+  .ct-watermelon { color: #fc5c65; }
+
+  .tag {
+    display: inline-block;
+    font-size: 11px;
+    padding: 1px 6px;
+    border-radius: 3px;
+    font-weight: 700;
+    color: #fff;
+    vertical-align: middle;
+  }
+  .t-ora { background: #f4a261; }
+  .t-teal { background: #7fb3a8; }
+  .t-cyan { background: #5bc0de; }
+  .t-dark { background: #5a6a6a; }
+  .t-watermelon { background: #fc5c65; }
+
+  /* Content area */
+  .content {
+    max-width: 1100px;
+    margin: 0 auto;
+    width: 100%;
+    flex: 1;
+  }
+
+  /* Tables */
+  .res-table { width: 100%; border-collapse: collapse; font-size: 13px; margin-bottom: 12px; }
+  .res-table th {
+    background: #5a6a6a;
+    color: #fff;
+    padding: 5px 8px;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+    white-space: nowrap;
+    text-align: left;
+  }
+  .res-table td {
+    padding: 4px 8px;
+    border-bottom: 1px solid #eee;
+    line-height: 1.4;
+  }
+  .res-table .node-name { font-weight: 700; }
+  .res-table td.num { text-align: right; font-variant-numeric: tabular-nums; }
+  .res-table .time-star { color: #f4a261; font-weight: 700; font-size: 15px; }
+
+  /* Tree-colored rows */
+  .row-dev { background: #e8f4f1; }
+  .row-dev:nth-child(even) { background: #dceee9; }
+  .row-sf { background: #fef3e2; }
+  .row-sf:nth-child(even) { background: #fdecd2; }
+  .row-siege { background: #fff0f1; }
+  .row-siege:nth-child(even) { background: #ffe4e6; }
+
+  /* Tree label badges */
+  .tree-badge {
+    display: inline-block;
+    font-size: 11px;
+    padding: 1px 6px;
+    border-radius: 3px;
+    font-weight: 700;
+    color: #fff;
+  }
+  .tb-dev { background: #7fb3a8; }
+  .tb-sf { background: #f4a261; }
+  .tb-siege { background: #fc5c65; }
+
+  /* Priority list */
+  .priority-list { list-style: none; padding: 0; counter-reset: prio; }
+  .priority-list li {
+    padding: 8px 10px 8px 48px;
+    position: relative;
+    font-size: 14px;
+    border-bottom: 1px solid #f0f0f0;
+    line-height: 1.6;
+  }
+  .priority-list li::before {
+    counter-increment: prio;
+    content: counter(prio);
+    position: absolute;
+    left: 8px;
+    top: 8px;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 800;
+    font-size: 14px;
+    color: #fff;
+  }
+  .priority-list li:nth-child(1)::before { background: #fc5c65; }
+  .priority-list li:nth-child(2)::before { background: #f4a261; }
+  .priority-list li:nth-child(3)::before { background: #7fb3a8; }
+  .priority-list li:nth-child(4)::before { background: #5bc0de; }
+  .priority-list li:nth-child(5)::before { background: #5a6a6a; }
+  .priority-list li:nth-child(6)::before { background: #d4a017; }
+
+  /* Strategy list */
+  .strat-list { list-style: none; padding: 0; }
+  .strat-list li {
+    padding: 6px 0 6px 24px;
+    position: relative;
+    font-size: 14px;
+    border-bottom: 1px solid #f0f0f0;
+  }
+  .strat-list li::before {
+    content: '\25B6';
+    position: absolute;
+    left: 4px;
+    color: #f4a261;
+    font-size: 10px;
+    top: 9px;
+  }
+
+  /* Formula box */
+  .formula-box {
+    background: #e8f4f1;
+    border: 2px solid #7fb3a8;
+    border-radius: 8px;
+    padding: 16px 20px;
+    margin: 14px 0;
+    text-align: center;
+  }
+  .formula-box .formula {
+    font-size: 18px;
+    font-weight: 700;
+    color: #5a6a6a;
+    background: #fff;
+    display: inline-block;
+    padding: 8px 20px;
+    border-radius: 6px;
+    border: 1px solid #7fb3a8;
+    margin: 8px 0;
+    font-family: 'Fredoka', monospace;
+  }
+  .formula-box .formula-example {
+    font-size: 14px;
+    color: #666;
+    margin-top: 8px;
+  }
+
+  /* Insight box */
+  .insight-box {
+    background: #fff0f1;
+    border: 2px solid #fc5c65;
+    border-radius: 8px;
+    padding: 14px 18px;
+    margin: 14px 0;
+    font-size: 15px;
+    line-height: 1.6;
+  }
+  .insight-box .insight-title {
+    font-size: 17px;
+    font-weight: 800;
+    color: #fc5c65;
+    margin-bottom: 4px;
+  }
+
+  /* Info box */
+  .info-box {
+    background: #e4f3f8;
+    border: 2px solid #5bc0de;
+    border-radius: 8px;
+    padding: 14px 18px;
+    margin: 14px 0;
+    font-size: 14px;
+    line-height: 1.6;
+  }
+  .info-box .info-title {
+    font-size: 16px;
+    font-weight: 800;
+    color: #2a8fa8;
+    margin-bottom: 4px;
+  }
+
+  /* Color legend for tree names */
+  .tree-legend {
+    display: flex;
+    gap: 14px;
+    flex-wrap: wrap;
+    font-size: 12px;
+    margin-bottom: 8px;
+    align-items: center;
+  }
+
+  /* Footer */
+  .footer {
+    text-align: center;
+    font-size: 12px;
+    color: #999;
+    padding: 6px 2px;
+    border-top: 1px solid #e0e0e0;
+    flex-shrink: 0;
+    margin-top: 14px;
+  }
+
+  /* Navigation Bar */
+  .guide-nav {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px 12px;
+    align-items: center;
+    padding: 6px 10px;
+    background: #f0f5f4;
+    border-bottom: 2px solid #7fb3a8;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 12px;
+    margin: -4px -8px 4px -8px;
+    flex-shrink: 0;
+  }
+  .guide-nav a {
+    color: #5a6a6a;
+    text-decoration: none;
+    padding: 2px 6px;
+    border-radius: 3px;
+    white-space: nowrap;
+  }
+  .guide-nav a:hover {
+    color: #f4a261;
+    background: #fff;
+  }
+  .guide-nav a.current {
+    color: #f4a261;
+    font-weight: bold;
+    background: #fff;
+    border: 1px solid #f4a261;
+  }
+  .guide-nav .nav-home {
+    font-weight: bold;
+    margin-right: 8px;
+    padding-right: 12px;
+    border-right: 1px solid #7fb3a8;
+  }
+
+  /* Language Toggle */
+  .lang-toggle {
+    display: inline-flex; align-items: center; gap: 4px;
+    background: #f0f5f4; border: 2px solid #7fb3a8; border-radius: 20px;
+    padding: 2px 4px; cursor: pointer; font-family: 'Segoe UI', sans-serif;
+    font-size: 12px; font-weight: 700; user-select: none;
+  }
+  .lang-btn {
+    padding: 2px 10px; border-radius: 16px; border: none; cursor: pointer;
+    font-size: 12px; font-weight: 700; background: transparent; color: #888;
+    transition: all 0.2s;
+  }
+  .lang-btn.active { background: #5a6a6a; color: #fff; }
+  .lang-btn:hover:not(.active) { color: #5a6a6a; }
+
+  /* Mobile responsive */
+  @media (max-width: 768px) {
+    .top-bar { flex-direction: column; gap: 6px; text-align: center; }
+    .top-bar h1 { font-size: 18px; }
+    .alliance { text-align: center; }
+    .res-table { font-size: 12px; display: block; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+    .res-table th { font-size: 10px; padding: 4px 6px; }
+    .res-table td { padding: 3px 6px; }
+    .formula-box .formula { font-size: 15px; padding: 6px 14px; }
+  }
+  @media (max-width: 480px) {
+    body { padding: 4px 6px; }
+    .top-bar h1 { font-size: 16px; }
+    .top-bar .sub { font-size: 12px; }
+    .alliance .name { font-size: 15px; }
+    .section-label { font-size: 15px; }
+    .card { font-size: 13px; padding: 8px 10px; }
+  }
+</style>
+</head>
+<body>
+
+<nav class="guide-nav" id="guide-nav"></nav>
+<script src="../nav.js"></script>
+
+<!-- HEADER -->
+<div class="top-bar">
+  <div>
+    <h1 data-i18n="title">&#127947; Training Optimization Guide</h1>
+    <div class="sub" data-i18n="subtitle">Bigger Pools, Faster Training, Smarter Spending</div>
+  </div>
+  <div style="display:flex;align-items:center;gap:10px;">
+    <div class="lang-toggle">
+      <button class="lang-btn active" onclick="setLang('en')">EN</button>
+      <button class="lang-btn" onclick="setLang('es')">ES</button>
+    </div>
+    <img src="skynet_logo.png" alt="OWOW SKYNET" style="height:60px;">
+  </div>
+  <div class="alliance">
+    <div class="name">[OWOW] Old World Order</div>
+    <div class="info">Last War: Survival</div>
+  </div>
+</div>
+
+<div class="content">
+
+  <!-- TREE COLOR LEGEND -->
+  <div class="tree-legend">
+    <span data-i18n="tree_legend">&#127912; Tree Colors:</span>
+    <span class="tree-badge tb-dev">Development</span>
+    <span class="tree-badge tb-sf">Special Forces</span>
+    <span class="tree-badge tb-siege">Siege to Seize</span>
+  </div>
+
+  <!-- SECTION 1: TRAINING POOL -->
+  <div class="section-label" data-i18n="sec_pool">&#127959; Increase Training Pool (Capacity)</div>
+
+  <div class="card c-low">
+    <div class="card-title ct-dark" data-i18n="pool_title">What is Training Pool?</div>
+    <div data-i18n="pool_desc">Your training pool determines how many troops you can queue per batch. A larger pool means more troops trained per cycle, which translates to more points on <b>Friday (Total Mobilization)</b> and a bigger army overall. Increasing capacity is one of the most impactful long-term investments you can make.</div>
+  </div>
+
+  <table class="res-table">
+    <thead>
+      <tr>
+        <th data-i18n="th_tree">Tree</th>
+        <th data-i18n="th_node">Node</th>
+        <th data-i18n="th_maxlv">Max Lv</th>
+        <th data-i18n="th_gold">Total Gold</th>
+        <th data-i18n="th_food">Total Food</th>
+        <th data-i18n="th_iron">Total Iron</th>
+        <th data-i18n="th_valor">Total Valor</th>
+        <th data-i18n="th_time">Time</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr class="row-dev"><td><span class="tree-badge tb-dev">Development</span></td><td class="node-name">Barrack Expansion I</td><td class="num">5</td><td class="num">76,900</td><td class="num">25,600</td><td class="num">25,600</td><td class="num">0</td><td class="time-star">*</td></tr>
+      <tr class="row-dev"><td><span class="tree-badge tb-dev">Development</span></td><td class="node-name">Barrack Expansion II</td><td class="num">5</td><td class="num">3,711,400</td><td class="num">1,237,200</td><td class="num">1,237,200</td><td class="num">0</td><td class="time-star">*</td></tr>
+      <tr class="row-dev"><td><span class="tree-badge tb-dev">Development</span></td><td class="node-name">Barrack Expansion III</td><td class="num">5</td><td class="num">1,189,800</td><td class="num">396,600</td><td class="num">396,600</td><td class="num">0</td><td class="time-star">*</td></tr>
+      <tr class="row-dev"><td><span class="tree-badge tb-dev">Development</span></td><td class="node-name">Barrack Expansion IV</td><td class="num">5</td><td class="num">57,502,100</td><td class="num">19,050,700</td><td class="num">19,050,700</td><td class="num">0</td><td class="time-star">*</td></tr>
+      <tr class="row-dev"><td><span class="tree-badge tb-dev">Development</span></td><td class="node-name">Extra Barracks</td><td class="num">1</td><td class="num">1,189,800</td><td class="num">396,600</td><td class="num">396,600</td><td class="num">0</td><td class="time-star">*</td></tr>
+      <tr class="row-sf"><td><span class="tree-badge tb-sf">Special Forces</span></td><td class="node-name">Barracks Expansion I</td><td class="num">10</td><td class="num">67,800,000</td><td class="num">22,300,000</td><td class="num">22,300,000</td><td class="num">1,960</td><td class="time-star">*</td></tr>
+      <tr class="row-siege"><td><span class="tree-badge tb-siege">Siege to Seize</span></td><td class="node-name">Barrack Expansion I</td><td class="num">10</td><td class="num">796,264,600</td><td class="num">265,421,300</td><td class="num">265,421,300</td><td class="num">9,200</td><td class="time-star">*</td></tr>
+    </tbody>
+  </table>
+
+  <div class="card c-teal">
+    <div class="card-title ct-teal" data-i18n="pool_other_title">Other Sources of Training Capacity</div>
+    <ul class="strat-list">
+      <li data-i18n="pool_o1"><b>Barracks building level</b> &mdash; higher level = larger training queue per barracks</li>
+      <li data-i18n="pool_o2"><b>Survivor assignments</b> &mdash; assign survivors to barracks for +capacity bonus</li>
+      <li data-i18n="pool_o3"><b>Secretary of Defense</b> &mdash; +20% Training Limit while holding the position</li>
+      <li data-i18n="pool_o4"><b>VIP 6</b> &mdash; +5% troop training capacity</li>
+    </ul>
+  </div>
+
+  <!-- SECTION 2: TRAINING SPEED -->
+  <div class="section-label" data-i18n="sec_speed">&#9889; Increase Training Speed</div>
+
+  <div class="card c-low">
+    <div class="card-title ct-dark" data-i18n="speed_title">Why Training Speed Matters</div>
+    <div data-i18n="speed_desc">Training speed reduces the timer on each training batch. Faster training means fewer speedups are needed to complete batches, saving your precious speedups for <b>Friday scoring</b>. Every percentage point of training speed compounds across every batch you train.</div>
+  </div>
+
+  <table class="res-table">
+    <thead>
+      <tr>
+        <th data-i18n="th_tree2">Tree</th>
+        <th data-i18n="th_node2">Node</th>
+        <th data-i18n="th_maxlv2">Max Lv</th>
+        <th data-i18n="th_gold2">Total Gold</th>
+        <th data-i18n="th_food2">Total Food</th>
+        <th data-i18n="th_iron2">Total Iron</th>
+        <th data-i18n="th_valor2">Total Valor</th>
+        <th data-i18n="th_time2">Time</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr class="row-dev"><td><span class="tree-badge tb-dev">Development</span></td><td class="node-name">Focused Training I</td><td class="num">5</td><td class="num">305,300</td><td class="num">101,800</td><td class="num">101,800</td><td class="num">0</td><td class="time-star">*</td></tr>
+      <tr class="row-dev"><td><span class="tree-badge tb-dev">Development</span></td><td class="node-name">Focused Training II</td><td class="num">5</td><td class="num">7,569,650</td><td class="num">2,523,250</td><td class="num">2,523,250</td><td class="num">0</td><td class="time-star">*</td></tr>
+      <tr class="row-dev"><td><span class="tree-badge tb-dev">Development</span></td><td class="node-name">Focused Training III</td><td class="num">5</td><td class="num">53,497,950</td><td class="num">17,722,650</td><td class="num">17,722,650</td><td class="num">0</td><td class="time-star">*</td></tr>
+      <tr class="row-dev"><td><span class="tree-badge tb-dev">Development</span></td><td class="node-name">Focused Training IV</td><td class="num">5</td><td class="num">103,215,000</td><td class="num">34,295,000</td><td class="num">34,295,000</td><td class="num">0</td><td class="time-star">*</td></tr>
+      <tr class="row-sf"><td><span class="tree-badge tb-sf">Special Forces</span></td><td class="node-name">Focused Training I</td><td class="num">10</td><td class="num">67,800,000</td><td class="num">22,300,000</td><td class="num">22,300,000</td><td class="num">1,960</td><td class="time-star">*</td></tr>
+      <tr class="row-siege"><td><span class="tree-badge tb-siege">Siege to Seize</span></td><td class="node-name">Focused Training I</td><td class="num">10</td><td class="num">796,264,600</td><td class="num">265,421,300</td><td class="num">265,421,300</td><td class="num">9,200</td><td class="time-star">*</td></tr>
+    </tbody>
+  </table>
+
+  <div class="card c-teal">
+    <div class="card-title ct-teal" data-i18n="speed_other_title">Other Sources of Training Speed</div>
+    <ul class="strat-list">
+      <li data-i18n="speed_o1"><b>Secretary of Defense</b> &mdash; +20% training speed (5 min window; must start training WHILE holding the position)</li>
+      <li data-i18n="speed_o2"><b>VP buff</b> &mdash; +10% training speed (permanent for VP holder)</li>
+      <li data-i18n="speed_o3"><b>VIP 15</b> &mdash; +10% training speed</li>
+    </ul>
+  </div>
+
+  <!-- SECTION 3: DRILL GROUNDS -->
+  <div class="section-label" data-i18n="sec_march">&#127947; More March Capacity (Drill Grounds)</div>
+
+  <div class="card c-low">
+    <div class="card-title ct-dark" data-i18n="march_title">Why March Capacity Matters</div>
+    <div data-i18n="march_desc">Drill Grounds determine how many troops you can deploy per march. A bigger march = a bigger army on the battlefield. This directly affects your combat power in rallies, PvP, and alliance wars. More troops in each march means more damage dealt and more staying power.</div>
+  </div>
+
+  <table class="res-table">
+    <thead>
+      <tr>
+        <th data-i18n="th_tree3">Tree</th>
+        <th data-i18n="th_node3">Node</th>
+        <th data-i18n="th_maxlv3">Max Lv</th>
+        <th data-i18n="th_gold3">Total Gold</th>
+        <th data-i18n="th_food3">Total Food</th>
+        <th data-i18n="th_iron3">Total Iron</th>
+        <th data-i18n="th_valor3">Total Valor</th>
+        <th data-i18n="th_time3">Time</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr class="row-dev"><td><span class="tree-badge tb-dev">Development</span></td><td class="node-name">Drill Ground Expansion</td><td class="num">5</td><td class="num">55,610,000</td><td class="num">18,500,000</td><td class="num">18,500,000</td><td class="num">0</td><td class="time-star">*</td></tr>
+      <tr class="row-siege"><td><span class="tree-badge tb-siege">Siege to Seize</span></td><td class="node-name">Extra Drill Ground</td><td class="num">1</td><td class="num">61,251,100</td><td class="num">20,417,000</td><td class="num">20,417,000</td><td class="num">700</td><td class="time-star">*</td></tr>
+      <tr class="row-siege"><td><span class="tree-badge tb-siege">Siege to Seize</span></td><td class="node-name">Drill Ground Expansion</td><td class="num">10</td><td class="num">1,167,600,000</td><td class="num">389,199,900</td><td class="num">389,199,900</td><td class="num">13,400</td><td class="time-star">*</td></tr>
+    </tbody>
+  </table>
+
+  <!-- SECTION 4: REDUCING COSTS -->
+  <div class="section-label" data-i18n="sec_cost">&#128176; Reducing Training Costs</div>
+
+  <div class="insight-box">
+    <div class="insight-title" data-i18n="cost_insight_title">&#9888; Important: No Direct Cost Reduction Research</div>
+    <div data-i18n="cost_insight_body">There is <b>NO research node</b> that directly reduces the resource cost of training troops. Troop costs are fixed per tier. However, there are indirect ways to make training more affordable:</div>
+  </div>
+
+  <div class="card c-high">
+    <div class="card-title ct-orange" data-i18n="cost_strat_title">Indirect Ways to Afford More Training</div>
+    <ul class="strat-list">
+      <li data-i18n="cost_s1"><b>Lower tier troops cost less</b> &mdash; T5 costs a fraction of T8. This is exactly why the <b>waterfall method</b> works: train cheap T5, then upgrade through tiers for maximum VS event points at minimum cost.</li>
+      <li data-i18n="cost_s2"><b>Resource production buffs</b> &mdash; Secretary of Interior gives +20% production while holding the position. Stack with VIP production bonuses.</li>
+      <li data-i18n="cost_s3"><b>Gathering from the world map</b> &mdash; Gold tiles give the most value. Gather in alliance territory for +25% bonus. This is the primary way to fund large training batches.</li>
+      <li data-i18n="cost_s4"><b>Event rewards &amp; chests</b> &mdash; Most resources come from events, alliance gifts, and resource chests, not from production buildings.</li>
+    </ul>
+  </div>
+
+  <!-- SECTION 5: PRIORITY PATH -->
+  <div class="section-label" data-i18n="sec_priority">&#127919; Priority Research Path</div>
+
+  <div class="card c-low">
+    <div class="card-title ct-dark" data-i18n="priority_title">Recommended Research Order</div>
+    <ol class="priority-list">
+      <li data-i18n="prio_1"><b>Focused Training I&ndash;IV</b> <span class="tree-badge tb-dev">Development</span> &mdash; Total: ~165M Gold. The biggest training speed gains in the cheapest tree. Every level directly reduces your training timer.</li>
+      <li data-i18n="prio_2"><b>Barrack Expansion I&ndash;IV</b> <span class="tree-badge tb-dev">Development</span> &mdash; Total: ~62M Gold. Bigger queues per batch means more troops per cycle and more VS points on Friday.</li>
+      <li data-i18n="prio_3"><b>Extra Barracks</b> <span class="tree-badge tb-dev">Development</span> &mdash; 1.2M Gold. Unlocks a 3rd barracks building slot. Cheap and high value.</li>
+      <li data-i18n="prio_4"><b>Drill Ground Expansion</b> <span class="tree-badge tb-dev">Development</span> &mdash; 55.6M Gold. More troops per march = stronger in every battle.</li>
+      <li data-i18n="prio_5"><b>SF Focused Training + Barracks Expansion</b> <span class="tree-badge tb-sf">Special Forces</span> &mdash; 136M Gold + 3,920 Valor. Endgame training nodes. Only after Development tree is complete.</li>
+      <li data-i18n="prio_6"><b>Siege to Seize nodes</b> <span class="tree-badge tb-siege">Siege to Seize</span> &mdash; 2.8B Gold + 32K Valor. Whale territory. Massive costs for incremental gains. Only for late-game players with maxed Development and Special Forces.</li>
+    </ol>
+  </div>
+
+  <!-- SECTION 6: SPEED FORMULA -->
+  <div class="section-label" data-i18n="sec_formula">&#9881; Speed Formula</div>
+
+  <div class="formula-box">
+    <div style="font-size:14px;font-weight:600;color:#5a6a6a;margin-bottom:6px;" data-i18n="formula_label">Official Training Speed Calculation</div>
+    <div class="formula">Actual Time = Base Time &divide; (1 + Total Speed Bonus%)</div>
+    <div class="formula-example" data-i18n="formula_example"><b>Example:</b> 60 min base time with +50% speed = 60 &divide; 1.5 = <b>40 min</b> (saves 20 min of speedups)</div>
+    <div style="font-size:12px;color:#888;margin-top:8px;" data-i18n="formula_source">Source: Official Last War Twitter quiz</div>
+  </div>
+
+  <div class="card c-med">
+    <div class="card-title ct-cyan" data-i18n="formula_note_title">&#128161; Why This Formula Matters</div>
+    <div data-i18n="formula_note_body">All speed bonuses are <b>additive with each other</b> but applied <b>divisively</b> to the base time. This means stacking multiple small bonuses (VIP + Secretary + Research) creates a significant compound effect. A +100% total bonus cuts your training time <b>in half</b>. A +200% bonus cuts it to <b>one-third</b>.</div>
+  </div>
+
+  <!-- SECTION 7: TIME DATA NOTE -->
+  <div class="section-label" data-i18n="sec_timenote">&#128202; Time Data Note</div>
+
+  <div class="info-box">
+    <div class="info-title" data-i18n="timenote_title">&#128337; About Research Times</div>
+    <div data-i18n="timenote_body">Research time data is not available from community data sources (cpt-hedge.com). The <b>Time</b> column shows <span style="color:#f4a261;font-weight:700;font-size:16px;">*</span> for all nodes. To see actual research times, check your in-game Tech Center. Times vary based on your Tech Center level, research speed buffs, VIP level, and alliance help. Use the speed formula above to estimate your actual completion times.</div>
+  </div>
+
+</div>
+
+<!-- FOOTER -->
+<div class="footer" data-i18n="footer">
+  [OWOW] Old World Order &bull; Training Optimization Guide &bull; Last War: Survival &bull; Kristen OWOW SKYNET
+</div>
+
+<script>
+(function(){
+  const T = { es: {
+    title: '\ud83c\udfcb Training Optimization Guide',
+    subtitle: 'Mas Capacidad, Entrenamiento Rapido, Gasto Inteligente',
+    tree_legend: '\ud83c\udfa8 Colores de Arbol:',
+    sec_pool: '\ud83c\udfd7 Aumentar Capacidad de Entrenamiento',
+    pool_title: 'Que es la Capacidad de Entrenamiento?',
+    pool_desc: 'Tu capacidad de entrenamiento determina cuantas tropas puedes entrenar por lote. Una mayor capacidad significa mas tropas entrenadas por ciclo, lo que se traduce en mas puntos el <b>Viernes (Movilizacion Total)</b> y un ejercito mas grande en general. Aumentar la capacidad es una de las inversiones a largo plazo mas impactantes.',
+    th_tree: 'Arbol', th_node: 'Nodo', th_maxlv: 'Nv Max', th_gold: 'Oro Total', th_food: 'Comida Total', th_iron: 'Hierro Total', th_valor: 'Valor Total', th_time: 'Tiempo',
+    th_tree2: 'Arbol', th_node2: 'Nodo', th_maxlv2: 'Nv Max', th_gold2: 'Oro Total', th_food2: 'Comida Total', th_iron2: 'Hierro Total', th_valor2: 'Valor Total', th_time2: 'Tiempo',
+    th_tree3: 'Arbol', th_node3: 'Nodo', th_maxlv3: 'Nv Max', th_gold3: 'Oro Total', th_food3: 'Comida Total', th_iron3: 'Hierro Total', th_valor3: 'Valor Total', th_time3: 'Tiempo',
+    pool_other_title: 'Otras Fuentes de Capacidad de Entrenamiento',
+    pool_o1: '<b>Nivel del cuartel</b> \u2014 nivel mas alto = mayor cola de entrenamiento por cuartel',
+    pool_o2: '<b>Asignacion de sobrevivientes</b> \u2014 asigna sobrevivientes al cuartel para bonificacion de capacidad',
+    pool_o3: '<b>Secretario de Defensa</b> \u2014 +20% Limite de Entrenamiento mientras ocupas el puesto',
+    pool_o4: '<b>VIP 6</b> \u2014 +5% capacidad de entrenamiento de tropas',
+    sec_speed: '\u26a1 Aumentar Velocidad de Entrenamiento',
+    speed_title: 'Por Que Importa la Velocidad de Entrenamiento',
+    speed_desc: 'La velocidad de entrenamiento reduce el temporizador de cada lote. Un entrenamiento mas rapido significa que necesitas menos aceleradores para completar lotes, ahorrando tus valiosos aceleradores para la <b>puntuacion del Viernes</b>. Cada punto porcentual de velocidad se acumula en cada lote que entrenas.',
+    speed_other_title: 'Otras Fuentes de Velocidad de Entrenamiento',
+    speed_o1: '<b>Secretario de Defensa</b> \u2014 +20% velocidad de entrenamiento (ventana de 5 min; debes iniciar el entrenamiento MIENTRAS ocupas el puesto)',
+    speed_o2: '<b>Bonificacion de VP</b> \u2014 +10% velocidad de entrenamiento (permanente para el titular de VP)',
+    speed_o3: '<b>VIP 15</b> \u2014 +10% velocidad de entrenamiento',
+    sec_march: '\ud83c\udfcb Mas Capacidad de Marcha (Campos de Entrenamiento)',
+    march_title: 'Por Que Importa la Capacidad de Marcha',
+    march_desc: 'Los Campos de Entrenamiento determinan cuantas tropas puedes desplegar por marcha. Una marcha mas grande = un ejercito mas grande en el campo de batalla. Esto afecta directamente tu poder de combate en concentraciones, PvP y guerras de alianza. Mas tropas en cada marcha significa mas dano infligido y mas resistencia.',
+    sec_cost: '\ud83d\udcb0 Reducir Costos de Entrenamiento',
+    cost_insight_title: '\u26a0 Importante: No Hay Investigacion de Reduccion de Costos Directa',
+    cost_insight_body: '<b>NO existe un nodo de investigacion</b> que reduzca directamente el costo de recursos para entrenar tropas. Los costos de tropas son fijos por nivel. Sin embargo, hay formas indirectas de hacer el entrenamiento mas accesible:',
+    cost_strat_title: 'Formas Indirectas de Costear Mas Entrenamiento',
+    cost_s1: '<b>Las tropas de nivel bajo cuestan menos</b> \u2014 T5 cuesta una fraccion de T8. Esta es exactamente la razon por la que el <b>metodo cascada</b> funciona: entrena T5 barato, luego sube de nivel para maximo puntaje VS a minimo costo.',
+    cost_s2: '<b>Bonificaciones de produccion de recursos</b> \u2014 El Secretario del Interior da +20% produccion mientras ocupa el puesto. Combinalo con las bonificaciones de produccion VIP.',
+    cost_s3: '<b>Recoleccion del mapa mundial</b> \u2014 Las minas de oro dan mas valor. Recolecta en territorio de alianza para +25% de bonificacion. Esta es la principal forma de financiar grandes lotes de entrenamiento.',
+    cost_s4: '<b>Recompensas de eventos y cofres</b> \u2014 La mayoria de los recursos provienen de eventos, regalos de alianza y cofres de recursos, no de edificios de produccion.',
+    sec_priority: '\ud83c\udfaf Ruta de Investigacion Prioritaria',
+    priority_title: 'Orden de Investigacion Recomendado',
+    prio_1: '<b>Entrenamiento Enfocado I\u2013IV</b> <span class="tree-badge tb-dev">Desarrollo</span> \u2014 Total: ~165M Oro. Las mayores ganancias de velocidad de entrenamiento en el arbol mas barato. Cada nivel reduce directamente tu temporizador.',
+    prio_2: '<b>Expansion de Cuartel I\u2013IV</b> <span class="tree-badge tb-dev">Desarrollo</span> \u2014 Total: ~62M Oro. Colas mas grandes por lote significan mas tropas por ciclo y mas puntos VS el Viernes.',
+    prio_3: '<b>Cuartel Extra</b> <span class="tree-badge tb-dev">Desarrollo</span> \u2014 1.2M Oro. Desbloquea un 3er cuartel. Barato y de alto valor.',
+    prio_4: '<b>Expansion de Campo de Entrenamiento</b> <span class="tree-badge tb-dev">Desarrollo</span> \u2014 55.6M Oro. Mas tropas por marcha = mas fuerte en cada batalla.',
+    prio_5: '<b>Entrenamiento Enfocado + Expansion de Cuartel SF</b> <span class="tree-badge tb-sf">Fuerzas Especiales</span> \u2014 136M Oro + 3,920 Valor. Nodos de entrenamiento endgame. Solo despues de completar el arbol de Desarrollo.',
+    prio_6: '<b>Nodos de Asedio</b> <span class="tree-badge tb-siege">Asedio</span> \u2014 2.8B Oro + 32K Valor. Territorio de ballenas. Costos masivos para ganancias incrementales. Solo para jugadores avanzados con Desarrollo y Fuerzas Especiales al maximo.',
+    sec_formula: '\u2699 Formula de Velocidad',
+    formula_label: 'Calculo Oficial de Velocidad de Entrenamiento',
+    formula_example: '<b>Ejemplo:</b> 60 min de tiempo base con +50% velocidad = 60 \u00f7 1.5 = <b>40 min</b> (ahorra 20 min de aceleradores)',
+    formula_source: 'Fuente: Quiz oficial de Last War en Twitter',
+    formula_note_title: '\ud83d\udca1 Por Que Importa Esta Formula',
+    formula_note_body: 'Todos los bonos de velocidad son <b>aditivos entre si</b> pero se aplican <b>divisivamente</b> al tiempo base. Esto significa que acumular multiples bonos pequenos (VIP + Secretario + Investigacion) crea un efecto compuesto significativo. Un bono total de +100% reduce tu tiempo de entrenamiento <b>a la mitad</b>. Un bono de +200% lo reduce a <b>un tercio</b>.',
+    sec_timenote: '\ud83d\udcca Nota sobre Datos de Tiempo',
+    timenote_title: '\ud83d\udd53 Sobre los Tiempos de Investigacion',
+    timenote_body: 'Los datos de tiempo de investigacion no estan disponibles en fuentes de datos de la comunidad (cpt-hedge.com). La columna de <b>Tiempo</b> muestra <span style="color:#f4a261;font-weight:700;font-size:16px;">*</span> para todos los nodos. Para ver los tiempos reales de investigacion, consulta tu Centro Tecnologico en el juego. Los tiempos varian segun el nivel de tu Centro Tecnologico, bonificaciones de velocidad de investigacion, nivel VIP y ayuda de alianza. Usa la formula de velocidad arriba para estimar tus tiempos reales de finalizacion.',
+    footer: '[OWOW] Old World Order \u2022 Guia de Optimizacion de Entrenamiento \u2022 Last War: Survival \u2022 Kristen OWOW SKYNET'
+  }};
+
+  let lang = localStorage.getItem('owow-training-opt-lang') || 'en';
+
+  function applyLang(l) {
+    lang = l;
+    localStorage.setItem('owow-training-opt-lang', l);
+    document.querySelectorAll('.lang-btn').forEach(b => b.classList.toggle('active', b.textContent.trim() === l.toUpperCase()));
+    document.getElementById('htmlRoot').lang = l;
+    if (l === 'en') {
+      document.querySelectorAll('[data-i18n]').forEach(el => {
+        if (el._origHTML === undefined) el._origHTML = el.innerHTML;
+        el.innerHTML = el._origHTML;
+      });
+    } else {
+      document.querySelectorAll('[data-i18n]').forEach(el => {
+        if (el._origHTML === undefined) el._origHTML = el.innerHTML;
+        const key = el.getAttribute('data-i18n');
+        if (T[l] && T[l][key] !== undefined) el.innerHTML = T[l][key];
+      });
+    }
+  }
+
+  window.setLang = function(l) { applyLang(l); };
+
+  // Store originals on load
+  document.querySelectorAll('[data-i18n]').forEach(el => { el._origHTML = el.innerHTML; });
+
+  // Apply saved language
+  if (lang !== 'en') applyLang(lang);
+})();
+</script>
+
+</body>
+</html>

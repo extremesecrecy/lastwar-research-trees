@@ -18,6 +18,7 @@
     { href: 'guides/server_dashboard.html', label: 'Server' },
     { href: 'guides/vs_weekly_planner.html', label: 'VS Planner' },
     { href: 'guides/interior_test_report.html', label: 'Interior Test' },
+    { href: 'guides/training_optimization.html', label: 'Training' },
     { href: 'guides/wall_of_honor.html', label: 'Wall of Honor' },
     { href: 'guides/waterfall_guide.html', label: 'Waterfall' }
   ];
