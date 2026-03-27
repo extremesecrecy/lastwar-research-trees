@@ -1,0 +1,692 @@
+<!DOCTYPE html>
+<html lang="en" id="htmlRoot">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Drone Guide - OWOW</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&display=swap');
+* { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: 'Fredoka', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: #fff;
+    color: #333;
+    padding: 4px 8px;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* Header */
+  .top-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 6px;
+    flex-shrink: 0;
+  }
+  .top-bar h1 { font-size: 22px; letter-spacing: 1px; text-transform: uppercase; color: #5a6a6a; }
+  .top-bar .sub { font-size: 14px; color: #888; }
+  .alliance {
+    background: #e8f4f1;
+    border: 1px solid #7fb3a8;
+    border-radius: 5px;
+    padding: 2px 10px;
+    text-align: right;
+  }
+  .alliance .name { font-size: 19px; font-weight: 800; color: #5a6a6a; }
+  .alliance .info { font-size: 14px; color: #666; }
+
+  /* Section labels */
+  .section-label {
+    font-size: 17px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: #5a6a6a;
+    margin: 14px 0 6px 0;
+    padding-bottom: 3px;
+    border-bottom: 2px solid #7fb3a8;
+  }
+
+  /* Cards */
+  .card {
+    border-radius: 6px;
+    padding: 10px 14px;
+    font-size: 14px;
+    line-height: 1.5;
+    margin-bottom: 10px;
+  }
+  .c-prep { background: #e8f5e9; border: 1.5px solid #43a047; }
+  .c-low { background: #fafafa; border: 1px solid #ccc; }
+  .c-med { background: #e4f3f8; border: 1.5px solid #5bc0de; }
+  .c-high { background: #fef3e2; border: 1.5px solid #f4a261; }
+  .c-crit { background: #fce4ec; border: 1.5px solid #e53935; }
+  .c-teal { background: #e8f4f1; border: 1.5px solid #7fb3a8; }
+  .c-watermelon { background: #fff0f1; border: 2px solid #fc5c65; }
+
+  .card-title { font-size: 16px; font-weight: 800; margin-bottom: 4px; }
+  .ct-dark { color: #5a6a6a; }
+  .ct-green { color: #2e7d32; }
+  .ct-orange { color: #c47a30; }
+  .ct-red { color: #c62828; }
+  .ct-cyan { color: #2a8fa8; }
+  .ct-teal { color: #5a8a7e; }
+  .ct-watermelon { color: #fc5c65; }
+
+  .tag {
+    display: inline-block;
+    font-size: 11px;
+    padding: 1px 6px;
+    border-radius: 3px;
+    font-weight: 700;
+    color: #fff;
+    vertical-align: middle;
+  }
+  .t-red { background: #e53935; }
+  .t-ora { background: #f4a261; }
+  .t-teal { background: #7fb3a8; }
+  .t-cyan { background: #5bc0de; }
+  .t-grn { background: #2e7d32; }
+  .t-dark { background: #5a6a6a; }
+  .t-watermelon { background: #fc5c65; }
+  .t-yellow { background: #d4a017; }
+
+  /* Content area */
+  .content {
+    max-width: 1100px;
+    margin: 0 auto;
+    width: 100%;
+    flex: 1;
+  }
+
+  /* Tables */
+  .hero-table { width: 100%; border-collapse: collapse; font-size: 13px; margin-bottom: 12px; }
+  .hero-table th {
+    background: #5a6a6a;
+    color: #fff;
+    padding: 5px 8px;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+    white-space: nowrap;
+    text-align: left;
+  }
+  .hero-table td {
+    padding: 4px 8px;
+    border-bottom: 1px solid #eee;
+    line-height: 1.4;
+  }
+  .hero-table .hero-name { font-weight: 700; }
+
+  /* Milestone row colors */
+  .row-skill { background: #e4f3f8; }
+  .row-skin { background: #fef3e2; }
+  .row-special { background: #fff0f1; }
+
+  /* Two-column layout */
+  .comp-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-bottom: 10px;
+  }
+
+  /* Key insight box */
+  .insight-box {
+    background: #fff0f1;
+    border: 2px solid #fc5c65;
+    border-radius: 8px;
+    padding: 14px 18px;
+    margin: 14px 0;
+    font-size: 15px;
+    line-height: 1.6;
+  }
+  .insight-box .insight-title {
+    font-size: 17px;
+    font-weight: 800;
+    color: #fc5c65;
+    margin-bottom: 4px;
+  }
+
+  /* Strategy list */
+  .strat-list { list-style: none; padding: 0; }
+  .strat-list li {
+    padding: 6px 0 6px 24px;
+    position: relative;
+    font-size: 14px;
+    border-bottom: 1px solid #f0f0f0;
+  }
+  .strat-list li::before {
+    content: '\25B6';
+    position: absolute;
+    left: 4px;
+    color: #f4a261;
+    font-size: 10px;
+    top: 9px;
+  }
+
+  /* Numbered list */
+  .num-list { list-style: none; padding: 0; counter-reset: numlist; }
+  .num-list li {
+    padding: 6px 0 6px 32px;
+    position: relative;
+    font-size: 14px;
+    border-bottom: 1px solid #f0f0f0;
+    counter-increment: numlist;
+  }
+  .num-list li::before {
+    content: counter(numlist);
+    position: absolute;
+    left: 4px;
+    top: 6px;
+    width: 20px;
+    height: 20px;
+    background: #f4a261;
+    color: #fff;
+    border-radius: 50%;
+    font-size: 11px;
+    font-weight: 700;
+    text-align: center;
+    line-height: 20px;
+  }
+
+  /* Sources */
+  .sources { font-size: 12px; color: #888; margin-top: 10px; }
+  .sources a { color: #5bc0de; text-decoration: none; }
+  .sources a:hover { text-decoration: underline; }
+
+  /* Footer */
+  .footer {
+    text-align: center;
+    font-size: 12px;
+    color: #999;
+    padding: 6px 2px;
+    border-top: 1px solid #e0e0e0;
+    flex-shrink: 0;
+    margin-top: 14px;
+  }
+
+  /* Navigation Bar */
+  .guide-nav {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px 12px;
+    align-items: center;
+    padding: 6px 10px;
+    background: #f0f5f4;
+    border-bottom: 2px solid #7fb3a8;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 12px;
+    margin: -4px -8px 4px -8px;
+    flex-shrink: 0;
+  }
+  .guide-nav a {
+    color: #5a6a6a;
+    text-decoration: none;
+    padding: 2px 6px;
+    border-radius: 3px;
+    white-space: nowrap;
+  }
+  .guide-nav a:hover {
+    color: #f4a261;
+    background: #fff;
+  }
+  .guide-nav a.current {
+    color: #f4a261;
+    font-weight: bold;
+    background: #fff;
+    border: 1px solid #f4a261;
+  }
+  .guide-nav .nav-home {
+    font-weight: bold;
+    margin-right: 8px;
+    padding-right: 12px;
+    border-right: 1px solid #7fb3a8;
+  }
+
+  /* Language Toggle */
+  .lang-toggle {
+    display: inline-flex; align-items: center; gap: 4px;
+    background: #f0f5f4; border: 2px solid #7fb3a8; border-radius: 20px;
+    padding: 2px 4px; cursor: pointer; font-family: 'Segoe UI', sans-serif;
+    font-size: 12px; font-weight: 700; user-select: none;
+  }
+  .lang-btn {
+    padding: 2px 10px; border-radius: 16px; border: none; cursor: pointer;
+    font-size: 12px; font-weight: 700; background: transparent; color: #888;
+    transition: all 0.2s;
+  }
+  .lang-btn.active { background: #5a6a6a; color: #fff; }
+  .lang-btn:hover:not(.active) { color: #5a6a6a; }
+
+  /* Chip level table alternate rows */
+  .hero-table tr:nth-child(even) td { background: #f9f9f9; }
+
+  /* Grand total row */
+  .row-total { background: #e8f4f1 !important; font-weight: 700; }
+  .row-total td { background: #e8f4f1 !important; border-top: 2px solid #7fb3a8; }
+
+  /* Mobile responsive */
+  @media (max-width: 768px) {
+    .top-bar { flex-direction: column; gap: 6px; text-align: center; }
+    .top-bar h1 { font-size: 18px; }
+    .alliance { text-align: center; }
+    .comp-grid { grid-template-columns: 1fr; }
+    .hero-table { font-size: 12px; display: block; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+    .hero-table th { font-size: 10px; padding: 4px 6px; }
+    .hero-table td { padding: 3px 6px; }
+  }
+  @media (max-width: 480px) {
+    body { padding: 4px 6px; }
+    .top-bar h1 { font-size: 16px; }
+    .top-bar .sub { font-size: 12px; }
+    .alliance .name { font-size: 15px; }
+    .section-label { font-size: 15px; }
+    .card { font-size: 13px; padding: 8px 10px; }
+  }
+</style>
+</head>
+<body>
+
+<nav class="guide-nav" id="guide-nav"></nav>
+<script src="../nav.js"></script>
+
+<!-- HEADER -->
+<div class="top-bar">
+  <div>
+    <h1 data-i18n="title">&#128296; Drone Guide</h1>
+    <div class="sub" data-i18n="subtitle">Leveling, Components, Chips & Strategy</div>
+  </div>
+  <div style="display:flex;align-items:center;gap:10px;">
+    <div class="lang-toggle">
+      <button class="lang-btn active" onclick="setLang('en')">EN</button>
+      <button class="lang-btn" onclick="setLang('es')">ES</button>
+    </div>
+    <img src="skynet_logo.png" alt="OWOW SKYNET" style="height:60px;">
+  </div>
+  <div class="alliance">
+    <div class="name">[OWOW] Old World Order</div>
+    <div class="info">Last War: Survival</div>
+  </div>
+</div>
+
+<div class="content">
+
+  <!-- SECTION 1: HOW DRONE LEVELING WORKS -->
+  <div class="section-label" data-i18n="sec_leveling">&#128295; How Drone Leveling Works</div>
+
+  <div class="card c-teal">
+    <div class="card-title ct-teal" data-i18n="lev_title">Two Resources Needed</div>
+    <ul style="margin-left:18px;font-size:14px;line-height:1.7;">
+      <li data-i18n="lev_1"><b>Drone Parts</b> &mdash; consumed at checkpoint levels to unlock the next tier</li>
+      <li data-i18n="lev_2"><b>Battle Data / Combat Data</b> &mdash; XP currency used to fill the progress bar between checkpoints</li>
+      <li data-i18n="lev_3">Levels 1&ndash;150: Parts are only consumed every <b>5th level</b> (Lv5, 10, 15, ... 150)</li>
+      <li data-i18n="lev_4">Levels 151+: Parts are consumed <b>EVERY level</b> &mdash; costs escalate dramatically</li>
+      <li data-i18n="lev_5">Max drone level: <b>300</b> (Level 251+ requires Tactical Weapon research)</li>
+      <li data-i18n="lev_6">Each level also costs increasing amounts of Battle Data to fill the progress bar</li>
+    </ul>
+  </div>
+
+  <!-- SECTION 2: PARTS REQUIREMENTS TABLE -->
+  <div class="section-label" data-i18n="sec_parts">&#128202; Parts Requirements Table</div>
+
+  <div style="margin-bottom:6px;font-size:15px;font-weight:800;color:#5a6a6a;" data-i18n="parts_pre150">Levels 1&ndash;150 (Parts consumed every 5th level)</div>
+  <table class="hero-table">
+    <thead>
+      <tr>
+        <th data-i18n="th_level">Level</th>
+        <th data-i18n="th_parts">Parts Required</th>
+        <th data-i18n="th_cumul">Cumulative Total</th>
+        <th data-i18n="th_bd">Battle Data / Level</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td>5</td><td>5</td><td>5</td><td>11,250</td></tr>
+      <tr><td>10</td><td>10</td><td>15</td><td>15,000</td></tr>
+      <tr><td>15</td><td>20</td><td>35</td><td>18,750</td></tr>
+      <tr><td>20</td><td>30</td><td>65</td><td>22,500</td></tr>
+      <tr><td>25</td><td>40</td><td>105</td><td>26,250</td></tr>
+      <tr><td>30</td><td>50</td><td>155</td><td>30,000</td></tr>
+      <tr><td>35</td><td>60</td><td>215</td><td>37,500</td></tr>
+      <tr><td>40</td><td>80</td><td>295</td><td>37,500</td></tr>
+      <tr><td>45</td><td>100</td><td>395</td><td>37,500</td></tr>
+      <tr><td>50</td><td>120</td><td>515</td><td>37,500</td></tr>
+      <tr><td>55</td><td>140</td><td>655</td><td>45,000</td></tr>
+      <tr><td>60</td><td>160</td><td>815</td><td>45,000</td></tr>
+      <tr><td>65</td><td>180</td><td>995</td><td>45,000</td></tr>
+      <tr><td>70</td><td>200</td><td>1,195</td><td>45,000</td></tr>
+      <tr><td>75</td><td>250</td><td>1,445</td><td>52,500</td></tr>
+      <tr><td>80</td><td>300</td><td>1,745</td><td>52,500</td></tr>
+      <tr><td>85</td><td>350</td><td>2,095</td><td>52,500</td></tr>
+      <tr><td>90</td><td>400</td><td>2,495</td><td>55,000</td></tr>
+      <tr><td>95</td><td>450</td><td>2,945</td><td>60,000</td></tr>
+      <tr><td>100</td><td>500</td><td>3,445</td><td>60,000</td></tr>
+      <tr><td>105</td><td>600</td><td>4,045</td><td>75,000</td></tr>
+      <tr><td>110</td><td>700</td><td>4,745</td><td>75,000</td></tr>
+      <tr><td>115</td><td>800</td><td>5,545</td><td>180,000</td></tr>
+      <tr><td>120</td><td>1,000</td><td>6,545</td><td>180,000</td></tr>
+      <tr><td>125</td><td>1,500</td><td>8,045</td><td>210,000</td></tr>
+      <tr><td>130</td><td>2,000</td><td>10,045</td><td>210,000</td></tr>
+      <tr><td>135</td><td>3,000</td><td>13,045</td><td>240,000</td></tr>
+      <tr><td>140</td><td>4,000</td><td>17,045</td><td>240,000</td></tr>
+      <tr><td>145</td><td>5,000</td><td>22,045</td><td>300,000</td></tr>
+      <tr><td>150</td><td>500</td><td>22,545</td><td>900,000</td></tr>
+    </tbody>
+  </table>
+
+  <div style="margin-bottom:6px;font-size:15px;font-weight:800;color:#5a6a6a;" data-i18n="parts_post150">Levels 151&ndash;250 (Parts consumed EVERY level)</div>
+  <table class="hero-table">
+    <thead>
+      <tr>
+        <th data-i18n="th_band">Level Band</th>
+        <th data-i18n="th_perlv">Parts / Level</th>
+        <th data-i18n="th_bandtotal">Band Total</th>
+        <th data-i18n="th_bd2">Battle Data / Level</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td>151&ndash;160</td><td>500</td><td>5,100</td><td>900,000</td></tr>
+      <tr><td>161&ndash;170</td><td>600</td><td>6,100</td><td>1,000,000</td></tr>
+      <tr><td>171&ndash;180</td><td>700</td><td>7,100</td><td>1,125,000</td></tr>
+      <tr><td>181&ndash;190</td><td>800</td><td>8,100</td><td>1,440,000</td></tr>
+      <tr><td>191&ndash;200</td><td>900</td><td>9,100</td><td>1,620,000</td></tr>
+      <tr><td>201&ndash;210</td><td>1,000</td><td>10,100</td><td>1,800,000</td></tr>
+      <tr><td>211&ndash;220</td><td>1,100</td><td>11,100</td><td>1,980,000</td></tr>
+      <tr><td>221&ndash;230</td><td>1,200</td><td>12,100</td><td>2,160,000</td></tr>
+      <tr><td>231&ndash;240</td><td>1,300</td><td>13,100</td><td>2,340,000</td></tr>
+      <tr><td>241&ndash;250</td><td>1,400</td><td>14,600</td><td>2,520,000</td></tr>
+      <tr class="row-total"><td data-i18n="total_250" colspan="2"><b>Total to Lv250</b></td><td><b>119,045</b></td><td>&mdash;</td></tr>
+      <tr class="row-total"><td data-i18n="total_300" colspan="2"><b>Total to Lv300</b></td><td><b>276,295</b></td><td>&mdash;</td></tr>
+    </tbody>
+  </table>
+
+  <!-- SECTION 3: KEY MILESTONES -->
+  <div class="section-label" data-i18n="sec_milestones">&#127919; Key Milestones</div>
+
+  <table class="hero-table">
+    <thead>
+      <tr>
+        <th data-i18n="th_mlevel">Level</th>
+        <th data-i18n="th_unlock">Unlock</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr class="row-skin"><td>1</td><td data-i18n="ms_1">TD-1 'Pathfinder' drone skin</td></tr>
+      <tr class="row-skill"><td>31</td><td data-i18n="ms_31">Skill Level 1 unlocks</td></tr>
+      <tr class="row-skin"><td>50</td><td data-i18n="ms_50">TD-2 'Blaster' drone skin</td></tr>
+      <tr class="row-skill"><td>51</td><td data-i18n="ms_51">Skill Level 2 unlocks</td></tr>
+      <tr class="row-skill"><td>71</td><td data-i18n="ms_71">Skill Level 3 unlocks</td></tr>
+      <tr class="row-special"><td>85</td><td data-i18n="ms_85">Chip Slots unlock (server day 85 also required)</td></tr>
+      <tr class="row-skill"><td>91</td><td data-i18n="ms_91">Skill Level 4 unlocks</td></tr>
+      <tr class="row-skin"><td>100</td><td data-i18n="ms_100">TD-3 'Silver Knight' drone skin</td></tr>
+      <tr class="row-skill"><td>111</td><td data-i18n="ms_111">Skill Level 5 unlocks</td></tr>
+      <tr class="row-skin"><td>150</td><td data-i18n="ms_150">TD-4 'Phantom' drone skin</td></tr>
+      <tr class="row-skin"><td>200</td><td data-i18n="ms_200">TD-5 'Destroyer' drone skin</td></tr>
+      <tr class="row-skin"><td>250</td><td data-i18n="ms_250">TD-6 'Colossus' drone skin</td></tr>
+      <tr class="row-special"><td>251+</td><td data-i18n="ms_251">Tactical Weapon research required to progress</td></tr>
+    </tbody>
+  </table>
+
+  <div class="card c-low" style="padding:6px 12px;">
+    <div style="font-size:12px;display:flex;gap:14px;flex-wrap:wrap;align-items:center;">
+      <span data-i18n="ms_legend">&#127912; Row Colors:</span>
+      <span style="background:#e4f3f8;padding:2px 8px;border-radius:3px;border:1px solid #5bc0de;" data-i18n="ms_leg_skill">Skill Unlock</span>
+      <span style="background:#fef3e2;padding:2px 8px;border-radius:3px;border:1px solid #f4a261;" data-i18n="ms_leg_skin">Skin Unlock</span>
+      <span style="background:#fff0f1;padding:2px 8px;border-radius:3px;border:1px solid #fc5c65;" data-i18n="ms_leg_special">Special</span>
+    </div>
+  </div>
+
+  <!-- SECTION 4: CRITICAL UPGRADE MECHANIC -->
+  <div class="section-label" data-i18n="sec_crit">&#9889; Critical Upgrade Mechanic</div>
+
+  <div class="insight-box">
+    <div class="insight-title" data-i18n="crit_title">&#9733; Crit Chance Strategy</div>
+    <ul style="margin-left:18px;font-size:14px;line-height:1.8;">
+      <li data-i18n="crit_1">At checkpoint levels, you must fill a progress bar (<b>Stage X/5</b>)</li>
+      <li data-i18n="crit_2">Each stage costs Battle Data to fill</li>
+      <li data-i18n="crit_3">While progress is <b>under 80%</b>, each tap has a <b>50% chance to CRIT</b> (2x XP gain)</li>
+      <li data-i18n="crit_4">After <b>80% progress</b>, crit chance drops to <b>0%</b></li>
+      <li data-i18n="crit_5"><b>Strategy:</b> Use <b>smaller Battle Data batches early</b> (for more crit chances), then dump large batches after 80% when crits are impossible</li>
+    </ul>
+  </div>
+
+  <!-- SECTION 5: DRONE COMPONENTS -->
+  <div class="section-label" data-i18n="sec_comp">&#9881;&#65039; Drone Components</div>
+
+  <div class="comp-grid">
+    <div class="card c-med">
+      <div class="card-title ct-cyan" data-i18n="comp_def_title">&#128737;&#65039; Defensive (Left Side)</div>
+      <ul style="margin-left:18px;font-size:14px;line-height:1.8;">
+        <li><b>Radar</b> <span data-i18n="comp_radar">&mdash; detection range, skill damage reduction</span></li>
+        <li><b>Engine</b> <span data-i18n="comp_engine">&mdash; movement speed, evasion</span></li>
+        <li><b>Armor</b> <span data-i18n="comp_armor">&mdash; HP, damage absorption</span></li>
+      </ul>
+    </div>
+    <div class="card c-high">
+      <div class="card-title ct-orange" data-i18n="comp_off_title">&#128165; Offensive (Right Side)</div>
+      <ul style="margin-left:18px;font-size:14px;line-height:1.8;">
+        <li><b>Missile</b> <span data-i18n="comp_missile">&mdash; attack power, crit damage</span></li>
+        <li><b>Fuel Cell</b> <span data-i18n="comp_fuel">&mdash; energy output, skill power</span></li>
+        <li><b>Thermal Imager</b> <span data-i18n="comp_thermal">&mdash; accuracy, crit rate</span></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="card c-low">
+    <div class="card-title ct-dark" data-i18n="comp_upgrade_title">Component Upgrade System</div>
+    <ul style="margin-left:18px;font-size:14px;line-height:1.7;">
+      <li data-i18n="comp_merge"><b>Levels 1&ndash;7:</b> Merge system &mdash; need <b>3 of the same level</b> to combine into the next level</li>
+      <li data-i18n="comp_exp"><b>Level 7+:</b> EXP system &mdash; feed duplicate components directly as experience</li>
+      <li data-i18n="comp_strat"><b>Strategy:</b> Prioritize <b>right-side components</b> (Missile, Fuel Cell, Thermal Imager) for offense &mdash; drone damage scales your combat power more than drone survivability</li>
+    </ul>
+  </div>
+
+  <!-- SECTION 6: CHIP SYSTEM -->
+  <div class="section-label" data-i18n="sec_chips">&#129514; Chip System</div>
+
+  <div class="card c-teal">
+    <div class="card-title ct-teal" data-i18n="chip_title">Chip Unlock &amp; Slots</div>
+    <ul style="margin-left:18px;font-size:14px;line-height:1.7;">
+      <li data-i18n="chip_unlock">Unlocks at <b>drone level 85</b> + <b>server day 85</b> (both conditions required)</li>
+      <li data-i18n="chip_slots"><b>4 chip slots:</b> Initial Move, Attack, Interference, Defense</li>
+      <li data-i18n="chip_timing"><b>Initial Move + Defense</b> activate at battle START (mainly shields)</li>
+      <li data-i18n="chip_bomb"><b>Attack + Interference</b> trigger each time the drone bombs</li>
+      <li data-i18n="chip_link">See <a href="chip_lab_guide.html" style="color:#5bc0de;font-weight:700;">Chip Lab Guide</a> for detailed chip loadouts and recommendations</li>
+    </ul>
+  </div>
+
+  <div style="margin-bottom:6px;margin-top:8px;font-size:15px;font-weight:800;color:#5a6a6a;" data-i18n="chip_prog_title">Chip Level Progression (Chips needed per level)</div>
+  <table class="hero-table">
+    <thead>
+      <tr>
+        <th data-i18n="th_chiplv">Chip Level</th>
+        <th data-i18n="th_chips_needed">Chips Needed</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td>Lv 0 &rarr; 1</td><td>1</td></tr>
+      <tr><td>Lv 1 &rarr; 2</td><td>2</td></tr>
+      <tr><td>Lv 2 &rarr; 3</td><td>3</td></tr>
+      <tr><td>Lv 3 &rarr; 4</td><td>5</td></tr>
+      <tr><td>Lv 4 &rarr; 5</td><td>7</td></tr>
+      <tr><td>Lv 5 &rarr; 6</td><td>10</td></tr>
+      <tr><td>Lv 6 &rarr; 7</td><td>15</td></tr>
+      <tr><td>Lv 7 &rarr; 8</td><td>20</td></tr>
+      <tr><td>Lv 8 &rarr; 9</td><td>30</td></tr>
+      <tr><td>Lv 9 &rarr; 10</td><td>40</td></tr>
+      <tr class="row-total"><td data-i18n="chip_total"><b>Total (Lv0&rarr;10)</b></td><td><b>133 chips</b></td></tr>
+    </tbody>
+  </table>
+
+  <!-- SECTION 7: PARTS & DATA SOURCES -->
+  <div class="section-label" data-i18n="sec_sources_parts">&#128230; Parts &amp; Data Sources</div>
+
+  <table class="hero-table">
+    <thead>
+      <tr>
+        <th data-i18n="th_source">Source</th>
+        <th data-i18n="th_whatget">What You Get</th>
+        <th data-i18n="th_when">When</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td class="hero-name" data-i18n="src_daily">Daily Tasks</td><td data-i18n="src_daily_w">10&ndash;50 parts/day</td><td data-i18n="src_daily_n">Always</td></tr>
+      <tr><td class="hero-name" data-i18n="src_alliance">Alliance Store</td><td data-i18n="src_alliance_w">Variable parts</td><td data-i18n="src_alliance_n">Buy daily</td></tr>
+      <tr><td class="hero-name" data-i18n="src_events">Events</td><td data-i18n="src_events_w">Best source overall</td><td data-i18n="src_events_n">Check calendar</td></tr>
+      <tr><td class="hero-name" data-i18n="src_radar">Radar Missions</td><td data-i18n="src_radar_w">Battle Data (purple/orange = most)</td><td data-i18n="src_radar_n">Always</td></tr>
+      <tr><td class="hero-name" data-i18n="src_zombie">Zombie Hunting</td><td data-i18n="src_zombie_w">Battle Data</td><td data-i18n="src_zombie_n">Always</td></tr>
+      <tr><td class="hero-name" data-i18n="src_workshop">Drone Parts Workshop</td><td data-i18n="src_workshop_w">~6 parts/day</td><td data-i18n="src_workshop_n">Requires HQ 30+</td></tr>
+    </tbody>
+  </table>
+
+  <!-- SECTION 8: PRIORITY STRATEGY -->
+  <div class="section-label" data-i18n="sec_priority">&#127894;&#65039; Priority Strategy</div>
+
+  <div class="card c-high">
+    <div class="card-title ct-orange" data-i18n="prio_title">Drone Upgrade Priority Order</div>
+    <ol class="num-list">
+      <li data-i18n="prio_1">Push to <b>skill breakpoints first</b> (31 &rarr; 51 &rarr; 71 &rarr; 91 &rarr; 111) &mdash; these are the biggest power jumps</li>
+      <li data-i18n="prio_2"><b>Skin levels are cosmetic</b> milestones, not power gates &mdash; don't chase them over skills</li>
+      <li data-i18n="prio_3"><b>Components: right side first</b> (offense) &mdash; merge to Lv7, then switch to EXP feeding</li>
+      <li data-i18n="prio_4"><b>Save drone data CHIP chests for Monday</b> (Radar Training VS day) &mdash; they score points!</li>
+      <li data-i18n="prio_5">After Lv150, parts consumption <b>explodes</b> (500+/level) &mdash; stockpile before pushing</li>
+    </ol>
+  </div>
+
+  <div class="insight-box">
+    <div class="insight-title" data-i18n="insight2_title">&#9733; Parts Budget Reality Check</div>
+    <div data-i18n="insight2_body">Getting to Lv150 costs <b>22,545 parts</b> total. Getting from Lv150 to Lv250 costs an additional <b>96,500 parts</b> &mdash; over <b>4x more</b> than the entire first 150 levels combined. Plan your parts spending carefully and don't burn reserves chasing cosmetic drone skins. Focus on skill breakpoints for real combat power.</div>
+  </div>
+
+  <!-- SOURCES -->
+  <div class="section-label" data-i18n="sec_sources">&#128214; Sources</div>
+
+  <div class="sources">
+    <div data-i18n="sources_body">
+      Data verified from the following sources:<br>
+      &#8226; <a href="https://cpt-hedge.com/calculators/drone-parts" target="_blank" rel="noopener">cpt-hedge.com/calculators/drone-parts</a>
+    </div>
+  </div>
+
+</div>
+
+<!-- FOOTER -->
+<div class="footer" data-i18n="footer">
+  [OWOW] Old World Order &bull; Drone Guide &bull; Last War: Survival &bull; Kristen OWOW SKYNET
+</div>
+
+<script>
+(function(){
+  const T = { es: {
+    title: '\ud83d\udd28 Guia del Dron',
+    subtitle: 'Nivelacion, Componentes, Chips y Estrategia',
+    sec_leveling: '\ud83d\udd27 Como Funciona la Nivelacion del Dron',
+    lev_title: 'Dos Recursos Necesarios',
+    lev_1: '<b>Drone Parts</b> \u2014 se consumen en niveles de control para desbloquear el siguiente tramo',
+    lev_2: '<b>Battle Data / Combat Data</b> \u2014 moneda de XP usada para llenar la barra de progreso entre controles',
+    lev_3: 'Niveles 1\u201350: Las partes solo se consumen cada <b>5 niveles</b> (Nv5, 10, 15, ... 150)',
+    lev_4: 'Niveles 151+: Las partes se consumen <b>CADA nivel</b> \u2014 los costos escalan dramaticamente',
+    lev_5: 'Nivel maximo del dron: <b>300</b> (Nivel 251+ requiere investigacion de Tactical Weapon)',
+    lev_6: 'Cada nivel tambien cuesta cantidades crecientes de Battle Data para llenar la barra de progreso',
+    sec_parts: '\ud83d\udcca Tabla de Requisitos de Partes',
+    parts_pre150: 'Niveles 1\u2013150 (Partes consumidas cada 5 niveles)',
+    th_level: 'Nivel', th_parts: 'Partes Requeridas', th_cumul: 'Total Acumulado', th_bd: 'Battle Data / Nivel',
+    parts_post150: 'Niveles 151\u2013250 (Partes consumidas CADA nivel)',
+    th_band: 'Rango de Niveles', th_perlv: 'Partes / Nivel', th_bandtotal: 'Total del Rango', th_bd2: 'Battle Data / Nivel',
+    total_250: '<b>Total hasta Nv250</b>',
+    total_300: '<b>Total hasta Nv300</b>',
+    sec_milestones: '\ud83c\udfaf Hitos Clave',
+    th_mlevel: 'Nivel', th_unlock: 'Desbloqueo',
+    ms_1: 'Skin de dron TD-1 \'Pathfinder\'',
+    ms_31: 'Se desbloquea Skill Level 1',
+    ms_50: 'Skin de dron TD-2 \'Blaster\'',
+    ms_51: 'Se desbloquea Skill Level 2',
+    ms_71: 'Se desbloquea Skill Level 3',
+    ms_85: 'Se desbloquean Chip Slots (tambien se requiere dia 85 del servidor)',
+    ms_91: 'Se desbloquea Skill Level 4',
+    ms_100: 'Skin de dron TD-3 \'Silver Knight\'',
+    ms_111: 'Se desbloquea Skill Level 5',
+    ms_150: 'Skin de dron TD-4 \'Phantom\'',
+    ms_200: 'Skin de dron TD-5 \'Destroyer\'',
+    ms_250: 'Skin de dron TD-6 \'Colossus\'',
+    ms_251: 'Se requiere investigacion de Tactical Weapon para progresar',
+    ms_legend: '\ud83c\udfa8 Colores de Fila:',
+    ms_leg_skill: 'Desbloqueo de Habilidad',
+    ms_leg_skin: 'Desbloqueo de Skin',
+    ms_leg_special: 'Especial',
+    sec_crit: '\u26a1 Mecanica de Mejora Critica',
+    crit_title: '\u2733 Estrategia de Probabilidad Critica',
+    crit_1: 'En niveles de control, debes llenar una barra de progreso (<b>Etapa X/5</b>)',
+    crit_2: 'Cada etapa cuesta Battle Data para llenar',
+    crit_3: 'Mientras el progreso esta <b>bajo 80%</b>, cada toque tiene un <b>50% de probabilidad de CRIT</b> (2x ganancia de XP)',
+    crit_4: 'Despues del <b>80% de progreso</b>, la probabilidad critica cae a <b>0%</b>',
+    crit_5: '<b>Estrategia:</b> Usa <b>lotes pequenos de Battle Data al principio</b> (para mas oportunidades de critico), luego vacia lotes grandes despues del 80% cuando los criticos son imposibles',
+    sec_comp: '\u2699\ufe0f Componentes del Dron',
+    comp_def_title: '\ud83d\udee1\ufe0f Defensivos (Lado Izquierdo)',
+    comp_radar: '\u2014 rango de deteccion, reduccion de dano de habilidad',
+    comp_engine: '\u2014 velocidad de movimiento, evasion',
+    comp_armor: '\u2014 HP, absorcion de dano',
+    comp_off_title: '\ud83d\udca5 Ofensivos (Lado Derecho)',
+    comp_missile: '\u2014 poder de ataque, dano critico',
+    comp_fuel: '\u2014 produccion de energia, poder de habilidad',
+    comp_thermal: '\u2014 precision, tasa de critico',
+    comp_upgrade_title: 'Sistema de Mejora de Componentes',
+    comp_merge: '<b>Niveles 1\u20137:</b> Sistema de fusion \u2014 necesitas <b>3 del mismo nivel</b> para combinar al siguiente nivel',
+    comp_exp: '<b>Nivel 7+:</b> Sistema de EXP \u2014 alimenta componentes duplicados directamente como experiencia',
+    comp_strat: '<b>Estrategia:</b> Prioriza <b>componentes del lado derecho</b> (Missile, Fuel Cell, Thermal Imager) para ofensiva \u2014 el dano del dron escala tu poder de combate mas que la supervivencia del dron',
+    sec_chips: '\ud83e\uddf2 Sistema de Chips',
+    chip_title: 'Desbloqueo y Ranuras de Chips',
+    chip_unlock: 'Se desbloquea al <b>nivel 85 del dron</b> + <b>dia 85 del servidor</b> (ambas condiciones requeridas)',
+    chip_slots: '<b>4 ranuras de chip:</b> Initial Move, Attack, Interference, Defense',
+    chip_timing: '<b>Initial Move + Defense</b> se activan al INICIO de la batalla (principalmente escudos)',
+    chip_bomb: '<b>Attack + Interference</b> se activan cada vez que el dron bombardea',
+    chip_link: 'Consulta la <a href="chip_lab_guide.html" style="color:#5bc0de;font-weight:700;">Guia del Chip Lab</a> para cargas de chips detalladas y recomendaciones',
+    chip_prog_title: 'Progresion de Nivel de Chip (Chips necesarios por nivel)',
+    th_chiplv: 'Nivel del Chip', th_chips_needed: 'Chips Necesarios',
+    chip_total: '<b>Total (Nv0\u219210)</b>',
+    sec_sources_parts: '\ud83d\udce6 Fuentes de Partes y Datos',
+    th_source: 'Fuente', th_whatget: 'Que Obtienes', th_when: 'Cuando',
+    src_daily: 'Tareas Diarias', src_daily_w: '10\u201350 partes/dia', src_daily_n: 'Siempre',
+    src_alliance: 'Tienda de Alianza', src_alliance_w: 'Partes variables', src_alliance_n: 'Compra diaria',
+    src_events: 'Eventos', src_events_w: 'Mejor fuente en general', src_events_n: 'Revisa el calendario',
+    src_radar: 'Misiones de Radar', src_radar_w: 'Battle Data (morado/naranja = mas)', src_radar_n: 'Siempre',
+    src_zombie: 'Caza de Zombis', src_zombie_w: 'Battle Data', src_zombie_n: 'Siempre',
+    src_workshop: 'Drone Parts Workshop', src_workshop_w: '~6 partes/dia', src_workshop_n: 'Requiere HQ 30+',
+    sec_priority: '\ud83c\udfc5 Estrategia de Prioridad',
+    prio_title: 'Orden de Prioridad de Mejora del Dron',
+    prio_1: 'Avanza a los <b>puntos de habilidad primero</b> (31 \u2192 51 \u2192 71 \u2192 91 \u2192 111) \u2014 estos son los mayores saltos de poder',
+    prio_2: 'Los <b>niveles de skin son cosmeticos</b>, no puertas de poder \u2014 no los persigas sobre las habilidades',
+    prio_3: '<b>Componentes: lado derecho primero</b> (ofensiva) \u2014 fusiona hasta Nv7, luego cambia a alimentacion de EXP',
+    prio_4: '<b>Guarda los cofres de datos CHIP del dron para el lunes</b> (dia de Radar Training en VS) \u2014 \u00a1dan puntos!',
+    prio_5: 'Despues del Nv150, el consumo de partes <b>explota</b> (500+/nivel) \u2014 acumula antes de avanzar',
+    insight2_title: '\u2733 Realidad del Presupuesto de Partes',
+    insight2_body: 'Llegar al Nv150 cuesta <b>22,545 partes</b> en total. Ir del Nv150 al Nv250 cuesta <b>96,500 partes</b> adicionales \u2014 mas de <b>4 veces mas</b> que los primeros 150 niveles combinados. Planifica tu gasto de partes cuidadosamente y no quemes reservas persiguiendo skins cosmeticas del dron. Enfocate en los puntos de habilidad para poder de combate real.',
+    sec_sources: '\ud83d\udcd6 Fuentes',
+    sources_body: 'Datos verificados de las siguientes fuentes:<br>\u2022 <a href="https://cpt-hedge.com/calculators/drone-parts" target="_blank" rel="noopener">cpt-hedge.com/calculators/drone-parts</a>',
+    footer: '[OWOW] Old World Order \u2022 Guia del Dron \u2022 Last War: Survival \u2022 Kristen OWOW SKYNET'
+  }};
+
+  const originals = {};
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    originals[el.getAttribute('data-i18n')] = el.innerHTML;
+  });
+
+  window.setLang = function(lang) {
+    document.querySelectorAll('[data-i18n]').forEach(el => {
+      const key = el.getAttribute('data-i18n');
+      el.innerHTML = (lang === 'es' && T.es[key]) ? T.es[key] : originals[key];
+    });
+    document.querySelectorAll('.lang-btn').forEach(b => {
+      b.classList.toggle('active', b.textContent === lang.toUpperCase());
+    });
+    document.getElementById('htmlRoot').setAttribute('lang', lang);
+    localStorage.setItem('owow-drone-guide-lang', lang);
+  }
+
+  const saved = localStorage.getItem('owow-drone-guide-lang');
+  if (saved && saved !== 'en') setLang(saved);
+})();
+</script>
+</body>
+</html>
