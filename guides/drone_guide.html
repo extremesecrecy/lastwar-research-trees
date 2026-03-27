@@ -417,7 +417,7 @@
       <tr class="row-skin"><td>50</td><td data-i18n="ms_50">TD-2 'Blaster' drone skin</td></tr>
       <tr class="row-skill"><td>51</td><td data-i18n="ms_51">Skill Level 2 unlocks</td></tr>
       <tr class="row-skill"><td>71</td><td data-i18n="ms_71">Skill Level 3 unlocks</td></tr>
-      <tr class="row-special"><td>85</td><td data-i18n="ms_85">Chip Slots unlock (server day 85 also required)</td></tr>
+      <tr class="row-special"><td>85</td><td data-i18n="ms_85">Chip Slots unlock (requires server day 85)</td></tr>
       <tr class="row-skill"><td>91</td><td data-i18n="ms_91">Skill Level 4 unlocks</td></tr>
       <tr class="row-skin"><td>100</td><td data-i18n="ms_100">TD-3 'Silver Knight' drone skin</td></tr>
       <tr class="row-skill"><td>111</td><td data-i18n="ms_111">Skill Level 5 unlocks</td></tr>
@@ -458,17 +458,17 @@
     <div class="card c-med">
       <div class="card-title ct-cyan" data-i18n="comp_def_title">&#128737;&#65039; Defensive (Left Side)</div>
       <ul style="margin-left:18px;font-size:14px;line-height:1.8;">
-        <li><b>Radar</b> <span data-i18n="comp_radar">&mdash; detection range, skill damage reduction</span></li>
-        <li><b>Engine</b> <span data-i18n="comp_engine">&mdash; movement speed, evasion</span></li>
-        <li><b>Armor</b> <span data-i18n="comp_armor">&mdash; HP, damage absorption</span></li>
+        <li><b>Radar</b> <span data-i18n="comp_radar">&mdash; Drone HP</span></li>
+        <li><b>Engine</b> <span data-i18n="comp_engine">&mdash; Hero HP</span></li>
+        <li><b>Armor</b> <span data-i18n="comp_armor">&mdash; Hero Defense</span></li>
       </ul>
     </div>
     <div class="card c-high">
       <div class="card-title ct-orange" data-i18n="comp_off_title">&#128165; Offensive (Right Side)</div>
       <ul style="margin-left:18px;font-size:14px;line-height:1.8;">
-        <li><b>Missile</b> <span data-i18n="comp_missile">&mdash; attack power, crit damage</span></li>
-        <li><b>Fuel Cell</b> <span data-i18n="comp_fuel">&mdash; energy output, skill power</span></li>
-        <li><b>Thermal Imager</b> <span data-i18n="comp_thermal">&mdash; accuracy, crit rate</span></li>
+        <li><b>Missile</b> <span data-i18n="comp_missile">&mdash; Hero Attack + ability damage</span></li>
+        <li><b>Fuel Cell</b> <span data-i18n="comp_fuel">&mdash; Drone Attack</span></li>
+        <li><b>Thermal Imager</b> <span data-i18n="comp_thermal">&mdash; Drone Defense</span></li>
       </ul>
     </div>
   </div>
@@ -477,7 +477,7 @@
     <div class="card-title ct-dark" data-i18n="comp_upgrade_title">Component Upgrade System</div>
     <ul style="margin-left:18px;font-size:14px;line-height:1.7;">
       <li data-i18n="comp_merge"><b>Levels 1&ndash;7:</b> Merge system &mdash; need <b>3 of the same level</b> to combine into the next level</li>
-      <li data-i18n="comp_exp"><b>Level 7+:</b> EXP system &mdash; feed duplicate components directly as experience</li>
+      <li data-i18n="comp_exp"><b>Level 8+:</b> EXP system &mdash; feed duplicate components directly as experience (merge covers Lv1-7)</li>
       <li data-i18n="comp_strat"><b>Strategy:</b> Prioritize <b>right-side components</b> (Missile, Fuel Cell, Thermal Imager) for offense &mdash; drone damage scales your combat power more than drone survivability</li>
     </ul>
   </div>
@@ -603,7 +603,7 @@
     ms_50: 'Skin de dron TD-2 \'Blaster\'',
     ms_51: 'Se desbloquea Skill Level 2',
     ms_71: 'Se desbloquea Skill Level 3',
-    ms_85: 'Se desbloquean Chip Slots (tambien se requiere dia 85 del servidor)',
+    ms_85: 'Se desbloquean Chip Slots (requiere dia 85 del servidor)',
     ms_91: 'Se desbloquea Skill Level 4',
     ms_100: 'Skin de dron TD-3 \'Silver Knight\'',
     ms_111: 'Se desbloquea Skill Level 5',
@@ -624,16 +624,16 @@
     crit_5: '<b>Estrategia:</b> Usa <b>lotes pequenos de Battle Data al principio</b> (para mas oportunidades de critico), luego vacia lotes grandes despues del 80% cuando los criticos son imposibles',
     sec_comp: '\u2699\ufe0f Componentes del Dron',
     comp_def_title: '\ud83d\udee1\ufe0f Defensivos (Lado Izquierdo)',
-    comp_radar: '\u2014 rango de deteccion, reduccion de dano de habilidad',
-    comp_engine: '\u2014 velocidad de movimiento, evasion',
-    comp_armor: '\u2014 HP, absorcion de dano',
+    comp_radar: '\u2014 HP del Dron',
+    comp_engine: '\u2014 HP del H\u00e9roe',
+    comp_armor: '\u2014 Defensa del H\u00e9roe',
     comp_off_title: '\ud83d\udca5 Ofensivos (Lado Derecho)',
-    comp_missile: '\u2014 poder de ataque, dano critico',
-    comp_fuel: '\u2014 produccion de energia, poder de habilidad',
-    comp_thermal: '\u2014 precision, tasa de critico',
+    comp_missile: '\u2014 Ataque del H\u00e9roe + da\u00f1o de habilidad',
+    comp_fuel: '\u2014 Ataque del Dron',
+    comp_thermal: '\u2014 Defensa del Dron',
     comp_upgrade_title: 'Sistema de Mejora de Componentes',
     comp_merge: '<b>Niveles 1\u20137:</b> Sistema de fusion \u2014 necesitas <b>3 del mismo nivel</b> para combinar al siguiente nivel',
-    comp_exp: '<b>Nivel 7+:</b> Sistema de EXP \u2014 alimenta componentes duplicados directamente como experiencia',
+    comp_exp: '<b>Nivel 8+:</b> Sistema de EXP \u2014 alimenta componentes duplicados directamente como experiencia (merge cubre Nv1-7)',
     comp_strat: '<b>Estrategia:</b> Prioriza <b>componentes del lado derecho</b> (Missile, Fuel Cell, Thermal Imager) para ofensiva \u2014 el dano del dron escala tu poder de combate mas que la supervivencia del dron',
     sec_chips: '\ud83e\uddf2 Sistema de Chips',
     chip_title: 'Desbloqueo y Ranuras de Chips',
