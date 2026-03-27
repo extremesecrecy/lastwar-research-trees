@@ -1,0 +1,648 @@
+<!DOCTYPE html>
+<html lang="en" id="htmlRoot">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Alliance Tech Guide - OWOW</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&display=swap');
+* { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: 'Fredoka', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: #fff;
+    color: #333;
+    padding: 4px 8px;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* Header */
+  .top-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 6px;
+    flex-shrink: 0;
+  }
+  .top-bar h1 { font-size: 22px; letter-spacing: 1px; text-transform: uppercase; color: #5a6a6a; }
+  .top-bar .sub { font-size: 14px; color: #888; }
+  .alliance {
+    background: #e8f4f1;
+    border: 1px solid #7fb3a8;
+    border-radius: 5px;
+    padding: 2px 10px;
+    text-align: right;
+  }
+  .alliance .name { font-size: 19px; font-weight: 800; color: #5a6a6a; }
+  .alliance .info { font-size: 14px; color: #666; }
+
+  /* Section labels */
+  .section-label {
+    font-size: 17px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: #5a6a6a;
+    margin: 14px 0 6px 0;
+    padding-bottom: 3px;
+    border-bottom: 2px solid #7fb3a8;
+  }
+
+  /* Cards */
+  .card {
+    border-radius: 6px;
+    padding: 10px 14px;
+    font-size: 14px;
+    line-height: 1.5;
+    margin-bottom: 10px;
+  }
+  .c-prep { background: #e8f5e9; border: 1.5px solid #43a047; }
+  .c-low { background: #fafafa; border: 1px solid #ccc; }
+  .c-med { background: #e4f3f8; border: 1.5px solid #5bc0de; }
+  .c-high { background: #fef3e2; border: 1.5px solid #f4a261; }
+  .c-crit { background: #fce4ec; border: 1.5px solid #e53935; }
+  .c-teal { background: #e8f4f1; border: 1.5px solid #7fb3a8; }
+  .c-watermelon { background: #fff0f1; border: 2px solid #fc5c65; }
+
+  .card-title { font-size: 16px; font-weight: 800; margin-bottom: 4px; }
+  .ct-dark { color: #5a6a6a; }
+  .ct-green { color: #2e7d32; }
+  .ct-orange { color: #c47a30; }
+  .ct-red { color: #c62828; }
+  .ct-cyan { color: #2a8fa8; }
+  .ct-teal { color: #5a8a7e; }
+  .ct-watermelon { color: #fc5c65; }
+
+  .tag {
+    display: inline-block;
+    font-size: 11px;
+    padding: 1px 6px;
+    border-radius: 3px;
+    font-weight: 700;
+    color: #fff;
+    vertical-align: middle;
+  }
+  .t-red { background: #e53935; }
+  .t-ora { background: #f4a261; }
+  .t-teal { background: #7fb3a8; }
+  .t-cyan { background: #5bc0de; }
+  .t-grn { background: #2e7d32; }
+  .t-dark { background: #5a6a6a; }
+  .t-watermelon { background: #fc5c65; }
+  .t-yellow { background: #d4a017; }
+
+  /* Content area */
+  .content {
+    max-width: 1100px;
+    margin: 0 auto;
+    width: 100%;
+    flex: 1;
+  }
+
+  /* Tables */
+  .tech-table { width: 100%; border-collapse: collapse; font-size: 13px; margin-bottom: 12px; }
+  .tech-table th {
+    background: #7fb3a8;
+    color: #fff;
+    padding: 5px 8px;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+    white-space: nowrap;
+    text-align: left;
+  }
+  .tech-table td {
+    padding: 4px 8px;
+    border-bottom: 1px solid #eee;
+    line-height: 1.4;
+  }
+  .tech-table tr:nth-child(even) { background: #f8faf9; }
+  .tech-table .tech-name { font-weight: 700; }
+
+  .th-war th { background: #f4a261 !important; }
+  .th-tier th { background: #5a6a6a !important; }
+
+  /* Donation cards grid */
+  .donate-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-bottom: 10px;
+  }
+
+  /* Data needed markers */
+  .data-needed {
+    border: 2px dashed #f4a261;
+    border-radius: 8px;
+    padding: 10px 14px;
+    margin: 10px 0;
+    background: #fffaf0;
+    font-size: 13px;
+    color: #8a6d3b;
+  }
+  .data-needed-label {
+    display: inline-block;
+    background: #f4a261;
+    color: #fff;
+    font-size: 11px;
+    font-weight: 700;
+    padding: 2px 8px;
+    border-radius: 3px;
+    margin-bottom: 6px;
+  }
+
+  /* Strategy list */
+  .strat-list { list-style: none; padding: 0; }
+  .strat-list li {
+    padding: 6px 0 6px 24px;
+    position: relative;
+    font-size: 14px;
+    border-bottom: 1px solid #f0f0f0;
+  }
+  .strat-list li::before {
+    content: '\25B6';
+    position: absolute;
+    left: 4px;
+    color: #f4a261;
+    font-size: 10px;
+    top: 9px;
+  }
+
+  /* Key insight box */
+  .insight-box {
+    background: #fff0f1;
+    border: 2px solid #fc5c65;
+    border-radius: 8px;
+    padding: 14px 18px;
+    margin: 14px 0;
+    font-size: 15px;
+    line-height: 1.6;
+  }
+  .insight-box .insight-title {
+    font-size: 17px;
+    font-weight: 800;
+    color: #fc5c65;
+    margin-bottom: 4px;
+  }
+
+  /* Sources */
+  .sources { font-size: 12px; color: #888; margin-top: 10px; }
+  .sources a { color: #5bc0de; text-decoration: none; }
+  .sources a:hover { text-decoration: underline; }
+
+  /* Footer */
+  .footer {
+    text-align: center;
+    font-size: 12px;
+    color: #999;
+    padding: 6px 2px;
+    border-top: 1px solid #e0e0e0;
+    flex-shrink: 0;
+    margin-top: 14px;
+  }
+
+  /* Navigation Bar */
+  .guide-nav {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px 12px;
+    align-items: center;
+    padding: 6px 10px;
+    background: #f0f5f4;
+    border-bottom: 2px solid #7fb3a8;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 12px;
+    margin: -4px -8px 4px -8px;
+    flex-shrink: 0;
+  }
+  .guide-nav a {
+    color: #5a6a6a;
+    text-decoration: none;
+    padding: 2px 6px;
+    border-radius: 3px;
+    white-space: nowrap;
+  }
+  .guide-nav a:hover {
+    color: #f4a261;
+    background: #fff;
+  }
+  .guide-nav a.current {
+    color: #f4a261;
+    font-weight: bold;
+    background: #fff;
+    border: 1px solid #f4a261;
+  }
+  .guide-nav .nav-home {
+    font-weight: bold;
+    margin-right: 8px;
+    padding-right: 12px;
+    border-right: 1px solid #7fb3a8;
+  }
+
+  /* Language Toggle */
+  .lang-toggle {
+    display: inline-flex; align-items: center; gap: 4px;
+    background: #f0f5f4; border: 2px solid #7fb3a8; border-radius: 20px;
+    padding: 2px 4px; cursor: pointer; font-family: 'Segoe UI', sans-serif;
+    font-size: 12px; font-weight: 700; user-select: none;
+  }
+  .lang-btn {
+    padding: 2px 10px; border-radius: 16px; border: none; cursor: pointer;
+    font-size: 12px; font-weight: 700; background: transparent; color: #888;
+    transition: all 0.2s;
+  }
+  .lang-btn.active { background: #5a6a6a; color: #fff; }
+  .lang-btn:hover:not(.active) { color: #5a6a6a; }
+
+  /* Coming soon badge */
+  .coming-soon {
+    display: inline-block;
+    background: #f4a261;
+    color: #fff;
+    font-size: 10px;
+    font-weight: 700;
+    padding: 1px 6px;
+    border-radius: 3px;
+    margin-left: 6px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  /* Numbered priority list */
+  .priority-list { list-style: none; padding: 0; counter-reset: priority; }
+  .priority-list li {
+    padding: 6px 0 6px 32px;
+    position: relative;
+    font-size: 14px;
+    border-bottom: 1px solid #f0f0f0;
+    counter-increment: priority;
+  }
+  .priority-list li::before {
+    content: counter(priority);
+    position: absolute;
+    left: 4px;
+    top: 6px;
+    background: #f4a261;
+    color: #fff;
+    font-size: 11px;
+    font-weight: 700;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* Mobile responsive */
+  @media (max-width: 768px) {
+    .top-bar { flex-direction: column; gap: 6px; text-align: center; }
+    .top-bar h1 { font-size: 18px; }
+    .alliance { text-align: center; }
+    .donate-grid { grid-template-columns: 1fr; }
+    .tech-table { font-size: 12px; display: block; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+    .tech-table th { font-size: 10px; padding: 4px 6px; }
+    .tech-table td { padding: 3px 6px; }
+  }
+  @media (max-width: 480px) {
+    body { padding: 4px 6px; }
+    .top-bar h1 { font-size: 16px; }
+    .top-bar .sub { font-size: 12px; }
+    .alliance .name { font-size: 15px; }
+    .section-label { font-size: 15px; }
+    .card { font-size: 13px; padding: 8px 10px; }
+  }
+</style>
+</head>
+<body>
+
+<nav class="guide-nav" id="guide-nav"></nav>
+<script src="../nav.js"></script>
+
+<!-- HEADER -->
+<div class="top-bar">
+  <div>
+    <h1 data-i18n="title">&#127963; Alliance Tech Guide</h1>
+    <div class="sub" data-i18n="subtitle">Alliance Technology, Donations & R4 Strategy</div>
+  </div>
+  <div style="display:flex;align-items:center;gap:10px;">
+    <div class="lang-toggle">
+      <button class="lang-btn active" onclick="setLang('en')">EN</button>
+      <button class="lang-btn" onclick="setLang('es')">ES</button>
+    </div>
+    <div class="alliance">
+      <div class="name">[OWOW]</div>
+      <div class="info">Old World Order</div>
+    </div>
+  </div>
+</div>
+
+<div class="content">
+
+  <!-- SECTION 1: WHAT IS ALLIANCE TECHNOLOGY -->
+  <div class="section-label" data-i18n="sec_what">&#127963; What Is Alliance Technology</div>
+
+  <div class="card c-teal">
+    <div class="card-title ct-teal" data-i18n="what_title">Server-Wide Buffs for All Members</div>
+    <div data-i18n="what_body">Alliance Technology provides <b>permanent buffs</b> that benefit <b>every single member</b> of the alliance automatically. There are two main categories: <b>Development Techs</b> (construction speed, research speed, economy bonuses) and <b>War Techs</b> (combat stats, rally power, troop buffs). Techs are funded collectively by member donations using resources or diamonds. Only <b>R4 and R5 officers</b> can select which technology the alliance researches next.</div>
+  </div>
+
+  <div class="card c-low">
+    <ul class="strat-list">
+      <li data-i18n="what_1">All alliance members benefit from completed techs &mdash; <b>no action required</b> once researched</li>
+      <li data-i18n="what_2">Two categories: <b>Development Techs</b> (building/research/economy) and <b>War Techs</b> (ATK/DEF/HP/rally)</li>
+      <li data-i18n="what_3">Funded by <b>member donations</b> &mdash; contribution points earned from each donation</li>
+      <li data-i18n="what_4">Only <b>R4+ officers</b> can select which tech to research next</li>
+      <li data-i18n="what_5">Buffs stack <b>multiplicatively</b> with VIP, Secretary positions, and personal research</li>
+    </ul>
+  </div>
+
+  <!-- SECTION 2: DONATION MECHANICS -->
+  <div class="section-label" data-i18n="sec_donate">&#128176; Donation Mechanics</div>
+
+  <div class="donate-grid">
+    <div class="card c-prep">
+      <div class="card-title ct-green" data-i18n="donate_res_title">&#127793; Resource Donations</div>
+      <div data-i18n="donate_res_body">Costs <b>food, iron, or gold</b> per donation. Earns <b>50 contribution points</b> per donation (or <b>60 points</b> if the tech is marked "Recommended"). Best option for F2P players.</div>
+    </div>
+    <div class="card c-med">
+      <div class="card-title ct-cyan" data-i18n="donate_dia_title">&#128142; Diamond Donations</div>
+      <div data-i18n="donate_dia_body">Costs <b>4&ndash;10 diamonds</b> depending on the tech tier. Earns contribution points per donation. More expensive but faster progress. Use sparingly &mdash; resource donations are more efficient for F2P.</div>
+    </div>
+    <div class="card c-high">
+      <div class="card-title ct-orange" data-i18n="donate_limit_title">&#9200; Daily Limit</div>
+      <div data-i18n="donate_limit_body">Up to <b>50 donations per day</b> per member. That's potentially <b>50 &times; 60 = 3,000 contribution points/day</b> if always donating to the Recommended tech. Maxing donations daily compounds massively over time.</div>
+    </div>
+    <div class="card c-teal">
+      <div class="card-title ct-teal" data-i18n="donate_strat_title">&#127919; Strategy</div>
+      <div data-i18n="donate_strat_body"><b>Always donate to the "Recommended" tech</b> &mdash; it gives <b>+20% more contribution points</b> (60 vs 50). R4 officers should always mark the current priority tech as Recommended. Encourage ALL members to hit their 50 daily donations.</div>
+    </div>
+  </div>
+
+  <!-- SECTION 3: TECHNOLOGY TIERS -->
+  <div class="section-label" data-i18n="sec_tiers">&#128203; Technology Tiers</div>
+
+  <table class="tech-table">
+    <thead>
+      <tr class="th-tier">
+        <th data-i18n="th_tier">Tier</th>
+        <th data-i18n="th_count">Tech Count</th>
+        <th data-i18n="th_unlock">Unlock Requirement</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td class="tech-name">Tier 1</td><td data-i18n="t1_count">8 techs</td><td data-i18n="t1_req">Available immediately</td></tr>
+      <tr><td class="tech-name">Tier 2</td><td data-i18n="t2_count">8 techs</td><td data-i18n="t2_req">Complete Tier 1 requirements</td></tr>
+      <tr><td class="tech-name">Tier 3</td><td data-i18n="t3_count">10 techs</td><td data-i18n="t3_req">77 total levels in Technology</td></tr>
+      <tr><td class="tech-name">Tier 4</td><td data-i18n="t4_count">6 techs</td><td data-i18n="t4_req">148 total levels in Technology</td></tr>
+      <tr><td class="tech-name">Tier 5</td><td data-i18n="t5_count">3 techs</td><td data-i18n="t5_req">Advanced requirements</td></tr>
+    </tbody>
+  </table>
+
+  <div class="data-needed">
+    <div class="data-needed-label" data-i18n="dn_label1">&#128247; Data Needed</div>
+    <div data-i18n="dn_body1">Complete per-tech costs and descriptions are not available from community data sources. Help us fill this in &mdash; screenshot your alliance tech screen!</div>
+  </div>
+
+  <!-- SECTION 4: COOPERATIVE SPEED BUFFS -->
+  <div class="section-label" data-i18n="sec_coop">&#128296; Cooperative Speed Buffs <span class="tag t-grn">VERIFIED</span></div>
+
+  <div class="card c-prep" style="margin-bottom:6px;">
+    <div class="card-title ct-green" data-i18n="coop_intro_title">Strongest Verified Data</div>
+    <div data-i18n="coop_intro_body">Cooperative Construction and Research are among the most impactful alliance techs. These speed bonuses apply to <b>every member's builds and research</b> and stack multiplicatively with VIP level, Secretary of Development position, and personal research buffs.</div>
+  </div>
+
+  <!-- Cooperative Construction -->
+  <div style="margin-bottom:6px;font-size:15px;font-weight:800;color:#5a8a7e;" data-i18n="coop_build_title">&#128679; Cooperative Construction (Building Speed)</div>
+  <table class="tech-table">
+    <thead>
+      <tr>
+        <th data-i18n="th_level">Level</th>
+        <th data-i18n="th_name">Name</th>
+        <th data-i18n="th_build_bonus">Building Speed Bonus</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td>1</td><td class="tech-name">Cooperative Construction Lv1</td><td><span class="tag t-grn">+10%</span></td></tr>
+      <tr><td>2</td><td class="tech-name">Cooperative Construction Lv2</td><td><span class="tag t-grn">+20%</span></td></tr>
+      <tr><td>3</td><td class="tech-name">Cooperative Construction II Lv1</td><td><span class="tag t-grn">+25%</span></td></tr>
+      <tr><td>4</td><td class="tech-name">Cooperative Construction II Lv2</td><td><span class="tag t-grn">+30%</span></td></tr>
+      <tr><td>5</td><td class="tech-name">Cooperative Construction II Lv3</td><td><span class="tag t-grn">+35%</span></td></tr>
+      <tr><td>6</td><td class="tech-name">Cooperative Construction II Lv4</td><td><span class="tag t-grn">+40%</span></td></tr>
+      <tr><td>7</td><td class="tech-name">Cooperative Construction II Lv5</td><td><span class="tag t-grn">+45%</span></td></tr>
+    </tbody>
+  </table>
+
+  <!-- Cooperative Research -->
+  <div style="margin-bottom:6px;font-size:15px;font-weight:800;color:#5a8a7e;" data-i18n="coop_res_title">&#128300; Cooperative Research (Research Speed)</div>
+  <table class="tech-table">
+    <thead>
+      <tr>
+        <th data-i18n="th_level2">Level</th>
+        <th data-i18n="th_name2">Name</th>
+        <th data-i18n="th_res_bonus">Research Speed Bonus</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td>1</td><td class="tech-name">Cooperative Research Lv1</td><td><span class="tag t-cyan">+10%</span></td></tr>
+      <tr><td>2</td><td class="tech-name">Cooperative Research Lv2</td><td><span class="tag t-cyan">+20%</span></td></tr>
+      <tr><td>3</td><td class="tech-name">Cooperative Research II Lv1</td><td><span class="tag t-cyan">+25%</span></td></tr>
+      <tr><td>4</td><td class="tech-name">Cooperative Research II Lv2</td><td><span class="tag t-cyan">+30%</span></td></tr>
+      <tr><td>5</td><td class="tech-name">Cooperative Research II Lv3</td><td><span class="tag t-cyan">+35%</span></td></tr>
+      <tr><td>6</td><td class="tech-name">Cooperative Research II Lv4</td><td><span class="tag t-cyan">+40%</span></td></tr>
+      <tr><td>7</td><td class="tech-name">Cooperative Research II Lv5</td><td><span class="tag t-cyan">+45%</span></td></tr>
+    </tbody>
+  </table>
+
+  <div class="card c-med">
+    <div class="card-title ct-cyan" data-i18n="stack_title">&#128200; Stacking Example</div>
+    <div data-i18n="stack_body">At <b>VIP 11 (+50%)</b> + <b>Secretary of Dev (+50%)</b> + <b>Cooperative Construction II Lv5 (+45%)</b> + <b>Fast Builder research (+40%)</b>, your building speed multiplier is massive. All bonuses multiply together &mdash; this is why alliance tech matters so much even at +10%.</div>
+  </div>
+
+  <!-- SECTION 5: WAR TECHS OVERVIEW -->
+  <div class="section-label" data-i18n="sec_war">&#9876; War Techs Overview</div>
+
+  <div class="card c-high">
+    <div class="card-title ct-orange" data-i18n="war_intro_title">Combat Buffs for Rallies & PvP</div>
+    <div data-i18n="war_intro_body">War techs boost your alliance's combat capabilities in rallies, defense, and PvP encounters. These are critical for competitive alliances but should be prioritized <b>after</b> cooperative speed buffs are well-progressed.</div>
+  </div>
+
+  <table class="tech-table">
+    <thead>
+      <tr class="th-war">
+        <th data-i18n="th_war_tech">War Tech</th>
+        <th data-i18n="th_war_effect">Effect</th>
+        <th data-i18n="th_war_status">Status</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td class="tech-name" data-i18n="war_atk">Rally Attack</td><td data-i18n="war_atk_eff">Increases attack power during alliance rallies</td><td><span class="coming-soon" data-i18n="cs_detail">Detail Coming Soon</span></td></tr>
+      <tr><td class="tech-name" data-i18n="war_def">Rally Defense</td><td data-i18n="war_def_eff">Strengthens defensive stats in rallies</td><td><span class="coming-soon" data-i18n="cs_detail2">Detail Coming Soon</span></td></tr>
+      <tr><td class="tech-name" data-i18n="war_hp">Rally Health</td><td data-i18n="war_hp_eff">Increases unit HP during rallies</td><td><span class="coming-soon" data-i18n="cs_detail3">Detail Coming Soon</span></td></tr>
+    </tbody>
+  </table>
+
+  <div class="data-needed">
+    <div class="data-needed-label" data-i18n="dn_label2">&#128247; Data Needed</div>
+    <div data-i18n="dn_body2">Detailed war tech per-level bonuses, costs, and unlock requirements are not publicly documented. Help us by sharing screenshots of your alliance war tech tree!</div>
+  </div>
+
+  <!-- SECTION 6: R4 DONATION STRATEGY -->
+  <div class="section-label" data-i18n="sec_r4">&#127919; R4 Donation Strategy</div>
+
+  <div class="card c-high">
+    <div class="card-title ct-orange" data-i18n="r4_title">Priority Order for R4 Officers</div>
+    <ol class="priority-list">
+      <li data-i18n="r4_1">Always set the <b>"Recommended" tech</b> to what the alliance needs most &mdash; members get +20% more contribution points when donating to it</li>
+      <li data-i18n="r4_2"><b>Cooperative Construction first</b> &mdash; benefits every member's building speed, accelerates HQ progression for the whole alliance</li>
+      <li data-i18n="r4_3"><b>Cooperative Research second</b> &mdash; speeds up everyone's tech progress, helps the alliance unlock higher troop tiers faster</li>
+      <li data-i18n="r4_4"><b>War techs after cooperative buffs</b> are well-progressed &mdash; rally ATK/DEF/HP become critical for endgame PvP</li>
+      <li data-i18n="r4_5"><b>Encourage members to donate daily</b> &mdash; 50 donations/day &times; 30 members = massive collective progress</li>
+      <li data-i18n="r4_6"><b>Diamond donations are expensive</b> &mdash; resource donations are more efficient for F2P. Only recommend diamond donations for urgent tech pushes</li>
+    </ol>
+  </div>
+
+  <div class="card c-teal">
+    <div class="card-title ct-teal" data-i18n="math_title">&#128290; Quick Math</div>
+    <div data-i18n="math_body">With 30 active members hitting 50 daily donations each on the Recommended tech:<br><b>30 &times; 50 &times; 60 = 90,000 contribution points per day</b><br><br>Even with 20 active members: <b>20 &times; 50 &times; 60 = 60,000 points/day</b>. Consistency is everything &mdash; daily donations compound faster than you think.</div>
+  </div>
+
+  <!-- SECTION 7: HELP US COMPLETE THIS GUIDE -->
+  <div class="section-label" data-i18n="sec_help">&#128226; Help Us Complete This Guide</div>
+
+  <div class="insight-box">
+    <div class="insight-title" data-i18n="help_title">&#9733; Community Data Request</div>
+    <div data-i18n="help_body">This guide has data gaps because alliance tech details aren't publicly documented by any major community resource. As an <b>[OWOW] member</b>, you can help! Screenshot your alliance tech screen and share it with <b>Extremesecrecy</b> or any R4. We'll add the costs, descriptions, and unlock requirements to make this the most complete alliance tech guide available.<br><br>What we need:<br>&bull; Per-tech <b>costs</b> (resources and/or diamonds per level)<br>&bull; Per-tech <b>descriptions</b> (exact buff percentages)<br>&bull; <b>Unlock requirements</b> for Tier 2&ndash;5<br>&bull; <b>War tech</b> per-level bonuses</div>
+  </div>
+
+  <!-- SECTION 8: SOURCES -->
+  <div class="section-label" data-i18n="sec_sources">&#128214; Sources</div>
+
+  <div class="sources">
+    <div data-i18n="sources_body">
+      Data sources and verification:<br>
+      &#8226; Cooperative speed buff data from <a href="https://cpt-hedge.com/calculators/research" target="_blank" rel="noopener">cpt-hedge.com</a> (supplemental calculator data)<br>
+      &#8226; Alliance structure and donation mechanics from community guides<br>
+      &#8226; Tier structure from in-game observation<br>
+      <br>
+      <b>Note:</b> Per-tech costs are not available from any public data source. This guide will be updated as [OWOW] members contribute screenshots.
+    </div>
+  </div>
+
+</div>
+
+<!-- FOOTER -->
+<div class="footer" data-i18n="footer">
+  [OWOW] Old World Order &bull; Alliance Tech Guide &bull; Last War: Survival &bull; Kristen OWOW SKYNET
+</div>
+
+<script>
+(function(){
+  const T = { es: {
+    title: '\ud83c\udfe3 Guia de Tecnologia de Alianza',
+    subtitle: 'Tecnologia de Alianza, Donaciones y Estrategia R4',
+    sec_what: '\ud83c\udfe3 Que Es la Tecnologia de Alianza',
+    what_title: 'Mejoras Globales para Todos los Miembros',
+    what_body: 'La Tecnologia de Alianza proporciona <b>mejoras permanentes</b> que benefician a <b>cada miembro</b> de la alianza automaticamente. Hay dos categorias principales: <b>Techs de Desarrollo</b> (velocidad de construccion, investigacion, economia) y <b>Techs de Guerra</b> (estadisticas de combate, poder de rally, mejoras de tropas). Se financian colectivamente con donaciones de recursos o diamantes. Solo los <b>oficiales R4 y R5</b> pueden seleccionar que tecnologia investiga la alianza.',
+    what_1: 'Todos los miembros se benefician de las techs completadas &mdash; <b>sin accion requerida</b> una vez investigadas',
+    what_2: 'Dos categorias: <b>Techs de Desarrollo</b> (construccion/investigacion/economia) y <b>Techs de Guerra</b> (ATK/DEF/HP/rally)',
+    what_3: 'Financiadas por <b>donaciones de miembros</b> &mdash; puntos de contribucion por cada donacion',
+    what_4: 'Solo los <b>oficiales R4+</b> pueden seleccionar la proxima tech a investigar',
+    what_5: 'Las mejoras se acumulan <b>multiplicativamente</b> con VIP, Secretario y tu investigacion personal',
+    sec_donate: '\ud83d\udcb0 Mecanicas de Donacion',
+    donate_res_title: '\ud83c\udf31 Donaciones de Recursos',
+    donate_res_body: 'Cuesta <b>comida, hierro u oro</b> por donacion. Ganas <b>50 puntos de contribucion</b> por donacion (o <b>60 puntos</b> si la tech esta marcada como "Recomendada"). Mejor opcion para jugadores F2P.',
+    donate_dia_title: '\ud83d\udc8e Donaciones de Diamantes',
+    donate_dia_body: 'Cuesta <b>4&ndash;10 diamantes</b> dependiendo del nivel de la tech. Ganas puntos de contribucion por donacion. Mas caro pero progreso mas rapido. Usar con moderacion &mdash; las donaciones de recursos son mas eficientes para F2P.',
+    donate_limit_title: '\u23f0 Limite Diario',
+    donate_limit_body: 'Hasta <b>50 donaciones por dia</b> por miembro. Eso es potencialmente <b>50 &times; 60 = 3,000 puntos/dia</b> si siempre donas a la tech Recomendada. Maximizar donaciones diarias se acumula masivamente con el tiempo.',
+    donate_strat_title: '\ud83c\udfaf Estrategia',
+    donate_strat_body: '<b>Siempre dona a la tech "Recomendada"</b> &mdash; da <b>+20% mas puntos de contribucion</b> (60 vs 50). Los oficiales R4 deben marcar siempre la tech prioritaria como Recomendada. Anima a TODOS los miembros a hacer sus 50 donaciones diarias.',
+    sec_tiers: '\ud83d\udccb Niveles de Tecnologia',
+    th_tier: 'Nivel',
+    th_count: 'Cantidad de Techs',
+    th_unlock: 'Requisito de Desbloqueo',
+    t1_count: '8 techs',
+    t1_req: 'Disponible inmediatamente',
+    t2_count: '8 techs',
+    t2_req: 'Completar requisitos del Nivel 1',
+    t3_count: '10 techs',
+    t3_req: '77 niveles totales en Tecnologia',
+    t4_count: '6 techs',
+    t4_req: '148 niveles totales en Tecnologia',
+    t5_count: '3 techs',
+    t5_req: 'Requisitos avanzados',
+    dn_label1: '\ud83d\udcf7 Datos Necesarios',
+    dn_body1: 'Los costos y descripciones completas por tech no estan disponibles en fuentes de datos comunitarias. Ayudanos a completar esto &mdash; captura tu pantalla de tecnologia de alianza!',
+    sec_coop: '\ud83d\udd28 Mejoras de Velocidad Cooperativa <span class="tag t-grn">VERIFICADO</span>',
+    coop_intro_title: 'Datos Verificados Mas Fuertes',
+    coop_intro_body: 'Construccion Cooperativa e Investigacion Cooperativa estan entre las techs de alianza mas impactantes. Estos bonos de velocidad se aplican a <b>las construcciones e investigaciones de cada miembro</b> y se acumulan multiplicativamente con nivel VIP, Secretario de Desarrollo y mejoras de investigacion personal.',
+    coop_build_title: '\ud83d\udea7 Construccion Cooperativa (Velocidad de Construccion)',
+    th_level: 'Nivel',
+    th_name: 'Nombre',
+    th_build_bonus: 'Bono de Velocidad de Construccion',
+    coop_res_title: '\ud83d\udd2c Investigacion Cooperativa (Velocidad de Investigacion)',
+    th_level2: 'Nivel',
+    th_name2: 'Nombre',
+    th_res_bonus: 'Bono de Velocidad de Investigacion',
+    stack_title: '\ud83d\udcc8 Ejemplo de Acumulacion',
+    stack_body: 'Con <b>VIP 11 (+50%)</b> + <b>Secretario de Desarrollo (+50%)</b> + <b>Construccion Cooperativa II Lv5 (+45%)</b> + <b>Investigacion Fast Builder (+40%)</b>, tu multiplicador de velocidad de construccion es enorme. Todos los bonos se multiplican entre si &mdash; por eso la tech de alianza importa tanto incluso con +10%.',
+    sec_war: '\u2694 Resumen de Techs de Guerra',
+    war_intro_title: 'Mejoras de Combate para Rallies y PvP',
+    war_intro_body: 'Las techs de guerra mejoran las capacidades de combate de tu alianza en rallies, defensa y encuentros PvP. Son criticas para alianzas competitivas pero deben priorizarse <b>despues</b> de que las mejoras cooperativas esten bien avanzadas.',
+    th_war_tech: 'Tech de Guerra',
+    th_war_effect: 'Efecto',
+    th_war_status: 'Estado',
+    war_atk: 'Rally Attack',
+    war_atk_eff: 'Aumenta el poder de ataque durante rallies de alianza',
+    war_def: 'Rally Defense',
+    war_def_eff: 'Fortalece las estadisticas defensivas en rallies',
+    war_hp: 'Rally Health',
+    war_hp_eff: 'Aumenta el HP de unidades durante rallies',
+    cs_detail: 'Detalle Proximamente',
+    cs_detail2: 'Detalle Proximamente',
+    cs_detail3: 'Detalle Proximamente',
+    dn_label2: '\ud83d\udcf7 Datos Necesarios',
+    dn_body2: 'Los bonos detallados por nivel de techs de guerra, costos y requisitos de desbloqueo no estan documentados publicamente. Ayudanos compartiendo capturas de tu arbol de techs de guerra!',
+    sec_r4: '\ud83c\udfaf Estrategia de Donacion R4',
+    r4_title: 'Orden de Prioridad para Oficiales R4',
+    r4_1: 'Siempre marca la <b>tech "Recomendada"</b> segun lo que la alianza necesite mas &mdash; los miembros obtienen +20% mas puntos de contribucion al donar a ella',
+    r4_2: '<b>Construccion Cooperativa primero</b> &mdash; beneficia la velocidad de construccion de cada miembro, acelera la progresion de HQ de toda la alianza',
+    r4_3: '<b>Investigacion Cooperativa segundo</b> &mdash; acelera el progreso tecnologico de todos, ayuda a la alianza a desbloquear niveles de tropas mas altos',
+    r4_4: '<b>Techs de guerra despues</b> de que las mejoras cooperativas esten bien avanzadas &mdash; ATK/DEF/HP de rally son criticas para PvP endgame',
+    r4_5: '<b>Anima a los miembros a donar diariamente</b> &mdash; 50 donaciones/dia &times; 30 miembros = progreso colectivo masivo',
+    r4_6: '<b>Las donaciones de diamantes son caras</b> &mdash; las donaciones de recursos son mas eficientes para F2P. Solo recomienda diamantes para impulsos urgentes de tech',
+    math_title: '\ud83d\udd22 Matematicas Rapidas',
+    math_body: 'Con 30 miembros activos haciendo 50 donaciones diarias cada uno a la tech Recomendada:<br><b>30 &times; 50 &times; 60 = 90,000 puntos de contribucion por dia</b><br><br>Incluso con 20 miembros activos: <b>20 &times; 50 &times; 60 = 60,000 puntos/dia</b>. La consistencia es todo &mdash; las donaciones diarias se acumulan mas rapido de lo que piensas.',
+    sec_help: '\ud83d\udce2 Ayudanos a Completar Esta Guia',
+    help_title: '\u2733 Solicitud de Datos de la Comunidad',
+    help_body: 'Esta guia tiene vacios de datos porque los detalles de tecnologia de alianza no estan documentados publicamente por ningun recurso comunitario importante. Como miembro de <b>[OWOW]</b>, puedes ayudar! Captura tu pantalla de tecnologia de alianza y compartela con <b>Extremesecrecy</b> o cualquier R4. Agregaremos los costos, descripciones y requisitos de desbloqueo para hacer esta la guia de tech de alianza mas completa disponible.<br><br>Lo que necesitamos:<br>&bull; <b>Costos</b> por tech (recursos y/o diamantes por nivel)<br>&bull; <b>Descripciones</b> por tech (porcentajes exactos de mejora)<br>&bull; <b>Requisitos de desbloqueo</b> para Niveles 2&ndash;5<br>&bull; <b>Bonos por nivel</b> de techs de guerra',
+    sec_sources: '\ud83d\udcd6 Fuentes',
+    sources_body: 'Fuentes de datos y verificacion:<br>\u2022 Datos de velocidad cooperativa de <a href="https://cpt-hedge.com/calculators/research" target="_blank" rel="noopener">cpt-hedge.com</a> (datos de calculadora suplementaria)<br>\u2022 Estructura de alianza y mecanicas de donacion de guias de la comunidad<br>\u2022 Estructura de niveles de observacion en el juego<br><br><b>Nota:</b> Los costos por tech no estan disponibles en ninguna fuente publica. Esta guia se actualizara a medida que los miembros de [OWOW] contribuyan capturas.',
+    footer: '[OWOW] Old World Order \u2022 Guia de Tecnologia de Alianza \u2022 Last War: Survival \u2022 Kristen OWOW SKYNET'
+  }};
+
+  const originals = {};
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    originals[el.getAttribute('data-i18n')] = el.innerHTML;
+  });
+
+  window.setLang = function(lang) {
+    document.querySelectorAll('[data-i18n]').forEach(el => {
+      const key = el.getAttribute('data-i18n');
+      el.innerHTML = (lang === 'es' && T.es[key]) ? T.es[key] : originals[key];
+    });
+    document.querySelectorAll('.lang-btn').forEach(b => {
+      b.classList.toggle('active', b.textContent === lang.toUpperCase());
+    });
+    document.getElementById('htmlRoot').setAttribute('lang', lang);
+    localStorage.setItem('owow-alliance-tech-lang', lang);
+  }
+
+  const saved = localStorage.getItem('owow-alliance-tech-lang');
+  if (saved && saved !== 'en') setLang(saved);
+})();
+</script>
+</body>
+</html>
