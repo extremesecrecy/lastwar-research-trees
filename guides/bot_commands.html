@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kristen Bot Commands — OWOW-OFNA Alliance HQ</title>
+    <style>
+        :root {
+            --bg: #0f1923;
+            --card: #1a2634;
+            --border: #2a3a4a;
+            --gold: #f0b232;
+            --green: #2ecc71;
+            --red: #e74c3c;
+            --blue: #3498db;
+            --purple: #9b59b6;
+            --text: #e0e6ed;
+            --muted: #7f8c9b;
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+            padding: 20px;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        h1 {
+            color: var(--gold);
+            text-align: center;
+            font-size: 1.8em;
+            margin-bottom: 5px;
+        }
+        .subtitle {
+            text-align: center;
+            color: var(--muted);
+            margin-bottom: 30px;
+            font-size: 0.95em;
+        }
+        .access-badge {
+            display: inline-block;
+            padding: 2px 10px;
+            border-radius: 12px;
+            font-size: 0.75em;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .badge-member { background: var(--blue); color: #fff; }
+        .badge-r4 { background: var(--gold); color: #000; }
+        .badge-alliance { background: var(--green); color: #000; }
+        .section {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        .section h2 {
+            color: var(--gold);
+            font-size: 1.2em;
+            margin-bottom: 15px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid var(--border);
+        }
+        .cmd-row {
+            display: flex;
+            gap: 15px;
+            padding: 12px 0;
+            border-bottom: 1px solid rgba(42, 58, 74, 0.5);
+            align-items: flex-start;
+        }
+        .cmd-row:last-child { border-bottom: none; }
+        .cmd-name {
+            font-family: 'Consolas', 'Courier New', monospace;
+            background: rgba(240, 178, 50, 0.15);
+            color: var(--gold);
+            padding: 4px 10px;
+            border-radius: 5px;
+            white-space: nowrap;
+            font-size: 0.95em;
+            min-width: 200px;
+        }
+        .cmd-desc {
+            flex: 1;
+            color: var(--text);
+        }
+        .cmd-desc .example {
+            font-family: 'Consolas', monospace;
+            color: var(--muted);
+            font-size: 0.85em;
+            margin-top: 4px;
+        }
+        .warning-box {
+            background: rgba(231, 76, 60, 0.15);
+            border: 1px solid var(--red);
+            border-radius: 8px;
+            padding: 15px;
+            margin: 15px 0;
+        }
+        .warning-box strong { color: var(--red); }
+        .tip-box {
+            background: rgba(46, 204, 113, 0.1);
+            border: 1px solid var(--green);
+            border-radius: 8px;
+            padding: 15px;
+            margin: 15px 0;
+        }
+        .tip-box strong { color: var(--green); }
+        .permission-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+        .permission-table th {
+            background: rgba(240, 178, 50, 0.2);
+            color: var(--gold);
+            padding: 10px;
+            text-align: left;
+            border-bottom: 2px solid var(--border);
+        }
+        .permission-table td {
+            padding: 8px 10px;
+            border-bottom: 1px solid var(--border);
+        }
+        .permission-table tr:last-child td { border-bottom: none; }
+        .check { color: var(--green); }
+        .cross { color: var(--red); }
+        .external-link {
+            display: inline-block;
+            background: rgba(52, 152, 219, 0.15);
+            border: 1px solid var(--blue);
+            color: var(--blue);
+            padding: 8px 15px;
+            border-radius: 6px;
+            text-decoration: none;
+            margin: 5px 5px 5px 0;
+            transition: background 0.2s;
+        }
+        .external-link:hover {
+            background: rgba(52, 152, 219, 0.3);
+        }
+        @media (max-width: 600px) {
+            .cmd-row { flex-direction: column; gap: 5px; }
+            .cmd-name { min-width: unset; }
+            body { padding: 10px; }
+        }
+    </style>
+</head>
+<body>
+
+<h1>Kristen Bot — Command Guide</h1>
+<p class="subtitle">OWOW-OFNA Alliance HQ [2013] — Discord Bot Reference</p>
+
+<!-- Permission Overview -->
+<div class="section">
+    <h2>Who Can Use What</h2>
+    <table class="permission-table">
+        <tr>
+            <th>Role Required</th>
+            <th>Who Has It</th>
+            <th>Commands Available</th>
+        </tr>
+        <tr>
+            <td><span class="access-badge badge-alliance">Alliance + Rank</span></td>
+            <td>OWOW or OFNA + Member/R3/R4/R5</td>
+            <td>!mystats, !roster, !teams</td>
+        </tr>
+        <tr>
+            <td><span class="access-badge badge-member">Member</span></td>
+            <td>Anyone with Member, OWOW, OFNA, or higher</td>
+            <td>!today, !save, !guides, !reset, !events</td>
+        </tr>
+        <tr>
+            <td><span class="access-badge badge-r4">R4+ Only</span></td>
+            <td>R4 Officers and R5 Leaders</td>
+            <td>!rally, !team, !clearteams</td>
+        </tr>
+    </table>
+</div>
+
+<!-- Daily Battle Plan Commands -->
+<div class="section">
+    <h2>Daily Battle Plan <span class="access-badge badge-member">Member</span></h2>
+
+    <div class="cmd-row">
+        <div class="cmd-name">!today</div>
+        <div class="cmd-desc">
+            Shows today's VS Duel battle plan — what to do, what to save, and a tip.
+            <div class="example">Kristen also posts this automatically at 6:05 PM in #daily-battle-plan</div>
+        </div>
+    </div>
+
+    <div class="cmd-row">
+        <div class="cmd-name">!save</div>
+        <div class="cmd-desc">
+            Shows what resources are safe to spend today and what to save for later.
+            <div class="example">Quick check before you accidentally blow training speedups on a Tuesday</div>
+        </div>
+    </div>
+
+    <div class="cmd-row">
+        <div class="cmd-name">!reset</div>
+        <div class="cmd-desc">
+            Shows countdown to next server reset (6:00 PM).
+            <div class="example">Remember: wait 5 minutes after reset before earning points!</div>
+        </div>
+    </div>
+
+    <div class="cmd-row">
+        <div class="cmd-name">!events</div>
+        <div class="cmd-desc">
+            Shows today's server events and upcoming events for the next 14 days.
+            <div class="example">Hero unlocks, war events, alliance events — all from the timeline</div>
+        </div>
+    </div>
+
+    <div class="cmd-row">
+        <div class="cmd-name">!guides</div>
+        <div class="cmd-desc">
+            Posts links to all of Extreme's live tools and calculators.
+            <div class="example">Research Tracker, Building Planner, Waterfall Guide, and more</div>
+        </div>
+    </div>
+</div>
+
+<!-- Player Stats Commands -->
+<div class="section">
+    <h2>Player Stats & Roster <span class="access-badge badge-alliance">Alliance + Rank</span></h2>
+
+    <div class="tip-box">
+        <strong>How to register:</strong> Every alliance member should run <code>!mystats [HQ] [power]</code> to add themselves to the roster. This data is used for Desert Storm team balancing.
+    </div>
+
+    <div class="cmd-row">
+        <div class="cmd-name">!mystats</div>
+        <div class="cmd-desc">
+            View your current stats on file.
+        </div>
+    </div>
+
+    <div class="cmd-row">
+        <div class="cmd-name">!mystats [HQ] [power]</div>
+        <div class="cmd-desc">
+            Set or update your HQ level and max power. Alliance is auto-detected from your role.
+            <div class="example">Example: !mystats 26 40.6M</div>
+        </div>
+    </div>
+
+    <div class="cmd-row">
+        <div class="cmd-name">!roster</div>
+        <div class="cmd-desc">
+            View the full alliance roster sorted by power. Shows HQ, power, alliance tag, and team assignment.
+        </div>
+    </div>
+</div>
+
+<!-- Desert Storm Commands -->
+<div class="section">
+    <h2>Desert Storm Teams <span class="access-badge badge-alliance">Alliance + Rank</span> <span class="access-badge badge-r4">R4+ to assign</span></h2>
+
+    <div class="cmd-row">
+        <div class="cmd-name">!teams</div>
+        <div class="cmd-desc">
+            View Desert Storm Team A and Team B assignments with total power per team.
+            <div class="example">Any ranked alliance member can view</div>
+        </div>
+    </div>
+
+    <div class="cmd-row">
+        <div class="cmd-name">!team @player A</div>
+        <div class="cmd-desc">
+            Assign a player to Team A or Team B. <strong>R4+ only.</strong>
+            <div class="example">Example: !team @Starcatcher07 B</div>
+        </div>
+    </div>
+
+    <div class="cmd-row">
+        <div class="cmd-name">!clearteams</div>
+        <div class="cmd-desc">
+            Clear all team assignments for a fresh Desert Storm round. <strong>R4+ only.</strong>
+        </div>
+    </div>
+
+    <div class="tip-box">
+        <strong>Desert Storm Planning Tool:</strong> For visual building assignments and map planning, use R4C (Rally for Command):
+        <br><br>
+        <a href="https://dsplanner.lovable.app/" class="external-link" target="_blank">R4C Desert Storm Planner</a>
+        <a href="https://www.r4c.space/" class="external-link" target="_blank">R4C Official Site</a>
+        <br><br>
+        Use our <code>!roster</code> and <code>!teams</code> for power balancing, then use R4C for the visual map assignments.
+    </div>
+</div>
+
+<!-- Rally Commands -->
+<div class="section">
+    <h2>War & Rally <span class="access-badge badge-r4">R4+ Only</span></h2>
+
+    <div class="cmd-row">
+        <div class="cmd-name">!rally [target]</div>
+        <div class="cmd-desc">
+            Pings everyone with the Rally Ping role. Include a target description.
+            <div class="example">Example: !rally BaddBunnyGab base at coords 234,567</div>
+        </div>
+    </div>
+
+    <div class="warning-box">
+        <strong>Warning:</strong> Only R4 Officers and R5 Leaders can call rallies. This pings everyone who opted into Rally Ping — don't abuse it.
+    </div>
+</div>
+
+<!-- Automatic Posts -->
+<div class="section">
+    <h2>What Kristen Posts Automatically</h2>
+    <p style="margin-bottom: 15px; color: var(--muted);">These happen every day at 6:05 PM (server reset + 5 min). No commands needed.</p>
+
+    <div class="cmd-row">
+        <div class="cmd-name">#daily-battle-plan</div>
+        <div class="cmd-desc">
+            Daily VS Duel checklist — what to do, what to save. Pings <strong>@Event Ping</strong> (Mon-Fri, Sun) or <strong>@War Ping</strong> (Saturday).
+        </div>
+    </div>
+
+    <div class="cmd-row">
+        <div class="cmd-name">#shield-reminders</div>
+        <div class="cmd-desc">
+            Saturday Enemy Buster shield alert. Pings <strong>@Shield Reminder</strong>.
+        </div>
+    </div>
+
+    <div class="cmd-row">
+        <div class="cmd-name">#event-strategy</div>
+        <div class="cmd-desc">
+            Today's server events from the timeline. Weekly preview on Sundays. Pings <strong>@Event Ping</strong>.
+        </div>
+    </div>
+
+    <div class="cmd-row">
+        <div class="cmd-name">#introductions</div>
+        <div class="cmd-desc">
+            Welcome message when a new member joins. Officers get notified in #officer-chat.
+        </div>
+    </div>
+
+    <div class="tip-box">
+        <strong>Control your notifications!</strong> Go to #role-select and react to pick which pings you want. All channels are muted by default — you only get notified for roles you opt into.
+    </div>
+</div>
+
+<div style="text-align: center; color: var(--muted); padding: 20px; font-size: 0.85em;">
+    OWOW-OFNA Alliance HQ [2013] — Kristen Bot v1.0<br>
+    <em>Kristen doesn't sleep. Kristen doesn't forget.</em>
+</div>
+
+</body>
+</html>
