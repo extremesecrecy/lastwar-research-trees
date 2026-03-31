@@ -17,6 +17,7 @@
     { href: 'guides/plunder_guide.html', label: 'Plunder' },
     { href: 'guides/radar_guide.html', label: 'Radar' },
     { href: 'research_trees_visual.html', label: 'Research Trees', root: true },
+    { href: 'guides/s1_territory_map.html', label: 'S1 Map' },
     { href: 'guides/server_dashboard.html', label: 'Server' },
     { href: 'guides/vs_weekly_planner.html', label: 'VS Planner' },
     { href: 'guides/interior_test_report.html', label: 'Interior Test' },
