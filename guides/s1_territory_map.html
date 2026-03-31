@@ -8,6 +8,48 @@
 @import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&display=swap');
 * { margin: 0; padding: 0; box-sizing: border-box; }
 
+/* Navigation Bar (standard OWOW nav) */
+.guide-nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 12px;
+  padding: 6px 16px;
+  background: #eef6f3;
+  border-bottom: 2px solid #7fb3a8;
+  font-size: 13px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+.guide-nav a {
+  color: #5a6a6a;
+  text-decoration: none;
+  padding: 2px 6px;
+  border-radius: 3px;
+  white-space: nowrap;
+}
+.guide-nav a:hover {
+  color: #f4a261;
+  background: #fff;
+}
+.guide-nav a.current {
+  color: #f4a261;
+  font-weight: bold;
+  background: #fff;
+  border: 1px solid #f4a261;
+}
+.guide-nav .nav-home {
+  font-weight: bold;
+  margin-right: 8px;
+  padding-right: 12px;
+  border-right: 1px solid #7fb3a8;
+}
+@media (max-width: 480px) {
+  .guide-nav {
+    padding: 4px 10px;
+    gap: 3px 8px;
+    font-size: 11px;
+  }
+}
+
 :root {
   --orange: #f4a261;
   --cyan: #5bc0de;
@@ -30,6 +72,7 @@ body {
   padding: 0;
   min-height: 100vh;
   overflow: hidden;
+  overflow-y: auto;
 }
 
 /* Top bar */
@@ -402,9 +445,75 @@ input[type="color"] {
   margin-bottom: 4px;
 }
 .toggle-row input[type="checkbox"] { accent-color: var(--teal); }
+
+/* ========== MOBILE RESPONSIVE ========== */
+@media (max-width: 900px) {
+  .main-layout {
+    flex-direction: column;
+    height: auto;
+  }
+  .left-panel, .right-panel {
+    width: 100% !important;
+    min-width: 0 !important;
+    max-height: 300px;
+    overflow-y: auto;
+    border-right: none !important;
+    border-left: none !important;
+    border-bottom: 1px solid #ddd;
+  }
+  .map-wrapper {
+    min-height: 400px;
+    height: 50vh;
+  }
+  .top-bar {
+    flex-direction: column;
+    gap: 8px;
+    padding: 8px 12px;
+  }
+  .top-bar h1 {
+    font-size: 16px;
+  }
+  .timeline-controls {
+    flex-wrap: wrap;
+    gap: 4px;
+  }
+  .top-actions {
+    justify-content: center;
+  }
+  .legend-bar {
+    flex-wrap: wrap;
+    padding: 6px 8px;
+    gap: 6px;
+    font-size: 10px;
+  }
+}
+
+@media (max-width: 600px) {
+  .top-bar h1 {
+    font-size: 14px;
+  }
+  .left-panel, .right-panel {
+    max-height: 250px;
+    padding: 8px !important;
+  }
+  .map-wrapper {
+    min-height: 300px;
+    height: 40vh;
+  }
+  .panel-section h3 {
+    font-size: 13px;
+  }
+  .alliance-item {
+    font-size: 12px;
+  }
+}
 </style>
 </head>
 <body>
+
+<!-- STANDARD OWOW NAVIGATION BAR -->
+<nav class="guide-nav" id="guide-nav"></nav>
+<script src="../nav.js"></script>
 
 <!-- TOP BAR -->
 <div class="top-bar">
@@ -514,9 +623,6 @@ input[type="color"] {
 
 <!-- TOOLTIP -->
 <div id="tooltip"></div>
-
-<!-- NAV -->
-<script src="../nav.js"></script>
 
 <script>
 // ========== EMBEDDED DATA ==========
