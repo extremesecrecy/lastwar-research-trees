@@ -530,6 +530,7 @@ input[type="color"] {
     <button onclick="exportState()" title="Download territory state">&#128190; Export</button>
     <button onclick="importState()" title="Upload territory state">&#128194; Import</button>
     <button onclick="fitAll(); draw();" title="Reset zoom to fit all">&#128269; Fit All</button>
+    <button onclick="resetState()" title="Clear all data and start fresh" style="background:#e53935;color:#fff;border-color:#c62828">&#9888; Reset</button>
   </div>
 </div>
 
@@ -605,6 +606,9 @@ input[type="color"] {
 </div>
 
 <!-- BOTTOM LEGEND -->
+<!-- STATUS BAR -->
+<div id="statusBar" style="background:#1a1a2e;color:#aaa;padding:4px 16px;font-size:11px;text-align:center;border-bottom:1px solid #333;"></div>
+
 <div class="bottom-bar">
   <div class="legend-item"><div class="legend-swatch" style="background:#b97235"></div><span>SH = Stronghold (305)</span></div>
       <div class="legend-item"><div class="legend-swatch" style="background:#c0392b"></div><span>BR = Brewery (24)</span></div>
@@ -687,7 +691,9 @@ let state = {
   seasonWeek: 1,
   seasonDay: 3,
   hoveredArea: null,
-  selectedArea: null
+  selectedArea: null,
+  lastImport: null,
+  lastModified: null
 };
 
 // ========== CANVAS STATE ==========
@@ -1537,9 +1543,12 @@ function saveState() {
       alliances: state.alliances,
       assignments: state.assignments,
       seasonWeek: state.seasonWeek,
-      seasonDay: state.seasonDay
+      seasonDay: state.seasonDay,
+      lastImport: state.lastImport || null,
+      lastModified: new Date().toISOString()
     };
     localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+    updateStatusBar();
   } catch (e) { /* ignore */ }
 }
 
@@ -1558,8 +1567,11 @@ function loadState() {
         state.seasonDay = data.seasonDay;
         document.getElementById('daySelect').value = data.seasonDay;
       }
+      if (data.lastImport) state.lastImport = data.lastImport;
+      if (data.lastModified) state.lastModified = data.lastModified;
     }
     updatePhaseLabel();
+    updateStatusBar();
   } catch (e) { /* ignore */ }
 }
 
@@ -1592,8 +1604,49 @@ function importState() {
     reader.onload = ev => {
       try {
         const data = JSON.parse(ev.target.result);
-        if (data.alliances) state.alliances = data.alliances;
-        if (data.assignments) state.assignments = data.assignments;
+
+        // Count what's in the file
+        const fileAlliances = data.alliances ? data.alliances.length : 0;
+        const fileAssignments = data.assignments ? Object.keys(data.assignments).length : 0;
+        const currentAssignments = Object.keys(state.assignments).length;
+        const exportDate = data.exportDate ? new Date(data.exportDate).toLocaleDateString() : 'unknown';
+
+        // Show import options
+        let msg = '📂 Import File Summary:\n';
+        msg += '━━━━━━━━━━━━━━━━━━━━━━\n';
+        msg += 'Exported: ' + exportDate + '\n';
+        msg += 'Alliances: ' + fileAlliances + '\n';
+        msg += 'Territory assignments: ' + fileAssignments + '\n';
+        msg += '━━━━━━━━━━━━━━━━━━━━━━\n';
+        msg += 'You currently have ' + currentAssignments + ' assignments.\n\n';
+        msg += 'How do you want to import?\n';
+        msg += '• OK = REPLACE ALL (overwrites your current data)\n';
+        msg += '• Cancel = MERGE (adds new data, keeps your existing)';
+
+        const replaceAll = confirm(msg);
+
+        if (replaceAll) {
+          // Replace mode — overwrite everything
+          if (data.alliances) state.alliances = data.alliances;
+          if (data.assignments) state.assignments = data.assignments;
+        } else {
+          // Merge mode — add new alliances and assignments without removing existing
+          if (data.alliances) {
+            data.alliances.forEach(a => {
+              if (!state.alliances.find(x => x.id === a.id)) {
+                state.alliances.push(a);
+              }
+            });
+          }
+          if (data.assignments) {
+            Object.entries(data.assignments).forEach(([areaId, allianceId]) => {
+              if (!state.assignments[areaId]) {
+                state.assignments[areaId] = allianceId;
+              }
+            });
+          }
+        }
+
         if (data.seasonWeek != null) {
           state.seasonWeek = data.seasonWeek;
           document.getElementById('weekSelect').value = data.seasonWeek;
@@ -1602,6 +1655,14 @@ function importState() {
           state.seasonDay = data.seasonDay;
           document.getElementById('daySelect').value = data.seasonDay;
         }
+
+        state.lastImport = {
+          date: new Date().toISOString(),
+          fileName: file.name,
+          mode: replaceAll ? 'replace' : 'merge',
+          source: data.exportDate || null
+        };
+
         saveState();
         renderAlliances();
         renderInfluence();
@@ -1609,14 +1670,79 @@ function importState() {
         renderCaptureAdvisor();
         updatePhaseLabel();
         draw();
-        alert('Imported successfully!');
+
+        alert(replaceAll ? '✅ Imported (replaced all data)' : '✅ Imported (merged — your existing data preserved)');
       } catch (err) {
-        alert('Invalid file: ' + err.message);
+        alert('❌ Invalid file: ' + err.message);
       }
     };
     reader.readAsText(file);
   };
   input.click();
+}
+
+function resetState() {
+  const assignments = Object.keys(state.assignments).length;
+  const alliances = state.alliances.length;
+
+  let msg = '⚠️ RESET ALL DATA ⚠️\n';
+  msg += '━━━━━━━━━━━━━━━━━━━━━━\n';
+  msg += 'This will permanently delete:\n';
+  msg += '• ' + alliances + ' alliance(s)\n';
+  msg += '• ' + assignments + ' territory assignment(s)\n';
+  msg += '• All capture paths and settings\n';
+  msg += '━━━━━━━━━━━━━━━━━━━━━━\n';
+  msg += 'This CANNOT be undone!\n\n';
+  msg += 'TIP: Export your data first if you want a backup.\n\n';
+  msg += 'Are you sure you want to reset everything?';
+
+  if (!confirm(msg)) return;
+
+  // Second confirmation for safety
+  if (!confirm('🔴 FINAL WARNING: All territory data will be erased. Continue?')) return;
+
+  state.alliances = [
+    { id: 'owow', name: 'OWOW', color: '#7fb3a8', tag: 'OWOW', isEnemy: false },
+    { id: '12am', name: '12AM', color: '#3498db', tag: '12AM', isEnemy: false },
+    { id: 'rgbb', name: 'RGBB', color: '#f4a261', tag: 'RGBB', isEnemy: false }
+  ];
+  state.assignments = {};
+  state.selectedAlliance = null;
+  state.pathStart = null;
+  state.pathEnd = null;
+  state.pathResult = [];
+  state.lastImport = null;
+  state.lastModified = null;
+
+  saveState();
+  renderAlliances();
+  renderInfluence();
+  renderLimits();
+  renderCaptureAdvisor();
+  draw();
+  alert('🔄 Reset complete. Starting fresh with default alliances.');
+}
+
+function updateStatusBar() {
+  const bar = document.getElementById('statusBar');
+  if (!bar) return;
+
+  const parts = [];
+  const assignments = Object.keys(state.assignments).length;
+  parts.push('📍 ' + assignments + ' territories assigned');
+
+  if (state.lastModified) {
+    const d = new Date(state.lastModified);
+    parts.push('💾 Last saved: ' + d.toLocaleDateString() + ' ' + d.toLocaleTimeString([], {hour:'2-digit',minute:'2-digit'}));
+  }
+
+  if (state.lastImport) {
+    const d = new Date(state.lastImport.date);
+    const mode = state.lastImport.mode === 'replace' ? 'replaced' : 'merged';
+    parts.push('📂 Imported: ' + d.toLocaleDateString() + ' (' + mode + ' from ' + (state.lastImport.fileName || 'file') + ')');
+  }
+
+  bar.innerHTML = parts.join(' &nbsp;|&nbsp; ');
 }
 </script>
 
