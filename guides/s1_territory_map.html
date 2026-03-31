@@ -718,10 +718,10 @@ MAP_AREAS.forEach(a => {
 });
 
 // ========== INIT ==========
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', async () => {
   canvas = document.getElementById('mapCanvas');
   ctx = canvas.getContext('2d');
-  loadState();
+  await loadState();  // async — loads from localStorage + IndexedDB, picks freshest
   resizeCanvas();
   fitAll();
   setupEvents();
@@ -1534,45 +1534,159 @@ function updatePhaseLabel() {
   cw.style.display = totalDay >= 16 ? 'inline' : 'none'; // W3D2 = day 16
 }
 
-// ========== PERSISTENCE ==========
+// ========== PERSISTENCE (Multi-layer: localStorage + IndexedDB) ==========
+// iOS Safari can wipe localStorage after 7 days inactivity or on low storage.
+// We save to both localStorage (fast) and IndexedDB (more durable) and load
+// from whichever has the most recent data.
 const STORAGE_KEY = 'owow-s1-territory-map';
+const IDB_NAME = 'owow-s1-map-db';
+const IDB_STORE = 'state';
+const IDB_KEY = 'current';
 
-function saveState() {
-  try {
-    const data = {
-      alliances: state.alliances,
-      assignments: state.assignments,
-      seasonWeek: state.seasonWeek,
-      seasonDay: state.seasonDay,
-      lastImport: state.lastImport || null,
-      lastModified: new Date().toISOString()
-    };
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
-    updateStatusBar();
-  } catch (e) { /* ignore */ }
+// Detect iOS/Safari for extra precautions
+const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
+
+function getStateData() {
+  return {
+    alliances: state.alliances,
+    assignments: state.assignments,
+    seasonWeek: state.seasonWeek,
+    seasonDay: state.seasonDay,
+    lastImport: state.lastImport || null,
+    lastModified: new Date().toISOString(),
+    _v: 2  // schema version for future migrations
+  };
 }
 
-function loadState() {
+function applyStateData(data) {
+  if (data.alliances) state.alliances = data.alliances;
+  if (data.assignments) state.assignments = data.assignments;
+  if (data.seasonWeek != null) {
+    state.seasonWeek = data.seasonWeek;
+    const el = document.getElementById('weekSelect');
+    if (el) el.value = data.seasonWeek;
+  }
+  if (data.seasonDay != null) {
+    state.seasonDay = data.seasonDay;
+    const el = document.getElementById('daySelect');
+    if (el) el.value = data.seasonDay;
+  }
+  if (data.lastImport) state.lastImport = data.lastImport;
+  if (data.lastModified) state.lastModified = data.lastModified;
+}
+
+// --- localStorage layer ---
+function saveToLS(data) {
+  try {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+  } catch (e) {
+    // QuotaExceededError on iOS — try to clear old entries
+    console.warn('[Storage] localStorage save failed:', e.message);
+  }
+}
+
+function loadFromLS() {
   try {
     const raw = localStorage.getItem(STORAGE_KEY);
-    if (raw) {
-      const data = JSON.parse(raw);
-      if (data.alliances) state.alliances = data.alliances;
-      if (data.assignments) state.assignments = data.assignments;
-      if (data.seasonWeek != null) {
-        state.seasonWeek = data.seasonWeek;
-        document.getElementById('weekSelect').value = data.seasonWeek;
-      }
-      if (data.seasonDay != null) {
-        state.seasonDay = data.seasonDay;
-        document.getElementById('daySelect').value = data.seasonDay;
-      }
-      if (data.lastImport) state.lastImport = data.lastImport;
-      if (data.lastModified) state.lastModified = data.lastModified;
+    return raw ? JSON.parse(raw) : null;
+  } catch (e) { return null; }
+}
+
+// --- IndexedDB layer (more durable, survives iOS eviction better) ---
+function openIDB() {
+  return new Promise((resolve, reject) => {
+    try {
+      const req = indexedDB.open(IDB_NAME, 1);
+      req.onupgradeneeded = (e) => {
+        const db = e.target.result;
+        if (!db.objectStoreNames.contains(IDB_STORE)) {
+          db.createObjectStore(IDB_STORE);
+        }
+      };
+      req.onsuccess = () => resolve(req.result);
+      req.onerror = () => reject(req.error);
+    } catch (e) { reject(e); }
+  });
+}
+
+function saveToIDB(data) {
+  openIDB().then(db => {
+    const tx = db.transaction(IDB_STORE, 'readwrite');
+    tx.objectStore(IDB_STORE).put(data, IDB_KEY);
+    tx.oncomplete = () => db.close();
+  }).catch(e => console.warn('[Storage] IDB save failed:', e));
+}
+
+function loadFromIDB() {
+  return openIDB().then(db => {
+    return new Promise((resolve, reject) => {
+      const tx = db.transaction(IDB_STORE, 'readonly');
+      const req = tx.objectStore(IDB_STORE).get(IDB_KEY);
+      req.onsuccess = () => { db.close(); resolve(req.result || null); };
+      req.onerror = () => { db.close(); resolve(null); };
+    });
+  }).catch(() => null);
+}
+
+// --- Combined save (writes to both layers) ---
+function saveState() {
+  const data = getStateData();
+  saveToLS(data);
+  saveToIDB(data);
+  updateStatusBar();
+}
+
+// --- Combined load (picks freshest from either layer) ---
+async function loadState() {
+  let lsData = loadFromLS();
+  let idbData = null;
+
+  try {
+    idbData = await loadFromIDB();
+  } catch (e) { /* IDB not available */ }
+
+  // Pick whichever has the most recent lastModified
+  let data = null;
+  if (lsData && idbData) {
+    const lsTime = lsData.lastModified ? new Date(lsData.lastModified).getTime() : 0;
+    const idbTime = idbData.lastModified ? new Date(idbData.lastModified).getTime() : 0;
+    data = idbTime > lsTime ? idbData : lsData;
+    // Sync the stale layer
+    if (idbTime > lsTime) saveToLS(data);
+    else if (lsTime > idbTime) saveToIDB(data);
+  } else {
+    data = lsData || idbData;
+  }
+
+  if (data) {
+    applyStateData(data);
+    // If data came from IDB but LS was empty (iOS wiped it), restore LS
+    if (!lsData && idbData) {
+      saveToLS(data);
+      console.log('[Storage] Restored localStorage from IndexedDB backup');
     }
-    updatePhaseLabel();
-    updateStatusBar();
-  } catch (e) { /* ignore */ }
+  }
+
+  updatePhaseLabel();
+  updateStatusBar();
+
+  // Request persistent storage (helps prevent iOS eviction)
+  if (navigator.storage && navigator.storage.persist) {
+    navigator.storage.persist().then(granted => {
+      if (granted) console.log('[Storage] Persistent storage granted');
+    });
+  }
+
+  // On iOS, warn if no data was found but assignments should exist
+  if (isIOS && !data) {
+    const statusEl = document.getElementById('statusBar');
+    if (statusEl) {
+      statusEl.innerHTML = '⚠️ iOS detected — data may have been cleared by Safari. Use Import to restore from a backup file.';
+      statusEl.style.background = '#e53935';
+      statusEl.style.color = '#fff';
+    }
+  }
 }
 
 // ========== EXPORT / IMPORT ==========
