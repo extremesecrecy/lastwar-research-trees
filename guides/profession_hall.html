@@ -592,7 +592,7 @@
       <td class="name-col">Durability Mine</td>
       <td><span class="type-badge type-active">Active</span></td>
       <td>5</td>
-      <td class="effect-col" data-i18n="e_dur_mine">Place mine that removes 10% enemy troop units on land. Max 2 mines, generates 1 per 12h</td>
+      <td class="effect-col" data-i18n="e_dur_mine">Place mine that reduces enemy base/city durability. Max 2 mines, generates 1 per 12h</td>
       <td>&mdash;</td>
       <td class="priority-col">Low</td>
     </tr>
@@ -695,7 +695,7 @@
       <td>Lv 20</td>
       <td class="name-col">March in Badlands</td>
       <td><span class="type-badge type-passive">Passive</span></td>
-      <td>5</td>
+      <td>2</td>
       <td class="effect-col" data-i18n="w_badlands">+march speed in contaminated land</td>
       <td>&mdash;</td>
       <td class="priority-col" style="color:#f4a261;">Med</td>
@@ -767,8 +767,8 @@
       <td>Lv 40</td>
       <td class="name-col">Decay Ray</td>
       <td><span class="type-badge type-passive">Passive</span></td>
-      <td>5</td>
-      <td class="effect-col" data-i18n="w_decay_ray">Permanently downgrade 1,000 enemy units daily when attacking</td>
+      <td>1</td>
+      <td class="effect-col" data-i18n="w_decay_ray">Chance to permanently downgrade enemy units when attacking</td>
       <td>&mdash;</td>
       <td class="priority-col" style="color:#f4a261;">Med</td>
     </tr>
@@ -916,7 +916,7 @@
       <li data-i18n="s6_wl2">Team Strike boosts ALL squads in your rallies</li>
       <li data-i18n="s6_wl3">Hospital Prep + Intensive Training = faster war recovery</li>
       <li data-i18n="s6_wl4">Charge Banner = +2% alliance-wide attack boost during wars</li>
-      <li data-i18n="s6_wl5">Decay Ray permanently downgrades 1,000 enemy troops daily</li>
+      <li data-i18n="s6_wl5">Decay Ray has a chance to permanently downgrade enemy units when attacking</li>
       <li data-i18n="s6_wl6">Base Strike &amp; Hold the Base = +5% hero stats (offense and defense)</li>
     </ul>
   </div>
@@ -1127,6 +1127,136 @@ const T = {
     s9_title: '9. C\u00f3mo Subir de Nivel R\u00e1pido',
     s10_title: '10. Reinicio de Habilidades y Cambio de Profesi\u00f3n',
     s10_warn: '<strong>Planifica tus habilidades con cuidado.</strong> Los objetos de reinicio son limitados. No desperdicies puntos en habilidades que no usar\u00e1s.',
+    // Table headers
+    th_detail: 'Detalle', th_s1: 'Temporada 1', th_s2: 'Temporada 2', th_s3: 'Temporada 3+',
+    th_unlock: 'Desbloqueo', th_skill: 'Habilidad', th_type: 'Tipo', th_max: 'M\u00e1x',
+    th_effect: 'Efecto (al Nivel M\u00e1ximo)', th_cd: 'CD', th_priority: 'Prioridad',
+    th_role2: 'Rol', th_profession: 'Profesi\u00f3n', th_why2: 'Por qu\u00e9',
+    th_item: 'Objeto', th_what: 'Qu\u00e9 Hace', th_source: 'Fuente',
+    // Leveling table
+    s2_cap: 'L\u00edmite de Nivel', s2_pts: 'Puntos de Habilidad (por niveles)', s2_bonus: 'Objetos Bonus (m\u00e1x por temporada)', s2_total: 'Total M\u00e1ximo',
+    s2_xp1: '<strong>C\u00f3mo ganar XP:</strong> Matar monstruos en el Mapa, capturar ciudades, mejorar edificios de temporada, usar Libros de EXP de Profesi\u00f3n',
+    s2_xp2: '<strong>XP Excedente:</strong> Al llegar al l\u00edmite, el exceso se convierte en almacenamiento y se transfiere por correo al inicio de la siguiente temporada',
+    s2_xp3: '<strong>Habilidades de temporada</strong> (fondo verde en el juego) se reinician cada temporada. Los puntos gastados se devuelven.',
+    // Engineer skill effects
+    e_rapid_prod: 'Recoge instant\u00e1neamente 20 horas de producci\u00f3n de Comida, Hierro y Monedas',
+    e_outstanding: '+100% Puntos de Contribuci\u00f3n de Alianza por donaciones de tecnolog\u00eda (no afecta la Puntuaci\u00f3n)',
+    e_extra_meal: '+50% estamina gratis diaria (75 paquetes en vez de 50)',
+    e_siege_mastery: '+500 da\u00f1o de durabilidad a ciudades',
+    e_build_free: '+240 min de aceleraci\u00f3n gratis de construcci\u00f3n',
+    e_research_free: '+240 min de aceleraci\u00f3n gratis de investigaci\u00f3n',
+    e_build_now: 'Reduce instant\u00e1neamente el tiempo de cola de construcci\u00f3n en 600 min (10 hrs)',
+    e_research_now: 'Reduce instant\u00e1neamente el tiempo de cola de investigaci\u00f3n en 1,200 min (20 hrs)',
+    e_rally_rush: '+50% velocidad de marcha al unirse/regresar de rallies',
+    e_siege_banner: 'Coloca banner: +100 da\u00f1o de durabilidad para aliados cercanos, 30 min (acumula 5x)',
+    e_siege_insp: '+60% EXP de Profesi\u00f3n por da\u00f1ar durabilidad de ciudades',
+    e_friendly_aid: '-25% tasa de bajas de unidades del campo de entrenamiento al reforzar un aliado',
+    e_coop_build: '+20% velocidad de construcci\u00f3n para ti Y un aliado seleccionado por 60 min (no acumula)',
+    e_coop_research: '+20% velocidad de investigaci\u00f3n para ti Y un aliado seleccionado por 60 min (no acumula)',
+    e_resource_save: '-5% costo de Comida, Hierro y Monedas para construcci\u00f3n',
+    e_recycling: '-5% costo de Comida, Hierro y Monedas para investigaci\u00f3n',
+    e_medical_aid: '+50% Capacidad Hospitalaria para ti y un aliado, 240 min',
+    e_buddy_shield: 'Activa un escudo de 4 horas para ti o un aliado',
+    e_drone_supply: 'Obtiene instant\u00e1neamente recursos de mejora de drones',
+    e_fearless: 'Inflige da\u00f1o a enemigos basado en tus p\u00e9rdidas de tropas (5% al m\u00e1ximo)',
+    e_random_visitors: 'Invoca un sobreviviente aleatorio',
+    e_dur_mine: 'Coloca mina que reduce la durabilidad de base/ciudad enemiga. M\u00e1x 2 minas, genera 1 cada 12h',
+    // War Leader skill effects
+    w_imm_return: 'Regresa instant\u00e1neamente el escuadr\u00f3n en el primer uso de teletransporte',
+    w_unit_mob: 'Recibe instant\u00e1neamente 250 unidades de alto nivel',
+    w_drill_prep: 'Aumenta la capacidad del campo de entrenamiento',
+    w_hosp_prep: 'Aumenta la capacidad hospitalaria',
+    w_craze: 'Aumenta el da\u00f1o durante fiebre de guerra',
+    w_urgent_cure: 'Cura instant\u00e1neamente 5,000 unidades',
+    w_pursuit: '+5% tasa de muerte enemiga al atacar objetivos en llamas',
+    w_intensive: 'Aumenta la velocidad de entrenamiento de unidades',
+    w_badlands: '+velocidad de marcha en tierra contaminada',
+    w_warfare: 'Aumenta el l\u00edmite diario de saqueo',
+    w_inspire: 'Aumenta la moral de las unidades (efectividad en combate)',
+    w_speed_reinforce: 'Aumenta la velocidad de marcha de refuerzos',
+    w_team_strike: 'Aumenta el da\u00f1o de TODOS los escuadrones en un rally cuando participas o inicias',
+    w_disguise: 'Oculta la info de tu base por 30 min',
+    w_tac_reinforce: 'Aumenta la tasa de muerte del atacante (mejora defensiva)',
+    w_reinforce_str: 'Mejora las estad\u00edsticas de h\u00e9roes defensivos al reforzar',
+    w_decay_ray: 'Posibilidad de degradar permanentemente unidades enemigas al atacar',
+    w_charge_banner: 'Coloca banner: +2% ataque de aliados en rango, 30 min',
+    w_hold_base: '+5% estad\u00edsticas de h\u00e9roes de defensa de muro',
+    w_rally_guard: '-5% tasa de muerte de escuadrones en rally',
+    w_base_strike: '+5% estad\u00edsticas de h\u00e9roes atacantes',
+    w_dest_mine: 'Coloca mina que mata 50 unidades del campo de entrenamiento. M\u00e1x 2, genera 1 cada 72h',
+    // Seasonal skills
+    ss_combat_xp: '+60% EXP de Profesi\u00f3n por matar monstruos del Mapa',
+    ss_build_insp1: '+15% EXP de Profesi\u00f3n por mejorar edificios de temporada',
+    ss_infection: 'Infecta enemigos con virus al derrotarlos despu\u00e9s de haber sido envenenado',
+    ss_healing: 'Elimina 1 acumulaci\u00f3n extra de virus al curar un aliado',
+    ss_exchange: 'Intercambia recursos de temporada en proporci\u00f3n 1:2 (hasta 25,000), CD 48h',
+    ss_poison: 'Aumenta el l\u00edmite de acumulaciones de virus en +100',
+    ss_insights: 'Obtiene instant\u00e1neamente 10% del EXP del nivel actual (m\u00e1x 20,000), CD 24h',
+    ss_virus_ctrl: 'Derrota al Doom Walker para posibilidad de obtener objeto de invocaci\u00f3n para atacar enemigos espec\u00edficos',
+    hb_seasonal_label: 'Nota de Habilidades de Temporada',
+    hb_seasonal_value: '\u00a1Las habilidades de temporada cambian cada temporada! T2 tiene habilidades diferentes a T1. Los puntos siempre se devuelven al reiniciar.',
+    hb_seasonal_tip: 'Prioriza Experiencia de Combate e Inspiraci\u00f3n de Construcci\u00f3n primero \u2014 aceleran tu nivel de profesi\u00f3n el resto de la temporada.',
+    // Build paths
+    s7_eng_title: 'Ruta del Ingeniero', s7_wl_title: 'Ruta del L\u00edder de Guerra',
+    s7_eng_p1: 'Temporada 1 (40 pts)', s7_eng_p2: 'Temporada 2+ (70-100 pts)',
+    s7_wl_p1: 'Temporada 1 (40 pts)', s7_wl_p2: 'Temporada 2+ (70-100 pts)',
+    s7_eng1: 'Experiencia de Combate 3/3 (temporal, acelera el nivel)',
+    s7_eng2: 'Contribuci\u00f3n Destacada 1/1',
+    s7_eng3: 'Comida Extra 1/1',
+    s7_eng4: 'Inspiraci\u00f3n de Construcci\u00f3n I 3/3 (temporal)',
+    s7_eng5: 'Construir Gratis 5/5',
+    s7_eng6: 'Investigar Gratis 5/5',
+    s7_eng7: 'Construir Ahora 5/5',
+    s7_eng8: 'Investigar Ahora 5/5',
+    s7_eng9: 'Producci\u00f3n R\u00e1pida 5/5',
+    s7_eng10: 'Restante: Maestr\u00eda de Asedio o Marcha R\u00e1pida',
+    s7_eng11: 'Construcci\u00f3n Cooperativa 2/2',
+    s7_eng12: 'Investigaci\u00f3n Cooperativa 2/2',
+    s7_eng13: 'Ahorro de Recursos 5/5',
+    s7_eng14: 'Reciclaje 5/5',
+    s7_eng15: 'Escudo Amigo 3/3',
+    s7_eng16: 'Suministro de Drones 5/5',
+    s7_wl1: 'Experiencia de Combate 3/3 (temporal)',
+    s7_wl2: 'Movilizaci\u00f3n de Unidades 5/5',
+    s7_wl3: 'Preparaci\u00f3n Hospitalaria 5/5',
+    s7_wl4: 'Inspiraci\u00f3n de Construcci\u00f3n I 3/3 (temporal)',
+    s7_wl5: 'Entrenamiento Intensivo 5/5',
+    s7_wl6: 'Suministros de Guerra 5/5',
+    s7_wl7: 'Inspirar 5/5',
+    s7_wl8: 'Restante: Frenesí, Cura Urgente, Prep. Campo de Entrenamiento',
+    s7_wl9: 'Golpe de Equipo 5/5 (habilidad de rally tier dios)',
+    s7_wl10: 'Banner de Carga 1/1',
+    s7_wl11: 'Mantener la Base 5/5',
+    s7_wl12: 'Golpe Base 5/5',
+    s7_wl13: 'Guardia de Rally 5/5',
+    s7_wl14: 'Refuerzo Fortalecido 5/5',
+    // Alliance composition
+    s8_most: 'Mayor\u00eda de Miembros (70-80%)', s8_most_why: 'Construcci\u00f3n/Investigaci\u00f3n Cooperativa eleva a toda la alianza. El ahorro de recursos se acumula. Escudos Amigos protegen durante guerras.',
+    s8_leaders: 'L\u00edderes de Rally / R4-R5 (20-30%)', s8_leaders_why: 'Golpe de Equipo mejora TODOS los escuadrones en rallies. Banner de Carga provee +2% ataque. Sus habilidades de combate escalan con el tama\u00f1o del rally.',
+    hb_team_label: 'Sinergia de Alianza',
+    hb_team_value: '\u00a1Los Ingenieros comparten mejoras de Construcci\u00f3n/Investigaci\u00f3n Cooperativa diariamente \u2014 coordina con los miembros para maximizar cobertura!',
+    hb_team_tip: 'Las mejoras Cooperativas NO se acumulan. Un Ingeniero mejora a un aliado. M\u00e1s Ingenieros = m\u00e1s personas mejoradas cada d\u00eda. Los L\u00edderes de Guerra colocan Banners de Carga durante rallies para +2% ataque.',
+    // Leveling fast
+    s9_f1: '<strong>Mata monstruos en el Mapa</strong> \u2014 Fuente principal de XP. Usa Experiencia de Combate primero (+60% XP).',
+    s9_f2: '<strong>Mejora edificios de temporada</strong> \u2014 Grandes cantidades de XP. Usa Inspiraci\u00f3n de Construcci\u00f3n (+15% XP bonus).',
+    s9_f3: '<strong>Captura ciudades</strong> \u2014 XP por da\u00f1o de durabilidad. Inspiraci\u00f3n de Asedio a\u00f1ade +60% XP.',
+    s9_f4: '<strong>Libros de EXP de Profesi\u00f3n</strong> \u2014 De eventos, Pase de Batalla, recompensas. Gu\u00e1rdalos hasta que desbloquees habilidades de XP.',
+    s9_f5: '<strong>Perspectivas Profesionales</strong> (Nv 35 temporal) \u2014 10% gratis del XP del nivel actual cada 24 horas.',
+    s9_f6: '<strong>El XP excedente se transfiere</strong> \u2014 Al llegar al m\u00e1ximo, el excedente se convierte y se env\u00eda por correo al inicio de la pr\u00f3xima temporada.',
+    hb_level_label: 'Consejo Pro',
+    hb_level_value: 'Habilita Experiencia de Combate (3/3) e Inspiraci\u00f3n de Construcci\u00f3n I (3/3) PRIMERO \u2014 son temporales y aceleran todo lo dem\u00e1s.',
+    hb_level_tip: 'No uses Libros de EXP hasta que tengas estas habilidades activas. \u00a1El XP bonus tambi\u00e9n aplica a los libros!',
+    // Skill reset
+    s10_reset: 'Libro de Reinicio de Habilidades',
+    s10_reset_desc: 'Reinicia todas las habilidades actuales. Devuelve todos los puntos. NO cambia tu profesi\u00f3n.',
+    s10_reset_src: 'Recompensas de luz/electricidad, eventos',
+    s10_change: 'Certificado de Cambio de Profesi\u00f3n',
+    s10_change_desc: 'Te cambia a la otra profesi\u00f3n. Reinicia TODAS las habilidades y devuelve todos los puntos.',
+    s10_change_src: 'Eventos, Pase de Batalla, ofertas especiales',
+    s10_seasonal: 'Reinicio de Habilidades de Temporada',
+    s10_seasonal_desc: 'Ocurre autom\u00e1ticamente al final de cada temporada. Todas las habilidades temporales (verdes) se reinician y los puntos se devuelven.',
+    s10_seasonal_src: 'Autom\u00e1tico',
+    s10_warn: '<strong>Planifica tus habilidades con cuidado.</strong> Los objetos de reinicio son limitados \u2014 solo podr\u00edas conseguir 1-2 por temporada. No desperdicies puntos en habilidades que no usar\u00e1s solo porque se ven geniales.',
     footer_line1: '[OWOW] Old World Order \u2022 Gu\u00eda del Sal\u00f3n de Profesiones \u2022 Last War: Survival \u2022 Kristen OWOW SKYNET',
     footer_line2: 'Fuentes: lastwartutorial.com \u2022 lastwargame.online \u2022 lootbar.gg \u2022 packsify.com'
   }
