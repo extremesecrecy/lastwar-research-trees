@@ -1,0 +1,1155 @@
+<!DOCTYPE html>
+<html lang="en" id="htmlRoot">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Profession Hall Guide - OWOW</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&display=swap');
+/* HCI Brand: Orange #f4a261, Cyan #5bc0de, Yellow #f4d35e, Teal #7fb3a8, Dark #5a6a6a, Text #333, Watermelon #fc5c65 */
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: 'Fredoka', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: #fff;
+    color: #333;
+    padding: 12px 16px;
+    min-height: 100vh;
+  }
+
+  /* Header */
+  .top-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 6px;
+  }
+  .top-bar .left h1 {
+    font-size: 24px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: #5a6a6a;
+  }
+  .top-bar .left .sub {
+    font-size: 13px;
+    color: #888;
+  }
+  .top-bar .right {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .top-bar .right img { height: 60px; }
+  .top-bar .right .alliance-tag {
+    background: #e8f4f1;
+    border: 1px solid #7fb3a8;
+    border-radius: 5px;
+    padding: 3px 10px;
+    font-size: 13px;
+    color: #5a6a6a;
+    font-weight: bold;
+  }
+
+  /* Highlight boxes */
+  .highlight-box {
+    border-radius: 8px;
+    padding: 14px 20px;
+    margin: 0 auto 16px auto;
+    max-width: 620px;
+    text-align: center;
+  }
+  .highlight-box.wide { max-width: 900px; }
+  .highlight-box.info {
+    background: #e4f3f8;
+    border: 2px solid #5bc0de;
+  }
+  .highlight-box.info .label { color: #5bc0de; font-size: 11px; font-weight: bold; text-transform: uppercase; letter-spacing: 1px; }
+  .highlight-box.info .value { color: #333; font-size: 20px; font-weight: bold; margin-top: 2px; }
+  .highlight-box.info .tip { color: #7fb3a8; font-size: 12px; margin-top: 4px; }
+  .highlight-box.action {
+    background: #fff0f0;
+    border: 2px solid #fc5c65;
+  }
+  .highlight-box.action .label { color: #fc5c65; font-size: 11px; font-weight: bold; text-transform: uppercase; letter-spacing: 1px; }
+  .highlight-box.action .value { color: #333; font-size: 18px; font-weight: bold; margin-top: 2px; }
+  .highlight-box.action .tip { color: #888; font-size: 12px; margin-top: 4px; }
+
+  /* Section titles */
+  .section-title {
+    font-size: 16px;
+    color: #f4a261;
+    margin: 20px 0 8px 0;
+    border-bottom: 2px solid #f4d35e;
+    padding-bottom: 4px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+
+  .section-desc {
+    font-size: 14px;
+    color: #555;
+    margin-bottom: 12px;
+    max-width: 900px;
+    line-height: 1.6;
+  }
+
+  .fact-list {
+    font-size: 14px;
+    max-width: 900px;
+    padding-left: 24px;
+    margin-bottom: 16px;
+    line-height: 1.8;
+  }
+
+  /* Tables */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+    font-size: 13px;
+  }
+  thead th {
+    background: #5a6a6a;
+    color: #fff;
+    padding: 8px 6px;
+    text-align: left;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  tbody td {
+    padding: 6px;
+    border-bottom: 1px solid #eee;
+    vertical-align: top;
+  }
+  tbody tr:nth-child(even) {
+    background: #fafafa;
+  }
+  tbody tr.priority-high {
+    background: #fef3e2;
+  }
+  .name-col { font-weight: 600; white-space: nowrap; }
+  .effect-col { font-size: 12px; color: #555; }
+  .priority-col { font-weight: bold; text-align: center; }
+  .type-badge {
+    display: inline-block;
+    padding: 1px 6px;
+    border-radius: 8px;
+    font-size: 10px;
+    font-weight: bold;
+    text-transform: uppercase;
+  }
+  .type-passive { background: #e8f5e9; color: #43a047; }
+  .type-active { background: #fff3e0; color: #f4a261; }
+
+  /* Build cards */
+  .build-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-bottom: 20px;
+  }
+  .build-card {
+    border: 2px solid #ddd;
+    border-radius: 8px;
+    padding: 14px;
+  }
+  .build-card h3 {
+    font-size: 15px;
+    margin-bottom: 8px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  .build-card.engineer { border-color: #5bc0de; }
+  .build-card.engineer h3 { color: #5bc0de; }
+  .build-card.warleader { border-color: #fc5c65; }
+  .build-card.warleader h3 { color: #fc5c65; }
+  .build-card ol {
+    padding-left: 20px;
+    font-size: 13px;
+    line-height: 1.8;
+  }
+  .build-card .phase {
+    font-weight: bold;
+    color: #5a6a6a;
+    margin-top: 8px;
+    font-size: 12px;
+    text-transform: uppercase;
+  }
+
+  /* Decision table */
+  .decision-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-bottom: 20px;
+  }
+  .decision-card {
+    border-radius: 8px;
+    padding: 16px;
+    text-align: center;
+  }
+  .decision-card h3 {
+    font-size: 16px;
+    margin-bottom: 8px;
+  }
+  .decision-card ul {
+    text-align: left;
+    padding-left: 20px;
+    font-size: 13px;
+    line-height: 1.8;
+  }
+  .decision-card.eng {
+    background: #e4f3f8;
+    border: 2px solid #5bc0de;
+  }
+  .decision-card.eng h3 { color: #5bc0de; }
+  .decision-card.wl {
+    background: #fff0f0;
+    border: 2px solid #fc5c65;
+  }
+  .decision-card.wl h3 { color: #fc5c65; }
+
+  /* Footer */
+  .footer {
+    text-align: center;
+    padding: 14px 0;
+    font-size: 12px;
+    color: #888;
+    border-top: 1px solid #eee;
+    margin-top: 16px;
+  }
+
+  /* Navigation Bar */
+  .guide-nav {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px 12px;
+    align-items: center;
+    padding: 6px 16px;
+    background: #f0f5f4;
+    border-bottom: 2px solid #7fb3a8;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 12px;
+    margin: -12px -16px 12px -16px;
+  }
+  .guide-nav a {
+    color: #5a6a6a;
+    text-decoration: none;
+    padding: 2px 6px;
+    border-radius: 3px;
+    white-space: nowrap;
+  }
+  .guide-nav a:hover { color: #f4a261; background: #fff; }
+  .guide-nav a.current {
+    color: #f4a261;
+    font-weight: bold;
+    background: #fff;
+    border: 1px solid #f4a261;
+  }
+  .guide-nav .nav-home {
+    font-weight: bold;
+    margin-right: 8px;
+    padding-right: 12px;
+    border-right: 1px solid #7fb3a8;
+  }
+
+  /* Language Toggle */
+  .lang-toggle {
+    display: inline-flex; align-items: center; gap: 4px;
+    background: #f0f5f4; border: 2px solid #7fb3a8; border-radius: 20px;
+    padding: 2px 4px; cursor: pointer; font-family: 'Segoe UI', sans-serif;
+    font-size: 12px; font-weight: 700; user-select: none;
+  }
+  .lang-btn {
+    padding: 2px 10px; border-radius: 16px; border: none; cursor: pointer;
+    font-size: 12px; font-weight: 700; background: transparent; color: #888;
+    transition: all 0.2s;
+  }
+  .lang-btn.active { background: #5a6a6a; color: #fff; }
+  .lang-btn:hover:not(.active) { color: #5a6a6a; }
+
+  /* Responsive */
+  @media (max-width: 600px) {
+    body { padding: 8px 10px; }
+    .top-bar { flex-direction: column; text-align: center; gap: 6px; }
+    .top-bar .right { justify-content: center; }
+    .top-bar .left h1 { font-size: 20px; }
+    .build-grid, .decision-grid { grid-template-columns: 1fr; }
+    table { font-size: 11px; }
+    thead th { font-size: 9px; padding: 6px 4px; }
+    tbody td { padding: 5px 4px; }
+    .guide-nav {
+      padding: 4px 10px;
+      gap: 3px 8px;
+      font-size: 11px;
+      margin: -8px -10px 8px -10px;
+    }
+    .highlight-box .value { font-size: 16px; }
+  }
+</style>
+</head>
+<body>
+
+<nav class="guide-nav" id="guide-nav"></nav>
+<script src="../nav.js"></script>
+
+<div class="top-bar">
+  <div class="left">
+    <h1 data-i18n="title">Profession Hall Guide</h1>
+    <div class="sub" data-i18n="subtitle">Choose Your Path. Engineer or War Leader.</div>
+  </div>
+  <div class="right">
+    <div class="lang-toggle">
+      <button class="lang-btn active" onclick="setLang('en')">EN</button>
+      <button class="lang-btn" onclick="setLang('es')">ES</button>
+    </div>
+    <img src="skynet_logo.png" alt="OWOW">
+    <div class="alliance-tag">[OWOW] Old World Order</div>
+  </div>
+</div>
+
+<div class="highlight-box info wide">
+  <div class="label" data-i18n="hb1_label">Profession Hall</div>
+  <div class="value" data-i18n="hb1_value">Unlocks at Season 1 &mdash; Choose Engineer or War Leader, earn skill points, build your advantage.</div>
+  <div class="tip" data-i18n="hb1_tip">1 skill point per level. Season 1 cap = Lv 40 (40 pts). Season 2 = Lv 70. Season 3+ = Lv 100. Skills persist across seasons!</div>
+</div>
+
+<!-- SECTION 1 -->
+<h2 class="section-title" data-i18n="s1_title">1. What is the Profession Hall?</h2>
+
+<p class="section-desc" data-i18n="s1_desc">
+  The Profession Hall is a building that unlocks in Season 1. Inside, you choose one of two professions &mdash; <strong>Engineer</strong> or <strong>War Leader</strong> &mdash; and invest skill points as you level up. Each profession has a unique skill tree with passive and active abilities that permanently boost your account.
+</p>
+
+<ul class="fact-list">
+  <li data-i18n="s1_f1"><strong>Access:</strong> Season 1 event menu &rarr; Profession, or tap the Profession Hall building</li>
+  <li data-i18n="s1_f2"><strong>Three options:</strong> Engineer, War Leader, or Diplomat (Diplomat not yet available)</li>
+  <li data-i18n="s1_f3"><strong>Not permanent:</strong> You can switch professions using a Profession Change Certificate (resets all skills)</li>
+  <li data-i18n="s1_f4"><strong>Building actions:</strong> Professions (choose/view), Profession Skills (allocate points), Building Info</li>
+</ul>
+
+<!-- SECTION 2 -->
+<h2 class="section-title" data-i18n="s2_title">2. How Leveling Works</h2>
+
+<p class="section-desc" data-i18n="s2_desc">
+  You earn <strong>1 skill point per profession level</strong>. New skills unlock every 5 levels. Each skill can be upgraded from Level 1 to its max (usually 5). You can also gain up to <strong>10 bonus skill point items</strong> per season from events and rewards.
+</p>
+
+<table>
+  <thead>
+    <tr>
+      <th data-i18n="th_detail">Detail</th>
+      <th data-i18n="th_s1">Season 1</th>
+      <th data-i18n="th_s2">Season 2</th>
+      <th data-i18n="th_s3">Season 3+</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td class="name-col" data-i18n="s2_cap">Level Cap</td>
+      <td>40</td>
+      <td>70</td>
+      <td>100</td>
+    </tr>
+    <tr>
+      <td class="name-col" data-i18n="s2_pts">Skill Points (from levels)</td>
+      <td>40</td>
+      <td>70</td>
+      <td>100</td>
+    </tr>
+    <tr>
+      <td class="name-col" data-i18n="s2_bonus">Bonus Items (max per season)</td>
+      <td>+10</td>
+      <td>+10</td>
+      <td>+10</td>
+    </tr>
+    <tr>
+      <td class="name-col" data-i18n="s2_total">Max Total</td>
+      <td><strong>50</strong></td>
+      <td><strong>80</strong></td>
+      <td><strong>110</strong></td>
+    </tr>
+  </tbody>
+</table>
+
+<ul class="fact-list">
+  <li data-i18n="s2_xp1"><strong>How to earn XP:</strong> Kill monsters on the World Map, capture cities, upgrade seasonal buildings, use Profession EXP Books</li>
+  <li data-i18n="s2_xp2"><strong>Excess XP:</strong> Once you hit the cap, excess converts to storage and transfers via mail at the next season&rsquo;s start</li>
+  <li data-i18n="s2_xp3"><strong>Seasonal skills</strong> (green background in-game) reset each season. Skill points spent on them are refunded.</li>
+</ul>
+
+<!-- SECTION 3: Engineer -->
+<h2 class="section-title" data-i18n="s3_title">3. Engineer &mdash; Full Skill Table</h2>
+
+<p class="section-desc" data-i18n="s3_desc">
+  The Engineer is the best choice for most players, especially F2P. Focused on construction speed, research speed, resource savings, and team support. Permanent skills (not seasonal) are listed below.
+</p>
+
+<table>
+  <thead>
+    <tr>
+      <th data-i18n="th_unlock">Unlock</th>
+      <th data-i18n="th_skill">Skill</th>
+      <th data-i18n="th_type">Type</th>
+      <th data-i18n="th_max">Max</th>
+      <th data-i18n="th_effect">Effect (at Max Level)</th>
+      <th data-i18n="th_cd">CD</th>
+      <th data-i18n="th_priority">Priority</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr class="priority-high">
+      <td>Lv 1</td>
+      <td class="name-col">Rapid Production</td>
+      <td><span class="type-badge type-active">Active</span></td>
+      <td>5</td>
+      <td class="effect-col" data-i18n="e_rapid_prod">Instantly collect 20 hours of Food, Iron &amp; Coin production</td>
+      <td>24h</td>
+      <td class="priority-col" style="color:#fc5c65;">High</td>
+    </tr>
+    <tr class="priority-high">
+      <td>Lv 1</td>
+      <td class="name-col">Outstanding Contribution</td>
+      <td><span class="type-badge type-passive">Passive</span></td>
+      <td>1</td>
+      <td class="effect-col" data-i18n="e_outstanding">+100% Alliance Contribution points from tech donations (does not affect Contribution Score)</td>
+      <td>&mdash;</td>
+      <td class="priority-col" style="color:#fc5c65;">High</td>
+    </tr>
+    <tr class="priority-high">
+      <td>Lv 5</td>
+      <td class="name-col">Extra Meal</td>
+      <td><span class="type-badge type-passive">Passive</span></td>
+      <td>1</td>
+      <td class="effect-col" data-i18n="e_extra_meal">+50% daily free stamina (75 packs instead of 50)</td>
+      <td>&mdash;</td>
+      <td class="priority-col" style="color:#fc5c65;">High</td>
+    </tr>
+    <tr>
+      <td>Lv 5</td>
+      <td class="name-col">Siege Mastery</td>
+      <td><span class="type-badge type-passive">Passive</span></td>
+      <td>5</td>
+      <td class="effect-col" data-i18n="e_siege_mastery">+500 unit durability damage to cities</td>
+      <td>&mdash;</td>
+      <td class="priority-col" style="color:#f4a261;">Med</td>
+    </tr>
+    <tr class="priority-high">
+      <td>Lv 10</td>
+      <td class="name-col">Build for Free</td>
+      <td><span class="type-badge type-passive">Passive</span></td>
+      <td>5</td>
+      <td class="effect-col" data-i18n="e_build_free">+240 min free construction speedup</td>
+      <td>&mdash;</td>
+      <td class="priority-col" style="color:#fc5c65;">High</td>
+    </tr>
+    <tr class="priority-high">
+      <td>Lv 10</td>
+      <td class="name-col">Research for Free</td>
+      <td><span class="type-badge type-passive">Passive</span></td>
+      <td>5</td>
+      <td class="effect-col" data-i18n="e_research_free">+240 min free research speedup</td>
+      <td>&mdash;</td>
+      <td class="priority-col" style="color:#fc5c65;">High</td>
+    </tr>
+    <tr class="priority-high">
+      <td>Lv 15</td>
+      <td class="name-col">Build Now</td>
+      <td><span class="type-badge type-active">Active</span></td>
+      <td>5</td>
+      <td class="effect-col" data-i18n="e_build_now">Instantly reduce all construction queue time by 600 min (10 hrs)</td>
+      <td>48h</td>
+      <td class="priority-col" style="color:#fc5c65;">High</td>
+    </tr>
+    <tr class="priority-high">
+      <td>Lv 15</td>
+      <td class="name-col">Research Now</td>
+      <td><span class="type-badge type-active">Active</span></td>
+      <td>5</td>
+      <td class="effect-col" data-i18n="e_research_now">Instantly reduce all research queue time by 1,200 min (20 hrs)</td>
+      <td>48h</td>
+      <td class="priority-col" style="color:#fc5c65;">High</td>
+    </tr>
+    <tr>
+      <td>Lv 20</td>
+      <td class="name-col">Rally Rush</td>
+      <td><span class="type-badge type-passive">Passive</span></td>
+      <td>5</td>
+      <td class="effect-col" data-i18n="e_rally_rush">+50% troop march speed when joining/returning from rallies</td>
+      <td>&mdash;</td>
+      <td class="priority-col">Low</td>
+    </tr>
+    <tr>
+      <td>Lv 20</td>
+      <td class="name-col">Siege Banner</td>
+      <td><span class="type-badge type-active">Active</span></td>
+      <td>1</td>
+      <td class="effect-col" data-i18n="e_siege_banner">Place banner: +100 durability damage for nearby allies, 30 min (stacks 5x)</td>
+      <td>72h</td>
+      <td class="priority-col" style="color:#f4a261;">Med</td>
+    </tr>
+    <tr>
+      <td>Lv 25</td>
+      <td class="name-col">Siege Inspiration</td>
+      <td><span class="type-badge type-passive">Passive</span></td>
+      <td>3</td>
+      <td class="effect-col" data-i18n="e_siege_insp">+60% Profession EXP from damaging city durability</td>
+      <td>&mdash;</td>
+      <td class="priority-col" style="color:#f4a261;">Med</td>
+    </tr>
+    <tr>
+      <td>Lv 25</td>
+      <td class="name-col">Friendly Aid</td>
+      <td><span class="type-badge type-passive">Passive</span></td>
+      <td>5</td>
+      <td class="effect-col" data-i18n="e_friendly_aid">-25% drill ground unit casualty rate when reinforcing an ally</td>
+      <td>&mdash;</td>
+      <td class="priority-col">Low</td>
+    </tr>
+    <tr class="priority-high">
+      <td>Lv 30</td>
+      <td class="name-col">Cooperative Construction</td>
+      <td><span class="type-badge type-active">Active</span></td>
+      <td>2</td>
+      <td class="effect-col" data-i18n="e_coop_build">+20% building speed for you AND a selected ally for 60 min (does not stack)</td>
+      <td>24h</td>
+      <td class="priority-col" style="color:#fc5c65;">High</td>
+    </tr>
+    <tr class="priority-high">
+      <td>Lv 30</td>
+      <td class="name-col">Cooperative Research</td>
+      <td><span class="type-badge type-active">Active</span></td>
+      <td>2</td>
+      <td class="effect-col" data-i18n="e_coop_research">+20% research speed for you AND a selected ally for 60 min (does not stack)</td>
+      <td>24h</td>
+      <td class="priority-col" style="color:#fc5c65;">High</td>
+    </tr>
+    <tr class="priority-high">
+      <td>Lv 35</td>
+      <td class="name-col">Resource-Saving</td>
+      <td><span class="type-badge type-passive">Passive</span></td>
+      <td>5</td>
+      <td class="effect-col" data-i18n="e_resource_save">-5% Food, Iron &amp; Coin cost for construction</td>
+      <td>&mdash;</td>
+      <td class="priority-col" style="color:#fc5c65;">High</td>
+    </tr>
+    <tr class="priority-high">
+      <td>Lv 35</td>
+      <td class="name-col">Recycling</td>
+      <td><span class="type-badge type-passive">Passive</span></td>
+      <td>5</td>
+      <td class="effect-col" data-i18n="e_recycling">-5% Food, Iron &amp; Coin cost for research</td>
+      <td>&mdash;</td>
+      <td class="priority-col" style="color:#fc5c65;">High</td>
+    </tr>
+    <tr>
+      <td>Lv 40</td>
+      <td class="name-col">Medical Aid</td>
+      <td><span class="type-badge type-active">Active</span></td>
+      <td>5</td>
+      <td class="effect-col" data-i18n="e_medical_aid">+50% Hospital Capacity for you and an ally, 240 min</td>
+      <td>72h</td>
+      <td class="priority-col" style="color:#f4a261;">Med</td>
+    </tr>
+    <tr>
+      <td>Lv 40</td>
+      <td class="name-col">Buddy Shield</td>
+      <td><span class="type-badge type-active">Active</span></td>
+      <td>3</td>
+      <td class="effect-col" data-i18n="e_buddy_shield">Activate a 4-hour shield for yourself or an ally</td>
+      <td>72h</td>
+      <td class="priority-col" style="color:#f4a261;">Med</td>
+    </tr>
+    <tr class="priority-high">
+      <td>Lv 45</td>
+      <td class="name-col">Drone Supply</td>
+      <td><span class="type-badge type-active">Active</span></td>
+      <td>5</td>
+      <td class="effect-col" data-i18n="e_drone_supply">Instantly gain drone upgrade resources</td>
+      <td>24h</td>
+      <td class="priority-col" style="color:#fc5c65;">High</td>
+    </tr>
+    <tr>
+      <td>Lv 45</td>
+      <td class="name-col">Fearless Defense</td>
+      <td><span class="type-badge type-passive">Passive</span></td>
+      <td>5</td>
+      <td class="effect-col" data-i18n="e_fearless">Deal damage to enemies based on your troop losses (5% at max)</td>
+      <td>&mdash;</td>
+      <td class="priority-col">Low</td>
+    </tr>
+    <tr>
+      <td>Lv 50</td>
+      <td class="name-col">Random Visitors</td>
+      <td><span class="type-badge type-active">Active</span></td>
+      <td>5</td>
+      <td class="effect-col" data-i18n="e_random_visitors">Summon a random survivor</td>
+      <td>120h</td>
+      <td class="priority-col">Low</td>
+    </tr>
+    <tr>
+      <td>Lv 50</td>
+      <td class="name-col">Durability Mine</td>
+      <td><span class="type-badge type-active">Active</span></td>
+      <td>5</td>
+      <td class="effect-col" data-i18n="e_dur_mine">Place mine that removes 10% enemy troop units on land. Max 2 mines, generates 1 per 12h</td>
+      <td>&mdash;</td>
+      <td class="priority-col">Low</td>
+    </tr>
+  </tbody>
+</table>
+
+<!-- SECTION 4: War Leader -->
+<h2 class="section-title" data-i18n="s4_title">4. War Leader &mdash; Full Skill Table</h2>
+
+<p class="section-desc" data-i18n="s4_desc">
+  The War Leader is built for combat &mdash; rally damage, troop training speed, hospital capacity, and battlefield control. Best for alliance leaders, rally callers, and aggressive PvP players.
+</p>
+
+<table>
+  <thead>
+    <tr>
+      <th data-i18n="th_unlock">Unlock</th>
+      <th data-i18n="th_skill">Skill</th>
+      <th data-i18n="th_type">Type</th>
+      <th data-i18n="th_max">Max</th>
+      <th data-i18n="th_effect">Effect (at Max Level)</th>
+      <th data-i18n="th_cd">CD</th>
+      <th data-i18n="th_priority">Priority</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Lv 1</td>
+      <td class="name-col">Immediate Return</td>
+      <td><span class="type-badge type-passive">Passive</span></td>
+      <td>5</td>
+      <td class="effect-col" data-i18n="w_imm_return">Instantly return squad on first teleport use</td>
+      <td>&mdash;</td>
+      <td class="priority-col">Low</td>
+    </tr>
+    <tr class="priority-high">
+      <td>Lv 1</td>
+      <td class="name-col">Unit Mobilization</td>
+      <td><span class="type-badge type-active">Active</span></td>
+      <td>5</td>
+      <td class="effect-col" data-i18n="w_unit_mob">Instantly receive 250 high-level units</td>
+      <td>&mdash;</td>
+      <td class="priority-col" style="color:#fc5c65;">High</td>
+    </tr>
+    <tr>
+      <td>Lv 5</td>
+      <td class="name-col">Drill Ground Prep</td>
+      <td><span class="type-badge type-passive">Passive</span></td>
+      <td>5</td>
+      <td class="effect-col" data-i18n="w_drill_prep">Increases drill ground capacity</td>
+      <td>&mdash;</td>
+      <td class="priority-col" style="color:#f4a261;">Med</td>
+    </tr>
+    <tr class="priority-high">
+      <td>Lv 5</td>
+      <td class="name-col">Hospital Prep</td>
+      <td><span class="type-badge type-passive">Passive</span></td>
+      <td>5</td>
+      <td class="effect-col" data-i18n="w_hosp_prep">Increases hospital capacity</td>
+      <td>&mdash;</td>
+      <td class="priority-col" style="color:#fc5c65;">High</td>
+    </tr>
+    <tr>
+      <td>Lv 10</td>
+      <td class="name-col">Craze</td>
+      <td><span class="type-badge type-passive">Passive</span></td>
+      <td>5</td>
+      <td class="effect-col" data-i18n="w_craze">Boosts damage during war fever</td>
+      <td>&mdash;</td>
+      <td class="priority-col" style="color:#f4a261;">Med</td>
+    </tr>
+    <tr>
+      <td>Lv 10</td>
+      <td class="name-col">Urgent Cure</td>
+      <td><span class="type-badge type-active">Active</span></td>
+      <td>5</td>
+      <td class="effect-col" data-i18n="w_urgent_cure">Instantly heal 5,000 units</td>
+      <td>72h</td>
+      <td class="priority-col" style="color:#f4a261;">Med</td>
+    </tr>
+    <tr>
+      <td>Lv 15</td>
+      <td class="name-col">Winning Pursuit</td>
+      <td><span class="type-badge type-passive">Passive</span></td>
+      <td>5</td>
+      <td class="effect-col" data-i18n="w_pursuit">+5% enemy death rate when attacking burning targets</td>
+      <td>&mdash;</td>
+      <td class="priority-col" style="color:#f4a261;">Med</td>
+    </tr>
+    <tr class="priority-high">
+      <td>Lv 15</td>
+      <td class="name-col">Intensive Training</td>
+      <td><span class="type-badge type-passive">Passive</span></td>
+      <td>5</td>
+      <td class="effect-col" data-i18n="w_intensive">Increases unit training speed</td>
+      <td>&mdash;</td>
+      <td class="priority-col" style="color:#fc5c65;">High</td>
+    </tr>
+    <tr>
+      <td>Lv 20</td>
+      <td class="name-col">March in Badlands</td>
+      <td><span class="type-badge type-passive">Passive</span></td>
+      <td>5</td>
+      <td class="effect-col" data-i18n="w_badlands">+march speed in contaminated land</td>
+      <td>&mdash;</td>
+      <td class="priority-col" style="color:#f4a261;">Med</td>
+    </tr>
+    <tr class="priority-high">
+      <td>Lv 20</td>
+      <td class="name-col">Warfare Supplies</td>
+      <td><span class="type-badge type-passive">Passive</span></td>
+      <td>5</td>
+      <td class="effect-col" data-i18n="w_warfare">Increases daily plunder cap</td>
+      <td>&mdash;</td>
+      <td class="priority-col" style="color:#fc5c65;">High</td>
+    </tr>
+    <tr class="priority-high">
+      <td>Lv 25</td>
+      <td class="name-col">Inspire</td>
+      <td><span class="type-badge type-passive">Passive</span></td>
+      <td>5</td>
+      <td class="effect-col" data-i18n="w_inspire">Boosts unit morale (combat effectiveness)</td>
+      <td>&mdash;</td>
+      <td class="priority-col" style="color:#fc5c65;">High</td>
+    </tr>
+    <tr>
+      <td>Lv 25</td>
+      <td class="name-col">Speed-up Reinforce</td>
+      <td><span class="type-badge type-passive">Passive</span></td>
+      <td>5</td>
+      <td class="effect-col" data-i18n="w_speed_reinforce">Increases reinforcement march speed</td>
+      <td>&mdash;</td>
+      <td class="priority-col">Low</td>
+    </tr>
+    <tr class="priority-high">
+      <td>Lv 30</td>
+      <td class="name-col">Team Strike</td>
+      <td><span class="type-badge type-passive">Passive</span></td>
+      <td>5</td>
+      <td class="effect-col" data-i18n="w_team_strike">Boost damage for ALL squads in a rally when you participate or initiate</td>
+      <td>&mdash;</td>
+      <td class="priority-col" style="color:#fc5c65;">High</td>
+    </tr>
+    <tr>
+      <td>Lv 30</td>
+      <td class="name-col">Disguise</td>
+      <td><span class="type-badge type-active">Active</span></td>
+      <td>5</td>
+      <td class="effect-col" data-i18n="w_disguise">Hide your base info for 30 min</td>
+      <td>48h</td>
+      <td class="priority-col">Low</td>
+    </tr>
+    <tr>
+      <td>Lv 35</td>
+      <td class="name-col">Tactical Reinforce</td>
+      <td><span class="type-badge type-passive">Passive</span></td>
+      <td>5</td>
+      <td class="effect-col" data-i18n="w_tac_reinforce">Increases attacker death rate (defense boost)</td>
+      <td>&mdash;</td>
+      <td class="priority-col" style="color:#f4a261;">Med</td>
+    </tr>
+    <tr>
+      <td>Lv 35</td>
+      <td class="name-col">Reinforce Strengthen</td>
+      <td><span class="type-badge type-passive">Passive</span></td>
+      <td>5</td>
+      <td class="effect-col" data-i18n="w_reinforce_str">Boosts defensive heroes&rsquo; stats when reinforcing</td>
+      <td>&mdash;</td>
+      <td class="priority-col" style="color:#f4a261;">Med</td>
+    </tr>
+    <tr>
+      <td>Lv 40</td>
+      <td class="name-col">Decay Ray</td>
+      <td><span class="type-badge type-passive">Passive</span></td>
+      <td>5</td>
+      <td class="effect-col" data-i18n="w_decay_ray">Permanently downgrade 1,000 enemy units daily when attacking</td>
+      <td>&mdash;</td>
+      <td class="priority-col" style="color:#f4a261;">Med</td>
+    </tr>
+    <tr class="priority-high">
+      <td>Lv 40</td>
+      <td class="name-col">Charge Banner</td>
+      <td><span class="type-badge type-active">Active</span></td>
+      <td>1</td>
+      <td class="effect-col" data-i18n="w_charge_banner">Place banner: +2% ally attack within range, 30 min</td>
+      <td>72h</td>
+      <td class="priority-col" style="color:#fc5c65;">High</td>
+    </tr>
+    <tr class="priority-high">
+      <td>Lv 45</td>
+      <td class="name-col">Hold the Base</td>
+      <td><span class="type-badge type-passive">Passive</span></td>
+      <td>5</td>
+      <td class="effect-col" data-i18n="w_hold_base">+5% wall defense hero stats</td>
+      <td>&mdash;</td>
+      <td class="priority-col" style="color:#fc5c65;">High</td>
+    </tr>
+    <tr>
+      <td>Lv 45</td>
+      <td class="name-col">Rally Guard</td>
+      <td><span class="type-badge type-passive">Passive</span></td>
+      <td>5</td>
+      <td class="effect-col" data-i18n="w_rally_guard">-5% rally squad death rate</td>
+      <td>&mdash;</td>
+      <td class="priority-col" style="color:#f4a261;">Med</td>
+    </tr>
+    <tr class="priority-high">
+      <td>Lv 50</td>
+      <td class="name-col">Base Strike</td>
+      <td><span class="type-badge type-passive">Passive</span></td>
+      <td>5</td>
+      <td class="effect-col" data-i18n="w_base_strike">+5% attacking hero stats</td>
+      <td>&mdash;</td>
+      <td class="priority-col" style="color:#fc5c65;">High</td>
+    </tr>
+    <tr>
+      <td>Lv 50</td>
+      <td class="name-col">Destruction Mine</td>
+      <td><span class="type-badge type-active">Active</span></td>
+      <td>5</td>
+      <td class="effect-col" data-i18n="w_dest_mine">Place mine that kills 50 drill ground units. Max 2, generates 1 per 72h</td>
+      <td>&mdash;</td>
+      <td class="priority-col">Low</td>
+    </tr>
+  </tbody>
+</table>
+
+<!-- SECTION 5: Seasonal Skills -->
+<h2 class="section-title" data-i18n="s5_title">5. Seasonal Skills</h2>
+
+<p class="section-desc" data-i18n="s5_desc">
+  Each season adds special skills (shown with a green background in-game). These skills <strong>reset at the end of the season</strong> and all skill points spent on them are refunded. Both professions share the same seasonal skills.
+</p>
+
+<table>
+  <thead>
+    <tr>
+      <th data-i18n="th_unlock">Unlock</th>
+      <th data-i18n="th_skill">Skill (Season 1)</th>
+      <th data-i18n="th_max">Max</th>
+      <th data-i18n="th_effect">Effect</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr class="priority-high">
+      <td>Lv 1</td>
+      <td class="name-col">Combat Experience</td>
+      <td>3</td>
+      <td class="effect-col" data-i18n="ss_combat_xp">+60% Profession EXP from killing World Map monsters</td>
+    </tr>
+    <tr class="priority-high">
+      <td>Lv 5</td>
+      <td class="name-col">Building Inspiration I</td>
+      <td>3</td>
+      <td class="effect-col" data-i18n="ss_build_insp1">+15% Profession EXP from upgrading seasonal buildings</td>
+    </tr>
+    <tr>
+      <td>Lv 10</td>
+      <td class="name-col">Infection Spread</td>
+      <td>1</td>
+      <td class="effect-col" data-i18n="ss_infection">Infect enemies with virus by defeating them after you&rsquo;ve been poisoned</td>
+    </tr>
+    <tr>
+      <td>Lv 15</td>
+      <td class="name-col">Healing Expert</td>
+      <td>1</td>
+      <td class="effect-col" data-i18n="ss_healing">Remove 1 extra virus stack when curing an ally</td>
+    </tr>
+    <tr>
+      <td>Lv 20</td>
+      <td class="name-col">Double Exchange</td>
+      <td>3</td>
+      <td class="effect-col" data-i18n="ss_exchange">Exchange seasonal resources at 1:2 ratio (up to 25,000), CD 48h</td>
+    </tr>
+    <tr>
+      <td>Lv 30</td>
+      <td class="name-col">Poison Trial</td>
+      <td>1</td>
+      <td class="effect-col" data-i18n="ss_poison">Raise virus stack limit by +100</td>
+    </tr>
+    <tr>
+      <td>Lv 35</td>
+      <td class="name-col">Professional Insights</td>
+      <td>5</td>
+      <td class="effect-col" data-i18n="ss_insights">Instantly gain 10% of current level&rsquo;s Profession EXP (max 20,000), CD 24h</td>
+    </tr>
+    <tr>
+      <td>Lv 50</td>
+      <td class="name-col">Virus Control</td>
+      <td>1</td>
+      <td class="effect-col" data-i18n="ss_virus_ctrl">Defeat Doom Walker for a chance to get summoning item to target specific enemies</td>
+    </tr>
+  </tbody>
+</table>
+
+<div class="highlight-box info wide">
+  <div class="label" data-i18n="hb_seasonal_label">Seasonal Skills Note</div>
+  <div class="value" data-i18n="hb_seasonal_value">Seasonal skills change every season! S2 has different skills than S1. Points are always refunded on reset.</div>
+  <div class="tip" data-i18n="hb_seasonal_tip">Prioritize Combat Experience and Building Inspiration early &mdash; they accelerate your profession leveling for the rest of the season.</div>
+</div>
+
+<!-- SECTION 6: Which Profession -->
+<h2 class="section-title" data-i18n="s6_title">6. Which Profession Should You Choose?</h2>
+
+<div class="decision-grid">
+  <div class="decision-card eng">
+    <h3 data-i18n="s6_eng_title">Engineer</h3>
+    <ul>
+      <li data-i18n="s6_eng1">Best for <strong>F2P and development-focused</strong> players</li>
+      <li data-i18n="s6_eng2">Construction &amp; research speedups save real days of building time</li>
+      <li data-i18n="s6_eng3">Resource cost reduction (-5% build, -5% research) compounds massively</li>
+      <li data-i18n="s6_eng4">Cooperative Construction/Research buffs help your entire alliance</li>
+      <li data-i18n="s6_eng5">Extra stamina (+50%) = more radar missions, attacks, resource gathering</li>
+      <li data-i18n="s6_eng6">Buddy Shield = free 4hr shield for you or an ally</li>
+    </ul>
+  </div>
+  <div class="decision-card wl">
+    <h3 data-i18n="s6_wl_title">War Leader</h3>
+    <ul>
+      <li data-i18n="s6_wl1">Best for <strong>rally callers, R4/R5 officers, and PvP fighters</strong></li>
+      <li data-i18n="s6_wl2">Team Strike boosts ALL squads in your rallies</li>
+      <li data-i18n="s6_wl3">Hospital Prep + Intensive Training = faster war recovery</li>
+      <li data-i18n="s6_wl4">Charge Banner = +2% alliance-wide attack boost during wars</li>
+      <li data-i18n="s6_wl5">Decay Ray permanently downgrades 1,000 enemy troops daily</li>
+      <li data-i18n="s6_wl6">Base Strike &amp; Hold the Base = +5% hero stats (offense and defense)</li>
+    </ul>
+  </div>
+</div>
+
+<div class="highlight-box action wide">
+  <div class="label" data-i18n="hb_choice_label">OWOW Recommendation</div>
+  <div class="value" data-i18n="hb_choice_value">Most OWOW members should go Engineer. R4/R5 rally leaders should consider War Leader.</div>
+  <div class="tip" data-i18n="hb_choice_tip">You can switch later with a Profession Change Certificate. Your first pick is not permanent &mdash; but switching resets all skill points, so choose wisely.</div>
+</div>
+
+<!-- SECTION 7: Recommended Builds -->
+<h2 class="section-title" data-i18n="s7_title">7. Recommended Skill Builds</h2>
+
+<p class="section-desc" data-i18n="s7_desc">
+  You won&rsquo;t have enough points for everything. Here&rsquo;s the priority order for each profession at each season cap.
+</p>
+
+<div class="build-grid">
+  <div class="build-card engineer">
+    <h3 data-i18n="s7_eng_title">Engineer Build Path</h3>
+    <div class="phase" data-i18n="s7_eng_p1">Season 1 (40 pts)</div>
+    <ol>
+      <li data-i18n="s7_eng1">Combat Experience 3/3 (seasonal, accelerates leveling)</li>
+      <li data-i18n="s7_eng2">Outstanding Contribution 1/1</li>
+      <li data-i18n="s7_eng3">Extra Meal 1/1</li>
+      <li data-i18n="s7_eng4">Building Inspiration I 3/3 (seasonal)</li>
+      <li data-i18n="s7_eng5">Build for Free 5/5</li>
+      <li data-i18n="s7_eng6">Research for Free 5/5</li>
+      <li data-i18n="s7_eng7">Build Now 5/5</li>
+      <li data-i18n="s7_eng8">Research Now 5/5</li>
+      <li data-i18n="s7_eng9">Rapid Production 5/5</li>
+      <li data-i18n="s7_eng10">Remaining: Siege Mastery or Rally Rush</li>
+    </ol>
+    <div class="phase" data-i18n="s7_eng_p2">Season 2+ (70-100 pts)</div>
+    <ol start="11">
+      <li data-i18n="s7_eng11">Cooperative Construction 2/2</li>
+      <li data-i18n="s7_eng12">Cooperative Research 2/2</li>
+      <li data-i18n="s7_eng13">Resource-Saving 5/5</li>
+      <li data-i18n="s7_eng14">Recycling 5/5</li>
+      <li data-i18n="s7_eng15">Buddy Shield 3/3</li>
+      <li data-i18n="s7_eng16">Drone Supply 5/5</li>
+    </ol>
+  </div>
+  <div class="build-card warleader">
+    <h3 data-i18n="s7_wl_title">War Leader Build Path</h3>
+    <div class="phase" data-i18n="s7_wl_p1">Season 1 (40 pts)</div>
+    <ol>
+      <li data-i18n="s7_wl1">Combat Experience 3/3 (seasonal)</li>
+      <li data-i18n="s7_wl2">Unit Mobilization 5/5</li>
+      <li data-i18n="s7_wl3">Hospital Prep 5/5</li>
+      <li data-i18n="s7_wl4">Building Inspiration I 3/3 (seasonal)</li>
+      <li data-i18n="s7_wl5">Intensive Training 5/5</li>
+      <li data-i18n="s7_wl6">Warfare Supplies 5/5</li>
+      <li data-i18n="s7_wl7">Inspire 5/5</li>
+      <li data-i18n="s7_wl8">Remaining: Craze, Urgent Cure, Drill Ground Prep</li>
+    </ol>
+    <div class="phase" data-i18n="s7_wl_p2">Season 2+ (70-100 pts)</div>
+    <ol start="9">
+      <li data-i18n="s7_wl9">Team Strike 5/5 (god-tier rally skill)</li>
+      <li data-i18n="s7_wl10">Charge Banner 1/1</li>
+      <li data-i18n="s7_wl11">Hold the Base 5/5</li>
+      <li data-i18n="s7_wl12">Base Strike 5/5</li>
+      <li data-i18n="s7_wl13">Rally Guard 5/5</li>
+      <li data-i18n="s7_wl14">Reinforce Strengthen 5/5</li>
+    </ol>
+  </div>
+</div>
+
+<!-- SECTION 8: Alliance Composition -->
+<h2 class="section-title" data-i18n="s8_title">8. Alliance Team Composition</h2>
+
+<p class="section-desc" data-i18n="s8_desc">
+  A strong alliance needs <strong>both</strong> professions working together. Engineers buff the alliance&rsquo;s growth, War Leaders buff the alliance&rsquo;s combat power.
+</p>
+
+<table>
+  <thead>
+    <tr>
+      <th data-i18n="th_role2">Role</th>
+      <th data-i18n="th_profession">Profession</th>
+      <th data-i18n="th_why2">Why</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr class="priority-high">
+      <td class="name-col" data-i18n="s8_most">Most Members (70-80%)</td>
+      <td>Engineer</td>
+      <td class="effect-col" data-i18n="s8_most_why">Cooperative Construction/Research sharing lifts the entire alliance. Resource savings compound. Buddy Shields protect during wars.</td>
+    </tr>
+    <tr class="priority-high">
+      <td class="name-col" data-i18n="s8_leaders">Rally Leaders / R4-R5 (20-30%)</td>
+      <td>War Leader</td>
+      <td class="effect-col" data-i18n="s8_leaders_why">Team Strike buffs ALL squads in rallies. Charge Banner provides alliance-wide attack boost. Their combat skills scale with rally size.</td>
+    </tr>
+  </tbody>
+</table>
+
+<div class="highlight-box info wide">
+  <div class="label" data-i18n="hb_team_label">Alliance Synergy</div>
+  <div class="value" data-i18n="hb_team_value">Engineers share Cooperative Construction/Research buffs daily &mdash; coordinate with alliance members to maximize coverage!</div>
+  <div class="tip" data-i18n="hb_team_tip">The Cooperative buffs do NOT stack. One Engineer buffs one ally. More Engineers = more people get buffed each day. War Leaders place Charge Banners during rallies for +2% attack.</div>
+</div>
+
+<!-- SECTION 9: Level Fast -->
+<h2 class="section-title" data-i18n="s9_title">9. How to Level Fast</h2>
+
+<ul class="fact-list">
+  <li data-i18n="s9_f1"><strong>Kill monsters on the World Map</strong> &mdash; Primary XP source. Use Combat Experience skill first (+60% XP).</li>
+  <li data-i18n="s9_f2"><strong>Upgrade seasonal buildings</strong> &mdash; Big XP chunks. Use Building Inspiration (+15% bonus XP).</li>
+  <li data-i18n="s9_f3"><strong>Capture cities</strong> &mdash; XP from durability damage. Siege Inspiration adds +60% XP from city fights.</li>
+  <li data-i18n="s9_f4"><strong>Profession EXP Books</strong> &mdash; From events, Battle Pass, rewards. Save them for after you unlock XP-boosting skills.</li>
+  <li data-i18n="s9_f5"><strong>Professional Insights</strong> (Lv 35 seasonal) &mdash; Free 10% of current level&rsquo;s XP every 24 hours.</li>
+  <li data-i18n="s9_f6"><strong>Excess XP carries over</strong> &mdash; Once maxed, surplus converts at a ratio and mails to you at next season start.</li>
+</ul>
+
+<div class="highlight-box action wide">
+  <div class="label" data-i18n="hb_level_label">Pro Tip</div>
+  <div class="value" data-i18n="hb_level_value">Skill Combat Experience (3/3) and Building Inspiration I (3/3) FIRST &mdash; they&rsquo;re seasonal and accelerate everything else.</div>
+  <div class="tip" data-i18n="hb_level_tip">Don&rsquo;t use Profession EXP Books until you have these skills active. The bonus XP applies to books too.</div>
+</div>
+
+<!-- SECTION 10: Reset & Change -->
+<h2 class="section-title" data-i18n="s10_title">10. Skill Reset &amp; Profession Change</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th data-i18n="th_item">Item</th>
+      <th data-i18n="th_what">What It Does</th>
+      <th data-i18n="th_source">Source</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td class="name-col" data-i18n="s10_reset">Profession Skill Reset Book</td>
+      <td class="effect-col" data-i18n="s10_reset_desc">Resets all current profession skills. Refunds all skill points. Does NOT change your profession.</td>
+      <td data-i18n="s10_reset_src">Light/electricity rewards, events</td>
+    </tr>
+    <tr>
+      <td class="name-col" data-i18n="s10_change">Profession Change Certificate</td>
+      <td class="effect-col" data-i18n="s10_change_desc">Switches you to the other profession. Resets ALL skills and refunds all points.</td>
+      <td data-i18n="s10_change_src">Events, Battle Pass, special offers</td>
+    </tr>
+    <tr>
+      <td class="name-col" data-i18n="s10_seasonal">Seasonal Skill Reset</td>
+      <td class="effect-col" data-i18n="s10_seasonal_desc">Happens automatically at end of each season. All seasonal (green) skills reset and points are refunded.</td>
+      <td data-i18n="s10_seasonal_src">Automatic</td>
+    </tr>
+  </tbody>
+</table>
+
+<p class="section-desc" data-i18n="s10_warn">
+  <strong>Plan your skills carefully.</strong> Reset items are limited &mdash; you may only get 1-2 per season. Don&rsquo;t waste points on skills you won&rsquo;t use just because they look cool.
+</p>
+
+<div class="footer">
+  <span data-i18n="footer_line1">[OWOW] Old World Order &bull; Profession Hall Guide &bull; Last War: Survival &bull; Kristen OWOW SKYNET</span>
+  <br><span data-i18n="footer_line2">Sources: lastwartutorial.com &bull; lastwargame.online &bull; lootbar.gg &bull; packsify.com</span>
+</div>
+
+<script>
+const T = {
+  es: {
+    title: 'Gu\u00eda del Sal\u00f3n de Profesiones',
+    subtitle: 'Elige Tu Camino. Ingeniero o L\u00edder de Guerra.',
+    hb1_label: 'Sal\u00f3n de Profesiones',
+    hb1_value: 'Se desbloquea en Temporada 1 \u2014 Elige Ingeniero o L\u00edder de Guerra, gana puntos de habilidad, construye tu ventaja.',
+    hb1_tip: '1 punto por nivel. T1 = Nv 40 (40 pts). T2 = Nv 70. T3+ = Nv 100. \u00a1Las habilidades persisten entre temporadas!',
+    s1_title: '1. \u00bfQu\u00e9 es el Sal\u00f3n de Profesiones?',
+    s1_desc: 'El Sal\u00f3n de Profesiones es un edificio que se desbloquea en la Temporada 1. Dentro, eliges una de dos profesiones \u2014 <strong>Ingeniero</strong> o <strong>L\u00edder de Guerra</strong> \u2014 e inviertes puntos de habilidad mientras subes de nivel.',
+    s1_f1: '<strong>Acceso:</strong> Men\u00fa de evento de Temporada 1 \u2192 Profesi\u00f3n, o toca el edificio del Sal\u00f3n',
+    s1_f2: '<strong>Tres opciones:</strong> Ingeniero, L\u00edder de Guerra, o Diplom\u00e1tico (a\u00fan no disponible)',
+    s1_f3: '<strong>No es permanente:</strong> Puedes cambiar con un Certificado de Cambio de Profesi\u00f3n',
+    s1_f4: '<strong>Acciones del edificio:</strong> Profesiones (elegir/ver), Habilidades, Info del Edificio',
+    s2_title: '2. C\u00f3mo Funciona el Nivel',
+    s2_desc: 'Ganas <strong>1 punto de habilidad por nivel</strong>. Nuevas habilidades se desbloquean cada 5 niveles. Cada habilidad se puede mejorar del Nivel 1 a su m\u00e1ximo (generalmente 5). Tambi\u00e9n puedes obtener hasta <strong>10 objetos de puntos extra</strong> por temporada.',
+    s3_title: '3. Ingeniero \u2014 Tabla Completa de Habilidades',
+    s3_desc: 'El Ingeniero es la mejor opci\u00f3n para la mayor\u00eda de jugadores, especialmente F2P. Enfocado en velocidad de construcci\u00f3n, investigaci\u00f3n, ahorro de recursos y apoyo al equipo.',
+    s4_title: '4. L\u00edder de Guerra \u2014 Tabla Completa de Habilidades',
+    s4_desc: 'El L\u00edder de Guerra est\u00e1 construido para combate \u2014 da\u00f1o en rally, velocidad de entrenamiento, capacidad hospitalaria y control del campo de batalla.',
+    s5_title: '5. Habilidades de Temporada',
+    s5_desc: 'Cada temporada agrega habilidades especiales (fondo verde en el juego). Estas habilidades <strong>se reinician al final de la temporada</strong> y los puntos se devuelven.',
+    s6_title: '6. \u00bfQu\u00e9 Profesi\u00f3n Elegir?',
+    s6_eng_title: 'Ingeniero',
+    s6_wl_title: 'L\u00edder de Guerra',
+    s6_eng1: 'Mejor para jugadores <strong>F2P y enfocados en desarrollo</strong>',
+    s6_eng2: 'Aceleraci\u00f3n de construcci\u00f3n e investigaci\u00f3n ahorra d\u00edas reales',
+    s6_eng3: 'Reducci\u00f3n de costos (-5% construcci\u00f3n, -5% investigaci\u00f3n) se acumula masivamente',
+    s6_eng4: 'Construcci\u00f3n/Investigaci\u00f3n Cooperativa ayuda a toda la alianza',
+    s6_eng5: 'Estamina extra (+50%) = m\u00e1s misiones de radar, ataques, recolecci\u00f3n',
+    s6_eng6: 'Escudo Amigo = escudo gratis de 4h para ti o un aliado',
+    s6_wl1: 'Mejor para <strong>l\u00edderes de rally, oficiales R4/R5 y luchadores PvP</strong>',
+    s6_wl2: 'Golpe de Equipo aumenta TODOS los escuadrones en tus rallies',
+    s6_wl3: 'Prep. Hospital + Entrenamiento Intensivo = recuperaci\u00f3n m\u00e1s r\u00e1pida',
+    s6_wl4: 'Banner de Carga = +2% ataque para toda la alianza durante guerras',
+    s6_wl5: 'Rayo de Decadencia degrada 1,000 tropas enemigas permanentemente cada d\u00eda',
+    s6_wl6: 'Golpe Base y Mantener Base = +5% estad\u00edsticas de h\u00e9roe (ofensa y defensa)',
+    hb_choice_label: 'Recomendaci\u00f3n OWOW',
+    hb_choice_value: 'La mayor\u00eda de miembros de OWOW deben elegir Ingeniero. L\u00edderes de rally R4/R5 deben considerar L\u00edder de Guerra.',
+    hb_choice_tip: 'Puedes cambiar despu\u00e9s con un Certificado. Tu primera elecci\u00f3n no es permanente \u2014 pero cambiar reinicia todos los puntos.',
+    s7_title: '7. Builds Recomendados',
+    s7_desc: 'No tendr\u00e1s suficientes puntos para todo. Aqu\u00ed est\u00e1 el orden de prioridad para cada profesi\u00f3n.',
+    s7_eng_title: 'Ruta del Ingeniero',
+    s7_wl_title: 'Ruta del L\u00edder de Guerra',
+    s8_title: '8. Composici\u00f3n de Equipo de Alianza',
+    s8_desc: 'Una alianza fuerte necesita <strong>ambas</strong> profesiones. Ingenieros impulsan el crecimiento, L\u00edderes de Guerra impulsan el poder de combate.',
+    s9_title: '9. C\u00f3mo Subir de Nivel R\u00e1pido',
+    s10_title: '10. Reinicio de Habilidades y Cambio de Profesi\u00f3n',
+    s10_warn: '<strong>Planifica tus habilidades con cuidado.</strong> Los objetos de reinicio son limitados. No desperdicies puntos en habilidades que no usar\u00e1s.',
+    footer_line1: '[OWOW] Old World Order \u2022 Gu\u00eda del Sal\u00f3n de Profesiones \u2022 Last War: Survival \u2022 Kristen OWOW SKYNET',
+    footer_line2: 'Fuentes: lastwartutorial.com \u2022 lastwargame.online \u2022 lootbar.gg \u2022 packsify.com'
+  }
+};
+
+const originals = {};
+function setLang(lang) {
+  document.querySelectorAll('.lang-btn').forEach(b => b.classList.toggle('active', b.textContent === lang.toUpperCase()));
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const key = el.getAttribute('data-i18n');
+    if (!originals[key]) originals[key] = el.innerHTML;
+    el.innerHTML = (lang === 'es' && T.es[key]) ? T.es[key] : originals[key];
+  });
+  document.getElementById('htmlRoot').lang = lang;
+  try { localStorage.setItem('owow-professions-lang', lang); } catch(e) {}
+}
+(function() {
+  try {
+    const saved = localStorage.getItem('owow-professions-lang');
+    if (saved === 'es') setLang('es');
+  } catch(e) {}
+})();
+</script>
+
+</body>
+</html>
