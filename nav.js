@@ -15,6 +15,7 @@
     { href: 'guides/drone_guide.html', label: 'Drone' },
     { href: 'guides/hero_planner.html', label: 'Hero Planner' },
     { href: 'guides/plunder_guide.html', label: 'Plunder' },
+    { href: 'guides/profession_hall.html', label: 'Professions' },
     { href: 'guides/radar_guide.html', label: 'Radar' },
     { href: 'research_trees_visual.html', label: 'Research Trees', root: true },
     { href: 'guides/s1_territory_map.html', label: 'S1 Map' },
