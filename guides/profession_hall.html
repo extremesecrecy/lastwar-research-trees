@@ -484,7 +484,7 @@
       <td class="name-col">Siege Banner</td>
       <td><span class="type-badge type-active">Active</span></td>
       <td>1</td>
-      <td class="effect-col" data-i18n="e_siege_banner">Place banner: +100 durability damage for nearby allies, 30 min (stacks 5x)</td>
+      <td class="effect-col" data-i18n="e_siege_banner">Place banner: +100 durability damage for nearby allies, 30 min</td>
       <td>72h</td>
       <td class="priority-col" style="color:#f4a261;">Med</td>
     </tr>
@@ -502,7 +502,7 @@
       <td class="name-col">Friendly Aid</td>
       <td><span class="type-badge type-passive">Passive</span></td>
       <td>5</td>
-      <td class="effect-col" data-i18n="e_friendly_aid">-25% drill ground unit casualty rate when reinforcing an ally</td>
+      <td class="effect-col" data-i18n="e_friendly_aid">-25% troop casualty rate when reinforcing an ally</td>
       <td>&mdash;</td>
       <td class="priority-col">Low</td>
     </tr>
@@ -547,7 +547,7 @@
       <td class="name-col">Medical Aid</td>
       <td><span class="type-badge type-active">Active</span></td>
       <td>5</td>
-      <td class="effect-col" data-i18n="e_medical_aid">+50% Hospital Capacity for you and an ally, 240 min</td>
+      <td class="effect-col" data-i18n="e_medical_aid">Increases Hospital Capacity for you and an ally, 240 min</td>
       <td>72h</td>
       <td class="priority-col" style="color:#f4a261;">Med</td>
     </tr>
@@ -768,7 +768,7 @@
       <td class="name-col">Decay Ray</td>
       <td><span class="type-badge type-passive">Passive</span></td>
       <td>1</td>
-      <td class="effect-col" data-i18n="w_decay_ray">Chance to permanently downgrade enemy units when attacking</td>
+      <td class="effect-col" data-i18n="w_decay_ray">Permanently downgrade up to 1,000 enemy units daily when attacking</td>
       <td>&mdash;</td>
       <td class="priority-col" style="color:#f4a261;">Med</td>
     </tr>
@@ -916,7 +916,7 @@
       <li data-i18n="s6_wl2">Team Strike boosts ALL squads in your rallies</li>
       <li data-i18n="s6_wl3">Hospital Prep + Intensive Training = faster war recovery</li>
       <li data-i18n="s6_wl4">Charge Banner = +2% alliance-wide attack boost during wars</li>
-      <li data-i18n="s6_wl5">Decay Ray has a chance to permanently downgrade enemy units when attacking</li>
+      <li data-i18n="s6_wl5">Decay Ray permanently downgrades up to 1,000 enemy units daily</li>
       <li data-i18n="s6_wl6">Base Strike &amp; Hold the Base = +5% hero stats (offense and defense)</li>
     </ul>
   </div>
@@ -1036,7 +1036,7 @@
 <div class="highlight-box action wide">
   <div class="label" data-i18n="hb_level_label">Pro Tip</div>
   <div class="value" data-i18n="hb_level_value">Skill Combat Experience (3/3) and Building Inspiration I (3/3) FIRST &mdash; they&rsquo;re seasonal and accelerate everything else.</div>
-  <div class="tip" data-i18n="hb_level_tip">Don&rsquo;t use Profession EXP Books until you have these skills active. The bonus XP applies to books too.</div>
+  <div class="tip" data-i18n="hb_level_tip">Unlock these XP-boosting skills early so every action earns more profession experience throughout the season.</div>
 </div>
 
 <!-- SECTION 10: Reset & Change -->
@@ -1149,14 +1149,14 @@ const T = {
     e_build_now: 'Reduce instant\u00e1neamente el tiempo de cola de construcci\u00f3n en 600 min (10 hrs)',
     e_research_now: 'Reduce instant\u00e1neamente el tiempo de cola de investigaci\u00f3n en 1,200 min (20 hrs)',
     e_rally_rush: '+50% velocidad de marcha al unirse/regresar de rallies',
-    e_siege_banner: 'Coloca banner: +100 da\u00f1o de durabilidad para aliados cercanos, 30 min (acumula 5x)',
+    e_siege_banner: 'Coloca banner: +100 da\u00f1o de durabilidad para aliados cercanos, 30 min',
     e_siege_insp: '+60% EXP de Profesi\u00f3n por da\u00f1ar durabilidad de ciudades',
-    e_friendly_aid: '-25% tasa de bajas de unidades del campo de entrenamiento al reforzar un aliado',
+    e_friendly_aid: '-25% tasa de bajas de tropas al reforzar un aliado',
     e_coop_build: '+20% velocidad de construcci\u00f3n para ti Y un aliado seleccionado por 60 min (no acumula)',
     e_coop_research: '+20% velocidad de investigaci\u00f3n para ti Y un aliado seleccionado por 60 min (no acumula)',
     e_resource_save: '-5% costo de Comida, Hierro y Monedas para construcci\u00f3n',
     e_recycling: '-5% costo de Comida, Hierro y Monedas para investigaci\u00f3n',
-    e_medical_aid: '+50% Capacidad Hospitalaria para ti y un aliado, 240 min',
+    e_medical_aid: 'Aumenta la Capacidad Hospitalaria para ti y un aliado, 240 min',
     e_buddy_shield: 'Activa un escudo de 4 horas para ti o un aliado',
     e_drone_supply: 'Obtiene instant\u00e1neamente recursos de mejora de drones',
     e_fearless: 'Inflige da\u00f1o a enemigos basado en tus p\u00e9rdidas de tropas (5% al m\u00e1ximo)',
@@ -1179,7 +1179,7 @@ const T = {
     w_disguise: 'Oculta la info de tu base por 30 min',
     w_tac_reinforce: 'Aumenta la tasa de muerte del atacante (mejora defensiva)',
     w_reinforce_str: 'Mejora las estad\u00edsticas de h\u00e9roes defensivos al reforzar',
-    w_decay_ray: 'Posibilidad de degradar permanentemente unidades enemigas al atacar',
+    w_decay_ray: 'Degrada permanentemente hasta 1,000 unidades enemigas diariamente al atacar',
     w_charge_banner: 'Coloca banner: +2% ataque de aliados en rango, 30 min',
     w_hold_base: '+5% estad\u00edsticas de h\u00e9roes de defensa de muro',
     w_rally_guard: '-5% tasa de muerte de escuadrones en rally',
@@ -1246,7 +1246,7 @@ const T = {
     s9_f6: '<strong>El XP excedente se transfiere</strong> \u2014 Al llegar al m\u00e1ximo, el excedente se convierte y se env\u00eda por correo al inicio de la pr\u00f3xima temporada.',
     hb_level_label: 'Consejo Pro',
     hb_level_value: 'Habilita Experiencia de Combate (3/3) e Inspiraci\u00f3n de Construcci\u00f3n I (3/3) PRIMERO \u2014 son temporales y aceleran todo lo dem\u00e1s.',
-    hb_level_tip: 'No uses Libros de EXP hasta que tengas estas habilidades activas. \u00a1El XP bonus tambi\u00e9n aplica a los libros!',
+    hb_level_tip: 'Desbloquea estas habilidades de XP temprano para que cada acci\u00f3n gane m\u00e1s experiencia de profesi\u00f3n durante toda la temporada.',
     // Skill reset
     s10_reset: 'Libro de Reinicio de Habilidades',
     s10_reset_desc: 'Reinicia todas las habilidades actuales. Devuelve todos los puntos. NO cambia tu profesi\u00f3n.',
