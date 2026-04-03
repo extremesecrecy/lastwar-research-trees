@@ -268,6 +268,18 @@
   .lang-btn.active { background: #5a6a6a; color: #fff; }
   .lang-btn:hover:not(.active) { color: #5a6a6a; }
 
+  /* Table wrapper for mobile scroll */
+  .table-wrap {
+    width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    margin-bottom: 20px;
+  }
+  .table-wrap table {
+    margin-bottom: 0;
+    min-width: 600px;
+  }
+
   /* Responsive */
   @media (max-width: 600px) {
     body { padding: 8px 10px; }
@@ -285,6 +297,8 @@
       margin: -8px -10px 8px -10px;
     }
     .highlight-box .value { font-size: 16px; }
+    .type-badge { font-size: 8px; padding: 1px 4px; }
+    .build-card ol { font-size: 12px; line-height: 1.6; }
   }
 </style>
 </head>
@@ -385,6 +399,7 @@
   The Engineer is the best choice for most players, especially F2P. Focused on construction speed, research speed, resource savings, and team support. Permanent skills (not seasonal) are listed below.
 </p>
 
+<div class="table-wrap">
 <table>
   <thead>
     <tr>
@@ -598,6 +613,7 @@
     </tr>
   </tbody>
 </table>
+</div>
 
 <!-- SECTION 4: War Leader -->
 <h2 class="section-title" data-i18n="s4_title">4. War Leader &mdash; Full Skill Table</h2>
@@ -606,6 +622,7 @@
   The War Leader is built for combat &mdash; rally damage, troop training speed, hospital capacity, and battlefield control. Best for alliance leaders, rally callers, and aggressive PvP players.
 </p>
 
+<div class="table-wrap">
 <table>
   <thead>
     <tr>
@@ -819,6 +836,7 @@
     </tr>
   </tbody>
 </table>
+</div>
 
 <!-- SECTION 5: Seasonal Skills -->
 <h2 class="section-title" data-i18n="s5_title">5. Seasonal Skills</h2>
@@ -827,6 +845,7 @@
   Each season adds special skills (shown with a green background in-game). These skills <strong>reset at the end of the season</strong> and all skill points spent on them are refunded. Both professions share the same seasonal skills.
 </p>
 
+<div class="table-wrap">
 <table>
   <thead>
     <tr>
@@ -887,6 +906,7 @@
     </tr>
   </tbody>
 </table>
+</div>
 
 <div class="highlight-box info wide">
   <div class="label" data-i18n="hb_seasonal_label">Seasonal Skills Note</div>
