@@ -144,7 +144,7 @@
     .top-bar { flex-direction: column; text-align: center; gap: 6px; }
     .top-bar .right { justify-content: center; }
     .top-bar .left h1 { font-size: 20px; }
-    .budget-inputs { grid-template-columns: 1fr 1fr; }
+    .budget-inputs { grid-template-columns: 1fr; }
     .store-grid, .pack-grid { grid-template-columns: 1fr; }
     .never-grid { grid-template-columns: 1fr 1fr; }
     table { font-size: 11px; }
@@ -187,6 +187,10 @@
 <div class="budget-panel">
   <h3 data-i18n="s1_enter">Enter Your Budget</h3>
   <div class="budget-inputs">
+    <div class="budget-input-group">
+      <label data-i18n="lbl_dollars">&#x1F4B5; Real Money (USD)</label>
+      <input type="number" id="budgetDollars" placeholder="e.g. 50" min="0" step="0.01">
+    </div>
     <div class="budget-input-group">
       <label data-i18n="lbl_diamonds">&#x1F48E; Diamonds</label>
       <input type="number" id="budgetDiamonds" placeholder="e.g. 5000" min="0">
@@ -415,6 +419,15 @@
 
 <script>
 // Store item database (verified from lastwartutorial.com + CLAUDE.md)
+// Real-money pack data (verified from packsify.com + community sources)
+const PACK_DATA = [
+  { name: 'Monthly Pass', cost: 4.99, priority: 1, diamonds: 0, why: '30-day boosts: extra squad, faster gathering, reduced monster damage. Value exceeds 8,200%.', recurring: true },
+  { name: 'Growth Fund', cost: 9.99, priority: 2, diamonds: 50000, why: 'Up to 50,000 diamonds unlocked progressively as you level HQ. One-time purchase.', recurring: false },
+  { name: 'Weekly Deal (Legendary Set)', cost: 4.99, priority: 3, diamonds: 0, why: 'Diamonds, speedups, VIP points, legendary crafting materials. Best weekly value.', recurring: true },
+  { name: 'Daily Sale Bundle', cost: 0.99, priority: 4, diamonds: 0, why: 'Hero shard acceleration. Best when focusing 1-2 UR heroes.', recurring: true },
+  { name: 'Second Tech Center', cost: 9.99, priority: 5, diamonds: 0, why: 'Parallel research — doubles research throughput permanently. One-time.', recurring: false },
+];
+
 const STORE_DATA = {
   diamonds: [
     { name: 'Stamina ×50', cost: 60, limit: 5, priority: 1, why: 'Best stamina value — 50 stamina per 60 diamonds', store: 'VIP Store' },
@@ -431,7 +444,7 @@ const STORE_DATA = {
     { name: '1-Hour Speedups', cost: 900, limit: 10, priority: 4, why: 'Solid speedup income', store: 'Alliance Store' },
   ],
   honor: [
-    { name: 'Legendary Gear Blueprints', cost: 200, limit: 50, priority: 1, why: 'ONLY non-paid source for gear blueprints!', store: 'Honor Shop' },
+    { name: 'Legendary Gear Blueprints', cost: 200, limit: 50, priority: 1, why: 'Primary free source for gear blueprints!', store: 'Honor Shop' },
     { name: 'Drone Parts', cost: 150, limit: 20, priority: 2, why: 'Permanent stat boosts', store: 'Honor Shop' },
     { name: 'Hero Shards', cost: 300, limit: 10, priority: 3, why: 'If honor points left over', store: 'Honor Shop' },
   ],
@@ -452,6 +465,7 @@ const CURRENCY_LABELS = {
 };
 
 function calculateBudget() {
+  const dollarBudget = parseFloat(document.getElementById('budgetDollars').value) || 0;
   const budgets = {
     diamonds: parseInt(document.getElementById('budgetDiamonds').value) || 0,
     alliance: parseInt(document.getElementById('budgetAlliance').value) || 0,
@@ -461,6 +475,51 @@ function calculateBudget() {
 
   let html = '';
   let hasResults = false;
+
+  // Dollar budget → pack recommendations
+  if (dollarBudget > 0) {
+    hasResults = true;
+    const lang = document.getElementById('htmlRoot').lang;
+    let remaining = dollarBudget;
+    const recommended = [];
+
+    for (const pack of PACK_DATA) {
+      if (remaining < pack.cost) continue;
+      const qty = pack.recurring ? 1 : 1;
+      if (remaining >= pack.cost) {
+        remaining = Math.round((remaining - pack.cost) * 100) / 100;
+        recommended.push({ ...pack, qty: 1, totalCost: pack.cost, remaining });
+      }
+    }
+
+    html += '<div class="result-section">';
+    html += '<h4><span class="currency-icon">\uD83D\uDCB5</span> ' + (lang === 'es' ? 'Dinero Real' : 'Real Money') + ' — $' + dollarBudget.toFixed(2) + ' USD</h4>';
+
+    if (recommended.length === 0) {
+      html += '<p style="color:#aaa; font-size:13px;">' + (lang === 'es' ? 'Presupuesto insuficiente para cualquier paquete.' : 'Budget too low for any packs.') + '</p>';
+    } else {
+      html += '<div class="table-wrap"><table><thead><tr>';
+      html += '<th>#</th><th>' + (lang === 'es' ? 'Paquete' : 'Pack') + '</th>';
+      html += '<th>' + (lang === 'es' ? 'Costo' : 'Cost') + '</th>';
+      html += '<th>' + (lang === 'es' ? 'Restante' : 'Remaining') + '</th>';
+      html += '<th>' + (lang === 'es' ? 'Por qué' : 'Why') + '</th></tr></thead><tbody>';
+
+      recommended.forEach((p, i) => {
+        const rowClass = p.priority <= 2 ? 'priority-top' : p.priority <= 3 ? 'priority-high' : '';
+        html += '<tr class="' + rowClass + '">';
+        html += '<td class="priority-col">' + (i + 1) + '</td>';
+        html += '<td class="name-col">' + p.name + '</td>';
+        html += '<td class="cost-col">$' + p.cost.toFixed(2) + '</td>';
+        html += '<td class="cost-col">$' + p.remaining.toFixed(2) + '</td>';
+        html += '<td class="effect-col">' + p.why + '</td>';
+        html += '</tr>';
+      });
+
+      html += '</tbody></table></div>';
+      html += '<div class="remaining">' + (lang === 'es' ? 'Restante sin gastar: $' : 'Unspent remaining: $') + remaining.toFixed(2) + ' USD</div>';
+    }
+    html += '</div>';
+  }
 
   for (const [currency, budget] of Object.entries(budgets)) {
     if (budget <= 0) continue;
@@ -525,12 +584,13 @@ function calculateBudget() {
   document.getElementById('resultsPanel').classList.add('show');
 
   // Save budgets
-  try { localStorage.setItem('owow-budget-inputs', JSON.stringify(budgets)); } catch(e) {}
+  try { localStorage.setItem('owow-budget-inputs', JSON.stringify({...budgets, dollars: dollarBudget})); } catch(e) {}
 }
 
 function clearResults() {
   document.getElementById('resultsPanel').classList.remove('show');
   document.getElementById('resultsContent').innerHTML = '';
+  document.getElementById('budgetDollars').value = '';
   document.getElementById('budgetDiamonds').value = '';
   document.getElementById('budgetAlliance').value = '';
   document.getElementById('budgetHonor').value = '';
@@ -572,6 +632,7 @@ function resetChecklist() {
 (function() {
   try {
     const saved = JSON.parse(localStorage.getItem('owow-budget-inputs') || '{}');
+    if (saved.dollars) document.getElementById('budgetDollars').value = saved.dollars;
     if (saved.diamonds) document.getElementById('budgetDiamonds').value = saved.diamonds;
     if (saved.alliance) document.getElementById('budgetAlliance').value = saved.alliance;
     if (saved.honor) document.getElementById('budgetHonor').value = saved.honor;
@@ -590,6 +651,7 @@ const T = {
     hb1_tip: 'Todos los precios y prioridades verificados de lastwartutorial.com, gu\u00eda estrat\u00e9gica OWOW y fuentes comunitarias.',
     s1_title: '1. Calculadora de Presupuesto',
     s1_enter: 'Ingresa Tu Presupuesto',
+    lbl_dollars: '\uD83D\uDCB5 Dinero Real (USD)',
     lbl_diamonds: '\uD83D\uDC8E Diamantes',
     lbl_alliance: '\uD83E\uDD1D Puntos de Alianza',
     lbl_honor: '\u2694\uFE0F Puntos de Honor',
