@@ -220,11 +220,11 @@
     <h3 data-i18n="store_vip">VIP Store</h3>
     <div class="store-meta" data-i18n="store_vip_meta">&#x1F48E; Diamonds &bull; Resets every Monday</div>
     <ul>
-      <li><span class="top-pick">#1</span> Stamina &times;50 &mdash; 300 diamonds (250 stamina)</li>
-      <li><span class="top-pick">#2</span> 8-Hour Speedups &mdash; 480 diamonds</li>
-      <li><span class="top-pick">#3</span> 3-Hour Speedups &mdash; 192 diamonds</li>
-      <li>#4 1-Hour Speedups &mdash; 72 diamonds</li>
-      <li>#5 UR Hero Shards &mdash; 300 diamonds</li>
+      <li><span class="top-pick">#1</span> Stamina &times;50 &mdash; 60 diamonds each (5/wk = 300 total)</li>
+      <li><span class="top-pick">#2</span> UR Hero Shards &mdash; 300 diamonds (10/wk)</li>
+      <li><span class="top-pick">#3</span> 8-Hour Speedups &mdash; 480 diamonds (10/wk)</li>
+      <li>#4 3-Hour Speedups &mdash; 192 diamonds (20/wk)</li>
+      <li>#5 1-Hour Speedups &mdash; 72 diamonds (60/wk)</li>
       <li class="avoid">AVOID: 5-min speedups, gear materials, resource chests, hero EXP</li>
     </ul>
   </div>
@@ -238,7 +238,7 @@
       <li>#3 8hr Shield &mdash; 7,500 pts &times;7/wk</li>
       <li>#3 24hr Shield &mdash; 20,000 pts &times;3/wk</li>
       <li>#4 1-Hour Speedups &mdash; 900 pts &times;10/wk</li>
-      <li class="avoid">AVOID: Survivors, resource chests, superalloy</li>
+      <li class="avoid">AVOID: Survivors, resource chests, superalloy, dielectric ceramic</li>
     </ul>
   </div>
 
@@ -246,7 +246,7 @@
     <h3 data-i18n="store_honor">Honor Shop</h3>
     <div class="store-meta" data-i18n="store_honor_meta">&#x2694;&#xFE0F; Honor Points &bull; Resets 1st of each month</div>
     <ul>
-      <li><span class="top-pick">#1</span> Legendary Gear Blueprints &times;50/mo &mdash; <strong>ONLY non-paid source!</strong></li>
+      <li><span class="top-pick">#1</span> Legendary Gear Blueprints &times;50/mo &mdash; <strong>Primary free source for gear blueprints!</strong></li>
       <li>#2 Drone Parts</li>
       <li>#3 Hero Shards (if honor left over)</li>
     </ul>
@@ -258,8 +258,9 @@
     <ul>
       <li><span class="top-pick">#1</span> UR Universal Shards</li>
       <li>#2 Weapon Shards</li>
-      <li>#3 Epic Resource Choice Chest</li>
-      <li>#4 Speedups (if medals to spare)</li>
+      <li>#3 Legendary Campaign Chest</li>
+      <li>#4 Epic Resource Choice Chest</li>
+      <li>#5 Speedups (if medals to spare)</li>
     </ul>
   </div>
 </div>
@@ -380,11 +381,11 @@
 <div class="checklist" id="checklist">
   <div class="checklist-section">
     <h4 data-i18n="cl_vip">&#x1F48E; VIP Store (Monday)</h4>
-    <label><input type="checkbox" data-key="cl_stam"> Stamina &times;5 (300 diamonds)</label>
+    <label><input type="checkbox" data-key="cl_stam"> Stamina &times;5 (60 dia each = 300 total)</label>
+    <label><input type="checkbox" data-key="cl_shards"> UR Hero Shards &times;10 (300 dia each)</label>
     <label><input type="checkbox" data-key="cl_8hr"> 8-Hour Speedups (480 diamonds)</label>
     <label><input type="checkbox" data-key="cl_3hr"> 3-Hour Speedups (192 diamonds)</label>
     <label><input type="checkbox" data-key="cl_1hr"> 1-Hour Speedups (72 diamonds)</label>
-    <label><input type="checkbox" data-key="cl_shards"> UR Hero Shards (300 diamonds)</label>
   </div>
   <div class="checklist-section">
     <h4 data-i18n="cl_alliance">&#x1F91D; Alliance Store (Monday)</h4>
@@ -416,11 +417,11 @@
 // Store item database (verified from lastwartutorial.com + CLAUDE.md)
 const STORE_DATA = {
   diamonds: [
-    { name: 'Stamina ×50', cost: 300, limit: 5, priority: 1, why: 'Best value in game — 60 stam/diamond', store: 'VIP Store' },
-    { name: '8-Hour Speedups', cost: 480, limit: 10, priority: 2, why: '60 diamonds/hr — solid value', store: 'VIP Store' },
-    { name: '3-Hour Speedups', cost: 192, limit: 20, priority: 3, why: '64 diamonds/hr — decent', store: 'VIP Store' },
-    { name: '1-Hour Speedups', cost: 72, limit: 60, priority: 4, why: 'Backup speedup source', store: 'VIP Store' },
-    { name: 'UR Hero Shards', cost: 300, limit: 10, priority: 5, why: 'Hero fragments for star-ups', store: 'VIP Store' },
+    { name: 'Stamina ×50', cost: 60, limit: 5, priority: 1, why: 'Best stamina value — 50 stamina per 60 diamonds', store: 'VIP Store' },
+    { name: 'UR Hero Shards', cost: 300, limit: 10, priority: 2, why: 'Hero fragments for star-ups — #1 growth investment', store: 'VIP Store' },
+    { name: '8-Hour Speedups', cost: 480, limit: 10, priority: 3, why: '60 diamonds/hr — solid value', store: 'VIP Store' },
+    { name: '3-Hour Speedups', cost: 192, limit: 20, priority: 4, why: '64 diamonds/hr — decent', store: 'VIP Store' },
+    { name: '1-Hour Speedups', cost: 72, limit: 60, priority: 5, why: 'Backup speedup source', store: 'VIP Store' },
   ],
   alliance: [
     { name: 'Universal UR Hero Shards', cost: 3000, limit: 5, priority: 1, why: '#1 priority — hero fragments!', store: 'Alliance Store' },
@@ -435,10 +436,11 @@ const STORE_DATA = {
     { name: 'Hero Shards', cost: 300, limit: 10, priority: 3, why: 'If honor points left over', store: 'Honor Shop' },
   ],
   campaign: [
-    { name: 'UR Universal Shards', cost: 500, limit: 10, priority: 1, why: 'Hero fragments', store: 'Campaign Store' },
+    { name: 'UR Universal Shards', cost: 500, limit: 10, priority: 1, why: 'Hero fragments — top priority', store: 'Campaign Store' },
     { name: 'Weapon Shards', cost: 400, limit: 10, priority: 2, why: 'Exclusive weapon upgrades', store: 'Campaign Store' },
-    { name: 'Epic Resource Choice Chest', cost: 200, limit: 20, priority: 3, why: 'Good resource value', store: 'Campaign Store' },
-    { name: 'Speedups', cost: 100, limit: 30, priority: 4, why: 'If medals to spare', store: 'Campaign Store' },
+    { name: 'Legendary Campaign Chest', cost: 300, limit: 10, priority: 3, why: 'Chance for golden shards', store: 'Campaign Store' },
+    { name: 'Epic Resource Choice Chest', cost: 200, limit: 20, priority: 4, why: 'Good resource value', store: 'Campaign Store' },
+    { name: 'Speedups', cost: 100, limit: 30, priority: 5, why: 'If medals to spare', store: 'Campaign Store' },
   ]
 };
 
