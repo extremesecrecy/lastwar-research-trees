@@ -241,7 +241,8 @@
       <li><span class="top-pick">#2</span> Drone Parts &mdash; 1,000 pts &times;10/wk</li>
       <li>#3 8hr Shield &mdash; 7,500 pts &times;7/wk</li>
       <li>#3 24hr Shield &mdash; 20,000 pts &times;3/wk</li>
-      <li>#4 1-Hour Speedups &mdash; 900 pts &times;10/wk</li>
+      <li>#4 Speedups (Construction/Research/Training/Healing) &mdash; 900 pts &times;10/wk each</li>
+      <li>#5 Epic Hero Shards &mdash; 2,000 pts &times;5/wk</li>
       <li class="avoid">AVOID: Survivors, resource chests, superalloy, dielectric ceramic</li>
     </ul>
   </div>
@@ -250,9 +251,10 @@
     <h3 data-i18n="store_honor">Honor Shop</h3>
     <div class="store-meta" data-i18n="store_honor_meta">&#x2694;&#xFE0F; Honor Points &bull; Resets 1st of each month</div>
     <ul>
-      <li><span class="top-pick">#1</span> Legendary Gear Blueprints &times;50/mo &mdash; <strong>Primary free source for gear blueprints!</strong></li>
-      <li>#2 Drone Parts</li>
-      <li>#3 Hero Shards (if honor left over)</li>
+      <li><span class="top-pick">#1</span> Legendary Gear Blueprints &mdash; 10,000 pts &times;50/mo &mdash; <strong>Primary free source!</strong></li>
+      <li>#2 Drone Parts &mdash; 1,000 pts &times;100/mo</li>
+      <li>#3 UR Hero Shards &mdash; 30,000 pts &times;2/mo</li>
+      <li>#4 Hero Recruitment Tickets &mdash; 800 pts &times;100/mo</li>
     </ul>
   </div>
 
@@ -260,11 +262,11 @@
     <h3 data-i18n="store_campaign">Campaign Store</h3>
     <div class="store-meta" data-i18n="store_campaign_meta">&#x1F3AF; Campaign Medals &bull; Resets weekly</div>
     <ul>
-      <li><span class="top-pick">#1</span> UR Universal Shards</li>
-      <li>#2 Weapon Shards</li>
-      <li>#3 Legendary Campaign Chest</li>
-      <li>#4 Epic Resource Choice Chest</li>
-      <li>#5 Speedups (if medals to spare)</li>
+      <li><span class="top-pick">#1</span> UR Hero Universal Shard &mdash; 200 medals &times;10/wk</li>
+      <li>#2 Universal Exclusive Weapon Shard &mdash; 300 medals &times;10/wk</li>
+      <li>#3 Campaign Chest (UR) &mdash; 200 medals &times;10/wk</li>
+      <li>#4 Drone Parts &mdash; 300 medals &times;30/wk</li>
+      <li>#5 Training Certificate &mdash; 500 medals &times;20/wk</li>
     </ul>
   </div>
 </div>
@@ -413,7 +415,7 @@
 
 <div class="footer">
   <span data-i18n="footer1">[OWOW] Old World Order &bull; Budget Spending Planner &bull; Last War: Survival &bull; Kristen OWOW SKYNET</span>
-  <br><span data-i18n="footer2">Sources: lastwartutorial.com &bull; OWOW Strategy Guide &bull; packsify.com</span>
+  <br><span data-i18n="footer2">Sources: cpt-hedge.com &bull; lastwartutorial.com &bull; OWOW Strategy Guide &bull; packsify.com</span>
   <br><span style="font-size:10px; color:#aaa;" data-i18n="footer3">Store prices may change with game updates. Verify in-game before large purchases.</span>
 </div>
 
@@ -434,26 +436,36 @@ const STORE_DATA = {
     { name: 'UR Hero Shards', cost: 300, limit: 10, priority: 2, why: 'Hero fragments for star-ups — #1 growth investment', store: 'VIP Store' },
     { name: '8-Hour Speedups', cost: 480, limit: 10, priority: 3, why: '60 diamonds/hr — solid value', store: 'VIP Store' },
     { name: '3-Hour Speedups', cost: 192, limit: 20, priority: 4, why: '64 diamonds/hr — decent', store: 'VIP Store' },
-    { name: '1-Hour Speedups', cost: 72, limit: 60, priority: 5, why: 'Backup speedup source', store: 'VIP Store' },
+    { name: '1-Hour Speedups', cost: 72, limit: 60, priority: 5, why: '72 diamonds/hr', store: 'VIP Store' },
+    { name: 'Epic Hero Shards', cost: 800, limit: 10, priority: 6, why: 'SSR hero fragments — if diamonds to spare', store: 'VIP Store' },
+    { name: 'Drone Parts', cost: 200, limit: 50, priority: 7, why: 'Permanent drone stat boosts', store: 'VIP Store' },
   ],
   alliance: [
     { name: 'Universal UR Hero Shards', cost: 3000, limit: 5, priority: 1, why: '#1 priority — hero fragments!', store: 'Alliance Store' },
     { name: 'Drone Parts', cost: 1000, limit: 10, priority: 2, why: 'Permanent stat boosts', store: 'Alliance Store' },
     { name: '8hr Shield', cost: 7500, limit: 7, priority: 3, why: 'Saturday Enemy Buster protection', store: 'Alliance Store' },
     { name: '24hr Shield', cost: 20000, limit: 3, priority: 3, why: 'Saturday Enemy Buster protection', store: 'Alliance Store' },
-    { name: '1-Hour Speedups', cost: 900, limit: 10, priority: 4, why: 'Solid speedup income', store: 'Alliance Store' },
+    { name: 'Construction Speedups', cost: 900, limit: 10, priority: 4, why: 'Tuesday building day', store: 'Alliance Store' },
+    { name: 'Research Speedups', cost: 900, limit: 10, priority: 4, why: 'Wednesday research day', store: 'Alliance Store' },
+    { name: 'Training Speedups', cost: 900, limit: 10, priority: 4, why: 'Friday training day (4x!)', store: 'Alliance Store' },
+    { name: 'Healing Speedups', cost: 900, limit: 10, priority: 5, why: 'Saturday Enemy Buster', store: 'Alliance Store' },
+    { name: 'Epic Hero Shards', cost: 2000, limit: 5, priority: 6, why: 'SSR hero fragments', store: 'Alliance Store' },
   ],
   honor: [
-    { name: 'Legendary Gear Blueprints', cost: 200, limit: 50, priority: 1, why: 'Primary free source for gear blueprints!', store: 'Honor Shop' },
-    { name: 'Drone Parts', cost: 150, limit: 20, priority: 2, why: 'Permanent stat boosts', store: 'Honor Shop' },
-    { name: 'Hero Shards', cost: 300, limit: 10, priority: 3, why: 'If honor points left over', store: 'Honor Shop' },
+    { name: 'Legendary Gear Blueprints', cost: 10000, limit: 50, priority: 1, why: 'Primary free source for gear blueprints!', store: 'Honor Shop' },
+    { name: 'Drone Parts', cost: 1000, limit: 100, priority: 2, why: 'Permanent stat boosts', store: 'Honor Shop' },
+    { name: 'UR Hero Shards', cost: 30000, limit: 2, priority: 3, why: 'Hero fragments (expensive but valuable)', store: 'Honor Shop' },
+    { name: 'Hero Recruitment Ticket', cost: 800, limit: 100, priority: 4, why: 'Chance for new heroes', store: 'Honor Shop' },
+    { name: 'Exclusive Weapon Chest', cost: 50000, limit: 1, priority: 5, why: 'Weapon upgrade — only if honor to spare', store: 'Honor Shop' },
   ],
   campaign: [
-    { name: 'UR Universal Shards', cost: 500, limit: 10, priority: 1, why: 'Hero fragments — top priority', store: 'Campaign Store' },
-    { name: 'Weapon Shards', cost: 400, limit: 10, priority: 2, why: 'Exclusive weapon upgrades', store: 'Campaign Store' },
-    { name: 'Legendary Campaign Chest', cost: 300, limit: 10, priority: 3, why: 'Chance for golden shards', store: 'Campaign Store' },
-    { name: 'Epic Resource Choice Chest', cost: 200, limit: 20, priority: 4, why: 'Good resource value', store: 'Campaign Store' },
-    { name: 'Speedups', cost: 100, limit: 30, priority: 5, why: 'If medals to spare', store: 'Campaign Store' },
+    { name: 'UR Hero Universal Shard', cost: 200, limit: 10, priority: 1, why: 'Hero fragments — top priority', store: 'Campaign Store' },
+    { name: 'Universal Exclusive Weapon Shard', cost: 300, limit: 10, priority: 2, why: 'Exclusive weapon upgrades', store: 'Campaign Store' },
+    { name: 'Campaign Chest (UR)', cost: 200, limit: 10, priority: 3, why: 'Legendary chest — chance for golden shards', store: 'Campaign Store' },
+    { name: 'Drone Parts', cost: 300, limit: 30, priority: 4, why: 'Permanent stat boosts', store: 'Campaign Store' },
+    { name: 'Training Certificate', cost: 500, limit: 20, priority: 5, why: 'Training acceleration', store: 'Campaign Store' },
+    { name: 'Resource Choice Chest (SSR)', cost: 500, limit: 200, priority: 6, why: 'Good resource value', store: 'Campaign Store' },
+    { name: '1h Speed-up', cost: 500, limit: 200, priority: 7, why: 'If medals to spare', store: 'Campaign Store' },
   ]
 };
 
