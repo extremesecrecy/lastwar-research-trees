@@ -1,0 +1,664 @@
+<!DOCTYPE html>
+<html lang="en" id="htmlRoot">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Budget Spending Planner - OWOW</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&display=swap');
+/* HCI Brand: Orange #f4a261, Cyan #5bc0de, Yellow #f4d35e, Teal #7fb3a8, Dark #5a6a6a, Text #333, Watermelon #fc5c65 */
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: 'Fredoka', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: #fff;
+    color: #333;
+    padding: 12px 16px;
+    min-height: 100vh;
+  }
+
+  .top-bar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px; }
+  .top-bar .left h1 { font-size: 24px; letter-spacing: 1px; text-transform: uppercase; color: #5a6a6a; }
+  .top-bar .left .sub { font-size: 13px; color: #888; }
+  .top-bar .right { display: flex; align-items: center; gap: 10px; }
+  .top-bar .right img { height: 60px; }
+  .top-bar .right .alliance-tag { background: #e8f4f1; border: 1px solid #7fb3a8; border-radius: 5px; padding: 3px 10px; font-size: 13px; color: #5a6a6a; font-weight: bold; }
+
+  .section-title { font-size: 16px; color: #f4a261; margin: 20px 0 8px 0; border-bottom: 2px solid #f4d35e; padding-bottom: 4px; text-transform: uppercase; letter-spacing: 1px; }
+  .section-desc { font-size: 14px; color: #555; margin-bottom: 12px; max-width: 900px; line-height: 1.6; }
+
+  .highlight-box { border-radius: 8px; padding: 14px 20px; margin: 0 auto 16px auto; max-width: 900px; text-align: center; }
+  .highlight-box.wide { max-width: 900px; }
+  .highlight-box.info { background: #e4f3f8; border: 2px solid #5bc0de; }
+  .highlight-box.info .label { color: #5bc0de; font-size: 11px; font-weight: bold; text-transform: uppercase; letter-spacing: 1px; }
+  .highlight-box.info .value { color: #333; font-size: 20px; font-weight: bold; margin-top: 2px; }
+  .highlight-box.info .tip { color: #7fb3a8; font-size: 12px; margin-top: 4px; }
+  .highlight-box.action { background: #fff0f0; border: 2px solid #fc5c65; }
+  .highlight-box.action .label { color: #fc5c65; font-size: 11px; font-weight: bold; text-transform: uppercase; letter-spacing: 1px; }
+  .highlight-box.action .value { color: #333; font-size: 18px; font-weight: bold; margin-top: 2px; }
+  .highlight-box.action .tip { color: #888; font-size: 12px; margin-top: 4px; }
+
+  /* Budget Calculator */
+  .budget-panel { background: #f9fafb; border: 2px solid #5bc0de; border-radius: 10px; padding: 20px; margin-bottom: 20px; max-width: 900px; }
+  .budget-panel h3 { color: #5bc0de; font-size: 16px; margin-bottom: 12px; text-transform: uppercase; letter-spacing: 1px; }
+  .budget-inputs { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px; margin-bottom: 16px; }
+  .budget-input-group { display: flex; flex-direction: column; gap: 4px; }
+  .budget-input-group label { font-size: 12px; font-weight: 600; color: #5a6a6a; text-transform: uppercase; letter-spacing: 0.5px; }
+  .budget-input-group input {
+    padding: 8px 12px; border: 2px solid #ddd; border-radius: 6px; font-size: 16px;
+    font-family: 'Fredoka', sans-serif; transition: border-color 0.2s;
+  }
+  .budget-input-group input:focus { outline: none; border-color: #5bc0de; }
+  .calc-btn {
+    background: #f4a261; color: #fff; border: none; padding: 10px 30px; border-radius: 6px;
+    font-size: 14px; font-weight: 700; cursor: pointer; text-transform: uppercase; letter-spacing: 1px;
+    font-family: 'Fredoka', sans-serif; transition: background 0.2s;
+  }
+  .calc-btn:hover { background: #e8914f; }
+  .clear-btn {
+    background: #fc5c65; color: #fff; border: none; padding: 10px 20px; border-radius: 6px;
+    font-size: 14px; font-weight: 700; cursor: pointer; text-transform: uppercase; letter-spacing: 1px;
+    font-family: 'Fredoka', sans-serif; margin-left: 8px;
+  }
+  .clear-btn:hover { background: #e04e56; }
+
+  /* Results */
+  .results-panel { margin-top: 16px; display: none; }
+  .results-panel.show { display: block; }
+  .result-section { margin-bottom: 16px; }
+  .result-section h4 { font-size: 14px; color: #5a6a6a; margin-bottom: 6px; display: flex; align-items: center; gap: 8px; }
+  .result-section h4 .currency-icon { font-size: 18px; }
+  .result-section .remaining { font-size: 12px; color: #7fb3a8; font-weight: 600; margin-bottom: 8px; }
+
+  /* Tables */
+  table { width: 100%; border-collapse: collapse; margin-bottom: 16px; font-size: 13px; }
+  thead th { background: #5a6a6a; color: #fff; padding: 8px 6px; text-align: left; font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px; }
+  tbody td { padding: 6px; border-bottom: 1px solid #eee; vertical-align: top; }
+  tbody tr:nth-child(even) { background: #fafafa; }
+  tbody tr.priority-high { background: #fef3e2; }
+  tbody tr.priority-top { background: #e8f5e9; }
+  tbody tr.priority-skip { background: #fafafa; color: #aaa; }
+  .name-col { font-weight: 600; white-space: nowrap; }
+  .effect-col { font-size: 12px; color: #555; }
+  .priority-col { font-weight: bold; text-align: center; }
+  .cost-col { font-weight: 600; text-align: right; white-space: nowrap; }
+  .qty-col { text-align: center; font-weight: 600; }
+
+  .table-wrap { width: 100%; overflow-x: auto; -webkit-overflow-scrolling: touch; margin-bottom: 16px; }
+  .table-wrap table { margin-bottom: 0; min-width: 500px; }
+
+  /* Store Cards */
+  .store-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px; margin-bottom: 20px; }
+  .store-card { border: 2px solid #ddd; border-radius: 8px; padding: 14px; }
+  .store-card h3 { font-size: 14px; margin-bottom: 4px; text-transform: uppercase; letter-spacing: 0.5px; }
+  .store-card .store-meta { font-size: 11px; color: #888; margin-bottom: 8px; }
+  .store-card.diamonds { border-color: #5bc0de; }
+  .store-card.diamonds h3 { color: #5bc0de; }
+  .store-card.alliance { border-color: #7fb3a8; }
+  .store-card.alliance h3 { color: #7fb3a8; }
+  .store-card.honor { border-color: #f4a261; }
+  .store-card.honor h3 { color: #f4a261; }
+  .store-card.campaign { border-color: #f4d35e; }
+  .store-card.campaign h3 { color: #b8860b; }
+  .store-card ul { padding-left: 16px; font-size: 12px; line-height: 1.8; }
+  .store-card .avoid { color: #fc5c65; font-weight: 600; }
+  .store-card .top-pick { color: #43a047; font-weight: 600; }
+
+  /* Checklist */
+  .checklist { max-width: 900px; margin-bottom: 20px; }
+  .checklist-section { margin-bottom: 12px; }
+  .checklist-section h4 { font-size: 13px; color: #5a6a6a; margin-bottom: 4px; }
+  .checklist label { display: block; font-size: 13px; padding: 3px 0; cursor: pointer; }
+  .checklist label:hover { color: #f4a261; }
+  .checklist input[type="checkbox"] { margin-right: 8px; }
+  .checklist .checked { text-decoration: line-through; color: #aaa; }
+  .reset-checklist { font-size: 11px; color: #fc5c65; cursor: pointer; border: none; background: none; text-decoration: underline; margin-top: 4px; }
+
+  /* Never buy */
+  .never-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 8px; margin-bottom: 16px; }
+  .never-item { background: #fff0f0; border: 1px solid #fc5c65; border-radius: 6px; padding: 8px 12px; font-size: 12px; color: #fc5c65; font-weight: 600; text-align: center; }
+
+  /* Pack cards */
+  .pack-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 16px; margin-bottom: 20px; }
+  .pack-card { border: 2px solid #ddd; border-radius: 8px; padding: 14px; }
+  .pack-card .rank { font-size: 24px; font-weight: 700; color: #f4a261; float: left; margin-right: 10px; line-height: 1; }
+  .pack-card h3 { font-size: 14px; color: #5a6a6a; }
+  .pack-card .pack-desc { font-size: 12px; color: #555; margin-top: 4px; line-height: 1.6; }
+  .pack-card .pack-source { font-size: 10px; color: #aaa; margin-top: 6px; }
+
+  .footer { text-align: center; padding: 14px 0; font-size: 12px; color: #888; border-top: 1px solid #eee; margin-top: 16px; }
+
+  /* Nav */
+  .guide-nav { display: flex; flex-wrap: wrap; gap: 4px 12px; align-items: center; padding: 6px 16px; background: #f0f5f4; border-bottom: 2px solid #7fb3a8; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; font-size: 12px; margin: -12px -16px 12px -16px; }
+  .guide-nav a { color: #5a6a6a; text-decoration: none; padding: 2px 6px; border-radius: 3px; white-space: nowrap; }
+  .guide-nav a:hover { color: #f4a261; background: #fff; }
+  .guide-nav a.current { color: #f4a261; font-weight: bold; background: #fff; border: 1px solid #f4a261; }
+  .guide-nav .nav-home { font-weight: bold; margin-right: 8px; padding-right: 12px; border-right: 1px solid #7fb3a8; }
+
+  .lang-toggle { display: inline-flex; align-items: center; gap: 4px; background: #f0f5f4; border: 2px solid #7fb3a8; border-radius: 20px; padding: 2px 4px; cursor: pointer; font-family: 'Segoe UI', sans-serif; font-size: 12px; font-weight: 700; user-select: none; }
+  .lang-btn { padding: 2px 10px; border-radius: 16px; border: none; cursor: pointer; font-size: 12px; font-weight: 700; background: transparent; color: #888; transition: all 0.2s; }
+  .lang-btn.active { background: #5a6a6a; color: #fff; }
+  .lang-btn:hover:not(.active) { color: #5a6a6a; }
+
+  @media (max-width: 600px) {
+    body { padding: 8px 10px; }
+    .top-bar { flex-direction: column; text-align: center; gap: 6px; }
+    .top-bar .right { justify-content: center; }
+    .top-bar .left h1 { font-size: 20px; }
+    .budget-inputs { grid-template-columns: 1fr 1fr; }
+    .store-grid, .pack-grid { grid-template-columns: 1fr; }
+    .never-grid { grid-template-columns: 1fr 1fr; }
+    table { font-size: 11px; }
+    thead th { font-size: 9px; padding: 6px 4px; }
+    tbody td { padding: 5px 4px; }
+    .guide-nav { padding: 4px 10px; gap: 3px 8px; font-size: 11px; margin: -8px -10px 8px -10px; }
+    .highlight-box .value { font-size: 16px; }
+  }
+</style>
+</head>
+<body>
+
+<nav class="guide-nav" id="guide-nav"></nav>
+<script src="../nav.js"></script>
+
+<div class="top-bar">
+  <div class="left">
+    <h1 data-i18n="title">Budget Spending Planner</h1>
+    <div class="sub" data-i18n="subtitle">Enter Your Budget. Get Your Shopping List.</div>
+  </div>
+  <div class="right">
+    <div class="lang-toggle">
+      <button class="lang-btn active" onclick="setLang('en')">EN</button>
+      <button class="lang-btn" onclick="setLang('es')">ES</button>
+    </div>
+    <img src="skynet_logo.png" alt="OWOW">
+    <div class="alliance-tag">[OWOW] Old World Order</div>
+  </div>
+</div>
+
+<div class="highlight-box info wide">
+  <div class="label" data-i18n="hb1_label">Smart Spending</div>
+  <div class="value" data-i18n="hb1_value">Enter your available resources below &mdash; we&rsquo;ll tell you exactly what to buy, where, and in what order.</div>
+  <div class="tip" data-i18n="hb1_tip">All prices and priorities verified from lastwartutorial.com, OWOW strategy guide, and community sources.</div>
+</div>
+
+<!-- SECTION 1: Budget Calculator -->
+<h2 class="section-title" data-i18n="s1_title">1. Budget Calculator</h2>
+
+<div class="budget-panel">
+  <h3 data-i18n="s1_enter">Enter Your Budget</h3>
+  <div class="budget-inputs">
+    <div class="budget-input-group">
+      <label data-i18n="lbl_diamonds">&#x1F48E; Diamonds</label>
+      <input type="number" id="budgetDiamonds" placeholder="e.g. 5000" min="0">
+    </div>
+    <div class="budget-input-group">
+      <label data-i18n="lbl_alliance">&#x1F91D; Alliance Points</label>
+      <input type="number" id="budgetAlliance" placeholder="e.g. 50000" min="0">
+    </div>
+    <div class="budget-input-group">
+      <label data-i18n="lbl_honor">&#x2694;&#xFE0F; Honor Points</label>
+      <input type="number" id="budgetHonor" placeholder="e.g. 10000" min="0">
+    </div>
+    <div class="budget-input-group">
+      <label data-i18n="lbl_campaign">&#x1F3AF; Campaign Medals</label>
+      <input type="number" id="budgetCampaign" placeholder="e.g. 5000" min="0">
+    </div>
+  </div>
+  <button class="calc-btn" onclick="calculateBudget()" data-i18n="btn_calc">Calculate Shopping List</button>
+  <button class="clear-btn" onclick="clearResults()" data-i18n="btn_clear">Clear</button>
+
+  <div class="results-panel" id="resultsPanel">
+    <div id="resultsContent"></div>
+  </div>
+</div>
+
+<!-- SECTION 2: Store Reference -->
+<h2 class="section-title" data-i18n="s2_title">2. Store Reference</h2>
+
+<div class="store-grid">
+  <div class="store-card diamonds">
+    <h3 data-i18n="store_vip">VIP Store</h3>
+    <div class="store-meta" data-i18n="store_vip_meta">&#x1F48E; Diamonds &bull; Resets every Monday</div>
+    <ul>
+      <li><span class="top-pick">#1</span> Stamina &times;50 &mdash; 300 diamonds (250 stamina)</li>
+      <li><span class="top-pick">#2</span> 8-Hour Speedups &mdash; 480 diamonds</li>
+      <li><span class="top-pick">#3</span> 3-Hour Speedups &mdash; 192 diamonds</li>
+      <li>#4 1-Hour Speedups &mdash; 72 diamonds</li>
+      <li>#5 UR Hero Shards &mdash; 300 diamonds</li>
+      <li class="avoid">AVOID: 5-min speedups, gear materials, resource chests, hero EXP</li>
+    </ul>
+  </div>
+
+  <div class="store-card alliance">
+    <h3 data-i18n="store_alliance">Alliance Store</h3>
+    <div class="store-meta" data-i18n="store_alliance_meta">&#x1F91D; Alliance Contribution Pts &bull; Resets every Monday</div>
+    <ul>
+      <li><span class="top-pick">#1</span> Universal UR Hero Shards &mdash; 3,000 pts &times;5/wk</li>
+      <li><span class="top-pick">#2</span> Drone Parts &mdash; 1,000 pts &times;10/wk</li>
+      <li>#3 8hr Shield &mdash; 7,500 pts &times;7/wk</li>
+      <li>#3 24hr Shield &mdash; 20,000 pts &times;3/wk</li>
+      <li>#4 1-Hour Speedups &mdash; 900 pts &times;10/wk</li>
+      <li class="avoid">AVOID: Survivors, resource chests, superalloy</li>
+    </ul>
+  </div>
+
+  <div class="store-card honor">
+    <h3 data-i18n="store_honor">Honor Shop</h3>
+    <div class="store-meta" data-i18n="store_honor_meta">&#x2694;&#xFE0F; Honor Points &bull; Resets 1st of each month</div>
+    <ul>
+      <li><span class="top-pick">#1</span> Legendary Gear Blueprints &times;50/mo &mdash; <strong>ONLY non-paid source!</strong></li>
+      <li>#2 Drone Parts</li>
+      <li>#3 Hero Shards (if honor left over)</li>
+    </ul>
+  </div>
+
+  <div class="store-card campaign">
+    <h3 data-i18n="store_campaign">Campaign Store</h3>
+    <div class="store-meta" data-i18n="store_campaign_meta">&#x1F3AF; Campaign Medals &bull; Resets weekly</div>
+    <ul>
+      <li><span class="top-pick">#1</span> UR Universal Shards</li>
+      <li>#2 Weapon Shards</li>
+      <li>#3 Epic Resource Choice Chest</li>
+      <li>#4 Speedups (if medals to spare)</li>
+    </ul>
+  </div>
+</div>
+
+<!-- SECTION 3: Diamond Strategy -->
+<h2 class="section-title" data-i18n="s3_title">3. Diamond Spending Strategy</h2>
+
+<p class="section-desc" data-i18n="s3_desc">
+  Diamonds are the most valuable free currency. Every diamond you spend should be deliberate. Here&rsquo;s the priority allocation.
+</p>
+
+<div class="table-wrap">
+<table>
+  <thead>
+    <tr>
+      <th data-i18n="th_priority">Priority</th>
+      <th data-i18n="th_item">Item</th>
+      <th data-i18n="th_budget">Budget</th>
+      <th data-i18n="th_why">Why</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr class="priority-top">
+      <td class="priority-col" style="color:#43a047;">1</td>
+      <td class="name-col">VIP Points</td>
+      <td class="cost-col">~20,000</td>
+      <td class="effect-col" data-i18n="ds1">1:1 conversion. Permanent power. Target VIP 8+ for Agent Shirley unlock.</td>
+    </tr>
+    <tr class="priority-top">
+      <td class="priority-col" style="color:#43a047;">2</td>
+      <td class="name-col" data-i18n="ds2_name">30-Day VIP Activation</td>
+      <td class="cost-col">~2,000</td>
+      <td class="effect-col" data-i18n="ds2">3x better value than daily activation (67 diamonds/day vs 200)</td>
+    </tr>
+    <tr class="priority-high">
+      <td class="priority-col" style="color:#f4a261;">3</td>
+      <td class="name-col" data-i18n="ds3_name">Shield Reserve</td>
+      <td class="cost-col">~10,000</td>
+      <td class="effect-col" data-i18n="ds3">~2 months of Enemy Buster protection at 5,000/month</td>
+    </tr>
+    <tr class="priority-high">
+      <td class="priority-col" style="color:#f4a261;">4</td>
+      <td class="name-col" data-i18n="ds4_name">Summon Supplies Event</td>
+      <td class="cost-col">~10,000</td>
+      <td class="effect-col" data-i18n="ds4">Save for ONE big push to 1,000 points for guaranteed value</td>
+    </tr>
+    <tr>
+      <td class="priority-col">5</td>
+      <td class="name-col" data-i18n="ds5_name">Stamina (VIP Store)</td>
+      <td class="cost-col">~5,000</td>
+      <td class="effect-col" data-i18n="ds5">250 stamina for 300 diamonds weekly (best value in game)</td>
+    </tr>
+    <tr>
+      <td class="priority-col">6</td>
+      <td class="name-col" data-i18n="ds6_name">Emergency / Flexible</td>
+      <td class="cost-col">~7,000</td>
+      <td class="effect-col" data-i18n="ds6">Unexpected opportunities, hot deals</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<div class="highlight-box action wide">
+  <div class="label" data-i18n="hb_never_label">Never Spend Diamonds On</div>
+  <div class="value" data-i18n="hb_never_value">These waste ~3,000 diamonds/month for zero strategic value</div>
+</div>
+
+<div class="never-grid">
+  <div class="never-item" data-i18n="never1">Instant building completions</div>
+  <div class="never-item" data-i18n="never2">Instant research completion</div>
+  <div class="never-item" data-i18n="never3">Random hero recruitment</div>
+  <div class="never-item" data-i18n="never4">Cosmetic purchases</div>
+  <div class="never-item" data-i18n="never5">5-min speedups (96 dia/hr &mdash; terrible)</div>
+  <div class="never-item" data-i18n="never6">Gear materials (farmable)</div>
+</div>
+
+<!-- SECTION 4: Real Money Packs -->
+<h2 class="section-title" data-i18n="s4_title">4. Real Money Pack Guide</h2>
+
+<p class="section-desc" data-i18n="s4_desc">
+  If you choose to spend, these packs offer the best long-term value. &ldquo;Cheap does not equal efficient&rdquo; &mdash; evaluate packs against event timing, not discounts.
+</p>
+
+<div class="pack-grid">
+  <div class="pack-card" style="border-color:#43a047;">
+    <div class="rank">#1</div>
+    <h3 data-i18n="pack1_name">Monthly Pass</h3>
+    <div class="pack-desc" data-i18n="pack1_desc">30 days of boosts: extra squad slot, faster gathering, reduced monster damage. Value exceeds 8,200%. The best deal in the game for low spenders.</div>
+    <div class="pack-source">Source: packsify.com</div>
+  </div>
+  <div class="pack-card" style="border-color:#f4a261;">
+    <div class="rank">#2</div>
+    <h3 data-i18n="pack2_name">Growth Fund</h3>
+    <div class="pack-desc" data-i18n="pack2_desc">Up to 50,000 diamonds unlocked progressively as you level. Best for accounts above HQ 15. Provides diamond liquidity for Alliance Duel pushes and gear crafting.</div>
+    <div class="pack-source">Source: packsify.com</div>
+  </div>
+  <div class="pack-card" style="border-color:#5bc0de;">
+    <div class="rank">#3</div>
+    <h3 data-i18n="pack3_name">Weekly Deal (Legendary Set)</h3>
+    <div class="pack-desc" data-i18n="pack3_desc">Diamonds, speedups, VIP points, and legendary crafting materials. Strongest purchase for Alliance Duel scoring and mythic gear progression.</div>
+    <div class="pack-source">Source: packsify.com</div>
+  </div>
+</div>
+
+<div class="highlight-box info wide">
+  <div class="label" data-i18n="hb_timing_label">Best Time to Buy</div>
+  <div class="value" data-i18n="hb_timing_value">Seasonal celebrations, new UR hero releases, server anniversaries, and holiday festivals usually have the best deals.</div>
+  <div class="tip" data-i18n="hb_timing_tip">Wait for events before spending real money. Bonus diamonds, extra shards, and multiplier rewards make your money go further.</div>
+</div>
+
+<!-- SECTION 5: Weekly Checklist -->
+<h2 class="section-title" data-i18n="s5_title">5. Weekly Shopping Checklist</h2>
+
+<p class="section-desc" data-i18n="s5_desc">
+  Every Monday at server reset, these stores refresh. Check off what you&rsquo;ve bought this week.
+</p>
+
+<div class="checklist" id="checklist">
+  <div class="checklist-section">
+    <h4 data-i18n="cl_vip">&#x1F48E; VIP Store (Monday)</h4>
+    <label><input type="checkbox" data-key="cl_stam"> Stamina &times;5 (300 diamonds)</label>
+    <label><input type="checkbox" data-key="cl_8hr"> 8-Hour Speedups (480 diamonds)</label>
+    <label><input type="checkbox" data-key="cl_3hr"> 3-Hour Speedups (192 diamonds)</label>
+    <label><input type="checkbox" data-key="cl_1hr"> 1-Hour Speedups (72 diamonds)</label>
+    <label><input type="checkbox" data-key="cl_shards"> UR Hero Shards (300 diamonds)</label>
+  </div>
+  <div class="checklist-section">
+    <h4 data-i18n="cl_alliance">&#x1F91D; Alliance Store (Monday)</h4>
+    <label><input type="checkbox" data-key="cl_ahero"> UR Hero Shards &times;5 (15,000 pts)</label>
+    <label><input type="checkbox" data-key="cl_adrone"> Drone Parts &times;10 (10,000 pts)</label>
+    <label><input type="checkbox" data-key="cl_ashield"> Shields for Saturday</label>
+    <label><input type="checkbox" data-key="cl_aspeed"> 1hr Speedups &times;10 (9,000 pts)</label>
+  </div>
+  <div class="checklist-section">
+    <h4 data-i18n="cl_campaign">&#x1F3AF; Campaign Store (Weekly)</h4>
+    <label><input type="checkbox" data-key="cl_cur"> UR Universal Shards</label>
+    <label><input type="checkbox" data-key="cl_cweap"> Weapon Shards</label>
+  </div>
+  <div class="checklist-section">
+    <h4 data-i18n="cl_honor">&#x2694;&#xFE0F; Honor Shop (1st of Month)</h4>
+    <label><input type="checkbox" data-key="cl_hgear"> Legendary Gear Blueprints &times;50</label>
+    <label><input type="checkbox" data-key="cl_hdrone"> Drone Parts</label>
+  </div>
+  <button class="reset-checklist" onclick="resetChecklist()" data-i18n="btn_reset_cl">Reset Checklist</button>
+</div>
+
+<div class="footer">
+  <span data-i18n="footer1">[OWOW] Old World Order &bull; Budget Spending Planner &bull; Last War: Survival &bull; Kristen OWOW SKYNET</span>
+  <br><span data-i18n="footer2">Sources: lastwartutorial.com &bull; OWOW Strategy Guide &bull; packsify.com</span>
+  <br><span style="font-size:10px; color:#aaa;" data-i18n="footer3">Store prices may change with game updates. Verify in-game before large purchases.</span>
+</div>
+
+<script>
+// Store item database (verified from lastwartutorial.com + CLAUDE.md)
+const STORE_DATA = {
+  diamonds: [
+    { name: 'Stamina ×50', cost: 300, limit: 5, priority: 1, why: 'Best value in game — 60 stam/diamond', store: 'VIP Store' },
+    { name: '8-Hour Speedups', cost: 480, limit: 10, priority: 2, why: '60 diamonds/hr — solid value', store: 'VIP Store' },
+    { name: '3-Hour Speedups', cost: 192, limit: 20, priority: 3, why: '64 diamonds/hr — decent', store: 'VIP Store' },
+    { name: '1-Hour Speedups', cost: 72, limit: 60, priority: 4, why: 'Backup speedup source', store: 'VIP Store' },
+    { name: 'UR Hero Shards', cost: 300, limit: 10, priority: 5, why: 'Hero fragments for star-ups', store: 'VIP Store' },
+  ],
+  alliance: [
+    { name: 'Universal UR Hero Shards', cost: 3000, limit: 5, priority: 1, why: '#1 priority — hero fragments!', store: 'Alliance Store' },
+    { name: 'Drone Parts', cost: 1000, limit: 10, priority: 2, why: 'Permanent stat boosts', store: 'Alliance Store' },
+    { name: '8hr Shield', cost: 7500, limit: 7, priority: 3, why: 'Saturday Enemy Buster protection', store: 'Alliance Store' },
+    { name: '24hr Shield', cost: 20000, limit: 3, priority: 3, why: 'Saturday Enemy Buster protection', store: 'Alliance Store' },
+    { name: '1-Hour Speedups', cost: 900, limit: 10, priority: 4, why: 'Solid speedup income', store: 'Alliance Store' },
+  ],
+  honor: [
+    { name: 'Legendary Gear Blueprints', cost: 200, limit: 50, priority: 1, why: 'ONLY non-paid source for gear blueprints!', store: 'Honor Shop' },
+    { name: 'Drone Parts', cost: 150, limit: 20, priority: 2, why: 'Permanent stat boosts', store: 'Honor Shop' },
+    { name: 'Hero Shards', cost: 300, limit: 10, priority: 3, why: 'If honor points left over', store: 'Honor Shop' },
+  ],
+  campaign: [
+    { name: 'UR Universal Shards', cost: 500, limit: 10, priority: 1, why: 'Hero fragments', store: 'Campaign Store' },
+    { name: 'Weapon Shards', cost: 400, limit: 10, priority: 2, why: 'Exclusive weapon upgrades', store: 'Campaign Store' },
+    { name: 'Epic Resource Choice Chest', cost: 200, limit: 20, priority: 3, why: 'Good resource value', store: 'Campaign Store' },
+    { name: 'Speedups', cost: 100, limit: 30, priority: 4, why: 'If medals to spare', store: 'Campaign Store' },
+  ]
+};
+
+const CURRENCY_LABELS = {
+  diamonds: { icon: '\uD83D\uDC8E', name: 'Diamonds', nameEs: 'Diamantes' },
+  alliance: { icon: '\uD83E\uDD1D', name: 'Alliance Points', nameEs: 'Puntos de Alianza' },
+  honor: { icon: '\u2694\uFE0F', name: 'Honor Points', nameEs: 'Puntos de Honor' },
+  campaign: { icon: '\uD83C\uDFAF', name: 'Campaign Medals', nameEs: 'Medallas de Campaña' }
+};
+
+function calculateBudget() {
+  const budgets = {
+    diamonds: parseInt(document.getElementById('budgetDiamonds').value) || 0,
+    alliance: parseInt(document.getElementById('budgetAlliance').value) || 0,
+    honor: parseInt(document.getElementById('budgetHonor').value) || 0,
+    campaign: parseInt(document.getElementById('budgetCampaign').value) || 0,
+  };
+
+  let html = '';
+  let hasResults = false;
+
+  for (const [currency, budget] of Object.entries(budgets)) {
+    if (budget <= 0) continue;
+    hasResults = true;
+
+    const items = STORE_DATA[currency];
+    const sorted = [...items].sort((a, b) => a.priority - b.priority);
+    let remaining = budget;
+    const purchases = [];
+
+    for (const item of sorted) {
+      if (remaining <= 0) break;
+      const affordable = Math.min(Math.floor(remaining / item.cost), item.limit);
+      if (affordable > 0) {
+        const totalCost = affordable * item.cost;
+        remaining -= totalCost;
+        purchases.push({ ...item, qty: affordable, totalCost, remaining });
+      }
+    }
+
+    const info = CURRENCY_LABELS[currency];
+    const lang = document.getElementById('htmlRoot').lang;
+    const currName = lang === 'es' ? info.nameEs : info.name;
+
+    html += '<div class="result-section">';
+    html += '<h4><span class="currency-icon">' + info.icon + '</span> ' + currName + ' — ' + budget.toLocaleString() + '</h4>';
+
+    if (purchases.length === 0) {
+      html += '<p style="color:#aaa; font-size:13px;">' + (lang === 'es' ? 'Presupuesto insuficiente para cualquier compra.' : 'Budget too low for any purchases.') + '</p>';
+    } else {
+      html += '<div class="table-wrap"><table><thead><tr>';
+      html += '<th>#</th><th>' + (lang === 'es' ? 'Objeto' : 'Item') + '</th><th>' + (lang === 'es' ? 'Tienda' : 'Store') + '</th>';
+      html += '<th>' + (lang === 'es' ? 'Cant.' : 'Qty') + '</th><th>' + (lang === 'es' ? 'Costo' : 'Cost') + '</th>';
+      html += '<th>' + (lang === 'es' ? 'Restante' : 'Remaining') + '</th><th>' + (lang === 'es' ? 'Por qué' : 'Why') + '</th></tr></thead><tbody>';
+
+      purchases.forEach((p, i) => {
+        const rowClass = p.priority <= 2 ? 'priority-top' : p.priority <= 3 ? 'priority-high' : '';
+        html += '<tr class="' + rowClass + '">';
+        html += '<td class="priority-col">' + (i + 1) + '</td>';
+        html += '<td class="name-col">' + p.name + '</td>';
+        html += '<td>' + p.store + '</td>';
+        html += '<td class="qty-col">' + p.qty + '/' + p.limit + '</td>';
+        html += '<td class="cost-col">' + p.totalCost.toLocaleString() + '</td>';
+        html += '<td class="cost-col">' + p.remaining.toLocaleString() + '</td>';
+        html += '<td class="effect-col">' + p.why + '</td>';
+        html += '</tr>';
+      });
+
+      html += '</tbody></table></div>';
+      html += '<div class="remaining">' + (lang === 'es' ? 'Restante sin gastar: ' : 'Unspent remaining: ') + remaining.toLocaleString() + ' ' + currName.toLowerCase() + '</div>';
+    }
+    html += '</div>';
+  }
+
+  if (!hasResults) {
+    const lang = document.getElementById('htmlRoot').lang;
+    html = '<p style="color:#aaa; font-size:14px; text-align:center; padding:16px;">' +
+      (lang === 'es' ? 'Ingresa al menos un presupuesto arriba para comenzar.' : 'Enter at least one budget above to get started.') + '</p>';
+  }
+
+  document.getElementById('resultsContent').innerHTML = html;
+  document.getElementById('resultsPanel').classList.add('show');
+
+  // Save budgets
+  try { localStorage.setItem('owow-budget-inputs', JSON.stringify(budgets)); } catch(e) {}
+}
+
+function clearResults() {
+  document.getElementById('resultsPanel').classList.remove('show');
+  document.getElementById('resultsContent').innerHTML = '';
+  document.getElementById('budgetDiamonds').value = '';
+  document.getElementById('budgetAlliance').value = '';
+  document.getElementById('budgetHonor').value = '';
+  document.getElementById('budgetCampaign').value = '';
+  try { localStorage.removeItem('owow-budget-inputs'); } catch(e) {}
+}
+
+// Checklist persistence
+function initChecklist() {
+  const saved = {};
+  try { Object.assign(saved, JSON.parse(localStorage.getItem('owow-budget-checklist') || '{}')); } catch(e) {}
+  document.querySelectorAll('.checklist input[type="checkbox"]').forEach(cb => {
+    const key = cb.getAttribute('data-key');
+    if (saved[key]) { cb.checked = true; cb.parentElement.classList.add('checked'); }
+    cb.addEventListener('change', function() {
+      this.parentElement.classList.toggle('checked', this.checked);
+      saveChecklist();
+    });
+  });
+}
+
+function saveChecklist() {
+  const state = {};
+  document.querySelectorAll('.checklist input[type="checkbox"]').forEach(cb => {
+    state[cb.getAttribute('data-key')] = cb.checked;
+  });
+  try { localStorage.setItem('owow-budget-checklist', JSON.stringify(state)); } catch(e) {}
+}
+
+function resetChecklist() {
+  document.querySelectorAll('.checklist input[type="checkbox"]').forEach(cb => {
+    cb.checked = false;
+    cb.parentElement.classList.remove('checked');
+  });
+  try { localStorage.removeItem('owow-budget-checklist'); } catch(e) {}
+}
+
+// Restore saved budgets on load
+(function() {
+  try {
+    const saved = JSON.parse(localStorage.getItem('owow-budget-inputs') || '{}');
+    if (saved.diamonds) document.getElementById('budgetDiamonds').value = saved.diamonds;
+    if (saved.alliance) document.getElementById('budgetAlliance').value = saved.alliance;
+    if (saved.honor) document.getElementById('budgetHonor').value = saved.honor;
+    if (saved.campaign) document.getElementById('budgetCampaign').value = saved.campaign;
+  } catch(e) {}
+  initChecklist();
+})();
+
+// i18n
+const T = {
+  es: {
+    title: 'Planificador de Presupuesto',
+    subtitle: 'Ingresa Tu Presupuesto. Obt\u00e9n Tu Lista de Compras.',
+    hb1_label: 'Gasto Inteligente',
+    hb1_value: 'Ingresa tus recursos disponibles abajo \u2014 te diremos exactamente qu\u00e9 comprar, d\u00f3nde y en qu\u00e9 orden.',
+    hb1_tip: 'Todos los precios y prioridades verificados de lastwartutorial.com, gu\u00eda estrat\u00e9gica OWOW y fuentes comunitarias.',
+    s1_title: '1. Calculadora de Presupuesto',
+    s1_enter: 'Ingresa Tu Presupuesto',
+    lbl_diamonds: '\uD83D\uDC8E Diamantes',
+    lbl_alliance: '\uD83E\uDD1D Puntos de Alianza',
+    lbl_honor: '\u2694\uFE0F Puntos de Honor',
+    lbl_campaign: '\uD83C\uDFAF Medallas de Campa\u00f1a',
+    btn_calc: 'Calcular Lista de Compras',
+    btn_clear: 'Limpiar',
+    s2_title: '2. Referencia de Tiendas',
+    store_vip: 'Tienda VIP',
+    store_vip_meta: '\uD83D\uDC8E Diamantes \u2022 Se reinicia cada lunes',
+    store_alliance: 'Tienda de Alianza',
+    store_alliance_meta: '\uD83E\uDD1D Puntos de Contribuci\u00f3n \u2022 Se reinicia cada lunes',
+    store_honor: 'Tienda de Honor',
+    store_honor_meta: '\u2694\uFE0F Puntos de Honor \u2022 Se reinicia el 1 de cada mes',
+    store_campaign: 'Tienda de Campa\u00f1a',
+    store_campaign_meta: '\uD83C\uDFAF Medallas de Campa\u00f1a \u2022 Se reinicia semanalmente',
+    s3_title: '3. Estrategia de Gasto de Diamantes',
+    s3_desc: 'Los diamantes son la moneda gratuita m\u00e1s valiosa. Cada diamante que gastes debe ser deliberado. Aqu\u00ed est\u00e1 la asignaci\u00f3n prioritaria.',
+    th_priority: 'Prioridad', th_item: 'Objeto', th_budget: 'Presupuesto', th_why: 'Por qu\u00e9',
+    ds1: 'Conversi\u00f3n 1:1. Poder permanente. Apunta a VIP 8+ para desbloquear Agent Shirley.',
+    ds2_name: 'Activaci\u00f3n VIP 30 D\u00edas', ds2: '3x mejor valor que activaci\u00f3n diaria (67 diamantes/d\u00eda vs 200)',
+    ds3_name: 'Reserva de Escudos', ds3: '~2 meses de protecci\u00f3n de Enemy Buster a 5,000/mes',
+    ds4_name: 'Evento Summon Supplies', ds4: 'Guarda para UN gran impulso a 1,000 puntos para valor garantizado',
+    ds5_name: 'Estamina (Tienda VIP)', ds5: '250 estamina por 300 diamantes semanales (mejor valor del juego)',
+    ds6_name: 'Emergencia / Flexible', ds6: 'Oportunidades inesperadas, ofertas especiales',
+    hb_never_label: 'Nunca Gastes Diamantes En',
+    hb_never_value: 'Estos desperdician ~3,000 diamantes/mes por cero valor estrat\u00e9gico',
+    never1: 'Completar construcci\u00f3n instant\u00e1neamente',
+    never2: 'Completar investigaci\u00f3n instant\u00e1neamente',
+    never3: 'Reclutamiento de h\u00e9roes aleatorio',
+    never4: 'Compras cosm\u00e9ticas',
+    never5: 'Aceleraci\u00f3n de 5 min (96 dia/hr \u2014 terrible)',
+    never6: 'Materiales de equipo (farmeable)',
+    s4_title: '4. Gu\u00eda de Paquetes con Dinero Real',
+    s4_desc: 'Si decides gastar, estos paquetes ofrecen el mejor valor a largo plazo. "Barato no es igual a eficiente" \u2014 eval\u00faa los paquetes contra el momento de eventos, no los descuentos.',
+    pack1_name: 'Pase Mensual', pack1_desc: '30 d\u00edas de mejoras: escuadr\u00f3n extra, recolecci\u00f3n m\u00e1s r\u00e1pida, menos da\u00f1o de monstruos. Valor excede 8,200%. La mejor oferta para gastadores ligeros.',
+    pack2_name: 'Fondo de Crecimiento', pack2_desc: 'Hasta 50,000 diamantes desbloqueados progresivamente. Mejor para cuentas sobre HQ 15. Proporciona liquidez de diamantes.',
+    pack3_name: 'Oferta Semanal (Set Legendario)', pack3_desc: 'Diamantes, aceleradores, puntos VIP y materiales legendarios. La compra m\u00e1s fuerte para Alliance Duel y progresi\u00f3n de equipo m\u00edtico.',
+    hb_timing_label: 'Mejor Momento para Comprar',
+    hb_timing_value: 'Celebraciones de temporada, lanzamientos de nuevos h\u00e9roes UR, aniversarios de servidor y festivales tienen las mejores ofertas.',
+    hb_timing_tip: 'Espera eventos antes de gastar dinero real. Diamantes bonus, fragmentos extra y recompensas multiplicadoras hacen que tu dinero rinda m\u00e1s.',
+    s5_title: '5. Lista de Compras Semanal',
+    s5_desc: 'Cada lunes al reinicio del servidor, estas tiendas se actualizan. Marca lo que has comprado esta semana.',
+    cl_vip: '\uD83D\uDC8E Tienda VIP (Lunes)',
+    cl_alliance: '\uD83E\uDD1D Tienda de Alianza (Lunes)',
+    cl_campaign: '\uD83C\uDFAF Tienda de Campa\u00f1a (Semanal)',
+    cl_honor: '\u2694\uFE0F Tienda de Honor (1 del Mes)',
+    btn_reset_cl: 'Reiniciar Lista',
+    footer1: '[OWOW] Old World Order \u2022 Planificador de Presupuesto \u2022 Last War: Survival \u2022 Kristen OWOW SKYNET',
+    footer2: 'Fuentes: lastwartutorial.com \u2022 Gu\u00eda Estrat\u00e9gica OWOW \u2022 packsify.com',
+    footer3: 'Los precios de tienda pueden cambiar con actualizaciones. Verifica en el juego antes de compras grandes.'
+  }
+};
+
+const originals = {};
+function setLang(lang) {
+  document.querySelectorAll('.lang-btn').forEach(b => b.classList.toggle('active', b.textContent === lang.toUpperCase()));
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const key = el.getAttribute('data-i18n');
+    if (!originals[key]) originals[key] = el.innerHTML;
+    el.innerHTML = (lang === 'es' && T.es[key]) ? T.es[key] : originals[key];
+  });
+  document.getElementById('htmlRoot').lang = lang;
+  try { localStorage.setItem('owow-budget-lang', lang); } catch(e) {}
+}
+(function() {
+  try {
+    const saved = localStorage.getItem('owow-budget-lang');
+    if (saved === 'es') setLang('es');
+  } catch(e) {}
+})();
+</script>
+
+</body>
+</html>
