@@ -33,6 +33,7 @@ A complete suite of free tools and guides for Last War: Survival players. Track 
 | [Building Reference](https://extremesecrecy.github.io/lastwar-research-trees/guides/building_reference.html) | Complete building upgrade costs, times, and power data for all 32 buildings |
 | [Plunder Guide](https://extremesecrecy.github.io/lastwar-research-trees/guides/plunder_guide.html) | Cross-server truck raiding — step-by-step with screenshots |
 | [Profession Hall](https://extremesecrecy.github.io/lastwar-research-trees/guides/profession_hall.html) | Engineer vs War Leader — full skill tables, recommended builds, alliance composition |
+| [Budget Planner](https://extremesecrecy.github.io/lastwar-research-trees/guides/budget_planner.html) | Enter your budget, get a prioritized shopping list for every store |
 
 ---
 

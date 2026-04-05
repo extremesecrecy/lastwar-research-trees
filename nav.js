@@ -8,6 +8,7 @@
     { href: 'guides/alliance_support_hub.html', label: 'Alliance Hub' },
     { href: 'guides/alliance_tech.html', label: 'Alliance Tech' },
     { href: 'guides/building_planner.html', label: 'Building Planner' },
+    { href: 'guides/budget_planner.html', label: 'Budget Planner' },
     { href: 'guides/building_reference.html', label: 'Building Ref' },
     { href: 'guides/capitol_positions.html', label: 'Capitol Positions' },
     { href: 'guides/chip_lab_guide.html', label: 'Chip Lab' },
