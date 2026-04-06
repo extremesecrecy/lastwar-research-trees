@@ -304,6 +304,13 @@
 </div>
 
 <div class="dice-zone">
+  <div class="name-input-area" id="nameArea">
+    <label for="playerName" style="font-size:12px; color:#7fb3a8; text-transform:uppercase; letter-spacing:2px; display:block; margin-bottom:6px;">Enter Your Commander Name</label>
+    <input type="text" id="playerName" placeholder="e.g. Brutus, Extremesecrecy..." maxlength="30"
+      style="padding:10px 20px; border:2px solid #f4a261; border-radius:30px; background:rgba(255,255,255,0.1); color:#fff; font-size:18px; font-family:'Fredoka',sans-serif; text-align:center; width:300px; outline:none; transition:border-color 0.2s;"
+      onfocus="this.style.borderColor='#f4d35e'" onblur="this.style.borderColor='#f4a261'">
+    <div id="nameError" style="font-size:11px; color:#fc5c65; margin-top:4px; height:16px;"></div>
+  </div>
   <div class="dice-container" onclick="rollDice()">
     <div class="dice" id="dice">
       <span class="dice-dots" id="diceFace">?</span>
@@ -314,6 +321,13 @@
     Roll The Dice
   </button>
   <div class="roll-count" id="rollCount">Brutus is watching. Choose wisely.</div>
+</div>
+
+<!-- Roll History Log -->
+<div id="historySection" style="z-index:10; position:relative; margin-top:24px; width:100%; max-width:500px; display:none;">
+  <h3 style="font-size:14px; color:#f4a261; text-transform:uppercase; letter-spacing:2px; text-align:center; margin-bottom:8px;">Roll History</h3>
+  <div id="historyLog" style="background:rgba(255,255,255,0.05); border:1px solid rgba(127,179,168,0.3); border-radius:10px; padding:10px; max-height:200px; overflow-y:auto; font-size:12px; color:#aaa;"></div>
+  <button onclick="clearHistory()" style="margin-top:8px; background:transparent; border:1px solid #fc5c65; color:#fc5c65; padding:4px 16px; border-radius:20px; font-size:10px; cursor:pointer; font-family:'Fredoka',sans-serif; text-transform:uppercase; letter-spacing:1px;">Clear History</button>
 </div>
 
 <div class="win-screen" id="winScreen">
@@ -363,9 +377,33 @@ const REWARDS = [
 
 let rollCount = 0;
 let isRolling = false;
+let rollHistory = [];
+
+// Load saved history
+(function() {
+  try {
+    rollHistory = JSON.parse(localStorage.getItem('owow-lucky-rolls') || '[]');
+    const savedName = localStorage.getItem('owow-lucky-name') || '';
+    if (savedName) document.getElementById('playerName').value = savedName;
+    renderHistory();
+  } catch(e) {}
+})();
 
 function rollDice() {
   if (isRolling) return;
+
+  // Require name
+  const nameInput = document.getElementById('playerName');
+  const name = nameInput.value.trim();
+  if (!name) {
+    document.getElementById('nameError').textContent = 'Commander, identify yourself first!';
+    nameInput.style.borderColor = '#fc5c65';
+    nameInput.focus();
+    setTimeout(() => { document.getElementById('nameError').textContent = ''; nameInput.style.borderColor = '#f4a261'; }, 2000);
+    return;
+  }
+  try { localStorage.setItem('owow-lucky-name', name); } catch(e) {}
+
   isRolling = true;
 
   const dice = document.getElementById('dice');
@@ -399,18 +437,47 @@ function showWin(number) {
   const winNumber = document.getElementById('winNumber');
   const winMessage = document.getElementById('winMessage');
   const winTitle = document.getElementById('winTitle');
+  const name = document.getElementById('playerName').value.trim();
 
   const msgSet = WIN_MESSAGES[Math.floor(Math.random() * WIN_MESSAGES.length)];
   const reward = REWARDS[Math.floor(Math.random() * REWARDS.length)];
 
   winTitle.textContent = msgSet[0];
   winNumber.textContent = number;
-  winMessage.innerHTML = msgSet[1] + '<br><span style="font-size:16px;color:#888;">' + msgSet[2] + '</span><br><span class="reward">\uD83C\uDFC6 Prize: ' + reward + '</span>';
+  winMessage.innerHTML = '<strong>' + name + '</strong>, ' + msgSet[1].charAt(0).toLowerCase() + msgSet[1].slice(1) + '<br><span style="font-size:16px;color:#888;">' + msgSet[2] + '</span><br><span class="reward">\uD83C\uDFC6 Prize: ' + reward + '</span>';
 
   screen.classList.add('show');
   launchConfetti();
 
+  // Log roll with timestamp
+  const now = new Date();
+  const timestamp = now.toLocaleDateString('en-US', {month:'short', day:'numeric', year:'numeric'}) + ' ' + now.toLocaleTimeString('en-US', {hour:'2-digit', minute:'2-digit', second:'2-digit'});
+  const entry = { name: name, roll: number, time: timestamp, reward: reward };
+  rollHistory.unshift(entry);
+  if (rollHistory.length > 50) rollHistory.pop();
+  try { localStorage.setItem('owow-lucky-rolls', JSON.stringify(rollHistory)); } catch(e) {}
+  renderHistory();
+
   document.getElementById('rollCount').textContent = 'Total rolls: ' + rollCount + ' | Win rate: 100% | Brutus approves.';
+}
+
+function renderHistory() {
+  const container = document.getElementById('historyLog');
+  const section = document.getElementById('historySection');
+  if (rollHistory.length === 0) { section.style.display = 'none'; return; }
+  section.style.display = 'block';
+  container.innerHTML = rollHistory.map(function(e) {
+    return '<div style="padding:4px 0; border-bottom:1px solid rgba(255,255,255,0.05);">' +
+      '<span style="color:#f4d35e; font-weight:600;">\uD83C\uDFB2 ' + e.roll + '</span> &mdash; ' +
+      '<span style="color:#7fb3a8;">' + e.name + '</span>' +
+      '<span style="float:right; color:#666; font-size:10px;">' + e.time + '</span></div>';
+  }).join('');
+}
+
+function clearHistory() {
+  rollHistory = [];
+  try { localStorage.removeItem('owow-lucky-rolls'); } catch(e) {}
+  renderHistory();
 }
 
 function dismissWin() {
