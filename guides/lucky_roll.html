@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>OWOW Lucky Roll - Official Alliance Lottery</title>
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&display=swap');
@@ -12,458 +12,459 @@
     background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
     color: #fff;
     min-height: 100vh;
+    padding: 16px;
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
-    overflow: hidden;
-    position: relative;
   }
 
-  .header {
-    text-align: center;
-    margin-bottom: 20px;
-    z-index: 10;
-  }
-  .header img { height: 80px; margin-bottom: 8px; }
+  .header { text-align: center; margin-bottom: 12px; }
+  .header img { height: 60px; margin-bottom: 4px; }
   .header h1 {
-    font-size: 32px;
-    text-transform: uppercase;
-    letter-spacing: 3px;
+    font-size: 26px; text-transform: uppercase; letter-spacing: 2px;
     background: linear-gradient(90deg, #f4a261, #f4d35e, #f4a261);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    text-shadow: none;
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
   }
-  .header .sub {
-    font-size: 14px;
-    color: #7fb3a8;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    margin-top: 4px;
-  }
+  .header .sub { font-size: 12px; color: #7fb3a8; letter-spacing: 2px; text-transform: uppercase; }
   .header .alliance-tag {
-    display: inline-block;
-    background: rgba(127, 179, 168, 0.2);
-    border: 1px solid #7fb3a8;
-    border-radius: 5px;
-    padding: 3px 14px;
-    font-size: 13px;
-    color: #7fb3a8;
-    font-weight: bold;
-    margin-top: 8px;
-  }
-  .header .classified {
-    font-size: 10px;
-    color: #fc5c65;
-    letter-spacing: 3px;
-    text-transform: uppercase;
-    margin-top: 6px;
-    animation: blink 1.5s infinite;
-  }
-  @keyframes blink { 0%,100% { opacity: 1; } 50% { opacity: 0.3; } }
-
-  /* Dice area */
-  .dice-zone {
-    text-align: center;
-    z-index: 10;
-    position: relative;
+    display: inline-block; background: rgba(127,179,168,0.2); border: 1px solid #7fb3a8;
+    border-radius: 5px; padding: 2px 10px; font-size: 12px; color: #7fb3a8; font-weight: bold; margin-top: 4px;
   }
 
-  .dice-container {
-    width: 180px;
-    height: 180px;
-    margin: 0 auto 24px auto;
-    perspective: 600px;
-    cursor: pointer;
+  .rules-box {
+    max-width: 400px; width: 100%; background: rgba(244,162,97,0.1); border: 1px solid rgba(244,162,97,0.3);
+    border-radius: 10px; padding: 12px 14px; margin-bottom: 14px; text-align: left;
   }
+  .rules-box .rules-title {
+    font-size: 13px; color: #f4a261; font-weight: 700; text-transform: uppercase;
+    letter-spacing: 2px; margin-bottom: 6px; text-align: center;
+  }
+  .rules-box ol { font-size: 12px; color: #ccc; line-height: 1.8; padding-left: 18px; }
+  .rules-box li strong { color: #f4d35e; }
+  .rules-box .warning { color: #fc5c65; font-weight: 700; }
 
+  /* Game area */
+  .game-area { max-width: 400px; width: 100%; text-align: center; }
+
+  .round-display {
+    font-size: 14px; color: #7fb3a8; text-transform: uppercase; letter-spacing: 2px;
+    margin-bottom: 4px;
+  }
+  .round-number { font-size: 48px; font-weight: 700; color: #f4d35e; margin-bottom: 4px; }
+  .need-text { font-size: 14px; color: #ccc; margin-bottom: 12px; }
+  .need-text strong { color: #f4a261; font-size: 18px; }
+
+  .name-area { margin-bottom: 14px; }
+  .name-area label { font-size: 11px; color: #7fb3a8; text-transform: uppercase; letter-spacing: 1px; display: block; margin-bottom: 4px; }
+  .name-input {
+    padding: 10px 16px; border: 2px solid #f4a261; border-radius: 30px;
+    background: rgba(255,255,255,0.1); color: #fff; font-size: 16px;
+    font-family: 'Fredoka', sans-serif; text-align: center; width: 100%; max-width: 280px; outline: none;
+  }
+  .name-input:focus { border-color: #f4d35e; }
+  .name-input:disabled { opacity: 0.5; }
+  .name-error { font-size: 11px; color: #fc5c65; height: 14px; margin-top: 2px; }
+
+  .dice-container { width: 140px; height: 140px; margin: 0 auto 16px auto; cursor: pointer; }
   .dice {
-    width: 180px;
-    height: 180px;
-    background: linear-gradient(145deg, #f4a261, #e8914f);
-    border-radius: 24px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 80px;
-    font-weight: 700;
-    color: #fff;
-    box-shadow: 0 8px 32px rgba(244, 162, 97, 0.4), inset 0 -4px 8px rgba(0,0,0,0.2);
-    transition: transform 0.1s;
+    width: 140px; height: 140px; background: linear-gradient(145deg, #f4a261, #e8914f);
+    border-radius: 20px; display: flex; align-items: center; justify-content: center;
+    font-size: 64px; font-weight: 700; color: #fff;
+    box-shadow: 0 6px 24px rgba(244,162,97,0.4), inset 0 -3px 6px rgba(0,0,0,0.2);
     user-select: none;
-    position: relative;
   }
-  .dice.rolling {
-    animation: diceRoll 0.6s ease-out;
-  }
+  .dice.rolling { animation: diceRoll 0.6s ease-out; }
   @keyframes diceRoll {
-    0% { transform: rotateX(0deg) rotateY(0deg) scale(1); }
-    20% { transform: rotateX(180deg) rotateY(90deg) scale(0.8); }
-    40% { transform: rotateX(360deg) rotateY(180deg) scale(1.1); }
-    60% { transform: rotateX(540deg) rotateY(270deg) scale(0.9); }
-    80% { transform: rotateX(680deg) rotateY(340deg) scale(1.05); }
+    0% { transform: rotateX(0) rotateY(0) scale(1); }
+    25% { transform: rotateX(180deg) rotateY(90deg) scale(0.8); }
+    50% { transform: rotateX(360deg) rotateY(180deg) scale(1.1); }
+    75% { transform: rotateX(540deg) rotateY(270deg) scale(0.9); }
     100% { transform: rotateX(720deg) rotateY(360deg) scale(1); }
-  }
-  .dice .dice-dots {
-    font-size: 72px;
-    text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
   }
 
   .roll-btn {
-    background: linear-gradient(135deg, #fc5c65, #e04e56);
-    color: #fff;
-    border: none;
-    padding: 16px 48px;
-    border-radius: 50px;
-    font-size: 20px;
-    font-weight: 700;
-    cursor: pointer;
-    text-transform: uppercase;
-    letter-spacing: 2px;
-    font-family: 'Fredoka', sans-serif;
-    box-shadow: 0 4px 20px rgba(252, 92, 101, 0.4);
-    transition: all 0.2s;
-    position: relative;
-    overflow: hidden;
+    background: linear-gradient(135deg, #fc5c65, #e04e56); color: #fff; border: none;
+    padding: 14px 40px; border-radius: 50px; font-size: 18px; font-weight: 700;
+    cursor: pointer; text-transform: uppercase; letter-spacing: 2px;
+    font-family: 'Fredoka', sans-serif; box-shadow: 0 4px 16px rgba(252,92,101,0.4);
+    transition: all 0.2s; position: relative; overflow: hidden; -webkit-tap-highlight-color: transparent;
   }
-  .roll-btn:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 6px 28px rgba(252, 92, 101, 0.6);
-  }
-  .roll-btn:active { transform: translateY(0); }
-  .roll-btn:disabled {
-    opacity: 0.6;
-    cursor: not-allowed;
-    transform: none;
-  }
-  .roll-btn .btn-shine {
-    position: absolute;
-    top: 0; left: -100%;
-    width: 100%; height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+  .roll-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 24px rgba(252,92,101,0.6); }
+  .roll-btn:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+  .roll-btn .shine {
+    position: absolute; top: 0; left: -100%; width: 100%; height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.25), transparent);
     animation: shine 2s infinite;
   }
   @keyframes shine { 0% { left: -100%; } 100% { left: 100%; } }
 
-  .roll-count {
-    font-size: 12px;
-    color: #888;
-    margin-top: 12px;
-    letter-spacing: 1px;
+  /* Result flash */
+  .result-flash {
+    margin-top: 12px; font-size: 16px; font-weight: 700; min-height: 24px;
+    transition: all 0.3s;
   }
+  .result-flash.pass { color: #43a047; }
+  .result-flash.fail { color: #fc5c65; }
 
-  /* Win screen */
-  .win-screen {
-    display: none;
-    position: fixed;
-    top: 0; left: 0; right: 0; bottom: 0;
-    z-index: 100;
-    background: rgba(0,0,0,0.85);
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
+  /* Eliminated screen */
+  .eliminated {
+    display: none; text-align: center; padding: 20px;
+    background: rgba(252,92,101,0.1); border: 2px solid #fc5c65; border-radius: 12px;
+    margin-top: 16px; max-width: 400px; width: 100%;
   }
-  .win-screen.show { display: flex; }
+  .eliminated.show { display: block; }
+  .eliminated h2 { color: #fc5c65; font-size: 24px; text-transform: uppercase; letter-spacing: 2px; }
+  .eliminated p { color: #ccc; font-size: 14px; margin-top: 8px; }
+  .eliminated .final { color: #f4d35e; font-size: 18px; font-weight: 700; margin-top: 8px; }
 
-  .win-title {
-    font-size: 64px;
-    font-weight: 700;
-    background: linear-gradient(90deg, #f4d35e, #f4a261, #fc5c65, #f4a261, #f4d35e);
-    background-size: 200% auto;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    animation: goldShift 2s linear infinite;
-    text-transform: uppercase;
-    letter-spacing: 4px;
-    margin-bottom: 12px;
+  /* Champion screen */
+  .champion {
+    display: none; text-align: center; padding: 20px;
+    background: rgba(67,160,71,0.1); border: 2px solid #43a047; border-radius: 12px;
+    margin-top: 16px; max-width: 400px; width: 100%;
+  }
+  .champion.show { display: block; }
+  .champion h2 {
+    font-size: 28px; background: linear-gradient(90deg, #f4d35e, #f4a261, #fc5c65, #f4a261, #f4d35e);
+    background-size: 200% auto; -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    background-clip: text; animation: goldShift 2s linear infinite; text-transform: uppercase; letter-spacing: 3px;
   }
   @keyframes goldShift { 0% { background-position: 0% center; } 100% { background-position: 200% center; } }
+  .champion p { color: #7fb3a8; font-size: 16px; margin-top: 8px; line-height: 1.6; }
 
-  .win-number {
-    font-size: 120px;
-    font-weight: 700;
-    color: #f4d35e;
-    text-shadow: 0 0 30px rgba(244, 211, 94, 0.6), 0 0 60px rgba(244, 162, 97, 0.3);
-    animation: numberPulse 0.5s ease-in-out infinite alternate;
+  /* Roll history */
+  .history-section {
+    max-width: 400px; width: 100%; margin-top: 16px;
   }
-  @keyframes numberPulse { 0% { transform: scale(1); } 100% { transform: scale(1.08); } }
+  .history-title {
+    font-size: 13px; color: #f4a261; text-transform: uppercase; letter-spacing: 2px;
+    text-align: center; margin-bottom: 6px;
+  }
+  .history-log {
+    background: rgba(255,255,255,0.05); border: 1px solid rgba(127,179,168,0.3);
+    border-radius: 10px; padding: 8px; max-height: 250px; overflow-y: auto; font-size: 12px; color: #aaa;
+  }
+  .log-entry { padding: 4px 4px; border-bottom: 1px solid rgba(255,255,255,0.05); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; }
+  .log-entry.pass-entry { background: rgba(67,160,71,0.08); }
+  .log-entry.fail-entry { background: rgba(252,92,101,0.05); }
+  .log-left { display: flex; align-items: center; gap: 6px; }
+  .log-right { font-size: 10px; color: #555; }
+  .badge-pass { background: #43a047; color: #fff; font-size: 9px; padding: 1px 6px; border-radius: 8px; font-weight: 700; }
+  .badge-fail { background: #fc5c65; color: #fff; font-size: 9px; padding: 1px 6px; border-radius: 8px; font-weight: 700; }
+  .badge-round { background: #f4a261; color: #1a1a2e; font-size: 9px; padding: 1px 6px; border-radius: 8px; font-weight: 700; }
 
-  .win-message {
-    font-size: 24px;
-    color: #7fb3a8;
-    margin-top: 16px;
-    max-width: 500px;
-    line-height: 1.6;
-  }
-  .win-message .reward {
-    display: inline-block;
-    background: linear-gradient(135deg, #f4a261, #f4d35e);
-    color: #1a1a2e;
-    padding: 4px 16px;
-    border-radius: 20px;
-    font-weight: 700;
-    margin-top: 8px;
-  }
-
-  .win-owow {
-    font-size: 14px;
-    color: #f4a261;
-    letter-spacing: 3px;
-    text-transform: uppercase;
-    margin-top: 24px;
-    animation: blink 1s infinite;
-  }
-
-  .win-dismiss {
-    margin-top: 24px;
-    background: transparent;
-    border: 2px solid #7fb3a8;
-    color: #7fb3a8;
-    padding: 10px 30px;
-    border-radius: 30px;
-    font-size: 14px;
-    font-weight: 600;
-    cursor: pointer;
-    font-family: 'Fredoka', sans-serif;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    transition: all 0.2s;
-  }
-  .win-dismiss:hover {
-    background: #7fb3a8;
-    color: #1a1a2e;
+  .reset-btn {
+    margin-top: 8px; background: transparent; border: 1px solid #fc5c65; color: #fc5c65;
+    padding: 4px 16px; border-radius: 20px; font-size: 10px; cursor: pointer;
+    font-family: 'Fredoka', sans-serif; text-transform: uppercase; letter-spacing: 1px;
   }
 
   /* Confetti */
-  .confetti-piece {
-    position: fixed;
-    width: 10px;
-    height: 10px;
-    top: -10px;
-    z-index: 101;
-    animation: confettiFall linear forwards;
-  }
-  @keyframes confettiFall {
-    0% { top: -10px; transform: rotate(0deg) scale(1); opacity: 1; }
-    80% { opacity: 1; }
-    100% { top: 110vh; transform: rotate(720deg) scale(0.5); opacity: 0; }
-  }
+  .confetti-piece { position: fixed; width: 10px; height: 10px; top: -10px; z-index: 101; animation: confettiFall linear forwards; }
+  @keyframes confettiFall { 0% { top: -10px; transform: rotate(0) scale(1); opacity: 1; } 80% { opacity: 1; } 100% { top: 110vh; transform: rotate(720deg) scale(0.5); opacity: 0; } }
 
-  /* Stars background */
-  .stars {
-    position: fixed;
-    top: 0; left: 0; right: 0; bottom: 0;
-    z-index: 0;
-    pointer-events: none;
-  }
-  .star {
-    position: absolute;
-    width: 2px;
-    height: 2px;
-    background: #fff;
-    border-radius: 50%;
-    animation: twinkle 3s ease-in-out infinite;
-  }
-  @keyframes twinkle { 0%,100% { opacity: 0.3; } 50% { opacity: 1; } }
-
-  .footer {
-    position: fixed;
-    bottom: 12px;
-    text-align: center;
-    font-size: 11px;
-    color: #555;
-    z-index: 10;
-    letter-spacing: 1px;
-  }
+  .footer { text-align: center; font-size: 10px; color: #444; margin-top: 20px; letter-spacing: 1px; padding-bottom: 20px; }
 
   @media (max-width: 600px) {
-    .header h1 { font-size: 24px; }
-    .dice-container, .dice { width: 140px; height: 140px; }
-    .dice .dice-dots { font-size: 56px; }
-    .roll-btn { padding: 14px 36px; font-size: 16px; }
-    .win-title { font-size: 40px; }
-    .win-number { font-size: 80px; }
-    .win-message { font-size: 18px; padding: 0 20px; }
+    body { padding: 12px 10px; }
+    .header h1 { font-size: 20px; }
+    .header img { height: 48px; }
+    .dice-container, .dice { width: 120px; height: 120px; }
+    .dice { font-size: 52px; border-radius: 16px; }
+    .roll-btn { padding: 12px 32px; font-size: 16px; width: 100%; max-width: 280px; }
+    .round-number { font-size: 36px; }
+    .rules-box ol { font-size: 11px; }
+    .champion h2 { font-size: 22px; }
   }
 </style>
 </head>
 <body>
 
-<div class="stars" id="stars"></div>
-
 <div class="header">
   <img src="skynet_logo.png" alt="OWOW SKYNET">
   <h1>OWOW Lucky Roll</h1>
-  <div class="sub">Official Alliance Lottery System</div>
+  <div class="sub">Official Alliance Lottery</div>
   <div class="alliance-tag">[OWOW] Old World Order</div>
-  <div class="classified">CLASSIFIED: R5 AUTHORIZED PERSONNEL ONLY</div>
 </div>
 
-<div class="dice-zone">
+<div class="rules-box">
+  <div class="rules-title">Official Rules</div>
+  <ol>
+    <li><strong>Round 1:</strong> Roll the dice &mdash; you need a <strong>1</strong> to advance</li>
+    <li><strong>Round 2:</strong> You need a <strong>2</strong> to advance</li>
+    <li><strong>Round 3:</strong> You need a <strong>3</strong> &hellip; and so on up to <strong>Round 6</strong></li>
+    <li class="warning">If you don&rsquo;t roll the number you need &mdash; you&rsquo;re ELIMINATED!</li>
+    <li>Survive all 6 rounds to become the <strong style="color:#43a047;">OWOW CHAMPION</strong></li>
+    <li>All rolls are <strong>logged with timestamps</strong> &mdash; Kristen sees everything</li>
+  </ol>
+</div>
+
+<div class="game-area" id="gameArea">
+  <div class="round-display" id="roundLabel">Round</div>
+  <div class="round-number" id="roundNumber">1</div>
+  <div class="need-text" id="needText">You need to roll a <strong>1</strong></div>
+
+  <div class="name-area">
+    <label for="eventName">Event Name</label>
+    <input type="text" class="name-input" id="eventName" placeholder="e.g. Friday Night Roll-Off" maxlength="40" style="margin-bottom:10px; font-size:14px; border-color:#7fb3a8;">
+    <label for="playerName">Commander Name</label>
+    <input type="text" class="name-input" id="playerName" placeholder="Your in-game name" maxlength="30">
+    <div class="name-error" id="nameError"></div>
+  </div>
+
   <div class="dice-container" onclick="rollDice()">
     <div class="dice" id="dice">
-      <span class="dice-dots" id="diceFace">?</span>
+      <span id="diceFace">?</span>
     </div>
   </div>
+
   <button class="roll-btn" id="rollBtn" onclick="rollDice()">
-    <span class="btn-shine"></span>
+    <span class="shine"></span>
     Roll The Dice
   </button>
-  <div class="roll-count" id="rollCount">Brutus is watching. Choose wisely.</div>
+
+  <div class="result-flash" id="resultFlash"></div>
 </div>
 
-<div class="win-screen" id="winScreen">
-  <div class="win-title" id="winTitle">YOU WON!!!</div>
-  <div class="win-number" id="winNumber"></div>
-  <div class="win-message" id="winMessage"></div>
-  <div class="win-owow">OWOW SKYNET CONGRATULATES YOU</div>
-  <button class="win-dismiss" onclick="dismissWin()">Roll Again (You Know You Want To)</button>
+<div class="eliminated" id="eliminatedScreen">
+  <h2>ELIMINATED!</h2>
+  <p id="elimMessage"></p>
+  <div class="final" id="elimFinal"></div>
+  <button class="roll-btn" style="margin-top:16px; font-size:14px; padding:10px 28px;" onclick="resetGame()">Try Again</button>
+</div>
+
+<div class="champion" id="championScreen">
+  <h2>OWOW CHAMPION!!!</h2>
+  <p id="champMessage"></p>
+  <button class="roll-btn" style="margin-top:16px; font-size:14px; padding:10px 28px; background:linear-gradient(135deg,#43a047,#2e7d32);" onclick="resetGame()">Play Again</button>
+</div>
+
+<div class="history-section" id="historySection" style="display:none;">
+  <div class="history-title">Roll History</div>
+  <div class="history-log" id="historyLog"></div>
+  <button class="reset-btn" onclick="clearHistory()">Clear History</button>
 </div>
 
 <div class="footer">
-  [OWOW] Old World Order &bull; Kristen OWOW SKYNET &bull; Powered by Brutus's Approval
+  [OWOW] Old World Order &bull; Kristen OWOW SKYNET &bull; Server #2013
 </div>
 
 <script>
-const DICE_FACES = ['\u2680','\u2681','\u2682','\u2683','\u2684','\u2685'];
+var DICE_FACES = ['\u2680','\u2681','\u2682','\u2683','\u2684','\u2685'];
+var WEBHOOK_URL = 'https://script.google.com/macros/s/AKfycbxtvT5W5k_SKFAAMQGTpiwPzYbTscPzi_uSBji2QmvI_hGSTfqhBwG2wvpEKcngCXUe0w/exec';
+var currentRound = 1;
+var isRolling = false;
+var gameOver = false;
+var rollHistory = [];
 
-const WIN_MESSAGES = [
-  ["ABSOLUTE LEGEND!", "Brutus himself bows to your luck!", "Free shield for life (not really)"],
-  ["UNSTOPPABLE!", "The server trembles at your dice game!", "Promoted to R6 (just kidding... unless?)"],
-  ["GODLIKE ROLL!", "DVA just maxed her skills in your honor!", "Your enemies are shielding up RIGHT NOW"],
-  ["MAXIMUM POWER!", "Rally the entire server \u2014 this commander CANNOT be stopped!", "+500% luck buff (source: trust me bro)"],
-  ["CRITICAL HIT!", "The dice gods have spoken and they said YOUR NAME!", "Kristen is impressed. That's rare."],
-  ["FLAWLESS VICTORY!", "Even the whales are jealous of this roll!", "You just earned 0 diamonds but infinite respect"],
-  ["SUPREME COMMANDER!", "Server #2013 just felt a disturbance in the force!", "Brutus wants to know your secret"],
-  ["PURE DOMINATION!", "This roll was so good it counted for Arms Race points!", "Saturday Enemy Buster? More like Enemy BUS-TED"],
-  ["MEGA WIN!", "Old World Order? More like Old World WINNER!", "Your base just grew 3 HQ levels (in spirit)"],
-  ["TACTICAL GENIUS!", "Sun Tzu wrote about this roll in Chapter 7!", "OWOW SKYNET has flagged you as: EXTREMELY LUCKY"],
-  ["ABSOLUTELY CRACKED!", "This roll broke the algorithm!", "Kristen is recalculating... nope, still a winner"],
-  ["HALL OF FAME!", "This goes straight to #wall-of-honor!", "Even Morrison's gear is jealous of this number"],
+function sendToSheet(data) {
+  try {
+    fetch(WEBHOOK_URL, {
+      method: 'POST',
+      mode: 'no-cors',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(data)
+    });
+  } catch(e) { /* silent fail — don't block the game */ }
+}
+
+var ELIM_MESSAGES = [
+  "The dice gods have spoken. Not today, Commander.",
+  "Brutus shakes his head slowly...",
+  "OWOW SKYNET has removed you from the winner's circle.",
+  "Even DVA couldn't save that roll.",
+  "The server felt that L from here.",
+  "Kristen calculated your odds. She's not surprised.",
+  "Back to farming radar missions for you.",
+  "Your luck stat needs an upgrade.",
 ];
 
-const REWARDS = [
-  "1,000,000 Imaginary Diamonds",
-  "Brutus's Personal Shield (24hr, unlimited uses, totally fake)",
-  "Free R5 Promotion (valid in dreams only)",
-  "DVA's Autograph (NFT, non-transferable, non-existent)",
-  "Lifetime Supply of Radar Missions",
-  "The Secret Formula to T10 Troops",
-  "One Free Plunder Pass (for a server that doesn't exist)",
-  "Kristen's Phone Number (it's just !ask)",
-  "A Golden Toilet for Your HQ",
-  "Free Name Change to 'ServerLegend2013'",
-  "Brutus's Wi-Fi Password",
-  "The Key to the Alliance Vault (spoiler: it's empty)",
+var CHAMP_MESSAGES = [
+  "rolled through ALL 6 rounds! Absolute LEGEND! Brutus is ordering a statue in your honor!",
+  "just conquered the impossible! 6 rounds, 6 perfect rolls! Server #2013 has a new champion!",
+  "is officially the luckiest commander in OWOW! The dice bow to your supremacy!",
+  "CLEARED ALL ROUNDS! Kristen is recalculating reality because this shouldn't be possible!",
 ];
 
-let rollCount = 0;
-let isRolling = false;
+(function() {
+  try {
+    rollHistory = JSON.parse(localStorage.getItem('owow-dice-history') || '[]');
+    var savedName = localStorage.getItem('owow-dice-name') || '';
+    var savedEvent = localStorage.getItem('owow-dice-event') || '';
+    if (savedName) document.getElementById('playerName').value = savedName;
+    if (savedEvent) document.getElementById('eventName').value = savedEvent;
+    renderHistory();
+  } catch(e) {}
+})();
 
 function rollDice() {
-  if (isRolling) return;
-  isRolling = true;
+  if (isRolling || gameOver) return;
 
-  const dice = document.getElementById('dice');
-  const diceFace = document.getElementById('diceFace');
-  const rollBtn = document.getElementById('rollBtn');
+  var nameInput = document.getElementById('playerName');
+  var name = nameInput.value.trim();
+  if (!name) {
+    document.getElementById('nameError').textContent = 'Enter your name first, Commander!';
+    nameInput.style.borderColor = '#fc5c65';
+    setTimeout(function() { document.getElementById('nameError').textContent = ''; nameInput.style.borderColor = '#f4a261'; }, 2000);
+    return;
+  }
+  var eventName = document.getElementById('eventName').value.trim() || 'Default Event';
+  try { localStorage.setItem('owow-dice-name', name); localStorage.setItem('owow-dice-event', eventName); } catch(e) {}
+  nameInput.disabled = true;
+  document.getElementById('eventName').disabled = true;
+
+  isRolling = true;
+  var dice = document.getElementById('dice');
+  var diceFace = document.getElementById('diceFace');
+  var rollBtn = document.getElementById('rollBtn');
+  var resultFlash = document.getElementById('resultFlash');
 
   rollBtn.disabled = true;
+  resultFlash.textContent = '';
+  resultFlash.className = 'result-flash';
   dice.classList.add('rolling');
 
-  // Rapid face changes during roll
-  let flips = 0;
-  const flipInterval = setInterval(() => {
+  var flips = 0;
+  var flipInterval = setInterval(function() {
     diceFace.textContent = DICE_FACES[Math.floor(Math.random() * 6)];
     flips++;
-    if (flips > 12) {
+    if (flips > 14) {
       clearInterval(flipInterval);
-      // Final result
-      const result = Math.floor(Math.random() * 6);
-      diceFace.textContent = DICE_FACES[result];
+      var result = Math.floor(Math.random() * 6) + 1;
+      diceFace.textContent = DICE_FACES[result - 1];
       dice.classList.remove('rolling');
-      rollCount++;
 
-      // Everyone wins!
-      setTimeout(() => showWin(result + 1), 400);
+      var now = new Date();
+      var timestamp = now.toLocaleDateString('en-US', {month:'short',day:'numeric'}) + ' ' + now.toLocaleTimeString('en-US', {hour:'2-digit',minute:'2-digit',second:'2-digit'});
+      var needed = currentRound;
+      var passed = (result === needed);
+
+      var entry = { name: name, roll: result, needed: needed, round: currentRound, passed: passed, time: timestamp };
+      rollHistory.unshift(entry);
+      if (rollHistory.length > 200) rollHistory.pop();
+      try { localStorage.setItem('owow-dice-history', JSON.stringify(rollHistory)); } catch(e) {}
+      renderHistory();
+
+      // Send to Google Sheet
+      sendToSheet({
+        timestamp: timestamp,
+        name: name,
+        round: currentRound,
+        rolled: result,
+        needed: needed,
+        passed: passed,
+        event: eventName
+      });
+
+      setTimeout(function() {
+        if (passed) {
+          resultFlash.textContent = 'ROUND ' + currentRound + ' CLEARED!';
+          resultFlash.className = 'result-flash pass';
+
+          if (currentRound === 6) {
+            gameOver = true;
+            setTimeout(function() { showChampion(name); }, 800);
+          } else {
+            currentRound++;
+            setTimeout(function() {
+              document.getElementById('roundNumber').textContent = currentRound;
+              document.getElementById('needText').innerHTML = 'You need to roll a <strong>' + currentRound + '</strong>';
+              resultFlash.textContent = '';
+              rollBtn.disabled = false;
+              isRolling = false;
+            }, 1200);
+          }
+        } else {
+          resultFlash.textContent = 'Needed ' + needed + ', got ' + result + ' \u2014 ELIMINATED!';
+          resultFlash.className = 'result-flash fail';
+          gameOver = true;
+          setTimeout(function() { showEliminated(name, currentRound, result, needed); }, 800);
+        }
+      }, 400);
     }
-  }, 80);
+  }, 70);
 }
 
-function showWin(number) {
-  const screen = document.getElementById('winScreen');
-  const winNumber = document.getElementById('winNumber');
-  const winMessage = document.getElementById('winMessage');
-  const winTitle = document.getElementById('winTitle');
+function showEliminated(name, round, rolled, needed) {
+  document.getElementById('gameArea').style.display = 'none';
+  var screen = document.getElementById('eliminatedScreen');
+  var msg = ELIM_MESSAGES[Math.floor(Math.random() * ELIM_MESSAGES.length)];
+  document.getElementById('elimMessage').innerHTML = '<strong style="color:#f4a261;">' + name + '</strong>, ' + msg;
+  document.getElementById('elimFinal').textContent = 'Eliminated in Round ' + round + ' (rolled ' + rolled + ', needed ' + needed + ')';
+  screen.classList.add('show');
+}
 
-  const msgSet = WIN_MESSAGES[Math.floor(Math.random() * WIN_MESSAGES.length)];
-  const reward = REWARDS[Math.floor(Math.random() * REWARDS.length)];
-
-  winTitle.textContent = msgSet[0];
-  winNumber.textContent = number;
-  winMessage.innerHTML = msgSet[1] + '<br><span style="font-size:16px;color:#888;">' + msgSet[2] + '</span><br><span class="reward">\uD83C\uDFC6 Prize: ' + reward + '</span>';
-
+function showChampion(name) {
+  document.getElementById('gameArea').style.display = 'none';
+  var screen = document.getElementById('championScreen');
+  var msg = CHAMP_MESSAGES[Math.floor(Math.random() * CHAMP_MESSAGES.length)];
+  document.getElementById('champMessage').innerHTML = '<strong style="color:#f4d35e; font-size:20px;">' + name + '</strong> ' + msg;
   screen.classList.add('show');
   launchConfetti();
-
-  document.getElementById('rollCount').textContent = 'Total rolls: ' + rollCount + ' | Win rate: 100% | Brutus approves.';
 }
 
-function dismissWin() {
-  document.getElementById('winScreen').classList.remove('show');
-  document.getElementById('rollBtn').disabled = false;
+function resetGame() {
+  currentRound = 1;
   isRolling = false;
-  // Clear confetti
-  document.querySelectorAll('.confetti-piece').forEach(c => c.remove());
+  gameOver = false;
+  document.getElementById('gameArea').style.display = 'block';
+  document.getElementById('eliminatedScreen').classList.remove('show');
+  document.getElementById('championScreen').classList.remove('show');
+  document.getElementById('roundNumber').textContent = '1';
+  document.getElementById('needText').innerHTML = 'You need to roll a <strong>1</strong>';
+  document.getElementById('diceFace').textContent = '?';
+  document.getElementById('resultFlash').textContent = '';
+  document.getElementById('resultFlash').className = 'result-flash';
+  document.getElementById('rollBtn').disabled = false;
+  document.getElementById('playerName').disabled = false;
+  document.getElementById('playerName').style.opacity = '1';
+  document.getElementById('eventName').disabled = false;
+  document.querySelectorAll('.confetti-piece').forEach(function(c) { c.remove(); });
+}
+
+function renderHistory() {
+  var container = document.getElementById('historyLog');
+  var section = document.getElementById('historySection');
+  if (rollHistory.length === 0) { section.style.display = 'none'; return; }
+  section.style.display = 'block';
+  container.innerHTML = rollHistory.map(function(e) {
+    var cls = e.passed ? 'log-entry pass-entry' : 'log-entry fail-entry';
+    var badge = e.passed ? '<span class="badge-pass">PASS</span>' : '<span class="badge-fail">OUT</span>';
+    return '<div class="' + cls + '">' +
+      '<div class="log-left">' +
+        '<span class="badge-round">R' + e.round + '</span> ' +
+        '<span style="color:#f4d35e; font-weight:600;">\uD83C\uDFB2 ' + e.roll + '</span> ' +
+        '<span style="color:#7fb3a8;">' + e.name + '</span> ' + badge +
+      '</div>' +
+      '<div class="log-right">' + e.time + '</div>' +
+    '</div>';
+  }).join('');
+}
+
+function clearHistory() {
+  rollHistory = [];
+  try { localStorage.removeItem('owow-dice-history'); } catch(e) {}
+  renderHistory();
 }
 
 function launchConfetti() {
-  const colors = ['#f4a261','#f4d35e','#fc5c65','#5bc0de','#7fb3a8','#fff','#e04e56','#43a047'];
-  const shapes = ['square','circle','triangle'];
-  for (let i = 0; i < 80; i++) {
-    const piece = document.createElement('div');
+  var colors = ['#f4a261','#f4d35e','#fc5c65','#5bc0de','#7fb3a8','#fff','#43a047'];
+  for (var i = 0; i < 60; i++) {
+    var piece = document.createElement('div');
     piece.className = 'confetti-piece';
-    const color = colors[Math.floor(Math.random() * colors.length)];
-    const shape = shapes[Math.floor(Math.random() * shapes.length)];
-    const size = 6 + Math.random() * 10;
+    var color = colors[Math.floor(Math.random() * colors.length)];
+    var size = 6 + Math.random() * 8;
     piece.style.width = size + 'px';
     piece.style.height = size + 'px';
     piece.style.left = Math.random() * 100 + 'vw';
     piece.style.background = color;
+    piece.style.borderRadius = Math.random() > 0.5 ? '50%' : '0';
     piece.style.animationDuration = (2 + Math.random() * 3) + 's';
-    piece.style.animationDelay = (Math.random() * 0.8) + 's';
-    if (shape === 'circle') piece.style.borderRadius = '50%';
-    if (shape === 'triangle') {
-      piece.style.width = '0';
-      piece.style.height = '0';
-      piece.style.background = 'transparent';
-      piece.style.borderLeft = size/2 + 'px solid transparent';
-      piece.style.borderRight = size/2 + 'px solid transparent';
-      piece.style.borderBottom = size + 'px solid ' + color;
-    }
+    piece.style.animationDelay = (Math.random() * 0.6) + 's';
     document.body.appendChild(piece);
-    setTimeout(() => piece.remove(), 5000);
+    setTimeout(function() { piece.remove(); }, 5000);
   }
 }
-
-// Generate stars
-(function() {
-  const container = document.getElementById('stars');
-  for (let i = 0; i < 100; i++) {
-    const star = document.createElement('div');
-    star.className = 'star';
-    star.style.left = Math.random() * 100 + '%';
-    star.style.top = Math.random() * 100 + '%';
-    star.style.animationDelay = Math.random() * 3 + 's';
-    star.style.width = (1 + Math.random() * 2) + 'px';
-    star.style.height = star.style.width;
-    container.appendChild(star);
-  }
-})();
 </script>
 
 </body>
