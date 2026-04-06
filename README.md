@@ -17,9 +17,11 @@ A complete suite of free tools and guides for Last War: Survival players. Track 
 | [Research Tree Tracker](https://extremesecrecy.github.io/lastwar-research-trees/research_trees_visual.html) | Track all 16 research trees with interactive nodes, recommended 75-step path, and CSV export |
 | [Building Planner](https://extremesecrecy.github.io/lastwar-research-trees/guides/building_planner.html) | Plan HQ progression with cost analysis, power projections, speedup inventory, and upgrade recommendations |
 | [Hero Planner](https://extremesecrecy.github.io/lastwar-research-trees/guides/hero_planner.html) | Full hero roster tracker — levels, stars, skills, gear, squad assignments, and Thursday upgrade planning |
+| [Budget Planner](https://extremesecrecy.github.io/lastwar-research-trees/guides/budget_planner.html) | Enter your budget — get a prioritized shopping list for every store with real prices |
 | [VS Weekly Planner](https://extremesecrecy.github.io/lastwar-research-trees/guides/vs_weekly_planner.html) | Day-by-day Arms Race + VS Duel strategy with resource save checklists |
 | [Event Calendar](https://extremesecrecy.github.io/lastwar-research-trees/guides/calendar.html) | Server event timeline across all seasons with ICS calendar download |
 | [Server Dashboard](https://extremesecrecy.github.io/lastwar-research-trees/guides/server_dashboard.html) | Live server stats and game metrics |
+| [S1 Territory Map](https://extremesecrecy.github.io/lastwar-research-trees/guides/s1_territory_map.html) | Season 1 territory map visualization |
 
 ## Guides
 
@@ -33,7 +35,11 @@ A complete suite of free tools and guides for Last War: Survival players. Track 
 | [Building Reference](https://extremesecrecy.github.io/lastwar-research-trees/guides/building_reference.html) | Complete building upgrade costs, times, and power data for all 32 buildings |
 | [Plunder Guide](https://extremesecrecy.github.io/lastwar-research-trees/guides/plunder_guide.html) | Cross-server truck raiding — step-by-step with screenshots |
 | [Profession Hall](https://extremesecrecy.github.io/lastwar-research-trees/guides/profession_hall.html) | Engineer vs War Leader — full skill tables, recommended builds, alliance composition |
-| [Budget Planner](https://extremesecrecy.github.io/lastwar-research-trees/guides/budget_planner.html) | Enter your budget, get a prioritized shopping list for every store |
+| [Drone Guide](https://extremesecrecy.github.io/lastwar-research-trees/guides/drone_guide.html) | Drone parts, milestones, components, chips & strategy for all 300 levels |
+| [Alliance Tech](https://extremesecrecy.github.io/lastwar-research-trees/guides/alliance_tech.html) | Cooperative buffs, donation mechanics, and R4 strategy guide |
+| [Training Optimization](https://extremesecrecy.github.io/lastwar-research-trees/guides/training_optimization.html) | Training pools, speed formulas, research priorities for faster troops |
+| [Wall of Honor](https://extremesecrecy.github.io/lastwar-research-trees/guides/wall_of_honor.html) | Hero 5-star buffs, milestone bonuses, and investment priority for all 31 heroes |
+| [Interior Test Report](https://extremesecrecy.github.io/lastwar-research-trees/guides/interior_test_report.html) | Interior buff testing and analysis |
 
 ---
 
