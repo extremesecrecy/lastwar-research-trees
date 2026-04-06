@@ -255,7 +255,7 @@
 var DICE_FACES = ['\u2680','\u2681','\u2682','\u2683','\u2684','\u2685'];
 var WEBHOOK_URL = 'https://script.google.com/macros/s/AKfycbxtvT5W5k_SKFAAMQGTpiwPzYbTscPzi_uSBji2QmvI_hGSTfqhBwG2wvpEKcngCXUe0w/exec';
 var SHEET_ID = '1AWwmkuxyXGlSB9OyNFwNtHqE3fmCaRk3-eTqf2_5kB8';
-var SHEET_READ_URL = 'https://docs.google.com/spreadsheets/d/' + SHEET_ID + '/gviz/tq?tqx=out:json';
+var SHEET_READ_URL = 'https://docs.google.com/spreadsheets/d/' + SHEET_ID + '/gviz/tq?tqx=out:json&headers=1';
 var currentRound = 1;
 var advancingPlayers = [];
 var isRolling = false;
@@ -364,12 +364,16 @@ function fetchSheetStatus() {
         var cells = rows[i].c;
         // Column J (index 9) = ADMIN SET Round
         if (cells[9] && cells[9].v) {
-          adminRound = parseInt(cells[9].v) || 1;
+          var jVal = parseInt(cells[9].v);
+          if (jVal >= 1 && jVal <= 6) adminRound = jVal;
         }
         // Column K (index 10) = Last Round Winners
         if (cells[10] && cells[10].v) {
-          var name = String(cells[10].v).trim();
-          if (name) winners.push(name);
+          var wName = String(cells[10].v).trim();
+          // Skip header-like text
+          if (wName && wName.toLowerCase() !== 'last round winners' && wName.toLowerCase() !== 'winners') {
+            winners.push(wName);
+          }
         }
       }
 
