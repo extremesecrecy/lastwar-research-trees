@@ -349,13 +349,9 @@ function checkAndLockIfAlreadyRolled() {
   updateRoundDropdown();
 }
 
-// --- Fetch live round + winners from Google Sheet ---
-function fetchSheetStatus() {
-  fetch(SHEET_READ_URL)
-    .then(function(r) { return r.text(); })
-    .then(function(text) {
-      // Google sheets returns JSON wrapped in callback
-      var json = JSON.parse(text.replace(/^.*?\(/, '').replace(/\);?\s*$/, ''));
+// --- Fetch live round + winners from Google Sheet via JSONP ---
+function handleSheetData(json) {
+  try {
       var rows = json.table.rows;
       var adminRound = 1;
       var winners = [];
@@ -403,12 +399,27 @@ function fetchSheetStatus() {
       }
 
       checkAndLockIfAlreadyRolled();
-    })
-    .catch(function(err) {
-      document.getElementById('liveStatusLoading').textContent = 'Could not load status. Select round manually.';
-      // Fallback: show round selector
-      document.getElementById('roundSelect').style.display = 'block';
-    });
+  } catch(err) {
+    document.getElementById('liveStatusLoading').textContent = 'Could not load status. Select round manually.';
+    document.getElementById('roundSelect').style.display = 'block';
+  }
+}
+
+function fetchSheetStatus() {
+  // Use JSONP — inject a script tag that calls handleSheetData
+  var cb = 'handleSheetData';
+  var url = 'https://docs.google.com/spreadsheets/d/' + SHEET_ID + '/gviz/tq?tqx=out:json;responseHandler:' + cb + '&headers=1';
+  // Remove old script if exists
+  var old = document.getElementById('sheetScript');
+  if (old) old.remove();
+  var script = document.createElement('script');
+  script.id = 'sheetScript';
+  script.src = url;
+  script.onerror = function() {
+    document.getElementById('liveStatusLoading').textContent = 'Could not load status. Select round manually.';
+    document.getElementById('roundSelect').style.display = 'block';
+  };
+  document.body.appendChild(script);
 }
 
 // --- Round selector sync (hidden, fallback only) ---
