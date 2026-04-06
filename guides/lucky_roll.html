@@ -168,11 +168,11 @@
 
 <div class="rules-box">
   <ol>
-    <li>Leadership announces <strong>&ldquo;Round 1 is open!&rdquo;</strong> in Discord and shares this link.</li>
-    <li>Everyone enters their name, selects <strong>Round 1</strong>, and rolls &mdash; you need a <strong style="color:#fc5c65;">1</strong> to advance.</li>
-    <li>Leadership checks the Google Sheet: <strong style="color:#43a047;">who rolled a 1?</strong> Those advance. Everyone else is <span class="warning">ELIMINATED</span>.</li>
-    <li>Leadership announces <strong>&ldquo;Round 2!&rdquo;</strong> &mdash; only advancing players roll. This time you need a <strong style="color:#fc5c65;">2</strong>.</li>
-    <li>This continues &mdash; <strong>Round 3 needs a 3</strong>, <strong>Round 4 needs a 4</strong>, up to <strong>Round 6</strong>.</li>
+    <li>Leadership sets the <strong>current round</strong> and <strong>advancing players</strong> in the control sheet.</li>
+    <li>This page <strong style="color:#5bc0de;">automatically reads</strong> the current round and who advanced from the sheet.</li>
+    <li>Enter your name and roll &mdash; you need to match the <strong style="color:#fc5c65;">round number</strong> (Round 1 = need a 1, Round 2 = need a 2, etc.)</li>
+    <li>Leadership checks results, updates the sheet with who passed, and sets the next round.</li>
+    <li>Click <strong>&ldquo;Refresh Status&rdquo;</strong> to see the latest round and advancing players.</li>
     <li class="warning">If only ONE person passes a round &mdash; that person WINS and the game is OVER!</li>
     <li>You get <strong>ONE roll per round</strong>. No re-rolls. All results logged with UTC timestamps.</li>
   </ol>
@@ -187,20 +187,35 @@
     <label for="playerName">Commander Name (in-game name)</label>
     <input type="text" class="name-input" id="playerName" placeholder="Your in-game name" maxlength="30">
     <div class="name-error" id="nameError"></div>
-    <label for="roundSelect" style="margin-top:10px;">Current Round (set by leadership)</label>
-    <select id="roundSelect" class="round-select">
-      <option value="1">Round 1 &mdash; Need a 1</option>
-      <option value="2">Round 2 &mdash; Need a 2</option>
-      <option value="3">Round 3 &mdash; Need a 3</option>
-      <option value="4">Round 4 &mdash; Need a 4</option>
-      <option value="5">Round 5 &mdash; Need a 5</option>
-      <option value="6">Round 6 &mdash; Need a 6</option>
-    </select>
+  </div>
+
+  <!-- Live status from Google Sheet -->
+  <div id="liveStatus" style="background:#e4f3f8; border:2px solid #5bc0de; border-radius:10px; padding:12px 16px; margin-bottom:14px; text-align:center;">
+    <div style="font-size:11px; color:#5bc0de; font-weight:700; text-transform:uppercase; letter-spacing:1px;">Live Event Status</div>
+    <div id="liveStatusLoading" style="font-size:13px; color:#888; margin-top:4px;">Loading from HQ...</div>
+    <div id="liveStatusContent" style="display:none;">
+      <div style="font-size:12px; color:#5a6a6a; margin-top:4px;">Current Round</div>
+      <div id="liveRound" style="font-size:36px; font-weight:700; color:#f4a261;"></div>
+      <div id="liveNeed" style="font-size:14px; color:#888;"></div>
+    </div>
+  </div>
+
+  <!-- Last round winners -->
+  <div id="winnersPanel" style="display:none; background:#e8f5e9; border:2px solid #43a047; border-radius:10px; padding:12px 16px; margin-bottom:14px; text-align:center;">
+    <div style="font-size:11px; color:#43a047; font-weight:700; text-transform:uppercase; letter-spacing:1px;">Advancing to This Round</div>
+    <div id="winnersList" style="font-size:14px; color:#333; margin-top:6px; font-weight:600; line-height:1.8;"></div>
+    <div style="font-size:11px; color:#888; margin-top:4px;">Only these commanders may roll. If your name is not listed, you&rsquo;re eliminated.</div>
   </div>
 
   <div class="round-display" id="roundLabel">Round</div>
-  <div class="round-number" id="roundNumber">1</div>
-  <div class="need-text" id="needText">You need to roll a <strong>1</strong></div>
+  <div class="round-number" id="roundNumber">-</div>
+  <div class="need-text" id="needText">Loading...</div>
+
+  <!-- Hidden round select for internal tracking -->
+  <select id="roundSelect" class="round-select" style="display:none;">
+    <option value="1">1</option><option value="2">2</option><option value="3">3</option>
+    <option value="4">4</option><option value="5">5</option><option value="6">6</option>
+  </select>
 
   <div class="dice-container" onclick="rollDice()">
     <div class="dice" id="dice">
@@ -223,7 +238,7 @@
 <div class="champion" id="championScreen">
   <h2>ROUND CLEARED!</h2>
   <p id="champMessage"></p>
-  <button class="roll-btn" id="advanceBtn" style="margin-top:16px; font-size:14px; padding:10px 28px; background:#43a047;" onclick="advanceToNextRound()">Next Round</button>
+  <button class="roll-btn" id="advanceBtn" style="margin-top:16px; font-size:14px; padding:10px 28px; background:#43a047;" onclick="advanceToNextRound()">Refresh Status</button>
 </div>
 
 <div class="history-section" id="historySection" style="display:none;">
@@ -239,7 +254,10 @@
 <script>
 var DICE_FACES = ['\u2680','\u2681','\u2682','\u2683','\u2684','\u2685'];
 var WEBHOOK_URL = 'https://script.google.com/macros/s/AKfycbxtvT5W5k_SKFAAMQGTpiwPzYbTscPzi_uSBji2QmvI_hGSTfqhBwG2wvpEKcngCXUe0w/exec';
+var SHEET_ID = '1AWwmkuxyXGlSB9OyNFwNtHqE3fmCaRk3-eTqf2_5kB8';
+var SHEET_READ_URL = 'https://docs.google.com/spreadsheets/d/' + SHEET_ID + '/gviz/tq?tqx=out:json';
 var currentRound = 1;
+var advancingPlayers = [];
 var isRolling = false;
 var gameOver = false;
 var rollHistory = [];
@@ -331,7 +349,65 @@ function checkAndLockIfAlreadyRolled() {
   updateRoundDropdown();
 }
 
-// --- Round selector sync ---
+// --- Fetch live round + winners from Google Sheet ---
+function fetchSheetStatus() {
+  fetch(SHEET_READ_URL)
+    .then(function(r) { return r.text(); })
+    .then(function(text) {
+      // Google sheets returns JSON wrapped in callback
+      var json = JSON.parse(text.replace(/^.*?\(/, '').replace(/\);?\s*$/, ''));
+      var rows = json.table.rows;
+      var adminRound = 1;
+      var winners = [];
+
+      for (var i = 0; i < rows.length; i++) {
+        var cells = rows[i].c;
+        // Column J (index 9) = ADMIN SET Round
+        if (cells[9] && cells[9].v) {
+          adminRound = parseInt(cells[9].v) || 1;
+        }
+        // Column K (index 10) = Last Round Winners
+        if (cells[10] && cells[10].v) {
+          var name = String(cells[10].v).trim();
+          if (name) winners.push(name);
+        }
+      }
+
+      currentRound = adminRound;
+      advancingPlayers = winners;
+      document.getElementById('roundSelect').value = String(adminRound);
+      document.getElementById('roundNumber').textContent = adminRound;
+      document.getElementById('needText').innerHTML = 'You need to roll a <strong>' + adminRound + '</strong>';
+      document.getElementById('liveStatusLoading').style.display = 'none';
+      document.getElementById('liveStatusContent').style.display = 'block';
+      document.getElementById('liveRound').textContent = adminRound;
+      document.getElementById('liveNeed').textContent = 'Roll a ' + adminRound + ' to advance';
+
+      // Show winners panel
+      var wp = document.getElementById('winnersPanel');
+      if (winners.length > 0 && adminRound > 1) {
+        wp.style.display = 'block';
+        document.getElementById('winnersList').innerHTML = winners.map(function(w) {
+          return '<span style="display:inline-block; background:#43a047; color:#fff; padding:2px 10px; border-radius:12px; margin:2px 4px; font-size:13px;">' + w + '</span>';
+        }).join('');
+      } else if (adminRound === 1) {
+        wp.style.display = 'block';
+        document.getElementById('winnersList').innerHTML = '<span style="color:#43a047;">Round 1 is OPEN &mdash; everyone can roll!</span>';
+        document.querySelector('#winnersPanel div:last-child').textContent = 'Enter your name and roll!';
+      } else {
+        wp.style.display = 'none';
+      }
+
+      checkAndLockIfAlreadyRolled();
+    })
+    .catch(function(err) {
+      document.getElementById('liveStatusLoading').textContent = 'Could not load status. Select round manually.';
+      // Fallback: show round selector
+      document.getElementById('roundSelect').style.display = 'block';
+    });
+}
+
+// --- Round selector sync (hidden, fallback only) ---
 document.getElementById('roundSelect').addEventListener('change', function() {
   var r = parseInt(this.value);
   currentRound = r;
@@ -342,7 +418,7 @@ document.getElementById('roundSelect').addEventListener('change', function() {
 document.getElementById('playerName').addEventListener('blur', function() { checkAndLockIfAlreadyRolled(); });
 document.getElementById('eventName').addEventListener('blur', function() { checkAndLockIfAlreadyRolled(); });
 
-// --- Page load: restore state ---
+// --- Page load: restore state + fetch sheet ---
 (function() {
   try {
     rollHistory = JSON.parse(localStorage.getItem('owow-dice-history') || '[]');
@@ -351,8 +427,8 @@ document.getElementById('eventName').addEventListener('blur', function() { check
     if (savedName) document.getElementById('playerName').value = savedName;
     if (savedEvent) document.getElementById('eventName').value = savedEvent;
     renderHistory();
-    checkAndLockIfAlreadyRolled();
   } catch(e) {}
+  fetchSheetStatus();
 })();
 
 // --- Main roll function ---
@@ -452,29 +528,22 @@ function rollDice() {
   }, 70);
 }
 
-// --- Advance to next round (only for players who passed) ---
+// --- Refresh status from sheet (re-fetch current round + winners) ---
 function advanceToNextRound() {
-  var nextRound = currentRound + 1;
-  if (nextRound > 6) return;
   isRolling = false;
   gameOver = false;
-  currentRound = nextRound;
   document.getElementById('gameArea').style.display = 'block';
   document.getElementById('championScreen').classList.remove('show');
-  document.getElementById('roundNumber').textContent = nextRound;
-  document.getElementById('needText').innerHTML = 'You need to roll a <strong>' + nextRound + '</strong>';
   document.getElementById('diceFace').textContent = '?';
   document.getElementById('resultFlash').textContent = '';
   document.getElementById('resultFlash').className = 'result-flash';
   document.getElementById('rollBtn').disabled = false;
   document.getElementById('rollBtn').textContent = 'Roll The Dice';
-  document.getElementById('roundSelect').value = String(nextRound);
-  // Keep name + event locked (already set)
   document.getElementById('playerName').disabled = true;
   document.getElementById('eventName').disabled = true;
-  document.getElementById('roundSelect').disabled = true;
   document.querySelectorAll('.confetti-piece').forEach(function(c) { c.remove(); });
-  checkAndLockIfAlreadyRolled();
+  // Re-fetch from sheet to get the latest round
+  fetchSheetStatus();
 }
 
 function renderHistory() {
