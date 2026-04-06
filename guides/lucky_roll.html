@@ -648,10 +648,11 @@ function renderHistory() {
 // --- Reset all data (event manager nuclear option) ---
 function clearAllData() {
   rollHistory = [];
+  // Keep name and event — only clear roll locks and history
+  var savedName = document.getElementById('playerName').value;
+  var savedEvent = document.getElementById('eventName').value;
   try {
     localStorage.removeItem('owow-dice-history');
-    localStorage.removeItem('owow-dice-name');
-    localStorage.removeItem('owow-dice-event');
     // Clear all roll state keys
     var keys = [];
     for (var i = 0; i < localStorage.length; i++) {
@@ -661,29 +662,25 @@ function clearAllData() {
     keys.forEach(function(k) { localStorage.removeItem(k); });
   } catch(e) {}
   renderHistory();
-  // Full reset
+  // Reset game state but keep name/event
   isRolling = false;
   gameOver = false;
-  currentRound = 1;
   document.getElementById('gameArea').style.display = 'block';
   document.getElementById('eliminatedScreen').classList.remove('show');
   document.getElementById('championScreen').classList.remove('show');
-  document.getElementById('roundNumber').textContent = '1';
-  document.getElementById('needText').innerHTML = 'You need to roll a <strong>1</strong>';
   document.getElementById('diceFace').textContent = '?';
   document.getElementById('resultFlash').textContent = '';
   document.getElementById('resultFlash').className = 'result-flash';
   document.getElementById('rollBtn').disabled = false;
   document.getElementById('rollBtn').textContent = 'Roll The Dice';
   document.getElementById('playerName').disabled = false;
-  document.getElementById('playerName').value = '';
+  document.getElementById('playerName').value = savedName;
   document.getElementById('eventName').disabled = false;
   document.getElementById('eventName').value = '';
-  document.getElementById('roundSelect').disabled = false;
-  document.getElementById('roundSelect').value = '1';
   document.getElementById('advanceBtn').style.display = '';
-  updateRoundDropdown();
   document.querySelectorAll('.confetti-piece').forEach(function(c) { c.remove(); });
+  // Re-fetch sheet to get current round (keeps event name)
+  fetchSheetStatus();
 }
 
 function launchConfetti() {
