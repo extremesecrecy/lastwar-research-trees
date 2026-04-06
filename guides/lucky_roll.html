@@ -172,7 +172,7 @@
     <li>This page <strong style="color:#5bc0de;">automatically reads</strong> the current round and who advanced from the sheet.</li>
     <li>Enter your name and roll &mdash; you need to match the <strong style="color:#fc5c65;">round number</strong> (Round 1 = need a 1, Round 2 = need a 2, etc.)</li>
     <li>Leadership checks results, updates the sheet with who passed, and sets the next round.</li>
-    <li>Click <strong>&ldquo;Refresh Status&rdquo;</strong> to see the latest round and advancing players.</li>
+    <li>Click <strong>&ldquo;Refresh Status&rdquo;</strong> to see the latest round. <strong style="color:#5bc0de;">Only players listed as advancing can roll in Round 2+.</strong></li>
     <li class="warning">If only ONE person passes a round &mdash; that person WINS and the game is OVER!</li>
     <li>You get <strong>ONE roll per round</strong>. No re-rolls. All results logged with UTC timestamps.</li>
   </ol>
@@ -258,6 +258,7 @@ var SHEET_ID = '1AWwmkuxyXGlSB9OyNFwNtHqE3fmCaRk3-eTqf2_5kB8';
 var SHEET_READ_URL = 'https://docs.google.com/spreadsheets/d/' + SHEET_ID + '/gviz/tq?tqx=out:json&headers=1';
 var currentRound = 1;
 var advancingPlayers = [];
+var sheetEventName = '';
 var isRolling = false;
 var gameOver = false;
 var rollHistory = [];
@@ -373,6 +374,47 @@ function handleSheetData(json) {
         }
       }
 
+      // Check for event name in Column L (index 11)
+      for (var i = 0; i < rows.length; i++) {
+        var cells = rows[i].c;
+        if (cells[11] && cells[11].v) {
+          var eName = String(cells[11].v).trim();
+          if (eName && eName.toLowerCase() !== 'event name') {
+            sheetEventName = eName;
+          }
+        }
+      }
+
+      // Check for special admin commands
+      var adminStr = '';
+      for (var i = 0; i < rows.length; i++) {
+        var cells = rows[i].c;
+        if (cells[9] && cells[9].v) adminStr = String(cells[9].v).trim();
+      }
+
+      // Handle OVER state
+      if (adminStr.toUpperCase() === 'OVER') {
+        document.getElementById('liveStatusLoading').style.display = 'none';
+        document.getElementById('liveStatusContent').style.display = 'block';
+        document.getElementById('liveRound').textContent = '\uD83C\uDFC6';
+        document.getElementById('liveRound').style.fontSize = '48px';
+        document.getElementById('liveNeed').textContent = 'EVENT IS OVER!';
+        document.getElementById('rollBtn').disabled = true;
+        document.getElementById('rollBtn').textContent = 'EVENT ENDED';
+        gameOver = true;
+        var wp = document.getElementById('winnersPanel');
+        if (winners.length > 0) {
+          wp.style.display = 'block';
+          wp.querySelector('div:first-child').textContent = 'EVENT WINNER' + (winners.length > 1 ? 'S' : '');
+          document.getElementById('winnersList').innerHTML = winners.map(function(w) {
+            return '<span style="display:inline-block; background:#f4a261; color:#fff; padding:4px 14px; border-radius:12px; margin:2px 4px; font-size:15px; font-weight:700;">\uD83C\uDFC6 ' + w + '</span>';
+          }).join('');
+          wp.querySelector('div:last-child').textContent = 'Congratulations!';
+        }
+        if (sheetEventName) document.getElementById('eventName').value = sheetEventName;
+        return;
+      }
+
       currentRound = adminRound;
       advancingPlayers = winners;
       document.getElementById('roundSelect').value = String(adminRound);
@@ -382,6 +424,12 @@ function handleSheetData(json) {
       document.getElementById('liveStatusContent').style.display = 'block';
       document.getElementById('liveRound').textContent = adminRound;
       document.getElementById('liveNeed').textContent = 'Roll a ' + adminRound + ' to advance';
+
+      // Auto-fill event name from sheet
+      if (sheetEventName) {
+        document.getElementById('eventName').value = sheetEventName;
+        document.getElementById('eventName').disabled = true;
+      }
 
       // Show winners panel
       var wp = document.getElementById('winnersPanel');
@@ -393,7 +441,7 @@ function handleSheetData(json) {
       } else if (adminRound === 1) {
         wp.style.display = 'block';
         document.getElementById('winnersList').innerHTML = '<span style="color:#43a047;">Round 1 is OPEN &mdash; everyone can roll!</span>';
-        document.querySelector('#winnersPanel div:last-child').textContent = 'Enter your name and roll!';
+        wp.querySelector('div:last-child').textContent = 'Enter your name and roll!';
       } else {
         wp.style.display = 'none';
       }
@@ -461,6 +509,18 @@ function rollDice() {
   var eventName = document.getElementById('eventName').value.trim() || 'Default Event';
   currentRound = parseInt(document.getElementById('roundSelect').value);
 
+  // Block if not on advancing players list (Round 2+)
+  if (currentRound > 1 && advancingPlayers.length > 0) {
+    var nameLC = name.toLowerCase();
+    var isAdvancing = advancingPlayers.some(function(w) { return w.toLowerCase() === nameLC; });
+    if (!isAdvancing) {
+      document.getElementById('nameError').textContent = 'You are not on the advancing players list for this round.';
+      nameInput.style.borderColor = '#fc5c65';
+      setTimeout(function() { document.getElementById('nameError').textContent = ''; nameInput.style.borderColor = '#7fb3a8'; }, 3000);
+      return;
+    }
+  }
+
   // Block if already rolled this round
   if (getStoredRoll(eventName, name, currentRound)) {
     checkAndLockIfAlreadyRolled();
@@ -482,6 +542,8 @@ function rollDice() {
   resultFlash.textContent = '';
   resultFlash.className = 'result-flash';
   dice.classList.add('rolling');
+  // Haptic feedback on mobile
+  try { navigator.vibrate(200); } catch(e) {}
 
   var flips = 0;
   var flipInterval = setInterval(function() {
@@ -509,6 +571,9 @@ function rollDice() {
       updateRoundDropdown();
 
       sendToSheet({ timestamp: timestamp, name: name, round: currentRound, rolled: result, needed: needed, passed: passed, event: eventName });
+
+      // Haptic result feedback
+      try { navigator.vibrate(passed ? [100, 50, 100] : [300]); } catch(e) {}
 
       setTimeout(function() {
         if (passed) {
