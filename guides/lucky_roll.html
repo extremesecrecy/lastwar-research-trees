@@ -217,19 +217,19 @@
   <h2>ELIMINATED!</h2>
   <p id="elimMessage"></p>
   <div class="final" id="elimFinal"></div>
-  <button class="roll-btn" style="margin-top:16px; font-size:14px; padding:10px 28px;" onclick="resetGame()">Next Round</button>
+  <p style="margin-top:16px; color:#5a6a6a; font-size:13px;">You're out for this event. Better luck next time, Commander!</p>
 </div>
 
 <div class="champion" id="championScreen">
   <h2>ROUND CLEARED!</h2>
   <p id="champMessage"></p>
-  <button class="roll-btn" style="margin-top:16px; font-size:14px; padding:10px 28px; background:#43a047;" onclick="resetGame()">Next Round</button>
+  <button class="roll-btn" id="advanceBtn" style="margin-top:16px; font-size:14px; padding:10px 28px; background:#43a047;" onclick="advanceToNextRound()">Next Round</button>
 </div>
 
 <div class="history-section" id="historySection" style="display:none;">
   <div class="history-title">Your Roll History</div>
   <div class="history-log" id="historyLog"></div>
-  <button class="reset-btn" onclick="clearHistory()">Clear History</button>
+  <button class="reset-btn" onclick="clearAllData()">Reset All Data (New Event)</button>
 </div>
 
 <div class="footer">
@@ -244,14 +244,24 @@ var isRolling = false;
 var gameOver = false;
 var rollHistory = [];
 
+// --- Roll State Persistence (prevents refresh exploit) ---
+function getRollKey(event, name, round) {
+  return 'owow-roll-' + event.toLowerCase().trim().replace(/\s+/g,'-') + '-' + name.toLowerCase().trim().replace(/\s+/g,'-') + '-R' + round;
+}
+function storeRoll(event, name, round, roll, passed, timestamp) {
+  try { localStorage.setItem(getRollKey(event, name, round), JSON.stringify({roll:roll, passed:passed, time:timestamp})); } catch(e) {}
+}
+function getStoredRoll(event, name, round) {
+  try { var d = localStorage.getItem(getRollKey(event, name, round)); return d ? JSON.parse(d) : null; } catch(e) { return null; }
+}
+function getHighestRolledRound(event, name) {
+  for (var r = 6; r >= 1; r--) { if (getStoredRoll(event, name, r)) return r; }
+  return 0;
+}
+
 function sendToSheet(data) {
   try {
-    fetch(WEBHOOK_URL, {
-      method: 'POST',
-      mode: 'no-cors',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(data)
-    });
+    fetch(WEBHOOK_URL, { method: 'POST', mode: 'no-cors', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(data) });
   } catch(e) {}
 }
 
@@ -265,7 +275,6 @@ var ELIM_MESSAGES = [
   "Back to farming radar missions for you.",
   "Your luck stat needs an upgrade.",
 ];
-
 var PASS_MESSAGES = [
   "YOU SURVIVED! Wait for leadership to announce the next round.",
   "CLEARED! You live to roll another day. Stand by for the next round.",
@@ -273,13 +282,67 @@ var PASS_MESSAGES = [
   "SAFE! Brutus nods in approval. Next round incoming...",
 ];
 
+// --- Update round dropdown: disable already-rolled rounds ---
+function updateRoundDropdown() {
+  var name = document.getElementById('playerName').value.trim();
+  var event = document.getElementById('eventName').value.trim() || 'Default Event';
+  var options = document.getElementById('roundSelect').options;
+  for (var i = 0; i < options.length; i++) {
+    var r = parseInt(options[i].value);
+    var stored = getStoredRoll(event, name, r);
+    var baseText = 'Round ' + r + ' \u2014 Need a ' + r;
+    if (stored) {
+      options[i].textContent = baseText + ' (ROLLED: ' + stored.roll + ')';
+      options[i].disabled = true;
+    } else {
+      options[i].textContent = baseText;
+      options[i].disabled = false;
+    }
+  }
+}
+
+// --- Check if current round already rolled; lock UI if so ---
+function checkAndLockIfAlreadyRolled() {
+  var name = document.getElementById('playerName').value.trim();
+  var event = document.getElementById('eventName').value.trim() || 'Default Event';
+  var round = parseInt(document.getElementById('roundSelect').value);
+  if (!name) return;
+  var stored = getStoredRoll(event, name, round);
+  if (stored) {
+    document.getElementById('diceFace').textContent = DICE_FACES[stored.roll - 1];
+    document.getElementById('rollBtn').disabled = true;
+    document.getElementById('rollBtn').textContent = 'ALREADY ROLLED';
+    gameOver = true;
+    var resultFlash = document.getElementById('resultFlash');
+    if (stored.passed) {
+      resultFlash.textContent = 'You already rolled a ' + stored.roll + ' in Round ' + round + ' \u2014 PASSED!';
+      resultFlash.className = 'result-flash pass';
+    } else {
+      resultFlash.textContent = 'You already rolled a ' + stored.roll + ' in Round ' + round + ' \u2014 ELIMINATED!';
+      resultFlash.className = 'result-flash fail';
+    }
+  } else {
+    document.getElementById('rollBtn').disabled = false;
+    document.getElementById('rollBtn').textContent = 'Roll The Dice';
+    document.getElementById('resultFlash').textContent = '';
+    document.getElementById('resultFlash').className = 'result-flash';
+    gameOver = false;
+  }
+  updateRoundDropdown();
+}
+
+// --- Round selector sync ---
 document.getElementById('roundSelect').addEventListener('change', function() {
   var r = parseInt(this.value);
   currentRound = r;
   document.getElementById('roundNumber').textContent = r;
   document.getElementById('needText').innerHTML = 'You need to roll a <strong>' + r + '</strong>';
+  checkAndLockIfAlreadyRolled();
 });
+document.getElementById('playerName').addEventListener('blur', function() { checkAndLockIfAlreadyRolled(); });
+document.getElementById('eventName').addEventListener('blur', function() { checkAndLockIfAlreadyRolled(); });
 
+// --- Page load: restore state ---
 (function() {
   try {
     rollHistory = JSON.parse(localStorage.getItem('owow-dice-history') || '[]');
@@ -288,9 +351,11 @@ document.getElementById('roundSelect').addEventListener('change', function() {
     if (savedName) document.getElementById('playerName').value = savedName;
     if (savedEvent) document.getElementById('eventName').value = savedEvent;
     renderHistory();
+    checkAndLockIfAlreadyRolled();
   } catch(e) {}
 })();
 
+// --- Main roll function ---
 function rollDice() {
   if (isRolling || gameOver) return;
 
@@ -304,6 +369,13 @@ function rollDice() {
   }
   var eventName = document.getElementById('eventName').value.trim() || 'Default Event';
   currentRound = parseInt(document.getElementById('roundSelect').value);
+
+  // Block if already rolled this round
+  if (getStoredRoll(eventName, name, currentRound)) {
+    checkAndLockIfAlreadyRolled();
+    return;
+  }
+
   try { localStorage.setItem('owow-dice-name', name); localStorage.setItem('owow-dice-event', eventName); } catch(e) {}
   nameInput.disabled = true;
   document.getElementById('eventName').disabled = true;
@@ -335,21 +407,17 @@ function rollDice() {
       var needed = currentRound;
       var passed = (result === needed);
 
+      // Persist this roll (prevents refresh exploit)
+      storeRoll(eventName, name, currentRound, result, passed, timestamp);
+
       var entry = { name: name, roll: result, needed: needed, round: currentRound, passed: passed, time: timestamp };
       rollHistory.unshift(entry);
       if (rollHistory.length > 200) rollHistory.pop();
       try { localStorage.setItem('owow-dice-history', JSON.stringify(rollHistory)); } catch(e) {}
       renderHistory();
+      updateRoundDropdown();
 
-      sendToSheet({
-        timestamp: timestamp,
-        name: name,
-        round: currentRound,
-        rolled: result,
-        needed: needed,
-        passed: passed,
-        event: eventName
-      });
+      sendToSheet({ timestamp: timestamp, name: name, round: currentRound, rolled: result, needed: needed, passed: passed, event: eventName });
 
       setTimeout(function() {
         if (passed) {
@@ -358,6 +426,10 @@ function rollDice() {
           resultFlash.className = 'result-flash pass';
           gameOver = true;
           document.getElementById('champMessage').innerHTML = '<strong style="color:#f4a261;">' + name + '</strong> rolled a ' + result + ' in Round ' + currentRound + '! ' + msg;
+          if (currentRound >= 6) {
+            document.getElementById('advanceBtn').style.display = 'none';
+            document.getElementById('champMessage').innerHTML += '<br><br><strong style="color:#43a047; font-size:18px;">You survived ALL 6 ROUNDS! Absolute LEGEND!</strong>';
+          }
           setTimeout(function() {
             document.getElementById('gameArea').style.display = 'none';
             document.getElementById('championScreen').classList.add('show');
@@ -380,25 +452,29 @@ function rollDice() {
   }, 70);
 }
 
-function resetGame() {
-  currentRound = 1;
+// --- Advance to next round (only for players who passed) ---
+function advanceToNextRound() {
+  var nextRound = currentRound + 1;
+  if (nextRound > 6) return;
   isRolling = false;
   gameOver = false;
+  currentRound = nextRound;
   document.getElementById('gameArea').style.display = 'block';
-  document.getElementById('eliminatedScreen').classList.remove('show');
   document.getElementById('championScreen').classList.remove('show');
-  document.getElementById('roundNumber').textContent = '1';
-  document.getElementById('needText').innerHTML = 'You need to roll a <strong>1</strong>';
+  document.getElementById('roundNumber').textContent = nextRound;
+  document.getElementById('needText').innerHTML = 'You need to roll a <strong>' + nextRound + '</strong>';
   document.getElementById('diceFace').textContent = '?';
   document.getElementById('resultFlash').textContent = '';
   document.getElementById('resultFlash').className = 'result-flash';
   document.getElementById('rollBtn').disabled = false;
   document.getElementById('rollBtn').textContent = 'Roll The Dice';
-  document.getElementById('playerName').disabled = false;
-  document.getElementById('eventName').disabled = false;
-  document.getElementById('roundSelect').disabled = false;
-  document.getElementById('roundSelect').value = '1';
+  document.getElementById('roundSelect').value = String(nextRound);
+  // Keep name + event locked (already set)
+  document.getElementById('playerName').disabled = true;
+  document.getElementById('eventName').disabled = true;
+  document.getElementById('roundSelect').disabled = true;
   document.querySelectorAll('.confetti-piece').forEach(function(c) { c.remove(); });
+  checkAndLockIfAlreadyRolled();
 }
 
 function renderHistory() {
@@ -420,10 +496,45 @@ function renderHistory() {
   }).join('');
 }
 
-function clearHistory() {
+// --- Reset all data (event manager nuclear option) ---
+function clearAllData() {
   rollHistory = [];
-  try { localStorage.removeItem('owow-dice-history'); } catch(e) {}
+  try {
+    localStorage.removeItem('owow-dice-history');
+    localStorage.removeItem('owow-dice-name');
+    localStorage.removeItem('owow-dice-event');
+    // Clear all roll state keys
+    var keys = [];
+    for (var i = 0; i < localStorage.length; i++) {
+      var k = localStorage.key(i);
+      if (k && k.indexOf('owow-roll-') === 0) keys.push(k);
+    }
+    keys.forEach(function(k) { localStorage.removeItem(k); });
+  } catch(e) {}
   renderHistory();
+  // Full reset
+  isRolling = false;
+  gameOver = false;
+  currentRound = 1;
+  document.getElementById('gameArea').style.display = 'block';
+  document.getElementById('eliminatedScreen').classList.remove('show');
+  document.getElementById('championScreen').classList.remove('show');
+  document.getElementById('roundNumber').textContent = '1';
+  document.getElementById('needText').innerHTML = 'You need to roll a <strong>1</strong>';
+  document.getElementById('diceFace').textContent = '?';
+  document.getElementById('resultFlash').textContent = '';
+  document.getElementById('resultFlash').className = 'result-flash';
+  document.getElementById('rollBtn').disabled = false;
+  document.getElementById('rollBtn').textContent = 'Roll The Dice';
+  document.getElementById('playerName').disabled = false;
+  document.getElementById('playerName').value = '';
+  document.getElementById('eventName').disabled = false;
+  document.getElementById('eventName').value = '';
+  document.getElementById('roundSelect').disabled = false;
+  document.getElementById('roundSelect').value = '1';
+  document.getElementById('advanceBtn').style.display = '';
+  updateRoundDropdown();
+  document.querySelectorAll('.confetti-piece').forEach(function(c) { c.remove(); });
 }
 
 function launchConfetti() {
