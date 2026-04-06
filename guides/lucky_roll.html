@@ -190,27 +190,37 @@
 <div class="rules-box">
   <div class="rules-title">Official Rules</div>
   <ol>
-    <li><strong>Round 1:</strong> Roll the dice &mdash; you need a <strong>1</strong> to advance</li>
-    <li><strong>Round 2:</strong> You need a <strong>2</strong> to advance</li>
-    <li><strong>Round 3:</strong> You need a <strong>3</strong> &hellip; and so on up to <strong>Round 6</strong></li>
-    <li class="warning">If you don&rsquo;t roll the number you need &mdash; you&rsquo;re ELIMINATED!</li>
-    <li>Survive all 6 rounds to become the <strong style="color:#43a047;">OWOW CHAMPION</strong></li>
-    <li>All rolls are <strong>logged with timestamps</strong> &mdash; Kristen sees everything</li>
+    <li>Leadership announces <strong style="color:#f4d35e;">&ldquo;Round 1 is open!&rdquo;</strong> in Discord</li>
+    <li>Everyone rolls &mdash; you need a <strong style="color:#f4d35e;">1</strong> to advance. All rolls are logged to HQ.</li>
+    <li>Leadership checks the results: <strong style="color:#43a047;">who rolled a 1?</strong> Those players advance. Everyone else is <strong class="warning">ELIMINATED</strong>.</li>
+    <li>Leadership announces <strong style="color:#f4d35e;">&ldquo;Round 2!&rdquo;</strong> &mdash; only advancing players roll again. This time you need a <strong style="color:#f4d35e;">2</strong>.</li>
+    <li>This continues &mdash; <strong>Round 3 needs a 3</strong>, <strong>Round 4 needs a 4</strong>, and so on up to Round 6.</li>
+    <li class="warning">If only ONE person passes a round &mdash; that person WINS and the game is OVER!</li>
+    <li>You get <strong>ONE roll per round</strong>. No re-rolls. All results are logged with UTC timestamps.</li>
   </ol>
 </div>
 
 <div class="game-area" id="gameArea">
-  <div class="round-display" id="roundLabel">Round</div>
-  <div class="round-number" id="roundNumber">1</div>
-  <div class="need-text" id="needText">You need to roll a <strong>1</strong></div>
-
   <div class="name-area">
     <label for="eventName">Event Name</label>
     <input type="text" class="name-input" id="eventName" placeholder="e.g. Friday Night Roll-Off" maxlength="40" style="margin-bottom:10px; font-size:14px; border-color:#7fb3a8;">
     <label for="playerName">Commander Name</label>
     <input type="text" class="name-input" id="playerName" placeholder="Your in-game name" maxlength="30">
     <div class="name-error" id="nameError"></div>
+    <label for="roundSelect" style="margin-top:10px;">Current Round (set by leadership)</label>
+    <select id="roundSelect" style="padding:8px 16px; border:2px solid #f4d35e; border-radius:30px; background:rgba(255,255,255,0.1); color:#fff; font-size:16px; font-family:'Fredoka',sans-serif; text-align:center; width:100%; max-width:280px; outline:none; appearance:none; -webkit-appearance:none;">
+      <option value="1" style="background:#1a1a2e;">Round 1 &mdash; Need a 1</option>
+      <option value="2" style="background:#1a1a2e;">Round 2 &mdash; Need a 2</option>
+      <option value="3" style="background:#1a1a2e;">Round 3 &mdash; Need a 3</option>
+      <option value="4" style="background:#1a1a2e;">Round 4 &mdash; Need a 4</option>
+      <option value="5" style="background:#1a1a2e;">Round 5 &mdash; Need a 5</option>
+      <option value="6" style="background:#1a1a2e;">Round 6 &mdash; Need a 6</option>
+    </select>
   </div>
+
+  <div class="round-display" id="roundLabel">Round</div>
+  <div class="round-number" id="roundNumber">1</div>
+  <div class="need-text" id="needText">You need to roll a <strong>1</strong></div>
 
   <div class="dice-container" onclick="rollDice()">
     <div class="dice" id="dice">
@@ -286,6 +296,14 @@ var CHAMP_MESSAGES = [
   "CLEARED ALL ROUNDS! Kristen is recalculating reality because this shouldn't be possible!",
 ];
 
+// Round selector sync
+document.getElementById('roundSelect').addEventListener('change', function() {
+  var r = parseInt(this.value);
+  currentRound = r;
+  document.getElementById('roundNumber').textContent = r;
+  document.getElementById('needText').innerHTML = 'You need to roll a <strong>' + r + '</strong>';
+});
+
 (function() {
   try {
     rollHistory = JSON.parse(localStorage.getItem('owow-dice-history') || '[]');
@@ -309,9 +327,11 @@ function rollDice() {
     return;
   }
   var eventName = document.getElementById('eventName').value.trim() || 'Default Event';
+  currentRound = parseInt(document.getElementById('roundSelect').value);
   try { localStorage.setItem('owow-dice-name', name); localStorage.setItem('owow-dice-event', eventName); } catch(e) {}
   nameInput.disabled = true;
   document.getElementById('eventName').disabled = true;
+  document.getElementById('roundSelect').disabled = true;
 
   isRolling = true;
   var dice = document.getElementById('dice');
@@ -358,22 +378,13 @@ function rollDice() {
 
       setTimeout(function() {
         if (passed) {
-          resultFlash.textContent = 'ROUND ' + currentRound + ' CLEARED!';
+          resultFlash.textContent = 'ROUND ' + currentRound + ' CLEARED! Wait for leadership to announce the next round.';
           resultFlash.className = 'result-flash pass';
-
-          if (currentRound === 6) {
-            gameOver = true;
-            setTimeout(function() { showChampion(name); }, 800);
-          } else {
-            currentRound++;
-            setTimeout(function() {
-              document.getElementById('roundNumber').textContent = currentRound;
-              document.getElementById('needText').innerHTML = 'You need to roll a <strong>' + currentRound + '</strong>';
-              resultFlash.textContent = '';
-              rollBtn.disabled = false;
-              isRolling = false;
-            }, 1200);
-          }
+          // Lock — one roll per round. Player must wait for leadership to announce next round.
+          gameOver = true;
+          rollBtn.disabled = true;
+          rollBtn.textContent = 'WAITING FOR NEXT ROUND';
+          isRolling = false;
         } else {
           resultFlash.textContent = 'Needed ' + needed + ', got ' + result + ' \u2014 ELIMINATED!';
           resultFlash.className = 'result-flash fail';
@@ -415,10 +426,13 @@ function resetGame() {
   document.getElementById('diceFace').textContent = '?';
   document.getElementById('resultFlash').textContent = '';
   document.getElementById('resultFlash').className = 'result-flash';
-  document.getElementById('rollBtn').disabled = false;
+  var btn = document.getElementById('rollBtn');
+  btn.disabled = false;
+  btn.innerHTML = '<span class="shine"></span>Roll The Dice';
   document.getElementById('playerName').disabled = false;
   document.getElementById('playerName').style.opacity = '1';
   document.getElementById('eventName').disabled = false;
+  document.getElementById('roundSelect').disabled = false;
   document.querySelectorAll('.confetti-piece').forEach(function(c) { c.remove(); });
 }
 
