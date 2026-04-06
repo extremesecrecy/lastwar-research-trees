@@ -335,7 +335,7 @@ function rollDice() {
       dice.classList.remove('rolling');
 
       var now = new Date();
-      var timestamp = now.toLocaleDateString('en-US', {month:'short',day:'numeric'}) + ' ' + now.toLocaleTimeString('en-US', {hour:'2-digit',minute:'2-digit',second:'2-digit'});
+      var timestamp = now.toISOString().replace('T', ' ').replace(/\.\d+Z$/, ' UTC');
       var needed = currentRound;
       var passed = (result === needed);
 
