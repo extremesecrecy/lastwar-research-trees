@@ -66,12 +66,12 @@
   }
   .round-select:disabled { opacity: 0.5; background: #eee; }
 
-  .dice-container { width: 140px; height: 140px; margin: 0 auto 16px auto; cursor: pointer; }
+  .dice-container { width: 160px; height: 160px; margin: 0 auto 16px auto; cursor: pointer; position: relative; }
   .dice {
-    width: 140px; height: 140px; background: linear-gradient(145deg, #f4a261, #e8914f);
-    border-radius: 20px; display: flex; align-items: center; justify-content: center;
-    font-size: 64px; font-weight: 700; color: #fff;
-    box-shadow: 0 6px 24px rgba(244,162,97,0.3), inset 0 -3px 6px rgba(0,0,0,0.15);
+    width: 160px; height: 160px; background: url('dice.jpg') center/contain no-repeat;
+    border-radius: 12px; display: flex; align-items: center; justify-content: center;
+    font-size: 64px; font-weight: 700; color: #f4a261;
+    text-shadow: 2px 2px 0 #fff, -2px -2px 0 #fff, 2px -2px 0 #fff, -2px 2px 0 #fff;
     user-select: none;
   }
   .dice.rolling { animation: diceRoll 0.6s ease-out; }
@@ -136,8 +136,8 @@
     .top-bar { flex-direction: column; text-align: center; gap: 6px; }
     .top-bar .right { justify-content: center; }
     .top-bar .left h1 { font-size: 20px; }
-    .dice-container, .dice { width: 120px; height: 120px; }
-    .dice { font-size: 52px; border-radius: 16px; }
+    .dice-container, .dice { width: 130px; height: 130px; }
+    .dice { font-size: 48px; }
     .roll-btn { padding: 12px 32px; font-size: 16px; width: 100%; max-width: 300px; }
     .round-number { font-size: 36px; }
     .rules-box ol { font-size: 12px; }
