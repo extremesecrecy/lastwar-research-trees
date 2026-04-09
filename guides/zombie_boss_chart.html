@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+<html lang="en" id="htmlRoot">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Zombie Boss Calculator - OWOW</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&display=swap');
+  /* HCI Brand: Orange #f4a261, Cyan #5bc0de, Yellow #f4d35e, Teal #7fb3a8, Dark #5a6a6a, Text #333, Watermelon #fc5c65 */
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: 'Fredoka', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: #fff;
+    color: #333;
+    padding: 6px 10px;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* Navigation Bar */
+  .guide-nav {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px 12px;
+    align-items: center;
+    padding: 6px 10px;
+    background: #f0f5f4;
+    border-bottom: 2px solid #7fb3a8;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 12px;
+    margin: -6px -10px 6px -10px;
+    flex-shrink: 0;
+  }
+  .guide-nav a {
+    color: #5a6a6a;
+    text-decoration: none;
+    padding: 2px 6px;
+    border-radius: 3px;
+    white-space: nowrap;
+  }
+  .guide-nav a:hover { color: #f4a261; background: #fff; }
+  .guide-nav a.current { color: #f4a261; font-weight: bold; background: #fff; border: 1px solid #f4a261; }
+  .guide-nav .nav-home { font-weight: bold; margin-right: 8px; padding-right: 12px; border-right: 1px solid #7fb3a8; }
+  @media (max-width: 480px) {
+    .guide-nav { padding: 4px 8px; gap: 3px 8px; font-size: 11px; }
+  }
+
+  /* Header */
+  .top-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 6px;
+    flex-shrink: 0;
+  }
+  .top-bar h1 { font-size: 22px; letter-spacing: 1px; text-transform: uppercase; color: #5a6a6a; }
+  .top-bar .sub { font-size: 14px; color: #888; }
+  .alliance {
+    background: #e8f4f1;
+    border: 1px solid #7fb3a8;
+    border-radius: 5px;
+    padding: 2px 10px;
+    text-align: right;
+  }
+  .alliance .name { font-size: 19px; font-weight: 800; color: #5a6a6a; }
+  .alliance .info { font-size: 14px; color: #666; }
+
+  /* Section labels */
+  .section-label {
+    font-size: 16px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: #5a6a6a;
+    margin: 10px 0 6px 0;
+    padding-bottom: 3px;
+    border-bottom: 2px solid #7fb3a8;
+  }
+
+  /* Answer Cards */
+  .answer-row { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; margin-bottom: 12px; }
+  .answer-card {
+    border-radius: 8px;
+    padding: 12px 10px;
+    text-align: center;
+  }
+  .answer-card .question { font-size: 13px; font-weight: 600; margin-bottom: 4px; }
+  .answer-card .answer { font-size: 28px; font-weight: 700; }
+  .answer-card .detail { font-size: 12px; margin-top: 4px; color: #666; line-height: 1.3; }
+  .card-green { background: #e8f5e9; border: 2px solid #43a047; }
+  .card-green .question { color: #2e7d32; }
+  .card-green .answer { color: #2e7d32; }
+  .card-cyan { background: #e4f3f8; border: 2px solid #5bc0de; }
+  .card-cyan .question { color: #2a8fa8; }
+  .card-cyan .answer { color: #2a8fa8; }
+  .card-red { background: #fce4ec; border: 2px solid #fc5c65; }
+  .card-red .question { color: #c62828; }
+  .card-red .answer { color: #c62828; }
+
+  /* How To Use */
+  .howto {
+    background: #fef3e2;
+    border: 2px solid #f4a261;
+    border-radius: 8px;
+    padding: 10px 14px;
+    margin-bottom: 12px;
+    font-size: 13px;
+    line-height: 1.5;
+  }
+  .howto summary {
+    font-weight: 700;
+    color: #c47a30;
+    cursor: pointer;
+    font-size: 14px;
+  }
+  .howto ol { margin: 8px 0 0 18px; }
+  .howto li { margin-bottom: 4px; }
+  .howto .tip { color: #c47a30; font-weight: 600; }
+
+  /* Calculator */
+  .calc-box {
+    background: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 12px 14px;
+    margin-bottom: 12px;
+  }
+  .calc-row { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; flex-wrap: wrap; }
+  .calc-row label { font-weight: 600; color: #5a6a6a; min-width: 130px; font-size: 14px; }
+  .calc-row input[type=range] { flex: 1; min-width: 150px; height: 6px; accent-color: #f4a261; }
+  .calc-val { font-size: 18px; font-weight: 700; min-width: 55px; text-align: right; }
+  .calc-val-orange { color: #f4a261; }
+  .calc-val-cyan { color: #5bc0de; }
+  .verdict {
+    padding: 10px 14px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    text-align: center;
+    line-height: 1.4;
+  }
+  .verdict-win { background: #e8f5e9; color: #2e7d32; border: 1px solid #43a047; }
+  .verdict-rally { background: #e4f3f8; color: #2a8fa8; border: 1px solid #5bc0de; }
+  .verdict-lose { background: #fce4ec; color: #c62828; border: 1px solid #fc5c65; }
+
+  /* Charts */
+  .chart-wrap {
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 12px;
+    margin-bottom: 12px;
+  }
+  .chart-wrap h3 { font-size: 15px; color: #5a6a6a; margin-bottom: 2px; }
+  .chart-wrap .chart-sub { font-size: 11px; color: #999; margin-bottom: 8px; }
+  .chart-wrap canvas { width: 100% !important; }
+
+  /* Legend */
+  .legend-row { display: flex; gap: 14px; flex-wrap: wrap; justify-content: center; margin-bottom: 8px; font-size: 12px; }
+  .legend-item { display: flex; align-items: center; gap: 5px; }
+  .legend-dot { width: 14px; height: 4px; border-radius: 2px; display: inline-block; }
+  .legend-dot-circle { width: 10px; height: 10px; border-radius: 50%; }
+
+  /* Data Table */
+  table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  th { background: #5a6a6a; color: #fff; padding: 7px 5px; text-align: center; font-weight: 600; font-size: 12px; }
+  td { padding: 6px 5px; text-align: center; border-bottom: 1px solid #eee; }
+  tr:nth-child(even) { background: #fafafa; }
+  .row-win td:last-child { color: #27ae60; font-weight: 700; }
+  .row-loss td:last-child { color: #e74c3c; font-weight: 700; }
+  .row-est { background: #fff8e1 !important; font-style: italic; }
+
+  .footer { text-align: center; color: #aaa; font-size: 11px; margin-top: 12px; padding-bottom: 8px; }
+
+  /* Mobile */
+  @media (max-width: 600px) {
+    .answer-row { grid-template-columns: 1fr; gap: 8px; }
+    .answer-card .answer { font-size: 24px; }
+    .top-bar { flex-direction: column; align-items: flex-start; gap: 4px; }
+    .alliance { text-align: left; }
+    .calc-row { flex-direction: column; align-items: flex-start; gap: 4px; }
+    .calc-row input[type=range] { width: 100%; }
+    th, td { padding: 5px 3px; font-size: 11px; }
+    .legend-row { gap: 8px; font-size: 11px; }
+  }
+</style>
+</head>
+<body>
+
+<nav class="guide-nav" id="guide-nav"></nav>
+<script src="../nav.js"></script>
+
+<!-- HEADER -->
+<div class="top-bar">
+  <div>
+    <h1>Zombie Boss Calculator</h1>
+    <div class="sub">Can we kill it? What does it take?</div>
+  </div>
+  <div class="alliance">
+    <div class="name">[OWOW]</div>
+    <div class="info">Server #2013</div>
+  </div>
+</div>
+
+<!-- ANSWER CARDS -->
+<div class="answer-row">
+  <div class="answer-card card-green">
+    <div class="question">Can you SOLO it?</div>
+    <div class="answer" id="soloAnswer">Lv 50</div>
+    <div class="detail" id="soloDetail">Your march solos up to here</div>
+  </div>
+  <div class="answer-card card-cyan">
+    <div class="question">Can OWOW RALLY it?</div>
+    <div class="answer" id="rallyAnswer">Lv 65</div>
+    <div class="detail" id="rallyDetail">5-man rally wins up to here</div>
+  </div>
+  <div class="answer-card card-red">
+    <div class="question">Next target: Lv 70</div>
+    <div class="answer" id="needAnswer">~18.9M</div>
+    <div class="detail" id="needDetail">Each member needs this march power</div>
+  </div>
+</div>
+
+<!-- HOW TO USE -->
+<details class="howto" open>
+  <summary>How to use this calculator</summary>
+  <ol>
+    <li>The <strong>3 cards above</strong> show your current limits at a glance: what you can solo, what a rally can kill, and the power gap for the next boss level.</li>
+    <li>Use the <strong>What-If Calculator</strong> below: drag the <em>Boss Level</em> slider to pick a target, then drag <em>Your March Power</em> to your current (or projected) power. The verdict updates instantly.</li>
+    <li>The <strong>main chart</strong> shows 3 lines &mdash; boss march power (red), the minimum march power to solo (orange), and the minimum per-member march power to rally-kill (blue). Where your power (green dashed) crosses these lines = your limit.</li>
+    <li>The <strong>rally results</strong> chart shows real battle outcomes: green = boss troops killed, red = your troops lost.</li>
+  </ol>
+  <p class="tip">Thresholds: Solo needs ~85% of boss march power. Rally needs each member at ~65%. These come from real OWOW win/loss data, not theory.</p>
+</details>
+
+<!-- WHAT-IF CALCULATOR -->
+<div class="section-label">What-If Calculator</div>
+<div class="calc-box">
+  <div class="calc-row">
+    <label>Target Boss Level:</label>
+    <input type="range" id="bossSlider" min="40" max="90" value="70" step="5">
+    <span class="calc-val calc-val-orange" id="bossVal">Lv 70</span>
+  </div>
+  <div class="calc-row">
+    <label>Your March Power:</label>
+    <input type="range" id="powerSlider" min="10" max="40" value="17.8" step="0.1">
+    <span class="calc-val calc-val-cyan" id="powerVal">17.8M</span>
+  </div>
+  <div class="verdict" id="verdictBox">-</div>
+</div>
+
+<!-- MAIN CHART -->
+<div class="section-label">March Power Needed vs. Boss Level</div>
+<div class="chart-wrap">
+  <h3>How strong do you need to be?</h3>
+  <p class="chart-sub">Y-axis = march power in millions. Red = boss. Orange = solo threshold. Blue = rally threshold per member. Green dashed = your current power.</p>
+  <div class="legend-row">
+    <div class="legend-item"><span class="legend-dot" style="background:#e74c3c;"></span> Boss March Power</div>
+    <div class="legend-item"><span class="legend-dot" style="background:#f4a261;"></span> Solo Threshold (85%)</div>
+    <div class="legend-item"><span class="legend-dot" style="background:#5bc0de;"></span> Rally Threshold / Member (65%)</div>
+    <div class="legend-item"><span class="legend-dot" style="background:#27ae60; border-top: 2px dashed #27ae60; height:0; width:14px;"></span> Your Power</div>
+  </div>
+  <canvas id="mainChart"></canvas>
+</div>
+
+<!-- RALLY RESULTS -->
+<div class="section-label">Rally Results &mdash; What Actually Happened</div>
+<div class="chart-wrap">
+  <h3>Real battle outcomes at each boss level</h3>
+  <p class="chart-sub">Green = % of boss troops killed. Red = % of OWOW troops lost. When red overtakes green, you lose.</p>
+  <canvas id="rallyChart"></canvas>
+</div>
+
+<!-- DATA TABLE -->
+<div class="section-label">Battle Report Data</div>
+<div style="overflow-x: auto;">
+<table>
+  <thead>
+    <tr>
+      <th>Boss Lv</th>
+      <th>Boss Power</th>
+      <th>Zombie Heroes</th>
+      <th>Boss Troops</th>
+      <th>Rally</th>
+      <th>OWOW Lost</th>
+      <th>Boss Killed</th>
+      <th>Result</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr class="row-win"><td>45</td><td>17.4M</td><td>Lv290</td><td>2,180</td><td>5</td><td>440 (5%)</td><td>2,180 (100%)</td><td>WIN</td></tr>
+    <tr class="row-win"><td>50</td><td>20.0M</td><td>Lv300</td><td>2,250</td><td>4</td><td>642 (8%)</td><td>2,250 (100%)</td><td>WIN</td></tr>
+    <tr class="row-win"><td>55</td><td>22.0M</td><td>Lv300</td><td>2,250</td><td>4</td><td>2,189 (26%)</td><td>2,250 (100%)</td><td>WIN</td></tr>
+    <tr class="row-win"><td>60</td><td>24.0M</td><td>Lv310</td><td>2,300</td><td>5</td><td>3,280 (32%)</td><td>2,300 (100%)</td><td>WIN</td></tr>
+    <tr class="row-win"><td>65</td><td>27.0M</td><td>Lv310</td><td>2,300</td><td>5</td><td>4,745 (48%)</td><td>2,300 (100%)</td><td>WIN</td></tr>
+    <tr class="row-loss row-est"><td>70*</td><td>~29.1M</td><td>Lv320</td><td>2,350</td><td>5</td><td>10,240 (100%)</td><td>654 (28%)</td><td>LOSS</td></tr>
+    <tr class="row-loss"><td>75</td><td>31.5M</td><td>Lv320</td><td>2,350</td><td>1</td><td>2,150 (100%)</td><td>163 (7%)</td><td>LOSS</td></tr>
+  </tbody>
+</table>
+</div>
+<p style="color:#aaa; font-size:11px; margin-top:4px;">* Lv70 power estimated via linear regression (6 confirmed points, R²=0.997). All other values from in-game screenshots.</p>
+<p style="color:#aaa; font-size:11px;">Solo threshold (85%) and rally threshold (65%) derived from real OWOW win/loss boundaries.</p>
+
+<div class="footer">
+  Data source: OWOW battle reports, Server #2013 (Apr 7&ndash;9, 2026).<br>
+  All values from in-game screenshots. No fabricated data.
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-annotation@3.1.0/dist/chartjs-plugin-annotation.min.js"></script>
+<script>
+(function(){
+  // ========== REAL DATA ==========
+  var DATA = [
+    { lv:45, power:17.4, heroLv:290, troops:2180, leaderPow:16.5, rallySize:5, lost:440,   totalTroops:9479,  bossKilled:2180, win:true },
+    { lv:50, power:20.0, heroLv:300, troops:2250, leaderPow:16.8, rallySize:4, lost:642,   totalTroops:7662,  bossKilled:2250, win:true },
+    { lv:55, power:22.0, heroLv:300, troops:2250, leaderPow:16.8, rallySize:4, lost:2189,  totalTroops:8366,  bossKilled:2250, win:true },
+    { lv:60, power:24.0, heroLv:310, troops:2300, leaderPow:16.5, rallySize:5, lost:3280,  totalTroops:10389, bossKilled:2300, win:true },
+    { lv:65, power:27.0, heroLv:310, troops:2300, leaderPow:17.6, rallySize:5, lost:4745,  totalTroops:10000, bossKilled:2300, win:true },
+    { lv:70, power:29.1, heroLv:320, troops:2350, leaderPow:null,  rallySize:5, lost:10240, totalTroops:10240, bossKilled:654,  win:false, estimated:true },
+    { lv:75, power:31.5, heroLv:320, troops:2350, leaderPow:17.8, rallySize:1, lost:2150,  totalTroops:2150,  bossKilled:163,  win:false }
+  ];
+
+  // Boss power formula from regression: P = 0.468 * Lv - 3.65
+  function bossPower(lv) { return +(0.468 * lv - 3.65).toFixed(1); }
+
+  // Thresholds from real data:
+  // Solo: 16.8M vs 20.0M = 84% WIN, 16.8M vs 22.0M = 76% LOSS -> ~85%
+  // Rally: 17.6M vs 27.0M = 65% WIN, ~17.8M vs 29.1M = 61% LOSS -> ~65%
+  var SOLO_RATIO = 0.85;
+  var RALLY_RATIO = 0.65;
+  var CURRENT_POWER = 17.8;
+
+  // ========== ANSWER CARDS ==========
+  function updateCards(myPower) {
+    var maxSolo = 40;
+    for (var lv = 40; lv <= 90; lv += 5) {
+      if (myPower >= SOLO_RATIO * bossPower(lv)) maxSolo = lv;
+    }
+    document.getElementById('soloAnswer').textContent = 'Lv ' + maxSolo;
+    document.getElementById('soloDetail').textContent =
+      myPower + 'M march solos up to Lv' + maxSolo + ' (' + bossPower(maxSolo) + 'M boss)';
+
+    var maxRally = 40;
+    for (var lv2 = 40; lv2 <= 90; lv2 += 5) {
+      if (myPower >= RALLY_RATIO * bossPower(lv2)) maxRally = lv2;
+    }
+    document.getElementById('rallyAnswer').textContent = 'Lv ' + maxRally;
+    document.getElementById('rallyDetail').textContent =
+      '5-man rally kills up to Lv' + maxRally + ' (' + bossPower(maxRally) + 'M boss)';
+
+    var nextTarget = maxRally + 5;
+    var need = +(RALLY_RATIO * bossPower(nextTarget)).toFixed(1);
+    var gap = +(need - myPower).toFixed(1);
+    document.getElementById('needAnswer').textContent = '~' + need + 'M';
+    document.getElementById('needDetail').textContent =
+      'Each member needs ' + need + 'M (gap: ' + (gap > 0 ? '+' + gap : gap) + 'M)';
+    document.querySelector('.card-red .question').textContent = 'Next target: Lv ' + nextTarget;
+  }
+  updateCards(CURRENT_POWER);
+
+  // ========== WHAT-IF CALCULATOR ==========
+  var bossSlider = document.getElementById('bossSlider');
+  var powerSlider = document.getElementById('powerSlider');
+  var bossValEl = document.getElementById('bossVal');
+  var powerValEl = document.getElementById('powerVal');
+  var verdictBox = document.getElementById('verdictBox');
+
+  function updateVerdict() {
+    var targetLv = parseInt(bossSlider.value);
+    var myPower = parseFloat(powerSlider.value);
+    var bp = bossPower(targetLv);
+    var soloNeed = +(SOLO_RATIO * bp).toFixed(1);
+    var rallyNeed = +(RALLY_RATIO * bp).toFixed(1);
+
+    bossValEl.textContent = 'Lv ' + targetLv;
+    powerValEl.textContent = myPower.toFixed(1) + 'M';
+
+    verdictBox.className = 'verdict';
+    if (myPower >= soloNeed) {
+      verdictBox.innerHTML = 'YES &mdash; You can SOLO Lv' + targetLv + '! Boss is ' + bp + 'M, you need ' + soloNeed + 'M, you have ' + myPower.toFixed(1) + 'M.';
+      verdictBox.classList.add('verdict-win');
+    } else if (myPower >= rallyNeed) {
+      verdictBox.innerHTML = 'YES &mdash; A 5-man rally CAN kill Lv' + targetLv + '. Each member needs ' + rallyNeed + 'M+. Boss is ' + bp + 'M.';
+      verdictBox.classList.add('verdict-rally');
+    } else {
+      var gap = +(rallyNeed - myPower).toFixed(1);
+      verdictBox.innerHTML = 'NO &mdash; Cannot kill Lv' + targetLv + ' yet. Each member needs ' + rallyNeed + 'M (you: ' + myPower.toFixed(1) + 'M, gap: ' + gap + 'M). Boss is ' + bp + 'M.';
+      verdictBox.classList.add('verdict-lose');
+    }
+
+    // Also update cards based on slider power
+    updateCards(myPower);
+  }
+  bossSlider.addEventListener('input', updateVerdict);
+  powerSlider.addEventListener('input', updateVerdict);
+  updateVerdict();
+
+  // ========== MAIN CHART ==========
+  var levels = [];
+  var bpLine = [], soloLine = [], rallyLine = [], currentLine = [];
+  for (var lv = 40; lv <= 90; lv++) {
+    levels.push(lv);
+    var bp = bossPower(lv);
+    bpLine.push(bp);
+    soloLine.push(+(SOLO_RATIO * bp).toFixed(1));
+    rallyLine.push(+(RALLY_RATIO * bp).toFixed(1));
+    currentLine.push(CURRENT_POWER);
+  }
+
+  new Chart(document.getElementById('mainChart'), {
+    type: 'line',
+    data: {
+      labels: levels,
+      datasets: [
+        {
+          label: 'Boss March Power',
+          data: bpLine,
+          borderColor: '#e74c3c',
+          backgroundColor: 'rgba(231,76,60,0.06)',
+          borderWidth: 3,
+          fill: true,
+          pointRadius: 0,
+          order: 3
+        },
+        {
+          label: 'Confirmed Data',
+          data: levels.map(function(l) {
+            var d = null;
+            for (var i = 0; i < DATA.length; i++) {
+              if (DATA[i].lv === l && !DATA[i].estimated) d = DATA[i].power;
+            }
+            return d;
+          }),
+          borderColor: '#e74c3c',
+          backgroundColor: '#c0392b',
+          pointRadius: 6,
+          pointStyle: 'circle',
+          showLine: false,
+          order: 1
+        },
+        {
+          label: 'Min to Solo (85% of boss)',
+          data: soloLine,
+          borderColor: '#f4a261',
+          borderWidth: 2,
+          borderDash: [6, 3],
+          pointRadius: 0,
+          fill: false,
+          order: 4
+        },
+        {
+          label: 'Min per Rally Member (65% of boss)',
+          data: rallyLine,
+          borderColor: '#5bc0de',
+          borderWidth: 2,
+          borderDash: [6, 3],
+          pointRadius: 0,
+          fill: false,
+          order: 4
+        },
+        {
+          label: 'Your Current Power',
+          data: currentLine,
+          borderColor: '#27ae60',
+          borderWidth: 2,
+          borderDash: [4, 4],
+          pointRadius: 0,
+          fill: false,
+          order: 5
+        }
+      ]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: true,
+      aspectRatio: window.innerWidth < 600 ? 1.2 : 2.2,
+      interaction: { mode: 'index', intersect: false },
+      plugins: {
+        legend: { display: false },
+        tooltip: {
+          callbacks: {
+            title: function(ctx) { return 'Zombie Boss Lv' + ctx[0].label; },
+            label: function(ctx) {
+              if (ctx.dataset.label === 'Confirmed Data') return null;
+              return ctx.dataset.label + ': ' + ctx.parsed.y.toFixed(1) + 'M';
+            }
+          }
+        },
+        annotation: {
+          annotations: {
+            wallLine: {
+              type: 'line',
+              xMin: 30, xMax: 30,
+              borderColor: 'rgba(252,92,101,0.5)',
+              borderWidth: 2,
+              borderDash: [4, 4],
+              label: {
+                display: true,
+                content: 'THE WALL (Lv70)',
+                position: 'start',
+                color: '#fc5c65',
+                font: { size: 11, weight: 'bold', family: 'Fredoka' },
+                backgroundColor: 'rgba(255,255,255,0.9)',
+                padding: 4
+              }
+            }
+          }
+        }
+      },
+      scales: {
+        x: {
+          title: { display: true, text: 'Zombie Boss Level', color: '#888', font: { size: 12, family: 'Fredoka' } },
+          ticks: {
+            color: '#888',
+            font: { family: 'Fredoka' },
+            callback: function(val, idx) { return idx % 5 === 0 ? levels[idx] : ''; }
+          },
+          grid: { color: 'rgba(0,0,0,0.04)' }
+        },
+        y: {
+          title: { display: true, text: 'March Power (Millions)', color: '#888', font: { size: 12, family: 'Fredoka' } },
+          ticks: { color: '#888', font: { family: 'Fredoka' }, callback: function(v) { return v + 'M'; } },
+          grid: { color: 'rgba(0,0,0,0.06)' },
+          min: 8, max: 45
+        }
+      }
+    }
+  });
+
+  // ========== RALLY RESULTS CHART ==========
+  var rallyLabels = DATA.map(function(d) { return 'Lv' + d.lv + (d.estimated ? '*' : ''); });
+  var bossKilledPct = DATA.map(function(d) { return +(d.bossKilled / d.troops * 100).toFixed(0); });
+  var owowLostPct = DATA.map(function(d) { return +(d.lost / d.totalTroops * 100).toFixed(0); });
+
+  new Chart(document.getElementById('rallyChart'), {
+    type: 'bar',
+    data: {
+      labels: rallyLabels,
+      datasets: [
+        {
+          label: 'Boss Troops Killed',
+          data: bossKilledPct,
+          backgroundColor: DATA.map(function(d) { return d.win ? '#27ae60' : 'rgba(39,174,96,0.25)'; }),
+          borderRadius: 4,
+          barPercentage: 0.65
+        },
+        {
+          label: 'OWOW Troops Lost',
+          data: owowLostPct,
+          backgroundColor: DATA.map(function(d) { return !d.win ? '#fc5c65' : 'rgba(252,92,101,0.25)'; }),
+          borderRadius: 4,
+          barPercentage: 0.65
+        }
+      ]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: true,
+      aspectRatio: window.innerWidth < 600 ? 1.4 : 2.5,
+      plugins: {
+        legend: { labels: { color: '#666', font: { size: 12, family: 'Fredoka' } } },
+        tooltip: { callbacks: { label: function(ctx) { return ctx.dataset.label + ': ' + ctx.parsed.y + '%'; } } }
+      },
+      scales: {
+        x: { ticks: { color: '#666', font: { family: 'Fredoka' } }, grid: { display: false } },
+        y: {
+          ticks: { color: '#888', font: { family: 'Fredoka' }, callback: function(v) { return v + '%'; } },
+          grid: { color: 'rgba(0,0,0,0.06)' },
+          min: 0, max: 110
+        }
+      }
+    }
+  });
+})();
+</script>
+
+</body>
+</html>

@@ -25,7 +25,8 @@
     { href: 'guides/interior_test_report.html', label: 'Interior Test' },
     { href: 'guides/training_optimization.html', label: 'Training' },
     { href: 'guides/wall_of_honor.html', label: 'Wall of Honor' },
-    { href: 'guides/waterfall_guide.html', label: 'Waterfall' }
+    { href: 'guides/waterfall_guide.html', label: 'Waterfall' },
+    { href: 'guides/zombie_boss_chart.html', label: 'Zombie Boss' }
   ];
 
   // Detect if we're in a subdirectory (guides/)
