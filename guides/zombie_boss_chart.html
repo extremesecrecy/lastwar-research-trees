@@ -294,17 +294,17 @@
     <tr class="row-win"><td>55</td><td>22.0M</td><td>Lv300</td><td>2,250</td><td>4</td><td>2,189 (26%)</td><td>2,250 (100%)</td><td>WIN</td></tr>
     <tr class="row-win"><td>60</td><td>24.0M</td><td>Lv310</td><td>2,300</td><td>5</td><td>3,280 (32%)</td><td>2,300 (100%)</td><td>WIN</td></tr>
     <tr class="row-win"><td>65</td><td>27.0M</td><td>Lv310</td><td>2,300</td><td>5</td><td>4,745 (48%)</td><td>2,300 (100%)</td><td>WIN</td></tr>
-    <tr class="row-loss row-est"><td>70*</td><td>~29.1M</td><td>Lv320</td><td>2,350</td><td>5</td><td>10,240 (100%)</td><td>654 (28%)</td><td>LOSS</td></tr>
+    <tr class="row-loss"><td>70</td><td>30.0M</td><td>Lv320</td><td>2,350</td><td>5</td><td>10,426 (100%)</td><td>1,027 (44%)</td><td>LOSS</td></tr>
     <tr class="row-loss"><td>75</td><td>31.5M</td><td>Lv320</td><td>2,350</td><td>1</td><td>2,150 (100%)</td><td>163 (7%)</td><td>LOSS</td></tr>
   </tbody>
 </table>
 </div>
-<p style="color:#aaa; font-size:11px; margin-top:4px;">* Lv70 power estimated via linear regression (6 confirmed points, R²=0.997). All other values from in-game screenshots.</p>
+<p style="color:#aaa; font-size:11px; margin-top:4px;">All 7 data points confirmed from in-game battle report screenshots.</p>
 <p style="color:#aaa; font-size:11px;">Solo threshold (85%) and rally threshold (65%) derived from real OWOW win/loss boundaries.</p>
 
 <div class="footer">
-  Data source: OWOW battle reports, Server #2013 (Apr 7&ndash;9, 2026).<br>
-  All values from in-game screenshots. No fabricated data.
+  Data source: OWOW battle reports, Server #2013 (Apr 7&ndash;9, 2026). 7 confirmed data points.<br>
+  All values from in-game screenshots. No estimated data.
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script>
@@ -318,19 +318,19 @@
     { lv:55, power:22.0, heroLv:300, troops:2250, leaderPow:16.8, rallySize:4, lost:2189,  totalTroops:8366,  bossKilled:2250, win:true },
     { lv:60, power:24.0, heroLv:310, troops:2300, leaderPow:16.5, rallySize:5, lost:3280,  totalTroops:10389, bossKilled:2300, win:true },
     { lv:65, power:27.0, heroLv:310, troops:2300, leaderPow:17.6, rallySize:5, lost:4745,  totalTroops:10000, bossKilled:2300, win:true },
-    { lv:70, power:29.1, heroLv:320, troops:2350, leaderPow:null,  rallySize:5, lost:10240, totalTroops:10240, bossKilled:654,  win:false, estimated:true },
+    { lv:70, power:30.0, heroLv:320, troops:2350, leaderPow:17.9, rallySize:5, lost:10426, totalTroops:10426, bossKilled:1027, win:false },
     { lv:75, power:31.5, heroLv:320, troops:2350, leaderPow:17.8, rallySize:1, lost:2150,  totalTroops:2150,  bossKilled:163,  win:false }
   ];
 
-  // Boss power formula from regression: P = 0.468 * Lv - 3.65
-  function bossPower(lv) { return +(0.468 * lv - 3.65).toFixed(1); }
+  // Boss power formula from regression (7 confirmed points): P = 0.481 * Lv - 4.29
+  function bossPower(lv) { return +(0.481 * lv - 4.29).toFixed(1); }
 
   // Thresholds from real data:
   // Solo: 16.8M vs 20.0M = 84% WIN, 16.8M vs 22.0M = 76% LOSS -> ~85%
   // Rally: 17.6M vs 27.0M = 65% WIN, ~17.8M vs 29.1M = 61% LOSS -> ~65%
   var SOLO_RATIO = 0.85;
   var RALLY_RATIO = 0.65;
-  var CURRENT_POWER = 17.8;
+  var CURRENT_POWER = 17.9;
 
   // ========== ANSWER CARDS ==========
   function updateCards(myPower) {
