@@ -99,7 +99,7 @@
   .col { display: flex; flex-direction: column; gap: 3px; min-height: 0; }
 
   /* Tables */
-  table.bldg { width: 100%; border-collapse: collapse; font-size: 12px; }
+  table.bldg { width: 100%; min-width: 350px; border-collapse: collapse; font-size: 12px; }
   table.bldg th {
     background: #5a6a6a;
     color: #fff;
@@ -132,13 +132,15 @@
   .tbl-auto {
     border: 1px solid #ddd;
     border-radius: 4px;
-    overflow: hidden;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
   }
   /* Table container — fill remaining space + scroll (col 3) */
   .tbl-scroll {
     flex: 1;
     overflow-y: auto;
-    overflow-x: hidden;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
     min-height: 0;
     border: 1px solid #ddd;
     border-radius: 4px;
