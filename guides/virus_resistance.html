@@ -393,6 +393,55 @@
   </div>
 </div>
 
+<!-- Type Matchup -->
+<div class="section-label">Troop Type Counter System</div>
+<div class="insight-box" style="border-left-color:#5bc0de;">
+  <h3 style="color:#5bc0de;">TYPE MATCHUP — Zombies Only</h3>
+  <div style="display:flex; flex-wrap:wrap; gap:16px; align-items:center; margin:10px 0;">
+    <div style="text-align:center; padding:8px 16px; background:#e8f5e9; border-radius:8px; font-weight:600;">
+      &#9992; Aircraft<br><span style="font-size:11px; color:#666;">beats Tank</span>
+    </div>
+    <div style="font-size:24px; color:#7fb3a8;">&#8594;</div>
+    <div style="text-align:center; padding:8px 16px; background:#fff3e0; border-radius:8px; font-weight:600;">
+      &#9968; Tank<br><span style="font-size:11px; color:#666;">beats Missile</span>
+    </div>
+    <div style="font-size:24px; color:#7fb3a8;">&#8594;</div>
+    <div style="text-align:center; padding:8px 16px; background:#fce4ec; border-radius:8px; font-weight:600;">
+      &#128640; Missile<br><span style="font-size:11px; color:#666;">beats Aircraft</span>
+    </div>
+    <div style="font-size:24px; color:#7fb3a8;">&#8594;</div>
+    <div style="font-size:12px; color:#888;">&#8635; cycle</div>
+  </div>
+  <p><strong>+20% damage</strong> when you counter the enemy type. <strong>-20% damage</strong> when countered. Check the zombie's type on the map before attacking!</p>
+  <p style="margin-top:4px; color:#888; font-size:12px;">Doom Elites and Stronghold Bosses do NOT have troop types — only virus resistance matters for those.</p>
+</div>
+
+<!-- Rally Planner -->
+<div class="section-label">Rally Planner</div>
+<div style="background:#fff; border:2px solid #7fb3a8; border-radius:12px; padding:16px; margin-bottom:20px;">
+  <div style="display:flex; flex-wrap:wrap; gap:10px; align-items:center; margin-bottom:12px;">
+    <h3 style="margin:0; color:#5a6a6a;">&#9876; Rally Team Check</h3>
+    <select id="rallyEnemyType" onchange="updateRally()" style="padding:4px 8px; border:1px solid #ddd; border-radius:4px; font-size:13px;">
+      <option value="boss">Stronghold Boss</option>
+      <option value="elite">Doom Elite</option>
+      <option value="zombie">Zombie</option>
+    </select>
+    <select id="rallyEnemyLevel" onchange="updateRally()" style="padding:4px 8px; border:1px solid #ddd; border-radius:4px; font-size:13px;"></select>
+    <select id="rallyZombieType" onchange="updateRally()" style="padding:4px 8px; border:1px solid #ddd; border-radius:4px; font-size:13px; display:none;">
+      <option value="none">Zombie Type...</option>
+      <option value="aircraft">&#9992; Aircraft Zombie</option>
+      <option value="tank">&#9968; Tank Zombie</option>
+      <option value="missile">&#128640; Missile Zombie</option>
+    </select>
+  </div>
+  <div style="font-size:11px; color:#888; margin-bottom:10px;">Enter each rally member's info. Effective power = squad power × (1 - VR penalty) × type modifier.</div>
+
+  <div id="rallyMembers" style="display:grid; gap:8px;"></div>
+
+  <div id="rallyChart" style="margin-top:16px;"></div>
+  <div id="rallySummary" style="margin-top:8px; font-size:12px; color:#888; text-align:center;"></div>
+</div>
+
 <!-- Section Label -->
 <div class="section-label">Detailed Breakdown by Enemy Type</div>
 
@@ -412,6 +461,21 @@
   </div>
 </div>
 
+<style>
+  .rally-member { display:grid; grid-template-columns:100px 120px 100px 100px 1fr; gap:6px; align-items:center; padding:6px 8px; border:1px solid #eee; border-radius:6px; font-size:12px; }
+  .rally-member input, .rally-member select { padding:4px 6px; border:1px solid #ddd; border-radius:4px; font-size:12px; width:100%; }
+  .rally-flag { padding:2px 8px; border-radius:10px; font-size:10px; font-weight:600; text-align:center; color:#fff; }
+  .rally-flag.go { background:#66bb6a; }
+  .rally-flag.caution { background:#f4a261; }
+  .rally-flag.stop { background:#fc5c65; }
+  .rally-bar-row { display:flex; align-items:center; gap:8px; margin:4px 0; font-size:12px; }
+  .rally-bar-label { width:80px; text-align:right; color:#5a6a6a; }
+  .rally-bar { height:22px; border-radius:4px; min-width:2px; transition:width 0.3s; display:flex; align-items:center; padding-left:6px; color:#fff; font-size:11px; font-weight:600; }
+  @media (max-width:700px) {
+    .rally-member { grid-template-columns:1fr 1fr; }
+    .rally-member:nth-child(1) { grid-column:1/-1; font-weight:600; text-align:center; }
+  }
+</style>
 <div class="source-credit">Damage formula from Soulphalanx #409 via cpt-hedge.com</div>
 
 <div class="footer">
@@ -550,6 +614,123 @@ function update() {
   updateCard('elite', 'card-elite', 'elite-level', 'elite-info');
   updateCard('zombie', 'card-zombie', 'zombie-level', 'zombie-info');
 }
+
+// === Rally Planner ===
+const TYPE_COUNTER = { aircraft: 'tank', tank: 'missile', missile: 'aircraft' };
+const TYPE_ICONS = { aircraft: '✈', tank: '⚙', missile: '🚀' };
+
+function getTypeModifier(squadType, enemyType) {
+  if (!enemyType || enemyType === 'none' || !squadType) return 1.0;
+  if (TYPE_COUNTER[squadType] === enemyType) return 1.2; // counter
+  if (TYPE_COUNTER[enemyType] === squadType) return 0.8; // countered
+  return 1.0;
+}
+
+function initRally() {
+  const container = document.getElementById('rallyMembers');
+  let html = '';
+  for (let i = 0; i < 5; i++) {
+    html += `<div class="rally-member">
+      <input type="text" id="rm_name_${i}" placeholder="Member ${i+1}" oninput="updateRally()">
+      <input type="number" id="rm_power_${i}" placeholder="Squad Power" min="0" oninput="updateRally()">
+      <select id="rm_type_${i}" onchange="updateRally()">
+        <option value="aircraft">✈ Aircraft</option>
+        <option value="tank">⚙ Tank</option>
+        <option value="missile">🚀 Missile</option>
+      </select>
+      <input type="number" id="rm_vr_${i}" placeholder="Their VR" min="0" max="30000" oninput="updateRally()">
+      <div id="rm_flag_${i}"></div>
+    </div>`;
+  }
+  container.innerHTML = html;
+  populateEnemyLevels();
+}
+
+function populateEnemyLevels() {
+  const type = document.getElementById('rallyEnemyType').value;
+  const sel = document.getElementById('rallyEnemyLevel');
+  const levels = Object.keys(ENEMIES[type].levels).map(Number).sort((a,b) => a - b);
+  sel.innerHTML = levels.map(lv => `<option value="${lv}">Lv ${lv} (${ENEMIES[type].levels[lv].toLocaleString()} VR)</option>`).join('');
+
+  // Show/hide zombie type selector
+  document.getElementById('rallyZombieType').style.display = type === 'zombie' ? 'inline-block' : 'none';
+}
+
+document.getElementById('rallyEnemyType').addEventListener('change', populateEnemyLevels);
+
+function updateRally() {
+  const enemyType = document.getElementById('rallyEnemyType').value;
+  const enemyLevel = parseInt(document.getElementById('rallyEnemyLevel').value) || 1;
+  const zombieType = document.getElementById('rallyZombieType').value;
+  const requiredVR = ENEMIES[enemyType].levels[enemyLevel] || 0;
+  const isZombie = enemyType === 'zombie';
+
+  const members = [];
+  let maxPower = 0;
+
+  for (let i = 0; i < 5; i++) {
+    const name = document.getElementById(`rm_name_${i}`).value || `Member ${i+1}`;
+    const power = parseInt(document.getElementById(`rm_power_${i}`).value) || 0;
+    const squadType = document.getElementById(`rm_type_${i}`).value;
+    const vr = parseInt(document.getElementById(`rm_vr_${i}`).value) || 0;
+
+    const vrPenalty = calcDamageReduction(requiredVR, vr);
+    const typeMod = isZombie ? getTypeModifier(squadType, zombieType) : 1.0;
+    const effectivePower = power * (1 - vrPenalty / 100) * typeMod;
+
+    let flag = 'go', flagText = '✓ GO';
+    if (vrPenalty > 50) { flag = 'stop'; flagText = '✗ DO NOT JOIN'; }
+    else if (vrPenalty > 25) { flag = 'caution'; flagText = '⚠ CAUTION'; }
+    if (power === 0) { flag = ''; flagText = ''; }
+
+    if (power > 0) {
+      document.getElementById(`rm_flag_${i}`).innerHTML = flagText ? `<span class="rally-flag ${flag}">${flagText}</span>` +
+        `<span style="font-size:10px;color:#888;margin-left:4px;">VR: -${vrPenalty.toFixed(1)}%${isZombie && zombieType !== 'none' ? ' | Type: ×' + typeMod.toFixed(1) : ''}</span>` : '';
+    } else {
+      document.getElementById(`rm_flag_${i}`).innerHTML = '';
+    }
+
+    if (effectivePower > maxPower) maxPower = effectivePower;
+    members.push({ name, power, effectivePower, vrPenalty, typeMod, flag });
+  }
+
+  // Bar chart
+  const chartEl = document.getElementById('rallyChart');
+  const activeMems = members.filter(m => m.power > 0);
+  if (activeMems.length === 0) {
+    chartEl.innerHTML = '<div style="text-align:center;color:#999;padding:20px;">Enter squad power for rally members above</div>';
+    document.getElementById('rallySummary').innerHTML = '';
+    return;
+  }
+
+  const barMax = maxPower > 0 ? maxPower : 1;
+  let chartHtml = '';
+  for (const m of activeMems) {
+    const pct = (m.effectivePower / barMax * 100).toFixed(0);
+    const color = m.flag === 'stop' ? '#fc5c65' : m.flag === 'caution' ? '#f4a261' : '#7fb3a8';
+    const powerLabel = m.effectivePower >= 1000000 ? (m.effectivePower / 1000000).toFixed(1) + 'M' :
+                       m.effectivePower >= 1000 ? (m.effectivePower / 1000).toFixed(0) + 'K' :
+                       m.effectivePower.toFixed(0);
+    chartHtml += `<div class="rally-bar-row">
+      <div class="rally-bar-label">${m.name}</div>
+      <div class="rally-bar" style="width:${Math.max(pct, 3)}%;background:${color};">${powerLabel}</div>
+    </div>`;
+  }
+  chartEl.innerHTML = chartHtml;
+
+  const totalEffective = activeMems.reduce((s, m) => s + m.effectivePower, 0);
+  const totalRaw = activeMems.reduce((s, m) => s + m.power, 0);
+  const deadWeight = activeMems.filter(m => m.flag === 'stop').length;
+  const effLabel = totalEffective >= 1000000 ? (totalEffective / 1000000).toFixed(1) + 'M' : (totalEffective / 1000).toFixed(0) + 'K';
+  const rawLabel = totalRaw >= 1000000 ? (totalRaw / 1000000).toFixed(1) + 'M' : (totalRaw / 1000).toFixed(0) + 'K';
+
+  let summary = `Total effective: <strong>${effLabel}</strong> (raw: ${rawLabel})`;
+  if (deadWeight > 0) summary += ` — <span style="color:#fc5c65;font-weight:600;">${deadWeight} member(s) wasting troops!</span>`;
+  summary += '<br><span style="font-size:10px;color:#aaa;">Combat is rounds-based, not additive — actual results depend on individual squad survival per round.</span>';
+  document.getElementById('rallySummary').innerHTML = summary;
+}
+
+initRally();
 
 // Initial render
 setVR(0);
