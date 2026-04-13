@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html lang="en" id="htmlRoot">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Virus Resistance Calculator - OWOW</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&display=swap');
+  @font-face { font-family: 'DKCrayonCrumble'; src: url('DKCrayonCrumble.ttf'); }
+/* HCI Brand: Orange #f4a261, Cyan #5bc0de, Yellow #f4d35e, Teal #7fb3a8, Dark #5a6a6a, Text #333, Watermelon #fc5c65 */
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: 'Fredoka', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: #fff;
+    color: #333;
+    padding: 12px 16px;
+    min-height: 100vh;
+  }
+
+  h1, h2, h3 { font-family: 'DKCrayonCrumble', 'Fredoka', sans-serif; }
+
+  /* Navigation Bar */
+  .guide-nav {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px 12px;
+    align-items: center;
+    padding: 6px 16px;
+    background: #f0f5f4;
+    border-bottom: 2px solid #7fb3a8;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 12px;
+    margin: -12px -16px 12px -16px;
+  }
+  .guide-nav a {
+    color: #5a6a6a;
+    text-decoration: none;
+    padding: 2px 6px;
+    border-radius: 3px;
+    white-space: nowrap;
+  }
+  .guide-nav a:hover { color: #f4a261; background: #fff; }
+  .guide-nav a.current { color: #f4a261; font-weight: bold; background: #fff; border: 1px solid #f4a261; }
+  .guide-nav .nav-home { font-weight: bold; margin-right: 8px; padding-right: 12px; border-right: 1px solid #7fb3a8; }
+
+  /* Header */
+  .top-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+  .top-bar h1 {
+    font-size: 26px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: #5a6a6a;
+  }
+  .top-bar .sub { font-size: 13px; color: #888; }
+  .top-bar .right {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .top-bar .right img { height: 60px; }
+  .alliance-tag {
+    background: #e8f4f1;
+    border: 1px solid #7fb3a8;
+    border-radius: 5px;
+    padding: 3px 10px;
+    font-size: 13px;
+    color: #5a6a6a;
+    font-weight: bold;
+  }
+
+  /* Input Section */
+  .input-section {
+    background: #f0f5f4;
+    border: 2px solid #7fb3a8;
+    border-radius: 8px;
+    padding: 14px 18px;
+    margin-bottom: 14px;
+  }
+  .input-section h2 {
+    font-size: 20px;
+    color: #5a6a6a;
+    margin-bottom: 10px;
+  }
+  .slider-row {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    flex-wrap: wrap;
+  }
+  .slider-row input[type="range"] {
+    flex: 1;
+    min-width: 180px;
+    height: 8px;
+    -webkit-appearance: none;
+    appearance: none;
+    background: linear-gradient(to right, #43a047 0%, #f4d35e 40%, #f4a261 70%, #fc5c65 100%);
+    border-radius: 4px;
+    outline: none;
+  }
+  .slider-row input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 22px; height: 22px;
+    border-radius: 50%;
+    background: #5a6a6a;
+    border: 3px solid #fff;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.3);
+    cursor: pointer;
+  }
+  .slider-row input[type="range"]::-moz-range-thumb {
+    width: 22px; height: 22px;
+    border-radius: 50%;
+    background: #5a6a6a;
+    border: 3px solid #fff;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.3);
+    cursor: pointer;
+  }
+  .vr-value {
+    font-size: 28px;
+    font-weight: 700;
+    color: #5a6a6a;
+    min-width: 80px;
+    text-align: center;
+    font-family: 'DKCrayonCrumble', 'Fredoka', sans-serif;
+  }
+  .slider-row input[type="number"] {
+    width: 90px;
+    font-size: 16px;
+    padding: 4px 8px;
+    border: 2px solid #7fb3a8;
+    border-radius: 5px;
+    text-align: center;
+    font-family: 'Fredoka', sans-serif;
+  }
+  .slider-row input[type="number"]:focus { outline: none; border-color: #f4a261; }
+
+  /* Summary Cards */
+  .summary-cards {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    margin-bottom: 14px;
+  }
+  .summary-card {
+    border-radius: 8px;
+    padding: 12px 14px;
+    text-align: center;
+    border: 2px solid #ccc;
+    background: #fafafa;
+  }
+  .summary-card.ok { border-color: #43a047; background: #e8f5e9; }
+  .summary-card.warn { border-color: #f4a261; background: #fef3e2; }
+  .summary-card.bad { border-color: #fc5c65; background: #fce4ec; }
+  .summary-card .card-label {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: #888;
+    margin-bottom: 2px;
+  }
+  .summary-card .card-level {
+    font-size: 30px;
+    font-weight: 700;
+    font-family: 'DKCrayonCrumble', 'Fredoka', sans-serif;
+  }
+  .summary-card.ok .card-level { color: #2e7d32; }
+  .summary-card.warn .card-level { color: #c47a30; }
+  .summary-card.bad .card-level { color: #c62828; }
+  .summary-card .card-info {
+    font-size: 11px;
+    color: #666;
+    margin-top: 2px;
+  }
+
+  /* Key Insight Box */
+  .insight-box {
+    border: 3px solid #fc5c65;
+    border-radius: 8px;
+    padding: 12px 16px;
+    margin-bottom: 14px;
+    background: #fff5f5;
+  }
+  .insight-box h3 {
+    color: #fc5c65;
+    font-size: 16px;
+    margin-bottom: 6px;
+  }
+  .insight-box p {
+    font-size: 13px;
+    line-height: 1.5;
+    margin-bottom: 4px;
+  }
+  .insight-box .vri-ref {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px 16px;
+    margin-top: 6px;
+    font-size: 12px;
+    color: #5a6a6a;
+    font-weight: 600;
+  }
+  .insight-box .vri-ref span { white-space: nowrap; }
+
+  /* Section Labels */
+  .section-label {
+    font-size: 18px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: #5a6a6a;
+    margin: 12px 0 6px 0;
+    padding-bottom: 3px;
+    border-bottom: 2px solid #7fb3a8;
+    font-family: 'DKCrayonCrumble', 'Fredoka', sans-serif;
+  }
+
+  /* Tables Grid */
+  .tables-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    margin-bottom: 16px;
+  }
+  .table-wrapper {
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    overflow: hidden;
+  }
+  .table-wrapper h3 {
+    font-size: 14px;
+    text-align: center;
+    padding: 6px 8px;
+    color: #fff;
+    margin: 0;
+  }
+  .table-wrapper.boss h3 { background: #c62828; }
+  .table-wrapper.elite h3 { background: #f4a261; }
+  .table-wrapper.zombie h3 { background: #5a6a6a; }
+  .table-scroll {
+    max-height: 400px;
+    overflow-y: auto;
+  }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 12px;
+  }
+  thead th {
+    position: sticky;
+    top: 0;
+    background: #f0f5f4;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: #5a6a6a;
+    padding: 5px 4px;
+    border-bottom: 2px solid #7fb3a8;
+    text-align: center;
+    z-index: 1;
+  }
+  tbody td {
+    padding: 3px 4px;
+    text-align: center;
+    border-bottom: 1px solid #eee;
+  }
+  tbody tr.row-green { background: #e8f5e9; }
+  tbody tr.row-yellow { background: #fff8e1; }
+  tbody tr.row-orange { background: #fff3e0; }
+  tbody tr.row-red { background: #fce4ec; }
+  tbody tr.row-red td { color: #c62828; font-weight: 600; }
+  .status-tag {
+    display: inline-block;
+    font-size: 10px;
+    font-weight: 700;
+    padding: 1px 5px;
+    border-radius: 3px;
+    white-space: nowrap;
+  }
+  .tag-ok { background: #43a047; color: #fff; }
+  .tag-low { background: #f4d35e; color: #5a5000; }
+  .tag-med { background: #f4a261; color: #fff; }
+  .tag-bad { background: #fc5c65; color: #fff; }
+
+  /* Footer */
+  .footer {
+    text-align: center;
+    padding: 14px 0;
+    font-size: 12px;
+    color: #888;
+    border-top: 1px solid #eee;
+    margin-top: 16px;
+  }
+  .source-credit {
+    font-size: 11px;
+    color: #999;
+    text-align: center;
+    margin-top: 4px;
+  }
+
+  /* Responsive */
+  @media (max-width: 800px) {
+    .summary-cards { grid-template-columns: repeat(3, 1fr); }
+    .tables-grid { grid-template-columns: 1fr; }
+    .table-scroll { max-height: 300px; }
+  }
+  @media (max-width: 500px) {
+    body { padding: 8px 10px; }
+    .top-bar { flex-direction: column; text-align: center; gap: 6px; }
+    .top-bar .right { justify-content: center; }
+    .top-bar h1 { font-size: 20px; }
+    .summary-cards { grid-template-columns: 1fr 1fr 1fr; gap: 6px; }
+    .summary-card { padding: 8px 6px; }
+    .summary-card .card-level { font-size: 24px; }
+    .vr-value { font-size: 22px; min-width: 60px; }
+    .slider-row input[type="number"] { width: 70px; }
+    .guide-nav {
+      padding: 4px 10px;
+      gap: 3px 8px;
+      font-size: 11px;
+      margin: -8px -10px 8px -10px;
+    }
+    table { font-size: 11px; }
+    thead th { font-size: 10px; padding: 4px 2px; }
+    tbody td { padding: 2px 2px; }
+    .insight-box { padding: 10px 12px; }
+    .insight-box p { font-size: 12px; }
+  }
+</style>
+</head>
+<body>
+
+<nav class="guide-nav" id="guide-nav"></nav>
+<script src="../nav.js"></script>
+
+<div class="top-bar">
+  <div class="left">
+    <h1>Virus Resistance Calculator</h1>
+    <div class="sub">Season 1 -- The Crimson Plague</div>
+  </div>
+  <div class="right">
+    <img src="skynet_logo.png" alt="OWOW">
+    <div class="alliance-tag">[OWOW] Old World Order</div>
+  </div>
+</div>
+
+<!-- Input Section -->
+<div class="input-section">
+  <h2>Your Virus Resistance</h2>
+  <div class="slider-row">
+    <input type="range" id="vrSlider" min="0" max="10500" step="50" value="0">
+    <span class="vr-value" id="vrDisplay">0</span>
+    <input type="number" id="vrInput" min="0" max="10500" step="50" value="0">
+  </div>
+</div>
+
+<!-- Summary Cards -->
+<div class="summary-cards">
+  <div class="summary-card" id="card-boss">
+    <div class="card-label">Stronghold Boss</div>
+    <div class="card-level" id="boss-level">--</div>
+    <div class="card-info" id="boss-info">--</div>
+  </div>
+  <div class="summary-card" id="card-elite">
+    <div class="card-label">Doom Elite</div>
+    <div class="card-level" id="elite-level">--</div>
+    <div class="card-info" id="elite-info">--</div>
+  </div>
+  <div class="summary-card" id="card-zombie">
+    <div class="card-label">Zombie</div>
+    <div class="card-level" id="zombie-level">--</div>
+    <div class="card-info" id="zombie-info">--</div>
+  </div>
+</div>
+
+<!-- Key Insight -->
+<div class="insight-box">
+  <h3>KEY INSIGHT -- Know Your Limits</h3>
+  <p>When your Virus Resistance is below the required threshold, your damage is reduced drastically. At <strong>-99% reduction</strong>, you deal only <strong>1% of your normal damage</strong> while the enemy hits you at full power. You are wasting troops and healing speedups.</p>
+  <p>Green rows = safe to attack. Yellow = tolerable penalty. Orange = steep penalty. <strong>Red = DO NOT ATTACK.</strong></p>
+  <p style="margin-top:6px; font-weight:600; color:#5a6a6a;">Virus Research Institute (VRI) levels (<a href="https://cpt-hedge.com/buildings/virus-research-institute" style="color:#5bc0de;">source</a>):</p>
+  <div class="vri-ref">
+    <span>Lv1: 100</span>
+    <span>Lv5: 500</span>
+    <span>Lv10: 1,750</span>
+    <span>Lv15: 3,000</span>
+    <span>Lv20: 5,000</span>
+    <span>Lv25: 7,500</span>
+    <span>Lv30: 10,000</span>
+  </div>
+</div>
+
+<!-- Section Label -->
+<div class="section-label">Detailed Breakdown by Enemy Type</div>
+
+<!-- Tables -->
+<div class="tables-grid">
+  <div class="table-wrapper boss">
+    <h3>Stronghold Boss</h3>
+    <div class="table-scroll" id="table-boss"></div>
+  </div>
+  <div class="table-wrapper elite">
+    <h3>Doom Elite</h3>
+    <div class="table-scroll" id="table-elite"></div>
+  </div>
+  <div class="table-wrapper zombie">
+    <h3>Zombie</h3>
+    <div class="table-scroll" id="table-zombie"></div>
+  </div>
+</div>
+
+<div class="source-credit">Damage formula from Soulphalanx #409 via cpt-hedge.com</div>
+
+<div class="footer">
+  [OWOW] Old World Order &bull; Virus Resistance Calculator &bull; Last War: Survival &bull; Kristen OWOW SKYNET
+</div>
+
+<script>
+// === Enemy Data ===
+const ENEMIES = {
+  boss: {
+    name: 'Stronghold Boss',
+    levels: {10:3500, 20:6000, 30:8000, 40:9500, 50:10000, 60:10500}
+  },
+  elite: {
+    name: 'Doom Elite',
+    levels: {1:0,2:200,3:400,4:600,5:800,6:1000,7:1200,8:1400,9:1600,10:1800,11:2000,12:2200,13:2400,14:2600,15:2800,16:3000,17:3200,18:3400,19:3600,20:3800,21:4000,22:4200,23:4400,24:4600,25:4800,26:5000,27:5200,28:5400,29:5600,30:5800,31:6000,32:6200,33:6400,34:6600,35:6800,36:7000,37:7200,38:7400,39:7600,40:7800,41:8000,42:8200,43:8300,44:8400,45:8500,46:8700,47:8700,48:8900,49:8900,50:9000,51:9200,52:9400,53:9600,54:9800,55:10000,56:10100,57:10300,58:10400,59:10500,60:10500}
+  },
+  zombie: {
+    name: 'Zombie',
+    levels: {1:0,2:0,3:0,4:300,5:500,6:600,7:700,8:800,9:1000,10:1100,11:1300,12:1400,13:1500,14:1700,15:1800,16:1900,17:2000,18:2200,19:2300,20:2400,21:2500,22:2700,23:2800,24:2900,25:3000,26:3200,27:3300,28:3400,29:3500,30:3700,31:3800,32:3900,33:4000,34:4200,35:4400,36:4600,37:4800,38:5000,39:5300,40:5500,41:5800,42:6000,43:6200,44:6400,45:6500,46:6700,47:6900,48:7100,49:7300,50:7500,51:7800,52:8000,53:8300,54:8600,55:8900,56:9100,57:9400,58:9600,59:9800,60:10000}
+  }
+};
+
+// === Damage Reduction Formula (Soulphalanx #409 via cpt-hedge) ===
+function calcDamageReduction(required, current) {
+  if (required <= 0) return 0;
+  if (current >= required) return 0;
+  let reduction = 100 - 2 * Math.ceil((required - current) / required * 100);
+  if (reduction > 0) return Math.max(100 - reduction, 0);
+  return 100 - Math.max(0.1, reduction / 20 + 1);
+}
+
+// === DOM refs ===
+const slider = document.getElementById('vrSlider');
+const numInput = document.getElementById('vrInput');
+const vrDisplay = document.getElementById('vrDisplay');
+
+function getVR() {
+  return parseInt(slider.value) || 0;
+}
+
+function setVR(val) {
+  val = Math.max(0, Math.min(10500, parseInt(val) || 0));
+  slider.value = val;
+  numInput.value = val;
+  vrDisplay.textContent = val.toLocaleString();
+  update();
+}
+
+slider.addEventListener('input', () => setVR(slider.value));
+numInput.addEventListener('input', () => setVR(numInput.value));
+numInput.addEventListener('change', () => setVR(numInput.value));
+
+function getRowClass(reduction) {
+  if (reduction === 0) return 'row-green';
+  if (reduction <= 50) return 'row-yellow';
+  if (reduction <= 90) return 'row-orange';
+  return 'row-red';
+}
+
+function getStatusTag(reduction) {
+  if (reduction === 0) return '<span class="status-tag tag-ok">FULL DMG</span>';
+  if (reduction <= 50) return '<span class="status-tag tag-low">-' + reduction.toFixed(1) + '%</span>';
+  if (reduction <= 90) return '<span class="status-tag tag-med">-' + reduction.toFixed(1) + '%</span>';
+  return '<span class="status-tag tag-bad">DO NOT ATTACK</span>';
+}
+
+function buildTable(type) {
+  const data = ENEMIES[type];
+  const vr = getVR();
+  const levels = Object.keys(data.levels).map(Number).sort((a,b) => a - b);
+
+  let html = '<table><thead><tr><th>Lv</th><th>Req</th><th>Reduction</th><th>Status</th></tr></thead><tbody>';
+  for (const lv of levels) {
+    const req = data.levels[lv];
+    const red = calcDamageReduction(req, vr);
+    const cls = getRowClass(red);
+    html += '<tr class="' + cls + '">';
+    html += '<td>' + lv + '</td>';
+    html += '<td>' + req.toLocaleString() + '</td>';
+    html += '<td>' + (red === 0 ? '0%' : '-' + red.toFixed(1) + '%') + '</td>';
+    html += '<td>' + getStatusTag(red) + '</td>';
+    html += '</tr>';
+  }
+  html += '</tbody></table>';
+  return html;
+}
+
+function getHighestSafeLevel(type) {
+  const data = ENEMIES[type];
+  const vr = getVR();
+  const levels = Object.keys(data.levels).map(Number).sort((a,b) => a - b);
+  let best = null;
+  for (const lv of levels) {
+    const req = data.levels[lv];
+    if (calcDamageReduction(req, vr) === 0) {
+      best = { level: lv, req: req };
+    }
+  }
+  return best;
+}
+
+function updateCard(type, cardId, levelId, infoId) {
+  const card = document.getElementById(cardId);
+  const levelEl = document.getElementById(levelId);
+  const infoEl = document.getElementById(infoId);
+  const best = getHighestSafeLevel(type);
+
+  if (best) {
+    card.className = 'summary-card ok';
+    levelEl.textContent = 'Lv ' + best.level;
+    infoEl.textContent = 'Needs ' + best.req.toLocaleString() + ' VR';
+  } else {
+    // Check if any level has 0 requirement
+    const data = ENEMIES[type];
+    const levels = Object.keys(data.levels).map(Number).sort((a,b) => a - b);
+    const firstReq = data.levels[levels[0]];
+    if (firstReq === 0) {
+      card.className = 'summary-card ok';
+      levelEl.textContent = 'Lv ' + levels[0];
+      infoEl.textContent = 'No VR needed';
+    } else {
+      card.className = 'summary-card bad';
+      levelEl.textContent = 'NONE';
+      infoEl.textContent = 'Need ' + firstReq.toLocaleString() + '+ VR';
+    }
+  }
+}
+
+function update() {
+  document.getElementById('table-boss').innerHTML = buildTable('boss');
+  document.getElementById('table-elite').innerHTML = buildTable('elite');
+  document.getElementById('table-zombie').innerHTML = buildTable('zombie');
+
+  updateCard('boss', 'card-boss', 'boss-level', 'boss-info');
+  updateCard('elite', 'card-elite', 'elite-level', 'elite-info');
+  updateCard('zombie', 'card-zombie', 'zombie-level', 'zombie-info');
+}
+
+// Initial render
+setVR(0);
+</script>
+
+</body>
+</html>
