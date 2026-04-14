@@ -1,0 +1,41 @@
+name: No Crayon Font
+
+on:
+  pull_request:
+    branches: [main, dev]
+  push:
+    branches: [main, dev]
+
+jobs:
+  check-no-crayon:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Block DKCrayonCrumble references
+        run: |
+          if grep -rIn "DKCrayonCrumble" \
+                --include="*.html" \
+                --include="*.css" \
+                --include="*.js" \
+                --include="*.py" \
+                --include="*.md" \
+                --include="*.json" \
+                .; then
+            echo ""
+            echo "ERROR: Found references to the deprecated 'DKCrayonCrumble' font."
+            echo "Use 'Fredoka' instead. Per OWOW design standard."
+            exit 1
+          else
+            echo "OK: No DKCrayonCrumble references found."
+          fi
+      - name: Block DKCrayonCrumble.ttf font file
+        run: |
+          if find . -name "DKCrayonCrumble*" -not -path "./.git/*" | grep -q .; then
+            echo ""
+            echo "ERROR: Found DKCrayonCrumble font file(s) in the repo."
+            echo "Remove them and use Fredoka (loaded via Google Fonts)."
+            find . -name "DKCrayonCrumble*" -not -path "./.git/*"
+            exit 1
+          else
+            echo "OK: No DKCrayonCrumble font files found."
+          fi
