@@ -696,7 +696,37 @@
   <p style="font-size:12px; color:#555; margin-top:4px;">
     Strongholds start owned by the <strong>Crimson Legion</strong>, guarded by <strong>Corruptors</strong> (with troop types!). First alliance to capture fights the Corruptor <strong>once</strong>. After capture, only <strong>regular Defenders</strong> spawn &mdash; if you lose the stronghold, the Corruptor does NOT come back. Type matchup only matters for the first capture from the Legion.
   </p>
-  <p style="font-size:11px; color:#888; margin-top:8px;">Source: in-game S1 Map Conquest guide, <a href="https://lastwarhandbook.com/guides/season-1-territory-capture-guide" style="color:#5bc0de;">Last War Handbook</a>, <a href="https://www.lastwartutorial.com/season-1-the-crimson-plague/" style="color:#5bc0de;">Last War Tutorial</a>.</p>
+
+  <h4 style="margin-top:18px; color:#5a6a6a; font-size:14px;">Stronghold Boss Table &mdash; OWOW VERIFIED (all 10 SH levels, Apr 14 2026)</h4>
+  <p style="font-size:12px; color:#555; margin-top:4px;">
+    Stronghold Lv N spawns a <strong>Lv (10 + 5N)</strong> Crimson boss (Lycan / Doctor / Colossus). VR requirement scales <strong>+1,000 per SH level (SH1&ndash;SH6)</strong>, then tapers to <strong>+500 per SH level (SH7&ndash;SH10)</strong>, capping at <strong>10,500 VR</strong> at SH10.
+  </p>
+  <div style="overflow-x:auto; margin-top:8px;">
+  <table style="width:100%; border-collapse:collapse; font-size:12px;">
+    <thead>
+      <tr style="background:#fff3e0; color:#5a6a6a;">
+        <th style="padding:6px 8px; text-align:left; border-bottom:2px solid #f4a261;">SH Lv</th>
+        <th style="padding:6px 8px; text-align:left; border-bottom:2px solid #f4a261;">Boss Lv</th>
+        <th style="padding:6px 8px; text-align:right; border-bottom:2px solid #f4a261;">VR Required</th>
+        <th style="padding:6px 8px; text-align:right; border-bottom:2px solid #f4a261;">Suggested Power</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td style="padding:4px 8px;">SH 1</td><td style="padding:4px 8px;">Lv 15</td><td style="padding:4px 8px; text-align:right;">3,500</td><td style="padding:4px 8px; text-align:right;">4.27M</td></tr>
+      <tr style="background:#fafafa;"><td style="padding:4px 8px;">SH 2</td><td style="padding:4px 8px;">Lv 20</td><td style="padding:4px 8px; text-align:right;">4,500</td><td style="padding:4px 8px; text-align:right;">5.88M</td></tr>
+      <tr><td style="padding:4px 8px;">SH 3</td><td style="padding:4px 8px;">Lv 25</td><td style="padding:4px 8px; text-align:right;">5,500</td><td style="padding:4px 8px; text-align:right;">8.53M</td></tr>
+      <tr style="background:#fafafa;"><td style="padding:4px 8px;">SH 4</td><td style="padding:4px 8px;">Lv 30</td><td style="padding:4px 8px; text-align:right;">6,500</td><td style="padding:4px 8px; text-align:right;">11.83M</td></tr>
+      <tr><td style="padding:4px 8px;">SH 5</td><td style="padding:4px 8px;">Lv 35</td><td style="padding:4px 8px; text-align:right;">7,500</td><td style="padding:4px 8px; text-align:right;">13.14M</td></tr>
+      <tr style="background:#fafafa;"><td style="padding:4px 8px;">SH 6</td><td style="padding:4px 8px;">Lv 40</td><td style="padding:4px 8px; text-align:right;">8,500</td><td style="padding:4px 8px; text-align:right;">14.30M</td></tr>
+      <tr style="color:#c62828;"><td style="padding:4px 8px;">SH 7 &ndash; taper</td><td style="padding:4px 8px;">Lv 45</td><td style="padding:4px 8px; text-align:right;">9,000</td><td style="padding:4px 8px; text-align:right;">16.64M</td></tr>
+      <tr style="background:#fafafa;"><td style="padding:4px 8px;">SH 8</td><td style="padding:4px 8px;">Lv 50</td><td style="padding:4px 8px; text-align:right;">9,500</td><td style="padding:4px 8px; text-align:right;">17.91M</td></tr>
+      <tr><td style="padding:4px 8px;">SH 9</td><td style="padding:4px 8px;">Lv 55</td><td style="padding:4px 8px; text-align:right;">10,000</td><td style="padding:4px 8px; text-align:right;">18.99M</td></tr>
+      <tr style="background:#fafafa;"><td style="padding:4px 8px;"><strong>SH 10 &ndash; cap</strong></td><td style="padding:4px 8px;">Lv 60</td><td style="padding:4px 8px; text-align:right;"><strong>10,500</strong></td><td style="padding:4px 8px; text-align:right;">23.04M</td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <p style="font-size:11px; color:#888; margin-top:8px;">Source: in-game S1 Map Conquest guide, OWOW in-game observation (Extremesecrecy, Apr 14 2026), <a href="https://lastwarhandbook.com/guides/season-1-territory-capture-guide" style="color:#5bc0de;">Last War Handbook</a>, <a href="https://www.lastwartutorial.com/season-1-the-crimson-plague/" style="color:#5bc0de;">Last War Tutorial</a>.</p>
 </details>
 
 <!-- Tab Bar -->
@@ -887,7 +917,24 @@
 const ENEMIES = {
   boss: {
     name: 'Stronghold Boss',
-    levels: {10:3500, 20:6000, 30:8000, 40:9500, 50:10000, 60:10500}
+    // OWOW VERIFIED (in-game, Apr 14 2026): SH1-SH10 fully observed end-to-end.
+    // Formula: Stronghold Lv N spawns a Lv (10+5N) Crimson boss. Monster names: Lycan / Doctor / Colossus.
+    // VR curve: +1,000 per SH from SH1-SH6, then TAPERS to +500 per SH from SH7-SH10, capping at 10,500.
+    //   SH1=3500, SH2=4500, SH3=5500, SH4=6500, SH5=7500, SH6=8500, SH7=9000, SH8=9500, SH9=10000, SH10=10500.
+    levels: {15:3500, 20:4500, 25:5500, 30:6500, 35:7500, 40:8500, 45:9000, 50:9500, 55:10000, 60:10500}
+  },
+  // Per-SH-level power & monster name reference (observed in-game, Apr 2026)
+  _bossBySH: {
+    1: { monsterLv: 15, vr: 3500, power: 4274500,  names: ['Crimson Lycan', 'Crimson Doctor'] },
+    2: { monsterLv: 20, vr: 4500, power: 5882000,  names: ['Crimson Doctor'] },
+    3: { monsterLv: 25, vr: 5500, power: 8531000,  names: ['Crimson Colossus'] },
+    4: { monsterLv: 30, vr: 6500, power: 11829500, names: ['Crimson Doctor'] },
+    5: { monsterLv: 35, vr: 7500, power: 13137500, names: ['Crimson Doctor'] },
+    6: { monsterLv: 40, vr: 8500, power: 14304500, names: ['Crimson Colossus'] },
+    7: { monsterLv: 45, vr: 9000, power: 16637500, names: ['Crimson Colossus'] },
+    8: { monsterLv: 50, vr: 9500,  power: 17913000, names: ['Crimson Colossus'] },
+    9:  { monsterLv: 55, vr: 10000, power: 18988000, names: ['Crimson Colossus'] },
+    10: { monsterLv: 60, vr: 10500, power: 23044500, names: ['Crimson Doctor'] }
   },
   elite: {
     name: 'Doom Elite',
