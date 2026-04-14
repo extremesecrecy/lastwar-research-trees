@@ -1148,13 +1148,7 @@ document.addEventListener('DOMContentLoaded', init);
 
 def generate_css():
     return r'''<style>
-  @font-face {
-    font-family: 'DKCrayonCrumble';
-    src: url('DKCrayonCrumble.ttf') format('truetype');
-    font-weight: normal;
-    font-style: normal;
-  }
-
+@import url("https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&display=swap");
   * { margin: 0; padding: 0; box-sizing: border-box; }
 
   :root {
@@ -1186,7 +1180,7 @@ def generate_css():
   }
 
   h1, h2, h3, .section-label, .alliance .name {
-    font-family: 'DKCrayonCrumble', 'Segoe UI', sans-serif;
+    font-family: 'Fredoka', 'Segoe UI', sans-serif;
   }
 
   /* Nav */

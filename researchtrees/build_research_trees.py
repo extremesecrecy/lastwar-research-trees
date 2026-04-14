@@ -443,10 +443,6 @@ def generate_tree_html(tree_key, data):
 # === CSS ===
 
 CSS = r'''
-@font-face {
-    font-family: 'DKCrayonCrumble';
-    src: url('DKCrayonCrumble.ttf');
-}
 * { margin: 0; padding: 0; box-sizing: border-box; }
 body {
     background: #fff;
@@ -480,7 +476,7 @@ body {
 }
 .page-header .logo { height: 60px; vertical-align: middle; margin-right: 8px; }
 .page-header h1 {
-    font-family: 'DKCrayonCrumble', sans-serif;
+    font-family: 'Fredoka', sans-serif;
     font-size: 26px;
     color: #fff;
     display: inline;
@@ -571,7 +567,7 @@ body {
 
 /* Bands */
 .band-label {
-    font-family: 'DKCrayonCrumble', sans-serif;
+    font-family: 'Fredoka', sans-serif;
     font-size: 15px;
     color: #aaa;
     text-align: center;
@@ -592,7 +588,7 @@ body {
     flex-shrink: 0;
 }
 .tree-header {
-    font-family: 'DKCrayonCrumble', sans-serif;
+    font-family: 'Fredoka', sans-serif;
     font-size: 15px;
     color: #5a6a6a;
     text-align: center;
@@ -2034,6 +2030,7 @@ def main():
 <title>Last War: Research Tree Tracker</title>
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='6' fill='%231a1a2e'/><text x='16' y='23' text-anchor='middle' font-size='20'>🔬</text></svg>">
 <style>
+@import url("https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&display=swap");
 {CSS}
 </style>
 </head>
