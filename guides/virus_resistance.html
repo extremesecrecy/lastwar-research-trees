@@ -782,8 +782,8 @@
         <div style="font-size:10px; color:#888; margin-top:2px;">Type <code>17.8</code> and we read it as 17,800,000.</div>
       </div>
       <div>
-        <label>Your VR (override)</label>
-        <input type="number" id="zSoloVR" placeholder="Auto-filled" min="0" max="30000">
+        <label>Your VR</label>
+        <input type="number" id="zSoloVR" placeholder="Synced w/ top slider" min="0" max="30000" title="This field is bidirectionally synced with the top VR slider. Changing either updates both.">
       </div>
     </div>
 
@@ -824,7 +824,7 @@
     </div>
 
     <div style="background:#fffde7; border:1px solid #f4d35e; border-radius:6px; padding:8px 12px; margin:10px 0; font-size:12px; color:#5a6a6a;">
-      &#127942; <strong>Slot 1 is YOU (the Initiator)</strong> &mdash; auto-filled from the VR slider at the top. Your VR becomes the floor for joiners (slots 2-5): they fight at MAX(their VR, your VR). If a joiner has higher VR, they keep their own.
+      &#127942; <strong>Slot 1 is YOU (the Initiator)</strong> &mdash; Slot 1's VR is <strong>bidirectionally synced</strong> with the top VR slider: change either and both update. Your VR becomes the floor for joiners (slots 2-5): they fight at MAX(their VR, your VR). If a joiner has higher VR, they keep their own.
     </div>
 
     <div style="background:#e8f4fb; border:1px solid #5bc0de; border-radius:6px; padding:8px 12px; margin:10px 0; font-size:12px; color:#5a6a6a;">
@@ -867,7 +867,7 @@
     <div id="walkerVRNote" style="font-size:11px; color:#888; margin:-4px 0 10px; padding:0 4px;"></div>
 
     <div style="background:#fffde7; border:1px solid #f4d35e; border-radius:6px; padding:8px 12px; margin:10px 0; font-size:12px; color:#5a6a6a;">
-      &#127942; <strong>Slot 1 is YOU (the Initiator)</strong> &mdash; Your VR floors joiners' VR (same as Boss/Elite rally). Each member must clear BOTH the strength AND VR threshold.
+      &#127942; <strong>Slot 1 is YOU (the Initiator)</strong> &mdash; Slot 1's VR is <strong>bidirectionally synced</strong> with the top VR slider. Your VR floors joiners' VR (same as Boss/Elite rally). Each member must clear BOTH the strength AND VR threshold.
     </div>
 
     <div style="background:#e8f4fb; border:1px solid #5bc0de; border-radius:6px; padding:8px 12px; margin:10px 0; font-size:12px; color:#5a6a6a;">
@@ -1036,29 +1036,26 @@ const vrDisplay = document.getElementById('vrDisplay');
 
 function getVR() { return parseInt(slider.value) || 0; }
 
+// Guard to prevent infinite update loops when fields sync to each other.
+let _vrSyncing = false;
+
 function setVR(val) {
+  if (_vrSyncing) return;
+  _vrSyncing = true;
   val = Math.max(0, Math.min(30000, parseInt(val) || 0));
   slider.value = val;
   numInput.value = val;
   vrDisplay.textContent = val.toLocaleString();
-  syncYourVRToFields(val);
+  // Bidirectional sync: top slider and the "YOU" (Slot 1) VR fields are one source of truth.
+  // Changing any of them updates ALL of them so the UI never gets out of sync.
+  const rm = document.getElementById('rm_vr_0');    if (rm) rm.value = val;
+  const wm = document.getElementById('wm_vr_0');    if (wm) wm.value = val;
+  const zs = document.getElementById('zSoloVR');    if (zs) zs.value = val;
   updateAll();
-}
-
-function syncYourVRToFields(val) {
-  // Rally initiator (Boss/Elite)
-  const rallyInitVR = document.getElementById('rm_vr_0');
-  if (rallyInitVR && !rallyInitVR.dataset.userSet) rallyInitVR.value = val;
-  // Walker initiator
-  const walkerInitVR = document.getElementById('wm_vr_0');
-  if (walkerInitVR && !walkerInitVR.dataset.userSet) walkerInitVR.value = val;
-  // Zombie solo VR
-  const zSoloVR = document.getElementById('zSoloVR');
-  if (zSoloVR && !zSoloVR.dataset.userSet) zSoloVR.value = val;
-
   updateRally();
   updateWalker();
   updateZombieSolo();
+  _vrSyncing = false;
 }
 
 slider.addEventListener('input', () => setVR(slider.value));
@@ -1302,12 +1299,10 @@ function initRallyMembers() {
     document.getElementById(`rm_vr_${i}`).addEventListener('input', updateRally);
     document.getElementById(`rm_stype_${i}`).addEventListener('change', updateRally);
   }
+  // Slot 1 VR is bidirectionally bound to the top VR slider.
   const rm_vr_0 = document.getElementById('rm_vr_0');
-  rm_vr_0.addEventListener('change', (e) => {
-    if (parseInt(e.target.value) !== getVR()) e.target.dataset.userSet = '1';
-    else delete e.target.dataset.userSet;
-  });
   rm_vr_0.value = getVR();
+  rm_vr_0.addEventListener('input', () => { if (!_vrSyncing) setVR(rm_vr_0.value); });
 }
 
 function populateRallyLevels() {
@@ -1482,12 +1477,10 @@ function initWalkerMembers() {
     document.getElementById(`wm_power_${i}`).addEventListener('input', updateWalker);
     document.getElementById(`wm_vr_${i}`).addEventListener('input', updateWalker);
   }
+  // Slot 1 VR is bidirectionally bound to the top VR slider.
   const wm_vr_0 = document.getElementById('wm_vr_0');
-  wm_vr_0.addEventListener('change', (e) => {
-    if (parseInt(e.target.value) !== getVR()) e.target.dataset.userSet = '1';
-    else delete e.target.dataset.userSet;
-  });
   wm_vr_0.value = getVR();
+  wm_vr_0.addEventListener('input', () => { if (!_vrSyncing) setVR(wm_vr_0.value); });
 }
 
 function populateWalkerLevels() {
@@ -1640,11 +1633,11 @@ populateZombieSoloLevels();
     el.addEventListener('change', updateZombieSolo);
   }
 });
-document.getElementById('zSoloVR').addEventListener('change', (e) => {
-  if (parseInt(e.target.value) !== getVR()) e.target.dataset.userSet = '1';
-  else delete e.target.dataset.userSet;
-});
+// Zombie-solo VR is bidirectionally bound to the top VR slider.
 document.getElementById('zSoloVR').value = getVR();
+document.getElementById('zSoloVR').addEventListener('input', (e) => {
+  if (!_vrSyncing) setVR(e.target.value);
+});
 
 // Tab 2: Rally
 initRallyMembers();
