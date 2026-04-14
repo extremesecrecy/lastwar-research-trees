@@ -777,8 +777,9 @@
         </select>
       </div>
       <div>
-        <label>Your Squad Power</label>
-        <input type="number" id="zSoloPower" placeholder="e.g. 5000000" min="0">
+        <label>Your Squad Power <span style="color:#f4a261; font-weight:600;">(in Millions)</span></label>
+        <input type="number" id="zSoloPower" placeholder="e.g. 17.8 = 17.8M" min="0" step="any" inputmode="decimal">
+        <div style="font-size:10px; color:#888; margin-top:2px;">Type <code>17.8</code> and we read it as 17,800,000.</div>
       </div>
       <div>
         <label>Your VR (override)</label>
@@ -826,6 +827,10 @@
       &#127942; <strong>Slot 1 is YOU (the Initiator)</strong> &mdash; auto-filled from the VR slider at the top. Your VR becomes the floor for joiners (slots 2-5): they fight at MAX(their VR, your VR). If a joiner has higher VR, they keep their own.
     </div>
 
+    <div style="background:#e8f4fb; border:1px solid #5bc0de; border-radius:6px; padding:8px 12px; margin:10px 0; font-size:12px; color:#5a6a6a;">
+      &#128161; <strong>Squad Power is entered in Millions.</strong> Just type <code>17.8</code> and we read it as <strong>17,800,000</strong>. No zeros to count &mdash; faster than typing the full number, and the total power shown below the rally grid will echo the exact value so you can verify.
+    </div>
+
     <div id="rallyMembers"></div>
 
     <div id="rallyVerdict" class="verdict-card neutral" style="margin:16px 0 0;"></div>
@@ -863,6 +868,10 @@
 
     <div style="background:#fffde7; border:1px solid #f4d35e; border-radius:6px; padding:8px 12px; margin:10px 0; font-size:12px; color:#5a6a6a;">
       &#127942; <strong>Slot 1 is YOU (the Initiator)</strong> &mdash; Your VR floors joiners' VR (same as Boss/Elite rally). Each member must clear BOTH the strength AND VR threshold.
+    </div>
+
+    <div style="background:#e8f4fb; border:1px solid #5bc0de; border-radius:6px; padding:8px 12px; margin:10px 0; font-size:12px; color:#5a6a6a;">
+      &#128161; <strong>Squad Power is entered in Millions.</strong> Type <code>17.8</code> for 17.8M (= 17,800,000). No zeros to count.
     </div>
 
     <div id="walkerMembers"></div>
@@ -992,6 +1001,15 @@ function saveWalkerVR(level, vr) {
 // ===================================================================
 // Damage Reduction Formula (Soulphalanx #409 via cpt-hedge) -- DO NOT CHANGE
 // ===================================================================
+// Squad power is entered by the user in millions (e.g. "17.8" means 17,800,000).
+// This keeps the form quick to fill -- no counting zeros -- while we store real numbers internally.
+function parsePowerMillions(value) {
+  if (value == null || value === '') return 0;
+  const n = parseFloat(value);
+  if (isNaN(n) || n < 0) return 0;
+  return Math.round(n * 1000000);
+}
+
 function calcDamageReduction(required, current) {
   if (required <= 0) return 0;
   if (current >= required) return 0;
@@ -1184,7 +1202,7 @@ function updateZombieSolo() {
   const level = parseInt(levelEl.value) || 1;
   const zombieType = document.getElementById('zSoloZombieType').value;
   const squadType = document.getElementById('zSoloSquadType').value;
-  const power = parseInt(document.getElementById('zSoloPower').value) || 0;
+  const power = parsePowerMillions(document.getElementById('zSoloPower').value);
   const vr = parseInt(document.getElementById('zSoloVR').value) || 0;
   const resultEl = document.getElementById('zSoloResult');
 
@@ -1253,7 +1271,7 @@ function initRallyMembers() {
   // Header row
   html += `<div class="rally-member-row rally-header-row" style="background:#f0f5f4; border:1px solid #ccc; font-weight:700;">
     <div class="member-label">Member</div>
-    <div style="font-size:11px; color:#666;">Squad Power</div>
+    <div style="font-size:11px; color:#666;">Squad Power <span style="color:#f4a261;">(Millions)</span></div>
     <div style="font-size:11px; color:#666;">Squad Type</div>
     <div style="font-size:11px; color:#666;">Their Own VR</div>
     <div style="font-size:11px; color:#666;">Effective VR &amp; Status</div>
@@ -1261,12 +1279,12 @@ function initRallyMembers() {
   for (let i = 0; i < 5; i++) {
     const isInitiator = i === 0;
     const label = isInitiator ? '&#127942; Slot 1 (YOU)' : `Slot ${i+1}`;
-    const powerPh = isInitiator ? 'Your power' : `Member ${i+1} power`;
+    const powerPh = isInitiator ? 'e.g. 17.8' : `e.g. ${(10 + i * 2).toFixed(1)}`;
     const vrPh = isInitiator ? 'Auto-filled' : 'Their VR';
     const rowClass = isInitiator ? 'rally-member-row initiator' : 'rally-member-row';
     html += `<div class="${rowClass}">
       <div class="member-label">${label}</div>
-      <input type="number" id="rm_power_${i}" placeholder="${powerPh}" min="0">
+      <input type="number" id="rm_power_${i}" placeholder="${powerPh}" min="0" step="any" inputmode="decimal" title="Enter squad power in MILLIONS. Example: type 17.8 for 17.8M (= 17,800,000).">
       <select id="rm_stype_${i}">
         <option value="aircraft">&#9992; Aircraft</option>
         <option value="tank">&#9968; Tank</option>
@@ -1325,7 +1343,7 @@ function updateRally() {
 
   for (let i = 0; i < 5; i++) {
     const name = i === 0 ? 'Slot 1 (YOU)' : `Slot ${i+1}`;
-    const power = parseInt(document.getElementById(`rm_power_${i}`).value) || 0;
+    const power = parsePowerMillions(document.getElementById(`rm_power_${i}`).value);
     const ownVR = parseInt(document.getElementById(`rm_vr_${i}`).value) || 0;
     const squadType = document.getElementById(`rm_stype_${i}`).value;
     const effectiveVR = i === 0 ? ownVR : Math.max(ownVR, initiatorVR);
@@ -1441,19 +1459,19 @@ function initWalkerMembers() {
   let html = '';
   html += `<div class="rally-member-row" style="background:#f0f5f4; border:1px solid #ccc; font-weight:700;">
     <div class="member-label">Member</div>
-    <div style="font-size:11px; color:#666;">Squad Power</div>
+    <div style="font-size:11px; color:#666;">Squad Power <span style="color:#f4a261;">(Millions)</span></div>
     <div style="font-size:11px; color:#666;">Their Own VR</div>
     <div style="font-size:11px; color:#666;">Strength + VR Status</div>
   </div>`;
   for (let i = 0; i < 5; i++) {
     const isInitiator = i === 0;
     const label = isInitiator ? '&#127942; Slot 1 (YOU)' : `Slot ${i+1}`;
-    const powerPh = isInitiator ? 'Your power' : `Member ${i+1} power`;
+    const powerPh = isInitiator ? 'e.g. 17.8' : `e.g. ${(10 + i * 2).toFixed(1)}`;
     const vrPh = isInitiator ? 'Auto-filled' : 'Their VR';
     const rowClass = isInitiator ? 'rally-member-row initiator' : 'rally-member-row';
     html += `<div class="${rowClass}">
       <div class="member-label">${label}</div>
-      <input type="number" id="wm_power_${i}" placeholder="${powerPh}" min="0">
+      <input type="number" id="wm_power_${i}" placeholder="${powerPh}" min="0" step="any" inputmode="decimal" title="Enter squad power in MILLIONS. Example: type 17.8 for 17.8M (= 17,800,000).">
       <input type="number" id="wm_vr_${i}" placeholder="${vrPh}" min="0" max="30000">
       <div class="status-cell" id="wm_flag_${i}"></div>
     </div>`;
@@ -1513,7 +1531,7 @@ function updateWalker() {
 
   for (let i = 0; i < 5; i++) {
     const name = i === 0 ? 'Slot 1 (YOU)' : `Slot ${i+1}`;
-    const power = parseInt(document.getElementById(`wm_power_${i}`).value) || 0;
+    const power = parsePowerMillions(document.getElementById(`wm_power_${i}`).value);
     const ownVR = parseInt(document.getElementById(`wm_vr_${i}`).value) || 0;
     const effectiveVR = i === 0 ? ownVR : Math.max(ownVR, initiatorVR);
     const usingInitiatorVR = i !== 0 && initiatorVR > ownVR;
