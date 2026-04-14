@@ -179,13 +179,7 @@ def load_building_data(path):
 
 def generate_css():
     return r'''<style>
-  @font-face {
-    font-family: 'DKCrayonCrumble';
-    src: url('DKCrayonCrumble.ttf') format('truetype');
-    font-weight: normal;
-    font-style: normal;
-  }
-
+@import url("https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&display=swap");
   * { margin: 0; padding: 0; box-sizing: border-box; }
 
   :root {
@@ -211,7 +205,7 @@ def generate_css():
   }
 
   h1, h2, h3, .section-label, .alliance .name {
-    font-family: 'DKCrayonCrumble', 'Segoe UI', sans-serif;
+    font-family: 'Fredoka', 'Segoe UI', sans-serif;
   }
 
   /* Header */
@@ -299,7 +293,7 @@ def generate_css():
     margin-bottom: 4px;
   }
   .power-card .value {
-    font-family: 'DKCrayonCrumble', sans-serif;
+    font-family: 'Fredoka', sans-serif;
     font-size: 22px;
     font-weight: 800;
   }
@@ -346,7 +340,7 @@ def generate_css():
     background: #e8f4f1;
   }
   .category-header .cat-name {
-    font-family: 'DKCrayonCrumble', sans-serif;
+    font-family: 'Fredoka', sans-serif;
     font-size: 15px;
     font-weight: 700;
     color: var(--dark);
@@ -533,7 +527,7 @@ def generate_css():
     margin-top: 10px;
   }
   .summary-box h4 {
-    font-family: 'DKCrayonCrumble', sans-serif;
+    font-family: 'Fredoka', sans-serif;
     color: var(--dark);
     margin-bottom: 6px;
   }
@@ -588,7 +582,7 @@ def generate_css():
     margin-top: 12px;
   }
   .footer .tagline {
-    font-family: 'DKCrayonCrumble', sans-serif;
+    font-family: 'Fredoka', sans-serif;
     font-size: 14px;
     color: var(--dark);
   }
@@ -838,7 +832,7 @@ def generate_css():
   }
   .info-popup.show { display: block; }
   .info-popup h4 {
-    font-family: 'DKCrayonCrumble', sans-serif;
+    font-family: 'Fredoka', sans-serif;
     font-size: 16px;
     color: var(--dark);
     margin-bottom: 6px;
