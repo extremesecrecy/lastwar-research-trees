@@ -1393,6 +1393,42 @@ function renderRallyVerdict(verdictId, members, requiredVR) {
                    : damagePct >= 40 ? '#f4a261'
                    :                   '#c62828';
 
+  // Estimated damage to the boss's HP. Calibrated from OWOW in-game observation
+  // (Apr 14 2026): a 22.9% Rally Output rally dealt ~4% boss HP damage. The game
+  // effectively applies the damage reduction twice (attacker output * defender
+  // resistance), so boss damage % ~ (output_%)^2 / 100.
+  //   output 100% -> boss 100% (clean kill)
+  //   output  80% -> boss  64%
+  //   output  50% -> boss  25%
+  //   output  30% -> boss   9%
+  //   output  22.9% -> boss ~5.2% (matches observed 4% within noise)
+  const bossDamagePct = Math.pow(damagePct / 100, 2) * 100;
+
+  // Expected battle outcome bands -- calibrated against OWOW in-game results.
+  // Using Rally Output % as the threshold (easier to reason about).
+  let outcomeLabel, outcomeDetail, outcomeColor;
+  if (damagePct < 30) {
+    outcomeLabel = '&#10007; DEFEAT';
+    outcomeDetail = 'Boss will survive. Expect catastrophic troop losses across the rally.';
+    outcomeColor = '#c62828';
+  } else if (damagePct < 55) {
+    outcomeLabel = '&#9888; LIKELY DEFEAT';
+    outcomeDetail = 'Boss probably survives. Heavy losses for little or no progress.';
+    outcomeColor = '#e65100';
+  } else if (damagePct < 80) {
+    outcomeLabel = '&#9888; PYRRHIC VICTORY';
+    outcomeDetail = 'Boss may die but losses will be heavy. Bring healing speedups.';
+    outcomeColor = '#f4a261';
+  } else if (damagePct < 95) {
+    outcomeLabel = '&#10003; VICTORY';
+    outcomeDetail = 'Boss dies with moderate losses. Solid rally.';
+    outcomeColor = '#7fb3a8';
+  } else {
+    outcomeLabel = '&#10003; CLEAN VICTORY';
+    outcomeDetail = 'Boss dies quickly with minimal losses. Ideal rally.';
+    outcomeColor = '#2e7d32';
+  }
+
   let klass, headline, detail;
   if (dead >= 2 || (dead >= 1 && active.length <= 2)) {
     klass = 'danger';
@@ -1412,21 +1448,37 @@ function renderRallyVerdict(verdictId, members, requiredVR) {
     detail = `Send it!`;
   }
 
-  // Big stat block: the expected % damage this rally will actually deal.
+  // Color the BOSS damage based on whether it's enough to kill.
+  const bossColor = bossDamagePct >= 80 ? '#2e7d32'
+                   : bossDamagePct >= 50 ? '#7fb3a8'
+                   : bossDamagePct >= 20 ? '#f4a261'
+                   :                       '#c62828';
+
+  // Stat block: 3 key numbers + outcome callout.
   const statBlock = `
-    <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-top:10px; padding-top:10px; border-top:1px dashed rgba(0,0,0,0.15);">
+    <div style="display:grid; grid-template-columns:repeat(3, 1fr); gap:10px; margin-top:10px; padding-top:10px; border-top:1px dashed rgba(0,0,0,0.15);">
       <div style="text-align:center;">
-        <div style="font-size:11px; color:#666; text-transform:uppercase; letter-spacing:0.5px;">Rally Damage %</div>
-        <div style="font-size:30px; font-weight:800; color:${statColor}; line-height:1.1;">${damagePct.toFixed(1)}%</div>
-        <div style="font-size:10px; color:#888;">of your total raw power lands</div>
+        <div style="font-size:11px; color:#666; text-transform:uppercase; letter-spacing:0.5px;">Rally Output %</div>
+        <div style="font-size:26px; font-weight:800; color:${statColor}; line-height:1.1;">${damagePct.toFixed(1)}%</div>
+        <div style="font-size:10px; color:#888;" title="Your rally's output efficiency -- how much of your total raw squad power actually lands after VR penalties and type counters. This is NOT boss HP damaged.">of your raw power lands <span style="color:#bbb; cursor:help;">(?)</span></div>
+      </div>
+      <div style="text-align:center;">
+        <div style="font-size:11px; color:#666; text-transform:uppercase; letter-spacing:0.5px;">Est. Boss HP Damage</div>
+        <div style="font-size:26px; font-weight:800; color:${bossColor}; line-height:1.1;">~${bossDamagePct.toFixed(1)}%</div>
+        <div style="font-size:10px; color:#888;" title="Approximate share of the boss's HP your rally actually takes off. Calibrated from OWOW in-game observation: Rally Output of 22.9% produced ~4% boss HP damage. Formula used: (output_%)^2 / 100.">of boss HP removed <span style="color:#bbb; cursor:help;">(?)</span></div>
       </div>
       <div style="text-align:center;">
         <div style="font-size:11px; color:#666; text-transform:uppercase; letter-spacing:0.5px;">Effective / Raw</div>
-        <div style="font-size:18px; font-weight:700; color:#5a6a6a; line-height:1.2; margin-top:6px;">
-          <strong>${fmtPower(totalEff)}</strong> <span style="color:#aaa;">/</span> ${fmtPower(totalRaw)}
+        <div style="font-size:15px; font-weight:700; color:#5a6a6a; line-height:1.2; margin-top:8px;">
+          <strong>${fmtPower(totalEff)}</strong><br><span style="color:#aaa; font-weight:400;">of</span> ${fmtPower(totalRaw)}
         </div>
-        <div style="font-size:10px; color:#888;">across ${active.length} member(s)</div>
+        <div style="font-size:10px; color:#888;">${active.length} member(s)</div>
       </div>
+    </div>
+    <div style="margin-top:10px; padding:10px 12px; background:${outcomeColor}15; border:1px solid ${outcomeColor}55; border-radius:6px; text-align:center;">
+      <div style="font-size:11px; color:#666; text-transform:uppercase; letter-spacing:0.5px;">Expected Battle Outcome</div>
+      <div style="font-size:20px; font-weight:800; color:${outcomeColor}; line-height:1.2; margin-top:2px;">${outcomeLabel}</div>
+      <div style="font-size:12px; color:#555; margin-top:4px;">${outcomeDetail}</div>
     </div>`;
 
   el.className = 'verdict-card ' + klass;
