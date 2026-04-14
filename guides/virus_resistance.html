@@ -1360,7 +1360,15 @@ function renderRallyVerdict(verdictId, members, requiredVR) {
   const go = active.filter(m => m.flag === 'go').length;
   const totalRaw = active.reduce((s,m) => s + m.power, 0);
   const totalEff = active.reduce((s,m) => s + m.effectivePower, 0);
-  const wastePct = totalRaw > 0 ? Math.round((1 - totalEff/totalRaw) * 100) : 0;
+  // Rally Damage % = how much of your total raw power actually translates to damage dealt,
+  // after VR penalties and type counter modifiers are applied per-member.
+  // Worst member drags the rally down, best member lifts it up; this is the weighted average.
+  const damagePct = totalRaw > 0 ? (totalEff / totalRaw) * 100 : 0;
+  // Color the big stat based on how good it is.
+  const statColor = damagePct >= 90 ? '#2e7d32'
+                   : damagePct >= 70 ? '#7fb3a8'
+                   : damagePct >= 40 ? '#f4a261'
+                   :                   '#c62828';
 
   let klass, headline, detail;
   if (dead >= 2 || (dead >= 1 && active.length <= 2)) {
@@ -1370,18 +1378,36 @@ function renderRallyVerdict(verdictId, members, requiredVR) {
   } else if (dead >= 1 || caution >= 2) {
     klass = 'risky';
     headline = `&#9888; RISKY RALLY &mdash; ${go}/${active.length} fully effective`;
-    detail = `${dead} dead weight, ${caution} taking heavy penalties. Total effective: <strong>${fmtPower(totalEff)}</strong> (raw ${fmtPower(totalRaw)}, ${wastePct}% wasted).`;
+    detail = `${dead} dead weight, ${caution} taking penalties.`;
   } else if (caution >= 1) {
     klass = 'risky';
     headline = `&#9888; PROCEED WITH CAUTION`;
-    detail = `${caution} member(s) taking penalties. Total effective: <strong>${fmtPower(totalEff)}</strong> (raw ${fmtPower(totalRaw)}, ${wastePct}% wasted).`;
+    detail = `${caution} member(s) taking penalties.`;
   } else {
     klass = 'safe';
     headline = `&#10003; GO &mdash; All ${active.length} members at full power`;
-    detail = `Total effective: <strong>${fmtPower(totalEff)}</strong>. Send it!`;
+    detail = `Send it!`;
   }
+
+  // Big stat block: the expected % damage this rally will actually deal.
+  const statBlock = `
+    <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-top:10px; padding-top:10px; border-top:1px dashed rgba(0,0,0,0.15);">
+      <div style="text-align:center;">
+        <div style="font-size:11px; color:#666; text-transform:uppercase; letter-spacing:0.5px;">Rally Damage %</div>
+        <div style="font-size:30px; font-weight:800; color:${statColor}; line-height:1.1;">${damagePct.toFixed(1)}%</div>
+        <div style="font-size:10px; color:#888;">of your total raw power lands</div>
+      </div>
+      <div style="text-align:center;">
+        <div style="font-size:11px; color:#666; text-transform:uppercase; letter-spacing:0.5px;">Effective / Raw</div>
+        <div style="font-size:18px; font-weight:700; color:#5a6a6a; line-height:1.2; margin-top:6px;">
+          <strong>${fmtPower(totalEff)}</strong> <span style="color:#aaa;">/</span> ${fmtPower(totalRaw)}
+        </div>
+        <div style="font-size:10px; color:#888;">across ${active.length} member(s)</div>
+      </div>
+    </div>`;
+
   el.className = 'verdict-card ' + klass;
-  el.innerHTML = `<div class="verdict-headline">${headline}</div><div class="verdict-detail">${detail}</div>`;
+  el.innerHTML = `<div class="verdict-headline">${headline}</div><div class="verdict-detail">${detail}</div>${statBlock}`;
 }
 
 function renderRallyChart(chartId, summaryId, members, maxPower) {
