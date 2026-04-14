@@ -363,7 +363,7 @@
   /* Rally Member Rows */
   .rally-member-row {
     display: grid;
-    grid-template-columns: 150px 1fr 1fr 1fr;
+    grid-template-columns: 140px 1fr 110px 1fr 1.5fr;
     gap: 8px;
     align-items: center;
     padding: 8px 10px;
@@ -649,6 +649,7 @@
   <ul style="margin:6px 0 0 20px; font-size:12px; color:#666;">
     <li>Doom Elite Lv14-17: cpt-hedge had 2600/2800/3000/3200, actual is <strong>2500/2750/3000/3250</strong></li>
     <li>Zombie Lv16-19: cpt-hedge had 1900/2000/2200/2300, actual is <strong>3000/3300/3400/3700</strong></li>
+    <li><strong>Stronghold Bosses HAVE troop types</strong> (Aircraft/Tank/Missile) &mdash; widely reported as "no type" online, but OWOW verified in-game. Counter bonus &plusmn;20%.</li>
   </ul>
   <p style="margin-top:6px; font-size:12px;"><strong>Doom Walker VR requirements are not publicly known</strong> &mdash; we show estimates. Please record actual VR requirements in the Doom Walker tab as you encounter them in-game.</p>
 </div>
@@ -719,9 +720,9 @@
 <div class="tab-content" id="tab-rally">
   <div class="tab-panel">
     <h2>&#9876; Rally: Stronghold Boss &amp; Doom Elite</h2>
-    <div class="panel-sub">Only VR matters for Bosses and Elites &mdash; squad type does NOT affect these fights.</div>
+    <div class="panel-sub"><strong>Stronghold Bosses HAVE troop types</strong> (Aircraft/Tank/Missile &plusmn;20%). Doom Elites do NOT &mdash; only VR matters for them.</div>
 
-    <div class="form-grid" style="grid-template-columns:repeat(auto-fit, minmax(200px, 1fr));">
+    <div class="form-grid" style="grid-template-columns:repeat(auto-fit, minmax(180px, 1fr));">
       <div>
         <label>Enemy Type</label>
         <select id="rallyEnemyType">
@@ -732,6 +733,15 @@
       <div>
         <label>Enemy Level</label>
         <select id="rallyEnemyLevel"></select>
+      </div>
+      <div id="rallyBossTypeWrap">
+        <label>Boss Troop Type</label>
+        <select id="rallyBossType">
+          <option value="none">Unknown / Skip</option>
+          <option value="aircraft">&#9992; Aircraft</option>
+          <option value="tank">&#9968; Tank</option>
+          <option value="missile">&#128640; Missile</option>
+        </select>
       </div>
     </div>
 
@@ -1131,6 +1141,7 @@ function initRallyMembers() {
   html += `<div class="rally-member-row rally-header-row" style="background:#f0f5f4; border:1px solid #ccc; font-weight:700;">
     <div class="member-label">Member</div>
     <div style="font-size:11px; color:#666;">Squad Power</div>
+    <div style="font-size:11px; color:#666;">Squad Type</div>
     <div style="font-size:11px; color:#666;">Their Own VR</div>
     <div style="font-size:11px; color:#666;">Effective VR &amp; Status</div>
   </div>`;
@@ -1143,6 +1154,11 @@ function initRallyMembers() {
     html += `<div class="${rowClass}">
       <div class="member-label">${label}</div>
       <input type="number" id="rm_power_${i}" placeholder="${powerPh}" min="0">
+      <select id="rm_stype_${i}">
+        <option value="aircraft">&#9992; Aircraft</option>
+        <option value="tank">&#9968; Tank</option>
+        <option value="missile">&#128640; Missile</option>
+      </select>
       <input type="number" id="rm_vr_${i}" placeholder="${vrPh}" min="0" max="30000">
       <div class="status-cell" id="rm_flag_${i}"></div>
     </div>`;
@@ -1153,6 +1169,7 @@ function initRallyMembers() {
   for (let i = 0; i < 5; i++) {
     document.getElementById(`rm_power_${i}`).addEventListener('input', updateRally);
     document.getElementById(`rm_vr_${i}`).addEventListener('input', updateRally);
+    document.getElementById(`rm_stype_${i}`).addEventListener('change', updateRally);
   }
   const rm_vr_0 = document.getElementById('rm_vr_0');
   rm_vr_0.addEventListener('change', (e) => {
@@ -1176,6 +1193,20 @@ function updateRally() {
   const requiredVR = ENEMIES[enemyType].levels[enemyLevel] || 0;
   const initiatorVR = parseInt(document.getElementById('rm_vr_0').value) || 0;
 
+  // Boss has troop types (Aircraft/Tank/Missile). Doom Elite does not.
+  const isBoss = enemyType === 'boss';
+  const bossType = isBoss ? document.getElementById('rallyBossType').value : 'none';
+  const wrap = document.getElementById('rallyBossTypeWrap');
+  if (wrap) wrap.style.display = isBoss ? '' : 'none';
+  // Also toggle squad type column visibility
+  document.querySelectorAll('#rallyMembers [id^="rm_stype_"]').forEach(el => {
+    el.style.visibility = isBoss ? 'visible' : 'hidden';
+  });
+  const typeHeader = document.querySelector('#rallyMembers .rally-header-row');
+  if (typeHeader) {
+    typeHeader.style.gridTemplateColumns = '';
+  }
+
   const members = [];
   let maxPower = 0;
 
@@ -1183,22 +1214,33 @@ function updateRally() {
     const name = i === 0 ? 'Slot 1 (YOU)' : `Slot ${i+1}`;
     const power = parseInt(document.getElementById(`rm_power_${i}`).value) || 0;
     const ownVR = parseInt(document.getElementById(`rm_vr_${i}`).value) || 0;
+    const squadType = document.getElementById(`rm_stype_${i}`).value;
     const effectiveVR = i === 0 ? ownVR : Math.max(ownVR, initiatorVR);
     const usingInitiatorVR = i !== 0 && initiatorVR > ownVR;
 
     const vrPenalty = calcDamageReduction(requiredVR, effectiveVR);
-    const effectivePower = power * (1 - vrPenalty / 100);
+    // Type modifier only applies to Boss (not Doom Elite)
+    const typeMod = isBoss ? getTypeModifier(squadType, bossType) : 1.0;
+    const effectivePower = power * (1 - vrPenalty / 100) * typeMod;
+
+    // Combined penalty for flag decision (VR + type)
+    const totalDamageLost = 100 - ((1 - vrPenalty/100) * typeMod * 100);
 
     let flag = 'go', flagText = '&#10003; GO';
-    if (vrPenalty > 50) { flag = 'stop'; flagText = '&#10007; NO-GO'; }
-    else if (vrPenalty > 25) { flag = 'caution'; flagText = '&#9888; CAUTION'; }
+    if (totalDamageLost > 50) { flag = 'stop'; flagText = '&#10007; NO-GO'; }
+    else if (totalDamageLost > 25) { flag = 'caution'; flagText = '&#9888; CAUTION'; }
 
     if (power === 0) {
       document.getElementById(`rm_flag_${i}`).innerHTML = '<span style="color:#bbb;">&mdash;</span>';
     } else {
       const sourceNote = usingInitiatorVR ? ' <span style="color:#f4a261;">(using initiator\'s)</span>' : '';
+      let typeNote = '';
+      if (isBoss && bossType !== 'none') {
+        if (typeMod > 1) typeNote = ' <span style="color:#2e7d32;font-weight:600;">&bull; &#9733;+20%</span>';
+        else if (typeMod < 1) typeNote = ' <span style="color:#c62828;font-weight:600;">&bull; -20%</span>';
+      }
       document.getElementById(`rm_flag_${i}`).innerHTML = `<span class="rally-flag ${flag}">${flagText}</span>` +
-        `<span>VR ${effectiveVR.toLocaleString()}${sourceNote} &bull; -${vrPenalty.toFixed(1)}%</span>`;
+        `<span>VR ${effectiveVR.toLocaleString()}${sourceNote} &bull; -${vrPenalty.toFixed(1)}%${typeNote}</span>`;
     }
 
     if (effectivePower > maxPower) maxPower = effectivePower;
@@ -1481,6 +1523,7 @@ document.getElementById('rallyEnemyType').addEventListener('change', () => {
   updateRally();
 });
 document.getElementById('rallyEnemyLevel').addEventListener('change', updateRally);
+document.getElementById('rallyBossType').addEventListener('change', updateRally);
 
 // Tab 3: Doom Walker
 populateWalkerLevels();
