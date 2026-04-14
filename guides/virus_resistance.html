@@ -653,7 +653,7 @@
     <li><strong>Stronghold Bosses HAVE troop types</strong> (Aircraft/Tank/Missile) &mdash; widely reported as "no type" online, but OWOW verified in-game. Counter bonus &plusmn;20%.</li>
     <li>In the <em>All Tables</em> tab, a <span style="color:#2e7d32; font-weight:600;">&#10003;</span> in the <em>Src</em> column marks in-game verified levels; <span style="color:#888;">~</span> marks extrapolations.</li>
   </ul>
-  <p style="margin-top:6px; font-size:12px;"><strong>Doom Walker VR requirements are not publicly known</strong> &mdash; we show estimates. Please record actual VR requirements in the Doom Walker tab as you encounter them in-game.</p>
+  <p style="margin-top:6px; font-size:12px;"><strong>Doom Walkers do NOT require Virus Resistance</strong> &mdash; confirmed in-game Apr 14 2026 (the Walker info panel shows only "Suggested Power", no VR line). They are strength-gated only: your squad power must meet the Suggested Power threshold. Calibration note: in-game Lv130 showed 8.99M suggested power, vs the CIG guide's 10.76M &mdash; our Walker data is still based on the CIG guide and may overstate requirements. Send screenshots to lock it down.</p>
 </div>
 
 <!-- S1 Timeline -->
@@ -845,7 +845,7 @@
 <div class="tab-content" id="tab-walker">
   <div class="tab-panel">
     <h2>&#128694; Rally: Doom Walker</h2>
-    <div class="panel-sub">Doom Walkers have BOTH a strength requirement (your effective power) AND a VR requirement. Both must pass.</div>
+    <div class="panel-sub"><strong>Doom Walkers are strength-gated only</strong> &mdash; they do <strong>NOT</strong> require Virus Resistance. Each member just needs enough squad power to clear the suggested strength threshold. <span style="color:#888; font-size:11px;">(Confirmed in-game Apr 14 2026: the Walker info panel shows "Suggested Power" but no VR line.)</span></div>
 
     <div class="form-grid" style="grid-template-columns:repeat(auto-fit, minmax(200px, 1fr));">
       <div>
@@ -853,21 +853,9 @@
         <select id="walkerLevel"></select>
       </div>
       <div>
-        <label>Required Strength</label>
+        <label>Suggested Power</label>
         <input type="text" id="walkerStrength" readonly style="background:#f5f5f5; font-weight:600;">
       </div>
-      <div>
-        <label>Required VR</label>
-        <div style="display:flex; gap:4px; align-items:center;">
-          <input type="number" id="walkerVR" min="0" max="30000" style="flex:1;">
-          <button class="small-btn" id="walkerVRSave">Save</button>
-        </div>
-      </div>
-    </div>
-    <div id="walkerVRNote" style="font-size:11px; color:#888; margin:-4px 0 10px; padding:0 4px;"></div>
-
-    <div style="background:#fffde7; border:1px solid #f4d35e; border-radius:6px; padding:8px 12px; margin:10px 0; font-size:12px; color:#5a6a6a;">
-      &#127942; <strong>Slot 1 is YOU (the Initiator)</strong> &mdash; Slot 1's VR is <strong>bidirectionally synced</strong> with the top VR slider. Your VR floors joiners' VR (same as Boss/Elite rally). Each member must clear BOTH the strength AND VR threshold.
     </div>
 
     <div style="background:#e8f4fb; border:1px solid #5bc0de; border-radius:6px; padding:8px 12px; margin:10px 0; font-size:12px; color:#5a6a6a;">
@@ -986,17 +974,7 @@ function getDoomWalkerStrength(level) {
   return Math.round(DOOM_WALKER_STRENGTH[lower] + fraction * (DOOM_WALKER_STRENGTH[upper] - DOOM_WALKER_STRENGTH[lower]));
 }
 
-function estimateDoomWalkerVR(level) {
-  return Math.max(2000, (level - 80) * 200);
-}
-
-function getSavedWalkerVR(level) {
-  const val = localStorage.getItem('dw_vr_lv_' + level);
-  return val != null ? parseInt(val) : null;
-}
-function saveWalkerVR(level, vr) {
-  localStorage.setItem('dw_vr_lv_' + level, String(vr));
-}
+// (Doom Walker VR helpers removed Apr 14 2026 -- Walkers are strength-gated only, no VR requirement.)
 
 // ===================================================================
 // Damage Reduction Formula (Soulphalanx #409 via cpt-hedge) -- DO NOT CHANGE
@@ -1049,8 +1027,8 @@ function setVR(val) {
   // Bidirectional sync: top slider and the "YOU" (Slot 1) VR fields are one source of truth.
   // Changing any of them updates ALL of them so the UI never gets out of sync.
   const rm = document.getElementById('rm_vr_0');    if (rm) rm.value = val;
-  const wm = document.getElementById('wm_vr_0');    if (wm) wm.value = val;
   const zs = document.getElementById('zSoloVR');    if (zs) zs.value = val;
+  // Note: Doom Walker tab has no VR input (Walkers are strength-only).
   updateAll();
   updateRally();
   updateWalker();
@@ -1147,25 +1125,15 @@ function buildTable(type) {
 }
 
 function buildWalkerTable() {
-  const vr = getVR();
-  let html = '<table><thead><tr><th>Lv</th><th>Strength</th><th>VR Req</th><th>Status</th></tr></thead><tbody>';
+  // Doom Walkers are strength-gated only (no VR requirement in-game, confirmed Apr 14 2026).
+  let html = '<table><thead><tr><th>Lv</th><th>Suggested Power</th></tr></thead><tbody>';
   for (let lv = 100; lv <= 180; lv += 5) {
     const strength = getDoomWalkerStrength(lv);
-    const savedVR = getSavedWalkerVR(lv);
-    const reqVR = savedVR != null ? savedVR : estimateDoomWalkerVR(lv);
-    const red = calcDamageReduction(reqVR, vr);
-    const cls = getRowClass(red);
-    const est = savedVR == null ? ' *' : '';
     const strengthLbl = strength >= 1000000 ? (strength / 1000000).toFixed(2) + 'M' : (strength / 1000).toFixed(0) + 'K';
-    html += '<tr class="' + cls + '">';
-    html += '<td>' + lv + '</td>';
-    html += '<td>' + strengthLbl + '</td>';
-    html += '<td>' + reqVR.toLocaleString() + est + '</td>';
-    html += '<td>' + getStatusTag(red) + '</td>';
-    html += '</tr>';
+    html += '<tr><td>' + lv + '</td><td>' + strengthLbl + ' (' + strength.toLocaleString() + ')</td></tr>';
   }
   html += '</tbody></table>';
-  html += '<div style="font-size:10px; color:#888; padding:4px 8px;">* = estimated (no user data saved for that level)</div>';
+  html += '<div style="font-size:11px; color:#888; padding:6px 8px;">Values sourced from the CIG Doom Walker guide. In-game Lv130 shows 8.99M (vs guide 10.76M) &mdash; real in-game numbers may be lower. Please share screenshots so we can calibrate.</div>';
   return html;
 }
 
@@ -1449,25 +1417,25 @@ function renderRallyChart(chartId, summaryId, members, maxPower) {
 // ===================================================================
 // Tab 3: Doom Walker
 // ===================================================================
+// Doom Walkers are strength-gated only (no VR) -- so the walker grid is 3 columns wide.
+const WALKER_GRID_STYLE = 'grid-template-columns: 140px 1fr 2fr;';
+
 function initWalkerMembers() {
   const container = document.getElementById('walkerMembers');
   let html = '';
-  html += `<div class="rally-member-row" style="background:#f0f5f4; border:1px solid #ccc; font-weight:700;">
+  html += `<div class="rally-member-row" style="${WALKER_GRID_STYLE} background:#f0f5f4; border:1px solid #ccc; font-weight:700;">
     <div class="member-label">Member</div>
     <div style="font-size:11px; color:#666;">Squad Power <span style="color:#f4a261;">(Millions)</span></div>
-    <div style="font-size:11px; color:#666;">Their Own VR</div>
-    <div style="font-size:11px; color:#666;">Strength + VR Status</div>
+    <div style="font-size:11px; color:#666;">Strength Status</div>
   </div>`;
   for (let i = 0; i < 5; i++) {
     const isInitiator = i === 0;
     const label = isInitiator ? '&#127942; Slot 1 (YOU)' : `Slot ${i+1}`;
     const powerPh = isInitiator ? 'e.g. 17.8' : `e.g. ${(10 + i * 2).toFixed(1)}`;
-    const vrPh = isInitiator ? 'Auto-filled' : 'Their VR';
     const rowClass = isInitiator ? 'rally-member-row initiator' : 'rally-member-row';
-    html += `<div class="${rowClass}">
+    html += `<div class="${rowClass}" style="${WALKER_GRID_STYLE}">
       <div class="member-label">${label}</div>
       <input type="number" id="wm_power_${i}" placeholder="${powerPh}" min="0" step="any" inputmode="decimal" title="Enter squad power in MILLIONS. Example: type 17.8 for 17.8M (= 17,800,000).">
-      <input type="number" id="wm_vr_${i}" placeholder="${vrPh}" min="0" max="30000">
       <div class="status-cell" id="wm_flag_${i}"></div>
     </div>`;
   }
@@ -1475,12 +1443,7 @@ function initWalkerMembers() {
 
   for (let i = 0; i < 5; i++) {
     document.getElementById(`wm_power_${i}`).addEventListener('input', updateWalker);
-    document.getElementById(`wm_vr_${i}`).addEventListener('input', updateWalker);
   }
-  // Slot 1 VR is bidirectionally bound to the top VR slider.
-  const wm_vr_0 = document.getElementById('wm_vr_0');
-  wm_vr_0.value = getVR();
-  wm_vr_0.addEventListener('input', () => { if (!_vrSyncing) setVR(wm_vr_0.value); });
 }
 
 function populateWalkerLevels() {
@@ -1496,78 +1459,68 @@ function refreshWalkerRequirements() {
   const level = parseInt(document.getElementById('walkerLevel').value) || 100;
   const strength = getDoomWalkerStrength(level);
   document.getElementById('walkerStrength').value = fmtPower(strength) + ' (' + strength.toLocaleString() + ')';
-
-  const saved = getSavedWalkerVR(level);
-  const vrInput = document.getElementById('walkerVR');
-  const note = document.getElementById('walkerVRNote');
-  if (saved != null) {
-    vrInput.value = saved;
-    note.innerHTML = `&#10003; Using your saved value (${saved.toLocaleString()} VR) for Lv ${level}.`;
-    note.style.color = '#2e7d32';
-  } else {
-    const est = estimateDoomWalkerVR(level);
-    vrInput.value = est;
-    note.innerHTML = `&#9432; Estimated <strong>${est.toLocaleString()} VR</strong> for Lv ${level} &mdash; Doom Walker VR requirements are not publicly known. Enter the real value from your game and click Save.`;
-    note.style.color = '#888';
-  }
 }
 
 function updateWalker() {
   if (!document.getElementById('walkerLevel')) return;
   const level = parseInt(document.getElementById('walkerLevel').value) || 100;
   const requiredStrength = getDoomWalkerStrength(level);
-  const requiredVR = parseInt(document.getElementById('walkerVR').value) || 0;
-  const initiatorVR = parseInt(document.getElementById('wm_vr_0').value) || 0;
 
   const members = [];
   let maxPower = 0;
+  let passCount = 0;
+  let failCount = 0;
+  let activeCount = 0;
 
   for (let i = 0; i < 5; i++) {
     const name = i === 0 ? 'Slot 1 (YOU)' : `Slot ${i+1}`;
     const power = parsePowerMillions(document.getElementById(`wm_power_${i}`).value);
-    const ownVR = parseInt(document.getElementById(`wm_vr_${i}`).value) || 0;
-    const effectiveVR = i === 0 ? ownVR : Math.max(ownVR, initiatorVR);
-    const usingInitiatorVR = i !== 0 && initiatorVR > ownVR;
-
-    const vrPenalty = calcDamageReduction(requiredVR, effectiveVR);
-    const effectivePower = power * (1 - vrPenalty / 100);
     const strengthOK = power >= requiredStrength;
-    const vrOK = vrPenalty < 1;
 
     let flag, flagText;
     if (power === 0) {
       flag = ''; flagText = '';
-    } else if (!strengthOK && !vrOK) {
-      flag = 'stop'; flagText = '&#10007; STR + VR FAIL';
-    } else if (!strengthOK) {
-      flag = 'stop'; flagText = '&#10007; STR FAIL';
-    } else if (!vrOK && vrPenalty > 50) {
-      flag = 'stop'; flagText = '&#10007; VR FAIL';
-    } else if (!vrOK) {
-      flag = 'caution'; flagText = '&#9888; VR WEAK';
-    } else {
+    } else if (strengthOK) {
       flag = 'go'; flagText = '&#10003; GO';
+    } else {
+      flag = 'stop'; flagText = '&#10007; STR FAIL';
     }
 
     if (power === 0) {
       document.getElementById(`wm_flag_${i}`).innerHTML = '<span style="color:#bbb;">&mdash;</span>';
     } else {
+      activeCount++;
+      if (strengthOK) passCount++; else failCount++;
       const strengthLabel = strengthOK
-        ? `<span style="color:#2e7d32;">Str ${fmtPower(power)} &#10003;</span>`
-        : `<span style="color:#c62828;">Str ${fmtPower(power)} &lt; ${fmtPower(requiredStrength)}</span>`;
-      const vrLabel = vrOK
-        ? `<span style="color:#2e7d32;">VR ${effectiveVR.toLocaleString()} &#10003;</span>`
-        : `<span style="color:#c62828;">VR ${effectiveVR.toLocaleString()} &lt; ${requiredVR.toLocaleString()} (-${vrPenalty.toFixed(1)}%)</span>`;
-      const sourceNote = usingInitiatorVR ? ' <span style="color:#f4a261;">(initiator\'s)</span>' : '';
+        ? `<span style="color:#2e7d32;">${fmtPower(power)} &#10003; (need ${fmtPower(requiredStrength)})</span>`
+        : `<span style="color:#c62828;">${fmtPower(power)} &lt; ${fmtPower(requiredStrength)} needed</span>`;
       document.getElementById(`wm_flag_${i}`).innerHTML =
-        `<span class="rally-flag ${flag}">${flagText}</span><br>${strengthLabel} &bull; ${vrLabel}${sourceNote}`;
+        `<span class="rally-flag ${flag}">${flagText}</span><br>${strengthLabel}`;
     }
 
-    if (effectivePower > maxPower) maxPower = effectivePower;
-    members.push({ name, power, effectivePower, vrPenalty, flag });
+    // effectivePower === power since there's no VR penalty on Walkers
+    if (power > maxPower) maxPower = power;
+    members.push({ name, power, effectivePower: power, vrPenalty: 0, flag });
   }
 
-  renderRallyVerdict('walkerVerdict', members, requiredVR);
+  // Strength-only verdict card for Doom Walkers.
+  const el = document.getElementById('walkerVerdict');
+  if (el) {
+    if (activeCount === 0) {
+      el.className = 'verdict-card neutral';
+      el.innerHTML = `<div class="verdict-headline">Enter rally member info above</div><div class="verdict-detail">Each member needs at least <strong>${fmtPower(requiredStrength)}</strong> squad power for Lv ${level}.</div>`;
+    } else if (failCount === 0) {
+      el.className = 'verdict-card safe';
+      el.innerHTML = `<div class="verdict-headline">&#10003; GO &mdash; All ${activeCount} members clear the threshold</div><div class="verdict-detail">Total raw power: <strong>${fmtPower(members.reduce((s,m)=>s+m.power,0))}</strong>. Send it!</div>`;
+    } else if (failCount >= activeCount - 1) {
+      el.className = 'verdict-card danger';
+      el.innerHTML = `<div class="verdict-headline">&#10007; CALL OFF RALLY &mdash; ${failCount}/${activeCount} below strength threshold</div><div class="verdict-detail">Each member needs <strong>${fmtPower(requiredStrength)}</strong>. Find stronger members or pick a lower Walker level.</div>`;
+    } else {
+      el.className = 'verdict-card risky';
+      el.innerHTML = `<div class="verdict-headline">&#9888; RISKY RALLY &mdash; ${failCount}/${activeCount} below threshold</div><div class="verdict-detail">Under-strength members may die. Threshold: <strong>${fmtPower(requiredStrength)}</strong>.</div>`;
+    }
+  }
+
   renderRallyChart('walkerChart', 'walkerSummary', members, maxPower);
 }
 
@@ -1649,27 +1602,12 @@ document.getElementById('rallyEnemyType').addEventListener('change', () => {
 document.getElementById('rallyEnemyLevel').addEventListener('change', updateRally);
 document.getElementById('rallyBossType').addEventListener('change', updateRally);
 
-// Tab 3: Doom Walker
+// Tab 3: Doom Walker (strength-only, no VR)
 populateWalkerLevels();
 initWalkerMembers();
 document.getElementById('walkerLevel').addEventListener('change', () => {
   refreshWalkerRequirements();
   updateWalker();
-});
-document.getElementById('walkerVR').addEventListener('input', updateWalker);
-document.getElementById('walkerVRSave').addEventListener('click', () => {
-  const level = parseInt(document.getElementById('walkerLevel').value) || 100;
-  const vr = parseInt(document.getElementById('walkerVR').value) || 0;
-  saveWalkerVR(level, vr);
-  const btn = document.getElementById('walkerVRSave');
-  btn.textContent = 'Saved!';
-  btn.classList.add('saved');
-  setTimeout(() => {
-    btn.textContent = 'Save';
-    btn.classList.remove('saved');
-  }, 1500);
-  refreshWalkerRequirements();
-  updateAll();
 });
 refreshWalkerRequirements();
 
