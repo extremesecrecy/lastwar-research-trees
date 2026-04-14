@@ -429,11 +429,8 @@
   </div>
   <div style="font-size:11px; color:#888; margin-bottom:10px;">Only VR matters here &mdash; squad type does NOT affect Bosses or Elites.</div>
 
-  <!-- Initiator VR (applies to all members unless they have higher) -->
-  <div style="background:#fffde7; border:1px solid #f4d35e; border-radius:6px; padding:8px 12px; margin-bottom:12px; display:flex; gap:10px; align-items:center; flex-wrap:wrap;">
-    <strong style="color:#5a6a6a; font-size:13px;">&#127942; Initiator VR:</strong>
-    <input type="number" id="rallyInitiatorVR" placeholder="e.g. 5000" min="0" max="30000" oninput="updateRally()" style="padding:5px 8px; border:1px solid #ddd; border-radius:4px; width:120px; font-size:13px;">
-    <span style="font-size:11px; color:#666; flex:1; min-width:240px;">Each member fights at MAX(their VR, initiator VR). If a member has higher VR, they keep their own.</span>
+  <div style="background:#fffde7; border:1px solid #f4d35e; border-radius:6px; padding:8px 12px; margin-bottom:12px; font-size:12px; color:#5a6a6a;">
+    &#127942; <strong>Member 1 is the Initiator.</strong> Their VR becomes the floor &mdash; joiners (2-5) fight at MAX(their VR, initiator VR). If a joiner has higher VR, they keep their own. Initiator always uses their own VR.
   </div>
 
   <div style="display:grid; grid-template-columns:130px 110px 1fr; gap:6px; padding:4px 8px; font-size:10px; color:#888; font-weight:600; text-transform:uppercase;">
@@ -678,11 +675,14 @@ function initRally() {
   const container = document.getElementById('rallyMembers');
   let html = '';
   for (let i = 0; i < 5; i++) {
-    const label = i === 0 ? 'Initiator (slot 1)' : `Member ${i+1}`;
-    html += `<div class="rally-member">
-      <input type="number" id="rm_power_${i}" placeholder="${label} Power" min="0" oninput="updateRally()">
-      <input type="number" id="rm_vr_${i}" placeholder="Their VR" min="0" max="30000" oninput="updateRally()">
-      <div id="rm_flag_${i}"></div>
+    const isInitiator = i === 0;
+    const powerPh = isInitiator ? 'Initiator Power' : `Member ${i+1} Power`;
+    const vrPh = isInitiator ? 'Initiator VR (sets floor)' : 'Their VR';
+    const rowStyle = isInitiator ? ' style="background:#fffde7; border-color:#f4d35e;"' : '';
+    html += `<div class="rally-member"${rowStyle}>
+      <input type="number" id="rm_power_${i}" placeholder="${powerPh}" min="0" oninput="updateRally()">
+      <input type="number" id="rm_vr_${i}" placeholder="${vrPh}" min="0" max="30000" oninput="updateRally()">
+      <div id="rm_flag_${i}">${isInitiator ? '<span style="color:#f4a261;font-weight:600;font-size:11px;">&#127942; INITIATOR</span>' : ''}</div>
     </div>`;
   }
   container.innerHTML = html;
@@ -755,7 +755,8 @@ function updateRally() {
   const enemyType = document.getElementById('rallyEnemyType').value;
   const enemyLevel = parseInt(document.getElementById('rallyEnemyLevel').value) || 1;
   const requiredVR = ENEMIES[enemyType].levels[enemyLevel] || 0;
-  const initiatorVR = parseInt(document.getElementById('rallyInitiatorVR').value) || 0;
+  // Member 1 IS the initiator — their VR sets the floor for slots 2-5
+  const initiatorVR = parseInt(document.getElementById('rm_vr_0').value) || 0;
 
   const members = [];
   let maxPower = 0;
@@ -764,9 +765,9 @@ function updateRally() {
     const name = i === 0 ? 'Initiator' : `Member ${i+1}`;
     const power = parseInt(document.getElementById(`rm_power_${i}`).value) || 0;
     const ownVR = parseInt(document.getElementById(`rm_vr_${i}`).value) || 0;
-    // Each member uses MAX of their own VR or initiator's VR
-    const effectiveVR = Math.max(ownVR, initiatorVR);
-    const usingInitiatorVR = effectiveVR === initiatorVR && initiatorVR > ownVR;
+    // Initiator (slot 0) always uses own VR. Joiners (1-4) use MAX(own, initiator).
+    const effectiveVR = i === 0 ? ownVR : Math.max(ownVR, initiatorVR);
+    const usingInitiatorVR = i !== 0 && initiatorVR > ownVR;
 
     const vrPenalty = calcDamageReduction(requiredVR, effectiveVR);
     const effectivePower = power * (1 - vrPenalty / 100);
