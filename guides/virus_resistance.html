@@ -427,8 +427,20 @@
     </select>
     <select id="rallyEnemyLevel" onchange="updateRally()" style="padding:4px 8px; border:1px solid #ddd; border-radius:4px; font-size:13px;"></select>
   </div>
-  <div style="font-size:11px; color:#888; margin-bottom:10px;">Only VR matters here &mdash; squad type does NOT affect Bosses or Elites. Enter each rally member's power and VR below.</div>
+  <div style="font-size:11px; color:#888; margin-bottom:10px;">Only VR matters here &mdash; squad type does NOT affect Bosses or Elites.</div>
 
+  <!-- Initiator VR (applies to all members unless they have higher) -->
+  <div style="background:#fffde7; border:1px solid #f4d35e; border-radius:6px; padding:8px 12px; margin-bottom:12px; display:flex; gap:10px; align-items:center; flex-wrap:wrap;">
+    <strong style="color:#5a6a6a; font-size:13px;">&#127942; Initiator VR:</strong>
+    <input type="number" id="rallyInitiatorVR" placeholder="e.g. 5000" min="0" max="30000" oninput="updateRally()" style="padding:5px 8px; border:1px solid #ddd; border-radius:4px; width:120px; font-size:13px;">
+    <span style="font-size:11px; color:#666; flex:1; min-width:240px;">Each member fights at MAX(their VR, initiator VR). If a member has higher VR, they keep their own.</span>
+  </div>
+
+  <div style="display:grid; grid-template-columns:130px 110px 1fr; gap:6px; padding:4px 8px; font-size:10px; color:#888; font-weight:600; text-transform:uppercase;">
+    <div>Squad Power</div>
+    <div>Their Own VR</div>
+    <div>Effective VR &amp; Status</div>
+  </div>
   <div id="rallyMembers" style="display:grid; gap:8px;"></div>
 
   <div id="rallyChart" style="margin-top:16px;"></div>
@@ -498,7 +510,7 @@
 </div>
 
 <style>
-  .rally-member { display:grid; grid-template-columns:100px 130px 110px 1fr; gap:6px; align-items:center; padding:6px 8px; border:1px solid #eee; border-radius:6px; font-size:12px; }
+  .rally-member { display:grid; grid-template-columns:130px 110px 1fr; gap:6px; align-items:center; padding:6px 8px; border:1px solid #eee; border-radius:6px; font-size:12px; }
   .rally-member input, .rally-member select { padding:4px 6px; border:1px solid #ddd; border-radius:4px; font-size:12px; width:100%; }
   .rally-flag { padding:2px 8px; border-radius:10px; font-size:10px; font-weight:600; text-align:center; color:#fff; }
   .rally-flag.go { background:#66bb6a; }
@@ -666,9 +678,9 @@ function initRally() {
   const container = document.getElementById('rallyMembers');
   let html = '';
   for (let i = 0; i < 5; i++) {
+    const label = i === 0 ? 'Initiator (slot 1)' : `Member ${i+1}`;
     html += `<div class="rally-member">
-      <input type="text" id="rm_name_${i}" placeholder="Member ${i+1}" oninput="updateRally()">
-      <input type="number" id="rm_power_${i}" placeholder="Squad Power" min="0" oninput="updateRally()">
+      <input type="number" id="rm_power_${i}" placeholder="${label} Power" min="0" oninput="updateRally()">
       <input type="number" id="rm_vr_${i}" placeholder="Their VR" min="0" max="30000" oninput="updateRally()">
       <div id="rm_flag_${i}"></div>
     </div>`;
@@ -743,16 +755,20 @@ function updateRally() {
   const enemyType = document.getElementById('rallyEnemyType').value;
   const enemyLevel = parseInt(document.getElementById('rallyEnemyLevel').value) || 1;
   const requiredVR = ENEMIES[enemyType].levels[enemyLevel] || 0;
+  const initiatorVR = parseInt(document.getElementById('rallyInitiatorVR').value) || 0;
 
   const members = [];
   let maxPower = 0;
 
   for (let i = 0; i < 5; i++) {
-    const name = document.getElementById(`rm_name_${i}`).value || `Member ${i+1}`;
+    const name = i === 0 ? 'Initiator' : `Member ${i+1}`;
     const power = parseInt(document.getElementById(`rm_power_${i}`).value) || 0;
-    const vr = parseInt(document.getElementById(`rm_vr_${i}`).value) || 0;
+    const ownVR = parseInt(document.getElementById(`rm_vr_${i}`).value) || 0;
+    // Each member uses MAX of their own VR or initiator's VR
+    const effectiveVR = Math.max(ownVR, initiatorVR);
+    const usingInitiatorVR = effectiveVR === initiatorVR && initiatorVR > ownVR;
 
-    const vrPenalty = calcDamageReduction(requiredVR, vr);
+    const vrPenalty = calcDamageReduction(requiredVR, effectiveVR);
     const effectivePower = power * (1 - vrPenalty / 100);
 
     let flag = 'go', flagText = '✓ GO';
@@ -761,8 +777,9 @@ function updateRally() {
     if (power === 0) { flag = ''; flagText = ''; }
 
     if (power > 0) {
+      const sourceNote = usingInitiatorVR ? ' <span style="color:#f4a261;">(using initiator\'s)</span>' : '';
       document.getElementById(`rm_flag_${i}`).innerHTML = flagText ? `<span class="rally-flag ${flag}">${flagText}</span>` +
-        `<span style="font-size:10px;color:#888;margin-left:4px;">VR: -${vrPenalty.toFixed(1)}%</span>` : '';
+        `<span style="font-size:10px;color:#888;margin-left:4px;">VR: ${effectiveVR.toLocaleString()}${sourceNote} | -${vrPenalty.toFixed(1)}%</span>` : '';
     } else {
       document.getElementById(`rm_flag_${i}`).innerHTML = '';
     }
