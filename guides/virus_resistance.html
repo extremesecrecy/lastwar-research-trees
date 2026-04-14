@@ -7,7 +7,15 @@
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&display=swap');
   @font-face { font-family: 'DKCrayonCrumble'; src: url('DKCrayonCrumble.ttf'); }
-/* HCI Brand: Orange #f4a261, Cyan #5bc0de, Yellow #f4d35e, Teal #7fb3a8, Dark #5a6a6a, Text #333, Watermelon #fc5c65 */
+  /* HCI Brand: Orange #f4a261, Cyan #5bc0de, Yellow #f4d35e, Teal #7fb3a8, Dark #5a6a6a, Text #333, Watermelon #fc5c65 */
+  :root {
+    --orange: #f4a261;
+    --cyan: #5bc0de;
+    --yellow: #f4d35e;
+    --teal: #7fb3a8;
+    --dark: #5a6a6a;
+    --watermelon: #fc5c65;
+  }
   * { margin: 0; padding: 0; box-sizing: border-box; }
   body {
     font-family: 'Fredoka', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -147,7 +155,7 @@
   }
   .summary-card {
     border-radius: 8px;
-    padding: 12px 14px;
+    padding: 10px 12px;
     text-align: center;
     border: 2px solid #ccc;
     background: #fafafa;
@@ -163,7 +171,7 @@
     margin-bottom: 2px;
   }
   .summary-card .card-level {
-    font-size: 30px;
+    font-size: 26px;
     font-weight: 700;
     font-family: 'DKCrayonCrumble', 'Fredoka', sans-serif;
   }
@@ -176,7 +184,7 @@
     margin-top: 2px;
   }
 
-  /* Key Insight Box */
+  /* Data Note / Insight Box */
   .insight-box {
     border: 3px solid #fc5c65;
     border-radius: 8px;
@@ -194,37 +202,251 @@
     line-height: 1.5;
     margin-bottom: 4px;
   }
-  .insight-box .vri-ref {
+
+  /* Tab Bar */
+  .tab-bar {
     display: flex;
+    gap: 4px;
+    border-bottom: 2px solid var(--teal);
+    margin-bottom: 16px;
     flex-wrap: wrap;
-    gap: 6px 16px;
-    margin-top: 6px;
+  }
+  .tab-btn {
+    background: #f5f5f5;
+    border: none;
+    padding: 10px 16px;
+    cursor: pointer;
+    font-size: 14px;
+    font-family: 'Fredoka', sans-serif;
+    border-radius: 6px 6px 0 0;
+    color: #5a6a6a;
+    font-weight: 500;
+    transition: background 0.15s, color 0.15s;
+  }
+  .tab-btn:hover { background: #e0eceb; }
+  .tab-btn.active { background: var(--teal); color: #fff; font-weight: 600; }
+  .tab-content { display: none; }
+  .tab-content.active { display: block; }
+
+  /* Tab Panel Card */
+  .tab-panel {
+    background: #fff;
+    border: 2px solid var(--teal);
+    border-radius: 12px;
+    padding: 16px 18px;
+    margin-bottom: 14px;
+  }
+  .tab-panel h2 {
+    font-size: 20px;
+    color: var(--dark);
+    margin: 0 0 4px;
+  }
+  .tab-panel .panel-sub {
     font-size: 12px;
+    color: #888;
+    margin-bottom: 12px;
+  }
+
+  /* Form grid inside tabs */
+  .form-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 10px;
+    margin-bottom: 12px;
+  }
+  .form-grid label {
+    font-size: 11px;
+    color: #666;
+    display: block;
+    margin-bottom: 3px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  .form-grid select, .form-grid input {
+    width: 100%;
+    padding: 7px 8px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 13px;
+    font-family: 'Fredoka', sans-serif;
+  }
+  .form-grid select:focus, .form-grid input:focus {
+    outline: none;
+    border-color: var(--orange);
+  }
+
+  /* Verdict Card */
+  .verdict-card {
+    padding: 20px;
+    border-radius: 12px;
+    text-align: center;
+    margin: 16px 0;
+  }
+  .verdict-card.safe { background: #e8f5e9; border: 3px solid #2e7d32; }
+  .verdict-card.risky { background: #fff3e0; border: 3px solid #f4a261; }
+  .verdict-card.danger { background: #ffeaea; border: 3px solid #fc5c65; }
+  .verdict-card.neutral { background: #f5f5f5; border: 3px solid #ccc; }
+  .verdict-card .verdict-headline {
+    font-size: 24px;
+    font-weight: 700;
+    margin-bottom: 8px;
+    font-family: 'DKCrayonCrumble', 'Fredoka', sans-serif;
+  }
+  .verdict-card.safe .verdict-headline { color: #2e7d32; }
+  .verdict-card.risky .verdict-headline { color: #c47a30; }
+  .verdict-card.danger .verdict-headline { color: #c62828; }
+  .verdict-card.neutral .verdict-headline { color: #888; }
+  .verdict-card .verdict-detail {
+    font-size: 14px;
+    color: #555;
+    line-height: 1.5;
+  }
+  .verdict-card .breakdown {
+    margin-top: 12px;
+    padding-top: 12px;
+    border-top: 1px dashed rgba(0,0,0,0.15);
+    font-size: 13px;
+    color: #444;
+  }
+  .verdict-card .breakdown .row {
+    display: flex;
+    justify-content: space-between;
+    padding: 2px 20px;
+    max-width: 380px;
+    margin: 0 auto;
+  }
+  .verdict-card .breakdown .row strong { color: #333; }
+
+  /* Troop Loss Band */
+  .loss-bar-wrap {
+    margin-top: 14px;
+    max-width: 500px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .loss-bar-label {
+    font-size: 11px;
+    color: #666;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 4px;
+    text-align: left;
+  }
+  .loss-bar-track {
+    position: relative;
+    height: 22px;
+    background: linear-gradient(to right, #43a047 0%, #f4d35e 25%, #f4a261 55%, #fc5c65 100%);
+    border-radius: 11px;
+    overflow: hidden;
+    border: 1px solid #bbb;
+  }
+  .loss-bar-marker {
+    position: absolute;
+    top: -4px;
+    bottom: -4px;
+    width: 4px;
+    background: #333;
+    border-radius: 2px;
+    box-shadow: 0 0 4px rgba(0,0,0,0.5);
+    transform: translateX(-2px);
+    transition: left 0.3s;
+  }
+  .loss-bar-ticks {
+    display: flex;
+    justify-content: space-between;
+    font-size: 10px;
+    color: #666;
+    margin-top: 4px;
+    padding: 0 2px;
+  }
+
+  /* Rally Member Rows */
+  .rally-member-row {
+    display: grid;
+    grid-template-columns: 150px 1fr 1fr 1fr;
+    gap: 8px;
+    align-items: center;
+    padding: 8px 10px;
+    border: 1px solid #eee;
+    border-radius: 6px;
+    margin-bottom: 6px;
+    font-size: 12px;
+    background: #fafafa;
+  }
+  .rally-member-row.initiator {
+    background: #fffde7;
+    border-color: var(--yellow);
+    border-width: 2px;
+  }
+  .rally-member-row .member-label {
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--dark);
+    text-transform: uppercase;
+  }
+  .rally-member-row.initiator .member-label { color: #c47a30; }
+  .rally-member-row input {
+    padding: 6px 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 12px;
+    width: 100%;
+    font-family: 'Fredoka', sans-serif;
+  }
+  .rally-member-row input:focus { outline: none; border-color: var(--orange); }
+  .rally-member-row .status-cell {
+    font-size: 11px;
+    color: #555;
+    line-height: 1.3;
+  }
+  .rally-flag {
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: 10px;
+    font-size: 10px;
+    font-weight: 700;
+    color: #fff;
+    margin-right: 4px;
+  }
+  .rally-flag.go { background: #66bb6a; }
+  .rally-flag.caution { background: #f4a261; }
+  .rally-flag.stop { background: #fc5c65; }
+
+  .rally-bar-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin: 4px 0;
+    font-size: 12px;
+  }
+  .rally-bar-label {
+    width: 90px;
+    text-align: right;
     color: #5a6a6a;
     font-weight: 600;
   }
-  .insight-box .vri-ref span { white-space: nowrap; }
-
-  /* Section Labels */
-  .section-label {
-    font-size: 18px;
-    font-weight: 800;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    color: #5a6a6a;
-    margin: 12px 0 6px 0;
-    padding-bottom: 3px;
-    border-bottom: 2px solid #7fb3a8;
-    font-family: 'DKCrayonCrumble', 'Fredoka', sans-serif;
+  .rally-bar {
+    height: 22px;
+    border-radius: 4px;
+    min-width: 2px;
+    transition: width 0.3s;
+    display: flex;
+    align-items: center;
+    padding-left: 8px;
+    color: #fff;
+    font-size: 11px;
+    font-weight: 600;
   }
 
   /* Tables Grid */
   .tables-grid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(2, 1fr);
     gap: 10px;
     margin-bottom: 16px;
   }
+  @media (min-width: 1100px) { .tables-grid { grid-template-columns: repeat(4, 1fr); } }
   .table-wrapper {
     border: 1px solid #ddd;
     border-radius: 6px;
@@ -240,15 +462,9 @@
   .table-wrapper.boss h3 { background: #c62828; }
   .table-wrapper.elite h3 { background: #f4a261; }
   .table-wrapper.zombie h3 { background: #5a6a6a; }
-  .table-scroll {
-    max-height: 400px;
-    overflow-y: auto;
-  }
-  table {
-    width: 100%;
-    border-collapse: collapse;
-    font-size: 12px;
-  }
+  .table-wrapper.walker h3 { background: #6a4c93; }
+  .table-scroll { max-height: 400px; overflow-y: auto; }
+  table { width: 100%; border-collapse: collapse; font-size: 12px; }
   thead th {
     position: sticky;
     top: 0;
@@ -285,6 +501,53 @@
   .tag-med { background: #f4a261; color: #fff; }
   .tag-bad { background: #fc5c65; color: #fff; }
 
+  /* Type matchup mini display */
+  .type-cycle {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    align-items: center;
+    margin: 8px 0 4px;
+    font-size: 11px;
+  }
+  .type-cycle .type-chip {
+    padding: 4px 10px;
+    border-radius: 20px;
+    font-weight: 600;
+    background: #f0f5f4;
+    border: 1px solid var(--teal);
+  }
+  .type-cycle .arrow { color: var(--teal); font-weight: 700; }
+
+  /* Toggle button for "Show all tables" */
+  .toggle-btn {
+    background: var(--teal);
+    color: #fff;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 13px;
+    font-family: 'Fredoka', sans-serif;
+    font-weight: 600;
+    margin-bottom: 10px;
+  }
+  .toggle-btn:hover { background: #6aa19a; }
+
+  .small-btn {
+    background: var(--orange);
+    color: #fff;
+    border: none;
+    padding: 6px 12px;
+    border-radius: 4px;
+    font-size: 11px;
+    font-weight: 600;
+    cursor: pointer;
+    font-family: 'Fredoka', sans-serif;
+  }
+  .small-btn:hover { background: #e08d4e; }
+  .small-btn.saved { background: #66bb6a; }
+
   /* Footer */
   .footer {
     text-align: center;
@@ -301,11 +564,13 @@
     margin-top: 4px;
   }
 
-  /* Responsive */
-  @media (max-width: 800px) {
-    .summary-cards { grid-template-columns: repeat(3, 1fr); }
+  /* Mobile */
+  @media (max-width: 700px) {
+    .tab-btn { padding: 8px 10px; font-size: 12px; flex: 1; min-width: 140px; }
+    .rally-member-row { grid-template-columns: 1fr 1fr; }
+    .rally-member-row .member-label { grid-column: 1 / -1; text-align: center; }
+    .rally-member-row .status-cell { grid-column: 1 / -1; }
     .tables-grid { grid-template-columns: 1fr; }
-    .table-scroll { max-height: 300px; }
   }
   @media (max-width: 500px) {
     body { padding: 8px 10px; }
@@ -314,7 +579,7 @@
     .top-bar h1 { font-size: 20px; }
     .summary-cards { grid-template-columns: 1fr 1fr 1fr; gap: 6px; }
     .summary-card { padding: 8px 6px; }
-    .summary-card .card-level { font-size: 24px; }
+    .summary-card .card-level { font-size: 22px; }
     .vr-value { font-size: 22px; min-width: 60px; }
     .slider-row input[type="number"] { width: 70px; }
     .guide-nav {
@@ -326,8 +591,8 @@
     table { font-size: 11px; }
     thead th { font-size: 10px; padding: 4px 2px; }
     tbody td { padding: 2px 2px; }
-    .insight-box { padding: 10px 12px; }
-    .insight-box p { font-size: 12px; }
+    .verdict-card .verdict-headline { font-size: 18px; }
+    .verdict-card .verdict-detail { font-size: 13px; }
   }
 </style>
 </head>
@@ -336,10 +601,11 @@
 <nav class="guide-nav" id="guide-nav"></nav>
 <script src="../nav.js"></script>
 
+<!-- Header -->
 <div class="top-bar">
   <div class="left">
     <h1>Virus Resistance Calculator</h1>
-    <div class="sub">Season 1 -- The Crimson Plague</div>
+    <div class="sub">Season 1 &mdash; The Crimson Plague</div>
   </div>
   <div class="right">
     <img src="skynet_logo.png" alt="OWOW">
@@ -347,7 +613,7 @@
   </div>
 </div>
 
-<!-- Input Section -->
+<!-- Input Section (always visible) -->
 <div class="input-section">
   <h2>Your Virus Resistance</h2>
   <div class="slider-row">
@@ -377,169 +643,188 @@
 </div>
 
 <!-- Data Source Notice -->
-<div class="insight-box" style="border-left-color:#f4a261; background:#fff8ec;">
+<div class="insight-box" style="border-color:#f4a261; background:#fff8ec;">
   <h3 style="color:#f4a261;">&#9432; DATA NOTE &mdash; OWOW In-Game Verified</h3>
   <p>We initially used cpt-hedge.com's Season 1 data but discovered their numbers were off (in some cases by 1,000+ VR). We rebuilt the <strong>Doom Elite</strong> and <strong>Zombie</strong> tables using values verified directly in-game by OWOW members. Examples of cpt-hedge inaccuracies we corrected:</p>
   <ul style="margin:6px 0 0 20px; font-size:12px; color:#666;">
     <li>Doom Elite Lv14-17: cpt-hedge had 2600/2800/3000/3200, actual is <strong>2500/2750/3000/3250</strong></li>
     <li>Zombie Lv16-19: cpt-hedge had 1900/2000/2200/2300, actual is <strong>3000/3300/3400/3700</strong></li>
   </ul>
-  <p style="margin-top:6px; font-size:12px;">If you spot a number that doesn't match your game, let us know in OWOW Discord.</p>
+  <p style="margin-top:6px; font-size:12px;"><strong>Doom Walker VR requirements are not publicly known</strong> &mdash; we show estimates. Please record actual VR requirements in the Doom Walker tab as you encounter them in-game.</p>
 </div>
 
-<!-- Key Insight -->
-<div class="insight-box">
-  <h3>KEY INSIGHT -- Know Your Limits</h3>
-  <p>When your Virus Resistance is below the required threshold, your damage is reduced drastically. At <strong>-99% reduction</strong>, you deal only <strong>1% of your normal damage</strong> while the enemy hits you at full power. You are wasting troops and healing speedups.</p>
-  <p>Green rows = safe to attack. Yellow = tolerable penalty. Orange = steep penalty. <strong>Red = DO NOT ATTACK.</strong></p>
-  <p style="margin-top:6px; font-weight:600; color:#5a6a6a;">Virus Research Institute (VRI) levels (<a href="https://cpt-hedge.com/buildings/virus-research-institute" style="color:#5bc0de;">source</a>):</p>
-  <div class="vri-ref">
-    <span>Lv1: 100</span>
-    <span>Lv5: 500</span>
-    <span>Lv10: 1,750</span>
-    <span>Lv15: 3,000</span>
-    <span>Lv20: 5,000</span>
-    <span>Lv25: 7,500</span>
-    <span>Lv30: 10,000</span>
-  </div>
+<!-- Tab Bar -->
+<div class="tab-bar" role="tablist">
+  <button class="tab-btn active" data-tab="zombies">&#128123; Zombies (Solo)</button>
+  <button class="tab-btn" data-tab="rally">&#9876; Rally: Boss / Elite</button>
+  <button class="tab-btn" data-tab="walker">&#128694; Rally: Doom Walker</button>
+  <button class="tab-btn" data-tab="tables">&#128202; All Tables</button>
 </div>
 
-<!-- Type Matchup -->
-<div class="section-label">Troop Type Counter System</div>
-<div class="insight-box" style="border-left-color:#5bc0de;">
-  <h3 style="color:#5bc0de;">TYPE MATCHUP — Zombies Only</h3>
-  <div style="display:flex; flex-wrap:wrap; gap:16px; align-items:center; margin:10px 0;">
-    <div style="text-align:center; padding:8px 16px; background:#e8f5e9; border-radius:8px; font-weight:600;">
-      &#9992; Aircraft<br><span style="font-size:11px; color:#666;">beats Tank</span>
-    </div>
-    <div style="font-size:24px; color:#7fb3a8;">&#8594;</div>
-    <div style="text-align:center; padding:8px 16px; background:#fff3e0; border-radius:8px; font-weight:600;">
-      &#9968; Tank<br><span style="font-size:11px; color:#666;">beats Missile</span>
-    </div>
-    <div style="font-size:24px; color:#7fb3a8;">&#8594;</div>
-    <div style="text-align:center; padding:8px 16px; background:#fce4ec; border-radius:8px; font-weight:600;">
-      &#128640; Missile<br><span style="font-size:11px; color:#666;">beats Aircraft</span>
-    </div>
-    <div style="font-size:24px; color:#7fb3a8;">&#8594;</div>
-    <div style="font-size:12px; color:#888;">&#8635; cycle</div>
-  </div>
-  <p><strong>+20% damage</strong> when you counter the enemy type. <strong>-20% damage</strong> when countered. Check the zombie's type on the map before attacking!</p>
-  <p style="margin-top:4px; color:#888; font-size:12px;">Doom Elites and Stronghold Bosses do NOT have troop types — only virus resistance matters for those.</p>
-</div>
+<!-- ================= TAB 1: ZOMBIES (SOLO) ================= -->
+<div class="tab-content active" id="tab-zombies">
+  <div class="tab-panel">
+    <h2>&#128123; Zombie Solo Fight</h2>
+    <div class="panel-sub">Zombies are SOLO attacks. Both VR and type matchup affect damage. Counter = +20%, countered = -20%.</div>
 
-<!-- Rally Planner (Boss/Elite only — zombies are solo, squad type doesn't matter for these) -->
-<div class="section-label">Rally Planner &mdash; Stronghold Boss &amp; Doom Elite</div>
-<div style="background:#fff; border:2px solid #7fb3a8; border-radius:12px; padding:16px; margin-bottom:20px;">
-  <div style="display:flex; flex-wrap:wrap; gap:10px; align-items:center; margin-bottom:12px;">
-    <h3 style="margin:0; color:#5a6a6a;">&#9876; Rally Team Check</h3>
-    <select id="rallyEnemyType" onchange="updateRally()" style="padding:4px 8px; border:1px solid #ddd; border-radius:4px; font-size:13px;">
-      <option value="boss">Stronghold Boss</option>
-      <option value="elite">Doom Elite</option>
-    </select>
-    <select id="rallyEnemyLevel" onchange="updateRally()" style="padding:4px 8px; border:1px solid #ddd; border-radius:4px; font-size:13px;"></select>
-  </div>
-  <div style="font-size:11px; color:#888; margin-bottom:10px;">Only VR matters here &mdash; squad type does NOT affect Bosses or Elites.</div>
-
-  <div style="background:#fffde7; border:1px solid #f4d35e; border-radius:6px; padding:8px 12px; margin-bottom:12px; font-size:12px; color:#5a6a6a;">
-    &#127942; <strong>Member 1 is YOU (the Initiator)</strong> &mdash; auto-filled from "Your Virus Resistance" slider at the top. Your VR becomes the floor for joiners (2-5): they fight at MAX(their VR, your VR). If a joiner has higher VR, they keep their own.
-  </div>
-
-  <div style="display:grid; grid-template-columns:130px 110px 1fr; gap:6px; padding:4px 8px; font-size:10px; color:#888; font-weight:600; text-transform:uppercase;">
-    <div>Squad Power</div>
-    <div>Their Own VR</div>
-    <div>Effective VR &amp; Status</div>
-  </div>
-  <div id="rallyMembers" style="display:grid; gap:8px;"></div>
-
-  <div id="rallyChart" style="margin-top:16px;"></div>
-  <div id="rallySummary" style="margin-top:8px; font-size:12px; color:#888; text-align:center;"></div>
-</div>
-
-<!-- Zombie Solo Fight Planner -->
-<div class="section-label">Zombie Solo Fight</div>
-<div style="background:#fff; border:2px solid #5bc0de; border-radius:12px; padding:16px; margin-bottom:20px;">
-  <h3 style="margin:0 0 8px; color:#5a6a6a;">&#128123; Solo Zombie Check</h3>
-  <div style="font-size:11px; color:#888; margin-bottom:12px;">Zombies are SOLO fights (no rally). Type matchup applies: counter = +20% damage, countered = -20% damage.</div>
-
-  <div id="zombieSoloInputs" style="display:grid; grid-template-columns:repeat(auto-fit,minmax(160px,1fr)); gap:10px; margin-bottom:12px;">
-    <div>
-      <label style="font-size:11px; color:#666; display:block; margin-bottom:3px;">Zombie Level</label>
-      <select id="zSoloLevel" onchange="updateZombieSolo()" style="width:100%; padding:6px; border:1px solid #ddd; border-radius:4px;"></select>
+    <div class="type-cycle">
+      <span class="type-chip">&#9992; Aircraft beats Tank</span>
+      <span class="arrow">&#8594;</span>
+      <span class="type-chip">&#9968; Tank beats Missile</span>
+      <span class="arrow">&#8594;</span>
+      <span class="type-chip">&#128640; Missile beats Aircraft</span>
+      <span class="arrow">&#8635;</span>
     </div>
-    <div>
-      <label style="font-size:11px; color:#666; display:block; margin-bottom:3px;">Zombie Type</label>
-      <select id="zSoloZombieType" onchange="updateZombieSolo()" style="width:100%; padding:6px; border:1px solid #ddd; border-radius:4px;">
-        <option value="none">Select...</option>
-        <option value="aircraft">&#9992; Aircraft</option>
-        <option value="tank">&#9968; Tank</option>
-        <option value="missile">&#128640; Missile</option>
-      </select>
-    </div>
-    <div>
-      <label style="font-size:11px; color:#666; display:block; margin-bottom:3px;">Your Squad Type</label>
-      <select id="zSoloSquadType" onchange="updateZombieSolo()" style="width:100%; padding:6px; border:1px solid #ddd; border-radius:4px;">
-        <option value="aircraft">&#9992; Aircraft</option>
-        <option value="tank">&#9968; Tank</option>
-        <option value="missile">&#128640; Missile</option>
-      </select>
-    </div>
-    <div>
-      <label style="font-size:11px; color:#666; display:block; margin-bottom:3px;">Your Squad Power</label>
-      <input type="number" id="zSoloPower" placeholder="e.g. 5000000" min="0" oninput="updateZombieSolo()" style="width:100%; padding:6px; border:1px solid #ddd; border-radius:4px;">
-    </div>
-    <div>
-      <label style="font-size:11px; color:#666; display:block; margin-bottom:3px;">Your Virus Resistance</label>
-      <input type="number" id="zSoloVR" placeholder="e.g. 3000" min="0" max="30000" oninput="updateZombieSolo()" style="width:100%; padding:6px; border:1px solid #ddd; border-radius:4px;">
-    </div>
-  </div>
 
-  <div id="zSoloResult" style="padding:12px; border-radius:8px; text-align:center; background:#f5f5f5;">
-    <div style="color:#999; font-size:13px;">Fill in all fields above to see your effective damage.</div>
+    <div class="form-grid">
+      <div>
+        <label>Zombie Level</label>
+        <select id="zSoloLevel"></select>
+      </div>
+      <div>
+        <label>Zombie Type</label>
+        <select id="zSoloZombieType">
+          <option value="none">Unknown / Skip</option>
+          <option value="aircraft">&#9992; Aircraft</option>
+          <option value="tank">&#9968; Tank</option>
+          <option value="missile">&#128640; Missile</option>
+        </select>
+      </div>
+      <div>
+        <label>Your Squad Type</label>
+        <select id="zSoloSquadType">
+          <option value="aircraft">&#9992; Aircraft</option>
+          <option value="tank">&#9968; Tank</option>
+          <option value="missile">&#128640; Missile</option>
+        </select>
+      </div>
+      <div>
+        <label>Your Squad Power</label>
+        <input type="number" id="zSoloPower" placeholder="e.g. 5000000" min="0">
+      </div>
+      <div>
+        <label>Your VR (override)</label>
+        <input type="number" id="zSoloVR" placeholder="Auto-filled" min="0" max="30000">
+      </div>
+    </div>
+
+    <div id="zSoloResult" class="verdict-card neutral">
+      <div class="verdict-headline">Fill in the fields above</div>
+      <div class="verdict-detail">Pick a zombie level and enter your squad power to see your verdict.</div>
+    </div>
   </div>
 </div>
 
-<!-- Section Label -->
-<div class="section-label">Detailed Breakdown by Enemy Type</div>
+<!-- ================= TAB 2: RALLY: BOSS / DOOM ELITE ================= -->
+<div class="tab-content" id="tab-rally">
+  <div class="tab-panel">
+    <h2>&#9876; Rally: Stronghold Boss &amp; Doom Elite</h2>
+    <div class="panel-sub">Only VR matters for Bosses and Elites &mdash; squad type does NOT affect these fights.</div>
 
-<!-- Tables -->
-<div class="tables-grid">
-  <div class="table-wrapper boss">
-    <h3>Stronghold Boss</h3>
-    <div class="table-scroll" id="table-boss"></div>
-  </div>
-  <div class="table-wrapper elite">
-    <h3>Doom Elite</h3>
-    <div class="table-scroll" id="table-elite"></div>
-  </div>
-  <div class="table-wrapper zombie">
-    <h3>Zombie</h3>
-    <div class="table-scroll" id="table-zombie"></div>
+    <div class="form-grid" style="grid-template-columns:repeat(auto-fit, minmax(200px, 1fr));">
+      <div>
+        <label>Enemy Type</label>
+        <select id="rallyEnemyType">
+          <option value="boss">Stronghold Boss</option>
+          <option value="elite">Doom Elite</option>
+        </select>
+      </div>
+      <div>
+        <label>Enemy Level</label>
+        <select id="rallyEnemyLevel"></select>
+      </div>
+    </div>
+
+    <div style="background:#fffde7; border:1px solid #f4d35e; border-radius:6px; padding:8px 12px; margin:10px 0; font-size:12px; color:#5a6a6a;">
+      &#127942; <strong>Slot 1 is YOU (the Initiator)</strong> &mdash; auto-filled from the VR slider at the top. Your VR becomes the floor for joiners (slots 2-5): they fight at MAX(their VR, your VR). If a joiner has higher VR, they keep their own.
+    </div>
+
+    <div id="rallyMembers"></div>
+
+    <h3 style="margin:16px 0 6px; color:#5a6a6a; font-size:16px;">Effective Power</h3>
+    <div id="rallyChart"></div>
+    <div id="rallySummary" style="margin-top:8px; font-size:12px; color:#888; text-align:center;"></div>
   </div>
 </div>
 
-<style>
-  .rally-member { display:grid; grid-template-columns:130px 110px 1fr; gap:6px; align-items:center; padding:6px 8px; border:1px solid #eee; border-radius:6px; font-size:12px; }
-  .rally-member input, .rally-member select { padding:4px 6px; border:1px solid #ddd; border-radius:4px; font-size:12px; width:100%; }
-  .rally-flag { padding:2px 8px; border-radius:10px; font-size:10px; font-weight:600; text-align:center; color:#fff; }
-  .rally-flag.go { background:#66bb6a; }
-  .rally-flag.caution { background:#f4a261; }
-  .rally-flag.stop { background:#fc5c65; }
-  .rally-bar-row { display:flex; align-items:center; gap:8px; margin:4px 0; font-size:12px; }
-  .rally-bar-label { width:80px; text-align:right; color:#5a6a6a; }
-  .rally-bar { height:22px; border-radius:4px; min-width:2px; transition:width 0.3s; display:flex; align-items:center; padding-left:6px; color:#fff; font-size:11px; font-weight:600; }
-  @media (max-width:700px) {
-    .rally-member { grid-template-columns:1fr 1fr; }
-    .rally-member:nth-child(1) { grid-column:1/-1; font-weight:600; text-align:center; }
-  }
-</style>
-<div class="source-credit">Damage formula from Soulphalanx #409 via cpt-hedge.com. Doom Elite &amp; Zombie VR values estimated from in-game data (cpt-hedge's Season 1 numbers were inaccurate). Please report discrepancies in OWOW Discord.</div>
+<!-- ================= TAB 3: RALLY: DOOM WALKER ================= -->
+<div class="tab-content" id="tab-walker">
+  <div class="tab-panel">
+    <h2>&#128694; Rally: Doom Walker</h2>
+    <div class="panel-sub">Doom Walkers have BOTH a strength requirement (your effective power) AND a VR requirement. Both must pass.</div>
+
+    <div class="form-grid" style="grid-template-columns:repeat(auto-fit, minmax(200px, 1fr));">
+      <div>
+        <label>Walker Level (100-180)</label>
+        <select id="walkerLevel"></select>
+      </div>
+      <div>
+        <label>Required Strength</label>
+        <input type="text" id="walkerStrength" readonly style="background:#f5f5f5; font-weight:600;">
+      </div>
+      <div>
+        <label>Required VR</label>
+        <div style="display:flex; gap:4px; align-items:center;">
+          <input type="number" id="walkerVR" min="0" max="30000" style="flex:1;">
+          <button class="small-btn" id="walkerVRSave">Save</button>
+        </div>
+      </div>
+    </div>
+    <div id="walkerVRNote" style="font-size:11px; color:#888; margin:-4px 0 10px; padding:0 4px;"></div>
+
+    <div style="background:#fffde7; border:1px solid #f4d35e; border-radius:6px; padding:8px 12px; margin:10px 0; font-size:12px; color:#5a6a6a;">
+      &#127942; <strong>Slot 1 is YOU (the Initiator)</strong> &mdash; Your VR floors joiners' VR (same as Boss/Elite rally). Each member must clear BOTH the strength AND VR threshold.
+    </div>
+
+    <div id="walkerMembers"></div>
+
+    <h3 style="margin:16px 0 6px; color:#5a6a6a; font-size:16px;">Effective Power</h3>
+    <div id="walkerChart"></div>
+    <div id="walkerSummary" style="margin-top:8px; font-size:12px; color:#888; text-align:center;"></div>
+  </div>
+</div>
+
+<!-- ================= TAB 4: ALL TABLES ================= -->
+<div class="tab-content" id="tab-tables">
+  <div class="tab-panel">
+    <h2>&#128202; All VR Tables</h2>
+    <div class="panel-sub">Rows color-coded based on your current VR: green = safe, yellow = minor penalty, orange = heavy penalty, red = do not attack.</div>
+
+    <button class="toggle-btn" id="tablesToggle">Show Tables</button>
+
+    <div id="tablesContent" style="display:none;">
+      <div class="tables-grid">
+        <div class="table-wrapper boss">
+          <h3>Stronghold Boss</h3>
+          <div class="table-scroll" id="table-boss"></div>
+        </div>
+        <div class="table-wrapper elite">
+          <h3>Doom Elite</h3>
+          <div class="table-scroll" id="table-elite"></div>
+        </div>
+        <div class="table-wrapper zombie">
+          <h3>Zombie</h3>
+          <div class="table-scroll" id="table-zombie"></div>
+        </div>
+        <div class="table-wrapper walker">
+          <h3>Doom Walker</h3>
+          <div class="table-scroll" id="table-walker"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="source-credit">Damage formula from Soulphalanx #409 via cpt-hedge.com. Doom Elite &amp; Zombie VR values verified in-game by OWOW members (cpt-hedge's Season 1 numbers were inaccurate). Doom Walker VR is user-collected; contribute in OWOW Discord.</div>
 
 <div class="footer">
   [OWOW] Old World Order &bull; Virus Resistance Calculator &bull; Last War: Survival &bull; Kristen OWOW SKYNET
 </div>
 
 <script>
-// === Enemy Data ===
+// ===================================================================
+// Enemy Data
+// ===================================================================
 const ENEMIES = {
   boss: {
     name: 'Stronghold Boss',
@@ -555,7 +840,38 @@ const ENEMIES = {
   }
 };
 
-// === Damage Reduction Formula (Soulphalanx #409 via cpt-hedge) ===
+// Doom Walker strength anchors (interpolate between)
+const DOOM_WALKER_STRENGTH = {100:1400000, 110:3300000, 120:6700000, 130:10757000, 140:11715000, 150:12715000, 160:14916000, 170:16014000, 180:17253000};
+
+function getDoomWalkerStrength(level) {
+  if (level < 100 || level > 180) return null;
+  if (DOOM_WALKER_STRENGTH[level] != null) return DOOM_WALKER_STRENGTH[level];
+  const anchors = Object.keys(DOOM_WALKER_STRENGTH).map(Number).sort((a,b) => a - b);
+  let lower = 100, upper = 180;
+  for (let i = 0; i < anchors.length - 1; i++) {
+    if (level > anchors[i] && level < anchors[i+1]) {
+      lower = anchors[i]; upper = anchors[i+1]; break;
+    }
+  }
+  const fraction = (level - lower) / (upper - lower);
+  return Math.round(DOOM_WALKER_STRENGTH[lower] + fraction * (DOOM_WALKER_STRENGTH[upper] - DOOM_WALKER_STRENGTH[lower]));
+}
+
+function estimateDoomWalkerVR(level) {
+  return Math.max(2000, (level - 80) * 200);
+}
+
+function getSavedWalkerVR(level) {
+  const val = localStorage.getItem('dw_vr_lv_' + level);
+  return val != null ? parseInt(val) : null;
+}
+function saveWalkerVR(level, vr) {
+  localStorage.setItem('dw_vr_lv_' + level, String(vr));
+}
+
+// ===================================================================
+// Damage Reduction Formula (Soulphalanx #409 via cpt-hedge) -- DO NOT CHANGE
+// ===================================================================
 function calcDamageReduction(required, current) {
   if (required <= 0) return 0;
   if (current >= required) return 0;
@@ -564,52 +880,103 @@ function calcDamageReduction(required, current) {
   return 100 - Math.max(0.1, reduction / 20 + 1);
 }
 
-// === DOM refs ===
+// Type counter
+const TYPE_COUNTER = { aircraft: 'tank', tank: 'missile', missile: 'aircraft' };
+function getTypeModifier(squadType, enemyType) {
+  if (!enemyType || enemyType === 'none' || !squadType) return 1.0;
+  if (TYPE_COUNTER[squadType] === enemyType) return 1.2;
+  if (TYPE_COUNTER[enemyType] === squadType) return 0.8;
+  return 1.0;
+}
+
+// ===================================================================
+// Global VR slider
+// ===================================================================
 const slider = document.getElementById('vrSlider');
 const numInput = document.getElementById('vrInput');
 const vrDisplay = document.getElementById('vrDisplay');
 
-function getVR() {
-  return parseInt(slider.value) || 0;
-}
+function getVR() { return parseInt(slider.value) || 0; }
 
 function setVR(val) {
   val = Math.max(0, Math.min(10500, parseInt(val) || 0));
   slider.value = val;
   numInput.value = val;
   vrDisplay.textContent = val.toLocaleString();
-  // Auto-fill rally Member 1 (initiator) VR and Zombie Solo VR — user can still override
   syncYourVRToFields(val);
-  update();
+  updateAll();
 }
 
-// Sync top slider VR into rally initiator + zombie solo fields
-// Only overwrites if user hasn't manually set them (tracked via data-user-set)
 function syncYourVRToFields(val) {
+  // Rally initiator (Boss/Elite)
   const rallyInitVR = document.getElementById('rm_vr_0');
-  if (rallyInitVR && !rallyInitVR.dataset.userSet) {
-    rallyInitVR.value = val;
-  }
+  if (rallyInitVR && !rallyInitVR.dataset.userSet) rallyInitVR.value = val;
+  // Walker initiator
+  const walkerInitVR = document.getElementById('wm_vr_0');
+  if (walkerInitVR && !walkerInitVR.dataset.userSet) walkerInitVR.value = val;
+  // Zombie solo VR
   const zSoloVR = document.getElementById('zSoloVR');
-  if (zSoloVR && !zSoloVR.dataset.userSet) {
-    zSoloVR.value = val;
-  }
-  // Trigger recalcs
-  if (typeof updateRally === 'function') updateRally();
-  if (typeof updateZombieSolo === 'function') updateZombieSolo();
+  if (zSoloVR && !zSoloVR.dataset.userSet) zSoloVR.value = val;
+
+  updateRally();
+  updateWalker();
+  updateZombieSolo();
 }
 
 slider.addEventListener('input', () => setVR(slider.value));
 numInput.addEventListener('input', () => setVR(numInput.value));
 numInput.addEventListener('change', () => setVR(numInput.value));
 
+// ===================================================================
+// Summary cards
+// ===================================================================
+function getHighestSafeLevel(type) {
+  const data = ENEMIES[type];
+  const vr = getVR();
+  const levels = Object.keys(data.levels).map(Number).sort((a,b) => a - b);
+  let best = null;
+  for (const lv of levels) {
+    const req = data.levels[lv];
+    if (calcDamageReduction(req, vr) === 0) best = { level: lv, req: req };
+  }
+  return best;
+}
+
+function updateCard(type, cardId, levelId, infoId) {
+  const card = document.getElementById(cardId);
+  const levelEl = document.getElementById(levelId);
+  const infoEl = document.getElementById(infoId);
+  const best = getHighestSafeLevel(type);
+
+  if (best) {
+    card.className = 'summary-card ok';
+    levelEl.textContent = 'Lv ' + best.level;
+    infoEl.textContent = 'Needs ' + best.req.toLocaleString() + ' VR';
+  } else {
+    const data = ENEMIES[type];
+    const levels = Object.keys(data.levels).map(Number).sort((a,b) => a - b);
+    const firstReq = data.levels[levels[0]];
+    if (firstReq === 0) {
+      card.className = 'summary-card ok';
+      levelEl.textContent = 'Lv ' + levels[0];
+      infoEl.textContent = 'No VR needed';
+    } else {
+      card.className = 'summary-card bad';
+      levelEl.textContent = 'NONE';
+      infoEl.textContent = 'Need ' + firstReq.toLocaleString() + '+ VR';
+    }
+  }
+}
+
+// ===================================================================
+// Tables (Tab 4)
+// ===================================================================
 function getRowClass(reduction) {
   if (reduction === 0) return 'row-green';
   if (reduction <= 50) return 'row-yellow';
   if (reduction <= 90) return 'row-orange';
   return 'row-red';
 }
-
 function getStatusTag(reduction) {
   if (reduction === 0) return '<span class="status-tag tag-ok">FULL DMG</span>';
   if (reduction <= 50) return '<span class="status-tag tag-low">-' + reduction.toFixed(1) + '%</span>';
@@ -621,7 +988,6 @@ function buildTable(type) {
   const data = ENEMIES[type];
   const vr = getVR();
   const levels = Object.keys(data.levels).map(Number).sort((a,b) => a - b);
-
   let html = '<table><thead><tr><th>Lv</th><th>Req</th><th>Reduction</th><th>Status</th></tr></thead><tbody>';
   for (const lv of levels) {
     const req = data.levels[lv];
@@ -638,131 +1004,55 @@ function buildTable(type) {
   return html;
 }
 
-function getHighestSafeLevel(type) {
-  const data = ENEMIES[type];
+function buildWalkerTable() {
   const vr = getVR();
-  const levels = Object.keys(data.levels).map(Number).sort((a,b) => a - b);
-  let best = null;
-  for (const lv of levels) {
-    const req = data.levels[lv];
-    if (calcDamageReduction(req, vr) === 0) {
-      best = { level: lv, req: req };
-    }
+  let html = '<table><thead><tr><th>Lv</th><th>Strength</th><th>VR Req</th><th>Status</th></tr></thead><tbody>';
+  for (let lv = 100; lv <= 180; lv += 5) {
+    const strength = getDoomWalkerStrength(lv);
+    const savedVR = getSavedWalkerVR(lv);
+    const reqVR = savedVR != null ? savedVR : estimateDoomWalkerVR(lv);
+    const red = calcDamageReduction(reqVR, vr);
+    const cls = getRowClass(red);
+    const est = savedVR == null ? ' *' : '';
+    const strengthLbl = strength >= 1000000 ? (strength / 1000000).toFixed(2) + 'M' : (strength / 1000).toFixed(0) + 'K';
+    html += '<tr class="' + cls + '">';
+    html += '<td>' + lv + '</td>';
+    html += '<td>' + strengthLbl + '</td>';
+    html += '<td>' + reqVR.toLocaleString() + est + '</td>';
+    html += '<td>' + getStatusTag(red) + '</td>';
+    html += '</tr>';
   }
-  return best;
+  html += '</tbody></table>';
+  html += '<div style="font-size:10px; color:#888; padding:4px 8px;">* = estimated (no user data saved for that level)</div>';
+  return html;
 }
 
-function updateCard(type, cardId, levelId, infoId) {
-  const card = document.getElementById(cardId);
-  const levelEl = document.getElementById(levelId);
-  const infoEl = document.getElementById(infoId);
-  const best = getHighestSafeLevel(type);
-
-  if (best) {
-    card.className = 'summary-card ok';
-    levelEl.textContent = 'Lv ' + best.level;
-    infoEl.textContent = 'Needs ' + best.req.toLocaleString() + ' VR';
-  } else {
-    // Check if any level has 0 requirement
-    const data = ENEMIES[type];
-    const levels = Object.keys(data.levels).map(Number).sort((a,b) => a - b);
-    const firstReq = data.levels[levels[0]];
-    if (firstReq === 0) {
-      card.className = 'summary-card ok';
-      levelEl.textContent = 'Lv ' + levels[0];
-      infoEl.textContent = 'No VR needed';
-    } else {
-      card.className = 'summary-card bad';
-      levelEl.textContent = 'NONE';
-      infoEl.textContent = 'Need ' + firstReq.toLocaleString() + '+ VR';
-    }
-  }
-}
-
-function update() {
-  document.getElementById('table-boss').innerHTML = buildTable('boss');
-  document.getElementById('table-elite').innerHTML = buildTable('elite');
-  document.getElementById('table-zombie').innerHTML = buildTable('zombie');
-
-  updateCard('boss', 'card-boss', 'boss-level', 'boss-info');
-  updateCard('elite', 'card-elite', 'elite-level', 'elite-info');
-  updateCard('zombie', 'card-zombie', 'zombie-level', 'zombie-info');
-}
-
-// === Rally Planner ===
-const TYPE_COUNTER = { aircraft: 'tank', tank: 'missile', missile: 'aircraft' };
-const TYPE_ICONS = { aircraft: '✈', tank: '⚙', missile: '🚀' };
-
-function getTypeModifier(squadType, enemyType) {
-  if (!enemyType || enemyType === 'none' || !squadType) return 1.0;
-  if (TYPE_COUNTER[squadType] === enemyType) return 1.2; // counter
-  if (TYPE_COUNTER[enemyType] === squadType) return 0.8; // countered
-  return 1.0;
-}
-
-function initRally() {
-  const container = document.getElementById('rallyMembers');
-  let html = '';
-  for (let i = 0; i < 5; i++) {
-    const isInitiator = i === 0;
-    const powerPh = isInitiator ? 'Initiator Power' : `Member ${i+1} Power`;
-    const vrPh = isInitiator ? 'Auto-filled from your VR above' : 'Their VR';
-    const rowStyle = isInitiator ? ' style="background:#fffde7; border-color:#f4d35e;"' : '';
-    html += `<div class="rally-member"${rowStyle}>
-      <input type="number" id="rm_power_${i}" placeholder="${powerPh}" min="0" oninput="updateRally()">
-      <input type="number" id="rm_vr_${i}" placeholder="${vrPh}" min="0" max="30000" oninput="updateRally()">
-      <div id="rm_flag_${i}">${isInitiator ? '<span style="color:#f4a261;font-weight:600;font-size:11px;">&#127942; INITIATOR (you)</span>' : ''}</div>
-    </div>`;
-  }
-  container.innerHTML = html;
-
-  // Track when user manually edits the initiator VR so slider stops overwriting
-  const rm_vr_0 = document.getElementById('rm_vr_0');
-  rm_vr_0.addEventListener('change', (e) => {
-    // Only mark as user-set if it differs from top slider
-    if (parseInt(e.target.value) !== getVR()) {
-      e.target.dataset.userSet = '1';
-    } else {
-      delete e.target.dataset.userSet;
-    }
-  });
-  // Seed initiator VR from top slider
-  rm_vr_0.value = getVR();
-
-  populateEnemyLevels();
-  populateZombieSoloLevels();
-
-  // Track zombie solo VR edits too
-  const zSoloVR = document.getElementById('zSoloVR');
-  if (zSoloVR) {
-    zSoloVR.addEventListener('change', (e) => {
-      if (parseInt(e.target.value) !== getVR()) {
-        e.target.dataset.userSet = '1';
-      } else {
-        delete e.target.dataset.userSet;
-      }
-    });
-    zSoloVR.value = getVR();
-  }
-}
-
-function populateEnemyLevels() {
-  const type = document.getElementById('rallyEnemyType').value;
-  const sel = document.getElementById('rallyEnemyLevel');
-  const levels = Object.keys(ENEMIES[type].levels).map(Number).sort((a,b) => a - b);
-  sel.innerHTML = levels.map(lv => `<option value="${lv}">Lv ${lv} (${ENEMIES[type].levels[lv].toLocaleString()} VR)</option>`).join('');
-}
-
-document.getElementById('rallyEnemyType').addEventListener('change', populateEnemyLevels);
-
+// ===================================================================
+// Tab 1: Zombie Solo Fight
+// ===================================================================
 function populateZombieSoloLevels() {
   const sel = document.getElementById('zSoloLevel');
   const levels = Object.keys(ENEMIES.zombie.levels).map(Number).sort((a,b) => a - b);
-  sel.innerHTML = levels.map(lv => `<option value="${lv}">Lv ${lv} (${ENEMIES.zombie.levels[lv].toLocaleString()} VR)</option>`).join('');
+  sel.innerHTML = levels.map(lv => `<option value="${lv}">Lv ${lv} &mdash; needs ${ENEMIES.zombie.levels[lv].toLocaleString()} VR</option>`).join('');
+}
+
+function fmtPower(p) {
+  if (p >= 1000000) return (p / 1000000).toFixed(2) + 'M';
+  if (p >= 1000) return (p / 1000).toFixed(0) + 'K';
+  return p.toFixed(0);
+}
+
+function getLossBand(penalty) {
+  if (penalty < 10) return { label: 'Minimal Losses', pct: 5 };
+  if (penalty < 25) return { label: 'Moderate Losses', pct: 20 };
+  if (penalty < 50) return { label: 'Heavy Losses', pct: 45 };
+  return { label: 'Catastrophic', pct: 85 };
 }
 
 function updateZombieSolo() {
-  const level = parseInt(document.getElementById('zSoloLevel').value) || 1;
+  const levelEl = document.getElementById('zSoloLevel');
+  if (!levelEl) return;
+  const level = parseInt(levelEl.value) || 1;
   const zombieType = document.getElementById('zSoloZombieType').value;
   const squadType = document.getElementById('zSoloSquadType').value;
   const power = parseInt(document.getElementById('zSoloPower').value) || 0;
@@ -772,98 +1062,162 @@ function updateZombieSolo() {
   const requiredVR = ENEMIES.zombie.levels[level] || 0;
 
   if (power === 0) {
-    resultEl.innerHTML = '<div style="color:#999;font-size:13px;">Fill in your squad power above to see your effective damage.</div>';
-    resultEl.style.background = '#f5f5f5';
+    resultEl.className = 'verdict-card neutral';
+    resultEl.innerHTML = `
+      <div class="verdict-headline">Enter your squad power</div>
+      <div class="verdict-detail">Required VR for Lv ${level}: <strong>${requiredVR.toLocaleString()}</strong>. Your VR: <strong>${vr.toLocaleString()}</strong>.</div>
+    `;
     return;
   }
 
   const vrPenalty = calcDamageReduction(requiredVR, vr);
   const typeMod = zombieType === 'none' ? 1.0 : getTypeModifier(squadType, zombieType);
-  const effectivePower = power * (1 - vrPenalty / 100) * typeMod;
-  const effLabel = effectivePower >= 1000000 ? (effectivePower/1000000).toFixed(2) + 'M' : (effectivePower/1000).toFixed(0) + 'K';
-  const rawLabel = power >= 1000000 ? (power/1000000).toFixed(2) + 'M' : (power/1000).toFixed(0) + 'K';
+  const damageFactor = (1 - vrPenalty / 100) * typeMod;
+  const effectivePower = power * damageFactor;
+  const damagePct = damageFactor * 100;
 
-  let bg, color, verdict, typeNote = '';
-  if (vrPenalty > 50) { bg = '#ffeaea'; color = '#c62828'; verdict = '&#10007; DO NOT ATTACK &mdash; you will waste troops'; }
-  else if (vrPenalty > 25) { bg = '#fff3e0'; color = '#e65100'; verdict = '&#9888; RISKY &mdash; heavy damage penalty'; }
-  else if (vrPenalty > 0) { bg = '#fffde7'; color = '#f57f17'; verdict = '&#9888; MINOR PENALTY &mdash; still effective'; }
-  else { bg = '#e8f5e9'; color = '#2e7d32'; verdict = '&#10003; SAFE TO ATTACK'; }
-
-  if (zombieType !== 'none') {
-    if (typeMod > 1) typeNote = '<br><span style="color:#2e7d32;font-weight:600;">&#9733; Type Counter! +20% damage bonus</span>';
-    else if (typeMod < 1) typeNote = '<br><span style="color:#c62828;font-weight:600;">&#9888; Countered by zombie type! -20% damage</span>';
-    else typeNote = '<br><span style="color:#666;">Neutral type matchup (no bonus)</span>';
+  let klass, headline, detail;
+  if (vrPenalty > 50) {
+    klass = 'danger';
+    headline = '&#10007; DO NOT ATTACK';
+    detail = `You deal only <strong>${damagePct.toFixed(1)}%</strong> of your normal damage. You are wasting troops and speedups.`;
+  } else if (vrPenalty > 10 || typeMod < 1) {
+    klass = 'risky';
+    headline = '&#9888; RISKY';
+    detail = `You deal <strong>${damagePct.toFixed(1)}%</strong> of your normal damage. Expect troop losses.`;
+  } else {
+    klass = 'safe';
+    headline = '&#10003; SAFE TO SOLO';
+    detail = `You deal <strong>${damagePct.toFixed(1)}%</strong> of your normal damage. Minimal troop losses expected.`;
   }
 
-  resultEl.style.background = bg;
+  const typeModLabel = zombieType === 'none'
+    ? `&times;1.00 <span style="color:#999;">(unknown zombie type &mdash; pick one for +/-20%)</span>`
+    : `&times;${typeMod.toFixed(2)}` + (typeMod > 1 ? ' <span style="color:#2e7d32;font-weight:600;">(&#9733; counter!)</span>' : typeMod < 1 ? ' <span style="color:#c62828;font-weight:600;">(countered!)</span>' : ' <span style="color:#888;">(neutral)</span>');
+
+  const loss = getLossBand(vrPenalty);
+
+  resultEl.className = 'verdict-card ' + klass;
   resultEl.innerHTML = `
-    <div style="color:${color};font-weight:600;font-size:16px;margin-bottom:6px;">${verdict}</div>
-    <div style="font-size:14px;color:#333;">
-      Raw Power: <strong>${rawLabel}</strong> &rarr; Effective: <strong>${effLabel}</strong>
-      <br><span style="font-size:12px;color:#666;">VR Penalty: -${vrPenalty.toFixed(1)}% | Type Modifier: ×${typeMod.toFixed(2)}</span>
-      ${typeNote}
+    <div class="verdict-headline">${headline}</div>
+    <div class="verdict-detail">${detail}</div>
+    <div class="breakdown">
+      <div class="row"><span>Raw Power:</span> <strong>${fmtPower(power)}</strong></div>
+      <div class="row"><span>VR Penalty:</span> <strong>-${vrPenalty.toFixed(1)}%</strong></div>
+      <div class="row"><span>Type Modifier:</span> <strong>${typeModLabel}</strong></div>
+      <div class="row"><span>Effective Damage:</span> <strong>${fmtPower(effectivePower)}</strong></div>
+    </div>
+    <div class="loss-bar-wrap">
+      <div class="loss-bar-label">Troop Loss Estimate: <strong>${loss.label}</strong></div>
+      <div class="loss-bar-track"><div class="loss-bar-marker" style="left:${loss.pct}%;"></div></div>
+      <div class="loss-bar-ticks"><span>Minimal</span><span>Moderate</span><span>Heavy</span><span>Catastrophic</span></div>
     </div>
   `;
 }
 
+// ===================================================================
+// Tab 2: Rally (Boss / Doom Elite)
+// ===================================================================
+function initRallyMembers() {
+  const container = document.getElementById('rallyMembers');
+  let html = '';
+  // Header row
+  html += `<div class="rally-member-row" style="background:#f0f5f4; border:1px solid #ccc; font-weight:700;">
+    <div class="member-label">Member</div>
+    <div style="font-size:11px; color:#666;">Squad Power</div>
+    <div style="font-size:11px; color:#666;">Their Own VR</div>
+    <div style="font-size:11px; color:#666;">Effective VR &amp; Status</div>
+  </div>`;
+  for (let i = 0; i < 5; i++) {
+    const isInitiator = i === 0;
+    const label = isInitiator ? '&#127942; Slot 1 (YOU)' : `Slot ${i+1}`;
+    const powerPh = isInitiator ? 'Your power' : `Member ${i+1} power`;
+    const vrPh = isInitiator ? 'Auto-filled' : 'Their VR';
+    const rowClass = isInitiator ? 'rally-member-row initiator' : 'rally-member-row';
+    html += `<div class="${rowClass}">
+      <div class="member-label">${label}</div>
+      <input type="number" id="rm_power_${i}" placeholder="${powerPh}" min="0">
+      <input type="number" id="rm_vr_${i}" placeholder="${vrPh}" min="0" max="30000">
+      <div class="status-cell" id="rm_flag_${i}"></div>
+    </div>`;
+  }
+  container.innerHTML = html;
+
+  // Wire inputs
+  for (let i = 0; i < 5; i++) {
+    document.getElementById(`rm_power_${i}`).addEventListener('input', updateRally);
+    document.getElementById(`rm_vr_${i}`).addEventListener('input', updateRally);
+  }
+  const rm_vr_0 = document.getElementById('rm_vr_0');
+  rm_vr_0.addEventListener('change', (e) => {
+    if (parseInt(e.target.value) !== getVR()) e.target.dataset.userSet = '1';
+    else delete e.target.dataset.userSet;
+  });
+  rm_vr_0.value = getVR();
+}
+
+function populateRallyLevels() {
+  const type = document.getElementById('rallyEnemyType').value;
+  const sel = document.getElementById('rallyEnemyLevel');
+  const levels = Object.keys(ENEMIES[type].levels).map(Number).sort((a,b) => a - b);
+  sel.innerHTML = levels.map(lv => `<option value="${lv}">Lv ${lv} (${ENEMIES[type].levels[lv].toLocaleString()} VR)</option>`).join('');
+}
+
 function updateRally() {
+  if (!document.getElementById('rallyEnemyType')) return;
   const enemyType = document.getElementById('rallyEnemyType').value;
   const enemyLevel = parseInt(document.getElementById('rallyEnemyLevel').value) || 1;
   const requiredVR = ENEMIES[enemyType].levels[enemyLevel] || 0;
-  // Member 1 IS the initiator — their VR sets the floor for slots 2-5
   const initiatorVR = parseInt(document.getElementById('rm_vr_0').value) || 0;
 
   const members = [];
   let maxPower = 0;
 
   for (let i = 0; i < 5; i++) {
-    const name = i === 0 ? 'Initiator' : `Member ${i+1}`;
+    const name = i === 0 ? 'Slot 1 (YOU)' : `Slot ${i+1}`;
     const power = parseInt(document.getElementById(`rm_power_${i}`).value) || 0;
     const ownVR = parseInt(document.getElementById(`rm_vr_${i}`).value) || 0;
-    // Initiator (slot 0) always uses own VR. Joiners (1-4) use MAX(own, initiator).
     const effectiveVR = i === 0 ? ownVR : Math.max(ownVR, initiatorVR);
     const usingInitiatorVR = i !== 0 && initiatorVR > ownVR;
 
     const vrPenalty = calcDamageReduction(requiredVR, effectiveVR);
     const effectivePower = power * (1 - vrPenalty / 100);
 
-    let flag = 'go', flagText = '✓ GO';
-    if (vrPenalty > 50) { flag = 'stop'; flagText = '✗ DO NOT JOIN'; }
-    else if (vrPenalty > 25) { flag = 'caution'; flagText = '⚠ CAUTION'; }
-    if (power === 0) { flag = ''; flagText = ''; }
+    let flag = 'go', flagText = '&#10003; GO';
+    if (vrPenalty > 50) { flag = 'stop'; flagText = '&#10007; NO-GO'; }
+    else if (vrPenalty > 25) { flag = 'caution'; flagText = '&#9888; CAUTION'; }
 
-    if (power > 0) {
-      const sourceNote = usingInitiatorVR ? ' <span style="color:#f4a261;">(using initiator\'s)</span>' : '';
-      document.getElementById(`rm_flag_${i}`).innerHTML = flagText ? `<span class="rally-flag ${flag}">${flagText}</span>` +
-        `<span style="font-size:10px;color:#888;margin-left:4px;">VR: ${effectiveVR.toLocaleString()}${sourceNote} | -${vrPenalty.toFixed(1)}%</span>` : '';
+    if (power === 0) {
+      document.getElementById(`rm_flag_${i}`).innerHTML = '<span style="color:#bbb;">&mdash;</span>';
     } else {
-      document.getElementById(`rm_flag_${i}`).innerHTML = '';
+      const sourceNote = usingInitiatorVR ? ' <span style="color:#f4a261;">(using initiator\'s)</span>' : '';
+      document.getElementById(`rm_flag_${i}`).innerHTML = `<span class="rally-flag ${flag}">${flagText}</span>` +
+        `<span>VR ${effectiveVR.toLocaleString()}${sourceNote} &bull; -${vrPenalty.toFixed(1)}%</span>`;
     }
 
     if (effectivePower > maxPower) maxPower = effectivePower;
     members.push({ name, power, effectivePower, vrPenalty, flag });
   }
 
-  // Bar chart
-  const chartEl = document.getElementById('rallyChart');
+  renderRallyChart('rallyChart', 'rallySummary', members, maxPower);
+}
+
+function renderRallyChart(chartId, summaryId, members, maxPower) {
+  const chartEl = document.getElementById(chartId);
   const activeMems = members.filter(m => m.power > 0);
   if (activeMems.length === 0) {
-    chartEl.innerHTML = '<div style="text-align:center;color:#999;padding:20px;">Enter squad power for rally members above</div>';
-    document.getElementById('rallySummary').innerHTML = '';
+    chartEl.innerHTML = '<div style="text-align:center;color:#999;padding:20px;">Enter squad power for members above</div>';
+    document.getElementById(summaryId).innerHTML = '';
     return;
   }
-
   const barMax = maxPower > 0 ? maxPower : 1;
   let chartHtml = '';
   for (const m of activeMems) {
     const pct = (m.effectivePower / barMax * 100).toFixed(0);
     const color = m.flag === 'stop' ? '#fc5c65' : m.flag === 'caution' ? '#f4a261' : '#7fb3a8';
-    const powerLabel = m.effectivePower >= 1000000 ? (m.effectivePower / 1000000).toFixed(1) + 'M' :
-                       m.effectivePower >= 1000 ? (m.effectivePower / 1000).toFixed(0) + 'K' :
-                       m.effectivePower.toFixed(0);
     chartHtml += `<div class="rally-bar-row">
       <div class="rally-bar-label">${m.name}</div>
-      <div class="rally-bar" style="width:${Math.max(pct, 3)}%;background:${color};">${powerLabel}</div>
+      <div class="rally-bar" style="width:${Math.max(pct, 3)}%;background:${color};">${fmtPower(m.effectivePower)}</div>
     </div>`;
   }
   chartEl.innerHTML = chartHtml;
@@ -871,16 +1225,239 @@ function updateRally() {
   const totalEffective = activeMems.reduce((s, m) => s + m.effectivePower, 0);
   const totalRaw = activeMems.reduce((s, m) => s + m.power, 0);
   const deadWeight = activeMems.filter(m => m.flag === 'stop').length;
-  const effLabel = totalEffective >= 1000000 ? (totalEffective / 1000000).toFixed(1) + 'M' : (totalEffective / 1000).toFixed(0) + 'K';
-  const rawLabel = totalRaw >= 1000000 ? (totalRaw / 1000000).toFixed(1) + 'M' : (totalRaw / 1000).toFixed(0) + 'K';
 
-  let summary = `Total effective: <strong>${effLabel}</strong> (raw: ${rawLabel})`;
-  if (deadWeight > 0) summary += ` — <span style="color:#fc5c65;font-weight:600;">${deadWeight} member(s) wasting troops!</span>`;
-  summary += '<br><span style="font-size:10px;color:#aaa;">Combat is rounds-based, not additive — actual results depend on individual squad survival per round.</span>';
-  document.getElementById('rallySummary').innerHTML = summary;
+  let summary = `Total effective: <strong>${fmtPower(totalEffective)}</strong> (raw: ${fmtPower(totalRaw)})`;
+  if (deadWeight > 0) summary += ` &mdash; <span style="color:#fc5c65;font-weight:600;">${deadWeight} member(s) wasting troops!</span>`;
+  summary += '<br><span style="font-size:10px;color:#aaa;">Combat is rounds-based, not additive &mdash; actual results depend on individual squad survival per round.</span>';
+  document.getElementById(summaryId).innerHTML = summary;
 }
 
-initRally();
+// ===================================================================
+// Tab 3: Doom Walker
+// ===================================================================
+function initWalkerMembers() {
+  const container = document.getElementById('walkerMembers');
+  let html = '';
+  html += `<div class="rally-member-row" style="background:#f0f5f4; border:1px solid #ccc; font-weight:700;">
+    <div class="member-label">Member</div>
+    <div style="font-size:11px; color:#666;">Squad Power</div>
+    <div style="font-size:11px; color:#666;">Their Own VR</div>
+    <div style="font-size:11px; color:#666;">Strength + VR Status</div>
+  </div>`;
+  for (let i = 0; i < 5; i++) {
+    const isInitiator = i === 0;
+    const label = isInitiator ? '&#127942; Slot 1 (YOU)' : `Slot ${i+1}`;
+    const powerPh = isInitiator ? 'Your power' : `Member ${i+1} power`;
+    const vrPh = isInitiator ? 'Auto-filled' : 'Their VR';
+    const rowClass = isInitiator ? 'rally-member-row initiator' : 'rally-member-row';
+    html += `<div class="${rowClass}">
+      <div class="member-label">${label}</div>
+      <input type="number" id="wm_power_${i}" placeholder="${powerPh}" min="0">
+      <input type="number" id="wm_vr_${i}" placeholder="${vrPh}" min="0" max="30000">
+      <div class="status-cell" id="wm_flag_${i}"></div>
+    </div>`;
+  }
+  container.innerHTML = html;
+
+  for (let i = 0; i < 5; i++) {
+    document.getElementById(`wm_power_${i}`).addEventListener('input', updateWalker);
+    document.getElementById(`wm_vr_${i}`).addEventListener('input', updateWalker);
+  }
+  const wm_vr_0 = document.getElementById('wm_vr_0');
+  wm_vr_0.addEventListener('change', (e) => {
+    if (parseInt(e.target.value) !== getVR()) e.target.dataset.userSet = '1';
+    else delete e.target.dataset.userSet;
+  });
+  wm_vr_0.value = getVR();
+}
+
+function populateWalkerLevels() {
+  const sel = document.getElementById('walkerLevel');
+  let html = '';
+  for (let lv = 100; lv <= 180; lv++) {
+    html += `<option value="${lv}">Lv ${lv}</option>`;
+  }
+  sel.innerHTML = html;
+}
+
+function refreshWalkerRequirements() {
+  const level = parseInt(document.getElementById('walkerLevel').value) || 100;
+  const strength = getDoomWalkerStrength(level);
+  document.getElementById('walkerStrength').value = fmtPower(strength) + ' (' + strength.toLocaleString() + ')';
+
+  const saved = getSavedWalkerVR(level);
+  const vrInput = document.getElementById('walkerVR');
+  const note = document.getElementById('walkerVRNote');
+  if (saved != null) {
+    vrInput.value = saved;
+    note.innerHTML = `&#10003; Using your saved value (${saved.toLocaleString()} VR) for Lv ${level}.`;
+    note.style.color = '#2e7d32';
+  } else {
+    const est = estimateDoomWalkerVR(level);
+    vrInput.value = est;
+    note.innerHTML = `&#9432; Estimated <strong>${est.toLocaleString()} VR</strong> for Lv ${level} &mdash; Doom Walker VR requirements are not publicly known. Enter the real value from your game and click Save.`;
+    note.style.color = '#888';
+  }
+}
+
+function updateWalker() {
+  if (!document.getElementById('walkerLevel')) return;
+  const level = parseInt(document.getElementById('walkerLevel').value) || 100;
+  const requiredStrength = getDoomWalkerStrength(level);
+  const requiredVR = parseInt(document.getElementById('walkerVR').value) || 0;
+  const initiatorVR = parseInt(document.getElementById('wm_vr_0').value) || 0;
+
+  const members = [];
+  let maxPower = 0;
+
+  for (let i = 0; i < 5; i++) {
+    const name = i === 0 ? 'Slot 1 (YOU)' : `Slot ${i+1}`;
+    const power = parseInt(document.getElementById(`wm_power_${i}`).value) || 0;
+    const ownVR = parseInt(document.getElementById(`wm_vr_${i}`).value) || 0;
+    const effectiveVR = i === 0 ? ownVR : Math.max(ownVR, initiatorVR);
+    const usingInitiatorVR = i !== 0 && initiatorVR > ownVR;
+
+    const vrPenalty = calcDamageReduction(requiredVR, effectiveVR);
+    const effectivePower = power * (1 - vrPenalty / 100);
+    const strengthOK = power >= requiredStrength;
+    const vrOK = vrPenalty < 1;
+
+    let flag, flagText;
+    if (power === 0) {
+      flag = ''; flagText = '';
+    } else if (!strengthOK && !vrOK) {
+      flag = 'stop'; flagText = '&#10007; STR + VR FAIL';
+    } else if (!strengthOK) {
+      flag = 'stop'; flagText = '&#10007; STR FAIL';
+    } else if (!vrOK && vrPenalty > 50) {
+      flag = 'stop'; flagText = '&#10007; VR FAIL';
+    } else if (!vrOK) {
+      flag = 'caution'; flagText = '&#9888; VR WEAK';
+    } else {
+      flag = 'go'; flagText = '&#10003; GO';
+    }
+
+    if (power === 0) {
+      document.getElementById(`wm_flag_${i}`).innerHTML = '<span style="color:#bbb;">&mdash;</span>';
+    } else {
+      const strengthLabel = strengthOK
+        ? `<span style="color:#2e7d32;">Str ${fmtPower(power)} &#10003;</span>`
+        : `<span style="color:#c62828;">Str ${fmtPower(power)} &lt; ${fmtPower(requiredStrength)}</span>`;
+      const vrLabel = vrOK
+        ? `<span style="color:#2e7d32;">VR ${effectiveVR.toLocaleString()} &#10003;</span>`
+        : `<span style="color:#c62828;">VR ${effectiveVR.toLocaleString()} &lt; ${requiredVR.toLocaleString()} (-${vrPenalty.toFixed(1)}%)</span>`;
+      const sourceNote = usingInitiatorVR ? ' <span style="color:#f4a261;">(initiator\'s)</span>' : '';
+      document.getElementById(`wm_flag_${i}`).innerHTML =
+        `<span class="rally-flag ${flag}">${flagText}</span><br>${strengthLabel} &bull; ${vrLabel}${sourceNote}`;
+    }
+
+    if (effectivePower > maxPower) maxPower = effectivePower;
+    members.push({ name, power, effectivePower, vrPenalty, flag });
+  }
+
+  renderRallyChart('walkerChart', 'walkerSummary', members, maxPower);
+}
+
+// ===================================================================
+// Tabs
+// ===================================================================
+function initTabs() {
+  const btns = document.querySelectorAll('.tab-btn');
+  btns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      btns.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+      const id = 'tab-' + btn.dataset.tab;
+      document.getElementById(id).classList.add('active');
+    });
+  });
+}
+
+// Show/Hide Tables
+function initTablesToggle() {
+  const toggle = document.getElementById('tablesToggle');
+  const content = document.getElementById('tablesContent');
+  toggle.addEventListener('click', () => {
+    if (content.style.display === 'none') {
+      content.style.display = 'block';
+      toggle.textContent = 'Hide Tables';
+    } else {
+      content.style.display = 'none';
+      toggle.textContent = 'Show Tables';
+    }
+  });
+}
+
+// ===================================================================
+// Master updater
+// ===================================================================
+function updateAll() {
+  updateCard('boss', 'card-boss', 'boss-level', 'boss-info');
+  updateCard('elite', 'card-elite', 'elite-level', 'elite-info');
+  updateCard('zombie', 'card-zombie', 'zombie-level', 'zombie-info');
+  document.getElementById('table-boss').innerHTML = buildTable('boss');
+  document.getElementById('table-elite').innerHTML = buildTable('elite');
+  document.getElementById('table-zombie').innerHTML = buildTable('zombie');
+  document.getElementById('table-walker').innerHTML = buildWalkerTable();
+  updateZombieSolo();
+  updateRally();
+  updateWalker();
+}
+
+// ===================================================================
+// Init
+// ===================================================================
+initTabs();
+initTablesToggle();
+
+// Tab 1: Zombie Solo
+populateZombieSoloLevels();
+['zSoloLevel','zSoloZombieType','zSoloSquadType','zSoloPower','zSoloVR'].forEach(id => {
+  const el = document.getElementById(id);
+  if (el) {
+    el.addEventListener('input', updateZombieSolo);
+    el.addEventListener('change', updateZombieSolo);
+  }
+});
+document.getElementById('zSoloVR').addEventListener('change', (e) => {
+  if (parseInt(e.target.value) !== getVR()) e.target.dataset.userSet = '1';
+  else delete e.target.dataset.userSet;
+});
+document.getElementById('zSoloVR').value = getVR();
+
+// Tab 2: Rally
+initRallyMembers();
+populateRallyLevels();
+document.getElementById('rallyEnemyType').addEventListener('change', () => {
+  populateRallyLevels();
+  updateRally();
+});
+document.getElementById('rallyEnemyLevel').addEventListener('change', updateRally);
+
+// Tab 3: Doom Walker
+populateWalkerLevels();
+initWalkerMembers();
+document.getElementById('walkerLevel').addEventListener('change', () => {
+  refreshWalkerRequirements();
+  updateWalker();
+});
+document.getElementById('walkerVR').addEventListener('input', updateWalker);
+document.getElementById('walkerVRSave').addEventListener('click', () => {
+  const level = parseInt(document.getElementById('walkerLevel').value) || 100;
+  const vr = parseInt(document.getElementById('walkerVR').value) || 0;
+  saveWalkerVR(level, vr);
+  const btn = document.getElementById('walkerVRSave');
+  btn.textContent = 'Saved!';
+  btn.classList.add('saved');
+  setTimeout(() => {
+    btn.textContent = 'Save';
+    btn.classList.remove('saved');
+  }, 1500);
+  refreshWalkerRequirements();
+  updateAll();
+});
+refreshWalkerRequirements();
 
 // Initial render
 setVR(0);
