@@ -653,7 +653,7 @@
     <li><strong>Stronghold Bosses HAVE troop types</strong> (Aircraft/Tank/Missile) &mdash; widely reported as "no type" online, but OWOW verified in-game. Counter bonus &plusmn;20%.</li>
     <li>In the <em>All Tables</em> tab, a <span style="color:#2e7d32; font-weight:600;">&#10003;</span> in the <em>Src</em> column marks in-game verified levels; <span style="color:#888;">~</span> marks extrapolations.</li>
   </ul>
-  <p style="margin-top:6px; font-size:12px;"><strong>Doom Walkers do NOT require Virus Resistance</strong> &mdash; confirmed in-game Apr 14 2026 (the Walker info panel shows only "Suggested Power", no VR line). They are strength-gated only: your squad power must meet the Suggested Power threshold. Calibration note: in-game Lv130 showed 8.99M suggested power, vs the CIG guide's 10.76M &mdash; our Walker data is still based on the CIG guide and may overstate requirements. Send screenshots to lock it down.</p>
+  <p style="margin-top:6px; font-size:12px;"><strong>Doom Walkers do NOT require Virus Resistance</strong> &mdash; confirmed in-game Apr 14 2026 (the Walker info panel shows only "Suggested Power", no VR line). They are strength-gated only. <strong>Walker power table rebuilt from OWOW in-game screenshots:</strong> Lv110 = 3.40M, Lv130 = 8.99M, Lv150 = 16.98M, Lv160 = 21.45M, Lv170 = 26.40M, Lv180 = 29.97M, Lv190 = 34.31M. The CIG guide was off by up to <strong>+74% at Lv180</strong> (said 17.25M, actual 29.97M), so we scrapped those numbers entirely. Unverified levels are linearly interpolated between our anchors; the calculator marks verified levels with a green check and interpolated ones with a tilde.</p>
 </div>
 
 <!-- S1 Timeline -->
@@ -957,14 +957,28 @@ const ENEMIES = {
 // Stronghold Boss is fully verified across Lv15, 20, 25, 30, 35, 40, 45, 50, 55, 60
 ENEMIES.boss.confirmed = new Set([15,20,25,30,35,40,45,50,55,60]);
 
-// Doom Walker strength anchors (interpolate between)
-const DOOM_WALKER_STRENGTH = {100:1400000, 110:3300000, 120:6700000, 130:10757000, 140:11715000, 150:12715000, 160:14916000, 170:16014000, 180:17253000};
+// Doom Walker Suggested Power -- OWOW VERIFIED in-game (Apr 14 2026, Extremesecrecy).
+// Anchors come from actual Walker info panels. Non-anchor levels are linear interpolation.
+// The old CIG guide values were off by up to +74% at high levels (CIG Lv180 = 17.25M,
+// actual in-game = 29.97M) so we rebuilt the table entirely from verified screenshots.
+//   Lv110 = 3,399,500   [CONFIRMED]
+//   Lv130 = 8,995,500   [CONFIRMED]
+//   Lv150 = 16,980,000  [CONFIRMED]
+//   Lv160 = 21,450,000  [CONFIRMED]
+//   Lv170 = 26,400,000  [CONFIRMED]
+//   Lv180 = 29,968,500  [CONFIRMED]
+//   Lv190 = 34,310,000  [CONFIRMED]
+//   Lv100 is extrapolated backward (no screenshot yet).
+const DOOM_WALKER_STRENGTH = {100:1400000, 110:3399500, 130:8995500, 150:16980000, 160:21450000, 170:26400000, 180:29968500, 190:34310000};
+const DOOM_WALKER_CONFIRMED = new Set([110, 130, 150, 160, 170, 180, 190]);
+const DOOM_WALKER_MIN = 100;
+const DOOM_WALKER_MAX = 190;
 
 function getDoomWalkerStrength(level) {
-  if (level < 100 || level > 180) return null;
+  if (level < DOOM_WALKER_MIN || level > DOOM_WALKER_MAX) return null;
   if (DOOM_WALKER_STRENGTH[level] != null) return DOOM_WALKER_STRENGTH[level];
   const anchors = Object.keys(DOOM_WALKER_STRENGTH).map(Number).sort((a,b) => a - b);
-  let lower = 100, upper = 180;
+  let lower = anchors[0], upper = anchors[anchors.length - 1];
   for (let i = 0; i < anchors.length - 1; i++) {
     if (level > anchors[i] && level < anchors[i+1]) {
       lower = anchors[i]; upper = anchors[i+1]; break;
@@ -972,6 +986,10 @@ function getDoomWalkerStrength(level) {
   }
   const fraction = (level - lower) / (upper - lower);
   return Math.round(DOOM_WALKER_STRENGTH[lower] + fraction * (DOOM_WALKER_STRENGTH[upper] - DOOM_WALKER_STRENGTH[lower]));
+}
+
+function isDoomWalkerConfirmed(level) {
+  return DOOM_WALKER_CONFIRMED.has(level);
 }
 
 // (Doom Walker VR helpers removed Apr 14 2026 -- Walkers are strength-gated only, no VR requirement.)
@@ -1126,14 +1144,19 @@ function buildTable(type) {
 
 function buildWalkerTable() {
   // Doom Walkers are strength-gated only (no VR requirement in-game, confirmed Apr 14 2026).
-  let html = '<table><thead><tr><th>Lv</th><th>Suggested Power</th></tr></thead><tbody>';
-  for (let lv = 100; lv <= 180; lv += 5) {
+  // OWOW-verified anchors at Lv110, 130, 160, 170, 180, 190; all others linearly interpolated.
+  let html = '<table><thead><tr><th>Lv</th><th>Suggested Power</th><th title="OWOW in-game verified vs linear interpolation">Src</th></tr></thead><tbody>';
+  for (let lv = DOOM_WALKER_MIN; lv <= DOOM_WALKER_MAX; lv += 5) {
     const strength = getDoomWalkerStrength(lv);
     const strengthLbl = strength >= 1000000 ? (strength / 1000000).toFixed(2) + 'M' : (strength / 1000).toFixed(0) + 'K';
-    html += '<tr><td>' + lv + '</td><td>' + strengthLbl + ' (' + strength.toLocaleString() + ')</td></tr>';
+    const confirmed = isDoomWalkerConfirmed(lv);
+    const srcCell = confirmed
+      ? '<span title="OWOW in-game verified" style="color:#2e7d32; font-weight:600;">&#10003;</span>'
+      : '<span title="Linear interpolation between verified anchors" style="color:#888;">~</span>';
+    html += '<tr><td>' + lv + '</td><td>' + strengthLbl + ' (' + strength.toLocaleString() + ')</td><td style="text-align:center;">' + srcCell + '</td></tr>';
   }
   html += '</tbody></table>';
-  html += '<div style="font-size:11px; color:#888; padding:6px 8px;">Values sourced from the CIG Doom Walker guide. In-game Lv130 shows 8.99M (vs guide 10.76M) &mdash; real in-game numbers may be lower. Please share screenshots so we can calibrate.</div>';
+  html += '<div style="font-size:11px; color:#888; padding:6px 8px;"><span style="color:#2e7d32; font-weight:600;">&#10003;</span> = OWOW in-game verified (Apr 14 2026) &nbsp;&middot;&nbsp; <span style="color:#888;">~</span> = linear interpolation between verified anchors. Lv100 extrapolated backward -- no in-game screenshot yet.</div>';
   return html;
 }
 
@@ -1475,8 +1498,9 @@ function initWalkerMembers() {
 function populateWalkerLevels() {
   const sel = document.getElementById('walkerLevel');
   let html = '';
-  for (let lv = 100; lv <= 180; lv++) {
-    html += `<option value="${lv}">Lv ${lv}</option>`;
+  for (let lv = DOOM_WALKER_MIN; lv <= DOOM_WALKER_MAX; lv++) {
+    const mark = isDoomWalkerConfirmed(lv) ? ' \u2713' : '';
+    html += `<option value="${lv}">Lv ${lv}${mark}</option>`;
   }
   sel.innerHTML = html;
 }
@@ -1484,7 +1508,8 @@ function populateWalkerLevels() {
 function refreshWalkerRequirements() {
   const level = parseInt(document.getElementById('walkerLevel').value) || 100;
   const strength = getDoomWalkerStrength(level);
-  document.getElementById('walkerStrength').value = fmtPower(strength) + ' (' + strength.toLocaleString() + ')';
+  const srcTag = isDoomWalkerConfirmed(level) ? ' \u2713 verified' : ' ~ estimated';
+  document.getElementById('walkerStrength').value = fmtPower(strength) + ' (' + strength.toLocaleString() + ')' + srcTag;
 }
 
 function updateWalker() {
