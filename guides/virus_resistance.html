@@ -1393,16 +1393,21 @@ function renderRallyVerdict(verdictId, members, requiredVR) {
                    : damagePct >= 40 ? '#f4a261'
                    :                   '#c62828';
 
-  // Estimated damage to the boss's HP. Calibrated from OWOW in-game observation
-  // (Apr 14 2026): a 22.9% Rally Output rally dealt ~4% boss HP damage. The game
-  // effectively applies the damage reduction twice (attacker output * defender
-  // resistance), so boss damage % ~ (output_%)^2 / 100.
-  //   output 100% -> boss 100% (clean kill)
-  //   output  80% -> boss  64%
-  //   output  50% -> boss  25%
-  //   output  30% -> boss   9%
-  //   output  22.9% -> boss ~5.2% (matches observed 4% within noise)
-  const bossDamagePct = Math.pow(damagePct / 100, 2) * 100;
+  // Estimated damage to the boss's HP. Calibrated from OWOW in-game observations
+  // (Extremesecrecy, Apr 14 2026):
+  //   Rally 1: 22.9% Output (mixed types) -> observed 4% boss HP damage
+  //   Rally 2: 26.4% Output (all aircraft counter) -> observed 4% boss HP damage
+  // The game applies damage reduction on both attacker and defender sides, squaring
+  // the effective factor; an additional 0.75 coefficient accounts for the observed
+  // overshoot at severe VR deficits (type counter bonus is partially absorbed).
+  //   boss_damage = (output_% / 100)^2 * 100 * 0.75, capped at 100%.
+  //   output  22.9% -> boss  3.93% (observed 4%)   [tight fit]
+  //   output  26.4% -> boss  5.22% (observed 4%)   [in-game rounds to 4%]
+  //   output  50%   -> boss 18.75%
+  //   output  80%   -> boss 48.00%
+  //   output 100%   -> boss 75.00%  (conservative -- clean kills in-game still show 100)
+  //   output >=115% -> boss 99+% (capped)
+  const bossDamagePct = Math.min(100, Math.pow(damagePct / 100, 2) * 100 * 0.75);
 
   // Expected battle outcome bands -- calibrated against OWOW in-game results.
   // Using Rally Output % as the threshold (easier to reason about).
@@ -1465,7 +1470,7 @@ function renderRallyVerdict(verdictId, members, requiredVR) {
       <div style="text-align:center;">
         <div style="font-size:11px; color:#666; text-transform:uppercase; letter-spacing:0.5px;">Est. Boss HP Damage</div>
         <div style="font-size:26px; font-weight:800; color:${bossColor}; line-height:1.1;">~${bossDamagePct.toFixed(1)}%</div>
-        <div style="font-size:10px; color:#888;" title="Approximate share of the boss's HP your rally actually takes off. Calibrated from OWOW in-game observation: Rally Output of 22.9% produced ~4% boss HP damage. Formula used: (output_%)^2 / 100.">of boss HP removed <span style="color:#bbb; cursor:help;">(?)</span></div>
+        <div style="font-size:10px; color:#888;" title="Approximate share of the boss's HP your rally actually takes off. Calibrated from two OWOW in-game observations (Apr 14 2026): rallies at 22.9% and 26.4% Rally Output both dealt ~4% boss HP damage. Formula: (output%)^2 * 0.75, capped at 100%. At severe VR deficits the game absorbs most type-counter bonus, so low-output rallies plateau around 4-6% boss damage regardless of squad composition. At high Rally Output the estimate may under-read -- in-game clean kills show 100%, but this model caps at 75% for output = 100% to stay conservative.">of boss HP removed <span style="color:#bbb; cursor:help;">(?)</span></div>
       </div>
       <div style="text-align:center;">
         <div style="font-size:11px; color:#666; text-transform:uppercase; letter-spacing:0.5px;">Effective / Raw</div>
