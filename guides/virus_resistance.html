@@ -799,6 +799,7 @@
   <div class="tab-panel">
     <h2>&#9876; Rally: Stronghold Boss &amp; Doom Elite</h2>
     <div class="panel-sub"><strong>Stronghold Bosses HAVE troop types</strong> (Aircraft/Tank/Missile &plusmn;20%). Doom Elites do NOT &mdash; only VR matters for them.</div>
+    <div class="panel-sub" style="background:#fff3cd;border-left:3px solid #f4a261;padding:6px 10px;margin-top:4px;"><strong>&#9888; Rally rule (Last War wiki):</strong> The <strong>rally leader's VR applies to the whole rally</strong> &mdash; every member uses the leader's VR regardless of their own. <strong>The highest-VR player should always lead.</strong> <a href="https://wiki.lastwar.com/en/show/40" target="_blank" style="color:#f4a261;">[wiki source]</a></div>
 
     <div class="form-grid" style="grid-template-columns:repeat(auto-fit, minmax(180px, 1fr));">
       <div>
@@ -1332,8 +1333,13 @@ function updateRally() {
     const power = parsePowerMillions(document.getElementById(`rm_power_${i}`).value);
     const ownVR = parseInt(document.getElementById(`rm_vr_${i}`).value) || 0;
     const squadType = document.getElementById(`rm_stype_${i}`).value;
-    const effectiveVR = i === 0 ? ownVR : Math.max(ownVR, initiatorVR);
-    const usingInitiatorVR = i !== 0 && initiatorVR > ownVR;
+    // Per official Last War wiki (S1: Resistance):
+    // "The rally leader's resistance applies to the whole rally."
+    // Every member uses the leader's VR regardless of their own — that's why
+    // the highest-VR player should lead.
+    const effectiveVR = initiatorVR;
+    const usingInitiatorVR = i !== 0;
+    const ownVRWasted = i !== 0 && ownVR > initiatorVR;
 
     const vrPenalty = calcDamageReduction(requiredVR, effectiveVR);
     // Type modifier only applies to Boss (not Doom Elite)
@@ -1350,7 +1356,12 @@ function updateRally() {
     if (power === 0) {
       document.getElementById(`rm_flag_${i}`).innerHTML = '<span style="color:#bbb;">&mdash;</span>';
     } else {
-      const sourceNote = usingInitiatorVR ? ' <span style="color:#f4a261;">(using initiator\'s)</span>' : '';
+      let sourceNote = '';
+      if (ownVRWasted) {
+        sourceNote = ` <span style="color:#c62828;font-weight:600;" title="Your own VR is ${ownVR.toLocaleString()} but the leader's VR caps you at ${initiatorVR.toLocaleString()}. You should be the rally leader instead!">(capped from ${ownVR.toLocaleString()} &mdash; SHOULD LEAD)</span>`;
+      } else if (usingInitiatorVR) {
+        sourceNote = ' <span style="color:#f4a261;">(using leader\'s VR)</span>';
+      }
       let typeNote = '';
       if (isBoss && bossType !== 'none') {
         if (typeMod > 1) typeNote = ' <span style="color:#2e7d32;font-weight:600;">&bull; &#9733;+20%</span>';
@@ -1361,15 +1372,15 @@ function updateRally() {
     }
 
     if (effectivePower > maxPower) maxPower = effectivePower;
-    members.push({ name, power, effectivePower, vrPenalty, flag });
+    members.push({ name, power, effectivePower, vrPenalty, flag, ownVR, slotIndex: i });
   }
 
-  renderRallyVerdict('rallyVerdict', members, requiredVR);
+  renderRallyVerdict('rallyVerdict', members, requiredVR, initiatorVR);
   renderRallyChart('rallyChart', 'rallySummary', members, maxPower);
 }
 
 // Rally Verdict Rollup — summarizes 5 members into a single decision
-function renderRallyVerdict(verdictId, members, requiredVR) {
+function renderRallyVerdict(verdictId, members, requiredVR, initiatorVR) {
   const el = document.getElementById(verdictId);
   if (!el) return;
   const active = members.filter(m => m.power > 0);
@@ -1378,6 +1389,9 @@ function renderRallyVerdict(verdictId, members, requiredVR) {
     el.innerHTML = `<div class="verdict-headline">Enter rally member info above</div><div class="verdict-detail">Required VR: <strong>${requiredVR.toLocaleString()}</strong>. Add at least 1 member with squad power.</div>`;
     return;
   }
+
+  // Per Last War wiki: leader's VR caps everyone. Warn if a member has higher VR than leader.
+  const wrongLeader = active.find(m => m.slotIndex !== 0 && m.ownVR > initiatorVR);
   const dead = active.filter(m => m.flag === 'stop').length;
   const caution = active.filter(m => m.flag === 'caution').length;
   const go = active.filter(m => m.flag === 'go').length;
@@ -1393,21 +1407,25 @@ function renderRallyVerdict(verdictId, members, requiredVR) {
                    : damagePct >= 40 ? '#f4a261'
                    :                   '#c62828';
 
-  // Estimated damage to the boss's HP. Calibrated from OWOW in-game observations
-  // (Extremesecrecy, Apr 14 2026):
-  //   Rally 1: 22.9% Output (mixed types) -> observed 4% boss HP damage
-  //   Rally 2: 26.4% Output (all aircraft counter) -> observed 4% boss HP damage
-  // The game applies damage reduction on both attacker and defender sides, squaring
-  // the effective factor; an additional 0.75 coefficient accounts for the observed
-  // overshoot at severe VR deficits (type counter bonus is partially absorbed).
-  //   boss_damage = (output_% / 100)^2 * 100 * 0.75, capped at 100%.
-  //   output  22.9% -> boss  3.93% (observed 4%)   [tight fit]
-  //   output  26.4% -> boss  5.22% (observed 4%)   [in-game rounds to 4%]
-  //   output  50%   -> boss 18.75%
-  //   output  80%   -> boss 48.00%
-  //   output 100%   -> boss 75.00%  (conservative -- clean kills in-game still show 100)
-  //   output >=115% -> boss 99+% (capped)
-  const bossDamagePct = Math.min(100, Math.pow(damagePct / 100, 2) * 100 * 0.75);
+  // Estimated damage to the boss's HP. Calibrated from 3 OWOW in-game observations
+  // using a LOGISTIC curve (sigmoid). The game has a threshold effect: below ~35%
+  // output you bounce off (4-10% boss damage), above ~50% damage scales rapidly.
+  //
+  // Calibration data (Extremesecrecy, Apr 14 + Apr 17, 2026):
+  //   Rally 1: 22.9% Output -> observed ~4% boss HP damage (Lv20 SH2, VR 2750/4500)
+  //   Rally 2: 26.4% Output -> observed ~4% boss HP damage (same, all aircraft counter)
+  //   Rally 3: 48.0% Output -> observed ~49% boss HP damage (Lv30 SH4, VR 5250/6500)
+  //
+  // Old squared formula predicted 17.3% for Rally 3 — actual was 49% (31pp error!).
+  // Logistic fits all 3 points within ±2pp:
+  //   f(x) = 100 / (1 + exp(-0.1247 * (x - 48.4)))
+  //   output  22.9% -> boss   4.0%  (observed 4%)
+  //   output  26.4% -> boss   6.1%  (observed 4%, within rounding)
+  //   output  48.0% -> boss  48.8%  (observed 49%)
+  //   output  60%   -> boss  81.0%
+  //   output  80%   -> boss  98.1%
+  //   output 100%   -> boss  99.8%
+  const bossDamagePct = Math.min(100, 100 / (1 + Math.exp(-0.1247 * (damagePct - 48.4))));
 
   // Expected battle outcome bands -- calibrated against OWOW in-game results.
   // Using Rally Output % as the threshold (easier to reason about).
@@ -1470,7 +1488,7 @@ function renderRallyVerdict(verdictId, members, requiredVR) {
       <div style="text-align:center;">
         <div style="font-size:11px; color:#666; text-transform:uppercase; letter-spacing:0.5px;">Est. Boss HP Damage</div>
         <div style="font-size:26px; font-weight:800; color:${bossColor}; line-height:1.1;">~${bossDamagePct.toFixed(1)}%</div>
-        <div style="font-size:10px; color:#888;" title="Approximate share of the boss's HP your rally actually takes off. Calibrated from two OWOW in-game observations (Apr 14 2026): rallies at 22.9% and 26.4% Rally Output both dealt ~4% boss HP damage. Formula: (output%)^2 * 0.75, capped at 100%. At severe VR deficits the game absorbs most type-counter bonus, so low-output rallies plateau around 4-6% boss damage regardless of squad composition. At high Rally Output the estimate may under-read -- in-game clean kills show 100%, but this model caps at 75% for output = 100% to stay conservative.">of boss HP removed <span style="color:#bbb; cursor:help;">(?)</span></div>
+        <div style="font-size:10px; color:#888;" title="Approximate share of the boss's HP your rally removes. Calibrated from 3 OWOW in-game rallies (Apr 14-17, 2026) using a logistic (S-curve) model. Below ~35% Rally Output you barely scratch the boss (4-10%). At ~48% Output you deal ~49% boss damage. Above ~60% Output damage rises rapidly toward 80-99%. The S-curve shape reflects the game's threshold effect: underpowered rallies bounce off, but once you cross ~40% output the damage becomes viable.">of boss HP removed <span style="color:#bbb; cursor:help;">(?)</span></div>
       </div>
       <div style="text-align:center;">
         <div style="font-size:11px; color:#666; text-transform:uppercase; letter-spacing:0.5px;">Effective / Raw</div>
@@ -1486,8 +1504,22 @@ function renderRallyVerdict(verdictId, members, requiredVR) {
       <div style="font-size:12px; color:#555; margin-top:4px;">${outcomeDetail}</div>
     </div>`;
 
+  // Wrong-leader warning: per Last War wiki, the highest-VR player should lead
+  let leaderWarning = '';
+  if (wrongLeader) {
+    const slotName = wrongLeader.slotIndex === 0 ? 'Slot 1 (YOU)' : `Slot ${wrongLeader.slotIndex + 1}`;
+    leaderWarning = `<div style="margin-top:10px; padding:10px 12px; background:#fff3cd; border:2px solid #f4a261; border-radius:6px;">
+      <div style="font-size:13px; font-weight:700; color:#c62828;">&#9888; WRONG LEADER!</div>
+      <div style="font-size:12px; color:#444; margin-top:4px;">
+        <strong>${slotName}</strong> has VR <strong>${wrongLeader.ownVR.toLocaleString()}</strong>, higher than the leader's <strong>${initiatorVR.toLocaleString()}</strong>.
+        Per Last War wiki: <em>"the rally leader's resistance applies to the whole rally"</em> &mdash; the highest-VR player must launch.
+        Have <strong>${slotName}</strong> initiate the rally instead.
+      </div>
+    </div>`;
+  }
+
   el.className = 'verdict-card ' + klass;
-  el.innerHTML = `<div class="verdict-headline">${headline}</div><div class="verdict-detail">${detail}</div>${statBlock}`;
+  el.innerHTML = `<div class="verdict-headline">${headline}</div><div class="verdict-detail">${detail}</div>${leaderWarning}${statBlock}`;
 }
 
 function renderRallyChart(chartId, summaryId, members, maxPower) {
