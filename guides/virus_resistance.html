@@ -1407,25 +1407,30 @@ function renderRallyVerdict(verdictId, members, requiredVR, initiatorVR) {
                    : damagePct >= 40 ? '#f4a261'
                    :                   '#c62828';
 
-  // Estimated damage to the boss's HP. Calibrated from 3 OWOW in-game observations
-  // using a LOGISTIC curve (sigmoid). The game has a threshold effect: below ~35%
-  // output you bounce off (4-10% boss damage), above ~50% damage scales rapidly.
+  // Estimated damage to the boss's HP. Calibrated from 4 OWOW in-game observations
+  // using a LOGISTIC curve with a 4% floor. The game has a hard threshold: below ~35%
+  // output you deal only 4-7%, then damage jumps sharply between 40-50% output.
   //
-  // Calibration data (Extremesecrecy, Apr 14 + Apr 17, 2026):
-  //   Rally 1: 22.9% Output -> observed ~4% boss HP damage (Lv20 SH2, VR 2750/4500)
-  //   Rally 2: 26.4% Output -> observed ~4% boss HP damage (same, all aircraft counter)
-  //   Rally 3: 48.0% Output -> observed ~49% boss HP damage (Lv30 SH4, VR 5250/6500)
+  // Calibration data (OWOW, Apr 14-17, 2026):
+  //   Rally 1: 22.9% Output -> observed ~4% boss HP  (Lv20 SH2, VR 2750/4500)
+  //   Rally 2: 26.4% Output -> observed ~4% boss HP  (same, all aircraft counter)
+  //   Rally 3: 36.0% Output -> observed ~7% boss HP  (Lv30 SH4, Scratches07 VR 4450/6500)
+  //   Rally 4: 48.0% Output -> observed ~49% boss HP (Lv30 SH4, Gabriel VR 5250/6500)
   //
-  // Old squared formula predicted 17.3% for Rally 3 — actual was 49% (31pp error!).
-  // Logistic fits all 3 points within ±2pp:
-  //   f(x) = 100 / (1 + exp(-0.1247 * (x - 48.4)))
-  //   output  22.9% -> boss   4.0%  (observed 4%)
-  //   output  26.4% -> boss   6.1%  (observed 4%, within rounding)
-  //   output  48.0% -> boss  48.8%  (observed 49%)
-  //   output  60%   -> boss  81.0%
-  //   output  80%   -> boss  98.1%
-  //   output 100%   -> boss  99.8%
-  const bossDamagePct = Math.min(100, 100 / (1 + Math.exp(-0.1247 * (damagePct - 48.4))));
+  // Formula: f(x) = 4 + 96 / (1 + exp(-0.2758 * (x - 48.45)))
+  //   - 4% floor: you always deal SOME damage even at massive VR deficits
+  //   - Steeper transition (k=0.2758): matches the sharp 7%->49% jump from 36->48% output
+  //   - Midpoint 48.45: at ~48% output you deal ~49% boss damage (confirmed in-game)
+  //
+  // Fit vs all 4 data points (max error ±0.2pp):
+  //   output  22.9% -> boss  4.1%  (observed 4%)
+  //   output  26.4% -> boss  4.2%  (observed 4%)
+  //   output  36.0% -> boss  7.0%  (observed 7%)
+  //   output  48.0% -> boss 49.0%  (observed 49%)
+  //   output  55%   -> boss 86.5%
+  //   output  60%   -> boss 96.2%
+  //   output  70%   -> boss 99.7%
+  const bossDamagePct = Math.min(100, 4 + 96 / (1 + Math.exp(-0.2758 * (damagePct - 48.45))));
 
   // Expected battle outcome bands -- calibrated against OWOW in-game results.
   // Using Rally Output % as the threshold (easier to reason about).
