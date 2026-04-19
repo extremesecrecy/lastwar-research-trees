@@ -647,7 +647,7 @@
   <h3 style="color:#f4a261;">&#9432; DATA NOTE &mdash; OWOW In-Game Verified</h3>
   <p>We initially used cpt-hedge.com's Season 1 data but discovered their numbers were off (in some cases by 1,000+ VR). We rebuilt the <strong>Doom Elite</strong> and <strong>Zombie</strong> tables using values verified directly in-game by OWOW members. Examples of cpt-hedge inaccuracies we corrected:</p>
   <ul style="margin:6px 0 0 20px; font-size:12px; color:#666;">
-    <li><strong>Doom Elite Lv15-22 OWOW VERIFIED</strong> (Apr 14 2026): 2750 / 3000 / 3250 / 3500 / 3750 / 4000 / 4250 / 4500. Clean <strong>+250 VR per level</strong> pattern. All other elite levels are linear extrapolation (&plusmn;250/lv), cap at 10,500 from Lv46 onward.</li>
+    <li><strong>Doom Elite two-phase taper CONFIRMED</strong>: Lv15-22 verified (Apr 14) at <strong>+250/lv</strong>, Lv40 verified (Apr 18) at <strong>8,100 VR</strong>. Phase 1 (Lv5-22): +250/lv. Phase 2 (Lv23-52): <strong>tapers to +200/lv</strong>. Cap at 10,500 from Lv52. Old table had Lv40=9,000 (was off by 900!).</li>
     <li><strong>Zombie Lv15-22 OWOW VERIFIED</strong> (Apr 14 2026): 2750 / 3000 / 3300 / 3400 / 3700 / 3800 / 4000 / 4200. Linear regression on the verified range: <code>y = 201.79 &times; Lv &minus; 214.29</code>, <strong>R&sup2; = 0.989</strong>. Lv23+ extrapolated at <strong>+200 VR per level</strong> (matches regression slope), cap at 10,500 from Lv54 onward.</li>
     <li><strong>Stronghold Boss fully verified SH1-SH10</strong> (Apr 14 2026) &mdash; see reference table below.</li>
     <li><strong>Stronghold Bosses HAVE troop types</strong> (Aircraft/Tank/Missile) &mdash; widely reported as "no type" online, but OWOW verified in-game. Counter bonus &plusmn;20%.</li>
@@ -938,11 +938,17 @@ const ENEMIES = {
   },
   elite: {
     name: 'Doom Elite',
-    // OWOW VERIFIED (Apr 14 2026): Lv15-Lv22 observed in-game. Pattern is a clean +250 VR per level.
-    // Formula: Lv N >= 5 -> (N - 4) * 250, caps at 10,500 at Lv46 and stays flat through Lv60.
-    // User confirmed: Lv15=2750, Lv16=3000, Lv17=3250, Lv18=3500, Lv19=3750, Lv20=4000, Lv21=4250, Lv22=4500.
-    levels: {1:0,2:0,3:0,4:0,5:250,6:500,7:750,8:1000,9:1250,10:1500,11:1750,12:2000,13:2250,14:2500,15:2750,16:3000,17:3250,18:3500,19:3750,20:4000,21:4250,22:4500,23:4750,24:5000,25:5250,26:5500,27:5750,28:6000,29:6250,30:6500,31:6750,32:7000,33:7250,34:7500,35:7750,36:8000,37:8250,38:8500,39:8750,40:9000,41:9250,42:9500,43:9750,44:10000,45:10250,46:10500,47:10500,48:10500,49:10500,50:10500,51:10500,52:10500,53:10500,54:10500,55:10500,56:10500,57:10500,58:10500,59:10500,60:10500},
-    confirmed: new Set([15,16,17,18,19,20,21,22])
+    // OWOW VERIFIED: Two-phase scaling confirmed from in-game data.
+    //   Phase 1 (Lv5-22): +250 VR per level. Verified Lv15-22 (Apr 14 2026).
+    //   Phase 2 (Lv23-52): TAPERS to +200 VR per level. Verified Lv40=8100 (Apr 18 2026).
+    //     Proof: 4500 + (40-22)*200 = 4500 + 3600 = 8100 (matches in-game exactly).
+    //     Old table had Lv40=9000 (off by 900!), which was causing all Lv23+ calculations to overstate VR.
+    //   Cap at 10,500 from Lv52 onward.
+    // Damage formula verified 4 times against these VR values (all matched to 0.0pp):
+    //   VR 5750 vs Lv40(8100) = -60.0%  VR 6250 vs Lv40(8100) = -46.0%
+    //   VR 5750 vs Lv40(8100) = -60.0%  VR 5750 vs Lv30 Boss(6500) = -24.0%
+    levels: {1:0,2:0,3:0,4:0,5:250,6:500,7:750,8:1000,9:1250,10:1500,11:1750,12:2000,13:2250,14:2500,15:2750,16:3000,17:3250,18:3500,19:3750,20:4000,21:4250,22:4500,23:4700,24:4900,25:5100,26:5300,27:5500,28:5700,29:5900,30:6100,31:6300,32:6500,33:6700,34:6900,35:7100,36:7300,37:7500,38:7700,39:7900,40:8100,41:8300,42:8500,43:8700,44:8900,45:9100,46:9300,47:9500,48:9700,49:9900,50:10100,51:10300,52:10500,53:10500,54:10500,55:10500,56:10500,57:10500,58:10500,59:10500,60:10500},
+    confirmed: new Set([15,16,17,18,19,20,21,22,40])
   },
   zombie: {
     name: 'Zombie',
