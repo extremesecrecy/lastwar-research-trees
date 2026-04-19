@@ -1413,53 +1413,49 @@ function renderRallyVerdict(verdictId, members, requiredVR, initiatorVR) {
                    : damagePct >= 40 ? '#f4a261'
                    :                   '#c62828';
 
-  // Estimated damage to the boss's HP. Calibrated from 4 OWOW in-game observations
-  // using a LOGISTIC curve with a 4% floor. The game has a hard threshold: below ~35%
-  // output you deal only 4-7%, then damage jumps sharply between 40-50% output.
+  // Boss HP Damage estimate — REMOVED the overconfident logistic model.
   //
-  // Calibration data (OWOW, Apr 14-17, 2026):
-  //   Rally 1: 22.9% Output -> observed ~4% boss HP  (Lv20 SH2, VR 2750/4500)
-  //   Rally 2: 26.4% Output -> observed ~4% boss HP  (same, all aircraft counter)
-  //   Rally 3: 36.0% Output -> observed ~7% boss HP  (Lv30 SH4, Scratches07 VR 4450/6500)
-  //   Rally 4: 48.0% Output -> observed ~49% boss HP (Lv30 SH4, Gabriel VR 5250/6500)
+  // OWOW calibration data (Apr 14-18 2026) showed the logistic wildly overpredicts
+  // above 50% Rally Output (e.g., predicted ~100% at 76% output, actual was ~10%).
   //
-  // Formula: f(x) = 4 + 96 / (1 + exp(-0.2758 * (x - 48.45)))
-  //   - 4% floor: you always deal SOME damage even at massive VR deficits
-  //   - Steeper transition (k=0.2758): matches the sharp 7%->49% jump from 36->48% output
-  //   - Midpoint 48.45: at ~48% output you deal ~49% boss damage (confirmed in-game)
+  // Confirmed data points (boss HP bar observed):
+  //   22.9% Output -> 4%   boss damage  (Lv20 SH2)
+  //   26.4% Output -> 4%   boss damage  (Lv20 SH2)
+  //   36.0% Output -> 7%   boss damage  (Lv30 SH4, Scratches07)
+  //   48.0% Output -> 49%  boss damage  (Lv30 SH4, Gabriel 5250 VR)
+  //   76.0% Output -> 10%  boss damage  (Lv30 SH4, boss was at 96%, dropped to 85.71%)
   //
-  // Fit vs all 4 data points (max error ±0.2pp):
-  //   output  22.9% -> boss  4.1%  (observed 4%)
-  //   output  26.4% -> boss  4.2%  (observed 4%)
-  //   output  36.0% -> boss  7.0%  (observed 7%)
-  //   output  48.0% -> boss 49.0%  (observed 49%)
-  //   output  55%   -> boss 86.5%
-  //   output  60%   -> boss 96.2%
-  //   output  70%   -> boss 99.7%
-  const bossDamagePct = Math.min(100, 4 + 96 / (1 + Math.exp(-0.2758 * (damagePct - 48.45))));
+  // Point 5 (76% -> 10%) DESTROYS any simple monotonic model. Type matchup, enemy
+  // defense, and round-based combat mechanics dominate at mid-high outputs. The only
+  // honest answer: we can estimate low-output damage reasonably but NOT predict
+  // high-output outcomes from Rally Output alone.
+  //
+  // New approach: show the OUTPUT % as the main stat (which IS accurately computed
+  // from VR + type), drop the fake "boss HP damage" prediction, and use conservative
+  // outcome language that never promises a kill.
+  const bossDamagePct = null; // deliberately removed — too unreliable
 
-  // Expected battle outcome bands -- calibrated against OWOW in-game results.
-  // Using Rally Output % as the threshold (easier to reason about).
+  // Outcome bands: VERY conservative. Even high Rally Output doesn't guarantee a kill.
   let outcomeLabel, outcomeDetail, outcomeColor;
   if (damagePct < 30) {
-    outcomeLabel = '&#10007; DEFEAT';
-    outcomeDetail = 'Boss will survive. Expect catastrophic troop losses across the rally.';
+    outcomeLabel = '&#10007; DO NOT RALLY';
+    outcomeDetail = 'You will bounce off. Expect 4-7% boss damage and catastrophic troop losses.';
     outcomeColor = '#c62828';
-  } else if (damagePct < 55) {
-    outcomeLabel = '&#9888; LIKELY DEFEAT';
-    outcomeDetail = 'Boss probably survives. Heavy losses for little or no progress.';
+  } else if (damagePct < 50) {
+    outcomeLabel = '&#9888; HIGH RISK';
+    outcomeDetail = 'Likely defeat. Boss takes some damage (7-15%) but survives. Heavy troop losses.';
     outcomeColor = '#e65100';
-  } else if (damagePct < 80) {
-    outcomeLabel = '&#9888; PYRRHIC VICTORY';
-    outcomeDetail = 'Boss may die but losses will be heavy. Bring healing speedups.';
+  } else if (damagePct < 70) {
+    outcomeLabel = '&#9888; RISKY';
+    outcomeDetail = 'Outcome depends heavily on type matchup and member composition. May still lose.';
     outcomeColor = '#f4a261';
-  } else if (damagePct < 95) {
-    outcomeLabel = '&#10003; VICTORY';
-    outcomeDetail = 'Boss dies with moderate losses. Solid rally.';
+  } else if (damagePct < 90) {
+    outcomeLabel = '&#128260; POSSIBLE VICTORY';
+    outcomeDetail = 'Viable rally IF type matchup is favorable. Counter bonus (+20%) can make the difference.';
     outcomeColor = '#7fb3a8';
   } else {
-    outcomeLabel = '&#10003; CLEAN VICTORY';
-    outcomeDetail = 'Boss dies quickly with minimal losses. Ideal rally.';
+    outcomeLabel = '&#128260; GOOD ODDS';
+    outcomeDetail = 'Strong rally on paper. Still not guaranteed — type disadvantage can turn a win into a loss.';
     outcomeColor = '#2e7d32';
   }
 
@@ -1482,37 +1478,30 @@ function renderRallyVerdict(verdictId, members, requiredVR, initiatorVR) {
     detail = `Send it!`;
   }
 
-  // Color the BOSS damage based on whether it's enough to kill.
-  const bossColor = bossDamagePct >= 80 ? '#2e7d32'
-                   : bossDamagePct >= 50 ? '#7fb3a8'
-                   : bossDamagePct >= 20 ? '#f4a261'
-                   :                       '#c62828';
-
-  // Stat block: 3 key numbers + outcome callout.
+  // Stat block: Rally Output + Effective/Raw + Outcome prediction.
+  // Boss HP Damage prediction REMOVED — it was consistently overestimating.
   const statBlock = `
-    <div style="display:grid; grid-template-columns:repeat(3, 1fr); gap:10px; margin-top:10px; padding-top:10px; border-top:1px dashed rgba(0,0,0,0.15);">
+    <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-top:10px; padding-top:10px; border-top:1px dashed rgba(0,0,0,0.15);">
       <div style="text-align:center;">
         <div style="font-size:11px; color:#666; text-transform:uppercase; letter-spacing:0.5px;">Rally Output %</div>
-        <div style="font-size:26px; font-weight:800; color:${statColor}; line-height:1.1;">${damagePct.toFixed(1)}%</div>
-        <div style="font-size:10px; color:#888;" title="Your rally's output efficiency -- how much of your total raw squad power actually lands after VR penalties and type counters. This is NOT boss HP damaged.">of your raw power lands <span style="color:#bbb; cursor:help;">(?)</span></div>
-      </div>
-      <div style="text-align:center;">
-        <div style="font-size:11px; color:#666; text-transform:uppercase; letter-spacing:0.5px;">Est. Boss HP Damage</div>
-        <div style="font-size:26px; font-weight:800; color:${bossColor}; line-height:1.1;">~${bossDamagePct.toFixed(1)}%</div>
-        <div style="font-size:10px; color:#888;" title="Approximate share of the boss's HP your rally removes. Calibrated from 3 OWOW in-game rallies (Apr 14-17, 2026) using a logistic (S-curve) model. Below ~35% Rally Output you barely scratch the boss (4-10%). At ~48% Output you deal ~49% boss damage. Above ~60% Output damage rises rapidly toward 80-99%. The S-curve shape reflects the game's threshold effect: underpowered rallies bounce off, but once you cross ~40% output the damage becomes viable.">of boss HP removed <span style="color:#bbb; cursor:help;">(?)</span></div>
+        <div style="font-size:30px; font-weight:800; color:${statColor}; line-height:1.1;">${damagePct.toFixed(1)}%</div>
+        <div style="font-size:10px; color:#888;" title="How much of your total raw squad power actually lands after VR penalties and type counters. Higher is better. This is NOT the % of boss HP you deal — actual boss damage depends on type matchup, enemy defense, and round-based combat mechanics.">of your raw power lands <span style="color:#bbb; cursor:help;">(?)</span></div>
       </div>
       <div style="text-align:center;">
         <div style="font-size:11px; color:#666; text-transform:uppercase; letter-spacing:0.5px;">Effective / Raw</div>
-        <div style="font-size:15px; font-weight:700; color:#5a6a6a; line-height:1.2; margin-top:8px;">
+        <div style="font-size:18px; font-weight:700; color:#5a6a6a; line-height:1.2; margin-top:6px;">
           <strong>${fmtPower(totalEff)}</strong><br><span style="color:#aaa; font-weight:400;">of</span> ${fmtPower(totalRaw)}
         </div>
         <div style="font-size:10px; color:#888;">${active.length} member(s)</div>
       </div>
     </div>
     <div style="margin-top:10px; padding:10px 12px; background:${outcomeColor}15; border:1px solid ${outcomeColor}55; border-radius:6px; text-align:center;">
-      <div style="font-size:11px; color:#666; text-transform:uppercase; letter-spacing:0.5px;">Expected Battle Outcome</div>
+      <div style="font-size:11px; color:#666; text-transform:uppercase; letter-spacing:0.5px;">Rally Outlook</div>
       <div style="font-size:20px; font-weight:800; color:${outcomeColor}; line-height:1.2; margin-top:2px;">${outcomeLabel}</div>
       <div style="font-size:12px; color:#555; margin-top:4px;">${outcomeDetail}</div>
+    </div>
+    <div style="margin-top:8px; font-size:10px; color:#999; text-align:center;">
+      Rally Output measures your squad efficiency after VR &amp; type penalties. Actual boss damage depends on many factors (type matchup, enemy defense, round survival). Output &ne; boss HP damage.
     </div>`;
 
   // Wrong-leader warning: per Last War wiki, the highest-VR player should lead
