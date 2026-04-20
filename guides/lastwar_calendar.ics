@@ -851,62 +851,97 @@ END:VALARM
 END:VEVENT
 BEGIN:VEVENT
 UID:owow-event-100@lastwar
+DTSTART;VALUE=DATE:20270109
+SUMMARY:S4: Tactics Cards
+DESCRIPTION:New Tactics Cards feature unlocks — take strategy to the next level
+CATEGORIES:EVENT
+END:VEVENT
+BEGIN:VEVENT
+UID:owow-event-101@lastwar
 DTSTART;VALUE=DATE:20270110
 SUMMARY:S4: S4: Weapons of Legends (Free)
 DESCRIPTION:Adds Hero Exclusive Weapon Shard Choice Chest VI to the Tavern. This provides weapon shards for Kimberly, DVA, Tesla, Murphy, Carlie, Swift, Marshall, Schuyler, and McGregor.
 CATEGORIES:EXCLUSIVE WEAPON
 END:VEVENT
 BEGIN:VEVENT
-UID:owow-event-101@lastwar
+UID:owow-event-102@lastwar
 DTSTART;VALUE=DATE:20270111
 SUMMARY:S4: Lucius Exclusive Weapon
 DESCRIPTION:Lucius Exclusive Weapon
 CATEGORIES:EXCLUSIVE WEAPON
 END:VEVENT
 BEGIN:VEVENT
-UID:owow-event-102@lastwar
+UID:owow-event-103@lastwar
 DTSTART;VALUE=DATE:20270125
 SUMMARY:S4: Adam Exclusive Weapon
 DESCRIPTION:Adam Exclusive Weapon
 CATEGORIES:EXCLUSIVE WEAPON
 END:VEVENT
 BEGIN:VEVENT
-UID:owow-event-103@lastwar
+UID:owow-event-104@lastwar
 DTSTART;VALUE=DATE:20270215
 SUMMARY:S4: Williams Exclusive Weapon
 DESCRIPTION:Williams Exclusive Weapon
 CATEGORIES:EXCLUSIVE WEAPON
 END:VEVENT
 BEGIN:VEVENT
-UID:owow-event-104@lastwar
+UID:owow-event-105@lastwar
 DTSTART;VALUE=DATE:20270305
 SUMMARY:S4: Black market
 DESCRIPTION:Black market
 CATEGORIES:EVENT
 END:VEVENT
 BEGIN:VEVENT
-UID:owow-event-105@lastwar
+UID:owow-event-106@lastwar
 DTSTART;VALUE=DATE:20270305
 SUMMARY:S4: Champions Duel
 DESCRIPTION:Champions Duel
 CATEGORIES:EVENT
 END:VEVENT
 BEGIN:VEVENT
-UID:owow-event-106@lastwar
+UID:owow-event-107@lastwar
+DTSTART;VALUE=DATE:20270305
+SUMMARY:S4: Zombie Invasion
+DESCRIPTION:Challenge Level 140-150 Zombie Bosses
+CATEGORIES:EVENT
+END:VEVENT
+BEGIN:VEVENT
+UID:owow-event-108@lastwar
+DTSTART;VALUE=DATE:20270305
+SUMMARY:S4: General's Trial
+DESCRIPTION:New Advanced Difficulties 7-8 unlock
+CATEGORIES:EVENT
+END:VEVENT
+BEGIN:VEVENT
+UID:owow-event-109@lastwar
+DTSTART;VALUE=DATE:20270305
+SUMMARY:S4: Lv.11 Unit
+DESCRIPTION:Research Campaign unlocks Lv.11 units — choose unit types with different traits
+CATEGORIES:EVENT
+END:VEVENT
+BEGIN:VEVENT
+UID:owow-event-110@lastwar
+DTSTART;VALUE=DATE:20270305
+SUMMARY:S4: Restricted Area Training
+DESCRIPTION:Honorable Campaign upgraded to Restricted Area Training
+CATEGORIES:EVENT
+END:VEVENT
+BEGIN:VEVENT
+UID:owow-event-111@lastwar
 DTSTART;VALUE=DATE:20270407
 SUMMARY:S5: S5: Wild West
 DESCRIPTION:S5: Wild West
 CATEGORIES:SEASON-START
 END:VEVENT
 BEGIN:VEVENT
-UID:owow-event-107@lastwar
+UID:owow-event-112@lastwar
 DTSTART;VALUE=DATE:20270408
 SUMMARY:S5: Season Boost
 DESCRIPTION:Season Boost
 CATEGORIES:SEASON
 END:VEVENT
 BEGIN:VEVENT
-UID:owow-event-108@lastwar
+UID:owow-event-113@lastwar
 DTSTART;VALUE=DATE:20270408
 SUMMARY:S5: S5: Legend Returns (Free)
 DESCRIPTION:Adds Weapon shards for Kimberly (tank), Tesla (missile) and DVA (aircraft) to the Tavern for free as part of the Legend Returns event. It also still includes hero shards for all UR heroes as well.
@@ -918,7 +953,7 @@ DESCRIPTION:Tomorrow: S5: S5: Legend Returns (Free)
 END:VALARM
 END:VEVENT
 BEGIN:VEVENT
-UID:owow-event-109@lastwar
+UID:owow-event-114@lastwar
 DTSTART;VALUE=DATE:20270408
 SUMMARY:S5: Hero tavern unlocks (Free)
 DESCRIPTION:Adds Morrison (aircraft), Adam (missile), and Fiona (missile) to the regular Tavern for free.
@@ -930,7 +965,7 @@ DESCRIPTION:Tomorrow: S5: Hero tavern unlocks (Free)
 END:VALARM
 END:VEVENT
 BEGIN:VEVENT
-UID:owow-event-110@lastwar
+UID:owow-event-115@lastwar
 DTSTART;VALUE=DATE:20270408
 SUMMARY:S5: Hidden Treasure
 DESCRIPTION:Hero Choice Chests from the Hidden Treasure digs now include shards for Morrison, Adam, and Fiona. This brings ALL heroes to the Hero Choice Chest.
@@ -942,45 +977,78 @@ DESCRIPTION:Tomorrow: S5: Hidden Treasure
 END:VALARM
 END:VEVENT
 BEGIN:VEVENT
-UID:owow-event-111@lastwar
+UID:owow-event-116@lastwar
 DTSTART;VALUE=DATE:20270410
 SUMMARY:S5: S5: Weapons of Legends (Free)
 DESCRIPTION:Adds Hero Exclusive Weapon Shard Choice Chest VIII to the Tavern. This provides weapon shards for Kimberly, DVA, Tesla, Murphy, Carlie, Swift, Marshall, Schuyler, McGregor, Lucius, Adam, and Williams.
 CATEGORIES:EXCLUSIVE WEAPON
 END:VEVENT
 BEGIN:VEVENT
-UID:owow-event-112@lastwar
+UID:owow-event-117@lastwar
 DTSTART;VALUE=DATE:20270411
 SUMMARY:S5: Fiona Exclusive Weapon
 DESCRIPTION:Fiona Exclusive Weapon
 CATEGORIES:EXCLUSIVE WEAPON
 END:VEVENT
 BEGIN:VEVENT
-UID:owow-event-113@lastwar
+UID:owow-event-118@lastwar
 DTSTART;VALUE=DATE:20270425
 SUMMARY:S5: Stetmann Exclusive Weapon
 DESCRIPTION:Stetmann Exclusive Weapon
 CATEGORIES:EXCLUSIVE WEAPON
 END:VEVENT
 BEGIN:VEVENT
-UID:owow-event-114@lastwar
+UID:owow-event-119@lastwar
 DTSTART;VALUE=DATE:20270516
 SUMMARY:S5: Morrison Exclusive Weapon
 DESCRIPTION:Morrison Exclusive Weapon
 CATEGORIES:EXCLUSIVE WEAPON
 END:VEVENT
 BEGIN:VEVENT
-UID:owow-event-115@lastwar
+UID:owow-event-120@lastwar
 DTSTART;VALUE=DATE:20270603
 SUMMARY:S5: Black market
 DESCRIPTION:Black market
 CATEGORIES:EVENT
 END:VEVENT
 BEGIN:VEVENT
-UID:owow-event-116@lastwar
+UID:owow-event-121@lastwar
 DTSTART;VALUE=DATE:20270603
 SUMMARY:S5: Champions Duel
 DESCRIPTION:Champions Duel
+CATEGORIES:EVENT
+END:VEVENT
+BEGIN:VEVENT
+UID:owow-event-122@lastwar
+DTSTART;VALUE=DATE:20270707
+SUMMARY:S6: S6: Lost Rainforest
+DESCRIPTION:Season 6 begins — the Deepwood and Lost Rainforest
+CATEGORIES:SEASON-START
+END:VEVENT
+BEGIN:VEVENT
+UID:owow-event-123@lastwar
+DTSTART;VALUE=DATE:20270707
+SUMMARY:S6: Season Boost
+DESCRIPTION:Enchanted Fungus base skin grants +5% Hero Attack, season exclusive skill, and additional buffs
+CATEGORIES:SEASON
+END:VEVENT
+BEGIN:VEVENT
+UID:owow-event-124@lastwar
+DTSTART;VALUE=DATE:20270710
+SUMMARY:S6: Hero Awakening - Kimberly
+DESCRIPTION:Kimberly's Awakening: Meteor Barrage — turns the battlefield upside down, massive power boost
+CATEGORIES:HERO
+BEGIN:VALARM
+TRIGGER:-P1D
+ACTION:DISPLAY
+DESCRIPTION:Tomorrow: S6: Hero Awakening - Kimberly
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:owow-event-125@lastwar
+DTSTART;VALUE=DATE:20270714
+SUMMARY:S6: Global Expedition
+DESCRIPTION:Global Expedition officially begins — explore new areas, take on global challenges, earn substantial rewards
 CATEGORIES:EVENT
 END:VEVENT
 END:VCALENDAR
