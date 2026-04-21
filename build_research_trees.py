@@ -2,7 +2,7 @@
 """Generate research_trees_visual.html — interactive research tree visualizer.
 
 Reads tree_data/*.json + research_trees.csv, outputs a self-contained HTML page
-with all 11 research trees laid out in two horizontal bands, SVG connection lines,
+with all 16 research trees laid out in three horizontal bands, SVG connection lines,
 and hover tooltips showing costs/prerequisites/progress.
 """
 
@@ -23,6 +23,8 @@ RECOMMENDED_PATH_FILE = os.path.join(SCRIPT_DIR, 'recommended_path.json')
 BAND1 = ['alliance-duel', 'defense-fortifications', 'siege-to-seize',
          'intercity-truck', 'special-forces']
 BAND2 = ['development', 'hero', 'squad-1', 'squad-2', 'squad-3', 'squad-4']
+BAND3 = ['tank-mastery', 'aircraft-mastery', 'missile-mastery',
+         'age-of-oil', 'tactical-weapon']
 
 DISPLAY_NAMES = {
     'alliance-duel': 'Alliance Duel',
@@ -36,6 +38,110 @@ DISPLAY_NAMES = {
     'squad-2': 'Squad 2',
     'squad-3': 'Squad 3',
     'squad-4': 'Squad 4',
+    'tank-mastery': 'Tank Mastery',
+    'aircraft-mastery': 'Aircraft Mastery',
+    'missile-mastery': 'Missile Mastery',
+    'age-of-oil': 'The Age of Oil',
+    'tactical-weapon': 'Tactical Weapon',
+}
+
+# === TRANSLATIONS (ES) ===
+# Research NODE names stay in English (game data).
+# Tree section names, state labels, UI controls, and tooltip text translate.
+
+TRANSLATIONS_ES = {
+    # Page title & subtitle
+    'page_title': 'Rastreador de Tecnologias',
+    'page_subtitle_prefix': 'Rastreador Interactivo de Progreso Tecnologico',
+    'page_subtitle_all_servers': 'Todos los Servidores',
+    'game_badge': 'Last War: Survival',
+
+    # Tree display names
+    'tree_alliance-duel': 'Duelo de Alianza',
+    'tree_defense-fortifications': 'Fuerte de Defensa',
+    'tree_siege-to-seize': 'Asedio para Conquistar',
+    'tree_intercity-truck': 'Camion Interurbano',
+    'tree_special-forces': 'Fuerzas Especiales',
+    'tree_development': 'Desarrollo',
+    'tree_hero': 'Heroe',
+    'tree_squad-1': 'Escuadron 1',
+    'tree_squad-2': 'Escuadron 2',
+    'tree_squad-3': 'Escuadron 3',
+    'tree_squad-4': 'Escuadron 4',
+    'tree_tank-mastery': 'Maestria de Tanque',
+    'tree_aircraft-mastery': 'Maestria Aerea',
+    'tree_missile-mastery': 'Maestria de Misil',
+    'tree_age-of-oil': 'La Era del Petroleo',
+    'tree_tactical-weapon': 'Arma Tactica',
+
+    # Dashboard
+    'btn_dashboard': 'Panel General',
+    'rdash_title': 'Vista General de Investigacion',
+    'rdash_total': 'Niveles Totales',
+    'rdash_done': 'Completados',
+    'rdash_progress': 'Progreso',
+    'rdash_maxed_nodes': 'Nodos Completos',
+    'rdash_available': 'Disponibles',
+
+    # State labels
+    'state_maxed': 'Completo',
+    'state_progress': 'En Progreso',
+    'state_blocked': 'Bloqueado',
+    'state_available': 'Disponible',
+    'state_locked': 'Cerrado',
+
+    # Legend
+    'legend_label': 'Leyenda:',
+    'legend_recommended': 'Recomendado',
+
+    # Band labels
+    'band1_label': 'Arboles de Estrategia y Soporte',
+    'band2_label': 'Arboles de Combate y Escuadron',
+    'band3_label': 'Arboles Avanzados y de Temporada',
+
+    # UI controls
+    'btn_export': 'Exportar CSV',
+    'btn_import': 'Importar CSV',
+    'btn_reset': 'Reiniciar',
+    'btn_expand_all': 'Expandir Todo',
+    'btn_collapse_all': 'Contraer Todo',
+
+    # Overall stats
+    'overall_prefix': 'General:',
+
+    # Tooltip text
+    'tt_level': 'Nivel:',
+    'tt_priority': 'Prioridad:',
+    'tt_tier_suffix': '-Nivel',
+    'tt_prereqs': 'Prerrequisitos:',
+    'tt_prereqs_for_lv': 'Prerrequisitos (para Nv.{lv}):',
+    'tt_next_level': 'Siguiente Nivel ({lv}):',
+    'tt_total_remaining': 'Total Restante:',
+    'tt_rec_step': 'Paso Recomendado #{num}',
+    'tt_up_next': '(SIGUIENTE!)',
+
+    # Cost labels
+    'cost_gold': 'Oro',
+    'cost_food': 'Comida',
+    'cost_iron': 'Hierro',
+    'cost_valor': 'Valor',
+    'cost_oil': 'Petroleo',
+
+    # Editor popup
+    'ep_blocked_prefix': 'Bloqueado — necesita: ',
+    'ep_prereqs_not_met': 'Prerrequisitos no cumplidos: ',
+    'ep_next_prefix': 'Sig:',
+    'ep_maxed': 'COMPLETO',
+
+    # Import/Export messages
+    'import_msg': 'Importados {n} nodos',
+    'csv_alert': 'El CSV debe tener columnas: Tree, Node, Level, HaveIt',
+    'reset_confirm': 'Reiniciar TODO el progreso de investigacion a cero? Esto borra todo. Puedes re-importar tu CSV para restaurar tus datos.',
+
+    # Footer
+    'footer_text': 'Hecho para jugadores de Last War: Survival',
+    'footer_data_from': 'Datos de',
+    'footer_created_by': 'Creado por Extremesecrecy',
 }
 
 # Abbreviation rules — applied in order (multi-word first, then single-word)
@@ -57,6 +163,26 @@ ABBREV_RULES = [
     ("Counter Defense", "Ctr. Def."),
     ("Solid Defense", "Solid Def."),
     ("Reindeer Sleigh Ride", "Sleigh Ride"),
+    ("Missile Vehicle Synergy", "MV Syn."),
+    ("Missile Vehicle", "MV"),
+    ("Tank Synergy", "T. Syn."),
+    ("Aircraft Synergy", "A. Syn."),
+    ("Ultimate Defense", "Ult. Def."),
+    ("March Size", "March Sz."),
+    ("Limit Break:", "LB:"),
+    ("Chip Skill Boost", "Chip Sk. Bst."),
+    ("Level Cap", "Lv. Cap"),
+    ("Skill Star", "Sk. Star"),
+    ("Assistance:", "Asst."),
+    ("Conversion", "Conv."),
+    ("Enhancement:", "Enh."),
+    ("Parts Workshop", "Parts WS"),
+    ("Oil Output", "Oil Out."),
+    ("Emergency Capacity", "Emerg. Cap."),
+    ("Base Expansion", "Base Exp."),
+    ("3rd Tech Center", "3rd TC"),
+    ("More Oil Wells", "More Wells"),
+    ("Unlock Oil Well", "Oil Well"),
     # Single-word replacements
     ("Expansion", "Exp."),
     ("Enhancement", "Enh."),
@@ -98,10 +224,11 @@ def load_trees():
 
 
 def load_csv():
-    """Load CSV progress, priority, and notes data."""
+    """Load CSV progress, priority, notes, and per-level research times."""
     progress = {}   # (tree_name, node_name) → current_level
     priority = {}   # (tree_name, node_name) → 'S'/'A'/'B'/'C'
     notes = {}      # (tree_name, node_name) → first non-empty note
+    times = {}      # (tree_name, node_name, level) → (originalTime, buffedTime)
     with open(CSV_FILE, encoding='utf-8') as f:
         for row in csv.DictReader(f):
             k = (row['Tree'], row['Node'])
@@ -114,7 +241,11 @@ def load_csv():
                 priority[k] = row['Priority'].strip()
             if k not in notes and row.get('Notes', '').strip():
                 notes[k] = row['Notes'].strip()
-    return progress, priority, notes
+            orig_t = row.get('OriginalTime', '').strip()
+            buff_t = row.get('BuffedTime', '').strip()
+            if orig_t or buff_t:
+                times[(row['Tree'], row['Node'], lv)] = (orig_t, buff_t)
+    return progress, priority, notes, times
 
 
 def load_recommended_path():
@@ -173,8 +304,9 @@ def get_line_state(from_state, to_state):
     return 'locked'
 
 
-def process_tree(tree_key, tree, progress, priority_map, notes_map):
+def process_tree(tree_key, tree, progress, priority_map, notes_map, times_map=None):
     tree_name = tree['name']
+    times_map = times_map or {}
     emap = build_element_map(tree)
     max_width = max(len(r['elements']) for r in tree['rows'])
 
@@ -228,7 +360,22 @@ def process_tree(tree_key, tree, progress, priority_map, notes_map):
                 'food': lv_data.get('food', 0),
                 'iron': lv_data.get('iron', 0),
                 'valor': lv_data.get('valor', 0),
+                'oil': lv_data.get('oil', 0),
             }
+            # Look up times by (tree, node, level). Fall back to " I" suffix for CSVs
+            # where duplicate JSON names were disambiguated (e.g., Advanced Protection I/II).
+            # Row number distinguishes: earlier row = "I", later row = "II".
+            row_suffix = ' I' if row_map.get(eid, 0) < 6 else ' II'
+            t_key_primary = (tree_name, el['name'], lv_data['level'])
+            t_key_suffix = (tree_name, el['name'] + row_suffix, lv_data['level'])
+            for t_key in (t_key_primary, t_key_suffix):
+                if t_key in times_map:
+                    orig_t, buff_t = times_map[t_key]
+                    if orig_t:
+                        entry['originalTime'] = orig_t
+                    if buff_t:
+                        entry['buffedTime'] = buff_t
+                    break
             if lv_reqs:
                 entry['requirements'] = lv_reqs
             lv_costs.append(entry)
@@ -286,7 +433,7 @@ def generate_tree_html(tree_key, data):
 
     lines = []
     lines.append(f'<div class="tree-col" id="tree-{tree_key}" style="width:{col_w}px">')
-    lines.append(f'  <div class="tree-header">{html_mod.escape(display_name)}{incomplete}<br>'
+    lines.append(f'  <div class="tree-header"><span data-i18n="tree_{tree_key}">{html_mod.escape(display_name)}</span>{incomplete}<br>'
                  f'<span class="tree-pct">{s["done"]}/{s["total"]} &mdash; {s["pct"]}%</span>'
                  f'<div class="tree-progress-bar"><div class="tree-progress-fill" style="width:{s["pct"]}%"></div></div></div>')
     lines.append(f'  <div class="tree-body">')
@@ -325,6 +472,7 @@ def generate_tree_html(tree_key, data):
 # === CSS ===
 
 CSS = r'''
+@import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&display=swap');
 * { margin: 0; padding: 0; box-sizing: border-box; }
 body {
     background: #fff;
@@ -462,7 +610,32 @@ body {
     padding: 4px 12px 12px;
     align-items: flex-start;
     overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
     min-width: 0;
+    position: relative;
+}
+.band::-webkit-scrollbar { height: 8px; }
+.band::-webkit-scrollbar-track { background: #f0f0f0; border-radius: 4px; }
+.band::-webkit-scrollbar-thumb { background: #7fb3a8; border-radius: 4px; }
+.band::-webkit-scrollbar-thumb:hover { background: #5a8a7e; }
+
+/* Scroll hint arrow for bands that overflow */
+.band-scroll-hint {
+    position: sticky;
+    right: 0;
+    top: 50%;
+    align-self: center;
+    flex-shrink: 0;
+    width: 28px;
+    height: 40px;
+    background: linear-gradient(90deg, transparent, rgba(127,179,168,0.3));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    color: #7fb3a8;
+    pointer-events: none;
+    z-index: 2;
 }
 
 /* Tree column */
@@ -857,6 +1030,33 @@ body {
     .legend-swatch { width: 14px; height: 14px; }
 }
 
+/* Language toggle */
+.lang-toggle {
+    display: inline-flex;
+    gap: 0;
+    margin-left: 12px;
+    border-radius: 4px;
+    overflow: hidden;
+    border: 1px solid rgba(255,255,255,0.25);
+    vertical-align: middle;
+}
+.lang-btn {
+    padding: 3px 10px;
+    font-size: 11px;
+    font-weight: 600;
+    cursor: pointer;
+    border: none;
+    background: rgba(255,255,255,0.08);
+    color: rgba(255,255,255,0.6);
+    transition: all 0.2s;
+    letter-spacing: 0.5px;
+}
+.lang-btn:hover { background: rgba(255,255,255,0.15); color: #fff; }
+.lang-btn.active {
+    background: rgba(244,162,97,0.25);
+    color: #f4a261;
+}
+
 /* Navigation Bar */
 .guide-nav {
     display: flex;
@@ -899,6 +1099,120 @@ body {
         font-size: 11px;
     }
 }
+
+/* ====== RESEARCH DASHBOARD ====== */
+.header-btn.btn-dashboard { background: rgba(244,162,97,0.25); border-color: rgba(244,162,97,0.6); color: #f4a261; font-weight: 700; }
+.header-btn.btn-dashboard:hover { background: rgba(244,162,97,0.35); border-color: rgba(244,162,97,0.8); color: #fff; }
+
+.rdash-overlay {
+  display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+  background: #fff;
+  z-index: 9999;
+}
+.rdash-overlay.open { display: flex; flex-direction: column; }
+
+.rdash-topbar {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 8px 16px;
+  background: #f0f5f4;
+  border-bottom: 3px solid #7fb3a8;
+  flex-shrink: 0;
+}
+.rdash-topbar h2 { font-size: 18px; font-family: 'Fredoka', sans-serif; text-transform: uppercase; letter-spacing: 1px; margin: 0; color: #5a6a6a; }
+.rdash-topbar .rdash-sub { font-size: 12px; color: #f4a261; margin-left: 12px; font-weight: 700; }
+.rdash-close { font-size: 22px; cursor: pointer; color: #5a6a6a; background: none; border: none; font-weight: 700; }
+.rdash-close:hover { color: #fc5c65; }
+
+.rdash-stats {
+  display: grid; grid-template-columns: repeat(5, 1fr); gap: 6px; padding: 8px 10px; flex-shrink: 0;
+}
+.rdash-stat {
+  text-align: center; padding: 6px 4px; border-radius: 8px;
+  background: #fafafa; border: 2px solid #e0e0e0;
+}
+.rdash-stat .rs-icon { font-size: 16px; display: block; margin-bottom: 1px; }
+.rdash-stat .rs-label { font-size: 9px; text-transform: uppercase; letter-spacing: 0.5px; color: #888; font-weight: 700; }
+.rdash-stat .rs-value { font-size: 18px; font-weight: 800; }
+.rdash-stat.rs-total { border-color: #7fb3a8; }
+.rdash-stat.rs-total .rs-value { color: #7fb3a8; }
+.rdash-stat.rs-done { border-color: #43a047; }
+.rdash-stat.rs-done .rs-value { color: #43a047; }
+.rdash-stat.rs-pct { border-color: #f4a261; }
+.rdash-stat.rs-pct .rs-value { color: #f4a261; }
+.rdash-stat.rs-maxed { border-color: #5bc0de; }
+.rdash-stat.rs-maxed .rs-value { color: #5bc0de; }
+.rdash-stat.rs-avail { border-color: #f4d35e; }
+.rdash-stat.rs-avail .rs-value { color: #c49a20; }
+
+.rdash-body {
+  flex: 1; overflow-y: auto; padding: 6px 10px;
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 6px; align-content: start;
+}
+
+.rdash-tree {
+  border-radius: 6px; overflow: hidden;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+  border: 1px solid #e0e0e0;
+  display: flex; flex-direction: column;
+}
+.rdash-tree-header {
+  padding: 5px 10px; display: flex; justify-content: space-between; align-items: center;
+  font-family: 'Fredoka', sans-serif;
+  font-size: 13px; font-weight: 800; color: #fff; text-transform: uppercase; letter-spacing: 0.5px;
+}
+.rdash-tree-header .rth-icon { margin-right: 4px; }
+.rdash-tree-header .rth-pct { font-size: 11px; font-weight: 600; color: rgba(255,255,255,0.9); }
+
+/* Band colors — using OWOW palette */
+.rdash-tree[data-band="1"] .rdash-tree-header { background: #fc5c65; }
+.rdash-tree[data-band="2"] .rdash-tree-header { background: #5bc0de; }
+.rdash-tree[data-band="3"] .rdash-tree-header { background: #7fb3a8; }
+
+.rdash-tree-body {
+  background: #fff; padding: 4px; flex: 1;
+  display: grid; grid-template-columns: repeat(auto-fill, minmax(70px, 1fr)); gap: 2px;
+}
+
+.rdash-node {
+  padding: 2px 4px; border-radius: 3px; border-left: 3px solid #ccc;
+}
+.rdash-node .rn-name { font-size: 9px; font-weight: 600; color: #666; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; line-height: 1.2; }
+.rdash-node .rn-level { font-size: 13px; font-weight: 900; }
+.rdash-node.rn-maxed { border-left-color: #7fb3a8; background: #e6f0ed; }
+.rdash-node.rn-maxed .rn-level { color: #7fb3a8; }
+.rdash-node.rn-progress { border-left-color: #f4a261; background: #fdf5eb; }
+.rdash-node.rn-progress .rn-level { color: #f4a261; }
+.rdash-node.rn-blocked { border-left-color: #e57373; background: #fdf0f0; }
+.rdash-node.rn-blocked .rn-level { color: #e57373; }
+.rdash-node.rn-available { border-left-color: #5bc0de; background: #eaf6fa; }
+.rdash-node.rn-available .rn-level { color: #5bc0de; }
+.rdash-node.rn-locked { border-left-color: #ccc; background: #f5f5f5; opacity: 0.5; }
+.rdash-node.rn-locked .rn-level { color: #ccc; }
+
+.rdash-pbar { height: 3px; background: rgba(0,0,0,0.08); border-radius: 2px; margin-top: 3px; }
+.rdash-pbar-fill { height: 100%; border-radius: 2px; transition: width 0.3s; }
+.rdash-pbar-fill.rpb-low { background: #fc5c65; }
+.rdash-pbar-fill.rpb-mid { background: #f4a261; }
+.rdash-pbar-fill.rpb-high { background: #43a047; }
+.rdash-pbar-fill.rpb-full { background: #7fb3a8; }
+
+.rdash-legend {
+  display: flex; gap: 12px; justify-content: center; padding: 5px 0;
+  flex-shrink: 0; background: #f0f5f4; border-top: 2px solid #e0e0e0;
+  font-size: 10px; color: #888;
+}
+.rdash-legend span::before { content: ''; display: inline-block; width: 8px; height: 8px; border-radius: 50%; margin-right: 3px; vertical-align: middle; }
+.rdash-legend .rl-maxed::before { background: #7fb3a8; }
+.rdash-legend .rl-progress::before { background: #f4a261; }
+.rdash-legend .rl-blocked::before { background: #e57373; }
+.rdash-legend .rl-available::before { background: #5bc0de; }
+.rdash-legend .rl-locked::before { background: #888; }
+
+@media (max-width: 600px) {
+  .rdash-stats { grid-template-columns: repeat(3, 1fr); }
+  .rdash-body { grid-template-columns: 1fr; }
+}
 '''
 
 # === JAVASCRIPT ===
@@ -909,7 +1223,10 @@ let editorOpen = false;
 const isMobile = () => window.innerWidth <= 768;
 
 document.addEventListener('DOMContentLoaded', () => {
+    // Apply saved language before rendering
+    if (currentLang !== 'en') setLang(currentLang);
     loadProgress();
+    owowStorage.requestPersist();
     recomputeAll();
     drawAllLines();
     renderRecommendedBadges();
@@ -923,6 +1240,29 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('btn-export')?.addEventListener('click', exportCSV);
     document.getElementById('csv-file-input')?.addEventListener('change', importCSV);
     document.getElementById('btn-reset')?.addEventListener('click', resetProgress);
+
+    // Add scroll hints to bands that overflow
+    document.querySelectorAll('.band').forEach(band => {
+        const checkScroll = () => {
+            const canScroll = band.scrollWidth > band.clientWidth + 10;
+            const atEnd = band.scrollLeft + band.clientWidth >= band.scrollWidth - 10;
+            let hint = band.querySelector('.band-scroll-hint');
+            if (canScroll && !atEnd) {
+                if (!hint) {
+                    hint = document.createElement('div');
+                    hint.className = 'band-scroll-hint';
+                    hint.textContent = '\u25B6';
+                    band.appendChild(hint);
+                }
+                hint.style.display = 'flex';
+            } else if (hint) {
+                hint.style.display = 'none';
+            }
+        };
+        checkScroll();
+        band.addEventListener('scroll', checkScroll);
+        window.addEventListener('resize', checkScroll);
+    });
 });
 
 // ============ COLLAPSIBLE TREES (MOBILE) ============
@@ -1136,7 +1476,7 @@ function updateGrandStats() {
     }
     const gPct = gTotal ? Math.round(gDone / gTotal * 100) : 0;
     const sub = document.getElementById('grand-stats');
-    if (sub) sub.textContent = `Overall: ${gDone}/${gTotal} (${gPct}%)`;
+    if (sub) sub.textContent = `${t('overall_prefix', 'Overall:')} ${gDone}/${gTotal} (${gPct}%)`;
 }
 
 // ============ TOOLTIPS ============
@@ -1148,10 +1488,11 @@ function setupTooltips() {
             if (editorOpen) return;
             const d = TREE_DATA[node.dataset.tree]?.nodes?.[node.dataset.id];
             if (!d) return;
-            let h = `<div class="tt-name">${esc(d.name)} <span class="tt-badge ${d.state}">${d.state}</span></div>`;
-            h += `<div>Level: <b>${d.currentLevel}/${d.maxLevel}</b></div>`;
+            const stateLabel = t('state_' + d.state, d.state);
+            let h = `<div class="tt-name">${esc(d.name)} <span class="tt-badge ${d.state}">${stateLabel}</span></div>`;
+            h += `<div>${t('tt_level', 'Level:')} <b>${d.currentLevel}/${d.maxLevel}</b></div>`;
             if (d.priority) {
-                h += `<div>Priority: <span class="tt-pri ${d.priority}">${d.priority}-Tier</span></div>`;
+                h += `<div>${t('tt_priority', 'Priority:')} <span class="tt-pri ${d.priority}">${d.priority}${t('tt_tier_suffix', '-Tier')}</span></div>`;
             }
             // Show prerequisites for the NEXT level to research
             const nextIdx = d.currentLevel;
@@ -1159,8 +1500,8 @@ function setupTooltips() {
             const ttReqs = (nextLv && nextLv.requirements) ? nextLv.requirements : d.requirements;
             if (ttReqs.length) {
                 const label = d.currentLevel > 0
-                    ? `Prerequisites (for Lv.${d.currentLevel + 1}):`
-                    : `Prerequisites:`;
+                    ? t('tt_prereqs_for_lv', 'Prerequisites (for Lv.{lv}):').replace('{lv}', d.currentLevel + 1)
+                    : t('tt_prereqs', 'Prerequisites:');
                 h += `<div class="tt-sep"></div><div class="tt-label">${label}</div>`;
                 const nodes = TREE_DATA[node.dataset.tree]?.nodes;
                 ttReqs.forEach(req => {
@@ -1179,13 +1520,23 @@ function setupTooltips() {
             const nextCost = getNextCost(d);
             if (nextCost && d.state !== 'maxed') {
                 h += `<div class="tt-sep"></div>`;
-                h += `<div class="tt-label">Next Level (${d.currentLevel + 1}):</div>`;
+                h += `<div class="tt-label">${t('tt_next_level', 'Next Level ({lv}):').replace('{lv}', d.currentLevel + 1)}</div>`;
                 h += fmtCost(nextCost);
+                // Time info (captured from in-game tooltip)
+                const yours = fmtTime(nextCost.buffedTime);
+                const base = fmtTime(nextCost.originalTime);
+                if (yours || base) {
+                    let tStr = '';
+                    if (yours && base) tStr = `⏱ ${yours} <span style="color:#999">(base ${base})</span>`;
+                    else if (yours) tStr = `⏱ ${yours}`;
+                    else tStr = `⏱ base ${base}`;
+                    h += `<div style="font-size:11px;color:#555;margin-top:3px">${tStr}</div>`;
+                }
             }
             // Total remaining
             const rem = getTotalRemaining(d);
             if (d.state !== 'maxed' && (rem.gold || rem.food || rem.iron || rem.valor)) {
-                h += `<div class="tt-label">Total Remaining:</div>`;
+                h += `<div class="tt-label">${t('tt_total_remaining', 'Total Remaining:')}</div>`;
                 h += fmtCost(rem);
             }
             if (d.notes) {
@@ -1196,8 +1547,8 @@ function setupTooltips() {
             const recStep = window._recLookup?.[recKey];
             if (recStep) {
                 h += `<div class="tt-sep"></div>`;
-                h += `<div class="tt-rec">Recommended Step #${recStep.stepNum}`;
-                if (recStep.status === 'next') h += ' (UP NEXT!)';
+                h += `<div class="tt-rec">${t('tt_rec_step', 'Recommended Step #{num}').replace('{num}', recStep.stepNum)}`;
+                if (recStep.status === 'next') h += ` ${t('tt_up_next', '(UP NEXT!)')}`;
                 h += `</div>`;
                 h += `<div class="tt-rec" style="font-weight:400">${esc(recStep.reason)}</div>`;
             }
@@ -1232,10 +1583,11 @@ function getTotalRemaining(d) {
 
 function fmtCost(c) {
     let p = [];
-    if (c.gold) p.push(`<span style="color:#b8860b">Gold: ${fN(c.gold)}</span>`);
-    if (c.food) p.push(`<span style="color:#5a8a3c">Food: ${fN(c.food)}</span>`);
-    if (c.iron) p.push(`<span style="color:#7a8a9a">Iron: ${fN(c.iron)}</span>`);
-    if (c.valor) p.push(`<span style="color:#8b5cf6">Valor: ${fN(c.valor)}</span>`);
+    if (c.gold) p.push(`<span style="color:#b8860b">${t('cost_gold','Gold')}: ${fN(c.gold)}</span>`);
+    if (c.food) p.push(`<span style="color:#5a8a3c">${t('cost_food','Food')}: ${fN(c.food)}</span>`);
+    if (c.iron) p.push(`<span style="color:#7a8a9a">${t('cost_iron','Iron')}: ${fN(c.iron)}</span>`);
+    if (c.valor) p.push(`<span style="color:#8b5cf6">${t('cost_valor','Valor')}: ${fN(c.valor)}</span>`);
+    if (c.oil) p.push(`<span style="color:#2a2a2a">${t('cost_oil','Oil')}: ${fN(c.oil)}</span>`);
     return `<div class="tt-cost">${p.join(' ')}</div>`;
 }
 
@@ -1243,6 +1595,24 @@ function fN(v) {
     if (v >= 1e6) return (v / 1e6).toFixed(1) + 'M';
     if (v >= 1e3) return (v / 1e3).toFixed(0) + 'K';
     return '' + v;
+}
+
+function fmtTime(s) {
+    // Input formats: "83d 07:11:00" or "18:56:15" (no days)
+    // Output: compact "83d 7h 11m" or "18h 56m"
+    if (!s || typeof s !== 'string') return '';
+    const trimmed = s.trim();
+    if (!trimmed) return '';
+    const m = trimmed.match(/^(?:(\d+)d\s+)?(\d+):(\d+)(?::(\d+))?$/);
+    if (!m) return trimmed;
+    const days = parseInt(m[1] || 0);
+    const hours = parseInt(m[2]);
+    const mins = parseInt(m[3]);
+    const parts = [];
+    if (days) parts.push(days + 'd');
+    if (hours || days) parts.push(hours + 'h');
+    parts.push(mins + 'm');
+    return parts.join(' ');
 }
 
 function esc(s) {
@@ -1341,7 +1711,7 @@ function setupEditor() {
                 const rn = nodes?.[r.elementId];
                 return (rn ? rn.name : r.elementId) + ' Lv.' + r.minLevel;
             });
-            const prefix = blocked ? 'Blocked — need: ' : 'Prereqs not met: ';
+            const prefix = blocked ? t('ep_blocked_prefix', 'Blocked — need: ') : t('ep_prereqs_not_met', 'Prereqs not met: ');
             epCost.innerHTML = '<span style="color:#c00">' + prefix + missing.map(esc).join(', ') + '</span>';
         } else {
             const nc = getNextCost(d);
@@ -1351,9 +1721,13 @@ function setupEditor() {
                 if (nc.food) parts.push(`<span style="color:#5a8a3c">F:${fN(nc.food)}</span>`);
                 if (nc.iron) parts.push(`<span style="color:#7a8a9a">I:${fN(nc.iron)}</span>`);
                 if (nc.valor) parts.push(`<span style="color:#8b5cf6">V:${fN(nc.valor)}</span>`);
-                epCost.innerHTML = parts.length ? `Next: ${parts.join(' ')}` : '';
+                const yours = fmtTime(nc.buffedTime);
+                const base = fmtTime(nc.originalTime);
+                if (yours) parts.push(`<span style="color:#555">⏱${yours}</span>`);
+                else if (base) parts.push(`<span style="color:#555">⏱base ${base}</span>`);
+                epCost.innerHTML = parts.length ? `${t('ep_next_prefix', 'Next:')} ${parts.join(' ')}` : '';
             } else {
-                epCost.innerHTML = d.currentLevel >= d.maxLevel ? 'MAXED' : '';
+                epCost.innerHTML = d.currentLevel >= d.maxLevel ? t('ep_maxed', 'MAXED') : '';
             }
         }
 
@@ -1370,7 +1744,7 @@ function setupEditor() {
             const recKey = curTree + '-' + curId;
             const recStep = window._recLookup?.[recKey];
             if (recStep) {
-                epRec.innerHTML = `Step #${recStep.stepNum}${recStep.status === 'next' ? ' (UP NEXT!)' : ''}: ${esc(recStep.reason)}`;
+                epRec.innerHTML = `${t('tt_rec_step', 'Recommended Step #{num}').replace('{num}', recStep.stepNum)}${recStep.status === 'next' ? ` ${t('tt_up_next', '(UP NEXT!)')}` : ''}: ${esc(recStep.reason)}`;
             } else {
                 epRec.innerHTML = '';
             }
@@ -1386,8 +1760,8 @@ function setupEditor() {
             const detReqs = (nextLv && nextLv.requirements) ? nextLv.requirements : d.requirements;
             if (detReqs.length) {
                 const label = d.currentLevel > 0
-                    ? `Prerequisites (for Lv.${d.currentLevel + 1}):`
-                    : `Prerequisites:`;
+                    ? t('tt_prereqs_for_lv', 'Prerequisites (for Lv.{lv}):').replace('{lv}', d.currentLevel + 1)
+                    : t('tt_prereqs', 'Prerequisites:');
                 dh += `<div class="tt-sep"></div><div class="tt-label">${label}</div>`;
                 const nodes = TREE_DATA[curTree]?.nodes;
                 detReqs.forEach(req => {
@@ -1407,14 +1781,14 @@ function setupEditor() {
                 const nc = getNextCost(d);
                 if (nc) {
                     dh += `<div class="tt-sep"></div>`;
-                    dh += `<div class="tt-label">Next Level (${d.currentLevel + 1}):</div>`;
+                    dh += `<div class="tt-label">${t('tt_next_level', 'Next Level ({lv}):').replace('{lv}', d.currentLevel + 1)}</div>`;
                     dh += fmtCost(nc);
                 }
             }
             // Total remaining
             const rem = getTotalRemaining(d);
             if (d.state !== 'maxed' && (rem.gold || rem.food || rem.iron || rem.valor)) {
-                dh += `<div class="tt-label">Total Remaining:</div>`;
+                dh += `<div class="tt-label">${t('tt_total_remaining', 'Total Remaining:')}</div>`;
                 dh += fmtCost(rem);
             }
             // Notes
@@ -1498,20 +1872,34 @@ function saveProgress() {
         }
     }
     try {
-        localStorage.setItem(LS_KEY, JSON.stringify(data));
+        owowStorage.save(LS_KEY, data);
     } catch (e) { /* quota exceeded — ignore */ }
 }
 
 function loadProgress() {
+    // Sync load from localStorage for immediate render
     let saved;
     try {
         const raw = localStorage.getItem(LS_KEY);
-        if (!raw) return;
-        saved = JSON.parse(raw);
-    } catch (e) { return; }
-    if (!saved || typeof saved !== 'object') return;
+        if (raw) { saved = JSON.parse(raw); }
+    } catch (e) {}
 
+    if (saved && typeof saved === 'object') {
+        _applyResearchData(saved);
+    } else {
+        // Async fallback: IndexedDB recovery (iOS)
+        owowStorage.load(LS_KEY).then(function(data) {
+            if (data && typeof data === 'object') {
+                _applyResearchData(data);
+                recomputeAll();
+            }
+        });
+    }
+}
+
+function _applyResearchData(saved) {
     for (const [tk, levels] of Object.entries(saved)) {
+        if (tk.startsWith('_')) continue;  // skip metadata fields like _savedAt
         if (!TREE_DATA[tk]) continue;
         for (const [eid, lv] of Object.entries(levels)) {
             const node = TREE_DATA[tk].nodes?.[eid];
@@ -1525,7 +1913,7 @@ function loadProgress() {
 // ============ EXPORT CSV ============
 
 function exportCSV() {
-    const rows = ['Tree,Row,Node,MaxLevel,Level,Gold,Food,Iron,Valor,Prerequisite,HaveIt,Priority,Notes'];
+    const rows = ['Tree,Row,Node,MaxLevel,Level,Gold,Food,Iron,Valor,Oil,Prerequisite,HaveIt,Priority,Notes'];
     // Maintain consistent order: iterate trees in DOM order
     const treeOrder = TREE_ORDER;
     for (const tk of treeOrder) {
@@ -1549,7 +1937,7 @@ function exportCSV() {
                 const haveIt = lv.level <= node.currentLevel ? 1 : 0;
                 const csvRow = [
                     csvEsc(treeName), node.row, csvEsc(node.name), node.maxLevel, lv.level,
-                    lv.gold || 0, lv.food || 0, lv.iron || 0, lv.valor || 0,
+                    lv.gold || 0, lv.food || 0, lv.iron || 0, lv.valor || 0, lv.oil || 0,
                     csvEsc(prereqStr), haveIt,
                     csvEsc(node.priority || ''), csvEsc(node.notes || '')
                 ].join(',');
@@ -1592,7 +1980,7 @@ function importCSV(e) {
         const iLevel = header.indexOf('Level');
         const iHaveIt = header.indexOf('HaveIt');
         if (iTree < 0 || iNode < 0 || iLevel < 0 || iHaveIt < 0) {
-            alert('CSV must have columns: Tree, Node, Level, HaveIt');
+            alert(t('csv_alert', 'CSV must have columns: Tree, Node, Level, HaveIt'));
             return;
         }
 
@@ -1651,7 +2039,7 @@ function importCSV(e) {
         renderRecommendedBadges();
 
         // Show confirmation
-        showImportMsg('Imported ' + updated + ' nodes');
+        showImportMsg(t('import_msg', 'Imported {n} nodes').replace('{n}', updated));
 
         // Reset file input so same file can be re-imported (setTimeout avoids double-trigger)
         setTimeout(() => { e.target.value = ''; }, 100);
@@ -1707,7 +2095,7 @@ function showImportMsg(text) {
 // ============ RESET ============
 
 function resetProgress() {
-    if (!confirm('Reset ALL research progress to zero? This clears everything. You can re-import your CSV to restore your data.')) return;
+    if (!confirm(t('reset_confirm', 'Reset ALL research progress to zero? This clears everything. You can re-import your CSV to restore your data.'))) return;
     try { localStorage.removeItem(LS_KEY); } catch(e) {}
     // Set every node to level 0
     for (const [tk, tree] of Object.entries(TREE_DATA)) {
@@ -1792,6 +2180,91 @@ function renderRecommendedBadges() {
         }
     }
 }
+
+/* ====== RESEARCH DASHBOARD ====== */
+const TREE_BANDS = {
+    'alliance-duel':1,'defense-fortifications':1,'siege-to-seize':1,'intercity-truck':1,'special-forces':1,
+    'development':2,'hero':2,'squad-1':2,'squad-2':2,'squad-3':2,'squad-4':2,
+    'tank-mastery':3,'aircraft-mastery':3,'missile-mastery':3,'age-of-oil':3,'tactical-weapon':3
+};
+const TREE_ICONS = {
+    'alliance-duel':'\u2694\uFE0F','defense-fortifications':'\uD83D\uDEE1\uFE0F','siege-to-seize':'\uD83C\uDFF0',
+    'intercity-truck':'\uD83D\uDE9A','special-forces':'\uD83D\uDCAA',
+    'development':'\uD83D\uDD27','hero':'\uD83E\uDDB8','squad-1':'1\uFE0F\u20E3','squad-2':'2\uFE0F\u20E3',
+    'squad-3':'3\uFE0F\u20E3','squad-4':'4\uFE0F\u20E3',
+    'tank-mastery':'\uD83D\uDD31','aircraft-mastery':'\u2708\uFE0F','missile-mastery':'\uD83D\uDE80',
+    'age-of-oil':'\uD83D\uDEE2\uFE0F','tactical-weapon':'\uD83D\uDCA3'
+};
+
+function openResearchDash() {
+    renderResearchDash();
+    document.getElementById('rdashOverlay').classList.add('open');
+    document.body.style.overflow = 'hidden';
+}
+
+function closeResearchDash() {
+    document.getElementById('rdashOverlay').classList.remove('open');
+    document.body.style.overflow = '';
+}
+
+function renderResearchDash() {
+    // Grand totals
+    let gDone = 0, gTotal = 0, gMaxed = 0, gAvail = 0;
+    for (const data of Object.values(TREE_DATA)) {
+        if (data.stats) { gDone += data.stats.done; gTotal += data.stats.total; }
+        for (const node of Object.values(data.nodes)) {
+            if (node.state === 'maxed') gMaxed++;
+            if (node.state === 'available') gAvail++;
+        }
+    }
+    const gPct = gTotal ? Math.round(gDone / gTotal * 100) : 0;
+
+    // Subtitle
+    document.getElementById('rdashSub').textContent = gDone + '/' + gTotal + ' (' + gPct + '%)';
+
+    // Stats
+    let sH = '';
+    sH += '<div class="rdash-stat rs-total"><span class="rs-icon">\uD83D\uDCCA</span><div class="rs-label">' + t('rdash_total','Total Levels') + '</div><div class="rs-value">' + gTotal + '</div></div>';
+    sH += '<div class="rdash-stat rs-done"><span class="rs-icon">\u2705</span><div class="rs-label">' + t('rdash_done','Completed') + '</div><div class="rs-value">' + gDone + '</div></div>';
+    sH += '<div class="rdash-stat rs-pct"><span class="rs-icon">\u26A1</span><div class="rs-label">' + t('rdash_progress','Progress') + '</div><div class="rs-value">' + gPct + '%</div></div>';
+    sH += '<div class="rdash-stat rs-maxed"><span class="rs-icon">\uD83C\uDFC6</span><div class="rs-label">' + t('rdash_maxed_nodes','Maxed Nodes') + '</div><div class="rs-value">' + gMaxed + '</div></div>';
+    sH += '<div class="rdash-stat rs-avail"><span class="rs-icon">\uD83D\uDD13</span><div class="rs-label">' + t('rdash_available','Available') + '</div><div class="rs-value">' + gAvail + '</div></div>';
+    document.getElementById('rdashStats').innerHTML = sH;
+
+    // Trees
+    let bH = '';
+    for (const tk of TREE_ORDER) {
+        const data = TREE_DATA[tk];
+        if (!data) continue;
+        const band = TREE_BANDS[tk] || 1;
+        const icon = TREE_ICONS[tk] || '\u25A0';
+        const dn = t('tree_' + tk, data.treeName);
+        const st = data.stats || {total:0,done:0,pct:0};
+        const pctClass = st.pct >= 100 ? 'rpb-full' : st.pct >= 60 ? 'rpb-high' : st.pct >= 25 ? 'rpb-mid' : 'rpb-low';
+
+        bH += '<div class="rdash-tree" data-band="' + band + '">';
+        bH += '<div class="rdash-tree-header"><span><span class="rth-icon">' + icon + '</span>' + dn + '</span><span class="rth-pct">' + st.done + '/' + st.total + ' (' + st.pct + '%)</span></div>';
+
+        // Progress bar
+        bH += '<div class="rdash-pbar"><div class="rdash-pbar-fill ' + pctClass + '" style="width:' + st.pct + '%"></div></div>';
+
+        // Nodes
+        bH += '<div class="rdash-tree-body">';
+        const nodeKeys = Object.keys(data.nodes);
+        for (let i = 0; i < nodeKeys.length; i++) {
+            const node = data.nodes[nodeKeys[i]];
+            const stateClass = 'rn-' + (node.state || 'locked');
+            const nm = node.abbrev || node.name || nodeKeys[i];
+            const lvText = node.currentLevel > 0 ? node.currentLevel + '/' + node.maxLevel : '\u2014/' + node.maxLevel;
+            bH += '<div class="rdash-node ' + stateClass + '" title="' + nm + '">';
+            bH += '<div class="rn-name">' + nm + '</div>';
+            bH += '<div class="rn-level">' + lvText + '</div>';
+            bH += '</div>';
+        }
+        bH += '</div></div>';
+    }
+    document.getElementById('rdashBody').innerHTML = bH;
+}
 '''
 
 
@@ -1802,16 +2275,16 @@ def main():
     trees = load_trees()
     if public_mode:
         print('  PUBLIC MODE: stripping personal progress data')
-        progress, priority, notes = {}, {}, {}
+        progress, priority, notes, times = {}, {}, {}, {}
     else:
-        progress, priority, notes = load_csv()
+        progress, priority, notes, times = load_csv()
     rec_path = load_recommended_path()
 
     # Process all trees
     processed = {}
-    for tk in BAND1 + BAND2:
+    for tk in BAND1 + BAND2 + BAND3:
         if tk in trees:
-            processed[tk] = process_tree(tk, trees[tk], progress, priority, notes)
+            processed[tk] = process_tree(tk, trees[tk], progress, priority, notes, times)
         else:
             print(f'  WARNING: {tk}.json not found in {TREE_DIR}/')
 
@@ -1820,9 +2293,11 @@ def main():
                            for tk in BAND1 if tk in processed)
     band2_html = '\n'.join(generate_tree_html(tk, processed[tk])
                            for tk in BAND2 if tk in processed)
+    band3_html = '\n'.join(generate_tree_html(tk, processed[tk])
+                           for tk in BAND3 if tk in processed)
 
     # Build JS data object (nodes + connections + metadata)
-    tree_order = [tk for tk in BAND1 + BAND2 if tk in processed]
+    tree_order = [tk for tk in BAND1 + BAND2 + BAND3 if tk in processed]
     js_data = {}
     original_levels = {}
     for tk, d in processed.items():
@@ -1868,66 +2343,95 @@ def main():
     grand_total = sum(d['stats']['total'] for d in processed.values())
     grand_pct = round(grand_done / grand_total * 100) if grand_total else 0
 
+    # Build the ES translations JS object
+    translations_es_js = json.dumps(TRANSLATIONS_ES, separators=(',', ':'), ensure_ascii=False)
+
+    # Load shared storage utility for iOS-proof persistence
+    import sys as _sys
+    _sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+    from storage_utils import get_storage_js
+    storage_js = get_storage_js()
+
     html = f'''<!DOCTYPE html>
-<html lang="en">
+<html lang="en" id="htmlRoot">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=3">
 <title>Last War: Research Tree Tracker</title>
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='6' fill='%231a1a2e'/><text x='16' y='23' text-anchor='middle' font-size='20'>🔬</text></svg>">
 <style>
-@import url("https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&display=swap");
 {CSS}
 </style>
 </head>
 <body>
 
-<nav class="guide-nav">
-  <a href="./" class="nav-home current">&#8592; Home</a>
-  <a href="guides/alliance_support_hub.html">Alliance Hub</a>
-  <a href="guides/building_planner.html">Building Planner</a>
-  <a href="guides/building_reference.html">Building Ref</a>
-  <a href="guides/capitol_positions.html">Capitol Positions</a>
-  <a href="guides/chip_lab_guide.html">Chip Lab</a>
-  <a href="guides/radar_guide.html">Radar</a>
-  <a href="guides/vs_weekly_planner.html">VS Planner</a>
-  <a href="guides/waterfall_guide.html">Waterfall</a>
-</nav>
+<nav class="guide-nav" id="guide-nav"></nav>
+<script src="nav.js"></script>
 
 <div class="page-header">
-    <div class="game-badge">Last War: Survival</div>
+    <div class="game-badge" data-i18n="game_badge">Last War: Survival</div>
     <img src="skynet_logo.png" class="logo" alt="">
-    <h1>Research Tree Tracker</h1>
-    <p class="subtitle">Interactive Tech Tree Progress Tracker &bull; All Servers &bull; <span id="grand-stats">Overall: {grand_done}/{grand_total} ({grand_pct}%)</span></p>
+    <h1 data-i18n="page_title">Research Tree Tracker</h1>
+    <p class="subtitle"><span data-i18n="page_subtitle_prefix">Interactive Tech Tree Progress Tracker</span> &bull; <span data-i18n="page_subtitle_all_servers">All Servers</span> &bull; <span id="grand-stats">Overall: {grand_done}/{grand_total} ({grand_pct}%)</span></p>
     <div class="header-actions">
-        <button class="header-btn export" id="btn-export">Export CSV</button>
-        <label for="csv-file-input" class="header-btn import" style="cursor:pointer;display:inline-block">Import CSV</label>
+        <button class="header-btn btn-dashboard" onclick="openResearchDash()" data-i18n="btn_dashboard">Dashboard</button>
+        <button class="header-btn export" id="btn-export" data-i18n="btn_export">Export CSV</button>
+        <label for="csv-file-input" class="header-btn import" style="cursor:pointer;display:inline-block" data-i18n="btn_import">Import CSV</label>
         <input type="file" id="csv-file-input" accept=".csv" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0);opacity:0">
-        <button class="header-btn reset" id="btn-reset">Reset</button>
+        <button class="header-btn reset" id="btn-reset" data-i18n="btn_reset">Reset</button>
+        <span class="lang-toggle">
+            <button class="lang-btn active" id="lang-en" onclick="setLang('en')">EN</button>
+            <button class="lang-btn" id="lang-es" onclick="setLang('es')">ES</button>
+        </span>
     </div>
 </div>
 
 <div class="legend">
-    <span class="legend-label">Legend:</span>
-    <div class="legend-item"><span class="legend-swatch sw-maxed"></span> Maxed</div>
-    <div class="legend-item"><span class="legend-swatch sw-progress"></span> In Progress</div>
-    <div class="legend-item"><span class="legend-swatch sw-blocked"></span> Blocked</div>
-    <div class="legend-item"><span class="legend-swatch sw-available"></span> Available</div>
-    <div class="legend-item"><span class="legend-swatch sw-locked"></span> Locked</div>
-    <div class="legend-item"><span class="legend-swatch sw-rec">1</span> Recommended</div>
+    <span class="legend-label" data-i18n="legend_label">Legend:</span>
+    <div class="legend-item"><span class="legend-swatch sw-maxed"></span> <span data-i18n="state_maxed">Maxed</span></div>
+    <div class="legend-item"><span class="legend-swatch sw-progress"></span> <span data-i18n="state_progress">In Progress</span></div>
+    <div class="legend-item"><span class="legend-swatch sw-blocked"></span> <span data-i18n="state_blocked">Blocked</span></div>
+    <div class="legend-item"><span class="legend-swatch sw-available"></span> <span data-i18n="state_available">Available</span></div>
+    <div class="legend-item"><span class="legend-swatch sw-locked"></span> <span data-i18n="state_locked">Locked</span></div>
+    <div class="legend-item"><span class="legend-swatch sw-rec">1</span> <span data-i18n="legend_recommended">Recommended</span></div>
 </div>
 
-<div class="band-label">Strategy &amp; Support Trees</div>
+<div class="band-label" data-i18n="band1_label">Strategy &amp; Support Trees</div>
 <div class="band" id="band1">
 {band1_html}
 </div>
 
-<div class="band-label">Combat &amp; Squad Trees</div>
+<div class="band-label" data-i18n="band2_label">Combat &amp; Squad Trees</div>
 <div class="band" id="band2">
 {band2_html}
 </div>
 
-<div class="page-footer">Built for Last War: Survival players &bull; Data from <a href="https://cpt-hedge.com/calculators/research" target="_blank">cpt-hedge.com</a> &bull; Created by Extremesecrecy</div>
+<div class="band-label" data-i18n="band3_label">Advanced &amp; Seasonal Trees</div>
+<div class="band" id="band3">
+{band3_html}
+</div>
+
+<!-- Research Dashboard Overlay -->
+<div class="rdash-overlay" id="rdashOverlay">
+  <div class="rdash-topbar">
+    <div style="display:flex;align-items:baseline;">
+      <h2 data-i18n="rdash_title">Research Overview</h2>
+      <span class="rdash-sub" id="rdashSub"></span>
+    </div>
+    <button class="rdash-close" onclick="closeResearchDash()">&times;</button>
+  </div>
+  <div class="rdash-stats" id="rdashStats"></div>
+  <div class="rdash-body" id="rdashBody"></div>
+  <div class="rdash-legend">
+    <span class="rl-maxed" data-i18n="state_maxed">Maxed</span>
+    <span class="rl-progress" data-i18n="state_progress">In Progress</span>
+    <span class="rl-blocked" data-i18n="state_blocked">Blocked</span>
+    <span class="rl-available" data-i18n="state_available">Available</span>
+    <span class="rl-locked" data-i18n="state_locked">Locked</span>
+  </div>
+</div>
+
+<div class="page-footer"><span data-i18n="footer_text">Built for Last War: Survival players</span> &bull; <span data-i18n="footer_data_from">Data from</span> <a href="https://cpt-hedge.com/calculators/research" target="_blank">cpt-hedge.com</a> &bull; <span data-i18n="footer_created_by">Created by Extremesecrecy</span></div>
 
 <div id="tooltip" class="tooltip"></div>
 
@@ -1948,6 +2452,58 @@ def main():
 </div>
 
 <script>
+{storage_js}
+const T = {{en: {{}}, es: {translations_es_js}}};
+const LANG_LS_KEY = 'owow-research-lang';
+let currentLang = 'en';
+
+function t(key, fallback) {{
+    if (currentLang === 'en') return fallback !== undefined ? fallback : key;
+    return T.es[key] || (fallback !== undefined ? fallback : key);
+}}
+
+function setLang(lang) {{
+    currentLang = lang;
+    try {{ localStorage.setItem(LANG_LS_KEY, lang); }} catch(e) {{}}
+    document.getElementById('htmlRoot').setAttribute('lang', lang);
+    // Update toggle button active state
+    document.getElementById('lang-en').classList.toggle('active', lang === 'en');
+    document.getElementById('lang-es').classList.toggle('active', lang === 'es');
+    // Update all data-i18n elements
+    document.querySelectorAll('[data-i18n]').forEach(el => {{
+        const key = el.getAttribute('data-i18n');
+        if (lang === 'en') {{
+            // Restore original English text
+            if (el._i18nOriginal !== undefined) el.textContent = el._i18nOriginal;
+        }} else {{
+            if (el._i18nOriginal === undefined) el._i18nOriginal = el.textContent;
+            const translated = T.es[key];
+            if (translated) el.textContent = translated;
+        }}
+    }});
+    refreshUI();
+}}
+
+function refreshUI() {{
+    // Re-render tree stats with translated "Overall:" prefix
+    updateGrandStats();
+    // Re-render tooltips are dynamic so they pick up t() on hover
+    // Re-render recommended badges (they use t() for text)
+    renderRecommendedBadges();
+    // Re-render editor if open
+    if (editorOpen) {{
+        const ep = document.getElementById('editor-popup');
+        // Trigger re-render through existing editor render logic
+        // The editor renderEditor() is scoped, but we can re-click the current node
+    }}
+}}
+
+// Load saved language preference
+try {{
+    const savedLang = localStorage.getItem(LANG_LS_KEY);
+    if (savedLang === 'es') currentLang = 'es';
+}} catch(e) {{}}
+
 const TREE_DATA = {json.dumps(js_data, separators=(',', ':'))};
 const TREE_ORDER = {json.dumps(tree_order)};
 const ORIGINAL_LEVELS = {json.dumps(original_levels, separators=(',', ':'))};
@@ -1962,7 +2518,7 @@ const RECOMMENDED_PATH = {json.dumps(rec_path_js, separators=(',', ':'))};
         f.write(html)
     print(f'Wrote {OUTPUT} ({len(html):,} bytes)')
     print(f'  Grand total: {grand_done}/{grand_total} levels ({grand_pct}%)')
-    for tk in BAND1 + BAND2:
+    for tk in BAND1 + BAND2 + BAND3:
         if tk in processed:
             s = processed[tk]['stats']
             print(f'  {DISPLAY_NAMES.get(tk, tk):20s}: {s["done"]:4d}/{s["total"]:4d} ({s["pct"]}%)')
