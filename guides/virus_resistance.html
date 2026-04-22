@@ -929,9 +929,11 @@ const ENEMIES = {
     2: { monsterLv: 20, vr: 4500, power: 5882000,  names: ['Crimson Doctor'] },
     3: { monsterLv: 25, vr: 5500, power: 8531000,  names: ['Crimson Colossus'] },
     4: { monsterLv: 30, vr: 6500, power: 11829500, names: ['Crimson Lycan', 'Crimson Doctor'], types: ['Missile'] },
-    5: { monsterLv: 35, vr: 7500, power: 13137500, names: ['Crimson Doctor'] },
-    6: { monsterLv: 40, vr: 8500, power: 14304500, names: ['Crimson Colossus'] },
-    7: { monsterLv: 45, vr: 9000, power: 16637500, names: ['Crimson Colossus'] },
+    5: { monsterLv: 35, vr: 7500, power: 13137500, names: ['Crimson Doctor'], types: ['Missile'] },
+    // SH6 verified Apr 21 2026: Lycan/Colossus = Tank, Doctor = Missile (3 OWOW in-game rallies + DOc data)
+    6: { monsterLv: 40, vr: 8500, power: 14304500, names: ['Crimson Lycan', 'Crimson Doctor', 'Crimson Colossus'], types: ['Tank', 'Missile'] },
+    // SH7 verified Apr 21 2026: Colossus = Tank (DOc rally data)
+    7: { monsterLv: 45, vr: 9000, power: 16637500, names: ['Crimson Colossus'], types: ['Tank'] },
     8: { monsterLv: 50, vr: 9500,  power: 17913000, names: ['Crimson Colossus'] },
     9:  { monsterLv: 55, vr: 10000, power: 18988000, names: ['Crimson Colossus'] },
     10: { monsterLv: 60, vr: 10500, power: 23044500, names: ['Crimson Doctor'] }
@@ -1025,8 +1027,11 @@ function calcDamageReduction(required, current) {
 const TYPE_COUNTER = { aircraft: 'tank', tank: 'missile', missile: 'aircraft' };
 function getTypeModifier(squadType, enemyType) {
   if (!enemyType || enemyType === 'none' || !squadType) return 1.0;
-  if (TYPE_COUNTER[squadType] === enemyType) return 1.2;
-  if (TYPE_COUNTER[enemyType] === squadType) return 0.8;
+  // Normalize to lowercase — boss data uses 'Tank'/'Missile'/'Aircraft' but TYPE_COUNTER keys are lowercase
+  const sq = String(squadType).toLowerCase();
+  const en = String(enemyType).toLowerCase();
+  if (TYPE_COUNTER[sq] === en) return 1.2;
+  if (TYPE_COUNTER[en] === sq) return 0.8;
   return 1.0;
 }
 
