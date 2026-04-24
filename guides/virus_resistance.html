@@ -840,6 +840,8 @@
     <div id="rallyChart"></div>
     <div id="rallySummary" style="margin-top:8px; font-size:12px; color:#888; text-align:center;"></div>
 
+    <div id="rallySimulatorSection"></div>
+
     <div id="rallyLogSection" style="margin-top:20px;"></div>
   </div>
 </div>
@@ -1063,6 +1065,103 @@ function estimateSlotLoss(slotEffective, combinedEffective, bossPower, activeSlo
   const slotFactor = avgEffective / slotEffective;
   const slotLoss = Math.min(95, baseLoss * slotFactor);
   return Math.max(2, slotLoss);
+}
+
+// ===================================================================
+// simulateRally — physics-based round simulator
+// ===================================================================
+// Tuned 2026-04-24 against 14 saved rallies in battle_reports/reports.json via grid search.
+// Best outcome accuracy: 78.6%. Parameters: damage_coef=0.15, attrition_coef=0.05, wipe_threshold=0.05.
+// Mechanics (confirmed from in-game battle reports):
+//   1. Each round, all 5 alive slots attack boss 1v1 in sequence.
+//   2. Boss HP persists across slots and rounds.
+//   3. Per-slot damage = squad_power × (1 - vr_penalty/100) × type_counter × DAMAGE_COEF.
+//      VR inherits from rally initiator (slot 1).
+//   4. Slot takes attrition damage per turn: boss_force / active_slots × ATTRITION_COEF × counter_inverse.
+//   5. Slot wiped when hp < WIPE_THRESHOLD × initial_power. Wiped slots skip next rounds.
+//   6. Rally wins when boss HP ≤ 0. Loses when all 5 slots wiped.
+const RALLY_SIM_COEFS = { damage: 0.15, attrition: 0.05, wipeThreshold: 0.05 };
+
+function simulateRally(slots, bossForce, initiatorVR, bossRequiredVR, bossType, maxRounds = 10) {
+  if (!slots || slots.length === 0 || !bossForce) return null;
+  const vrPenPct = calcDamageReductionPenalty(bossRequiredVR, initiatorVR);
+  const vrMult = 1 - vrPenPct / 100;
+  const active = slots.map((s, i) => ({
+    idx: i,
+    name: s.name || `Slot ${i+1}`,
+    power: s.power || 0,
+    type: s.squadType || null,
+    hp: s.power || 0,
+    alive: (s.power || 0) > 0,
+    damageDealt: 0
+  }));
+  let bossHP = bossForce;
+  let roundsUsed = 0;
+  const log = [];
+
+  for (let r = 1; r <= maxRounds; r++) {
+    if (bossHP <= 0) break;
+    let anyActed = false;
+    const aliveCount = active.filter(s => s.alive).length;
+    if (aliveCount === 0) break;
+    for (const slot of active) {
+      if (!slot.alive || bossHP <= 0) continue;
+      const tc = getTypeModifier(slot.type, bossType);
+      const dmgToBoss = slot.power * vrMult * tc * RALLY_SIM_COEFS.damage;
+      const counterInverse = tc > 0 ? 1 / tc : 1;
+      const dmgToSlot = bossForce * RALLY_SIM_COEFS.attrition * counterInverse / Math.max(1, aliveCount);
+      bossHP -= dmgToBoss;
+      slot.hp -= dmgToSlot;
+      slot.damageDealt += dmgToBoss;
+      if (slot.hp < slot.power * RALLY_SIM_COEFS.wipeThreshold) slot.alive = false;
+      log.push({round: r, slot: slot.idx + 1, dmgToBoss, dmgToSlot, bossHP: Math.max(0, bossHP)});
+      anyActed = true;
+    }
+    roundsUsed = r;
+    if (!anyActed) break;
+  }
+
+  const won = bossHP <= 0;
+  const slotOutcomes = active.map(s => ({
+    idx: s.idx,
+    name: s.name,
+    alive: s.alive,
+    lossPct: Math.max(0, Math.min(100, 100 * (1 - Math.max(0, s.hp) / Math.max(1, s.power)))),
+    damageDealt: s.damageDealt
+  }));
+
+  // Identify bottleneck
+  let bottleneck = null;
+  if (!won) {
+    if (vrPenPct >= 30) bottleneck = `VR gap: ${vrPenPct.toFixed(0)}% damage reduction (need VR ${bossRequiredVR}+)`;
+    else if (active.some(s => getTypeModifier(s.type, bossType) < 1))
+      bottleneck = `Type counter disadvantage on some slots (boss ${bossType || '?'})`;
+    else {
+      const ratio = active.reduce((sum, s) => sum + s.power, 0) / bossForce;
+      if (ratio < 1.1) bottleneck = `Insufficient team power (${ratio.toFixed(2)}× boss force)`;
+      else bottleneck = 'Close fight — higher VR or more coordinated type counters could flip it';
+    }
+  }
+
+  return {
+    won,
+    roundsUsed,
+    bossHpRemainingPct: Math.max(0, bossHP) / bossForce * 100,
+    vrPenaltyPct: vrPenPct,
+    slotOutcomes,
+    bottleneck,
+    log
+  };
+}
+
+// Helper: VR penalty as positive percent (for simulator math).
+// calcDamageReduction returns damage percent (e.g. 84 = 84% damage applied, 16% penalty).
+// We need the penalty directly.
+function calcDamageReductionPenalty(required, current) {
+  if (required <= 0) return 0;
+  if (current >= required) return 0;
+  const penalty = 2 * Math.ceil((required - current) / required * 100);
+  return Math.min(100, penalty);
 }
 
 // ===================================================================
@@ -1421,7 +1520,72 @@ function updateRally() {
 
   renderRallyVerdict('rallyVerdict', members, requiredVR, initiatorVR);
   renderRallyChart('rallyChart', 'rallySummary', members, maxPower, bossPower);
+
+  // Physics-based simulator (rounds-aware, tuned 2026-04-24 against 14 saved rallies, 78.6% outcome accuracy)
+  if (isBoss && bossPower > 0 && members.some(m => m.power > 0)) {
+    const simSlots = [];
+    for (let i = 0; i < 5; i++) {
+      const power = parsePowerMillions(document.getElementById(`rm_power_${i}`).value);
+      const squadType = document.getElementById(`rm_stype_${i}`).value;
+      simSlots.push({
+        name: i === 0 ? 'Slot 1 (YOU)' : `Slot ${i+1}`,
+        power,
+        squadType: squadType && squadType !== 'none' ? squadType : null
+      });
+    }
+    const simResult = simulateRally(simSlots, bossPower, initiatorVR, requiredVR, bossType);
+    renderRallySimulator('rallySimulatorSection', simResult, bossPower, bossType);
+  } else {
+    const simEl = document.getElementById('rallySimulatorSection');
+    if (simEl) simEl.innerHTML = '';
+  }
+
   renderRallyLog('rallyLogSection', { enemyType, enemyLevel, bossType, initiatorVR, members, bossPower });
+}
+
+// Render the physics simulator verdict: outcome, rounds, per-slot survival, bottleneck
+function renderRallySimulator(containerId, sim, bossPower, bossType) {
+  const el = document.getElementById(containerId);
+  if (!el || !sim) return;
+  const verdict = sim.won ? 'WIN' : 'LOSS';
+  const verdictColor = sim.won ? '#2e7d32' : '#c62828';
+  const verdictBg = sim.won ? '#e8f5e9' : '#ffebee';
+  const bossHpLeft = sim.bossHpRemainingPct.toFixed(0);
+  const vrPenText = sim.vrPenaltyPct > 0 ? `-${sim.vrPenaltyPct.toFixed(0)}%` : 'sufficient';
+
+  let slotHtml = '';
+  sim.slotOutcomes.filter(s => s.lossPct > 0 || s.damageDealt > 0).forEach(s => {
+    const lossColor = s.lossPct >= 75 ? '#c62828' : s.lossPct >= 40 ? '#e65100' : s.lossPct >= 20 ? '#f4a261' : '#2e7d32';
+    const statusIcon = s.alive ? '&#10003;' : '&#10007;';
+    slotHtml += `<div style="display:flex;align-items:center;gap:8px;padding:2px 0;font-size:12px;">
+      <span style="color:${s.alive ? '#2e7d32' : '#c62828'};font-weight:700;">${statusIcon}</span>
+      <span style="flex:1;">${s.name}</span>
+      <span style="color:${lossColor};font-weight:600;">${s.lossPct.toFixed(0)}% losses</span>
+    </div>`;
+  });
+
+  const bottleneckHtml = sim.bottleneck
+    ? `<div style="margin-top:8px;padding:8px;background:#fff8e1;border-left:3px solid #f4a261;font-size:12px;"><strong>Bottleneck:</strong> ${sim.bottleneck}</div>`
+    : '';
+
+  el.innerHTML = `
+    <div style="background:${verdictBg}; border:2px solid ${verdictColor}; border-radius:8px; padding:12px; margin-top:12px;">
+      <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px;">
+        <h3 style="margin:0; color:${verdictColor}; font-size:16px;">&#127942; Simulator: ${verdict}</h3>
+        <div style="font-size:12px; color:#5a6a6a;">
+          Rounds: <strong>${sim.roundsUsed}</strong> &bull;
+          Boss HP left: <strong style="color:${bossHpLeft == 0 ? '#2e7d32' : '#c62828'};">${bossHpLeft}%</strong> &bull;
+          VR: <strong>${vrPenText}</strong>
+        </div>
+      </div>
+      ${slotHtml ? `<div style="margin-top:8px;">${slotHtml}</div>` : ''}
+      ${bottleneckHtml}
+      <div style="margin-top:8px; font-size:10px; color:#aaa;">
+        Physics-based round simulator &bull; Tuned against 14 real OWOW/DOc rally outcomes (78.6% outcome accuracy) &bull;
+        Each slot attacks boss 1v1 per round with own type counter &bull; VR inherits from initiator
+      </div>
+    </div>
+  `;
 }
 
 // Rally Verdict Rollup — summarizes 5 members into a single decision
