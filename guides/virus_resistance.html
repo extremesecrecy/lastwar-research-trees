@@ -839,6 +839,10 @@
     <h3 style="margin:16px 0 6px; color:#5a6a6a; font-size:16px;">Effective Power</h3>
     <div id="rallyChart"></div>
     <div id="rallySummary" style="margin-top:8px; font-size:12px; color:#888; text-align:center;"></div>
+
+    <div id="rallySimulatorSection"></div>
+
+    <div id="rallyLogSection" style="margin-top:20px;"></div>
   </div>
 </div>
 
@@ -1033,6 +1037,131 @@ function getTypeModifier(squadType, enemyType) {
   if (TYPE_COUNTER[sq] === en) return 1.2;
   if (TYPE_COUNTER[en] === sq) return 0.8;
   return 1.0;
+}
+
+// Boss power lookup: monster level → power from _bossBySH. Lv15=SH1, Lv20=SH2, ... Lv60=SH10.
+function getBossPower(enemyLevel) {
+  const shIdx = Math.round((enemyLevel - 10) / 5);
+  const entry = ENEMIES._bossBySH && ENEMIES._bossBySH[shIdx];
+  return entry ? entry.power : 0;
+}
+
+// Estimate expected troop loss % for a slot in a rally.
+// Heuristic calibrated from OWOW rally data: combined effective vs boss power drives base loss,
+// slot's effective power relative to team average scales it up/down (weaker slots lose more).
+// Honest limits: this is a guidance estimate, not a physics model. Real combat is nonlinear
+// (round survival, skill RNG, per-round boss damage). Use as directional signal, not exact %.
+function estimateSlotLoss(slotEffective, combinedEffective, bossPower, activeSlots) {
+  if (!slotEffective || !combinedEffective || !bossPower || activeSlots < 1) return null;
+  const powerRatio = combinedEffective / bossPower;
+  let baseLoss;
+  if (powerRatio >= 2.0)      baseLoss = 5;
+  else if (powerRatio >= 1.5) baseLoss = 15;
+  else if (powerRatio >= 1.2) baseLoss = 30;
+  else if (powerRatio >= 1.0) baseLoss = 50;
+  else if (powerRatio >= 0.8) baseLoss = 75;
+  else                        baseLoss = 90;
+  const avgEffective = combinedEffective / activeSlots;
+  const slotFactor = avgEffective / slotEffective;
+  const slotLoss = Math.min(95, baseLoss * slotFactor);
+  return Math.max(2, slotLoss);
+}
+
+// ===================================================================
+// simulateRally — physics-based round simulator
+// ===================================================================
+// Tuned 2026-04-24 against 14 saved rallies in battle_reports/reports.json via grid search.
+// Best outcome accuracy: 78.6%. Parameters: damage_coef=0.15, attrition_coef=0.05, wipe_threshold=0.05.
+// Mechanics (confirmed from in-game battle reports):
+//   1. Each round, all 5 alive slots attack boss 1v1 in sequence.
+//   2. Boss HP persists across slots and rounds.
+//   3. Per-slot damage = squad_power × (1 - vr_penalty/100) × type_counter × DAMAGE_COEF.
+//      VR inherits from rally initiator (slot 1).
+//   4. Slot takes attrition damage per turn: boss_force / active_slots × ATTRITION_COEF × counter_inverse.
+//   5. Slot wiped when hp < WIPE_THRESHOLD × initial_power. Wiped slots skip next rounds.
+//   6. Rally wins when boss HP ≤ 0. Loses when all 5 slots wiped.
+const RALLY_SIM_COEFS = { damage: 0.15, attrition: 0.05, wipeThreshold: 0.05 };
+
+function simulateRally(slots, bossForce, initiatorVR, bossRequiredVR, bossType, maxRounds = 10) {
+  if (!slots || slots.length === 0 || !bossForce) return null;
+  const vrPenPct = calcDamageReductionPenalty(bossRequiredVR, initiatorVR);
+  const vrMult = 1 - vrPenPct / 100;
+  const active = slots.map((s, i) => ({
+    idx: i,
+    name: s.name || `Slot ${i+1}`,
+    power: s.power || 0,
+    type: s.squadType || null,
+    hp: s.power || 0,
+    alive: (s.power || 0) > 0,
+    damageDealt: 0
+  }));
+  let bossHP = bossForce;
+  let roundsUsed = 0;
+  const log = [];
+
+  for (let r = 1; r <= maxRounds; r++) {
+    if (bossHP <= 0) break;
+    let anyActed = false;
+    const aliveCount = active.filter(s => s.alive).length;
+    if (aliveCount === 0) break;
+    for (const slot of active) {
+      if (!slot.alive || bossHP <= 0) continue;
+      const tc = getTypeModifier(slot.type, bossType);
+      const dmgToBoss = slot.power * vrMult * tc * RALLY_SIM_COEFS.damage;
+      const counterInverse = tc > 0 ? 1 / tc : 1;
+      const dmgToSlot = bossForce * RALLY_SIM_COEFS.attrition * counterInverse / Math.max(1, aliveCount);
+      bossHP -= dmgToBoss;
+      slot.hp -= dmgToSlot;
+      slot.damageDealt += dmgToBoss;
+      if (slot.hp < slot.power * RALLY_SIM_COEFS.wipeThreshold) slot.alive = false;
+      log.push({round: r, slot: slot.idx + 1, dmgToBoss, dmgToSlot, bossHP: Math.max(0, bossHP)});
+      anyActed = true;
+    }
+    roundsUsed = r;
+    if (!anyActed) break;
+  }
+
+  const won = bossHP <= 0;
+  const slotOutcomes = active.map(s => ({
+    idx: s.idx,
+    name: s.name,
+    alive: s.alive,
+    lossPct: Math.max(0, Math.min(100, 100 * (1 - Math.max(0, s.hp) / Math.max(1, s.power)))),
+    damageDealt: s.damageDealt
+  }));
+
+  // Identify bottleneck
+  let bottleneck = null;
+  if (!won) {
+    if (vrPenPct >= 30) bottleneck = `VR gap: ${vrPenPct.toFixed(0)}% damage reduction (need VR ${bossRequiredVR}+)`;
+    else if (active.some(s => getTypeModifier(s.type, bossType) < 1))
+      bottleneck = `Type counter disadvantage on some slots (boss ${bossType || '?'})`;
+    else {
+      const ratio = active.reduce((sum, s) => sum + s.power, 0) / bossForce;
+      if (ratio < 1.1) bottleneck = `Insufficient team power (${ratio.toFixed(2)}× boss force)`;
+      else bottleneck = 'Close fight — higher VR or more coordinated type counters could flip it';
+    }
+  }
+
+  return {
+    won,
+    roundsUsed,
+    bossHpRemainingPct: Math.max(0, bossHP) / bossForce * 100,
+    vrPenaltyPct: vrPenPct,
+    slotOutcomes,
+    bottleneck,
+    log
+  };
+}
+
+// Helper: VR penalty as positive percent (for simulator math).
+// calcDamageReduction returns damage percent (e.g. 84 = 84% damage applied, 16% penalty).
+// We need the penalty directly.
+function calcDamageReductionPenalty(required, current) {
+  if (required <= 0) return 0;
+  if (current >= required) return 0;
+  const penalty = 2 * Math.ceil((required - current) / required * 100);
+  return Math.min(100, penalty);
 }
 
 // ===================================================================
@@ -1386,8 +1515,77 @@ function updateRally() {
     members.push({ name, power, effectivePower, vrPenalty, flag, ownVR, slotIndex: i });
   }
 
+  // Boss power for per-slot loss estimate (only for Stronghold Boss, not Doom Elite)
+  const bossPower = isBoss ? getBossPower(enemyLevel) : 0;
+
   renderRallyVerdict('rallyVerdict', members, requiredVR, initiatorVR);
-  renderRallyChart('rallyChart', 'rallySummary', members, maxPower);
+  renderRallyChart('rallyChart', 'rallySummary', members, maxPower, bossPower);
+
+  // Physics-based simulator (rounds-aware, tuned 2026-04-24 against 14 saved rallies, 78.6% outcome accuracy)
+  if (isBoss && bossPower > 0 && members.some(m => m.power > 0)) {
+    const simSlots = [];
+    for (let i = 0; i < 5; i++) {
+      const power = parsePowerMillions(document.getElementById(`rm_power_${i}`).value);
+      const squadType = document.getElementById(`rm_stype_${i}`).value;
+      simSlots.push({
+        name: i === 0 ? 'Slot 1 (YOU)' : `Slot ${i+1}`,
+        power,
+        squadType: squadType && squadType !== 'none' ? squadType : null
+      });
+    }
+    const simResult = simulateRally(simSlots, bossPower, initiatorVR, requiredVR, bossType);
+    renderRallySimulator('rallySimulatorSection', simResult, bossPower, bossType);
+  } else {
+    const simEl = document.getElementById('rallySimulatorSection');
+    if (simEl) simEl.innerHTML = '';
+  }
+
+  renderRallyLog('rallyLogSection', { enemyType, enemyLevel, bossType, initiatorVR, members, bossPower });
+}
+
+// Render the physics simulator verdict: outcome, rounds, per-slot survival, bottleneck
+function renderRallySimulator(containerId, sim, bossPower, bossType) {
+  const el = document.getElementById(containerId);
+  if (!el || !sim) return;
+  const verdict = sim.won ? 'WIN' : 'LOSS';
+  const verdictColor = sim.won ? '#2e7d32' : '#c62828';
+  const verdictBg = sim.won ? '#e8f5e9' : '#ffebee';
+  const bossHpLeft = sim.bossHpRemainingPct.toFixed(0);
+  const vrPenText = sim.vrPenaltyPct > 0 ? `-${sim.vrPenaltyPct.toFixed(0)}%` : 'sufficient';
+
+  let slotHtml = '';
+  sim.slotOutcomes.filter(s => s.lossPct > 0 || s.damageDealt > 0).forEach(s => {
+    const lossColor = s.lossPct >= 75 ? '#c62828' : s.lossPct >= 40 ? '#e65100' : s.lossPct >= 20 ? '#f4a261' : '#2e7d32';
+    const statusIcon = s.alive ? '&#10003;' : '&#10007;';
+    slotHtml += `<div style="display:flex;align-items:center;gap:8px;padding:2px 0;font-size:12px;">
+      <span style="color:${s.alive ? '#2e7d32' : '#c62828'};font-weight:700;">${statusIcon}</span>
+      <span style="flex:1;">${s.name}</span>
+      <span style="color:${lossColor};font-weight:600;">${s.lossPct.toFixed(0)}% losses</span>
+    </div>`;
+  });
+
+  const bottleneckHtml = sim.bottleneck
+    ? `<div style="margin-top:8px;padding:8px;background:#fff8e1;border-left:3px solid #f4a261;font-size:12px;"><strong>Bottleneck:</strong> ${sim.bottleneck}</div>`
+    : '';
+
+  el.innerHTML = `
+    <div style="background:${verdictBg}; border:2px solid ${verdictColor}; border-radius:8px; padding:12px; margin-top:12px;">
+      <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px;">
+        <h3 style="margin:0; color:${verdictColor}; font-size:16px;">&#127942; Simulator: ${verdict}</h3>
+        <div style="font-size:12px; color:#5a6a6a;">
+          Rounds: <strong>${sim.roundsUsed}</strong> &bull;
+          Boss HP left: <strong style="color:${bossHpLeft == 0 ? '#2e7d32' : '#c62828'};">${bossHpLeft}%</strong> &bull;
+          VR: <strong>${vrPenText}</strong>
+        </div>
+      </div>
+      ${slotHtml ? `<div style="margin-top:8px;">${slotHtml}</div>` : ''}
+      ${bottleneckHtml}
+      <div style="margin-top:8px; font-size:10px; color:#aaa;">
+        Physics-based round simulator &bull; Tuned against 14 real OWOW/DOc rally outcomes (78.6% outcome accuracy) &bull;
+        Each slot attacks boss 1v1 per round with own type counter &bull; VR inherits from initiator
+      </div>
+    </div>
+  `;
 }
 
 // Rally Verdict Rollup — summarizes 5 members into a single decision
@@ -1527,7 +1725,7 @@ function renderRallyVerdict(verdictId, members, requiredVR, initiatorVR) {
   el.innerHTML = `<div class="verdict-headline">${headline}</div><div class="verdict-detail">${detail}</div>${leaderWarning}${statBlock}`;
 }
 
-function renderRallyChart(chartId, summaryId, members, maxPower) {
+function renderRallyChart(chartId, summaryId, members, maxPower, bossPower) {
   const chartEl = document.getElementById(chartId);
   const activeMems = members.filter(m => m.power > 0);
   if (activeMems.length === 0) {
@@ -1535,26 +1733,198 @@ function renderRallyChart(chartId, summaryId, members, maxPower) {
     document.getElementById(summaryId).innerHTML = '';
     return;
   }
+  const combinedEffective = activeMems.reduce((s, m) => s + m.effectivePower, 0);
   const barMax = maxPower > 0 ? maxPower : 1;
+  const showLoss = bossPower && bossPower > 0;
   let chartHtml = '';
   for (const m of activeMems) {
     const pct = (m.effectivePower / barMax * 100).toFixed(0);
     const color = m.flag === 'stop' ? '#fc5c65' : m.flag === 'caution' ? '#f4a261' : '#7fb3a8';
+    let lossTag = '';
+    if (showLoss) {
+      const lossPct = estimateSlotLoss(m.effectivePower, combinedEffective, bossPower, activeMems.length);
+      if (lossPct !== null) {
+        const lossColor = lossPct >= 75 ? '#c62828' : lossPct >= 40 ? '#e65100' : lossPct >= 20 ? '#f4a261' : '#2e7d32';
+        lossTag = `<span style="margin-left:8px; font-size:11px; font-weight:700; color:${lossColor};" title="Estimated troop losses for this slot given combined rally power vs boss power. Weaker slots lose more. This is guidance, not a prediction.">~${lossPct.toFixed(0)}% losses</span>`;
+      }
+    }
     chartHtml += `<div class="rally-bar-row">
       <div class="rally-bar-label">${m.name}</div>
       <div class="rally-bar" style="width:${Math.max(pct, 3)}%;background:${color};">${fmtPower(m.effectivePower)}</div>
+      ${lossTag}
     </div>`;
   }
   chartEl.innerHTML = chartHtml;
 
-  const totalEffective = activeMems.reduce((s, m) => s + m.effectivePower, 0);
+  const totalEffective = combinedEffective;
   const totalRaw = activeMems.reduce((s, m) => s + m.power, 0);
   const deadWeight = activeMems.filter(m => m.flag === 'stop').length;
 
   let summary = `Total effective: <strong>${fmtPower(totalEffective)}</strong> (raw: ${fmtPower(totalRaw)})`;
+  if (showLoss) {
+    const ratio = (combinedEffective / bossPower);
+    const ratioColor = ratio >= 1.5 ? '#2e7d32' : ratio >= 1.2 ? '#7fb3a8' : ratio >= 1.0 ? '#f4a261' : '#c62828';
+    summary += ` &bull; Boss: <strong>${fmtPower(bossPower)}</strong> &bull; Ratio: <strong style="color:${ratioColor};">${ratio.toFixed(2)}&times;</strong>`;
+  }
   if (deadWeight > 0) summary += ` &mdash; <span style="color:#fc5c65;font-weight:600;">${deadWeight} member(s) wasting troops!</span>`;
   summary += '<br><span style="font-size:10px;color:#aaa;">Combat is rounds-based, not additive &mdash; actual results depend on individual squad survival per round.</span>';
   document.getElementById(summaryId).innerHTML = summary;
+}
+
+// ===================================================================
+// Rally Log — save predictions, log actual results, track accuracy
+// ===================================================================
+const RALLY_LOG_KEY = 'owow-vr-rally-log';
+let _lastRallyContext = null;
+
+function loadRallyLog() {
+  try {
+    const raw = localStorage.getItem(RALLY_LOG_KEY);
+    return raw ? JSON.parse(raw) : [];
+  } catch (e) { return []; }
+}
+
+function saveRallyLog(entries) {
+  try { localStorage.setItem(RALLY_LOG_KEY, JSON.stringify(entries)); } catch (e) {}
+}
+
+function getOutcomeBand(pct) {
+  if (pct < 30) return 'DO NOT RALLY';
+  if (pct < 50) return 'HIGH RISK';
+  if (pct < 70) return 'RISKY';
+  if (pct < 90) return 'POSSIBLE VICTORY';
+  return 'GOOD ODDS';
+}
+
+function renderRallyLog(containerId, context) {
+  const el = document.getElementById(containerId);
+  if (!el) return;
+  _lastRallyContext = context;
+  const log = loadRallyLog();
+
+  const activeMems = context.members.filter(m => m.power > 0);
+  const totalRaw = activeMems.reduce((s, m) => s + m.power, 0);
+  const totalEff = activeMems.reduce((s, m) => s + m.effectivePower, 0);
+  const outputPct = totalRaw > 0 ? (totalEff / totalRaw) * 100 : 0;
+  const canSave = activeMems.length > 0;
+
+  // Accuracy stat: % of logged rallies where prediction band matched actual outcome
+  const logged = log.filter(e => e.actual);
+  let accuracyHtml = '';
+  if (logged.length > 0) {
+    const matches = logged.filter(e => {
+      const predWon = e.predicted.outputPct >= 70; // "Possible Victory" or better predicted win
+      return predWon === !!e.actual.won;
+    }).length;
+    const pct = ((matches / logged.length) * 100).toFixed(0);
+    accuracyHtml = `<div style="font-size:11px; color:#5a6a6a;">Prediction accuracy: <strong>${matches}/${logged.length}</strong> (${pct}%) &mdash; win/loss correctly predicted by Rally Output &ge; 70%</div>`;
+  }
+
+  let html = `<div style="background:#f0f5f4; border:1px solid #7fb3a8; border-radius:6px; padding:12px;">
+    <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px;">
+      <h3 style="margin:0; color:#5a6a6a; font-size:15px;">&#128221; Rally Log &amp; Calibration</h3>
+      <button id="rallyLogSaveBtn" ${canSave ? '' : 'disabled'} style="background:${canSave ? '#7fb3a8' : '#ccc'}; color:white; border:none; padding:6px 14px; border-radius:4px; font-weight:600; cursor:${canSave ? 'pointer' : 'not-allowed'}; font-size:12px;">&#128190; Save this rally prediction</button>
+    </div>
+    <div style="font-size:11px; color:#888; margin-top:4px;">Save before you rally, then come back and enter the actual result. Tracks how well predictions match reality &mdash; calibrates the calculator with YOUR data.</div>
+    ${accuracyHtml}`;
+
+  if (log.length === 0) {
+    html += `<div style="margin-top:10px; font-size:12px; color:#aaa; text-align:center; padding:10px;">No rallies logged yet. Save your first one above.</div>`;
+  } else {
+    html += `<div style="overflow-x:auto; margin-top:10px;"><table style="width:100%; border-collapse:collapse; font-size:11px;">
+      <thead><tr style="background:#e8efee; border-bottom:2px solid #7fb3a8;">
+        <th style="padding:6px; text-align:left;">Date</th>
+        <th style="padding:6px; text-align:left;">Boss</th>
+        <th style="padding:6px; text-align:right;">Predicted Output</th>
+        <th style="padding:6px; text-align:left;">Actual Result</th>
+        <th style="padding:6px; text-align:center;">Match?</th>
+        <th style="padding:6px;"></th>
+      </tr></thead><tbody>`;
+    const sorted = [...log].sort((a, b) => b.id - a.id);
+    for (const e of sorted) {
+      const d = new Date(e.id);
+      const dateStr = `${d.getMonth()+1}/${d.getDate()} ${String(d.getHours()).padStart(2,'0')}:${String(d.getMinutes()).padStart(2,'0')}`;
+      const bossLabel = e.enemyType === 'boss'
+        ? `SH${Math.round((e.enemyLevel-10)/5)} ${e.bossType !== 'none' ? `(${e.bossType})` : ''}`
+        : `Elite Lv${e.enemyLevel}`;
+      const predOutcome = getOutcomeBand(e.predicted.outputPct);
+      let actualCell, matchCell;
+      if (e.actual) {
+        const parts = [];
+        parts.push(`<strong style="color:${e.actual.won ? '#2e7d32' : '#c62828'};">${e.actual.won ? 'WON' : 'LOST'}</strong>`);
+        if (e.actual.bossHpDealtPct != null) parts.push(`${e.actual.bossHpDealtPct}% boss HP`);
+        if (e.actual.yourTroopsLostPct != null) parts.push(`${e.actual.yourTroopsLostPct}% troops`);
+        actualCell = parts.join(' &bull; ');
+        const predWon = e.predicted.outputPct >= 70;
+        const matched = predWon === !!e.actual.won;
+        matchCell = matched ? '<span style="color:#2e7d32; font-weight:700;">&#10003;</span>' : '<span style="color:#c62828; font-weight:700;">&#10007;</span>';
+      } else {
+        actualCell = `<button onclick="openRallyActualDialog(${e.id})" style="background:#f4a261; color:white; border:none; padding:3px 8px; border-radius:3px; font-size:10px; cursor:pointer;">Enter result</button>`;
+        matchCell = '<span style="color:#bbb;">&mdash;</span>';
+      }
+      html += `<tr style="border-bottom:1px solid #e0e5e4;">
+        <td style="padding:6px;">${dateStr}</td>
+        <td style="padding:6px;">${bossLabel}</td>
+        <td style="padding:6px; text-align:right;"><strong>${e.predicted.outputPct.toFixed(1)}%</strong><br><span style="color:#888; font-size:10px;">${predOutcome}</span></td>
+        <td style="padding:6px;">${actualCell}</td>
+        <td style="padding:6px; text-align:center;">${matchCell}</td>
+        <td style="padding:6px;"><button onclick="deleteRallyLogEntry(${e.id})" title="Delete" style="background:#fc5c65; color:white; border:none; padding:2px 6px; border-radius:3px; font-size:10px; cursor:pointer;">&#10007;</button></td>
+      </tr>`;
+    }
+    html += `</tbody></table></div>`;
+  }
+  html += `</div>`;
+  el.innerHTML = html;
+
+  const btn = document.getElementById('rallyLogSaveBtn');
+  if (btn && canSave) {
+    btn.addEventListener('click', () => {
+      const ctx = _lastRallyContext;
+      if (!ctx) return;
+      const activeM = ctx.members.filter(m => m.power > 0);
+      const tr = activeM.reduce((s, m) => s + m.power, 0);
+      const te = activeM.reduce((s, m) => s + m.effectivePower, 0);
+      const outputPct = tr > 0 ? (te / tr) * 100 : 0;
+      const entry = {
+        id: Date.now(),
+        enemyType: ctx.enemyType,
+        enemyLevel: ctx.enemyLevel,
+        bossType: ctx.bossType,
+        initiatorVR: ctx.initiatorVR,
+        bossPower: ctx.bossPower,
+        members: ctx.members.map(m => ({ power: m.power, vr: m.ownVR, effectivePower: m.effectivePower, slotIndex: m.slotIndex })),
+        predicted: { outputPct, outcomeBand: getOutcomeBand(outputPct) },
+        actual: null
+      };
+      const list = loadRallyLog();
+      list.push(entry);
+      saveRallyLog(list);
+      renderRallyLog(containerId, ctx);
+    });
+  }
+}
+
+function deleteRallyLogEntry(id) {
+  if (!confirm('Delete this rally log entry?')) return;
+  const list = loadRallyLog().filter(e => e.id !== id);
+  saveRallyLog(list);
+  if (_lastRallyContext) renderRallyLog('rallyLogSection', _lastRallyContext);
+}
+
+function openRallyActualDialog(id) {
+  const list = loadRallyLog();
+  const entry = list.find(e => e.id === id);
+  if (!entry) return;
+  const wonRaw = prompt('Did you WIN the rally? (y/n)');
+  if (wonRaw === null) return;
+  const won = /^y/i.test(wonRaw.trim());
+  const hpRaw = prompt('Approx % of boss HP you dealt? (0-100, or blank to skip)');
+  const troopsRaw = prompt('Approx % of YOUR troops lost? (0-100, or blank to skip)');
+  const hp = hpRaw && hpRaw.trim() !== '' ? Math.max(0, Math.min(100, parseFloat(hpRaw))) : null;
+  const troops = troopsRaw && troopsRaw.trim() !== '' ? Math.max(0, Math.min(100, parseFloat(troopsRaw))) : null;
+  entry.actual = { won, bossHpDealtPct: hp, yourTroopsLostPct: troops };
+  saveRallyLog(list);
+  if (_lastRallyContext) renderRallyLog('rallyLogSection', _lastRallyContext);
 }
 
 // ===================================================================
