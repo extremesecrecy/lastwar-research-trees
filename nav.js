@@ -19,6 +19,7 @@
     { href: 'guides/profession_hall.html', label: 'Professions' },
     { href: 'guides/radar_guide.html', label: 'Radar' },
     { href: 'research_trees_visual.html', label: 'Research Trees', root: true },
+    { href: 'guides/s1_land_captures.html', label: 'S1 Captures' },
     { href: 'guides/s1_territory_map.html', label: 'S1 Map' },
     { href: 'guides/server_dashboard.html', label: 'Server' },
     { href: 'guides/virus_resistance.html', label: 'Virus Resist' },

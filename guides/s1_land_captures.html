@@ -1,0 +1,681 @@
+<!DOCTYPE html>
+<html lang="en" id="htmlRoot">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Season 1 Land Captures Guide - OWOW</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&display=swap');
+/* HCI Brand: Orange #f4a261, Cyan #5bc0de, Yellow #f4d35e, Teal #7fb3a8, Dark #5a6a6a, Text #333, Watermelon #fc5c65 */
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  :root {
+    --orange: #f4a261;
+    --cyan: #5bc0de;
+    --yellow: #f4d35e;
+    --teal: #7fb3a8;
+    --dark: #5a6a6a;
+    --text: #333;
+    --watermelon: #fc5c65;
+  }
+  body {
+    font-family: 'Fredoka', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: #fff;
+    color: var(--text);
+    padding: 12px 16px;
+    min-height: 100vh;
+  }
+
+  /* Header */
+  .top-bar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px; }
+  .top-bar .left h1 { font-size: 24px; letter-spacing: 1px; text-transform: uppercase; color: var(--dark); }
+  .top-bar .left .sub { font-size: 13px; color: #888; }
+  .top-bar .right { display: flex; align-items: center; gap: 10px; }
+  .top-bar .right img { height: 60px; }
+  .top-bar .right .alliance-tag {
+    background: #e8f4f1; border: 1px solid var(--teal); border-radius: 5px;
+    padding: 3px 10px; font-size: 13px; color: var(--dark); font-weight: bold;
+  }
+
+  /* Highlight boxes (KEY INSIGHT, etc.) */
+  .highlight-box {
+    border-radius: 8px; padding: 14px 20px; margin: 0 auto 16px auto;
+    max-width: 820px;
+  }
+  .highlight-box.action {
+    background: #fff0f0; border: 2px solid var(--watermelon);
+  }
+  .highlight-box.action .label {
+    color: var(--watermelon); font-size: 11px; font-weight: bold;
+    text-transform: uppercase; letter-spacing: 1px; margin-bottom: 6px;
+  }
+  .highlight-box.action .value {
+    color: var(--text); font-size: 15px; line-height: 1.55;
+  }
+  .highlight-box.info {
+    background: #e4f3f8; border: 2px solid var(--cyan);
+  }
+  .highlight-box.info .label {
+    color: var(--cyan); font-size: 11px; font-weight: bold;
+    text-transform: uppercase; letter-spacing: 1px; margin-bottom: 6px;
+  }
+  .highlight-box.info .value {
+    color: var(--text); font-size: 14px; line-height: 1.55;
+  }
+  .highlight-box.warn {
+    background: #fef3e2; border: 2px solid var(--orange);
+  }
+  .highlight-box.warn .label {
+    color: var(--orange); font-size: 11px; font-weight: bold;
+    text-transform: uppercase; letter-spacing: 1px; margin-bottom: 6px;
+  }
+  .highlight-box.warn .value {
+    color: var(--text); font-size: 14px; line-height: 1.55;
+  }
+
+  /* Section titles */
+  .section-title {
+    font-size: 17px; color: var(--orange); margin: 22px auto 10px auto;
+    border-bottom: 2px solid var(--yellow); padding-bottom: 4px;
+    text-transform: uppercase; letter-spacing: 1px; max-width: 980px;
+  }
+
+  /* Sub-section description */
+  .section-desc {
+    max-width: 820px; margin: 4px auto 12px auto;
+    font-size: 14px; color: var(--text); line-height: 1.6;
+  }
+
+  /* Tables */
+  .table-wrap {
+    max-width: 980px; margin: 8px auto 18px auto;
+    overflow-x: auto; -webkit-overflow-scrolling: touch;
+  }
+  table {
+    width: 100%; border-collapse: collapse; font-size: 14px;
+    background: #fff;
+  }
+  thead th {
+    background: var(--dark); color: #fff; padding: 8px 6px;
+    text-align: center; font-weight: 600; font-size: 12px;
+    text-transform: uppercase; letter-spacing: 0.5px;
+  }
+  tbody td {
+    padding: 7px 8px; text-align: center; border-bottom: 1px solid #e8e8e8;
+    vertical-align: top;
+  }
+  tbody tr:nth-child(even) { background: #fafafa; }
+  tbody tr:hover { background: #f0f7ff; }
+
+  /* Column tints for the centerpiece comparison */
+  th.stronghold-col, td.stronghold-col { background: #e8f4f1 !important; }
+  th.city-col, td.city-col { background: #fff0f0 !important; }
+  tbody tr:hover td.stronghold-col { background: #d8ece7 !important; }
+  tbody tr:hover td.city-col { background: #ffe2e2 !important; }
+  .col-aspect { text-align: left !important; font-weight: 700; color: var(--dark); }
+  .num-strong { color: #2a8fa8; font-weight: 700; }
+  .num-warn { color: #c47a30; font-weight: 700; }
+  .num-bad { color: #c62828; font-weight: 700; }
+
+  /* Tag pills */
+  .tag {
+    display: inline-block; font-size: 11px; padding: 1px 7px;
+    border-radius: 10px; font-weight: 700; color: #fff;
+    vertical-align: middle; margin: 0 1px;
+  }
+  .t-teal { background: var(--teal); }
+  .t-ora { background: var(--orange); }
+  .t-cyan { background: var(--cyan); }
+  .t-watermelon { background: var(--watermelon); }
+  .t-dark { background: var(--dark); }
+
+  /* Step boxes */
+  .step-list { max-width: 820px; margin: 8px auto 16px auto; }
+  .step-box {
+    display: flex; align-items: flex-start; gap: 12px;
+    border-left: 3px solid var(--cyan); padding: 10px 14px;
+    margin-bottom: 8px; background: #fafcfe; border-radius: 0 6px 6px 0;
+  }
+  .step-num {
+    flex-shrink: 0; width: 28px; height: 28px; background: var(--cyan);
+    color: #fff; border-radius: 50%; display: flex; align-items: center;
+    justify-content: center; font-size: 14px; font-weight: bold;
+  }
+  .step-text { font-size: 14px; color: var(--text); line-height: 1.5; padding-top: 3px; }
+
+  /* Fact list */
+  .fact-list { max-width: 820px; margin: 8px auto 16px auto; padding-left: 24px; }
+  .fact-list li { margin-bottom: 6px; font-size: 14px; color: var(--text); line-height: 1.5; }
+
+  /* Sources block */
+  .sources-block {
+    max-width: 980px; margin: 24px auto 12px auto;
+    background: #f7f7f7; border: 1px solid #ddd; border-radius: 8px;
+    padding: 14px 20px; font-size: 12px;
+  }
+  .sources-block h3 {
+    font-size: 13px; color: var(--dark); text-transform: uppercase;
+    letter-spacing: 1px; margin-bottom: 8px;
+  }
+  .sources-block ol { padding-left: 20px; }
+  .sources-block li { margin-bottom: 4px; color: #555; line-height: 1.5; }
+  .sources-block a { color: var(--cyan); text-decoration: none; }
+  .sources-block a:hover { text-decoration: underline; }
+
+  /* TLDR side-by-side */
+  .tldr-pair { max-width: 980px; margin: 0 auto 16px auto; display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+
+  .footer {
+    text-align: center; color: #aaa; font-size: 11px;
+    margin-top: 24px; padding-top: 12px; border-top: 1px solid #eee;
+  }
+
+  /* Mobile responsive */
+  @media (max-width: 768px) {
+    body { padding: 8px 10px; }
+    .top-bar { flex-direction: column; gap: 6px; text-align: center; }
+    .top-bar .right { justify-content: center; }
+    .top-bar .left h1 { font-size: 19px; }
+    .tldr-pair { grid-template-columns: 1fr; }
+    table { font-size: 12px; }
+    thead th, tbody td { padding: 5px 4px; white-space: normal; }
+    .highlight-box { padding: 10px 14px; }
+    .section-title { font-size: 15px; }
+    .section-desc, .fact-list, .step-list, .sources-block { max-width: 100%; }
+  }
+  @media (max-width: 480px) {
+    .top-bar .left h1 { font-size: 16px; }
+    .top-bar .right img { height: 44px; }
+    .section-title { font-size: 14px; }
+    table { font-size: 11px; }
+    .step-box { padding: 8px 10px; gap: 8px; }
+    .step-num { width: 22px; height: 22px; font-size: 12px; }
+    .step-text { font-size: 13px; }
+  }
+
+  /* Navigation Bar */
+  .guide-nav {
+    display: flex; flex-wrap: wrap; gap: 4px 12px; align-items: center;
+    padding: 6px 16px; background: #f0f5f4; border-bottom: 2px solid var(--teal);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 12px; margin: -12px -16px 12px -16px;
+  }
+  .guide-nav a {
+    color: var(--dark); text-decoration: none; padding: 2px 6px;
+    border-radius: 3px; white-space: nowrap;
+  }
+  .guide-nav a:hover { color: var(--orange); background: #fff; }
+  .guide-nav a.current {
+    color: var(--orange); font-weight: bold; background: #fff;
+    border: 1px solid var(--orange);
+  }
+  .guide-nav .nav-home {
+    font-weight: bold; margin-right: 8px; padding-right: 12px;
+    border-right: 1px solid var(--teal);
+  }
+  @media (max-width: 480px) {
+    .guide-nav { padding: 4px 8px; gap: 3px 8px; font-size: 11px; margin: -8px -10px 8px -10px; }
+  }
+</style>
+</head>
+<body>
+
+<nav class="guide-nav" id="guide-nav"></nav>
+<script src="../nav.js"></script>
+
+<!-- HEADER -->
+<div class="top-bar">
+  <div class="left">
+    <h1>Season 1 — Land Captures</h1>
+    <div class="sub">Strongholds vs Cities — the protection-lock trick, durability, and what you can build</div>
+  </div>
+  <div class="right">
+    <img src="skynet_logo.png" alt="OWOW SKYNET">
+    <div class="alliance-tag">[OWOW] Old World Order</div>
+  </div>
+</div>
+
+<!-- KEY INSIGHT TLDR -->
+<div class="highlight-box action">
+  <div class="label">Key Insight — The Stronghold Lock Trick</div>
+  <div class="value">
+    <b>Strongholds</b> get a flat <b>36-hour protection lock</b> when captured. If a friendly alliance rushes to capture a neutral stronghold, the enemy alliance is locked out for 36 hours from that tile — a real <b>denial / area-control</b> tactic. <b>Cities don't work this way</b>: an attack on a city only drains its durability over time, and that durability <i>recovers only passively over time</i>. There is no equivalent "ally rush" lock for cities — they're a war of attrition.
+  </div>
+</div>
+
+<!-- TWO TL;DR CARDS -->
+<div class="tldr-pair">
+  <div class="highlight-box info" style="margin: 0;">
+    <div class="label">Stronghold — single-attack model</div>
+    <div class="value">
+      Capture by attacking the <b>Corruptor boss + zombies</b> guarding the tile. Requires <b>Virus Resistance</b>. One alliance attack/rally either captures it or fails — binary outcome. After capture: <b>36-hour protection</b>, 1 hour to abandon. <b>2 strongholds/day max</b> (global across all warzones). Cross-warzone unlocks at <b>Week 3 Day 2</b> via an Alliance Outpost.
+    </div>
+  </div>
+  <div class="highlight-box warn" style="margin: 0;">
+    <div class="label">City — durability-drain model</div>
+    <div class="value">
+      Capture by <b>declaring war</b> (1-hour war duration). Attackers drain the city's durability; defender troops resist. <b>Only R4/R5</b> can declare. <b>1 war at a time per alliance</b>. After capture: protection until next Declaration Day 12:00 server time (max ~6-7 days). <b>2 cities/day max</b>. After Week 4 Day 3, declarations are restricted to <b>Thursday + Saturday</b> only.
+    </div>
+  </div>
+</div>
+
+<!-- CENTERPIECE COMPARISON TABLE -->
+<div class="section-title">Capture Comparison — Stronghold vs City</div>
+<div class="section-desc">
+  Side-by-side reference for every mechanic that differs between the two land types in Season 1 ("The Crimson Plague").
+</div>
+
+<div class="table-wrap">
+<table>
+  <thead>
+    <tr>
+      <th>Aspect</th>
+      <th class="stronghold-col">Stronghold</th>
+      <th class="city-col">City</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td class="col-aspect">Capture method</td>
+      <td class="stronghold-col">Direct attack / rally on Corruptor + Infected Zombie defender</td>
+      <td class="city-col">War declaration → 1-hour war → drain durability to 0</td>
+    </tr>
+    <tr>
+      <td class="col-aspect">Capture loss model</td>
+      <td class="stronghold-col">Binary — all or nothing</td>
+      <td class="city-col">Gradual — durability drains across attacks</td>
+    </tr>
+    <tr>
+      <td class="col-aspect">Durability recovery</td>
+      <td class="stronghold-col">N/A (no durability bar)</td>
+      <td class="city-col"><b>Passive over time only</b> — no defender-triggered reset</td>
+    </tr>
+    <tr>
+      <td class="col-aspect">Daily limit (global)</td>
+      <td class="stronghold-col"><span class="num-strong">2/day</span> across <i>all</i> warzones</td>
+      <td class="city-col"><span class="num-strong">2/day</span> war declarations across <i>all</i> warzones</td>
+    </tr>
+    <tr>
+      <td class="col-aspect">Protection after capture</td>
+      <td class="stronghold-col"><b>36 hours</b> (same value home + cross-warzone)</td>
+      <td class="city-col">Until next Declaration Day 12:00 server time, <b>max ~6-7 days</b></td>
+    </tr>
+    <tr>
+      <td class="col-aspect">Defending a tile resets protection?</td>
+      <td class="stronghold-col">Protection resets only when ownership changes</td>
+      <td class="city-col">Protection resets only when ownership changes</td>
+    </tr>
+    <tr>
+      <td class="col-aspect">Abandon duration</td>
+      <td class="stronghold-col">1 hour</td>
+      <td class="city-col">1 hour</td>
+    </tr>
+    <tr>
+      <td class="col-aspect">Recapture cooldown after abandon</td>
+      <td class="stronghold-col">None explicitly documented</td>
+      <td class="city-col"><span class="num-warn">5-day protection</span> before you can recapture</td>
+    </tr>
+    <tr>
+      <td class="col-aspect">Virus Resistance required</td>
+      <td class="stronghold-col"><b>Yes</b> — Corruptor inflicts virus on troops regardless of VR</td>
+      <td class="city-col">Yes — siege troops can be infected during city wars</td>
+    </tr>
+    <tr>
+      <td class="col-aspect">Cross-warzone unlock</td>
+      <td class="stronghold-col">Week 3 Day 2 (Outpost required)</td>
+      <td class="city-col">Week 4 Day 3 (Stronghold-chain connection required)</td>
+    </tr>
+    <tr>
+      <td class="col-aspect">Cross-warzone declaration days (post-W4 D3)</td>
+      <td class="stronghold-col">Any day</td>
+      <td class="city-col"><b>Thursday + Saturday only</b></td>
+    </tr>
+    <tr>
+      <td class="col-aspect">Rank to initiate</td>
+      <td class="stronghold-col">Not explicitly restricted (any participating member's rally)</td>
+      <td class="city-col"><b>R4 / R5 only</b></td>
+    </tr>
+    <tr>
+      <td class="col-aspect">Adjacency requirement</td>
+      <td class="stronghold-col">Own adjacent stronghold OR Alliance Outpost in that warzone</td>
+      <td class="city-col">Direct chain connection through controlled strongholds</td>
+    </tr>
+    <tr>
+      <td class="col-aspect">Multiple in flight</td>
+      <td class="stronghold-col">Multiple attacks possible (no exclusivity)</td>
+      <td class="city-col"><b>Only 1 city war at a time</b> per alliance</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<!-- THE PROTECTION LOCK TRICK -->
+<div class="section-title">The Stronghold Protection Lock — Strategic Exploit</div>
+<div class="section-desc">
+  Because every captured stronghold enters a non-attackable 36-hour state, a friendly alliance can <b>deliberately rush to capture a neutral or enemy-adjacent stronghold</b> before the enemy gets there. The lock window denies them that tile and forces them around your perimeter for 36 hours.
+</div>
+
+<div class="step-list">
+  <div class="step-box">
+    <div class="step-num">1</div>
+    <div class="step-text"><b>Identify the threat tile.</b> Find a neutral stronghold (or an enemy adjacent tile) that gives the rival alliance access to a contested city chain or your home territory.</div>
+  </div>
+  <div class="step-box">
+    <div class="step-num">2</div>
+    <div class="step-text"><b>Confirm capability.</b> Verify your alliance has Virus Resistance ≥ the stronghold's requirement (use the <a href="virus_resistance.html" style="color:var(--cyan);">VR calculator</a> if rallying). Confirm you haven't already used both daily stronghold slots.</div>
+  </div>
+  <div class="step-box">
+    <div class="step-num">3</div>
+    <div class="step-text"><b>Rush the rally.</b> Launch a fully-loaded rally on the Corruptor. A win locks the tile to your alliance for <b>36 hours</b> — the enemy alliance cannot attack it during that window.</div>
+  </div>
+  <div class="step-box">
+    <div class="step-num">4</div>
+    <div class="step-text"><b>Chain-lock the perimeter.</b> If you have multiple strongholds available to capture, lay them in a wall along the contested edge. After ~36hrs, abandon (1 hr) and recapture to refresh — or rotate to an adjacent stronghold and lock that one instead.</div>
+  </div>
+  <div class="step-box">
+    <div class="step-num">5</div>
+    <div class="step-text"><b>Budget the cost.</b> Each rush burns 1 of your 2 daily stronghold capture slots and consumes troop healing. Save these slots for <i>high-impact</i> blocks — the strongholds adjacent to enemy outposts or in front of valuable cities.</div>
+  </div>
+</div>
+
+<div class="highlight-box info">
+  <div class="label">Important caveat</div>
+  <div class="value">
+    The 36-hour timer is a published mechanic, not a hidden exploit — every Season 1 source documents the protection window. The "trick" is using it <b>offensively for area denial</b> instead of just defensively after your own captures. There is no rule against it, and it works on captured strongholds in both your home warzone and other warzones.
+  </div>
+</div>
+
+<!-- WHY CITIES DON'T LOCK -->
+<div class="section-title">Why This Trick Doesn't Work on Cities</div>
+<ul class="fact-list">
+  <li>Cities can't be captured in one attack — they require a <b>1-hour war declaration</b> during which troops drain the city's durability.</li>
+  <li>An alliance can only have <b>one active city war at a time</b>, so you can't blitz-capture multiple cities in a single push.</li>
+  <li>City durability <b>does not regenerate from defenders</b> — only passive recovery over time restores it. A coordinated enemy effort can drain durability across multiple Declaration Days until the city falls.</li>
+  <li>The 6-7 day protection only kicks in <i>after</i> a successful capture. During war declarations themselves, the city remains attackable.</li>
+  <li>After Week 4 Day 3, war declarations on cities in other warzones are limited to <b>Thursday + Saturday</b>, making rush-lock attempts a 2-day-a-week affair anyway.</li>
+  <li>R4/R5 rank is required to declare war on cities, so the rush has to be initiated by alliance leadership specifically.</li>
+</ul>
+
+<!-- CAPACITY LIMITS -->
+<div class="section-title">Capacity Limits — How Much Land Can An Alliance Own?</div>
+
+<div class="table-wrap">
+<table>
+  <thead>
+    <tr>
+      <th>Land Type</th>
+      <th>Home Warzone</th>
+      <th>Other Warzones (combined)</th>
+      <th>Total Cap</th>
+      <th>Notes</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td class="col-aspect">Strongholds</td>
+      <td>3 base</td>
+      <td>Same pool</td>
+      <td><b>3 + city bonuses</b></td>
+      <td>+1 per Lv 1-5 city captured; +2 per Lv 6 city captured</td>
+    </tr>
+    <tr>
+      <td class="col-aspect">Cities</td>
+      <td><b>4 max</b></td>
+      <td><b>4 max</b></td>
+      <td><b>8 total</b></td>
+      <td>Other-warzone counter is shared across all foreign warzones</td>
+    </tr>
+    <tr>
+      <td class="col-aspect">Alliance Outposts</td>
+      <td>—</td>
+      <td><b>4 max</b> (1 per warzone)</td>
+      <td><b>4</b></td>
+      <td>Placed by R4/R5, irretractable, unlocks one per week starting W4</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<div class="highlight-box info">
+  <div class="label">Influence Points by City Level</div>
+  <div class="value">
+    Capturing a city awards Influence Points (IP) to your alliance's seasonal ranking. The IP curve is steep at Lv 6:
+    <table style="margin-top:8px; font-size:13px;">
+      <thead>
+        <tr><th>City Lv 1</th><th>Lv 2</th><th>Lv 3</th><th>Lv 4</th><th>Lv 5</th><th>Lv 6</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>100,000</td><td>200,000</td><td>300,000</td>
+          <td>400,000</td><td>500,000</td><td><b>1,000,000</b></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- UNLOCK TIMELINE -->
+<div class="section-title">Season 1 Unlock Timeline</div>
+<div class="section-desc">
+  Capture mechanics unlock in a fixed sequence over Season 1. Plan your alliance progression around these gates.
+</div>
+
+<div class="table-wrap">
+<table>
+  <thead>
+    <tr>
+      <th>Week / Day</th>
+      <th>Event</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td class="col-aspect">Week 1, Day 3</td><td>Stronghold captures open in home warzone</td></tr>
+    <tr><td class="col-aspect">Week 1, Day 4</td><td>Level 1 city captures open</td></tr>
+    <tr><td class="col-aspect">Week 1, Day 7</td><td>Level 2 cities unlocked (cities open progressively through Day 21)</td></tr>
+    <tr><td class="col-aspect">Week 2-3</td><td>Higher-level cities (Lv 3-4) progressively unlock</td></tr>
+    <tr><td class="col-aspect">Week 3, Day 2</td><td><b>Cross-warzone stronghold captures unlock</b> (Outpost required)</td></tr>
+    <tr><td class="col-aspect">Week 3 (Thu+Sat)</td><td>City levels 5 + 6 unlock; Warzone Expedition event begins</td></tr>
+    <tr><td class="col-aspect">Week 4, Day 3</td><td><b>Cross-warzone city declarations open</b>; city declaration days lock to Thursday + Saturday</td></tr>
+    <tr><td class="col-aspect">Week 4</td><td><b>Builder Alliance toggle</b> unlocks for qualifying alliances; Warzone Duel event begins</td></tr>
+    <tr><td class="col-aspect">Weeks 4-7</td><td>Builder Alliance operating window — facility construction phase</td></tr>
+    <tr><td class="col-aspect">Week 8</td><td>End-of-season rewards distributed based on contributions</td></tr>
+  </tbody>
+</table>
+</div>
+
+<!-- WHAT YOU CAN BUILD -->
+<div class="section-title">What You Can Build On / Near Captured Land</div>
+<div class="section-desc">
+  Strongholds are mostly territorial markers (no buildable surface), but cities are the construction substrate. There are two distinct build paths: <b>Alliance Outposts</b> (universal cross-warzone tool) and <b>Builder Alliance facilities</b> (mid-season switch).
+</div>
+
+<div class="table-wrap">
+<table>
+  <thead>
+    <tr>
+      <th>Structure</th>
+      <th>Where Placed</th>
+      <th>Who Builds</th>
+      <th>Effect / Notes</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td class="col-aspect">Alliance Outpost</td>
+      <td>Other warzone territory (free placement on the warzone map)</td>
+      <td>R4 / R5</td>
+      <td>Bridgehead for first cross-warzone captures. Members can teleport to its territory. Vulnerable to single attacks once built; can be destroyed and rebuilt. 1 per warzone, 4 total per alliance. Irretractable once placed.</td>
+    </tr>
+    <tr>
+      <td class="col-aspect">Collection Depot <span class="tag t-teal">Builder</span></td>
+      <td>Adjacent to a city</td>
+      <td>R4 / R5 (Builder mode)</td>
+      <td>Collection speed <b>+10%</b> (local warzone)</td>
+    </tr>
+    <tr>
+      <td class="col-aspect">Engineering Center <span class="tag t-teal">Builder</span></td>
+      <td>Adjacent to a city</td>
+      <td>R4 / R5 (Builder mode)</td>
+      <td>Construction speed <b>+10%</b> (local warzone)</td>
+    </tr>
+    <tr>
+      <td class="col-aspect">Research Laboratory <span class="tag t-teal">Builder</span></td>
+      <td>Adjacent to a city</td>
+      <td>R4 / R5 (Builder mode)</td>
+      <td>Research speed <b>+10%</b> (local warzone)</td>
+    </tr>
+    <tr>
+      <td class="col-aspect">Training Center <span class="tag t-teal">Builder</span></td>
+      <td>Adjacent to a city</td>
+      <td>R4 / R5 (Builder mode)</td>
+      <td>Training speed <b>+5%</b> (local warzone)</td>
+    </tr>
+    <tr>
+      <td class="col-aspect">Iron / Gold / Food Factory <span class="tag t-teal">Builder</span></td>
+      <td>Adjacent to a city</td>
+      <td>R4 / R5 (Builder mode)</td>
+      <td>Hourly resource production (separate facility per resource type)</td>
+    </tr>
+    <tr>
+      <td class="col-aspect">Medical Station <span class="tag t-teal">Builder</span></td>
+      <td>Adjacent to a city (city-range buff)</td>
+      <td>R4 / R5 (Builder mode)</td>
+      <td>PvP loss rate <b>-5%</b> for troops inside the city's radius</td>
+    </tr>
+    <tr>
+      <td class="col-aspect">Radar Station <span class="tag t-teal">Builder</span></td>
+      <td>Adjacent to a city (city-range buff)</td>
+      <td>R4 / R5 (Builder mode)</td>
+      <td>Hero defense <b>+5%</b></td>
+    </tr>
+    <tr>
+      <td class="col-aspect">Arsenal <span class="tag t-teal">Builder</span></td>
+      <td>Adjacent to a city (city-range buff)</td>
+      <td>R4 / R5 (Builder mode)</td>
+      <td>Hero attack <b>+5%</b></td>
+    </tr>
+    <tr>
+      <td class="col-aspect">City Durability bonus <span class="tag t-watermelon">Universal</span></td>
+      <td>Triggered per facility built</td>
+      <td>R4 / R5 (Builder mode)</td>
+      <td>City durability limit <b>+10%</b> per facility — <b>the only Builder buff that propagates cross-server</b></td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<div class="highlight-box info">
+  <div class="label">Builder Alliance — How facility construction works</div>
+  <div class="value">
+    <ul style="padding-left: 18px; line-height: 1.7;">
+      <li><b>Builder Alliance unlocks Week 4</b> of Season 1 (lasts W4-W7). The toggle is <b>irreversible</b> for the rest of the season — switching commits your alliance to construction-focused rewards instead of Influence Points ranking.</li>
+      <li>Up to <b>10 distinct facility types</b>, max <b>3 facilities per city area</b>.</li>
+      <li>Builder Alliances <b>must abandon captured cities</b> on conversion. Stronghold rules are not explicitly restricted in published documentation — verify in-game before relying on this.</li>
+      <li>Building Materials come from <b>Daily missions + Radar missions</b>, donated by alliance members. Spy plane delivers in batches of 10 units.</li>
+      <li>Facilities are built on land owned by <b>any</b> alliance (Builder mode does not require you to own the city — you can support an ally's captured city).</li>
+    </ul>
+  </div>
+</div>
+
+<!-- ALLIANCE OUTPOST DETAILS -->
+<div class="section-title">Alliance Outposts — The Cross-Warzone Bridgehead</div>
+<ul class="fact-list">
+  <li>Placed by R4 or R5 on another warzone's territory. <b>No adjacency required for placement</b> — the outpost itself doesn't need to be next to anything you control.</li>
+  <li>One outpost per warzone, max <b>4 outposts per alliance</b>.</li>
+  <li><b>Irretractable</b> once placed. If you misplace it, you cannot move it — only destroy and rebuild.</li>
+  <li>While building, the outpost has a <b>protection status</b> (cannot be attacked until construction completes).</li>
+  <li>After construction completes: vulnerable to <b>single attacks only</b> — no rallies allowed against outposts.</li>
+  <li>A destroyed outpost <b>can be rebuilt</b>.</li>
+  <li>Outpost is required for the <b>first</b> capture in a warzone. Subsequent strongholds in that warzone are captured by chaining adjacency from the outpost-territory.</li>
+  <li>Members can <b>teleport their base</b> to the outpost's territory to attack from there.</li>
+</ul>
+
+<!-- ADVISORY / VERIFY NOTES -->
+<div class="section-title">Things To Verify In-Game</div>
+<div class="highlight-box warn">
+  <div class="label">Published docs are silent on these — confirm before relying</div>
+  <div class="value">
+    <ul style="padding-left: 18px; line-height: 1.7;">
+      <li>Whether Builder Alliances may keep their captured <b>strongholds</b> (city abandonment is explicit; stronghold rules are not stated in either FUNFLY Support article or the published guides).</li>
+      <li>The exact <b>passive city-durability recovery rate</b> (only confirmed that it recovers over time; no published rate found in third-party guides).</li>
+      <li>Whether the <b>Corruptor defender</b> respawns at a fresh-attack baseline after an Alliance abandons a stronghold and another alliance attempts to capture (likely yes, but undocumented).</li>
+      <li>Whether <b>defender troops inside a city</b> reduce attacker durability drain rate, or only count as battle losses on defense.</li>
+    </ul>
+  </div>
+</div>
+
+<!-- SOURCES -->
+<div class="sources-block">
+  <h3>Sources — Every Numeric Value On This Page</h3>
+  <ol>
+    <li>
+      <a href="https://www.lastwartutorial.com/ultimate-war-rules-guide-for-season-1/" target="_blank" rel="noopener">
+        Ultimate War Rules Guide for Season 1 — lastwartutorial.com
+      </a>
+      — primary source for protection times (36hr / 6-7 day), daily limits (2/day), cross-warzone unlocks, outpost rules, abandon mechanics, adjacency requirements
+    </li>
+    <li>
+      <a href="https://www.lastwartutorial.com/season-1-the-crimson-plague/" target="_blank" rel="noopener">
+        Season 1 — The Crimson Plague overview — lastwartutorial.com
+      </a>
+      — cross-server alliance warfare context
+    </li>
+    <li>
+      <a href="https://firstfungroup.zendesk.com/hc/en-us/articles/44729112658323-Season-1-Builder-Alliance" target="_blank" rel="noopener">
+        Season 1 Builder Alliance — FUNFLY Support (official)
+      </a>
+      — Builder Alliance rules: irreversible conversion, must abandon cities, 10 facilities, 3 per city area
+    </li>
+    <li>
+      <a href="https://lastwar-tutorial.com/en/season-1/" target="_blank" rel="noopener">
+        Last War Season 1 guide and tips — lastwar-tutorial.com
+      </a>
+      — Builder Alliance facility list with verified buff percentages (Collection +10%, Construction +10%, Research +10%, Training +5%, Medical/Radar/Arsenal +5%, City Durability +10%)
+    </li>
+    <li>
+      <a href="https://lastwarhandbook.com/guides/season-1-territory-capture-guide" target="_blank" rel="noopener">
+        Last War Season 1 Territory & Capture Guide — Last War Handbook
+      </a>
+      — protection times, city levels, Corruptor defender mechanics
+    </li>
+    <li>
+      <a href="https://lastwartactics.com/en/season-1/last-war-season-1-fortress-and-city-warfare-rules/" target="_blank" rel="noopener">
+        Season 1: Fortress and City Warfare Rules — lastwartactics.com
+      </a>
+      — stronghold limits (3 base, +1 per Lv 1-5 city, +2 per Lv 6 city), war declaration rules (R4+ only, 1 city at a time, 1hr duration)
+    </li>
+    <li>
+      <a href="https://www.lastwartutorial.com/season-1-week-3/" target="_blank" rel="noopener">
+        Season 1 Week 3 — lastwartutorial.com
+      </a>
+      — Outpost placement mechanics (R4/R5, 4 max, 1 per warzone, irretractable, single-attack vulnerability, rebuildable)
+    </li>
+    <li>
+      <a href="https://www.lastwartutorial.com/season-1-week-4/" target="_blank" rel="noopener">
+        Season 1 Week 4 — lastwartutorial.com
+      </a>
+      — Thursday + Saturday declaration day lock for cross-warzone city wars, Builder Alliance toggle timing
+    </li>
+    <li>
+      <a href="https://www.facebook.com/lastwarsurvival/posts/536126426074642/" target="_blank" rel="noopener">
+        Builder Alliance announcement — FUNFLY Facebook (official)
+      </a>
+      — original feature announcement, eligibility, design intent
+    </li>
+    <li>
+      <a href="https://www.lastwargame.online/en/season1-map/" target="_blank" rel="noopener">
+        Season 1 New Map & Territory Capture Guide — lastwargame.online
+      </a>
+      — Influence Points by city level (100k / 200k / 300k / 400k / 500k / 1M), week-by-week unlock schedule
+    </li>
+  </ol>
+  <p style="margin-top:10px; font-style:italic; color:#888;">
+    Compiled by OWOW Strategic Command, May 2026. Every claim above is traceable to at least one published source. Mechanics labelled "verify in-game" are gaps in the public documentation and should be confirmed by direct observation before being relied on in active alliance strategy.
+  </p>
+</div>
+
+<div class="footer">
+  Last updated 2026-05-13 — Strategic reference for [OWOW] Old World Order — Server #2013
+</div>
+
+</body>
+</html>
