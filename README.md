@@ -40,6 +40,7 @@ A complete suite of free tools and guides for Last War: Survival players. Track 
 | [Training Optimization](https://extremesecrecy.github.io/lastwar-research-trees/guides/training_optimization.html) | Training pools, speed formulas, research priorities for faster troops |
 | [Wall of Honor](https://extremesecrecy.github.io/lastwar-research-trees/guides/wall_of_honor.html) | Hero 5-star buffs, milestone bonuses, and investment priority for all 31 heroes |
 | [Interior Test Report](https://extremesecrecy.github.io/lastwar-research-trees/guides/interior_test_report.html) | Interior buff testing and analysis |
+| [Season 1 Land Captures](https://extremesecrecy.github.io/lastwar-research-trees/guides/s1_land_captures.html) | Stronghold protection-lock trick, city durability rules, Alliance Outposts & Builder Alliance facilities |
 
 ---
 
