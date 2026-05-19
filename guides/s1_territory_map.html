@@ -703,6 +703,13 @@ let isDragging = false, dragStartX = 0, dragStartY = 0, dragOffsetX = 0, dragOff
 const WORLD_SIZE = 1050;
 let lastTouchDist = 0;
 
+// ========== Y-AXIS FLIP ==========
+// Match cpt-hedge's Leaflet rendering (y=0 at bottom) — same fix as the VM map app
+// at tlw2013.ghzdata.com. Source data has y=0 at top; flip in place so all
+// downstream code (rendering, hit detection, centering) sees the corrected coords.
+const MAP_H = 1000;
+MAP_AREAS.forEach(a => { const c = a.coordinates; c.y = MAP_H - c.y - c.height; });
+
 // ========== INDEX AREAS BY GRID FOR FAST HIT TEST ==========
 const areaIndex = {};
 MAP_AREAS.forEach(a => {
