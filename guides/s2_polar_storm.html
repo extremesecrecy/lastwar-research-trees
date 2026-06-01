@@ -313,9 +313,9 @@
 <table>
   <thead><tr><th>Threshold</th><th>Effect</th></tr></thead>
   <tbody>
-    <tr><td class="col-aspect">+40°C base</td><td>Production / movement / healing boosts active</td></tr>
-    <tr><td class="col-aspect">+50°C base (when hitting World Boss)</td><td>Extra World Boss damage boost</td></tr>
-    <tr><td class="col-aspect">+4°C base</td><td>+10% basic resource output buff</td></tr>
+    <tr><td class="col-aspect">+40°C base <sup title="Unverified — see section 18" style="color:var(--watermelon);">⚠</sup></td><td>Production / movement / healing boosts active</td></tr>
+    <tr><td class="col-aspect">+50°C base (when hitting World Boss) <sup title="Unverified — see section 18" style="color:var(--watermelon);">⚠</sup></td><td>Extra World Boss damage boost</td></tr>
+    <tr><td class="col-aspect">+4°C base <sup title="Unverified — see section 18" style="color:var(--watermelon);">⚠</sup></td><td>+10% basic resource output buff</td></tr>
     <tr><td class="col-aspect">0°C</td><td>Supply Collection Cords appear on the map</td></tr>
     <tr><td class="col-aspect">Below -20°C for 5 min</td><td class="num-bad"><b>FREEZE</b> — cannot rally, cannot teleport, debuffs applied</td></tr>
     <tr><td class="col-aspect">Map edges</td><td>~-15°C baseline</td></tr>
@@ -361,7 +361,7 @@
 <div class="highlight-box warn">
   <div class="label">Overdrive — use intentionally</div>
   <div class="value">
-    Overdrive heats much faster but burns <b>~4× the Coal</b>. Reserve it for:
+    Overdrive heats much faster but burns <b>~4× the Coal</b> <sup title="Unverified — see section 18" style="color:var(--watermelon);">⚠</sup>. Reserve it for:
     <ul style="padding-left: 20px; line-height: 1.7;">
       <li>Blizzard / Cold Wave events (avoid the freeze countdown)</li>
       <li>Big rally pushes into cold zones</li>
@@ -412,10 +412,10 @@
   <thead><tr><th>Source</th><th>Heat Contribution</th><th>Cost / Notes</th></tr></thead>
   <tbody>
     <tr><td class="col-aspect">High-Heat Furnace (yours, normal mode)</td><td>5.5°C (L1) → 20°C (L30)</td><td>Burns Coal continuously</td></tr>
-    <tr><td class="col-aspect">High-Heat Furnace (Overdrive mode)</td><td>8°C (L1) → <b>30°C (L30)</b></td><td><b>~4× Coal</b> consumption</td></tr>
+    <tr><td class="col-aspect">High-Heat Furnace (Overdrive mode)</td><td>8°C (L1) → <b>30°C (L30)</b></td><td><b>~4× Coal</b> consumption <sup title="Unverified — see section 18" style="color:var(--watermelon);">⚠</sup></td></tr>
     <tr><td class="col-aspect">Alliance Furnace (in radius)</td><td>Extends heat to nearby members</td><td>Members reinforce upgrade; R4/R5 deploys</td></tr>
     <tr><td class="col-aspect">Captured Cities</td><td><b>5°C (L1) → 60°C (L6)</b></td><td>Highest single source — adjacency only</td></tr>
-    <tr><td class="col-aspect">Tower of Victory (decoration)</td><td>L2: +3°C · L3: +5°C</td><td>Purchase in S1 Black Market — see section 7</td></tr>
+    <tr><td class="col-aspect">Tower of Victory (decoration)</td><td>L1: +3°C · L2: +4°C · L3: +5°C (caps)</td><td>Purchase in S1 Black Market — see section 7</td></tr>
     <tr><td class="col-aspect">Recon Planes</td><td>Up to 60°C boost</td><td>Allies can send to your base</td></tr>
     <tr><td class="col-aspect">Firebomb (profession skill)</td><td><b>+45°C in 9×9 area, 5 min</b></td><td>23.5h cooldown · L3 skill</td></tr>
     <tr><td class="col-aspect">Intense Overdrive (profession skill)</td><td>+2°C bonus to Overdrive heat</td><td>L1 perk</td></tr>
@@ -470,10 +470,10 @@
 </div>
 
 <ul class="fact-list">
-  <li><b>Level 1:</b> Base temperature rises after construction</li>
-  <li><b>Level 2:</b> Unlocks additional burning effects</li>
-  <li><b>Level 3:</b> Adds <b>+3°C</b>; Level 4+ adds <b>+5°C</b></li>
-  <li>Purchase via the <b>Black Market</b> S1 event before S2 starts — provides the buff for the whole S2 run</li>
+  <li><b>Level 1:</b> <b>+3°C</b> base temperature</li>
+  <li><b>Level 2:</b> <b>+4°C</b> base temperature</li>
+  <li><b>Level 3:</b> <b>+5°C</b> base temperature — <b>caps here</b> (Level 4+ provides no extra heat)</li>
+  <li>Purchase via the <b>Black Market</b> S1 event before S2 starts — buff carries into S2</li>
   <li>One per base (1/1 building limit)</li>
 </ul>
 
@@ -510,12 +510,46 @@
   <div class="value">
     <ul style="padding-left: 18px; line-height: 1.7;">
       <li><b>Factory 1:</b> free at S2 start</li>
-      <li><b>Factory 2:</b> requires Factory 1 at Level 15</li>
-      <li><b>Factory 3:</b> requires Factory 2 at Level 15</li>
-      <li><b>Factory 4:</b> requires Factory 3 at Level 15</li>
+      <li><b>Factory 2:</b> requires Factory 1 at <b>Level 15</b></li>
+      <li><b>Factory 3:</b> requires Factory 2 at <b>Level 15</b></li>
+      <li><b>Factory 4:</b> requires Factory 3 at <b>Level 15</b></li>
       <li><b>Factory 5:</b> Weekly Pass subscription only</li>
     </ul>
-    <b>Strategy: rush all 4 factories to L15 first, then climb them all together.</b> Each level adds +720 Titanium Alloy/hour to that factory's output.
+    <b>Each level adds +720 Titanium Alloy/hour to that factory.</b> Max level 30 = 21,600/hr per factory.
+  </div>
+</div>
+
+<div class="highlight-box warn">
+  <div class="label">⚠️ Don't push a factory past L15 until all 4 are unlocked</div>
+  <div class="value">
+    The big trap: pouring resources into Factory 1 past L15 while you still only have 1 factory running.
+    <ul style="padding-left: 18px; line-height: 1.7;">
+      <li><b>1 factory at L20</b> = 14,400/hr total</li>
+      <li><b>4 factories at L15</b> = <b>43,200/hr total</b> (3× the output for the same investment window)</li>
+    </ul>
+    <b>Correct order:</b>
+    <ol style="padding-left: 18px; line-height: 1.7;">
+      <li>Factory 1 → L15 → <b>start Factory 2 immediately</b></li>
+      <li>Factory 2 → L15 → <b>start Factory 3</b></li>
+      <li>Factory 3 → L15 → <b>start Factory 4</b></li>
+      <li>All 4 unlocked → now level them <b>evenly</b> (all to 16, then 17, etc.)</li>
+    </ol>
+    Coal cost at L15 ≈ 137,000 · L30 ≈ 359,300 — costs accelerate sharply past L15. Unlocking factories 2-4 is the highest-ROI Titanium investment in S2.
+  </div>
+</div>
+
+<div class="highlight-box info">
+  <div class="label">Paid passes worth considering for S2 — what they actually give</div>
+  <div class="value">
+    Two passes show up in S2. If you only buy one, the <b>Weekly Pass</b> is the higher-impact-per-dollar option because of the 5th factory.
+    <table style="margin-top:8px; font-size:13px;">
+      <thead><tr><th>Pass</th><th>What's in it</th><th>S2 value</th></tr></thead>
+      <tbody>
+        <tr><td class="col-aspect"><b>Weekly Pass</b></td><td>Daily: ~20,000 Coal, stamina, speedups · Weekly: +250 VR points · <b>Unlocks Titanium Alloy Factory #5</b></td><td><b>High.</b> Factory 5 = +17,280 Titanium/day = compounds into Furnace XP. Stop renewing = lose Factory 5's output.</td></tr>
+        <tr><td class="col-aspect"><b>Season Battle Pass</b></td><td>Adds 2 extra reward tabs to season tasks · Coal, Profession XP, Skill Points, recruitment tickets, gems</td><td><b>Medium.</b> If you're doing the season tasks anyway, it doubles your reward yield. Buy if you stay engaged daily.</td></tr>
+      </tbody>
+    </table>
+    <b>Factory 5 caveat from the source:</b> "<i>It's not advisable to heavily invest [in Factory 5] unless you maintain the pass.</i>" Drop the pass = drop the factory's value. So if you can't commit to weekly renewal, only level Factory 5 when its upgrade cost is lower than the others.
   </div>
 </div>
 
@@ -524,7 +558,7 @@
   <div class="value">
     Three stackable savings:
     <ul style="padding-left: 18px; line-height: 1.7;">
-      <li><b>Engineer profession Level 35</b> — Resource Saving skill</li>
+      <li><b>Engineer profession Level 35</b> — Resource Saving skill <sup title="Unverified — see section 18" style="color:var(--watermelon);">⚠</sup></li>
       <li><b>Alliance tech: Veteran Craftsman</b> — lowers building cost</li>
       <li><b>Tech: Master Craftsman</b> — additional discount</li>
     </ul>
@@ -545,7 +579,7 @@
       <td><b>4</b></td>
       <td><b>2/day</b></td>
       <td>Mutant Beast + polar creatures</td>
-      <td>L1 = 3,500 <br>L6 = 10,500</td>
+      <td>L1 = 4,000 <br>L6 = 10,500</td>
       <td>36 hours</td>
       <td>Need adjacent owned tile<br>(or first capture L1)</td>
     </tr>
@@ -576,7 +610,7 @@
     <table style="margin-top:8px; font-size:13px;">
       <thead><tr><th>Dig Site Lv</th><th>1</th><th>2</th><th>3</th><th>4</th><th>5</th><th>6</th></tr></thead>
       <tbody>
-        <tr><td><b>VR Required</b></td><td>3,500</td><td>6,000</td><td>8,000</td><td>9,500</td><td>10,000</td><td><b>10,500</b></td></tr>
+        <tr><td><b>VR Required</b></td><td>4,000</td><td>6,500</td><td>8,500</td><td>9,500</td><td>10,000</td><td><b>10,500</b></td></tr>
       </tbody>
     </table>
   </div>
@@ -697,7 +731,7 @@
   <div class="step-box"><div class="step-num">5</div><div class="step-text"><b>Stack radar missions for S2 Day 1</b> — you need a Distressed Survivor task to spawn (it rewards Coal)</div></div>
   <div class="step-box"><div class="step-num">6</div><div class="step-text"><b>Scout your first dig site target</b> — picking a high-coal-output L1 dig adjacent to your start saves days of work</div></div>
   <div class="step-box"><div class="step-num">7</div><div class="step-text"><b>Two first bloods are possible:</b> hit a 160+ Doom Walker right before S1 reset (1st blood), then again right after S2 starts (2nd blood). Bank both rewards.</div></div>
-  <div class="step-box"><div class="step-num">8</div><div class="step-text"><b>Engineer profession to Level 35</b> for the Resource Saving skill (Coal cost reduction)</div></div>
+  <div class="step-box"><div class="step-num">8</div><div class="step-text"><b>Engineer profession to Level 35</b> for the Resource Saving skill <sup title="Unverified — see section 18" style="color:var(--watermelon);">⚠</sup> (Coal cost reduction)</div></div>
   <div class="step-box"><div class="step-num">9</div><div class="step-text"><b>Buy the Coal Pack</b> if available — your Day-1 Coal stockpile determines your first 48 hours</div></div>
   <div class="step-box"><div class="step-num">10</div><div class="step-text"><b>Renew alliance friendship pacts</b> with your S1 friend alliances. Confirm in writing (or at minimum in private chat with R5s) that they'll respond to your Stage-2 Rare Soil War defense invitations. Without confirmed defense allies, you fight alone.</div></div>
 </div>
@@ -715,7 +749,7 @@
     <tr><td class="col-aspect">Hour 0-4</td><td>Hit 160+ Doom Walker first blood</td><td>Second Coal/Titanium bounty (first one was end of S1)</td></tr>
     <tr><td class="col-aspect">Hour 0-6</td><td>Start <b>Titanium Alloy Factory #1</b></td><td>Don't pause — Factory 2-4 unlock chain depends on Factory 1 → L15</td></tr>
     <tr><td class="col-aspect">Hour 6-12</td><td>High-Heat Furnace L1 → L5</td><td>Establishes baseline heat above -10°C</td></tr>
-    <tr><td class="col-aspect">Hour 12-24</td><td>Capture first L1 Dig Site</td><td>Needs 3,500 VR · pick high-Coal output adjacent to start</td></tr>
+    <tr><td class="col-aspect">Hour 12-24</td><td>Capture first L1 Dig Site</td><td>Needs <b>4,000 VR</b> · pick high-Coal output adjacent to start</td></tr>
   </tbody>
 </table>
 </div>
@@ -769,13 +803,39 @@
 <!-- VERIFICATION + GAPS -->
 <div class="section-title">18 · Things to Verify In-Game</div>
 <div class="highlight-box warn">
-  <div class="label">Published docs are silent on these — confirm by direct observation</div>
+  <div class="label">⚠️ Claims I could not source — verify these against in-game UI before relying on them</div>
   <div class="value">
+    These appear in community guides or in-game observation, but I could not pin them down in any fetchable public source during validation. Treat them as "best available info, not confirmed."
     <ul style="padding-left: 18px; line-height: 1.7;">
-      <li><b>Exact Mutant Beast type counters</b> — published sources confirm three types (Gorilla / Bear / Mammoth) and a counter triangle but don't always specify which beats which. Verify against your squads.</li>
-      <li><b>Recapture cooldown after dig site abandonment</b> — cities have ~6-day protection / 5-day cooldown; dig site cooldown not explicitly documented.</li>
+      <li><b>Overdrive Coal consumption = ~4× normal</b> (sections 2, 5) — widely repeated in community discussion but absent from the public theriagames Furnace guide. Measure your Coal burn before/after toggling Overdrive to confirm the multiplier for your Furnace level.</li>
+      <li><b>+4°C base → +10% basic resource output</b> (section 2) — the threshold and exact buff value are not in any fetchable guide. Check the temperature buff panel in your base UI.</li>
+      <li><b>+40°C base → production / movement / healing buffs unlock</b> (section 2) — threshold not sourced. Likely a tiered buff system; verify each buff's exact trigger temperature in-game.</li>
+      <li><b>+50°C base → extra World Boss damage</b> (section 2) — not sourced; check World Boss panel during the next attack.</li>
+      <li><b>0°C → Supply Collection coordinates appear</b> (section 11) — partially supported: <a href="https://www.lastwartutorial.com/season-2-supply-collections/" target="_blank">lastwartutorial</a> says supplies "appear randomly when 0°C is reached" without specifying whether 0°C is the floor or the trigger. Watch when the first supply cords actually show up.</li>
+      <li><b>Engineer profession Level 35 = "Resource Saving" skill</b> (sections 7, 14) — name and exact level not confirmed in S2 sources. <a href="https://theriagames.com/guide/last-war-survival-titanium-alloy-guide/" target="_blank">theriagames Titanium guide</a> mentions a "Resource Saving" skill exists for Coal cost reduction but doesn't tie it to a specific profession level.</li>
+      <li><b>City Rare Soil mid-tier rates (L2-L5)</b> — only L1 (350/hr) and L6 (~1,000/hr) confirmed in any source; L2-L5 rates extrapolated linearly.</li>
+      <li><b>Exact Mutant Beast counter triangle</b> — sources confirm three beasts (Polar Bear / Gorilla / Mammoth) but the specific A-beats-B-beats-C mapping varies between guides. Verify which squad type wins against which beast on your server before committing to a capture.</li>
+      <li><b>Dig site recapture cooldown after abandonment</b> — cities have ~6-day protection; dig site cooldown not explicitly documented.</li>
       <li><b>Rare Soil War declaration day-of-week</b> — assumed Wednesday per Stage schedule; some servers may differ.</li>
-      <li><b>City Rare Soil rate at L5/L6</b> — confirmed 350/hr at L1, ~1000/hr at L6, but mid-tier rates not all sourced.</li>
+      <li><b>Carlie / Swift exclusive weapons</b> — Murphy's S2 exclusive weapon is confirmed by <a href="https://cpt-hedge.com/guides/season-2-murphy-exclusive-weapon" target="_blank">cpt-hedge</a>. Carlie + Swift weapons mentioned in <a href="https://www.lootbar.com/blog/en/last-war-violet-best-build-guide-maximize-her-tanking-power.html" target="_blank">lootbar</a> but not in a dedicated weapon guide — verify their drop sources in-game.</li>
+    </ul>
+  </div>
+</div>
+
+<div class="highlight-box info">
+  <div class="label">✓ Claims that ARE verified — and the source that backs them</div>
+  <div class="value">
+    For the receipts on the major mechanical claims in this guide:
+    <ul style="padding-left: 18px; line-height: 1.7;">
+      <li><b>Furnace L1/L15/L30 stats + L30 unlocks 3 military buildings</b> → <a href="https://theriagames.com/guide/last-war-survival-high-heat-furnace-guide/" target="_blank">theriagames Furnace Guide</a></li>
+      <li><b>Titanium Alloy Factory unlock chain (each previous → L15)</b>, +720/hr per level, 4 factories + Factory 5 via Weekly Pass, "level all evenly after L15" rule → <a href="https://theriagames.com/guide/last-war-survival-titanium-alloy-factory-guide/" target="_blank">theriagames Factory Guide</a> + <a href="https://lastwar.wiki/buildings/titanium-alloy-factory/" target="_blank">lastwar.wiki</a></li>
+      <li><b>Weekly Pass details</b> (20k Coal/day, 250 VR/week, Factory 5) → <a href="https://medievalfun.com/last-war-how-to-get-coal-titanium-alloy-in-season-2/" target="_blank">medievalfun S2 Coal/Titanium guide</a></li>
+      <li><b>Dig site cap (4) + city cap (6) + 2/day limits, VR ladder L1=4000 → L6=10,500, 4-hr capture race, 10 reinforce, 36hr / 6-day protection, no cross-warzone</b> → <a href="https://www.lastwartutorial.com/season-2-the-ultimate-strategy-guide-for-season-2-growth-captures-and-war/" target="_blank">lastwartutorial Ultimate Strategy Guide</a></li>
+      <li><b>Level unlock schedule (L1 = W1D3+12h through L7 = W4D7+12h)</b> → same source as above</li>
+      <li><b>Map gradient -15°C → -80°C, -20°C/5min freeze, -270°C floor, city heat radius 5°C (L1) → 60°C (L6)</b> → <a href="https://www.lastwartutorial.com/season-2-polar-storm/" target="_blank">lastwartutorial Polar Storm overview</a></li>
+      <li><b>Tower of Victory L1=+3°C / L2=+4°C / L3=+5°C (caps)</b> → <a href="https://heaven-guardian.com/last-war-tower-of-victory-guide-boost-stats-city-temp/" target="_blank">heaven-guardian Tower guide</a> + <a href="https://lastwar.wiki/decorations/tower-of-victory/" target="_blank">lastwar.wiki</a></li>
+      <li><b>Violet SSR→UR with +5% damage reduction stacking with Murphy for 10% total</b> → <a href="https://lastwarhandbook.com/guides/violet-guide" target="_blank">Last War Handbook Violet Guide</a></li>
+      <li><b>Rare Soil War: 8 rounds total / 2 per week from W4, durations 40/30/20 min, plunder 20% (30% post-Showdown)</b> → <a href="https://www.lastwartutorial.com/season-2-the-ultimate-strategy-guide-for-season-2-growth-captures-and-war/" target="_blank">lastwartutorial Ultimate Strategy Guide</a></li>
     </ul>
   </div>
 </div>
@@ -800,9 +860,17 @@
     <li><a href="https://firstfungroup.zendesk.com/hc/en-us/articles/44710087230739--Season-2-Beginner-s-Guide" target="_blank">Season 2 Beginner's Guide — FUNFLY Support (official)</a></li>
     <li><a href="https://www.lastwartutorial.com/season-2-supply-collections/" target="_blank">Season 2 Supply Collections — lastwartutorial.com</a></li>
     <li><a href="https://www.caraguatatuba.de/season1-6/en/" target="_blank">Caraguatatuba Last War Tools — S2</a></li>
+    <li><a href="https://theriagames.com/guide/last-war-survival-titanium-alloy-factory-guide/" target="_blank">Titanium Alloy Factory Guide — theriagames.com</a></li>
+    <li><a href="https://lastwar.wiki/buildings/titanium-alloy-factory/" target="_blank">Titanium Alloy Factory — lastwar.wiki</a></li>
+    <li><a href="https://heaven-guardian.com/last-war-tower-of-victory-guide-boost-stats-city-temp/" target="_blank">Tower of Victory Guide — heaven-guardian.com</a></li>
+    <li><a href="https://lastwar.wiki/decorations/tower-of-victory/" target="_blank">Tower of Victory — lastwar.wiki</a></li>
+    <li><a href="https://lastwarhandbook.com/guides/violet-guide" target="_blank">Violet Guide (S2 UR promotion + Murphy stack) — Last War Handbook</a></li>
+    <li><a href="https://cpt-hedge.com/guides/season-2-murphy-exclusive-weapon" target="_blank">Murphy S2 Exclusive Weapon — cpt-hedge.com</a></li>
+    <li><a href="https://medievalfun.com/last-war-how-to-get-coal-titanium-alloy-in-season-2/" target="_blank">Top 9 ways to get Coal &amp; Titanium Alloy — medievalfun.com</a></li>
+    <li><a href="https://medievalfun.com/last-war-season-2-beginners-guide/" target="_blank">Season 2 Beginner's Guide Week 1 — medievalfun.com</a></li>
   </ol>
   <p style="margin-top:10px; font-style:italic; color:#888;">
-    Compiled by RGBB Strategic Command, June 2026. Every numeric claim above is traceable to at least one source. Mechanics labelled "verify in-game" are gaps in public documentation and should be confirmed before relying on them in active play.
+    Compiled by RGBB Strategic Command, June 2026. Numeric claims throughout this guide are cross-referenced against the sources above. Claims flagged with <sup style="color:var(--watermelon);">⚠</sup> are widely repeated in community guides but I could not pin them down in any public source during validation — see section 18 for the full list. Verify those in-game before relying on them in active play.
   </p>
 </div>
 
