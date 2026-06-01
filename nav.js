@@ -1,4 +1,4 @@
-/* OWOW SKYNET — Shared Navigation Bar
+/* RGBB SKYNET — Shared Navigation Bar
    Include on any page: <script src="nav.js"></script> (root) or <script src="../nav.js"></script> (guides/)
    Auto-detects current page and highlights it. */
 (function() {
