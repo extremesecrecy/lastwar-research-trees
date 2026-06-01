@@ -415,7 +415,7 @@
     <tr><td class="col-aspect">High-Heat Furnace (Overdrive mode)</td><td>8°C (L1) → <b>30°C (L30)</b></td><td><b>~4× Coal</b> consumption</td></tr>
     <tr><td class="col-aspect">Alliance Furnace (in radius)</td><td>Extends heat to nearby members</td><td>Members reinforce upgrade; R4/R5 deploys</td></tr>
     <tr><td class="col-aspect">Captured Cities</td><td><b>5°C (L1) → 60°C (L6)</b></td><td>Highest single source — adjacency only</td></tr>
-    <tr><td class="col-aspect">Tower of Victory (decoration)</td><td>L2: +3°C · L3: +5°C</td><td>Purchase in S1 Black Market — see section 7</td></tr>
+    <tr><td class="col-aspect">Tower of Victory (decoration)</td><td>L1: +3°C · L2: +4°C · L3: +5°C (caps)</td><td>Purchase in S1 Black Market — see section 7</td></tr>
     <tr><td class="col-aspect">Recon Planes</td><td>Up to 60°C boost</td><td>Allies can send to your base</td></tr>
     <tr><td class="col-aspect">Firebomb (profession skill)</td><td><b>+45°C in 9×9 area, 5 min</b></td><td>23.5h cooldown · L3 skill</td></tr>
     <tr><td class="col-aspect">Intense Overdrive (profession skill)</td><td>+2°C bonus to Overdrive heat</td><td>L1 perk</td></tr>
@@ -470,10 +470,10 @@
 </div>
 
 <ul class="fact-list">
-  <li><b>Level 1:</b> Base temperature rises after construction</li>
-  <li><b>Level 2:</b> Unlocks additional burning effects</li>
-  <li><b>Level 3:</b> Adds <b>+3°C</b>; Level 4+ adds <b>+5°C</b></li>
-  <li>Purchase via the <b>Black Market</b> S1 event before S2 starts — provides the buff for the whole S2 run</li>
+  <li><b>Level 1:</b> <b>+3°C</b> base temperature</li>
+  <li><b>Level 2:</b> <b>+4°C</b> base temperature</li>
+  <li><b>Level 3:</b> <b>+5°C</b> base temperature — <b>caps here</b> (Level 4+ provides no extra heat)</li>
+  <li>Purchase via the <b>Black Market</b> S1 event before S2 starts — buff carries into S2</li>
   <li>One per base (1/1 building limit)</li>
 </ul>
 
@@ -510,12 +510,46 @@
   <div class="value">
     <ul style="padding-left: 18px; line-height: 1.7;">
       <li><b>Factory 1:</b> free at S2 start</li>
-      <li><b>Factory 2:</b> requires Factory 1 at Level 15</li>
-      <li><b>Factory 3:</b> requires Factory 2 at Level 15</li>
-      <li><b>Factory 4:</b> requires Factory 3 at Level 15</li>
+      <li><b>Factory 2:</b> requires Factory 1 at <b>Level 15</b></li>
+      <li><b>Factory 3:</b> requires Factory 2 at <b>Level 15</b></li>
+      <li><b>Factory 4:</b> requires Factory 3 at <b>Level 15</b></li>
       <li><b>Factory 5:</b> Weekly Pass subscription only</li>
     </ul>
-    <b>Strategy: rush all 4 factories to L15 first, then climb them all together.</b> Each level adds +720 Titanium Alloy/hour to that factory's output.
+    <b>Each level adds +720 Titanium Alloy/hour to that factory.</b> Max level 30 = 21,600/hr per factory.
+  </div>
+</div>
+
+<div class="highlight-box warn">
+  <div class="label">⚠️ Don't push a factory past L15 until all 4 are unlocked</div>
+  <div class="value">
+    The big trap: pouring resources into Factory 1 past L15 while you still only have 1 factory running.
+    <ul style="padding-left: 18px; line-height: 1.7;">
+      <li><b>1 factory at L20</b> = 14,400/hr total</li>
+      <li><b>4 factories at L15</b> = <b>43,200/hr total</b> (3× the output for the same investment window)</li>
+    </ul>
+    <b>Correct order:</b>
+    <ol style="padding-left: 18px; line-height: 1.7;">
+      <li>Factory 1 → L15 → <b>start Factory 2 immediately</b></li>
+      <li>Factory 2 → L15 → <b>start Factory 3</b></li>
+      <li>Factory 3 → L15 → <b>start Factory 4</b></li>
+      <li>All 4 unlocked → now level them <b>evenly</b> (all to 16, then 17, etc.)</li>
+    </ol>
+    Coal cost at L15 ≈ 137,000 · L30 ≈ 359,300 — costs accelerate sharply past L15. Unlocking factories 2-4 is the highest-ROI Titanium investment in S2.
+  </div>
+</div>
+
+<div class="highlight-box info">
+  <div class="label">Paid passes worth considering for S2 — what they actually give</div>
+  <div class="value">
+    Two passes show up in S2. If you only buy one, the <b>Weekly Pass</b> is the higher-impact-per-dollar option because of the 5th factory.
+    <table style="margin-top:8px; font-size:13px;">
+      <thead><tr><th>Pass</th><th>What's in it</th><th>S2 value</th></tr></thead>
+      <tbody>
+        <tr><td class="col-aspect"><b>Weekly Pass</b></td><td>Daily: ~20,000 Coal, stamina, speedups · Weekly: +250 VR points · <b>Unlocks Titanium Alloy Factory #5</b></td><td><b>High.</b> Factory 5 = +17,280 Titanium/day = compounds into Furnace XP. Stop renewing = lose Factory 5's output.</td></tr>
+        <tr><td class="col-aspect"><b>Season Battle Pass</b></td><td>Adds 2 extra reward tabs to season tasks · Coal, Profession XP, Skill Points, recruitment tickets, gems</td><td><b>Medium.</b> If you're doing the season tasks anyway, it doubles your reward yield. Buy if you stay engaged daily.</td></tr>
+      </tbody>
+    </table>
+    <b>Factory 5 caveat from the source:</b> "<i>It's not advisable to heavily invest [in Factory 5] unless you maintain the pass.</i>" Drop the pass = drop the factory's value. So if you can't commit to weekly renewal, only level Factory 5 when its upgrade cost is lower than the others.
   </div>
 </div>
 
@@ -545,7 +579,7 @@
       <td><b>4</b></td>
       <td><b>2/day</b></td>
       <td>Mutant Beast + polar creatures</td>
-      <td>L1 = 3,500 <br>L6 = 10,500</td>
+      <td>L1 = 4,000 <br>L6 = 10,500</td>
       <td>36 hours</td>
       <td>Need adjacent owned tile<br>(or first capture L1)</td>
     </tr>
@@ -576,7 +610,7 @@
     <table style="margin-top:8px; font-size:13px;">
       <thead><tr><th>Dig Site Lv</th><th>1</th><th>2</th><th>3</th><th>4</th><th>5</th><th>6</th></tr></thead>
       <tbody>
-        <tr><td><b>VR Required</b></td><td>3,500</td><td>6,000</td><td>8,000</td><td>9,500</td><td>10,000</td><td><b>10,500</b></td></tr>
+        <tr><td><b>VR Required</b></td><td>4,000</td><td>6,500</td><td>8,500</td><td>9,500</td><td>10,000</td><td><b>10,500</b></td></tr>
       </tbody>
     </table>
   </div>
@@ -715,7 +749,7 @@
     <tr><td class="col-aspect">Hour 0-4</td><td>Hit 160+ Doom Walker first blood</td><td>Second Coal/Titanium bounty (first one was end of S1)</td></tr>
     <tr><td class="col-aspect">Hour 0-6</td><td>Start <b>Titanium Alloy Factory #1</b></td><td>Don't pause — Factory 2-4 unlock chain depends on Factory 1 → L15</td></tr>
     <tr><td class="col-aspect">Hour 6-12</td><td>High-Heat Furnace L1 → L5</td><td>Establishes baseline heat above -10°C</td></tr>
-    <tr><td class="col-aspect">Hour 12-24</td><td>Capture first L1 Dig Site</td><td>Needs 3,500 VR · pick high-Coal output adjacent to start</td></tr>
+    <tr><td class="col-aspect">Hour 12-24</td><td>Capture first L1 Dig Site</td><td>Needs <b>4,000 VR</b> · pick high-Coal output adjacent to start</td></tr>
   </tbody>
 </table>
 </div>
