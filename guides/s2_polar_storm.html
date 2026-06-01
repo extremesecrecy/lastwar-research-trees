@@ -1,0 +1,819 @@
+<!DOCTYPE html>
+<html lang="en" id="htmlRoot">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Season 2 Polar Storm — Mega Guide — RGBB</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&display=swap');
+/* HCI Brand: Orange #f4a261, Cyan #5bc0de, Yellow #f4d35e, Teal #7fb3a8, Dark #5a6a6a, Text #333, Watermelon #fc5c65 */
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  :root {
+    --orange: #f4a261;
+    --cyan: #5bc0de;
+    --yellow: #f4d35e;
+    --teal: #7fb3a8;
+    --dark: #5a6a6a;
+    --text: #333;
+    --watermelon: #fc5c65;
+    --ice-blue: #4fc3f7;
+  }
+  body {
+    font-family: 'Fredoka', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: #fff;
+    color: var(--text);
+    padding: 12px 16px;
+    min-height: 100vh;
+  }
+
+  /* Header */
+  .top-bar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px; }
+  .top-bar .left h1 { font-size: 24px; letter-spacing: 1px; text-transform: uppercase; color: var(--dark); }
+  .top-bar .left .sub { font-size: 13px; color: #888; }
+  .top-bar .right { display: flex; align-items: center; gap: 10px; }
+  .top-bar .right img { height: 60px; }
+  .top-bar .right .alliance-tag {
+    background: #e8f4f1; border: 1px solid var(--teal); border-radius: 5px;
+    padding: 3px 10px; font-size: 13px; color: var(--dark); font-weight: bold;
+  }
+
+  /* Highlight boxes */
+  .highlight-box {
+    border-radius: 8px; padding: 14px 20px; margin: 0 auto 16px auto;
+    max-width: 980px;
+  }
+  .highlight-box.action {
+    background: #fff0f0; border: 2px solid var(--watermelon);
+  }
+  .highlight-box.action .label {
+    color: var(--watermelon); font-size: 11px; font-weight: bold;
+    text-transform: uppercase; letter-spacing: 1px; margin-bottom: 6px;
+  }
+  .highlight-box.action .value { color: var(--text); font-size: 15px; line-height: 1.55; }
+  .highlight-box.info { background: #e4f3f8; border: 2px solid var(--cyan); }
+  .highlight-box.info .label {
+    color: var(--cyan); font-size: 11px; font-weight: bold;
+    text-transform: uppercase; letter-spacing: 1px; margin-bottom: 6px;
+  }
+  .highlight-box.info .value { color: var(--text); font-size: 14px; line-height: 1.55; }
+  .highlight-box.warn { background: #fef3e2; border: 2px solid var(--orange); }
+  .highlight-box.warn .label {
+    color: var(--orange); font-size: 11px; font-weight: bold;
+    text-transform: uppercase; letter-spacing: 1px; margin-bottom: 6px;
+  }
+  .highlight-box.warn .value { color: var(--text); font-size: 14px; line-height: 1.55; }
+  .highlight-box.ice { background: #e3f2fd; border: 2px solid var(--ice-blue); }
+  .highlight-box.ice .label {
+    color: var(--ice-blue); font-size: 11px; font-weight: bold;
+    text-transform: uppercase; letter-spacing: 1px; margin-bottom: 6px;
+  }
+  .highlight-box.ice .value { color: var(--text); font-size: 14px; line-height: 1.55; }
+
+  /* Section titles */
+  .section-title {
+    font-size: 17px; color: var(--orange); margin: 22px auto 10px auto;
+    border-bottom: 2px solid var(--yellow); padding-bottom: 4px;
+    text-transform: uppercase; letter-spacing: 1px; max-width: 980px;
+  }
+  .section-desc {
+    max-width: 980px; margin: 4px auto 12px auto;
+    font-size: 14px; color: var(--text); line-height: 1.6;
+  }
+
+  /* Tables */
+  .table-wrap {
+    max-width: 980px; margin: 8px auto 18px auto;
+    overflow-x: auto; -webkit-overflow-scrolling: touch;
+  }
+  table {
+    width: 100%; border-collapse: collapse; font-size: 14px;
+    background: #fff;
+  }
+  thead th {
+    background: var(--dark); color: #fff; padding: 8px 6px;
+    text-align: center; font-weight: 600; font-size: 12px;
+    text-transform: uppercase; letter-spacing: 0.5px;
+  }
+  tbody td {
+    padding: 7px 8px; text-align: center; border-bottom: 1px solid #e8e8e8;
+    vertical-align: top;
+  }
+  tbody tr:nth-child(even) { background: #fafafa; }
+  tbody tr:hover { background: #f0f7ff; }
+  .col-aspect { text-align: left !important; font-weight: 700; color: var(--dark); }
+  .num-strong { color: #2a8fa8; font-weight: 700; }
+  .num-warn { color: #c47a30; font-weight: 700; }
+  .num-bad { color: #c62828; font-weight: 700; }
+
+  /* Tag pills */
+  .tag {
+    display: inline-block; font-size: 11px; padding: 1px 7px;
+    border-radius: 10px; font-weight: 700; color: #fff;
+    vertical-align: middle; margin: 0 1px;
+  }
+  .t-teal { background: var(--teal); }
+  .t-ora { background: var(--orange); }
+  .t-cyan { background: var(--cyan); }
+  .t-watermelon { background: var(--watermelon); }
+  .t-dark { background: var(--dark); }
+  .t-ice { background: var(--ice-blue); }
+
+  /* Image blocks */
+  .img-inline {
+    display: block; margin: 12px auto;
+    max-width: 480px; width: 100%; height: auto;
+    border-radius: 8px; border: 2px solid #e8e8e8;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  }
+  .img-inline.wide { max-width: 600px; }
+  .img-caption {
+    max-width: 980px; margin: -6px auto 16px auto;
+    font-size: 12px; color: #888; text-align: center; font-style: italic;
+  }
+  .img-pair {
+    max-width: 980px; margin: 12px auto;
+    display: flex; gap: 12px; align-items: flex-start;
+    justify-content: center; flex-wrap: wrap;
+  }
+  .img-pair img {
+    flex: 1; min-width: 280px; max-width: 460px; height: auto;
+    border-radius: 8px; border: 2px solid #e8e8e8;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  }
+  .thumb-row {
+    max-width: 980px; margin: 12px auto;
+    display: flex; gap: 12px; align-items: flex-start;
+    justify-content: center; flex-wrap: wrap;
+  }
+  .thumb-row figure {
+    flex: 0 1 180px; text-align: center;
+  }
+  .thumb-row img {
+    width: 100%; height: auto; border-radius: 6px;
+    border: 1.5px solid #e8e8e8; box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+    cursor: pointer; transition: transform 0.18s;
+  }
+  .thumb-row img:hover { transform: scale(1.03); }
+  .thumb-row figcaption { font-size: 11px; color: #888; margin-top: 4px; }
+
+  /* Step boxes */
+  .step-list { max-width: 980px; margin: 8px auto 16px auto; }
+  .step-box {
+    display: flex; align-items: flex-start; gap: 12px;
+    border-left: 3px solid var(--cyan); padding: 10px 14px;
+    margin-bottom: 8px; background: #fafcfe; border-radius: 0 6px 6px 0;
+  }
+  .step-num {
+    flex-shrink: 0; width: 28px; height: 28px; background: var(--cyan);
+    color: #fff; border-radius: 50%; display: flex; align-items: center;
+    justify-content: center; font-size: 14px; font-weight: bold;
+  }
+  .step-text { font-size: 14px; color: var(--text); line-height: 1.5; padding-top: 3px; }
+
+  /* Fact list */
+  .fact-list { max-width: 980px; margin: 8px auto 16px auto; padding-left: 24px; }
+  .fact-list li { margin-bottom: 6px; font-size: 14px; color: var(--text); line-height: 1.5; }
+  .fact-list.tight li { margin-bottom: 3px; }
+
+  /* Sources block */
+  .sources-block {
+    max-width: 980px; margin: 24px auto 12px auto;
+    background: #f7f7f7; border: 1px solid #ddd; border-radius: 8px;
+    padding: 14px 20px; font-size: 12px;
+  }
+  .sources-block h3 {
+    font-size: 13px; color: var(--dark); text-transform: uppercase;
+    letter-spacing: 1px; margin-bottom: 8px;
+  }
+  .sources-block ol { padding-left: 20px; }
+  .sources-block li { margin-bottom: 4px; color: #555; line-height: 1.5; }
+  .sources-block a { color: var(--cyan); text-decoration: none; }
+  .sources-block a:hover { text-decoration: underline; }
+
+  /* TLDR side-by-side */
+  .tldr-pair { max-width: 980px; margin: 0 auto 16px auto; display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+
+  .footer {
+    text-align: center; color: #aaa; font-size: 11px;
+    margin-top: 24px; padding-top: 12px; border-top: 1px solid #eee;
+  }
+
+  /* Mobile responsive */
+  @media (max-width: 768px) {
+    body { padding: 8px 10px; }
+    .top-bar { flex-direction: column; gap: 6px; text-align: center; }
+    .top-bar .right { justify-content: center; }
+    .top-bar .left h1 { font-size: 19px; }
+    .tldr-pair { grid-template-columns: 1fr; }
+    table { font-size: 12px; }
+    thead th, tbody td { padding: 5px 4px; white-space: normal; }
+    .highlight-box { padding: 10px 14px; }
+    .section-title { font-size: 15px; }
+    .section-desc, .fact-list, .step-list, .sources-block { max-width: 100%; }
+    .img-pair img { min-width: 0; max-width: 100%; }
+  }
+  @media (max-width: 480px) {
+    .top-bar .left h1 { font-size: 16px; }
+    .top-bar .right img { height: 44px; }
+    .section-title { font-size: 14px; }
+    table { font-size: 11px; }
+    .step-box { padding: 8px 10px; gap: 8px; }
+    .step-num { width: 22px; height: 22px; font-size: 12px; }
+    .step-text { font-size: 13px; }
+  }
+
+  /* Navigation Bar */
+  .guide-nav {
+    display: flex; flex-wrap: wrap; gap: 4px 12px; align-items: center;
+    padding: 6px 16px; background: #f0f5f4; border-bottom: 2px solid var(--teal);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 12px; margin: -12px -16px 12px -16px;
+  }
+  .guide-nav a {
+    color: var(--dark); text-decoration: none; padding: 2px 6px;
+    border-radius: 3px; white-space: nowrap;
+  }
+  .guide-nav a:hover { color: var(--orange); background: #fff; }
+  .guide-nav a.current {
+    color: var(--orange); font-weight: bold; background: #fff;
+    border: 1px solid var(--orange);
+  }
+  .guide-nav .nav-home {
+    font-weight: bold; margin-right: 8px; padding-right: 12px;
+    border-right: 1px solid var(--teal);
+  }
+  @media (max-width: 480px) {
+    .guide-nav { padding: 4px 8px; gap: 3px 8px; font-size: 11px; margin: -8px -10px 8px -10px; }
+  }
+
+  /* Lightbox for thumbnail click */
+  .lightbox {
+    display: none; position: fixed; z-index: 9999;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(0,0,0,0.85); justify-content: center;
+    align-items: center; cursor: pointer;
+  }
+  .lightbox.active { display: flex; }
+  .lightbox img { max-width: 92%; max-height: 92%; border-radius: 8px; }
+</style>
+</head>
+<body>
+
+<nav class="guide-nav" id="guide-nav"></nav>
+<script src="../nav.js"></script>
+
+<!-- HEADER -->
+<div class="top-bar">
+  <div class="left">
+    <h1>Season 2 — Polar Storm</h1>
+    <div class="sub">Mega-guide for RGBB: temperature, dig sites, Rare Soil War, and how to finish S2 better than S1</div>
+  </div>
+  <div class="right">
+    <img src="skynet_logo.png" alt="RGBB SKYNET">
+    <div class="alliance-tag">[RGBB] Server #2013</div>
+  </div>
+</div>
+
+<!-- KEY INSIGHT -->
+<div class="highlight-box action">
+  <div class="label">Key Insight — Two facts that change everything from S1</div>
+  <div class="value">
+    <b>1. Scoring is now "Rare Soil ACCUMULATED over time," not "territory held at end."</b> Every hour you own a city or dig site adds to your final ranking. The "rush at Week 8" strategy from S1 is dead — Week 1 ownership is more valuable than Week 8 ownership.
+    <br><br>
+    <b>2. Cross-warzone captures are DISABLED.</b> S2 is intra-server only. Foreign alliances like DEFI (home 2009) and TwTp (home 2008) cannot attack Server #2013 in S2. The fight is between 2013-native alliances. <b>RGBB enters S2 as #1 power on the server</b> (per Gabriel) — the game is about defending the top, not climbing.
+  </div>
+</div>
+
+<!-- TLDR -->
+<div class="tldr-pair">
+  <div class="highlight-box ice" style="margin: 0;">
+    <div class="label">Temperature is survival</div>
+    <div class="value">
+      The map gets colder toward the Capitol (-15°C edges → <b>-80°C center</b>). If your base sits below <b>-20°C for 5 minutes</b>, you freeze — no rallies, no teleport. Heat sources stack: <b>High-Heat Furnace</b> (yours), <b>Alliance Furnace</b> (shared), captured cities (5-60°C), Tower of Victory, recon planes, firebombs, Overdrive mode. Aim for <b>40°C base temp</b> for production buffs.
+    </div>
+  </div>
+  <div class="highlight-box warn" style="margin: 0;">
+    <div class="label">Rare Soil = season ranking</div>
+    <div class="value">
+      Capture cities (350-1000 Rare Soil/hr depending on level) and dig sites for continuous drip. Max <b>6 cities + 4 dig sites</b>. From Week 4, <b>Rare Soil War</b> lets attackers plunder up to <b>20% of a defender's Rare Soil</b> (30% after Showdown). Defense allies invited per war. Final ranking = total accumulated Rare Soil at season end.
+    </div>
+  </div>
+</div>
+
+<!-- TEMPERATURE SYSTEM -->
+<div class="section-title">1 · Temperature System</div>
+<div class="section-desc">
+  S2's signature mechanic. Every base on the map has a temperature reading, and the polar climate is hostile by default.
+</div>
+
+<img src="s2/s2_furnace_ui.png" alt="High-Heat Furnace UI showing 0°C, Furnace Heat, Coal Usage, Turn On / Overdrive toggle" class="img-inline">
+<div class="img-caption">In-game High-Heat Furnace UI — the building you'll obsess over all season</div>
+
+<div class="table-wrap">
+<table>
+  <thead><tr><th>Threshold</th><th>Effect</th></tr></thead>
+  <tbody>
+    <tr><td class="col-aspect">+40°C base</td><td>Production / movement / healing boosts active</td></tr>
+    <tr><td class="col-aspect">+50°C base (when hitting World Boss)</td><td>Extra World Boss damage boost</td></tr>
+    <tr><td class="col-aspect">+4°C base</td><td>+10% basic resource output buff</td></tr>
+    <tr><td class="col-aspect">0°C</td><td>Supply Collection Cords appear on the map</td></tr>
+    <tr><td class="col-aspect">Below -20°C for 5 min</td><td class="num-bad"><b>FREEZE</b> — cannot rally, cannot teleport, debuffs applied</td></tr>
+    <tr><td class="col-aspect">Map edges</td><td>~-15°C baseline</td></tr>
+    <tr><td class="col-aspect">Capitol vicinity</td><td>Down to <b>-80°C</b> — extreme heat investment required</td></tr>
+    <tr><td class="col-aspect">Absolute floor</td><td>Your base temp can't drop below <b>-270°C</b></td></tr>
+  </tbody>
+</table>
+</div>
+
+<div class="highlight-box info">
+  <div class="label">Thermal view</div>
+  <div class="value">
+    The map has a thermal view that shows server-wide temperatures. The closer to the Capitol, the colder the tiles. Use it to plan your push depth — cold zones require pre-built heat capacity.
+  </div>
+</div>
+
+<!-- HIGH-HEAT FURNACE -->
+<div class="section-title">2 · High-Heat Furnace — Your #1 Building</div>
+<div class="section-desc">
+  Unlocks at HQ 30. Provides base heat + virus resistance. The single most important S2 building — every Titanium Alloy goes here first.
+</div>
+
+<div class="table-wrap">
+<table>
+  <thead>
+    <tr><th>Furnace Level</th><th>Titanium Alloy Cost</th><th>Power</th><th>Virus Resistance</th><th>Activation Heat</th><th>Overdrive Heat</th></tr>
+  </thead>
+  <tbody>
+    <tr><td class="col-aspect">1</td><td>2,800</td><td>400</td><td>100</td><td>5.5°C</td><td>8°C</td></tr>
+    <tr><td class="col-aspect">15</td><td>701,200</td><td>24,000</td><td>3,000</td><td>~12°C</td><td>~18°C</td></tr>
+    <tr><td class="col-aspect"><b>30</b></td><td><b>4,321,100</b></td><td><b>108,100</b></td><td><b>10,000</b></td><td><b>20°C</b></td><td><b>30°C</b></td></tr>
+  </tbody>
+</table>
+</div>
+
+<div class="highlight-box info">
+  <div class="label">Level 30 unlocks 3 hero-type military buildings</div>
+  <div class="value">
+    Hit L30 and three hero-type-specific military buildings unlock that boost damage for Aircraft / Tank / Missile squads. This is the late-game ceiling — start the climb from Day 1.
+  </div>
+</div>
+
+<div class="highlight-box warn">
+  <div class="label">Overdrive — use intentionally</div>
+  <div class="value">
+    Overdrive heats much faster but burns <b>~4× the Coal</b>. Reserve it for:
+    <ul style="padding-left: 20px; line-height: 1.7;">
+      <li>Blizzard / Cold Wave events (avoid the freeze countdown)</li>
+      <li>Big rally pushes into cold zones</li>
+      <li>Rare Soil War defense windows (you need maximum heat under attack)</li>
+    </ul>
+    The Furnace UI has an "Auto-turn on Furnace in Blizzard" toggle — turn it ON so the game saves you when you're offline.
+  </div>
+</div>
+
+<!-- FROZEN BASE -->
+<div class="section-title">3 · Frozen Base Mechanics</div>
+<div class="section-desc">
+  Falling below -20°C is the cliff edge. Understand the timers so you can recover before you lose a day of Rare Soil drip.
+</div>
+
+<img src="s2/s2_frozen_base.png" alt="Frozen alliance base on the polar map" class="img-inline">
+<div class="img-caption">A frozen alliance base on the Polar Storm map — surrounded by ice, unable to rally or teleport</div>
+
+<div class="table-wrap">
+<table>
+  <thead><tr><th>State</th><th>Trigger</th><th>What happens</th></tr></thead>
+  <tbody>
+    <tr><td class="col-aspect">Base Almost Frozen</td><td>Below -20°C</td><td><b>5-minute countdown starts.</b> Warm the base before timer ends to prevent freeze.</td></tr>
+    <tr><td class="col-aspect" style="color: var(--watermelon);">Frozen Base</td><td>Below -20°C for 5+ min</td><td><b>No relocation, no rallies.</b> (Alliance/random relocate still works.) Debuffs apply.</td></tr>
+    <tr><td class="col-aspect">Ice Melting Soon</td><td>Temperature back above -20°C</td><td>5-minute defrost countdown starts. If temp dips below -20°C for even 1 second, restart.</td></tr>
+  </tbody>
+</table>
+</div>
+
+<div class="highlight-box ice">
+  <div class="label">Solutions when frozen or close to it</div>
+  <div class="value">
+    <ul style="padding-left: 18px; line-height: 1.7;">
+      <li><b>Relocate</b> to warmer zones via alliance or random teleport</li>
+      <li><b>Enable High-Heat Furnace</b> or set it to Overdrive</li>
+      <li><b>If in Alliance Furnace range</b>, request Overdrive mode for the Alliance Furnace</li>
+      <li><b>Ask allies to send Recon Planes</b> to heat you up</li>
+      <li><b>Allies can also send squads to break the ice</b> — 5 hits cost 5 stamina each</li>
+    </ul>
+  </div>
+</div>
+
+<!-- HEAT SOURCES -->
+<div class="section-title">4 · How to Get Heat (Every Stack-able Source)</div>
+
+<div class="table-wrap">
+<table>
+  <thead><tr><th>Source</th><th>Heat Contribution</th><th>Cost / Notes</th></tr></thead>
+  <tbody>
+    <tr><td class="col-aspect">High-Heat Furnace (yours, normal mode)</td><td>5.5°C (L1) → 20°C (L30)</td><td>Burns Coal continuously</td></tr>
+    <tr><td class="col-aspect">High-Heat Furnace (Overdrive mode)</td><td>8°C (L1) → <b>30°C (L30)</b></td><td><b>~4× Coal</b> consumption</td></tr>
+    <tr><td class="col-aspect">Alliance Furnace (in radius)</td><td>Extends heat to nearby members</td><td>Members reinforce upgrade; R4/R5 deploys</td></tr>
+    <tr><td class="col-aspect">Captured Cities</td><td><b>5°C (L1) → 60°C (L6)</b></td><td>Highest single source — adjacency only</td></tr>
+    <tr><td class="col-aspect">Tower of Victory (decoration)</td><td>L2: +3°C · L3: +5°C</td><td>Purchase in S1 Black Market — see section 7</td></tr>
+    <tr><td class="col-aspect">Recon Planes</td><td>Up to 60°C boost</td><td>Allies can send to your base</td></tr>
+    <tr><td class="col-aspect">Firebomb (profession skill)</td><td><b>+45°C in 9×9 area, 5 min</b></td><td>23.5h cooldown · L3 skill</td></tr>
+    <tr><td class="col-aspect">Intense Overdrive (profession skill)</td><td>+2°C bonus to Overdrive heat</td><td>L1 perk</td></tr>
+    <tr><td class="col-aspect">Nuclear Furnace</td><td>Significant heat for nearby bases</td><td>Late-game alliance structure</td></tr>
+    <tr><td class="col-aspect">City Furnaces (your cities)</td><td>Heat radius around captured cities</td><td>Each owned city projects warmth</td></tr>
+    <tr><td class="col-aspect" style="color: var(--watermelon);">Heat LOSS when troops leave base</td><td>Base cools when troops are out</td><td>Plan rally timing to avoid post-rally freeze</td></tr>
+  </tbody>
+</table>
+</div>
+
+<div class="img-pair">
+  <img src="s2/s2_intense_overdrive.png" alt="Intense Overdrive profession skill — +2°C Overdrive bonus">
+  <img src="s2/s2_firebomb.png" alt="Firebomb profession skill — drop on empty land, +45°C in 9x9 for 5 min, 23.5h cooldown">
+</div>
+<div class="img-caption">Profession skills: Intense Overdrive (left, +2°C Overdrive) and Firebomb (right, +45°C area heat, 23.5h cooldown)</div>
+
+<!-- ALLY HEAT -->
+<div class="section-title">5 · Ally Heat Help</div>
+<div class="section-desc">
+  Heating allies is part of S2's core team mechanic. Friends rescue friends.
+</div>
+
+<div class="thumb-row">
+  <figure>
+    <img src="s2/s2_coal_ally_heat.png" alt="Coal x 100 = +2°C ally heat dialog" onclick="document.getElementById('lightbox-img').src=this.src; document.getElementById('lightbox').classList.add('active');">
+    <figcaption>Coal × 100 → +2°C ally heat tip</figcaption>
+  </figure>
+  <figure>
+    <img src="s2/s2_like_heat_ally.png" alt="Like / Heat ally action UI" onclick="document.getElementById('lightbox-img').src=this.src; document.getElementById('lightbox').classList.add('active');">
+    <figcaption>Like / Heat ally action UI</figcaption>
+  </figure>
+</div>
+
+<ul class="fact-list">
+  <li><b>Spend 100 Coal to give an ally +2°C base temperature</b> — small but stacks across multiple allies</li>
+  <li>Click an ally's base for the "Heat" action (alongside Like / Shield / Visit)</li>
+  <li>This is the cheapest emergency-defrost option when an ally is freezing</li>
+  <li>Coordinate with your alliance — agree who gets coal donations during a blizzard</li>
+</ul>
+
+<!-- TOWER OF VICTORY -->
+<div class="section-title">6 · Tower of Victory (S1 → S2 Setup)</div>
+<div class="section-desc">
+  Decoration that grants permanent base temperature bonus across seasons. Purchased in the S1 Black Market event before S2 starts.
+</div>
+
+<div class="thumb-row">
+  <figure style="flex: 0 1 220px;">
+    <img src="s2/s2_tower_of_victory.png" alt="Tower of Victory decoration — Level 2, Season Boost, Building 1/1" onclick="document.getElementById('lightbox-img').src=this.src; document.getElementById('lightbox').classList.add('active');">
+    <figcaption>Tower of Victory — pre-S2 black market buy</figcaption>
+  </figure>
+</div>
+
+<ul class="fact-list">
+  <li><b>Level 1:</b> Base temperature rises after construction</li>
+  <li><b>Level 2:</b> Unlocks additional burning effects</li>
+  <li><b>Level 3:</b> Adds <b>+3°C</b>; Level 4+ adds <b>+5°C</b></li>
+  <li>Purchase via the <b>Black Market</b> S1 event before S2 starts — provides the buff for the whole S2 run</li>
+  <li>One per base (1/1 building limit)</li>
+</ul>
+
+<!-- RESOURCES -->
+<div class="section-title">7 · Resources — Coal, Titanium Alloy, Rare Soil</div>
+
+<div class="table-wrap">
+<table>
+  <thead>
+    <tr><th>Resource</th><th>How to Get</th><th>What it's For</th></tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td class="col-aspect">Coal</td>
+      <td>Dig sites (hourly), Doom Walker first kills, radar missions, season pass, Distressed Survivor rewards, Coal Pack purchase</td>
+      <td>Fuel Furnace (esp. Overdrive), construct Titanium Alloy Factories, +2°C ally heat boost</td>
+    </tr>
+    <tr>
+      <td class="col-aspect">Titanium Alloy</td>
+      <td>Titanium Alloy Factories (+720/hr per factory level), zombie kills, season tasks, season rewards</td>
+      <td>Upgrade High-Heat Furnace, late-season military buildings</td>
+    </tr>
+    <tr>
+      <td class="col-aspect">Rare Soil</td>
+      <td>Cities (350/hr L1 → ~1,000/hr L6) and dig sites — hourly drip · Plus Rare Soil War spoils</td>
+      <td><b>THE SCORING METRIC</b> — accumulated over season determines final alliance rank</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<div class="highlight-box info">
+  <div class="label">Titanium Alloy Factory unlock chain</div>
+  <div class="value">
+    <ul style="padding-left: 18px; line-height: 1.7;">
+      <li><b>Factory 1:</b> free at S2 start</li>
+      <li><b>Factory 2:</b> requires Factory 1 at Level 15</li>
+      <li><b>Factory 3:</b> requires Factory 2 at Level 15</li>
+      <li><b>Factory 4:</b> requires Factory 3 at Level 15</li>
+      <li><b>Factory 5:</b> Weekly Pass subscription only</li>
+    </ul>
+    <b>Strategy: rush all 4 factories to L15 first, then climb them all together.</b> Each level adds +720 Titanium Alloy/hour to that factory's output.
+  </div>
+</div>
+
+<div class="highlight-box warn">
+  <div class="label">Reduce factory + furnace costs</div>
+  <div class="value">
+    Three stackable savings:
+    <ul style="padding-left: 18px; line-height: 1.7;">
+      <li><b>Engineer profession Level 35</b> — Resource Saving skill</li>
+      <li><b>Alliance tech: Veteran Craftsman</b> — lowers building cost</li>
+      <li><b>Tech: Master Craftsman</b> — additional discount</li>
+    </ul>
+  </div>
+</div>
+
+<!-- CITIES + DIG SITES -->
+<div class="section-title">8 · Cities & Dig Sites — Capture Rules</div>
+
+<div class="table-wrap">
+<table>
+  <thead>
+    <tr><th>Type</th><th>Max Owned</th><th>Daily Limit</th><th>Defender</th><th>VR Required</th><th>Protection After</th><th>Adjacency</th></tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td class="col-aspect">Dig Site<br><span style="font-size:11px; color:#888;">(replaces Strongholds)</span></td>
+      <td><b>4</b></td>
+      <td><b>2/day</b></td>
+      <td>Mutant Beast + polar creatures</td>
+      <td>L1 = 3,500 <br>L6 = 10,500</td>
+      <td>36 hours</td>
+      <td>Need adjacent owned tile<br>(or first capture L1)</td>
+    </tr>
+    <tr>
+      <td class="col-aspect">City</td>
+      <td><b>6</b></td>
+      <td><b>2/day</b></td>
+      <td>Mutant Beasts</td>
+      <td>Scales with level</td>
+      <td>~6 days</td>
+      <td>Need adjacent <b>dig site</b></td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<div class="highlight-box action">
+  <div class="label">Critical S2 difference: NO cross-warzone captures</div>
+  <div class="value">
+    Dig sites and cities can only be captured <b>in your own warzone</b>. S1 outposts to other servers are gone. S2 is intra-server combat — you fight alliances physically present on Server #2013.
+  </div>
+</div>
+
+<div class="highlight-box info">
+  <div class="label">Virus Resistance ladder for Dig Sites</div>
+  <div class="value">
+    Same VR system as S1, but the floor is higher and dig site bosses (Mutant Beasts) hit harder than S1 Corruptors:
+    <table style="margin-top:8px; font-size:13px;">
+      <thead><tr><th>Dig Site Lv</th><th>1</th><th>2</th><th>3</th><th>4</th><th>5</th><th>6</th></tr></thead>
+      <tbody>
+        <tr><td><b>VR Required</b></td><td>3,500</td><td>6,000</td><td>8,000</td><td>9,500</td><td>10,000</td><td><b>10,500</b></td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<div class="section-title">9 · Level Unlock Schedule (S2 Calendar)</div>
+<div class="section-desc">
+  Higher-level dig sites and cities unlock progressively. Each unlocks at <b>weekday + 12 hours</b>. Plan rallies around these gates.
+</div>
+
+<div class="table-wrap">
+<table>
+  <thead><tr><th>Level</th><th>Unlocks</th></tr></thead>
+  <tbody>
+    <tr><td class="col-aspect">Level 1</td><td>Week 1, Day 3 + 12 hours</td></tr>
+    <tr><td class="col-aspect">Level 2</td><td>Week 1, Day 6 + 12 hours</td></tr>
+    <tr><td class="col-aspect">Level 3</td><td>Week 2, Day 3 + 12 hours</td></tr>
+    <tr><td class="col-aspect">Level 4</td><td>Week 2, Day 6 + 12 hours</td></tr>
+    <tr><td class="col-aspect">Level 5</td><td>Week 3, Day 3 + 12 hours</td></tr>
+    <tr><td class="col-aspect">Level 6</td><td>Week 3, Day 6 + 12 hours</td></tr>
+    <tr><td class="col-aspect">Level 7</td><td>Week 4, Day 7 + 12 hours</td></tr>
+  </tbody>
+</table>
+</div>
+
+<!-- MUTANT BEASTS -->
+<div class="section-title">10 · Mutant Beasts (Dig Site Defenders)</div>
+<div class="section-desc">
+  Replace S1's Corruptors. Three types, each weak vs a specific squad type — same triangle as PvP.
+</div>
+
+<img src="s2/s2_mutated_mammoth.png" alt="Mutated Mammoth boss screen — high HP, suggested 10M+ power" class="img-inline">
+<div class="img-caption">A Mutated Mammoth — one of three dig site boss types, requires correct squad-type counter</div>
+
+<div class="table-wrap">
+<table>
+  <thead><tr><th>Mutant Beast</th><th>Strong vs</th><th>Weak vs</th></tr></thead>
+  <tbody>
+    <tr><td class="col-aspect">Gorilla</td><td>(per S2 type rules)</td><td>(per S2 type rules)</td></tr>
+    <tr><td class="col-aspect">Bear</td><td>(per S2 type rules)</td><td>(per S2 type rules)</td></tr>
+    <tr><td class="col-aspect">Mammoth</td><td>(per S2 type rules)</td><td>(per S2 type rules)</td></tr>
+  </tbody>
+</table>
+</div>
+
+<div class="highlight-box info">
+  <div class="label">Capture process for dig sites</div>
+  <div class="value">
+    First alliance to reach <b>100% capture progress</b> within <b>4 hours</b> wins the dig site. Up to <b>10 teams</b> can reinforce. If nobody hits 100% in 4 hours, the attempt fails. Beast must be defeated before reinforcement.
+  </div>
+</div>
+
+<!-- RARE SOIL WAR -->
+<div class="section-title">11 · Rare Soil War — The Season-Deciding Event</div>
+<div class="section-desc">
+  Starts Week 4 Day 1. 8 rounds total, 2 per week through Week 7. Winning alliance plunders the loser's Rare Soil — direct theft of ranking points.
+</div>
+
+<div class="table-wrap">
+<table>
+  <thead><tr><th>Stage</th><th>Day / Time</th><th>What Happens</th></tr></thead>
+  <tbody>
+    <tr><td class="col-aspect">0 — View groups</td><td>Monday (24h window)</td><td>See your bracket / matchups</td></tr>
+    <tr><td class="col-aspect">1 — Declare</td><td>Tuesday (24h)</td><td>Attackers pick targets</td></tr>
+    <tr><td class="col-aspect">2 — Allies invited</td><td>Wednesday (12h window)</td><td>Defender invites defense allies (up to 2)</td></tr>
+    <tr><td class="col-aspect">3 — Confirm</td><td>Wed 12:00, 30 min</td><td>Lock final lineups</td></tr>
+    <tr><td class="col-aspect" style="color: var(--watermelon);"><b>4 — WAR</b></td><td><b>Wed 12:30, 20-40 min</b></td><td>Active combat — destroy defender's Alliance Furnace</td></tr>
+    <tr><td class="col-aspect">5 — Loot</td><td>Wed → reset</td><td>Claim rewards</td></tr>
+  </tbody>
+</table>
+</div>
+
+<div class="highlight-box action">
+  <div class="label">War duration by matchup + plunder</div>
+  <div class="value">
+    <b>Durations:</b> 40 min (1v1, 2v2, 3v3) · 30 min (2v1, 3v2) · 20 min (3v1)<br>
+    <b>Victory:</b> Reduce defender's Alliance Furnace durability to 0% before timer expires.<br>
+    <b>Plunder:</b> Winning attackers steal <b>up to 20%</b> of defender's accumulated Rare Soil. After the <b>Rare Soil Showdown</b> event later in season, that rises to <b>up to 30%</b>.
+  </div>
+</div>
+
+<!-- SUPPLY COLLECTION -->
+<div class="section-title">12 · Supply Collection Cords</div>
+<ul class="fact-list">
+  <li>Appear on tiles when temperature hits <b>0°C</b></li>
+  <li>Follow the reclaim order path to maximize loot</li>
+  <li>See the route guide at <a href="https://www.lastwartutorial.com/season-2-supply-collections/" target="_blank">lastwartutorial.com/season-2-supply-collections</a></li>
+</ul>
+
+<!-- HEROES + WEAPONS -->
+<div class="section-title">13 · Heroes & Exclusive Weapons</div>
+
+<div class="highlight-box info">
+  <div class="label">Violet promoted SSR → UR</div>
+  <div class="value">
+    Violet becomes a UR hero in S2. Her buff: <b>+5% damage reduction</b>, which <b>stacks with Murphy's</b> damage reduction for a combined defensive wall. <b>Wait for a VS hero day to do the upgrade</b> so you double-dip on VS points.
+  </div>
+</div>
+
+<div class="highlight-box info">
+  <div class="label">New exclusive weapons in S2</div>
+  <div class="value">
+    Season 2 introduces new exclusive weapons for <b>Murphy, Carlie, and Swift</b>. Carlie's weapon notably strengthens the entire Aircraft squad. Missed weapons can be re-acquired through the <b>Black Market</b>.
+  </div>
+</div>
+
+<!-- PRE-S2 PREP -->
+<div class="section-title">14 · Pre-S2 Preparation Checklist</div>
+<div class="section-desc">
+  Things to do during the final days of S1 so you arrive in S2 with leverage.
+</div>
+
+<div class="step-list">
+  <div class="step-box"><div class="step-num">1</div><div class="step-text"><b>Buy Violet shards + survival shards</b> in S1 events</div></div>
+  <div class="step-box"><div class="step-num">2</div><div class="step-text"><b>Research Veteran Craftsman</b> (alliance tech) — reduces S2 building cost</div></div>
+  <div class="step-box"><div class="step-num">3</div><div class="step-text"><b>DON'T spend all hero return tickets</b> — keep some for S2 needs</div></div>
+  <div class="step-box"><div class="step-num">4</div><div class="step-text"><b>Purchase Tower of Victory</b> in the S1 Black Market — grants permanent base temperature buff into S2</div></div>
+  <div class="step-box"><div class="step-num">5</div><div class="step-text"><b>Stack radar missions for S2 Day 1</b> — you need a Distressed Survivor task to spawn (it rewards Coal)</div></div>
+  <div class="step-box"><div class="step-num">6</div><div class="step-text"><b>Scout your first dig site target</b> — picking a high-coal-output L1 dig adjacent to your start saves days of work</div></div>
+  <div class="step-box"><div class="step-num">7</div><div class="step-text"><b>Two first bloods are possible:</b> hit a 160+ Doom Walker right before S1 reset (1st blood), then again right after S2 starts (2nd blood). Bank both rewards.</div></div>
+  <div class="step-box"><div class="step-num">8</div><div class="step-text"><b>Engineer profession to Level 35</b> for the Resource Saving skill (Coal cost reduction)</div></div>
+  <div class="step-box"><div class="step-num">9</div><div class="step-text"><b>Buy the Coal Pack</b> if available — your Day-1 Coal stockpile determines your first 48 hours</div></div>
+  <div class="step-box"><div class="step-num">10</div><div class="step-text"><b>Renew alliance friendship pacts</b> with DOC, OWOW, BKD, STWB, FLAG, ONEZ, ORES, 12AM. Confirm they'll respond to S2 Rare Soil War defense calls.</div></div>
+</div>
+
+<!-- DAY 1 GOALS -->
+<div class="section-title">15 · S2 Day 1 Action Plan</div>
+
+<div class="table-wrap">
+<table>
+  <thead><tr><th>Hour</th><th>Action</th><th>Why</th></tr></thead>
+  <tbody>
+    <tr><td class="col-aspect">Hour 0</td><td>Buy Season Pass + Weekly Pass</td><td>Unlocks Factory 5, daily rewards, points multipliers</td></tr>
+    <tr><td class="col-aspect">Hour 0</td><td><b>R4/R5 place Alliance Furnace</b></td><td>Pick a spot in the friendly cluster zone</td></tr>
+    <tr><td class="col-aspect">Hour 0-2</td><td>Collect stacked radar missions</td><td>Bulk Coal from Distressed Survivor</td></tr>
+    <tr><td class="col-aspect">Hour 0-4</td><td>Hit 160+ Doom Walker first blood</td><td>Second Coal/Titanium bounty (first one was end of S1)</td></tr>
+    <tr><td class="col-aspect">Hour 0-6</td><td>Start <b>Titanium Alloy Factory #1</b></td><td>Don't pause — Factory 2-4 unlock chain depends on Factory 1 → L15</td></tr>
+    <tr><td class="col-aspect">Hour 6-12</td><td>High-Heat Furnace L1 → L5</td><td>Establishes baseline heat above -10°C</td></tr>
+    <tr><td class="col-aspect">Hour 12-24</td><td>Capture first L1 Dig Site</td><td>Needs 3,500 VR · pick high-Coal output adjacent to start</td></tr>
+  </tbody>
+</table>
+</div>
+
+<!-- RGBB TACTICS -->
+<div class="section-title">16 · RGBB-Specific Tactics — Defending #1</div>
+
+<div class="highlight-box action">
+  <div class="label">RGBB enters S2 as #1 power on Server #2013</div>
+  <div class="value">
+    Per Gabriel's call: <b>RGBB &gt; PNXX &gt; DOC</b>, with other ranks TBD. This is a <b>defense</b> season, not a <b>climb</b> season. Every alliance below you will hunt you in Rare Soil War. Your job is to accumulate Rare Soil faster than PNXX and DOC while surviving 8 weeks of attacks.
+  </div>
+</div>
+
+<div class="step-list">
+  <div class="step-box"><div class="step-num">1</div><div class="step-text"><b>Classify PNXX before Day 1.</b> They're #2 and currently unclassified. If they're allied: RGBB + PNXX is unbeatable in any war size. If hostile: expect them to lead the dogpile against you.</div></div>
+  <div class="step-box"><div class="step-num">2</div><div class="step-text"><b>Lock in DOC as #3 ally.</b> They were the hardest negotiation in S1 (HoN handoff). Make sure they're committed to Rare Soil War defense.</div></div>
+  <div class="step-box"><div class="step-num">3</div><div class="step-text"><b>Classify all 8 unknowns before Week 4:</b> DDI, BIND, AAFC, SPH, DEIN, GVX, BRA7, TWSP, WENG — each is either an ally or a target for your offensive Rare Soil Wars.</div></div>
+  <div class="step-box"><div class="step-num">4</div><div class="step-text"><b>Foreign visitors are gone.</b> DEFI (home 2009) and TwTp (home 2008) cannot cross-server attack you in S2. They drop out of your threat list entirely.</div></div>
+  <div class="step-box"><div class="step-num">5</div><div class="step-text"><b>Pre-build defense roster:</b> RGBB + DOC + OWOW (or any of BKD/STWB/FLAG/ONEZ/ORES) = unbeatable 3v3. Avoid getting baited into 3v1 defense scenarios.</div></div>
+  <div class="step-box"><div class="step-num">6</div><div class="step-text"><b>Pick 4 dig sites Week 1, hold all season.</b> Each = continuous Coal + Rare Soil drip. Don't trade them. Don't fight wars over single dig sites unless you're attacking up.</div></div>
+  <div class="step-box"><div class="step-num">7</div><div class="step-text"><b>Capture even L1 cities Week 1.</b> 350 Rare Soil/hr × 8 weeks × 4 cities = ~2.35M Rare Soil just from low-level cities held all season. Early capture > late capture.</div></div>
+  <div class="step-box"><div class="step-num">8</div><div class="step-text"><b>Target Rare Soil War: attack high-stockpile alliances who lack defense pacts.</b> Plundering 20% of a hoarder &gt; plundering 20% of an average alliance.</div></div>
+</div>
+
+<div class="highlight-box warn">
+  <div class="label">RGBB win condition for S2</div>
+  <div class="value">
+    Highest accumulated Rare Soil at <b>territory lock (end of Week 8)</b>. To beat PNXX, you need to either:
+    <ol style="padding-left: 18px; line-height: 1.7;">
+      <li>Hold more (or higher-level) territory than PNXX across the whole season (more drip)</li>
+      <li>Plunder more from PNXX in Rare Soil Wars (direct theft)</li>
+      <li>Both — the winning move</li>
+    </ol>
+    Math: 4 L4 cities at ~700 RS/hr × 4 cities × 1,344 hours (8 weeks) = ~<b>3.76M Rare Soil</b> from cities alone. Plus dig sites, plus event bonuses, plus Rare Soil War plunder.
+  </div>
+</div>
+
+<!-- MORE TIPS -->
+<div class="section-title">17 · More S2 Tips</div>
+<ul class="fact-list">
+  <li><b>Maintain bases at 40°C</b> — production / movement / healing boosts activate</li>
+  <li><b>Warm to 50°C before hitting World Bosses</b> for an extra damage boost</li>
+  <li><b>Military buildings unlock at Furnace L30</b> — three hero-type damage boosters</li>
+  <li><b>Eternal Forest Castle "likes"</b> grant boosts (similar to pumpkins in earlier seasons)</li>
+  <li><b>The thermal view of the map</b> shows server-wide temperatures — closer to Capitol = colder</li>
+  <li><b>Blizzard / Cold Wave events</b> drop temperatures for ~3 hours. Auto-Overdrive your Furnace.</li>
+  <li><b>Beast Crisis & Cold Wave events</b> grant rewards for not freezing</li>
+</ul>
+
+<!-- VERIFICATION + GAPS -->
+<div class="section-title">18 · Things to Verify In-Game</div>
+<div class="highlight-box warn">
+  <div class="label">Published docs are silent on these — confirm by direct observation</div>
+  <div class="value">
+    <ul style="padding-left: 18px; line-height: 1.7;">
+      <li><b>Exact Mutant Beast type counters</b> — published sources confirm three types (Gorilla / Bear / Mammoth) and a counter triangle but don't always specify which beats which. Verify against your squads.</li>
+      <li><b>Recapture cooldown after dig site abandonment</b> — cities have ~6-day protection / 5-day cooldown; dig site cooldown not explicitly documented.</li>
+      <li><b>Rare Soil War declaration day-of-week</b> — assumed Wednesday per Stage schedule; some servers may differ.</li>
+      <li><b>City Rare Soil rate at L5/L6</b> — confirmed 350/hr at L1, ~1000/hr at L6, but mid-tier rates not all sourced.</li>
+    </ul>
+  </div>
+</div>
+
+<!-- SOURCES -->
+<div class="sources-block">
+  <h3>Sources</h3>
+  <ol>
+    <li><a href="https://lastwarhandbook.com/guides/season-2-guide" target="_blank">Last War Season 2 Polar Storm — Complete Strategy Guide — Last War Handbook</a></li>
+    <li><a href="https://www.lastwartutorial.com/season-2-polar-storm/" target="_blank">Season 2 Polar Storm overview — lastwartutorial.com</a></li>
+    <li><a href="https://www.lastwartutorial.com/season-2-the-ultimate-strategy-guide-for-season-2-growth-captures-and-war/" target="_blank">Season 2 Ultimate Strategy Guide — lastwartutorial.com</a></li>
+    <li><a href="https://lastwarhandbook.com/guides/season-2-territory-guide" target="_blank">Season 2 Dig Sites & Cities Capture Guide — Last War Handbook</a></li>
+    <li><a href="https://lastwarhandbook.com/guides/season-2-rare-soil-war-guide" target="_blank">Season 2 Rare Soil War Guide — Last War Handbook</a></li>
+    <li><a href="https://theriagames.com/guide/last-war-survival-high-heat-furnace-guide/" target="_blank">High-Heat Furnace Guide — theriagames.com</a></li>
+    <li><a href="https://theriagames.com/guide/last-war-survival-titanium-alloy-guide/" target="_blank">Titanium Alloy Guide — theriagames.com</a></li>
+    <li><a href="https://theriagames.com/guide/last-war-survival-season-2-polar-storm/" target="_blank">Season 2 Polar Storm Guide — theriagames.com</a></li>
+    <li><a href="https://www.ldshop.gg/blog/last-war-survival/s2-arctic-storm-guide.html" target="_blank">Arctic Storm Guide — ldshop.gg</a></li>
+    <li><a href="https://www.lootbar.com/blog/en/last-war-season2-guide.html" target="_blank">Season 2 Guide: Growth, Capture and More — lootbar.com</a></li>
+    <li><a href="https://lootbar.gg/blog/en/last-war-season-2-kick-off-prioritizing-coal-and-alloy-for-virus-resistance.html" target="_blank">S2 Kick-Off: Coal &amp; Alloy Priority — lootbar.gg</a></li>
+    <li><a href="https://www.ezg.com/blog/last-war-survival-deep-overview-of-polar-storm-mechanism-resources-and-more" target="_blank">Polar Storm Deep Overview — EZG</a></li>
+    <li><a href="https://lastwarvault.com/guides/season-2/" target="_blank">Season 2 Polar Storm — Last War Vault</a></li>
+    <li><a href="https://firstfungroup.zendesk.com/hc/en-us/articles/44710087230739--Season-2-Beginner-s-Guide" target="_blank">Season 2 Beginner's Guide — FUNFLY Support (official)</a></li>
+    <li><a href="https://www.lastwartutorial.com/season-2-supply-collections/" target="_blank">Season 2 Supply Collections — lastwartutorial.com</a></li>
+    <li><a href="https://www.caraguatatuba.de/season1-6/en/" target="_blank">Caraguatatuba Last War Tools — S2</a></li>
+  </ol>
+  <p style="margin-top:10px; font-style:italic; color:#888;">
+    Compiled by RGBB Strategic Command, June 2026. Every numeric claim above is traceable to at least one source. Mechanics labelled "verify in-game" are gaps in public documentation and should be confirmed before relying on them in active play.
+  </p>
+</div>
+
+<div class="footer">
+  Last updated 2026-06-01 — Strategic reference for [RGBB] — Server #2013
+</div>
+
+<!-- Lightbox for thumbnail click -->
+<div class="lightbox" id="lightbox" onclick="this.classList.remove('active');">
+  <img id="lightbox-img" src="" alt="Expanded view">
+</div>
+
+</body>
+</html>
