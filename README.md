@@ -1,6 +1,6 @@
-# [OWOW] Last War: Survival — Strategic Command Center
+# [RGBB] Last War: Survival — Strategic Command Center
 
-![OWOW SKYNET](skynet_banner.png)
+![RGBB SKYNET](skynet_banner.png)
 
 ## Live Site
 
@@ -124,6 +124,6 @@ python build_calendar.py          # Event calendar + ICS file
 
 ---
 
-Built by **[OWOW] Old World Order**
+Built by **[RGBB] Raging Black Bulls**
 
-*Kristen OWOW SKYNET. Ready for Judgment Day.*
+*Kristen RGBB SKYNET. Ready for Judgment Day.*

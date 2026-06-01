@@ -4,3 +4,4 @@ validate_path*.py
 __pycache__/
 *.pyc
 
+.rebrand-backup/

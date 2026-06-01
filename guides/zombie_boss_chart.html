@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Zombie Boss Calculator - OWOW</title>
+<title>Zombie Boss Calculator - RGBB</title>
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&display=swap');
   /* HCI Brand: Orange #f4a261, Cyan #5bc0de, Yellow #f4d35e, Teal #7fb3a8, Dark #5a6a6a, Text #333, Watermelon #fc5c65 */
@@ -198,7 +198,7 @@
     <div class="sub">Can we kill it? What does it take?</div>
   </div>
   <div class="alliance">
-    <div class="name">[OWOW]</div>
+    <div class="name">[RGBB]</div>
     <div class="info">Server #2013</div>
   </div>
 </div>
@@ -211,7 +211,7 @@
     <div class="detail" id="soloDetail">Your march solos up to here</div>
   </div>
   <div class="answer-card card-cyan">
-    <div class="question">Can OWOW RALLY it?</div>
+    <div class="question">Can RGBB RALLY it?</div>
     <div class="answer" id="rallyAnswer">Lv 65</div>
     <div class="detail" id="rallyDetail">5-man rally wins up to here</div>
   </div>
@@ -231,7 +231,7 @@
     <li>The <strong>main chart</strong> shows 3 lines &mdash; boss march power (red), the minimum march power to solo (orange), and the minimum per-member march power to rally-kill (blue). Where your power (green dashed) crosses these lines = your limit.</li>
     <li>The <strong>rally results</strong> chart shows real battle outcomes: green = boss troops killed, red = your troops lost.</li>
   </ol>
-  <p class="tip">Thresholds: Solo needs ~85% of boss march power. Rally needs each member at ~65%. These come from real OWOW win/loss data, not theory.</p>
+  <p class="tip">Thresholds: Solo needs ~85% of boss march power. Rally needs each member at ~65%. These come from real RGBB win/loss data, not theory.</p>
 </details>
 
 <!-- WHAT-IF CALCULATOR -->
@@ -268,7 +268,7 @@
 <div class="section-label">Rally Results &mdash; What Actually Happened</div>
 <div class="chart-wrap">
   <h3>Real battle outcomes at each boss level</h3>
-  <p class="chart-sub">Green = % of boss troops killed. Red = % of OWOW troops lost. When red overtakes green, you lose.</p>
+  <p class="chart-sub">Green = % of boss troops killed. Red = % of RGBB troops lost. When red overtakes green, you lose.</p>
   <canvas id="rallyChart"></canvas>
 </div>
 
@@ -283,7 +283,7 @@
       <th>Zombie Heroes</th>
       <th>Boss Troops</th>
       <th>Rally</th>
-      <th>OWOW Lost</th>
+      <th>RGBB Lost</th>
       <th>Boss Killed</th>
       <th>Result</th>
     </tr>
@@ -300,10 +300,10 @@
 </table>
 </div>
 <p style="color:#aaa; font-size:11px; margin-top:4px;">All 7 data points confirmed from in-game battle report screenshots.</p>
-<p style="color:#aaa; font-size:11px;">Solo threshold (85%) and rally threshold (65%) derived from real OWOW win/loss boundaries.</p>
+<p style="color:#aaa; font-size:11px;">Solo threshold (85%) and rally threshold (65%) derived from real RGBB win/loss boundaries.</p>
 
 <div class="footer">
-  Data source: OWOW battle reports, Server #2013 (Apr 7&ndash;9, 2026). 7 confirmed data points.<br>
+  Data source: RGBB battle reports, Server #2013 (Apr 7&ndash;9, 2026). 7 confirmed data points.<br>
   All values from in-game screenshots. No estimated data.
 </div>
 
@@ -547,7 +547,7 @@
           barPercentage: 0.65
         },
         {
-          label: 'OWOW Troops Lost',
+          label: 'RGBB Troops Lost',
           data: owowLostPct,
           backgroundColor: DATA.map(function(d) { return !d.win ? '#fc5c65' : 'rgba(252,92,101,0.25)'; }),
           borderRadius: 4,
