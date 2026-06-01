@@ -21,6 +21,7 @@
     { href: 'research_trees_visual.html', label: 'Research Trees', root: true },
     { href: 'guides/s1_land_captures.html', label: 'S1 Captures' },
     { href: 'guides/s1_territory_map.html', label: 'S1 Map' },
+    { href: 'guides/s2_polar_storm.html', label: 'S2 Polar Storm' },
     { href: 'guides/server_dashboard.html', label: 'Server' },
     { href: 'guides/virus_resistance.html', label: 'Virus Resist' },
     { href: 'guides/vs_weekly_planner.html', label: 'VS Planner' },
