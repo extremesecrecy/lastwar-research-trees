@@ -672,18 +672,18 @@
   <div class="value">
     <div class="table-wrap">
     <table>
-      <thead><tr><th>Stage</th><th>Round 1</th><th>Round 2</th><th>Duration</th><th>What happens</th></tr></thead>
+      <thead><tr><th>Stage</th><th>Round 1</th><th>Round 2</th><th>Start (clock)</th><th>Duration</th><th>What happens</th></tr></thead>
       <tbody>
-        <tr><td class="col-aspect">0 · Waiting</td><td>Monday</td><td>Thursday</td><td>24 hr</td><td>Pre-round buffer</td></tr>
-        <tr><td class="col-aspect">1 · Declaration</td><td><b>Tuesday</b></td><td><b>Friday</b></td><td>24 hr</td><td>Attack-faction R4+ declare war on defending-faction alliances in the <b>same ranking group</b>. Up to 3 attackers can pile on 1 defender. Target can change until stage end.</td></tr>
-        <tr><td class="col-aspect">2 · Invitation</td><td>Wednesday</td><td>Saturday</td><td>12 hr</td><td>Defender's R4+ invites same-faction same-bracket allies. 3 attackers → up to 2 defenders invited. 2 attackers → 1 defender. 1 attacker → 0 invitations.</td></tr>
-        <tr><td class="col-aspect">3 · Preparation</td><td>Wednesday</td><td>Saturday</td><td>30 min</td><td>Defenders position troops, reinforce Alliance Furnace</td></tr>
-        <tr><td class="col-aspect" style="color: var(--watermelon);"><b>4 · War</b></td><td><b>Wednesday</b></td><td><b>Saturday</b></td><td><b>20–40 min</b></td><td><b>Attackers attempt to destroy defender's Alliance Furnace.</b> Furnace at 0% durability before timer = attacker wins, war ends early.</td></tr>
-        <tr><td class="col-aspect">5 · End of War</td><td>Wednesday</td><td>Saturday</td><td>Until reset</td><td>Loot distribution, cooldown</td></tr>
+        <tr><td class="col-aspect">0 · Waiting</td><td>Monday</td><td>Thursday</td><td>Reset</td><td>24 hr</td><td>Pre-round buffer</td></tr>
+        <tr><td class="col-aspect">1 · Declaration</td><td><b>Tuesday</b></td><td><b>Friday</b></td><td>Reset</td><td>24 hr</td><td>Attack-faction R4+ declare war on defending-faction alliances in the <b>same ranking group</b>. Up to 3 attackers can pile on 1 defender. Target can change until stage end.</td></tr>
+        <tr><td class="col-aspect">2 · Invitation</td><td>Wednesday</td><td>Saturday</td><td>Reset</td><td>12 hr</td><td>Defender's R4+ invites same-faction same-bracket allies. 3 attackers → up to 2 defenders invited. 2 attackers → 1 defender. 1 attacker → 0 invitations.</td></tr>
+        <tr><td class="col-aspect">3 · Preparation</td><td>Wednesday</td><td>Saturday</td><td><b>Reset + 12 hr</b></td><td>30 min</td><td>Defenders position troops, reinforce Alliance Furnace</td></tr>
+        <tr><td class="col-aspect" style="color: var(--watermelon);"><b>4 · War</b></td><td><b>Wednesday</b></td><td><b>Saturday</b></td><td><b>Reset + 12.5 hr</b></td><td><b>Up to 40 min</b></td><td><b>Attackers attempt to destroy defender's Alliance Furnace.</b> Furnace at 0% durability before timer = attacker wins, war ends early.</td></tr>
+        <tr><td class="col-aspect">5 · End of War</td><td>Wednesday</td><td>Saturday</td><td>After War</td><td>Until reset</td><td>Loot distribution, cooldown</td></tr>
       </tbody>
     </table>
     </div>
-    Round 1 day-of-week per lastwartutorial Ultimate Guide. Round 2 day-of-week per in-game documentation (player screenshot).
+    Stages and day-of-week per lastwartutorial Ultimate Guide; precise clock offsets (Reset, Reset+12hr, Reset+12.5hr) per in-game documentation screenshot. On Server #2013 (6pm reset), Round 1 War lands ~6:30am Thursday server time; Round 2 lands ~6:30am Sunday.
   </div>
 </div>
 
@@ -757,7 +757,7 @@
   <div class="value">
     Sits at the centre of the map (L7 tile). It is NOT a Capitol Conquest target like S1's Capitol — it's a <b>collective warzone objective</b>:
     <ul style="padding-left: 18px; line-height: 1.7;">
-      <li><b>Activation:</b> mission opens <b>Week 4 Day 6 + 36 hours delay</b> (= Week 4 Day 7 + 12 hours server time).</li>
+      <li><b>Activation:</b> mission opens <b>Week 4 Day 6 + 36 hours delay</b> (= Week 4 Day 7 + 12 hours server time) per <a href="https://www.lastwartutorial.com/season-2-week-4/" target="_blank">lastwartutorial Week 4</a>. <b>Note:</b> an alternative in-game schedule screenshot lists <i>Capture Nuclear Furnace</i> at <b>W4 D3 + 36hr delay</b> — possibly a different / older calendar version. Verify in-game which schedule Server #2013 uses.</li>
       <li><b>How it's reactivated:</b> every alliance in the warzone sends troops to fill a reactivation bar to 100%. Each squad send costs <b>5 stamina</b>. Collective effort, NOT owned by one alliance.</li>
       <li><b>Reward when reactivated:</b> the Nuclear Furnace provides <b>+10°C warzone-wide</b> base heat — every base on the map benefits, not just the alliance that contributed most.</li>
       <li><b>Glacieradons spawn</b> and reduce furnace progress by <b>~1% every 4 hours</b> — alliances must kill them to keep the bar climbing.</li>
@@ -907,6 +907,7 @@
       <li><b>City Rare Soil mid-tier rates (L2-L5)</b> — only L1 (350/hr) and L6 (~1,000/hr) confirmed in any source; L2-L5 rates extrapolated linearly. Verify by holding one of each tier.</li>
       <li><b>Dig site recapture cooldown after abandonment</b> — cities have ~6-day protection; dig site cooldown not explicitly documented. Observe after first abandonment.</li>
       <li><b>Contaminated Land duration after Warlord Missile</b> — the blast area becomes Contaminated Land temporarily but the public source cut off before specifying duration. Observe in-game how long bases can't move into the blast zone after a successful missile.</li>
+      <li><b>Nuclear Furnace capture mission day-of-week (W4D3 vs W4D6)</b> — <a href="https://www.lastwartutorial.com/season-2-week-4/" target="_blank">lastwartutorial Week 4</a> says mission opens W4D6 + 36hr; an in-game schedule screenshot says W4D3 + 36hr. Possibly different calendar versions or server variation. Check the in-game S2 event timer for Server #2013 on Week 4 to confirm.</li>
       <li><b>Carlie / Swift exclusive weapons</b> — Murphy's S2 exclusive weapon is confirmed by <a href="https://cpt-hedge.com/guides/season-2-murphy-exclusive-weapon" target="_blank">cpt-hedge</a>. Carlie + Swift weapons mentioned in <a href="https://www.lootbar.com/blog/en/last-war-violet-best-build-guide-maximize-her-tanking-power.html" target="_blank">lootbar</a> but not in a dedicated weapon guide — verify their drop sources in-game.</li>
       <li><b>Which faction RGBB lands in</b> (Week 3 auto-split — Rebels vs Gendarmerie) — server-specific assignment criteria not publicly documented. Confirm in-game once Week 3 triggers; same for PNXX, DOC, OWOW, and the rest of the shared 7.</li>
     </ul>
@@ -931,7 +932,7 @@
       <li><b>Violet SSR→UR with +5% damage reduction stacking with Murphy for 10% total</b> → <a href="https://lastwarhandbook.com/guides/violet-guide" target="_blank">Last War Handbook Violet Guide</a></li>
       <li><b>Mutant Beast counter triangle: Gorilla(Aircraft)→Missile, Bear(Missile)→Tank, Mammoth(Tank)→Aircraft, all +50% damage</b> → <a href="https://www.lastwartutorial.com/season-2-the-ultimate-strategy-guide-for-season-2-growth-captures-and-war/" target="_blank">lastwartutorial Ultimate Strategy Guide</a></li>
       <li><b>Rare Soil War: 8 rounds total / 2 per week from W4, durations 40/30/20 min, plunder 20% (30% post-Showdown)</b> → <a href="https://www.lastwartutorial.com/season-2-the-ultimate-strategy-guide-for-season-2-growth-captures-and-war/" target="_blank">lastwartutorial Ultimate Strategy Guide</a></li>
-      <li><b>RSW 5-stage round structure</b> (Waiting → Declaration → Invitation → Preparation → War → End of War), <b>day-of-week</b> (Tue/Wed Round 1, Fri/Sat Round 2), <b>ranking groups</b> 1-10/11-20/21-30/31-50, <b>victory = destroy defender's Alliance Furnace</b>, up to 3 attackers / up to 2 defenders invited → <a href="https://www.lastwartutorial.com/season-2-the-ultimate-strategy-guide-for-season-2-growth-captures-and-war/" target="_blank">lastwartutorial Ultimate Strategy Guide</a> + in-game documentation screenshot</li>
+      <li><b>RSW 5-stage round structure</b> (Waiting → Declaration → Invitation → Preparation → War → End of War), <b>day-of-week</b> (Tue/Wed Round 1, Fri/Sat Round 2), <b>precise clock offsets</b> (Invitation = Reset, Preparation = Reset+12hr, War = Reset+12.5hr), <b>ranking groups</b> 1-10/11-20/21-30/31-50, <b>victory = destroy defender's Alliance Furnace</b>, up to 3 attackers / up to 2 defenders invited → <a href="https://www.lastwartutorial.com/season-2-the-ultimate-strategy-guide-for-season-2-growth-captures-and-war/" target="_blank">lastwartutorial Ultimate Strategy Guide</a> + in-game documentation screenshot</li>
       <li><b>Warlord Missile mechanic</b>: 180s prep with War Fever (server-wide location reveal, no shields), 72hr cooldown if Warlord moves, 25×25 blast radius, 30k Furnace durability damage, forced random teleport (shields preserved), temporary Contaminated Land → <a href="https://lastwar-tutorial.com/en/war-rare-earths/" target="_blank">lastwar-tutorial.com Rare Earth War tips</a> + in-game documentation screenshot</li>
       <li><b>Nuclear Furnace activation W4D6+36h, warzone-shared reactivation (5 stamina per troop send), Glacieradons reduce progress ~1%/4h, +10°C warzone-wide when reactivated, Faction Rewards on completion</b> → <a href="https://www.lastwartutorial.com/season-2-week-4/" target="_blank">lastwartutorial Week 4</a> + <a href="https://www.lastwartutorial.com/season-2-week-5/" target="_blank">lastwartutorial Week 5</a></li>
       <li><b>Faction system: Rebels vs Gendarmerie split in Week 3, RSW between factions starts Week 4</b> → <a href="https://www.lastwartutorial.com/season-2-week-4/" target="_blank">lastwartutorial Week 4</a></li>
