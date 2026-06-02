@@ -664,29 +664,85 @@
 <!-- RARE SOIL WAR -->
 <div class="section-title">11 · Rare Soil War — The Season-Deciding Event</div>
 <div class="section-desc">
-  Starts Week 4 Day 1. 8 rounds total, 2 per week through Week 7. Winning alliance plunders the loser's Rare Soil — direct theft of ranking points.
+  Starts Week 4 Day 1. 8 rounds total, 2 per week through Week 7. Each round has 5 named stages (declaration → invitation → preparation → war → end of war). Source: <a href="https://www.lastwartutorial.com/season-2-the-ultimate-strategy-guide-for-season-2-growth-captures-and-war/" target="_blank">lastwartutorial Ultimate Strategy Guide</a>.
 </div>
 
-<div class="table-wrap">
-<table>
-  <thead><tr><th>Stage</th><th>Day / Time</th><th>What Happens</th></tr></thead>
-  <tbody>
-    <tr><td class="col-aspect">0 — View groups</td><td>Monday (24h window)</td><td>See your bracket / matchups</td></tr>
-    <tr><td class="col-aspect">1 — Declare</td><td>Tuesday (24h)</td><td>Attackers pick targets</td></tr>
-    <tr><td class="col-aspect">2 — Allies invited</td><td>Wednesday (12h window)</td><td>Defender invites defense allies (up to 2)</td></tr>
-    <tr><td class="col-aspect">3 — Confirm</td><td>Wed 12:00, 30 min</td><td>Lock final lineups</td></tr>
-    <tr><td class="col-aspect" style="color: var(--watermelon);"><b>4 — WAR</b></td><td><b>Wed 12:30, 20-40 min</b></td><td>Active combat — destroy defender's Alliance Furnace</td></tr>
-    <tr><td class="col-aspect">5 — Loot</td><td>Wed → reset</td><td>Claim rewards</td></tr>
-  </tbody>
-</table>
+<div class="highlight-box info">
+  <div class="label">A · 5-Stage Round (sourced)</div>
+  <div class="value">
+    <div class="table-wrap">
+    <table>
+      <thead><tr><th>Stage</th><th>Round 1</th><th>Round 2</th><th>Duration</th><th>What happens</th></tr></thead>
+      <tbody>
+        <tr><td class="col-aspect">0 · Waiting</td><td>Monday</td><td>Thursday</td><td>24 hr</td><td>Pre-round buffer</td></tr>
+        <tr><td class="col-aspect">1 · Declaration</td><td><b>Tuesday</b></td><td><b>Friday</b></td><td>24 hr</td><td>Attack-faction R4+ declare war on defending-faction alliances in the <b>same ranking group</b>. Up to 3 attackers can pile on 1 defender. Target can change until stage end.</td></tr>
+        <tr><td class="col-aspect">2 · Invitation</td><td>Wednesday</td><td>Saturday</td><td>12 hr</td><td>Defender's R4+ invites same-faction same-bracket allies. 3 attackers → up to 2 defenders invited. 2 attackers → 1 defender. 1 attacker → 0 invitations.</td></tr>
+        <tr><td class="col-aspect">3 · Preparation</td><td>Wednesday</td><td>Saturday</td><td>30 min</td><td>Defenders position troops, reinforce Alliance Furnace</td></tr>
+        <tr><td class="col-aspect" style="color: var(--watermelon);"><b>4 · War</b></td><td><b>Wednesday</b></td><td><b>Saturday</b></td><td><b>20–40 min</b></td><td><b>Attackers attempt to destroy defender's Alliance Furnace.</b> Furnace at 0% durability before timer = attacker wins, war ends early.</td></tr>
+        <tr><td class="col-aspect">5 · End of War</td><td>Wednesday</td><td>Saturday</td><td>Until reset</td><td>Loot distribution, cooldown</td></tr>
+      </tbody>
+    </table>
+    </div>
+    Round 1 day-of-week per lastwartutorial Ultimate Guide. Round 2 day-of-week per in-game documentation (player screenshot).
+  </div>
+</div>
+
+<div class="highlight-box warn">
+  <div class="label">B · Rare Soil Ranking Groups — Matchmaking Brackets</div>
+  <div class="value">
+    Within each faction, alliances are bracketed by their total Rare Soil into <b>4 ranking groups</b>:
+    <ul style="padding-left: 18px; line-height: 1.7;">
+      <li><b>Group 1:</b> ranks 1–10</li>
+      <li><b>Group 2:</b> ranks 11–20</li>
+      <li><b>Group 3:</b> ranks 21–30</li>
+      <li><b>Group 4:</b> ranks 31–50</li>
+    </ul>
+    You can <b>only declare on alliances in the opposite faction AND your own ranking group</b>. Defense invitations also obey the same-bracket rule.
+    <br><br>
+    <b>Strategic implication for RGBB:</b> if RGBB pulls way ahead of PNXX/DOC in Rare Soil accumulation, the three alliances could end up in different brackets and be unable to declare/invite each other — splitting our coordination. Worth tracking the RS gap weekly to stay near each other's brackets if joint defense matters more than max accumulation.
+  </div>
 </div>
 
 <div class="highlight-box action">
-  <div class="label">War duration by matchup + plunder</div>
+  <div class="label">C · War Mechanics — Victory, Durations, Plunder</div>
   <div class="value">
-    <b>Durations:</b> 40 min (1v1, 2v2, 3v3) · 30 min (2v1, 3v2) · 20 min (3v1)<br>
-    <b>Victory:</b> Reduce defender's Alliance Furnace durability to 0% before timer expires.<br>
+    <b>Victory condition:</b> Reduce defender's <b>Alliance Furnace durability to 0%</b> before timer expires. Furnace destroyed early → war stage ends, attacker takes plunder.<br><br>
+    <b>War durations</b> (per matchup):
+    <ul style="padding-left: 18px; line-height: 1.7;">
+      <li>1v1, 2v2, 3v3 = <b>40 min</b></li>
+      <li>2v1, 3v2 (defender 1 fewer) = 30 min</li>
+      <li>3v1 (defender 2 fewer) = 20 min</li>
+    </ul>
     <b>Plunder:</b> Winning attackers steal <b>up to 20%</b> of defender's accumulated Rare Soil. After the <b>Rare Soil Showdown</b> event later in season, that rises to <b>up to 30%</b>.
+  </div>
+</div>
+
+<div class="highlight-box warn">
+  <div class="label">D · Warlord Missile — Attacker-Only Skill</div>
+  <div class="value">
+    A devastating skill exclusive to the <b>Warlord title-holder</b> in the attacking alliance. Sources: <a href="https://lastwar-tutorial.com/en/war-rare-earths/" target="_blank">lastwar-tutorial.com Rare Earth War tips</a> + in-game documentation screenshot.
+    <div class="table-wrap" style="margin-top:10px;">
+    <table>
+      <thead><tr><th>Aspect</th><th>Spec</th></tr></thead>
+      <tbody>
+        <tr><td class="col-aspect">Who can launch</td><td>Only the player holding the <b>Warlord</b> title in the attacking alliance</td></tr>
+        <tr><td class="col-aspect">When</td><td>During <b>Preparation</b> and <b>War</b> stages of an RSW round</td></tr>
+        <tr><td class="col-aspect">Target zone</td><td>Inside the defender's Alliance Furnace catchment area. Launch origin is unrestricted, but Warlord + target must be on the same server.</td></tr>
+        <tr><td class="col-aspect">Launch prep</td><td><b>180 seconds (3 min)</b> countdown after activation</td></tr>
+        <tr><td class="col-aspect" style="color: var(--watermelon);">During prep — vulnerable</td><td><b>War Fever status:</b> Warlord's base location is published to the entire server in world chat. Everyone server-wide — including cross-server visitors — can attack the Warlord's base during these 3 minutes. <b>The Warlord cannot use a shield during prep</b> (same restriction as Capitol fight).</td></tr>
+        <tr><td class="col-aspect">Abort condition</td><td>If the Warlord's base moves (relocates or gets breached) during prep → <b>missile fails + 72-hour cooldown</b></td></tr>
+        <tr><td class="col-aspect">Furnace damage on launch</td><td><b>30,000 durability damage</b> to defender's Alliance Furnace</td></tr>
+        <tr><td class="col-aspect">Blast radius</td><td><b>25×25 fields</b> centred on the impact point. All bases in radius are forcibly teleported to random world-map positions. Shields are <b>NOT broken</b> by the relocation.</td></tr>
+        <tr><td class="col-aspect">Contaminated Land</td><td>Blast area becomes Contaminated Land temporarily (exact duration not in public source — verify in-game)</td></tr>
+      </tbody>
+    </table>
+    </div>
+    <b>Strategic notes:</b>
+    <ul style="padding-left: 18px; line-height: 1.7;">
+      <li><b>If RGBB attacks:</b> Warlord becomes a 3-min open target. Coordinate alliance "body-block" defense around the Warlord's base; ideally pre-position rallies before activation. If the Warlord gets bumped or runs, missile is dead for 72hr.</li>
+      <li><b>If RGBB defends:</b> Watch world chat for the enemy Warlord's reveal. The entire 3-min window is open season — pile rallies on them to abort the missile.</li>
+      <li><b>30k Furnace damage is huge.</b> Combined with normal attacker damage, the missile alone can take a fragile Alliance Furnace to 0% — that's an instant attacker win. Keep our Furnace durability buffer high during RSW windows.</li>
+    </ul>
   </div>
 </div>
 
@@ -718,7 +774,9 @@
     <br><br>
     <b>Week 4:</b> Rare Soil War begins <b>between factions</b>. Alliances within the same faction collaborate; alliances in opposite factions are matchmade against each other for the 8 RSW rounds (2/week through W4-W7).
     <br><br>
-    This means RGBB's RSW opponents aren't picked freely — they're constrained to the opposite faction. PNXX, DOC, OWOW and the other shared-region allies will be on one side or split across both, depending on the auto-assignment.
+    Within that faction, RGBB also lands in a <b>Rare Soil ranking group</b> (1-10, 11-20, 21-30, or 31-50) which determines who we can declare on / be declared on by — see <b>section 11 part B</b> for bracket mechanics.
+    <br><br>
+    This means RGBB's RSW opponents aren't picked freely — they're constrained to the opposite faction AND same ranking group. PNXX, DOC, OWOW and the other shared-region allies will be on one side or split across both, depending on the auto-assignment.
   </div>
 </div>
 
@@ -848,7 +906,7 @@
       <li><b>0°C → Supply Collection coordinates appear</b> (section 12) — <a href="https://www.lastwartutorial.com/season-2-supply-collections/" target="_blank">lastwartutorial</a> says supplies "appear randomly when 0°C is reached" without specifying whether 0°C is the floor or the trigger. Watch when the first supply cords actually show up.</li>
       <li><b>City Rare Soil mid-tier rates (L2-L5)</b> — only L1 (350/hr) and L6 (~1,000/hr) confirmed in any source; L2-L5 rates extrapolated linearly. Verify by holding one of each tier.</li>
       <li><b>Dig site recapture cooldown after abandonment</b> — cities have ~6-day protection; dig site cooldown not explicitly documented. Observe after first abandonment.</li>
-      <li><b>Rare Soil War declaration day-of-week</b> — assumed Wednesday per Stage schedule; some servers may differ.</li>
+      <li><b>Contaminated Land duration after Warlord Missile</b> — the blast area becomes Contaminated Land temporarily but the public source cut off before specifying duration. Observe in-game how long bases can't move into the blast zone after a successful missile.</li>
       <li><b>Carlie / Swift exclusive weapons</b> — Murphy's S2 exclusive weapon is confirmed by <a href="https://cpt-hedge.com/guides/season-2-murphy-exclusive-weapon" target="_blank">cpt-hedge</a>. Carlie + Swift weapons mentioned in <a href="https://www.lootbar.com/blog/en/last-war-violet-best-build-guide-maximize-her-tanking-power.html" target="_blank">lootbar</a> but not in a dedicated weapon guide — verify their drop sources in-game.</li>
       <li><b>Which faction RGBB lands in</b> (Week 3 auto-split — Rebels vs Gendarmerie) — server-specific assignment criteria not publicly documented. Confirm in-game once Week 3 triggers; same for PNXX, DOC, OWOW, and the rest of the shared 7.</li>
     </ul>
@@ -873,6 +931,8 @@
       <li><b>Violet SSR→UR with +5% damage reduction stacking with Murphy for 10% total</b> → <a href="https://lastwarhandbook.com/guides/violet-guide" target="_blank">Last War Handbook Violet Guide</a></li>
       <li><b>Mutant Beast counter triangle: Gorilla(Aircraft)→Missile, Bear(Missile)→Tank, Mammoth(Tank)→Aircraft, all +50% damage</b> → <a href="https://www.lastwartutorial.com/season-2-the-ultimate-strategy-guide-for-season-2-growth-captures-and-war/" target="_blank">lastwartutorial Ultimate Strategy Guide</a></li>
       <li><b>Rare Soil War: 8 rounds total / 2 per week from W4, durations 40/30/20 min, plunder 20% (30% post-Showdown)</b> → <a href="https://www.lastwartutorial.com/season-2-the-ultimate-strategy-guide-for-season-2-growth-captures-and-war/" target="_blank">lastwartutorial Ultimate Strategy Guide</a></li>
+      <li><b>RSW 5-stage round structure</b> (Waiting → Declaration → Invitation → Preparation → War → End of War), <b>day-of-week</b> (Tue/Wed Round 1, Fri/Sat Round 2), <b>ranking groups</b> 1-10/11-20/21-30/31-50, <b>victory = destroy defender's Alliance Furnace</b>, up to 3 attackers / up to 2 defenders invited → <a href="https://www.lastwartutorial.com/season-2-the-ultimate-strategy-guide-for-season-2-growth-captures-and-war/" target="_blank">lastwartutorial Ultimate Strategy Guide</a> + in-game documentation screenshot</li>
+      <li><b>Warlord Missile mechanic</b>: 180s prep with War Fever (server-wide location reveal, no shields), 72hr cooldown if Warlord moves, 25×25 blast radius, 30k Furnace durability damage, forced random teleport (shields preserved), temporary Contaminated Land → <a href="https://lastwar-tutorial.com/en/war-rare-earths/" target="_blank">lastwar-tutorial.com Rare Earth War tips</a> + in-game documentation screenshot</li>
       <li><b>Nuclear Furnace activation W4D6+36h, warzone-shared reactivation (5 stamina per troop send), Glacieradons reduce progress ~1%/4h, +10°C warzone-wide when reactivated, Faction Rewards on completion</b> → <a href="https://www.lastwartutorial.com/season-2-week-4/" target="_blank">lastwartutorial Week 4</a> + <a href="https://www.lastwartutorial.com/season-2-week-5/" target="_blank">lastwartutorial Week 5</a></li>
       <li><b>Faction system: Rebels vs Gendarmerie split in Week 3, RSW between factions starts Week 4</b> → <a href="https://www.lastwartutorial.com/season-2-week-4/" target="_blank">lastwartutorial Week 4</a></li>
       <li><b>No Builder Alliances in S2 (S1 mechanic retired)</b> → community comment on <a href="https://www.lastwartutorial.com/season-2-the-ultimate-strategy-guide-for-season-2-growth-captures-and-war/" target="_blank">lastwartutorial Ultimate Strategy Guide</a>: "Season 2 and 3 are completely different in logic about wars, so it's not needed"</li>
@@ -912,6 +972,7 @@
     <li><a href="https://www.lastwartutorial.com/season-2-week-5/" target="_blank">Season 2 Week 5 (Turn on Nuclear Furnace) — lastwartutorial.com</a></li>
     <li><a href="https://www.ldshop.gg/blog/last-war-survival/professional-skills-guide.html" target="_blank">S6 Professional Skills Upgrade Guide (Resource Saving = L35 Engineer) — ldshop.gg</a></li>
     <li><a href="https://firstfungroup.zendesk.com/hc/en-us/articles/44729112658323-Season-1-Builder-Alliance" target="_blank">Season 1 Builder Alliance reference (retired in S2) — Last War Support</a></li>
+    <li><a href="https://lastwar-tutorial.com/en/war-rare-earths/" target="_blank">Rare Earth War — Tips &amp; Tricks (Warlord Missile mechanics) — lastwar-tutorial.com</a></li>
   </ol>
   <p style="margin-top:10px; font-style:italic; color:#888;">
     Compiled by RGBB Strategic Command, June 2026. Every numeric/mechanical claim left in the body has at least one cited source — see section 18 "Claims that ARE verified" for the full receipt list. The few items still in section 18 "Claims still unsourced" are observational details to confirm on Day 1; nothing in the guide body relies on an unsourced threshold. If you find any of the removed claims (+4°C / +40°C / +50°C buff thresholds) in the in-game UI, send a screenshot and we'll re-add them with the UI as the source.
