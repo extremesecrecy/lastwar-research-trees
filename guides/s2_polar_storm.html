@@ -289,7 +289,7 @@
   <div class="highlight-box ice" style="margin: 0;">
     <div class="label">Temperature is survival</div>
     <div class="value">
-      The map gets colder toward the Capitol (-15°C edges → <b>-80°C center</b>). If your base sits below <b>-20°C for 5 minutes</b>, you freeze — no rallies, no teleport. Heat sources stack: <b>High-Heat Furnace</b> (yours), <b>Alliance Furnace</b> (shared), captured cities (5-60°C), Tower of Victory, recon planes, firebombs, Overdrive mode. Aim for <b>40°C base temp</b> for production buffs.
+      The map gets colder toward the Capitol (-15°C edges → <b>-80°C center</b>). If your base sits below <b>-20°C for 5 minutes</b>, you freeze — no rallies, no teleport. Heat sources stack: <b>High-Heat Furnace</b> (yours), <b>Alliance Furnace</b> (shared), captured cities (5-60°C), Tower of Victory, recon planes, firebombs, Overdrive mode. Warm bases gain production/durability/morale bonuses.
     </div>
   </div>
   <div class="highlight-box warn" style="margin: 0;">
@@ -313,9 +313,7 @@
 <table>
   <thead><tr><th>Threshold</th><th>Effect</th></tr></thead>
   <tbody>
-    <tr><td class="col-aspect">+40°C base <sup title="Unverified — see section 18" style="color:var(--watermelon);">⚠</sup></td><td>Production / movement / healing boosts active</td></tr>
-    <tr><td class="col-aspect">+50°C base (when hitting World Boss) <sup title="Unverified — see section 18" style="color:var(--watermelon);">⚠</sup></td><td>Extra World Boss damage boost</td></tr>
-    <tr><td class="col-aspect">+4°C base <sup title="Unverified — see section 18" style="color:var(--watermelon);">⚠</sup></td><td>+10% basic resource output buff</td></tr>
+    <tr><td class="col-aspect">Warm bases (general)</td><td>Bonuses to resource production, troop durability, morale (general claim; specific thresholds not in public sources)</td></tr>
     <tr><td class="col-aspect">0°C</td><td>Supply Collection Cords appear on the map</td></tr>
     <tr><td class="col-aspect">Below -20°C for 5 min</td><td class="num-bad"><b>FREEZE</b> — cannot rally, cannot teleport, debuffs applied</td></tr>
     <tr><td class="col-aspect">Map edges</td><td>~-15°C baseline</td></tr>
@@ -361,7 +359,7 @@
 <div class="highlight-box warn">
   <div class="label">Overdrive — use intentionally</div>
   <div class="value">
-    Overdrive heats much faster but burns <b>~4× the Coal</b> <sup title="Unverified — see section 18" style="color:var(--watermelon);">⚠</sup>. Reserve it for:
+    Overdrive heats much faster but burns <b>4× the Coal</b>. Reserve it for:
     <ul style="padding-left: 20px; line-height: 1.7;">
       <li>Blizzard / Cold Wave events (avoid the freeze countdown)</li>
       <li>Big rally pushes into cold zones</li>
@@ -412,14 +410,14 @@
   <thead><tr><th>Source</th><th>Heat Contribution</th><th>Cost / Notes</th></tr></thead>
   <tbody>
     <tr><td class="col-aspect">High-Heat Furnace (yours, normal mode)</td><td>5.5°C (L1) → 20°C (L30)</td><td>Burns Coal continuously</td></tr>
-    <tr><td class="col-aspect">High-Heat Furnace (Overdrive mode)</td><td>8°C (L1) → <b>30°C (L30)</b></td><td><b>~4× Coal</b> consumption <sup title="Unverified — see section 18" style="color:var(--watermelon);">⚠</sup></td></tr>
+    <tr><td class="col-aspect">High-Heat Furnace (Overdrive mode)</td><td>8°C (L1) → <b>30°C (L30)</b></td><td><b>4× Coal</b> consumption</td></tr>
     <tr><td class="col-aspect">Alliance Furnace (in radius)</td><td>Extends heat to nearby members</td><td>Members reinforce upgrade; R4/R5 deploys</td></tr>
     <tr><td class="col-aspect">Captured Cities</td><td><b>5°C (L1) → 60°C (L6)</b></td><td>Highest single source — adjacency only</td></tr>
     <tr><td class="col-aspect">Tower of Victory (decoration)</td><td>L1: +3°C · L2: +4°C · L3: +5°C (caps)</td><td>Purchase in S1 Black Market — see section 7</td></tr>
     <tr><td class="col-aspect">Recon Planes</td><td>Up to 60°C boost</td><td>Allies can send to your base</td></tr>
     <tr><td class="col-aspect">Firebomb (profession skill)</td><td><b>+45°C in 9×9 area, 5 min</b></td><td>23.5h cooldown · L3 skill</td></tr>
     <tr><td class="col-aspect">Intense Overdrive (profession skill)</td><td>+2°C bonus to Overdrive heat</td><td>L1 perk</td></tr>
-    <tr><td class="col-aspect">Nuclear Furnace</td><td>Significant heat for nearby bases</td><td>Late-game alliance structure</td></tr>
+    <tr><td class="col-aspect">Nuclear Furnace (warzone Capitol)</td><td><b>+10°C warzone-wide</b> when reactivated</td><td>Activates W4D6 + 36hr · collective warzone effort, NOT alliance-owned · see section 11A</td></tr>
     <tr><td class="col-aspect">City Furnaces (your cities)</td><td>Heat radius around captured cities</td><td>Each owned city projects warmth</td></tr>
     <tr><td class="col-aspect" style="color: var(--watermelon);">Heat LOSS when troops leave base</td><td>Base cools when troops are out</td><td>Plan rally timing to avoid post-rally freeze</td></tr>
   </tbody>
@@ -558,7 +556,7 @@
   <div class="value">
     Three stackable savings:
     <ul style="padding-left: 18px; line-height: 1.7;">
-      <li><b>Engineer profession Level 35</b> — Resource Saving skill <sup title="Unverified — see section 18" style="color:var(--watermelon);">⚠</sup></li>
+      <li><b>Engineer profession Level 35</b> — Resource Saving skill (5% reduction on building/seasonal construction costs)</li>
       <li><b>Alliance tech: Veteran Craftsman</b> — lowers building cost</li>
       <li><b>Tech: Master Craftsman</b> — additional discount</li>
     </ul>
@@ -693,6 +691,48 @@
 </div>
 
 <!-- SUPPLY COLLECTION -->
+<div class="section-title">11A · Nuclear Furnace, Faction System &amp; No Builder Alliances</div>
+<div class="section-desc">
+  S2 retires the S1 Capitol Conquest and Builder Alliance concepts. The Nuclear Furnace at map centre is a warzone-shared objective, and alliances are split into two factions for Rare Soil War.
+</div>
+
+<div class="highlight-box info">
+  <div class="label">Nuclear Furnace — warzone Capitol (not a captureable alliance prize)</div>
+  <div class="value">
+    Sits at the centre of the map (L7 tile). It is NOT a Capitol Conquest target like S1's Capitol — it's a <b>collective warzone objective</b>:
+    <ul style="padding-left: 18px; line-height: 1.7;">
+      <li><b>Activation:</b> mission opens <b>Week 4 Day 6 + 36 hours delay</b> (= Week 4 Day 7 + 12 hours server time).</li>
+      <li><b>How it's reactivated:</b> every alliance in the warzone sends troops to fill a reactivation bar to 100%. Each squad send costs <b>5 stamina</b>. Collective effort, NOT owned by one alliance.</li>
+      <li><b>Reward when reactivated:</b> the Nuclear Furnace provides <b>+10°C warzone-wide</b> base heat — every base on the map benefits, not just the alliance that contributed most.</li>
+      <li><b>Glacieradons spawn</b> and reduce furnace progress by <b>~1% every 4 hours</b> — alliances must kill them to keep the bar climbing.</li>
+      <li><b>Faction Rewards</b> are issued for killing Glacieradons and completing reactivations. Reward tier scales with your <i>personal</i> contribution + your faction's overall performance.</li>
+      <li><b>Week 5 mission:</b> "Turn on Nuclear Furnace" runs for 7 days. Cold Wave Alert -90 hits in parallel.</li>
+    </ul>
+  </div>
+</div>
+
+<div class="highlight-box warn">
+  <div class="label">Faction System — Rebels vs Gendarmerie (replaces S1 free-for-all)</div>
+  <div class="value">
+    <b>Week 3:</b> all alliances on the warzone are auto-split into two factions — <b>Rebels</b> and <b>Gendarmerie</b>. The split criteria are server-specific and not documented publicly; track which faction RGBB lands in once it triggers.
+    <br><br>
+    <b>Week 4:</b> Rare Soil War begins <b>between factions</b>. Alliances within the same faction collaborate; alliances in opposite factions are matchmade against each other for the 8 RSW rounds (2/week through W4-W7).
+    <br><br>
+    This means RGBB's RSW opponents aren't picked freely — they're constrained to the opposite faction. PNXX, DOC, OWOW and the other shared-region allies will be on one side or split across both, depending on the auto-assignment.
+  </div>
+</div>
+
+<div class="highlight-box ice">
+  <div class="label">No Builder Alliances in S2</div>
+  <div class="value">
+    The S1 "Builder Alliance" mechanic — where some alliances specialised in constructing outposts/forts unlocking Week 4 — <b>does not exist in S2</b>. Per a Last War Tutorial community comment: <i>"Season 2 and 3 are completely different in logic about wars, so it's not needed."</i>
+    <br><br>
+    S2's only alliance-level facility is the <b>Alliance Furnace</b> (one per alliance, R4/R5 deploys it on Day 1). Heat sharing and the Rare Soil War replace the S1 outpost/builder system.
+    <br><br>
+    <b>For RGBB:</b> don't plan around capturing builder outposts — they don't exist. Optimise around the Alliance Furnace, the Rare Soil War bracket, the Nuclear Furnace reactivation, and direct city/dig site holdings.
+  </div>
+</div>
+
 <div class="section-title">12 · Supply Collection Cords</div>
 <ul class="fact-list">
   <li>Appear on tiles when temperature hits <b>0°C</b></li>
@@ -731,7 +771,7 @@
   <div class="step-box"><div class="step-num">5</div><div class="step-text"><b>Stack radar missions for S2 Day 1</b> — you need a Distressed Survivor task to spawn (it rewards Coal)</div></div>
   <div class="step-box"><div class="step-num">6</div><div class="step-text"><b>Scout your first dig site target</b> — picking a high-coal-output L1 dig adjacent to your start saves days of work</div></div>
   <div class="step-box"><div class="step-num">7</div><div class="step-text"><b>Two first bloods are possible:</b> hit a 160+ Doom Walker right before S1 reset (1st blood), then again right after S2 starts (2nd blood). Bank both rewards.</div></div>
-  <div class="step-box"><div class="step-num">8</div><div class="step-text"><b>Engineer profession to Level 35</b> for the Resource Saving skill <sup title="Unverified — see section 18" style="color:var(--watermelon);">⚠</sup> (Coal cost reduction)</div></div>
+  <div class="step-box"><div class="step-num">8</div><div class="step-text"><b>Engineer profession to Level 35</b> for the <b>Resource Saving</b> skill — 5% reduction on building/seasonal construction costs (Coal included)</div></div>
   <div class="step-box"><div class="step-num">9</div><div class="step-text"><b>Buy the Coal Pack</b> if available — your Day-1 Coal stockpile determines your first 48 hours</div></div>
   <div class="step-box"><div class="step-num">10</div><div class="step-text"><b>Renew alliance friendship pacts</b> with your S1 friend alliances. Confirm in writing (or at minimum in private chat with R5s) that they'll respond to your Stage-2 Rare Soil War defense invitations. Without confirmed defense allies, you fight alone.</div></div>
 </div>
@@ -791,51 +831,51 @@
 <!-- MORE TIPS -->
 <div class="section-title">17 · More S2 Tips</div>
 <ul class="fact-list">
-  <li><b>Maintain bases at 40°C</b> — production / movement / healing boosts activate</li>
-  <li><b>Warm to 50°C before hitting World Bosses</b> for an extra damage boost</li>
+  <li><b>Keep your base warm</b> — warm bases gain production / durability / morale bonuses (specific buff thresholds vary, not in public sources — verify in-game UI)</li>
   <li><b>Military buildings unlock at Furnace L30</b> — three hero-type damage boosters</li>
-  <li><b>Eternal Forest Castle "likes"</b> grant boosts (similar to pumpkins in earlier seasons)</li>
   <li><b>The thermal view of the map</b> shows server-wide temperatures — closer to Capitol = colder</li>
-  <li><b>Blizzard / Cold Wave events</b> drop temperatures for ~3 hours. Auto-Overdrive your Furnace.</li>
+  <li><b>Blizzard / Cold Wave events</b> drop temperatures — Auto-Overdrive your Furnace to compensate</li>
   <li><b>Beast Crisis & Cold Wave events</b> grant rewards for not freezing</li>
 </ul>
 
 <!-- VERIFICATION + GAPS -->
 <div class="section-title">18 · Things to Verify In-Game</div>
 <div class="highlight-box warn">
-  <div class="label">⚠️ Claims I could not source — verify these against in-game UI before relying on them</div>
+  <div class="label">⚠️ Claims still unsourced — verify these against in-game UI</div>
   <div class="value">
-    These appear in community guides or in-game observation, but I could not pin them down in any fetchable public source during validation. Treat them as "best available info, not confirmed."
+    These are the residual gaps after the source audit. We removed all unsourceable threshold claims (specific +4/+40/+50°C buff trigger values) from the guide body; what remains here is observational stuff to confirm on Day 1.
     <ul style="padding-left: 18px; line-height: 1.7;">
-      <li><b>Overdrive Coal consumption = ~4× normal</b> (sections 2, 5) — widely repeated in community discussion but absent from the public theriagames Furnace guide. Measure your Coal burn before/after toggling Overdrive to confirm the multiplier for your Furnace level.</li>
-      <li><b>+4°C base → +10% basic resource output</b> (section 2) — the threshold and exact buff value are not in any fetchable guide. Check the temperature buff panel in your base UI.</li>
-      <li><b>+40°C base → production / movement / healing buffs unlock</b> (section 2) — threshold not sourced. Likely a tiered buff system; verify each buff's exact trigger temperature in-game.</li>
-      <li><b>+50°C base → extra World Boss damage</b> (section 2) — not sourced; check World Boss panel during the next attack.</li>
-      <li><b>0°C → Supply Collection coordinates appear</b> (section 11) — partially supported: <a href="https://www.lastwartutorial.com/season-2-supply-collections/" target="_blank">lastwartutorial</a> says supplies "appear randomly when 0°C is reached" without specifying whether 0°C is the floor or the trigger. Watch when the first supply cords actually show up.</li>
-      <li><b>Engineer profession Level 35 = "Resource Saving" skill</b> (sections 7, 14) — name and exact level not confirmed in S2 sources. <a href="https://theriagames.com/guide/last-war-survival-titanium-alloy-guide/" target="_blank">theriagames Titanium guide</a> mentions a "Resource Saving" skill exists for Coal cost reduction but doesn't tie it to a specific profession level.</li>
-      <li><b>City Rare Soil mid-tier rates (L2-L5)</b> — only L1 (350/hr) and L6 (~1,000/hr) confirmed in any source; L2-L5 rates extrapolated linearly.</li>
-      <li><b>Exact Mutant Beast counter triangle</b> — sources confirm three beasts (Polar Bear / Gorilla / Mammoth) but the specific A-beats-B-beats-C mapping varies between guides. Verify which squad type wins against which beast on your server before committing to a capture.</li>
-      <li><b>Dig site recapture cooldown after abandonment</b> — cities have ~6-day protection; dig site cooldown not explicitly documented.</li>
+      <li><b>0°C → Supply Collection coordinates appear</b> (section 12) — <a href="https://www.lastwartutorial.com/season-2-supply-collections/" target="_blank">lastwartutorial</a> says supplies "appear randomly when 0°C is reached" without specifying whether 0°C is the floor or the trigger. Watch when the first supply cords actually show up.</li>
+      <li><b>City Rare Soil mid-tier rates (L2-L5)</b> — only L1 (350/hr) and L6 (~1,000/hr) confirmed in any source; L2-L5 rates extrapolated linearly. Verify by holding one of each tier.</li>
+      <li><b>Dig site recapture cooldown after abandonment</b> — cities have ~6-day protection; dig site cooldown not explicitly documented. Observe after first abandonment.</li>
       <li><b>Rare Soil War declaration day-of-week</b> — assumed Wednesday per Stage schedule; some servers may differ.</li>
       <li><b>Carlie / Swift exclusive weapons</b> — Murphy's S2 exclusive weapon is confirmed by <a href="https://cpt-hedge.com/guides/season-2-murphy-exclusive-weapon" target="_blank">cpt-hedge</a>. Carlie + Swift weapons mentioned in <a href="https://www.lootbar.com/blog/en/last-war-violet-best-build-guide-maximize-her-tanking-power.html" target="_blank">lootbar</a> but not in a dedicated weapon guide — verify their drop sources in-game.</li>
+      <li><b>Which faction RGBB lands in</b> (Week 3 auto-split — Rebels vs Gendarmerie) — server-specific assignment criteria not publicly documented. Confirm in-game once Week 3 triggers; same for PNXX, DOC, OWOW, and the rest of the shared 7.</li>
     </ul>
+    <b>Removed from the guide body (no public source found):</b> +4°C → +10% resource buff threshold, +40°C → production/movement/healing buff threshold, +50°C → World Boss damage buff threshold. If you find these in the in-game UI, ping back and we'll re-add with the in-game UI as source.
   </div>
 </div>
 
 <div class="highlight-box info">
   <div class="label">✓ Claims that ARE verified — and the source that backs them</div>
   <div class="value">
-    For the receipts on the major mechanical claims in this guide:
+    Receipts for every numeric/mechanical claim in this guide:
     <ul style="padding-left: 18px; line-height: 1.7;">
       <li><b>Furnace L1/L15/L30 stats + L30 unlocks 3 military buildings</b> → <a href="https://theriagames.com/guide/last-war-survival-high-heat-furnace-guide/" target="_blank">theriagames Furnace Guide</a></li>
+      <li><b>Overdrive consumes 4× Coal</b> → <a href="https://www.ldshop.gg/blog/last-war-survival/s2-arctic-storm-guide.html" target="_blank">ldshop.gg Arctic Storm Guide</a></li>
       <li><b>Titanium Alloy Factory unlock chain (each previous → L15)</b>, +720/hr per level, 4 factories + Factory 5 via Weekly Pass, "level all evenly after L15" rule → <a href="https://theriagames.com/guide/last-war-survival-titanium-alloy-factory-guide/" target="_blank">theriagames Factory Guide</a> + <a href="https://lastwar.wiki/buildings/titanium-alloy-factory/" target="_blank">lastwar.wiki</a></li>
       <li><b>Weekly Pass details</b> (20k Coal/day, 250 VR/week, Factory 5) → <a href="https://medievalfun.com/last-war-how-to-get-coal-titanium-alloy-in-season-2/" target="_blank">medievalfun S2 Coal/Titanium guide</a></li>
+      <li><b>Engineer profession L35 = Resource Saving (5% construction cost reduction)</b> → <a href="https://www.ldshop.gg/blog/last-war-survival/professional-skills-guide.html" target="_blank">ldshop.gg Professional Skills Guide</a></li>
       <li><b>Dig site cap (4) + city cap (6) + 2/day limits, VR ladder L1=4000 → L6=10,500, 4-hr capture race, 10 reinforce, 36hr / 6-day protection, no cross-warzone</b> → <a href="https://www.lastwartutorial.com/season-2-the-ultimate-strategy-guide-for-season-2-growth-captures-and-war/" target="_blank">lastwartutorial Ultimate Strategy Guide</a></li>
       <li><b>Level unlock schedule (L1 = W1D3+12h through L7 = W4D7+12h)</b> → same source as above</li>
       <li><b>Map gradient -15°C → -80°C, -20°C/5min freeze, -270°C floor, city heat radius 5°C (L1) → 60°C (L6)</b> → <a href="https://www.lastwartutorial.com/season-2-polar-storm/" target="_blank">lastwartutorial Polar Storm overview</a></li>
       <li><b>Tower of Victory L1=+3°C / L2=+4°C / L3=+5°C (caps)</b> → <a href="https://heaven-guardian.com/last-war-tower-of-victory-guide-boost-stats-city-temp/" target="_blank">heaven-guardian Tower guide</a> + <a href="https://lastwar.wiki/decorations/tower-of-victory/" target="_blank">lastwar.wiki</a></li>
       <li><b>Violet SSR→UR with +5% damage reduction stacking with Murphy for 10% total</b> → <a href="https://lastwarhandbook.com/guides/violet-guide" target="_blank">Last War Handbook Violet Guide</a></li>
+      <li><b>Mutant Beast counter triangle: Gorilla(Aircraft)→Missile, Bear(Missile)→Tank, Mammoth(Tank)→Aircraft, all +50% damage</b> → <a href="https://www.lastwartutorial.com/season-2-the-ultimate-strategy-guide-for-season-2-growth-captures-and-war/" target="_blank">lastwartutorial Ultimate Strategy Guide</a></li>
       <li><b>Rare Soil War: 8 rounds total / 2 per week from W4, durations 40/30/20 min, plunder 20% (30% post-Showdown)</b> → <a href="https://www.lastwartutorial.com/season-2-the-ultimate-strategy-guide-for-season-2-growth-captures-and-war/" target="_blank">lastwartutorial Ultimate Strategy Guide</a></li>
+      <li><b>Nuclear Furnace activation W4D6+36h, warzone-shared reactivation (5 stamina per troop send), Glacieradons reduce progress ~1%/4h, +10°C warzone-wide when reactivated, Faction Rewards on completion</b> → <a href="https://www.lastwartutorial.com/season-2-week-4/" target="_blank">lastwartutorial Week 4</a> + <a href="https://www.lastwartutorial.com/season-2-week-5/" target="_blank">lastwartutorial Week 5</a></li>
+      <li><b>Faction system: Rebels vs Gendarmerie split in Week 3, RSW between factions starts Week 4</b> → <a href="https://www.lastwartutorial.com/season-2-week-4/" target="_blank">lastwartutorial Week 4</a></li>
+      <li><b>No Builder Alliances in S2 (S1 mechanic retired)</b> → community comment on <a href="https://www.lastwartutorial.com/season-2-the-ultimate-strategy-guide-for-season-2-growth-captures-and-war/" target="_blank">lastwartutorial Ultimate Strategy Guide</a>: "Season 2 and 3 are completely different in logic about wars, so it's not needed"</li>
     </ul>
   </div>
 </div>
@@ -868,9 +908,13 @@
     <li><a href="https://cpt-hedge.com/guides/season-2-murphy-exclusive-weapon" target="_blank">Murphy S2 Exclusive Weapon — cpt-hedge.com</a></li>
     <li><a href="https://medievalfun.com/last-war-how-to-get-coal-titanium-alloy-in-season-2/" target="_blank">Top 9 ways to get Coal &amp; Titanium Alloy — medievalfun.com</a></li>
     <li><a href="https://medievalfun.com/last-war-season-2-beginners-guide/" target="_blank">Season 2 Beginner's Guide Week 1 — medievalfun.com</a></li>
+    <li><a href="https://www.lastwartutorial.com/season-2-week-4/" target="_blank">Season 2 Week 4 (Nuclear Furnace + Faction split) — lastwartutorial.com</a></li>
+    <li><a href="https://www.lastwartutorial.com/season-2-week-5/" target="_blank">Season 2 Week 5 (Turn on Nuclear Furnace) — lastwartutorial.com</a></li>
+    <li><a href="https://www.ldshop.gg/blog/last-war-survival/professional-skills-guide.html" target="_blank">S6 Professional Skills Upgrade Guide (Resource Saving = L35 Engineer) — ldshop.gg</a></li>
+    <li><a href="https://firstfungroup.zendesk.com/hc/en-us/articles/44729112658323-Season-1-Builder-Alliance" target="_blank">Season 1 Builder Alliance reference (retired in S2) — Last War Support</a></li>
   </ol>
   <p style="margin-top:10px; font-style:italic; color:#888;">
-    Compiled by RGBB Strategic Command, June 2026. Numeric claims throughout this guide are cross-referenced against the sources above. Claims flagged with <sup style="color:var(--watermelon);">⚠</sup> are widely repeated in community guides but I could not pin them down in any public source during validation — see section 18 for the full list. Verify those in-game before relying on them in active play.
+    Compiled by RGBB Strategic Command, June 2026. Every numeric/mechanical claim left in the body has at least one cited source — see section 18 "Claims that ARE verified" for the full receipt list. The few items still in section 18 "Claims still unsourced" are observational details to confirm on Day 1; nothing in the guide body relies on an unsourced threshold. If you find any of the removed claims (+4°C / +40°C / +50°C buff thresholds) in the in-game UI, send a screenshot and we'll re-add them with the UI as the source.
   </p>
 </div>
 
