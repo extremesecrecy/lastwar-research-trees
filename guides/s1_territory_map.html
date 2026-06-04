@@ -780,28 +780,30 @@ function draw() {
     const alliance = owner ? state.alliances.find(a => a.id === owner) : null;
 
     // Fill color
-    const baseColor = LEVEL_COLORS[Math.min(area.level - 1, 9)];
-    ctx.fillStyle = baseColor;
-    ctx.fillRect(x, y, w, h);
-
-    // Building type tint for non-strongholds
-    if (BUILDING_COLORS[area.name]) {
-      ctx.fillStyle = BUILDING_COLORS[area.name];
-      ctx.globalAlpha = 0.25;
+    //  - Unclaimed: pure white + faint gridline
+    //  - Capitol:   keep saturated brown base + building tint
+    //  - Claimed:   PURE alliance color (no brown wash) for max contrast
+    if (isCapitol) {
+      ctx.fillStyle = LEVEL_COLORS[Math.min(area.level - 1, 9)];
       ctx.fillRect(x, y, w, h);
-      ctx.globalAlpha = 1.0;
-    }
-
-    // Alliance overlay
-    if (alliance) {
+      if (BUILDING_COLORS[area.name]) {
+        ctx.fillStyle = BUILDING_COLORS[area.name];
+        ctx.globalAlpha = 0.25;
+        ctx.fillRect(x, y, w, h);
+        ctx.globalAlpha = 1.0;
+      }
+    } else if (alliance) {
       ctx.fillStyle = alliance.color;
-      ctx.globalAlpha = 0.4;
       ctx.fillRect(x, y, w, h);
-      ctx.globalAlpha = 1.0;
-
       ctx.strokeStyle = alliance.color;
       ctx.lineWidth = 2 / scale;
       ctx.strokeRect(x + 1 / scale, y + 1 / scale, w - 2 / scale, h - 2 / scale);
+    } else {
+      ctx.fillStyle = '#ffffff';
+      ctx.fillRect(x, y, w, h);
+      ctx.strokeStyle = '#d1d5db';
+      ctx.lineWidth = 1 / scale;
+      ctx.strokeRect(x + 0.5 / scale, y + 0.5 / scale, w - 1 / scale, h - 1 / scale);
     }
 
     // Dim overlay for timeline
@@ -840,9 +842,11 @@ function draw() {
         ctx.fillText('Lv' + area.level, cx, cy + 8 / scale);
         ctx.shadowBlur = 0;
       } else {
+        // Label color: white on alliance overlay or Capitol; dark on white unclaimed
+        const isDark = !!alliance || area.level >= 7;
         ctx.font = `bold ${Math.max(9 / scale, 1)}px Segoe UI, sans-serif`;
-        ctx.fillStyle = area.level >= 7 ? '#fff' : '#1a1a1a';
-        ctx.shadowColor = area.level >= 7 ? 'rgba(0,0,0,0.4)' : 'rgba(255,255,255,0.6)';
+        ctx.fillStyle = isDark ? '#fff' : '#1a1a1a';
+        ctx.shadowColor = isDark ? 'rgba(0,0,0,0.4)' : 'rgba(255,255,255,0.6)';
         ctx.shadowBlur = 2 / scale;
         ctx.fillText(abbr, cx, cy - 3 / scale);
         ctx.font = `${Math.max(7 / scale, 0.8)}px Segoe UI, sans-serif`;
