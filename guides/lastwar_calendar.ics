@@ -533,21 +533,21 @@ END:VALARM
 END:VEVENT
 BEGIN:VEVENT
 UID:owow-event-61@lastwar
-DTSTART;VALUE=DATE:20260711
+DTSTART;VALUE=DATE:20260531
 SUMMARY:S2: S2: Polar World
 DESCRIPTION:S2: Polar World
 CATEGORIES:SEASON-START
 END:VEVENT
 BEGIN:VEVENT
 UID:owow-event-62@lastwar
-DTSTART;VALUE=DATE:20260712
+DTSTART;VALUE=DATE:20260601
 SUMMARY:S2: Season Boost
 DESCRIPTION:Season Boost
 CATEGORIES:SEASON
 END:VEVENT
 BEGIN:VEVENT
 UID:owow-event-63@lastwar
-DTSTART;VALUE=DATE:20260712
+DTSTART;VALUE=DATE:20260601
 SUMMARY:S2: S2: Legend Returns (Free)
 DESCRIPTION:Adds McGregor (missile) to the Tavern for free as part of the Legend returns event.
 CATEGORIES:HERO
@@ -559,7 +559,7 @@ END:VALARM
 END:VEVENT
 BEGIN:VEVENT
 UID:owow-event-64@lastwar
-DTSTART;VALUE=DATE:20260712
+DTSTART;VALUE=DATE:20260601
 SUMMARY:S2: Hero tavern unlocks (Free)
 DESCRIPTION:Adds Schuyler (aircraft) and Williams (tank) to the regular Tavern for free.
 CATEGORIES:HERO
@@ -571,7 +571,7 @@ END:VALARM
 END:VEVENT
 BEGIN:VEVENT
 UID:owow-event-65@lastwar
-DTSTART;VALUE=DATE:20260712
+DTSTART;VALUE=DATE:20260601
 SUMMARY:S2: Hidden Treasure
 DESCRIPTION:Hero Choice Chests from the Hidden Treasure digs now also include shards for Marshall, Williams, and Schuyler.
 CATEGORIES:HERO
@@ -583,21 +583,21 @@ END:VALARM
 END:VEVENT
 BEGIN:VEVENT
 UID:owow-event-66@lastwar
-DTSTART;VALUE=DATE:20260714
+DTSTART;VALUE=DATE:20260603
 SUMMARY:S2: S2: Weapons of Legends (Free)
 DESCRIPTION:Adds Hero Exclusive Weapon Shard Choice Chest II to the Tavern. This provides weapon shards for Kimberly, DVA, and Tesla.
 CATEGORIES:EXCLUSIVE WEAPON
 END:VEVENT
 BEGIN:VEVENT
 UID:owow-event-67@lastwar
-DTSTART;VALUE=DATE:20260715
+DTSTART;VALUE=DATE:20260604
 SUMMARY:S2: Murphy Exclusive Weapon
 DESCRIPTION:Murphy Exclusive Weapon
 CATEGORIES:EXCLUSIVE WEAPON
 END:VEVENT
 BEGIN:VEVENT
 UID:owow-event-68@lastwar
-DTSTART;VALUE=DATE:20260726
+DTSTART;VALUE=DATE:20260615
 SUMMARY:S2: Hero Promotion: Violet (to UR)
 DESCRIPTION:Violet (Tank) can be promoted from SSR to UR — promotion window opens W3D1 and runs through ~Week 7. Requires Violet at 5★ + Legendary Hero Badge. Strategy: do the upgrade on Thursday VS Hero day to bank VS points. Sources: lastwartutorial S2 Week 3 + lastwarvault SSR-to-UR Upgrade Guide.
 CATEGORIES:HERO
@@ -609,84 +609,84 @@ END:VALARM
 END:VEVENT
 BEGIN:VEVENT
 UID:owow-event-69@lastwar
-DTSTART;VALUE=DATE:20260729
+DTSTART;VALUE=DATE:20260618
 SUMMARY:S2: Carlie Exclusive Weapon
 DESCRIPTION:Carlie Exclusive Weapon
 CATEGORIES:EXCLUSIVE WEAPON
 END:VEVENT
 BEGIN:VEVENT
 UID:owow-event-70@lastwar
-DTSTART;VALUE=DATE:20260819
+DTSTART;VALUE=DATE:20260709
 SUMMARY:S2: Swift Exclusive Weapon
 DESCRIPTION:Swift Exclusive Weapon
 CATEGORIES:EXCLUSIVE WEAPON
 END:VEVENT
 BEGIN:VEVENT
 UID:owow-event-71@lastwar
-DTSTART;VALUE=DATE:20260906
+DTSTART;VALUE=DATE:20260727
 SUMMARY:S2: Age of Oil
 DESCRIPTION:Age of Oil
 CATEGORIES:EVENT
 END:VEVENT
 BEGIN:VEVENT
 UID:owow-event-72@lastwar
-DTSTART;VALUE=DATE:20260906
+DTSTART;VALUE=DATE:20260727
 SUMMARY:S2: General's Trial
 DESCRIPTION:Advanced trials unlock
 CATEGORIES:EVENT
 END:VEVENT
 BEGIN:VEVENT
 UID:owow-event-73@lastwar
-DTSTART;VALUE=DATE:20260906
+DTSTART;VALUE=DATE:20260727
 SUMMARY:S2: Black market
 DESCRIPTION:Black market
 CATEGORIES:EVENT
 END:VEVENT
 BEGIN:VEVENT
 UID:owow-event-74@lastwar
-DTSTART;VALUE=DATE:20260906
+DTSTART;VALUE=DATE:20260727
 SUMMARY:S2: Champions Duel
 DESCRIPTION:Champions Duel
 CATEGORIES:EVENT
 END:VEVENT
 BEGIN:VEVENT
 UID:owow-event-75@lastwar
-DTSTART;VALUE=DATE:20260906
+DTSTART;VALUE=DATE:20260727
 SUMMARY:S2: Zombie Siege
 DESCRIPTION:Unlocks level 9 and 10
 CATEGORIES:ALLIANCE EVENT
 END:VEVENT
 BEGIN:VEVENT
 UID:owow-event-76@lastwar
-DTSTART;VALUE=DATE:20260906
+DTSTART;VALUE=DATE:20260727
 SUMMARY:S2: Tempest Beast
 DESCRIPTION:Glacieradon during zombie event (only outside of seasons)
 CATEGORIES:EVENT
 END:VEVENT
 BEGIN:VEVENT
 UID:owow-event-77@lastwar
-DTSTART;VALUE=DATE:20260913
+DTSTART;VALUE=DATE:20260803
 SUMMARY:S2: General's Trial
 DESCRIPTION:Unlocks sky predator boss during vanguard event
 CATEGORIES:EVENT
 END:VEVENT
 BEGIN:VEVENT
 UID:owow-event-78@lastwar
-DTSTART;VALUE=DATE:20261011
+DTSTART;VALUE=DATE:20260831
 SUMMARY:S2: The Doomsday
 DESCRIPTION:Unlocks slugger doomwalkers during doomsday event
 CATEGORIES:EVENT
 END:VEVENT
 BEGIN:VEVENT
 UID:owow-event-79@lastwar
-DTSTART;VALUE=DATE:20261011
+DTSTART;VALUE=DATE:20260831
 SUMMARY:S2: Zombie Invasion
 DESCRIPTION:Unlocks level 105-120 bosses
 CATEGORIES:EVENT
 END:VEVENT
 BEGIN:VEVENT
 UID:owow-event-80@lastwar
-DTSTART;VALUE=DATE:20261015
+DTSTART;VALUE=DATE:20260904
 SUMMARY:S2: Overlord
 DESCRIPTION:Unlocks gorilla overlord
 CATEGORIES:HERO
@@ -698,21 +698,21 @@ END:VALARM
 END:VEVENT
 BEGIN:VEVENT
 UID:owow-event-81@lastwar
-DTSTART;VALUE=DATE:20261009
+DTSTART;VALUE=DATE:20260829
 SUMMARY:S3: S3: Golden Realm
 DESCRIPTION:S3: Golden Realm
 CATEGORIES:SEASON-START
 END:VEVENT
 BEGIN:VEVENT
 UID:owow-event-82@lastwar
-DTSTART;VALUE=DATE:20261010
+DTSTART;VALUE=DATE:20260830
 SUMMARY:S3: Season Boost
 DESCRIPTION:Season Boost
 CATEGORIES:SEASON
 END:VEVENT
 BEGIN:VEVENT
 UID:owow-event-83@lastwar
-DTSTART;VALUE=DATE:20261010
+DTSTART;VALUE=DATE:20260830
 SUMMARY:S3: S3: Legend Returns (Free)
 DESCRIPTION:Adds Lucius (aircraft) and Stetmann (tank) to the Tavern for free as part of the Legend Returns event.
 CATEGORIES:HERO
@@ -724,7 +724,7 @@ END:VALARM
 END:VEVENT
 BEGIN:VEVENT
 UID:owow-event-84@lastwar
-DTSTART;VALUE=DATE:20261010
+DTSTART;VALUE=DATE:20260830
 SUMMARY:S3: Hero tavern unlocks (Free)
 DESCRIPTION:Adds McGregor (missile) to the regular Tavern for free.
 CATEGORIES:HERO
@@ -736,7 +736,7 @@ END:VALARM
 END:VEVENT
 BEGIN:VEVENT
 UID:owow-event-85@lastwar
-DTSTART;VALUE=DATE:20261010
+DTSTART;VALUE=DATE:20260830
 SUMMARY:S3: Hidden Treasure
 DESCRIPTION:Hero Choice Chests from the Hidden Treasure digs now also include shards for McGregor, Stetmann and Lucius.
 CATEGORIES:HERO
@@ -748,21 +748,21 @@ END:VALARM
 END:VEVENT
 BEGIN:VEVENT
 UID:owow-event-86@lastwar
-DTSTART;VALUE=DATE:20261012
+DTSTART;VALUE=DATE:20260901
 SUMMARY:S3: S3: Weapons of Legends (Free)
 DESCRIPTION:Adds Hero Exclusive Weapon Shard Choice Chest IV to the Tavern. This provides weapon shards for Kimberly, DVA, Tesla, Murphy, Carlie, and Swift.
 CATEGORIES:EXCLUSIVE WEAPON
 END:VEVENT
 BEGIN:VEVENT
 UID:owow-event-87@lastwar
-DTSTART;VALUE=DATE:20261013
+DTSTART;VALUE=DATE:20260902
 SUMMARY:S3: Marshall Exclusive Weapon
 DESCRIPTION:Marshall Exclusive Weapon
 CATEGORIES:EXCLUSIVE WEAPON
 END:VEVENT
 BEGIN:VEVENT
 UID:owow-event-88@lastwar
-DTSTART;VALUE=DATE:20261024
+DTSTART;VALUE=DATE:20260913
 SUMMARY:S3: Hero Promotion: Scarlett (to UR)
 DESCRIPTION:Scarlett (Tank) can be promoted from SSR to UR — promotion window opens W3D1 and runs through ~Week 7. Requires Scarlett at 5★ + Legendary Hero Badge. Strategy: do the upgrade on Thursday VS Hero day to bank VS points. Source: lastwarvault SSR-to-UR Upgrade Guide.
 CATEGORIES:HERO
@@ -774,84 +774,84 @@ END:VALARM
 END:VEVENT
 BEGIN:VEVENT
 UID:owow-event-89@lastwar
-DTSTART;VALUE=DATE:20261027
+DTSTART;VALUE=DATE:20260916
 SUMMARY:S3: Schuyler Exclusive Weapon
 DESCRIPTION:Schuyler Exclusive Weapon
 CATEGORIES:EXCLUSIVE WEAPON
 END:VEVENT
 BEGIN:VEVENT
 UID:owow-event-90@lastwar
-DTSTART;VALUE=DATE:20261117
+DTSTART;VALUE=DATE:20261007
 SUMMARY:S3: McGregor Exclusive Weapon
 DESCRIPTION:McGregor Exclusive Weapon
 CATEGORIES:EXCLUSIVE WEAPON
 END:VEVENT
 BEGIN:VEVENT
 UID:owow-event-91@lastwar
-DTSTART;VALUE=DATE:20261205
+DTSTART;VALUE=DATE:20261025
 SUMMARY:S3: Black market
 DESCRIPTION:Black market
 CATEGORIES:EVENT
 END:VEVENT
 BEGIN:VEVENT
 UID:owow-event-92@lastwar
-DTSTART;VALUE=DATE:20261205
+DTSTART;VALUE=DATE:20261025
 SUMMARY:S3: Champions Duel
 DESCRIPTION:Champions Duel
 CATEGORIES:EVENT
 END:VEVENT
 BEGIN:VEVENT
 UID:owow-event-93@lastwar
-DTSTART;VALUE=DATE:20261205
+DTSTART;VALUE=DATE:20261025
 SUMMARY:S3: Zombie Siege
 DESCRIPTION:Unlocks level 11 and 12
 CATEGORIES:ALLIANCE EVENT
 END:VEVENT
 BEGIN:VEVENT
 UID:owow-event-94@lastwar
-DTSTART;VALUE=DATE:20261205
+DTSTART;VALUE=DATE:20261025
 SUMMARY:S3: Zombie Invasion
 DESCRIPTION:Unlocks level 125-135 bosses
 CATEGORIES:EVENT
 END:VEVENT
 BEGIN:VEVENT
 UID:owow-event-95@lastwar
-DTSTART;VALUE=DATE:20261205
+DTSTART;VALUE=DATE:20261025
 SUMMARY:S3: Secret Mobile Squad
 DESCRIPTION:Changes treasure hunt to different setup
 CATEGORIES:EVENT
 END:VEVENT
 BEGIN:VEVENT
 UID:owow-event-96@lastwar
-DTSTART;VALUE=DATE:20261205
+DTSTART;VALUE=DATE:20261025
 SUMMARY:S3: General's Trial
 DESCRIPTION:Sky predator boss increase
 CATEGORIES:EVENT
 END:VEVENT
 BEGIN:VEVENT
 UID:owow-event-97@lastwar
-DTSTART;VALUE=DATE:20261212
+DTSTART;VALUE=DATE:20261101
 SUMMARY:S3: Alliance Exercise
 DESCRIPTION:Marshal event changes to sandworm
 CATEGORIES:ALLIANCE EVENT
 END:VEVENT
 BEGIN:VEVENT
 UID:owow-event-98@lastwar
-DTSTART;VALUE=DATE:20270107
+DTSTART;VALUE=DATE:20261127
 SUMMARY:S4: S4: Evernight Isle
 DESCRIPTION:S4: Evernight Isle
 CATEGORIES:SEASON-START
 END:VEVENT
 BEGIN:VEVENT
 UID:owow-event-99@lastwar
-DTSTART;VALUE=DATE:20270108
+DTSTART;VALUE=DATE:20261128
 SUMMARY:S4: Season Boost
 DESCRIPTION:Season Boost
 CATEGORIES:SEASON
 END:VEVENT
 BEGIN:VEVENT
 UID:owow-event-100@lastwar
-DTSTART;VALUE=DATE:20270108
+DTSTART;VALUE=DATE:20261128
 SUMMARY:S4: S4: Legend Returns (Free)
 DESCRIPTION:Adds Adam (missile), Morrison (aircraft) and Fiona (missile) to the Tavern for free as part of the Legend Returns event.
 CATEGORIES:HERO
@@ -863,7 +863,7 @@ END:VALARM
 END:VEVENT
 BEGIN:VEVENT
 UID:owow-event-101@lastwar
-DTSTART;VALUE=DATE:20270108
+DTSTART;VALUE=DATE:20261128
 SUMMARY:S4: Hero tavern unlocks (Free)
 DESCRIPTION:Adds Lucius (aircraft) and Stetmann (tank) to the regular Tavern for free.
 CATEGORIES:HERO
@@ -875,7 +875,7 @@ END:VALARM
 END:VEVENT
 BEGIN:VEVENT
 UID:owow-event-102@lastwar
-DTSTART;VALUE=DATE:20270108
+DTSTART;VALUE=DATE:20261128
 SUMMARY:S4: Hidden Treasure
 DESCRIPTION:Hero Choice Chests from the Hidden Treasure digs now include shards for Morrison, Adam, and Fiona. This brings ALL heroes to the Hero Choice Chest.
 CATEGORIES:HERO
@@ -887,28 +887,28 @@ END:VALARM
 END:VEVENT
 BEGIN:VEVENT
 UID:owow-event-103@lastwar
-DTSTART;VALUE=DATE:20270109
+DTSTART;VALUE=DATE:20261129
 SUMMARY:S4: Tactics Cards
 DESCRIPTION:New Tactics Cards feature unlocks — take strategy to the next level
 CATEGORIES:EVENT
 END:VEVENT
 BEGIN:VEVENT
 UID:owow-event-104@lastwar
-DTSTART;VALUE=DATE:20270110
+DTSTART;VALUE=DATE:20261130
 SUMMARY:S4: S4: Weapons of Legends (Free)
 DESCRIPTION:Adds Hero Exclusive Weapon Shard Choice Chest VI to the Tavern. This provides weapon shards for Kimberly, DVA, Tesla, Murphy, Carlie, Swift, Marshall, Schuyler, and McGregor.
 CATEGORIES:EXCLUSIVE WEAPON
 END:VEVENT
 BEGIN:VEVENT
 UID:owow-event-105@lastwar
-DTSTART;VALUE=DATE:20270111
+DTSTART;VALUE=DATE:20261201
 SUMMARY:S4: Lucius Exclusive Weapon
 DESCRIPTION:Lucius Exclusive Weapon
 CATEGORIES:EXCLUSIVE WEAPON
 END:VEVENT
 BEGIN:VEVENT
 UID:owow-event-106@lastwar
-DTSTART;VALUE=DATE:20270122
+DTSTART;VALUE=DATE:20261212
 SUMMARY:S4: Hero Promotion: Sarah (to UR)
 DESCRIPTION:Sarah (Aircraft) can be promoted from SSR to UR — promotion window opens W3D1 and runs through ~Week 7. Requires Sarah at 5★ + Legendary Hero Badge. Strategy: do the upgrade on Thursday VS Hero day to bank VS points. Source: lastwarvault SSR-to-UR Upgrade Guide.
 CATEGORIES:HERO
@@ -920,77 +920,77 @@ END:VALARM
 END:VEVENT
 BEGIN:VEVENT
 UID:owow-event-107@lastwar
-DTSTART;VALUE=DATE:20270125
+DTSTART;VALUE=DATE:20261215
 SUMMARY:S4: Adam Exclusive Weapon
 DESCRIPTION:Adam Exclusive Weapon
 CATEGORIES:EXCLUSIVE WEAPON
 END:VEVENT
 BEGIN:VEVENT
 UID:owow-event-108@lastwar
-DTSTART;VALUE=DATE:20270215
+DTSTART;VALUE=DATE:20270105
 SUMMARY:S4: Williams Exclusive Weapon
 DESCRIPTION:Williams Exclusive Weapon
 CATEGORIES:EXCLUSIVE WEAPON
 END:VEVENT
 BEGIN:VEVENT
 UID:owow-event-109@lastwar
-DTSTART;VALUE=DATE:20270305
+DTSTART;VALUE=DATE:20270123
 SUMMARY:S4: Black market
 DESCRIPTION:Black market
 CATEGORIES:EVENT
 END:VEVENT
 BEGIN:VEVENT
 UID:owow-event-110@lastwar
-DTSTART;VALUE=DATE:20270305
+DTSTART;VALUE=DATE:20270123
 SUMMARY:S4: Champions Duel
 DESCRIPTION:Champions Duel
 CATEGORIES:EVENT
 END:VEVENT
 BEGIN:VEVENT
 UID:owow-event-111@lastwar
-DTSTART;VALUE=DATE:20270305
+DTSTART;VALUE=DATE:20270123
 SUMMARY:S4: Zombie Invasion
 DESCRIPTION:Challenge Level 140-150 Zombie Bosses
 CATEGORIES:EVENT
 END:VEVENT
 BEGIN:VEVENT
 UID:owow-event-112@lastwar
-DTSTART;VALUE=DATE:20270305
+DTSTART;VALUE=DATE:20270123
 SUMMARY:S4: General's Trial
 DESCRIPTION:New Advanced Difficulties 7-8 unlock
 CATEGORIES:EVENT
 END:VEVENT
 BEGIN:VEVENT
 UID:owow-event-113@lastwar
-DTSTART;VALUE=DATE:20270305
+DTSTART;VALUE=DATE:20270123
 SUMMARY:S4: Lv.11 Unit
 DESCRIPTION:Research Campaign unlocks Lv.11 units — choose unit types with different traits
 CATEGORIES:EVENT
 END:VEVENT
 BEGIN:VEVENT
 UID:owow-event-114@lastwar
-DTSTART;VALUE=DATE:20270305
+DTSTART;VALUE=DATE:20270123
 SUMMARY:S4: Restricted Area Training
 DESCRIPTION:Honorable Campaign upgraded to Restricted Area Training
 CATEGORIES:EVENT
 END:VEVENT
 BEGIN:VEVENT
 UID:owow-event-115@lastwar
-DTSTART;VALUE=DATE:20270407
+DTSTART;VALUE=DATE:20270225
 SUMMARY:S5: S5: Wild West
 DESCRIPTION:S5: Wild West
 CATEGORIES:SEASON-START
 END:VEVENT
 BEGIN:VEVENT
 UID:owow-event-116@lastwar
-DTSTART;VALUE=DATE:20270408
+DTSTART;VALUE=DATE:20270226
 SUMMARY:S5: Season Boost
 DESCRIPTION:Season Boost
 CATEGORIES:SEASON
 END:VEVENT
 BEGIN:VEVENT
 UID:owow-event-117@lastwar
-DTSTART;VALUE=DATE:20270408
+DTSTART;VALUE=DATE:20270226
 SUMMARY:S5: S5: Legend Returns (Free)
 DESCRIPTION:Adds Weapon shards for Kimberly (tank), Tesla (missile) and DVA (aircraft) to the Tavern for free as part of the Legend Returns event. It also still includes hero shards for all UR heroes as well.
 CATEGORIES:HERO
@@ -1002,7 +1002,7 @@ END:VALARM
 END:VEVENT
 BEGIN:VEVENT
 UID:owow-event-118@lastwar
-DTSTART;VALUE=DATE:20270408
+DTSTART;VALUE=DATE:20270226
 SUMMARY:S5: Hero tavern unlocks (Free)
 DESCRIPTION:Adds Morrison (aircraft), Adam (missile), and Fiona (missile) to the regular Tavern for free.
 CATEGORIES:HERO
@@ -1014,7 +1014,7 @@ END:VALARM
 END:VEVENT
 BEGIN:VEVENT
 UID:owow-event-119@lastwar
-DTSTART;VALUE=DATE:20270408
+DTSTART;VALUE=DATE:20270226
 SUMMARY:S5: Hidden Treasure
 DESCRIPTION:Hero Choice Chests from the Hidden Treasure digs now include shards for Morrison, Adam, and Fiona. This brings ALL heroes to the Hero Choice Chest.
 CATEGORIES:HERO
@@ -1026,21 +1026,21 @@ END:VALARM
 END:VEVENT
 BEGIN:VEVENT
 UID:owow-event-120@lastwar
-DTSTART;VALUE=DATE:20270410
+DTSTART;VALUE=DATE:20270228
 SUMMARY:S5: S5: Weapons of Legends (Free)
 DESCRIPTION:Adds Hero Exclusive Weapon Shard Choice Chest VIII to the Tavern. This provides weapon shards for Kimberly, DVA, Tesla, Murphy, Carlie, Swift, Marshall, Schuyler, McGregor, Lucius, Adam, and Williams.
 CATEGORIES:EXCLUSIVE WEAPON
 END:VEVENT
 BEGIN:VEVENT
 UID:owow-event-121@lastwar
-DTSTART;VALUE=DATE:20270411
+DTSTART;VALUE=DATE:20270301
 SUMMARY:S5: Fiona Exclusive Weapon
 DESCRIPTION:Fiona Exclusive Weapon
 CATEGORIES:EXCLUSIVE WEAPON
 END:VEVENT
 BEGIN:VEVENT
 UID:owow-event-122@lastwar
-DTSTART;VALUE=DATE:20270422
+DTSTART;VALUE=DATE:20270312
 SUMMARY:S5: Hero Promotion: Venom (to UR)
 DESCRIPTION:Venom (Missile) can be promoted from SSR to UR — promotion window opens W3D1 and runs through ~Week 7. Requires Venom at 5★ + UR Hero Badge from the 500k CrystalGold S5 goal. Strategy: do the upgrade on Thursday VS Hero day to bank VS points. Source: lastwarvault SSR-to-UR Upgrade Guide.
 CATEGORIES:HERO
@@ -1052,49 +1052,49 @@ END:VALARM
 END:VEVENT
 BEGIN:VEVENT
 UID:owow-event-123@lastwar
-DTSTART;VALUE=DATE:20270425
+DTSTART;VALUE=DATE:20270315
 SUMMARY:S5: Stetmann Exclusive Weapon
 DESCRIPTION:Stetmann Exclusive Weapon
 CATEGORIES:EXCLUSIVE WEAPON
 END:VEVENT
 BEGIN:VEVENT
 UID:owow-event-124@lastwar
-DTSTART;VALUE=DATE:20270516
+DTSTART;VALUE=DATE:20270405
 SUMMARY:S5: Morrison Exclusive Weapon
 DESCRIPTION:Morrison Exclusive Weapon
 CATEGORIES:EXCLUSIVE WEAPON
 END:VEVENT
 BEGIN:VEVENT
 UID:owow-event-125@lastwar
-DTSTART;VALUE=DATE:20270603
+DTSTART;VALUE=DATE:20270423
 SUMMARY:S5: Black market
 DESCRIPTION:Black market
 CATEGORIES:EVENT
 END:VEVENT
 BEGIN:VEVENT
 UID:owow-event-126@lastwar
-DTSTART;VALUE=DATE:20270603
+DTSTART;VALUE=DATE:20270423
 SUMMARY:S5: Champions Duel
 DESCRIPTION:Champions Duel
 CATEGORIES:EVENT
 END:VEVENT
 BEGIN:VEVENT
 UID:owow-event-127@lastwar
-DTSTART;VALUE=DATE:20270707
+DTSTART;VALUE=DATE:20270527
 SUMMARY:S6: S6: Lost Rainforest
 DESCRIPTION:Season 6 begins — the Deepwood and Lost Rainforest
 CATEGORIES:SEASON-START
 END:VEVENT
 BEGIN:VEVENT
 UID:owow-event-128@lastwar
-DTSTART;VALUE=DATE:20270707
+DTSTART;VALUE=DATE:20270527
 SUMMARY:S6: Season Boost
 DESCRIPTION:Enchanted Fungus base skin grants +5% Hero Attack, season exclusive skill, and additional buffs
 CATEGORIES:SEASON
 END:VEVENT
 BEGIN:VEVENT
 UID:owow-event-129@lastwar
-DTSTART;VALUE=DATE:20270710
+DTSTART;VALUE=DATE:20270530
 SUMMARY:S6: Hero Awakening - Kimberly
 DESCRIPTION:Kimberly's Awakening: Meteor Barrage — turns the battlefield upside down, massive power boost
 CATEGORIES:HERO
@@ -1106,7 +1106,7 @@ END:VALARM
 END:VEVENT
 BEGIN:VEVENT
 UID:owow-event-130@lastwar
-DTSTART;VALUE=DATE:20270714
+DTSTART;VALUE=DATE:20270603
 SUMMARY:S6: Global Expedition
 DESCRIPTION:Global Expedition officially begins — explore new areas, take on global challenges, earn substantial rewards
 CATEGORIES:EVENT
