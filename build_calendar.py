@@ -14,7 +14,7 @@ from datetime import datetime, timedelta
 
 # Server #2013 creation date
 SERVER_2013_CREATION = datetime(2025, 12, 14)
-SEASON_LENGTHS = [120, 49, 90, 90, 90, 90, 90]  # Season 0-6 in days (S1=49 for Server #2013, which had a compressed S1; standard 90 used for future seasons)
+SEASON_LENGTHS = [120, 90, 90, 90, 90, 90, 90]  # Season 0-6 in days (standard Last War cadence)
 
 # Spanish translations for all UI strings in the generated HTML
 TRANSLATIONS_ES = {
@@ -644,7 +644,7 @@ def generate_html(timeline_json, schedule_json):
 <script>
 const TIMELINE_EVENTS = {timeline_json};
 const WEEKLY_SCHEDULE = {schedule_json};
-const SEASON_LENGTHS = [120, 49, 90, 90, 90, 90, 90];  // S1=49 for Server #2013
+const SEASON_LENGTHS = [120, 90, 90, 90, 90, 90, 90];  // standard Last War cadence
 
 const T = {{ es: {translations_json} }};
 const originals = {{}};
