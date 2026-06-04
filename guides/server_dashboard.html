@@ -620,12 +620,8 @@ const SEASON_NAMES = {
   5: "S5: Wild West"
 };
 
-// Hardcoded season lengths matching Server #2013 reality.
-// S0 = 120 (standard pre-season)
-// S1 = 49 (Server #2013 had a compressed S1 — ran Apr 13 to May 31, 2026)
-// S2-S6 = 90 (standard)
-// If a different server has different cadence, update these per-server.
-const SERVER_SEASON_LENGTHS = [120, 49, 90, 90, 90, 90, 90];
+// Standard Last War season cadence: S0 = 120 days (pre-season), S1-S6 = 90 each.
+const SERVER_SEASON_LENGTHS = [120, 90, 90, 90, 90, 90, 90];
 
 function getSeasonLength(s) {
   return SERVER_SEASON_LENGTHS[s] || 90;
