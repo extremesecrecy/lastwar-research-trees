@@ -806,8 +806,9 @@ function draw() {
       ctx.strokeRect(x + 0.5 / scale, y + 0.5 / scale, w - 1 / scale, h - 1 / scale);
     }
 
-    // Dim overlay for timeline
-    if (isDimmed) {
+    // Dim overlay for timeline — but ONLY on unclaimed tiles.
+    // Claimed alliance tiles always render at full saturation regardless of phase.
+    if (isDimmed && !alliance) {
       ctx.fillStyle = 'rgba(200,200,200,0.55)';
       ctx.fillRect(x, y, w, h);
     }
