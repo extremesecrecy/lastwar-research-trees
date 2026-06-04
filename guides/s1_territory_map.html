@@ -813,14 +813,14 @@ function draw() {
       ctx.fillRect(x, y, w, h);
     }
 
-    // Border
+    // Border — black for tile separation; Capitol keeps gold accent
     if (isCapitol) {
       ctx.strokeStyle = '#FFD700';
       ctx.lineWidth = 3 / scale;
       ctx.strokeRect(x, y, w, h);
     } else {
-      ctx.strokeStyle = '#5a5040';
-      ctx.lineWidth = 0.8 / scale;
+      ctx.strokeStyle = '#000000';
+      ctx.lineWidth = 1.2 / scale;
       ctx.strokeRect(x, y, w, h);
     }
 
