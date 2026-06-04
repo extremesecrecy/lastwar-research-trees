@@ -14,7 +14,7 @@ from datetime import datetime, timedelta
 
 # Server #2013 creation date
 SERVER_2013_CREATION = datetime(2025, 12, 14)
-SEASON_LENGTHS = [120, 90, 90, 90, 90, 90]  # Season 0-5 in days
+SEASON_LENGTHS = [120, 49, 90, 90, 90, 90, 90]  # Season 0-6 in days (S1=49 for Server #2013, which had a compressed S1; standard 90 used for future seasons)
 
 # Spanish translations for all UI strings in the generated HTML
 TRANSLATIONS_ES = {
@@ -462,23 +462,8 @@ def generate_html(timeline_json, schedule_json):
 </head>
 <body>
 
-<nav class="guide-nav">
-  <a href="../" class="nav-home">&#8592; Home</a>
-  <a href="ai_advisor.html">AI Advisor</a>
-  <a href="alliance_support_hub.html">Alliance Hub</a>
-  <a href="building_planner.html">Building Planner</a>
-  <a href="building_reference.html">Building Ref</a>
-  <a href="capitol_positions.html">Capitol Positions</a>
-  <a href="chip_lab_guide.html">Chip Lab</a>
-  <a href="calendar.html" class="current">Calendar</a>
-  <a href="hero_planner.html">Hero Planner</a>
-  <a href="plunder_guide.html">Plunder</a>
-  <a href="radar_guide.html">Radar</a>
-  <a href="../research_trees_visual.html">Research Trees</a>
-  <a href="server_dashboard.html">Server</a>
-  <a href="vs_weekly_planner.html">VS Planner</a>
-  <a href="waterfall_guide.html">Waterfall</a>
-</nav>
+<nav class="guide-nav" id="guide-nav"></nav>
+<script src="../nav.js"></script>
 
 <div class="top-bar">
   <div class="left">
@@ -659,7 +644,7 @@ def generate_html(timeline_json, schedule_json):
 <script>
 const TIMELINE_EVENTS = {timeline_json};
 const WEEKLY_SCHEDULE = {schedule_json};
-const SEASON_LENGTHS = [120, 90, 90, 90, 90, 90];
+const SEASON_LENGTHS = [120, 49, 90, 90, 90, 90, 90];  // S1=49 for Server #2013
 
 const T = {{ es: {translations_json} }};
 const originals = {{}};
@@ -941,13 +926,13 @@ function renderUpcoming() {{
     const evtDate = getDateForEvent(evt);
     evtDate.setHours(0,0,0,0);
     const diff = Math.floor((evtDate - today) / 86400000);
-    if (diff >= 0 && diff <= 30) {{
+    if (diff >= 0 && diff <= 60) {{
       upcoming.push({{ ...evt, realDate: evtDate, daysAway: diff }});
     }}
   }}
   upcoming.sort((a, b) => a.daysAway - b.daysAway);
   if (upcoming.length === 0) {{
-    container.innerHTML = '<div class="upcoming-empty">' + t('no_events_30', 'No events in the next 30 days') + '</div>';
+    container.innerHTML = '<div class="upcoming-empty">' + t('no_events_30', 'No events in the next 60 days') + '</div>';
     return;
   }}
   for (const evt of upcoming.slice(0, 12)) {{
@@ -1148,8 +1133,8 @@ document.addEventListener('DOMContentLoaded', init);
 
 def generate_css():
     return r'''<style>
-@import url("https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&display=swap");
-  * { margin: 0; padding: 0; box-sizing: border-box; }
+  @import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&display=swap');
+* { margin: 0; padding: 0; box-sizing: border-box; }
 
   :root {
     --orange: #f4a261;
