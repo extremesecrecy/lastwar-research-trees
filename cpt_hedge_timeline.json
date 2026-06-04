@@ -384,6 +384,14 @@
     "type": "exclusive weapon"
   },
   {
+    "day": 15,
+    "season": 1,
+    "name": "Hero Promotion: Mason (to UR)",
+    "details": "Mason (Tank) can be promoted from SSR to UR — promotion window opens W3D1 and runs through ~Week 7. Requires Mason at 5★ + Legendary Hero Badge. Strategy: do the upgrade on Thursday VS Hero day to bank VS points. Sources: lastwartutorial S1 Week 3 + lastwarvault SSR-to-UR Upgrade Guide.",
+    "partOfInGameCalendar": true,
+    "type": "hero"
+  },
+  {
     "day": 18,
     "season": 1,
     "name": "DVA Exclusive Weapon",
@@ -483,7 +491,7 @@
     "day": 15,
     "season": 2,
     "name": "Hero Promotion: Violet (to UR)",
-    "details": "Violet can be promoted from SSR to UR — Week 3 event (sources: lastwartutorial Season 2 Week 3 + Last War Handbook Violet Guide)",
+    "details": "Violet (Tank) can be promoted from SSR to UR — promotion window opens W3D1 and runs through ~Week 7. Requires Violet at 5★ + Legendary Hero Badge. Strategy: do the upgrade on Thursday VS Hero day to bank VS points. Sources: lastwartutorial S2 Week 3 + lastwarvault SSR-to-UR Upgrade Guide.",
     "partOfInGameCalendar": true,
     "type": "hero"
   },
@@ -640,6 +648,14 @@
     "type": "exclusive weapon"
   },
   {
+    "day": 15,
+    "season": 3,
+    "name": "Hero Promotion: Scarlett (to UR)",
+    "details": "Scarlett (Tank) can be promoted from SSR to UR — promotion window opens W3D1 and runs through ~Week 7. Requires Scarlett at 5★ + Legendary Hero Badge. Strategy: do the upgrade on Thursday VS Hero day to bank VS points. Source: lastwarvault SSR-to-UR Upgrade Guide.",
+    "partOfInGameCalendar": true,
+    "type": "hero"
+  },
+  {
     "day": 18,
     "season": 3,
     "name": "Schuyler Exclusive Weapon",
@@ -776,6 +792,14 @@
     "type": "exclusive weapon"
   },
   {
+    "day": 15,
+    "season": 4,
+    "name": "Hero Promotion: Sarah (to UR)",
+    "details": "Sarah (Aircraft) can be promoted from SSR to UR — promotion window opens W3D1 and runs through ~Week 7. Requires Sarah at 5★ + Legendary Hero Badge. Strategy: do the upgrade on Thursday VS Hero day to bank VS points. Source: lastwarvault SSR-to-UR Upgrade Guide.",
+    "partOfInGameCalendar": true,
+    "type": "hero"
+  },
+  {
     "day": 18,
     "season": 4,
     "name": "Adam Exclusive Weapon",
@@ -894,6 +918,14 @@
     "details": "Fiona Exclusive Weapon",
     "partOfInGameCalendar": false,
     "type": "exclusive weapon"
+  },
+  {
+    "day": 15,
+    "season": 5,
+    "name": "Hero Promotion: Venom (to UR)",
+    "details": "Venom (Missile) can be promoted from SSR to UR — promotion window opens W3D1 and runs through ~Week 7. Requires Venom at 5★ + UR Hero Badge from the 500k CrystalGold S5 goal. Strategy: do the upgrade on Thursday VS Hero day to bank VS points. Source: lastwarvault SSR-to-UR Upgrade Guide.",
+    "partOfInGameCalendar": true,
+    "type": "hero"
   },
   {
     "day": 18,
