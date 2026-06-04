@@ -1,0 +1,962 @@
+[
+  {
+    "day": 1,
+    "season": 0,
+    "name": "Rocket Shadow - Kimberly (Paid)",
+    "details": "Unlocks Kimberly as paid hero (tank)",
+    "partOfInGameCalendar": true,
+    "type": "hero"
+  },
+  {
+    "day": 1,
+    "season": 0,
+    "name": "Secret Mobile Squad",
+    "details": "Unlocks the secret mobile squad daily event",
+    "partOfInGameCalendar": true,
+    "type": "event"
+  },
+  {
+    "day": 1,
+    "season": 0,
+    "name": "Unyielding Warrior - Murphy (Free)",
+    "details": "Unlocks Murphy in the Tavern (tank)",
+    "partOfInGameCalendar": false,
+    "type": "hero"
+  },
+  {
+    "day": 3,
+    "season": 0,
+    "name": "Arms Race",
+    "details": "Unlocks the daily arms race event",
+    "partOfInGameCalendar": true,
+    "type": "event"
+  },
+  {
+    "day": 3,
+    "season": 0,
+    "name": "Doomsday Leader",
+    "details": "Unlocks weekly world bosses",
+    "partOfInGameCalendar": true,
+    "type": "event"
+  },
+  {
+    "day": 4,
+    "season": 0,
+    "name": "Alliance Exercise",
+    "details": "Unlock marshal alliance event",
+    "partOfInGameCalendar": true,
+    "type": "alliance event"
+  },
+  {
+    "day": 4,
+    "season": 0,
+    "name": "Intercity trade",
+    "details": "Unlocks trains",
+    "partOfInGameCalendar": true,
+    "type": "event"
+  },
+  {
+    "day": 5,
+    "season": 0,
+    "name": "Top Commander",
+    "details": "Top Commander event",
+    "partOfInGameCalendar": true,
+    "type": "event"
+  },
+  {
+    "day": 5,
+    "season": 0,
+    "name": "City Clash I",
+    "details": "Take level 1 villages",
+    "partOfInGameCalendar": true,
+    "type": "war"
+  },
+  {
+    "day": 7,
+    "season": 0,
+    "name": "Exercise Escalation",
+    "details": "Marshall up to level 3",
+    "partOfInGameCalendar": true,
+    "type": "alliance event"
+  },
+  {
+    "day": 7,
+    "season": 0,
+    "name": "City Clash II",
+    "details": "Level 2 villages",
+    "partOfInGameCalendar": true,
+    "type": "war"
+  },
+  {
+    "day": 8,
+    "season": 0,
+    "name": "Troublemaker - Carlie (Paid)",
+    "details": "Unlocks Carlie as paid hero (aircraft)",
+    "partOfInGameCalendar": true,
+    "type": "hero"
+  },
+  {
+    "day": 8,
+    "season": 0,
+    "name": "Blade Striker - DVA (Paid)",
+    "details": "Unlocks DVA as paid hero (aircraft)",
+    "partOfInGameCalendar": true,
+    "type": "hero"
+  },
+  {
+    "day": 10,
+    "season": 0,
+    "name": "City Clash III",
+    "details": "Level 3 villages",
+    "partOfInGameCalendar": true,
+    "type": "war"
+  },
+  {
+    "day": 12,
+    "season": 0,
+    "name": "Desert Storm",
+    "details": "Weekly alliance event",
+    "partOfInGameCalendar": true,
+    "type": "alliance event"
+  },
+  {
+    "day": 13,
+    "season": 0,
+    "name": "City Clash IV",
+    "details": "City Clash IV",
+    "partOfInGameCalendar": true,
+    "type": "war"
+  },
+  {
+    "day": 14,
+    "season": 0,
+    "name": "Exercise Escalation",
+    "details": "Marshall level 4",
+    "partOfInGameCalendar": true,
+    "type": "alliance event"
+  },
+  {
+    "day": 15,
+    "season": 0,
+    "name": "Magnetic Expert - Tesla (Paid)",
+    "details": "Unlocks Tesla as paid hero (missile)",
+    "partOfInGameCalendar": true,
+    "type": "hero"
+  },
+  {
+    "day": 15,
+    "season": 0,
+    "name": "Thunder - Swift (Paid)",
+    "details": "Unlocks Swift as paid hero (missile)",
+    "partOfInGameCalendar": true,
+    "type": "hero"
+  },
+  {
+    "day": 17,
+    "season": 0,
+    "name": "City Clash V",
+    "details": "Level 5 villages",
+    "partOfInGameCalendar": true,
+    "type": "war"
+  },
+  {
+    "day": 19,
+    "season": 0,
+    "name": "Alliance Duel",
+    "details": "Weekly VS event",
+    "partOfInGameCalendar": true,
+    "type": "alliance event"
+  },
+  {
+    "day": 21,
+    "season": 0,
+    "name": "Exercise Escalation",
+    "details": "Level 5",
+    "partOfInGameCalendar": true,
+    "type": "alliance event"
+  },
+  {
+    "day": 21,
+    "season": 0,
+    "name": "City Clash VI",
+    "details": "Level 6 villages",
+    "partOfInGameCalendar": true,
+    "type": "war"
+  },
+  {
+    "day": 22,
+    "season": 0,
+    "name": "Blade of Legion - Marshall (Free)",
+    "details": "Unlocks Marshall in the Tavern (tank)",
+    "partOfInGameCalendar": true,
+    "type": "hero"
+  },
+  {
+    "day": 25,
+    "season": 0,
+    "name": "Capitol Conquest",
+    "details": "Level 7 villages",
+    "partOfInGameCalendar": true,
+    "type": "war"
+  },
+  {
+    "day": 29,
+    "season": 0,
+    "name": "Unite and Prepare for war",
+    "details": "Unite and Prepare for war",
+    "partOfInGameCalendar": true,
+    "type": "war"
+  },
+  {
+    "day": 29,
+    "season": 0,
+    "name": "Storm Hunter - Williams (Paid)",
+    "details": "Unlocks Williams as paid hero (tank)",
+    "partOfInGameCalendar": true,
+    "type": "hero"
+  },
+  {
+    "day": 29,
+    "season": 0,
+    "name": "Cross warzone intercity trade",
+    "details": "Trucks from other servers",
+    "partOfInGameCalendar": true,
+    "type": "event"
+  },
+  {
+    "day": 30,
+    "season": 0,
+    "name": "Exercise Escalation",
+    "details": "Level 6",
+    "partOfInGameCalendar": true,
+    "type": "alliance event"
+  },
+  {
+    "day": 36,
+    "season": 0,
+    "name": "Magblade - Schuyler (Paid)",
+    "details": "Unlocks Schuyler as paid hero (aircraft)",
+    "partOfInGameCalendar": true,
+    "type": "hero"
+  },
+  {
+    "day": 43,
+    "season": 0,
+    "name": "Ironclad General - McGregor (Paid)",
+    "details": "Unlocks McGregor as paid hero (missile)",
+    "partOfInGameCalendar": true,
+    "type": "hero"
+  },
+  {
+    "day": 45,
+    "season": 0,
+    "name": "Exercise Escalation",
+    "details": "Level 7",
+    "partOfInGameCalendar": true,
+    "type": "alliance event"
+  },
+  {
+    "day": 57,
+    "season": 0,
+    "name": "EM Hunter - Stetmann (Paid)",
+    "details": "Unlocks Stetmann as paid hero (tank)",
+    "partOfInGameCalendar": true,
+    "type": "hero"
+  },
+  {
+    "day": 60,
+    "season": 0,
+    "name": "Exercise Escalation",
+    "details": "Level 8",
+    "partOfInGameCalendar": true,
+    "type": "alliance event"
+  },
+  {
+    "day": 61,
+    "season": 0,
+    "name": "Hero tavern unlocks (Free)",
+    "details": "Kimberly, Tesla, Swift, DVA, and Carlie will become avaialble in the Tavern for free",
+    "partOfInGameCalendar": false,
+    "type": "hero"
+  },
+  {
+    "day": 64,
+    "season": 0,
+    "name": "Sky Night - Lucius (Paid)",
+    "details": "Unlocks Lucius as paid hero (aircraft)",
+    "partOfInGameCalendar": true,
+    "type": "hero"
+  },
+  {
+    "day": 71,
+    "season": 0,
+    "name": "The Reaper - Morrison (Paid)",
+    "details": "Unlocks Morrison as paid hero (aircraft)",
+    "partOfInGameCalendar": true,
+    "type": "hero"
+  },
+  {
+    "day": 82,
+    "season": 0,
+    "name": "Drone Combat Boost",
+    "details": "Drone skill chips",
+    "partOfInGameCalendar": true,
+    "type": "event"
+  },
+  {
+    "day": 85,
+    "season": 0,
+    "name": "Titan - Adam (Paid)",
+    "details": "Unlocks Adam as paid hero (missile)",
+    "partOfInGameCalendar": true,
+    "type": "hero"
+  },
+  {
+    "day": 90,
+    "season": 0,
+    "name": "Exercise Escalation",
+    "details": "Level 9",
+    "partOfInGameCalendar": true,
+    "type": "alliance event"
+  },
+  {
+    "day": 99,
+    "season": 0,
+    "name": "Lion Cub - Fiona (Paid)",
+    "details": "Unlocks Fiona as paid hero (missile)",
+    "partOfInGameCalendar": true,
+    "type": "hero"
+  },
+  {
+    "day": 120,
+    "season": 0,
+    "name": "Exercise Escalation",
+    "details": "Level 10",
+    "partOfInGameCalendar": true,
+    "type": "alliance event"
+  },
+  {
+    "day": 0,
+    "season": 1,
+    "name": "S1: The Crimson Plague",
+    "details": "S1: The Crimson Plague",
+    "partOfInGameCalendar": true,
+    "type": "season-start"
+  },
+  {
+    "day": 1,
+    "season": 1,
+    "name": "Season Boost",
+    "details": "Season Boost",
+    "partOfInGameCalendar": true,
+    "type": "season"
+  },
+  {
+    "day": 1,
+    "season": 1,
+    "name": "Zombie Siege",
+    "details": "Alliance event",
+    "partOfInGameCalendar": true,
+    "type": "alliance event"
+  },
+  {
+    "day": 1,
+    "season": 1,
+    "name": "S1: Hero's Return (Free)",
+    "details": "Adds Schuyler (aircraft) and Williams (tank) to the Tavern for free as part of the hero's return event.",
+    "partOfInGameCalendar": false,
+    "type": "hero"
+  },
+  {
+    "day": 1,
+    "season": 1,
+    "name": "Hidden Treasure",
+    "details": "Hero Choice Chests from the Hidden Treasure digs now also include shards for Carlie, Tesla, and Swift.",
+    "partOfInGameCalendar": false,
+    "type": "hero"
+  },
+  {
+    "day": 4,
+    "season": 1,
+    "name": "Kimberly Exclusive Weapon",
+    "details": "Kimberly Exclusive Weapon",
+    "partOfInGameCalendar": true,
+    "type": "exclusive weapon"
+  },
+  {
+    "day": 18,
+    "season": 1,
+    "name": "DVA Exclusive Weapon",
+    "details": "DVA Exclusive Weapon",
+    "partOfInGameCalendar": true,
+    "type": "exclusive weapon"
+  },
+  {
+    "day": 39,
+    "season": 1,
+    "name": "Tesla Exclusive Weapon",
+    "details": "Tesla Exclusive Weapon",
+    "partOfInGameCalendar": true,
+    "type": "exclusive weapon"
+  },
+  {
+    "day": 57,
+    "season": 1,
+    "name": "Black market",
+    "details": "Black market",
+    "partOfInGameCalendar": true,
+    "type": "event"
+  },
+  {
+    "day": 57,
+    "season": 1,
+    "name": "Champions Duel",
+    "details": "Champions Duel",
+    "partOfInGameCalendar": true,
+    "type": "event"
+  },
+  {
+    "day": 60,
+    "season": 1,
+    "name": "Ghost Ops",
+    "details": "Ghost Ops provides you access to the remaining heroes you are missing and that aren't in the Tavern yet. You can get hero shards for all heroes, including Lucius, Morrison, Adam, Williams, Schuyler, McGregor, Stetmann and Fiona.",
+    "partOfInGameCalendar": false,
+    "type": "hero"
+  },
+  {
+    "day": 0,
+    "season": 2,
+    "name": "S2: Polar World",
+    "details": "S2: Polar World",
+    "partOfInGameCalendar": true,
+    "type": "season-start"
+  },
+  {
+    "day": 1,
+    "season": 2,
+    "name": "Season Boost",
+    "details": "Season Boost",
+    "partOfInGameCalendar": true,
+    "type": "season"
+  },
+  {
+    "day": 1,
+    "season": 2,
+    "name": "S2: Legend Returns (Free)",
+    "details": "Adds McGregor (missile) to the Tavern for free as part of the Legend returns event.",
+    "partOfInGameCalendar": false,
+    "type": "hero"
+  },
+  {
+    "day": 1,
+    "season": 2,
+    "name": "Hero tavern unlocks (Free)",
+    "details": "Adds Schuyler (aircraft) and Williams (tank) to the regular Tavern for free.",
+    "partOfInGameCalendar": false,
+    "type": "hero"
+  },
+  {
+    "day": 1,
+    "season": 2,
+    "name": "Hidden Treasure",
+    "details": "Hero Choice Chests from the Hidden Treasure digs now also include shards for Marshall, Williams, and Schuyler.",
+    "partOfInGameCalendar": false,
+    "type": "hero"
+  },
+  {
+    "day": 3,
+    "season": 2,
+    "name": "S2: Weapons of Legends (Free)",
+    "details": "Adds Hero Exclusive Weapon Shard Choice Chest II to the Tavern. This provides weapon shards for Kimberly, DVA, and Tesla.",
+    "partOfInGameCalendar": false,
+    "type": "exclusive weapon"
+  },
+  {
+    "day": 4,
+    "season": 2,
+    "name": "Murphy Exclusive Weapon",
+    "details": "Murphy Exclusive Weapon",
+    "partOfInGameCalendar": true,
+    "type": "exclusive weapon"
+  },
+  {
+    "day": 15,
+    "season": 2,
+    "name": "Hero Promotion: Violet (to UR)",
+    "details": "Violet can be promoted from SSR to UR — Week 3 event (sources: lastwartutorial Season 2 Week 3 + Last War Handbook Violet Guide)",
+    "partOfInGameCalendar": true,
+    "type": "hero"
+  },
+  {
+    "day": 18,
+    "season": 2,
+    "name": "Carlie Exclusive Weapon",
+    "details": "Carlie Exclusive Weapon",
+    "partOfInGameCalendar": true,
+    "type": "exclusive weapon"
+  },
+  {
+    "day": 39,
+    "season": 2,
+    "name": "Swift Exclusive Weapon",
+    "details": "Swift Exclusive Weapon",
+    "partOfInGameCalendar": true,
+    "type": "exclusive weapon"
+  },
+  {
+    "day": 57,
+    "season": 2,
+    "name": "Age of Oil",
+    "details": "Age of Oil",
+    "partOfInGameCalendar": true,
+    "type": "event"
+  },
+  {
+    "day": 57,
+    "season": 2,
+    "name": "General's Trial",
+    "details": "Advanced trials unlock",
+    "partOfInGameCalendar": true,
+    "type": "event"
+  },
+  {
+    "day": 57,
+    "season": 2,
+    "name": "Black market",
+    "details": "Black market",
+    "partOfInGameCalendar": false,
+    "type": "event"
+  },
+  {
+    "day": 57,
+    "season": 2,
+    "name": "Champions Duel",
+    "details": "Champions Duel",
+    "partOfInGameCalendar": false,
+    "type": "event"
+  },
+  {
+    "day": 57,
+    "season": 2,
+    "name": "Zombie Siege",
+    "details": "Unlocks level 9 and 10",
+    "partOfInGameCalendar": true,
+    "type": "alliance event"
+  },
+  {
+    "day": 57,
+    "season": 2,
+    "name": "Tempest Beast",
+    "details": "Glacieradon during zombie event (only outside of seasons)",
+    "partOfInGameCalendar": true,
+    "type": "event"
+  },
+  {
+    "day": 64,
+    "season": 2,
+    "name": "General's Trial",
+    "details": "Unlocks sky predator boss during vanguard event",
+    "partOfInGameCalendar": true,
+    "type": "event"
+  },
+  {
+    "day": 92,
+    "season": 2,
+    "name": "The Doomsday",
+    "details": "Unlocks slugger doomwalkers during doomsday event",
+    "partOfInGameCalendar": true,
+    "type": "event"
+  },
+  {
+    "day": 92,
+    "season": 2,
+    "name": "Zombie Invasion",
+    "details": "Unlocks level 105-120 bosses",
+    "partOfInGameCalendar": true,
+    "type": "event"
+  },
+  {
+    "day": 96,
+    "season": 2,
+    "name": "Overlord",
+    "details": "Unlocks gorilla overlord",
+    "partOfInGameCalendar": true,
+    "type": "hero"
+  },
+  {
+    "day": 0,
+    "season": 3,
+    "name": "S3: Golden Realm",
+    "details": "S3: Golden Realm",
+    "partOfInGameCalendar": true,
+    "type": "season-start"
+  },
+  {
+    "day": 1,
+    "season": 3,
+    "name": "Season Boost",
+    "details": "Season Boost",
+    "partOfInGameCalendar": true,
+    "type": "season"
+  },
+  {
+    "day": 1,
+    "season": 3,
+    "name": "S3: Legend Returns (Free)",
+    "details": "Adds Lucius (aircraft) and Stetmann (tank) to the Tavern for free as part of the Legend Returns event.",
+    "partOfInGameCalendar": false,
+    "type": "hero"
+  },
+  {
+    "day": 1,
+    "season": 3,
+    "name": "Hero tavern unlocks (Free)",
+    "details": "Adds McGregor (missile) to the regular Tavern for free.",
+    "partOfInGameCalendar": false,
+    "type": "hero"
+  },
+  {
+    "day": 1,
+    "season": 3,
+    "name": "Hidden Treasure",
+    "details": "Hero Choice Chests from the Hidden Treasure digs now also include shards for McGregor, Stetmann and Lucius.",
+    "partOfInGameCalendar": false,
+    "type": "hero"
+  },
+  {
+    "day": 3,
+    "season": 3,
+    "name": "S3: Weapons of Legends (Free)",
+    "details": "Adds Hero Exclusive Weapon Shard Choice Chest IV to the Tavern. This provides weapon shards for Kimberly, DVA, Tesla, Murphy, Carlie, and Swift.",
+    "partOfInGameCalendar": false,
+    "type": "exclusive weapon"
+  },
+  {
+    "day": 4,
+    "season": 3,
+    "name": "Marshall Exclusive Weapon",
+    "details": "Marshall Exclusive Weapon",
+    "partOfInGameCalendar": true,
+    "type": "exclusive weapon"
+  },
+  {
+    "day": 18,
+    "season": 3,
+    "name": "Schuyler Exclusive Weapon",
+    "details": "Schuyler Exclusive Weapon",
+    "partOfInGameCalendar": true,
+    "type": "exclusive weapon"
+  },
+  {
+    "day": 39,
+    "season": 3,
+    "name": "McGregor Exclusive Weapon",
+    "details": "McGregor Exclusive Weapon",
+    "partOfInGameCalendar": true,
+    "type": "exclusive weapon"
+  },
+  {
+    "day": 57,
+    "season": 3,
+    "name": "Black market",
+    "details": "Black market",
+    "partOfInGameCalendar": false,
+    "type": "event"
+  },
+  {
+    "day": 57,
+    "season": 3,
+    "name": "Champions Duel",
+    "details": "Champions Duel",
+    "partOfInGameCalendar": false,
+    "type": "event"
+  },
+  {
+    "day": 57,
+    "season": 3,
+    "name": "Zombie Siege",
+    "details": "Unlocks level 11 and 12",
+    "partOfInGameCalendar": true,
+    "type": "alliance event"
+  },
+  {
+    "day": 57,
+    "season": 3,
+    "name": "Zombie Invasion",
+    "details": "Unlocks level 125-135 bosses",
+    "partOfInGameCalendar": true,
+    "type": "event"
+  },
+  {
+    "day": 57,
+    "season": 3,
+    "name": "Secret Mobile Squad",
+    "details": "Changes treasure hunt to different setup",
+    "partOfInGameCalendar": true,
+    "type": "event"
+  },
+  {
+    "day": 57,
+    "season": 3,
+    "name": "General's Trial",
+    "details": "Sky predator boss increase",
+    "partOfInGameCalendar": true,
+    "type": "event"
+  },
+  {
+    "day": 64,
+    "season": 3,
+    "name": "Alliance Exercise",
+    "details": "Marshal event changes to sandworm",
+    "partOfInGameCalendar": true,
+    "type": "alliance event"
+  },
+  {
+    "day": 0,
+    "season": 4,
+    "name": "S4: Evernight Isle",
+    "details": "S4: Evernight Isle",
+    "partOfInGameCalendar": true,
+    "type": "season-start"
+  },
+  {
+    "day": 1,
+    "season": 4,
+    "name": "Season Boost",
+    "details": "Season Boost",
+    "partOfInGameCalendar": true,
+    "type": "season"
+  },
+  {
+    "day": 1,
+    "season": 4,
+    "name": "S4: Legend Returns (Free)",
+    "details": "Adds Adam (missile), Morrison (aircraft) and Fiona (missile) to the Tavern for free as part of the Legend Returns event.",
+    "partOfInGameCalendar": false,
+    "type": "hero"
+  },
+  {
+    "day": 1,
+    "season": 4,
+    "name": "Hero tavern unlocks (Free)",
+    "details": "Adds Lucius (aircraft) and Stetmann (tank) to the regular Tavern for free.",
+    "partOfInGameCalendar": false,
+    "type": "hero"
+  },
+  {
+    "day": 1,
+    "season": 4,
+    "name": "Hidden Treasure",
+    "details": "Hero Choice Chests from the Hidden Treasure digs now include shards for Morrison, Adam, and Fiona. This brings ALL heroes to the Hero Choice Chest.",
+    "partOfInGameCalendar": false,
+    "type": "hero"
+  },
+  {
+    "day": 2,
+    "season": 4,
+    "name": "Tactics Cards",
+    "details": "New Tactics Cards feature unlocks — take strategy to the next level",
+    "partOfInGameCalendar": true,
+    "type": "event"
+  },
+  {
+    "day": 3,
+    "season": 4,
+    "name": "S4: Weapons of Legends (Free)",
+    "details": "Adds Hero Exclusive Weapon Shard Choice Chest VI to the Tavern. This provides weapon shards for Kimberly, DVA, Tesla, Murphy, Carlie, Swift, Marshall, Schuyler, and McGregor.",
+    "partOfInGameCalendar": false,
+    "type": "exclusive weapon"
+  },
+  {
+    "day": 4,
+    "season": 4,
+    "name": "Lucius Exclusive Weapon",
+    "details": "Lucius Exclusive Weapon",
+    "partOfInGameCalendar": true,
+    "type": "exclusive weapon"
+  },
+  {
+    "day": 18,
+    "season": 4,
+    "name": "Adam Exclusive Weapon",
+    "details": "Adam Exclusive Weapon",
+    "partOfInGameCalendar": true,
+    "type": "exclusive weapon"
+  },
+  {
+    "day": 39,
+    "season": 4,
+    "name": "Williams Exclusive Weapon",
+    "details": "Williams Exclusive Weapon",
+    "partOfInGameCalendar": true,
+    "type": "exclusive weapon"
+  },
+  {
+    "day": 57,
+    "season": 4,
+    "name": "Black market",
+    "details": "Black market",
+    "partOfInGameCalendar": false,
+    "type": "event"
+  },
+  {
+    "day": 57,
+    "season": 4,
+    "name": "Champions Duel",
+    "details": "Champions Duel",
+    "partOfInGameCalendar": false,
+    "type": "event"
+  },
+  {
+    "day": 57,
+    "season": 4,
+    "name": "Zombie Invasion",
+    "details": "Challenge Level 140-150 Zombie Bosses",
+    "partOfInGameCalendar": true,
+    "type": "event"
+  },
+  {
+    "day": 57,
+    "season": 4,
+    "name": "General's Trial",
+    "details": "New Advanced Difficulties 7-8 unlock",
+    "partOfInGameCalendar": true,
+    "type": "event"
+  },
+  {
+    "day": 57,
+    "season": 4,
+    "name": "Lv.11 Unit",
+    "details": "Research Campaign unlocks Lv.11 units — choose unit types with different traits",
+    "partOfInGameCalendar": true,
+    "type": "event"
+  },
+  {
+    "day": 57,
+    "season": 4,
+    "name": "Restricted Area Training",
+    "details": "Honorable Campaign upgraded to Restricted Area Training",
+    "partOfInGameCalendar": true,
+    "type": "event"
+  },
+  {
+    "day": 0,
+    "season": 5,
+    "name": "S5: Wild West",
+    "details": "S5: Wild West",
+    "partOfInGameCalendar": true,
+    "type": "season-start"
+  },
+  {
+    "day": 1,
+    "season": 5,
+    "name": "Season Boost",
+    "details": "Season Boost",
+    "partOfInGameCalendar": true,
+    "type": "season"
+  },
+  {
+    "day": 1,
+    "season": 5,
+    "name": "S5: Legend Returns (Free)",
+    "details": "Adds Weapon shards for Kimberly (tank), Tesla (missile) and DVA (aircraft) to the Tavern for free as part of the Legend Returns event. It also still includes hero shards for all UR heroes as well.",
+    "partOfInGameCalendar": false,
+    "type": "hero"
+  },
+  {
+    "day": 1,
+    "season": 5,
+    "name": "Hero tavern unlocks (Free)",
+    "details": "Adds Morrison (aircraft), Adam (missile), and Fiona (missile) to the regular Tavern for free.",
+    "partOfInGameCalendar": false,
+    "type": "hero"
+  },
+  {
+    "day": 1,
+    "season": 5,
+    "name": "Hidden Treasure",
+    "details": "Hero Choice Chests from the Hidden Treasure digs now include shards for Morrison, Adam, and Fiona. This brings ALL heroes to the Hero Choice Chest.",
+    "partOfInGameCalendar": false,
+    "type": "hero"
+  },
+  {
+    "day": 3,
+    "season": 5,
+    "name": "S5: Weapons of Legends (Free)",
+    "details": "Adds Hero Exclusive Weapon Shard Choice Chest VIII to the Tavern. This provides weapon shards for Kimberly, DVA, Tesla, Murphy, Carlie, Swift, Marshall, Schuyler, McGregor, Lucius, Adam, and Williams.",
+    "partOfInGameCalendar": false,
+    "type": "exclusive weapon"
+  },
+  {
+    "day": 4,
+    "season": 5,
+    "name": "Fiona Exclusive Weapon",
+    "details": "Fiona Exclusive Weapon",
+    "partOfInGameCalendar": false,
+    "type": "exclusive weapon"
+  },
+  {
+    "day": 18,
+    "season": 5,
+    "name": "Stetmann Exclusive Weapon",
+    "details": "Stetmann Exclusive Weapon",
+    "partOfInGameCalendar": false,
+    "type": "exclusive weapon"
+  },
+  {
+    "day": 39,
+    "season": 5,
+    "name": "Morrison Exclusive Weapon",
+    "details": "Morrison Exclusive Weapon",
+    "partOfInGameCalendar": false,
+    "type": "exclusive weapon"
+  },
+  {
+    "day": 57,
+    "season": 5,
+    "name": "Black market",
+    "details": "Black market",
+    "partOfInGameCalendar": false,
+    "type": "event"
+  },
+  {
+    "day": 57,
+    "season": 5,
+    "name": "Champions Duel",
+    "details": "Champions Duel",
+    "partOfInGameCalendar": false,
+    "type": "event"
+  },
+  {
+    "day": 1,
+    "season": 6,
+    "name": "S6: Lost Rainforest",
+    "details": "Season 6 begins — the Deepwood and Lost Rainforest",
+    "partOfInGameCalendar": true,
+    "type": "season-start"
+  },
+  {
+    "day": 1,
+    "season": 6,
+    "name": "Season Boost",
+    "details": "Enchanted Fungus base skin grants +5% Hero Attack, season exclusive skill, and additional buffs",
+    "partOfInGameCalendar": true,
+    "type": "season"
+  },
+  {
+    "day": 4,
+    "season": 6,
+    "name": "Hero Awakening - Kimberly",
+    "details": "Kimberly's Awakening: Meteor Barrage — turns the battlefield upside down, massive power boost",
+    "partOfInGameCalendar": true,
+    "type": "hero"
+  },
+  {
+    "day": 8,
+    "season": 6,
+    "name": "Global Expedition",
+    "details": "Global Expedition officially begins — explore new areas, take on global challenges, earn substantial rewards",
+    "partOfInGameCalendar": true,
+    "type": "event"
+  }
+]
