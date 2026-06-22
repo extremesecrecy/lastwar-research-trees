@@ -15,52 +15,72 @@
             {
               "level": 1,
               "valor": 50,
-              "requirements": []
+              "requirements": [],
+              "techCenterLevel": 10,
+              "researchTime": "0:23:00"
             },
             {
               "level": 2,
               "valor": 50,
-              "requirements": []
+              "requirements": [],
+              "techCenterLevel": 11,
+              "researchTime": "0:34:00"
             },
             {
               "level": 3,
               "valor": 50,
-              "requirements": []
+              "requirements": [],
+              "techCenterLevel": 12,
+              "researchTime": "0:51:00"
             },
             {
               "level": 4,
               "valor": 50,
-              "requirements": []
+              "requirements": [],
+              "techCenterLevel": 13,
+              "researchTime": "1:17:00"
             },
             {
               "level": 5,
               "valor": 50,
-              "requirements": []
+              "requirements": [],
+              "techCenterLevel": 14,
+              "researchTime": "2:25:00"
             },
             {
               "level": 6,
               "valor": 100,
-              "requirements": []
+              "requirements": [],
+              "techCenterLevel": 15,
+              "researchTime": "4:50:00"
             },
             {
               "level": 7,
               "valor": 100,
-              "requirements": []
+              "requirements": [],
+              "techCenterLevel": 16,
+              "researchTime": "9:11:00"
             },
             {
               "level": 8,
               "valor": 200,
-              "requirements": []
+              "requirements": [],
+              "techCenterLevel": 17,
+              "researchTime": "16:31:00"
             },
             {
               "level": 9,
               "valor": 200,
-              "requirements": []
+              "requirements": [],
+              "techCenterLevel": 18,
+              "researchTime": "1d 04:05:00"
             },
             {
               "level": 10,
               "valor": 350,
-              "requirements": []
+              "requirements": [],
+              "techCenterLevel": 19,
+              "researchTime": "1d 20:55:00"
             }
           ]
         },
@@ -74,52 +94,72 @@
             {
               "level": 1,
               "valor": 50,
-              "requirements": []
+              "requirements": [],
+              "techCenterLevel": 10,
+              "researchTime": "0:23:00"
             },
             {
               "level": 2,
               "valor": 50,
-              "requirements": []
+              "requirements": [],
+              "techCenterLevel": 11,
+              "researchTime": "0:34:00"
             },
             {
               "level": 3,
               "valor": 50,
-              "requirements": []
+              "requirements": [],
+              "techCenterLevel": 12,
+              "researchTime": "0:51:00"
             },
             {
               "level": 4,
               "valor": 50,
-              "requirements": []
+              "requirements": [],
+              "techCenterLevel": 13,
+              "researchTime": "1:17:00"
             },
             {
               "level": 5,
               "valor": 50,
-              "requirements": []
+              "requirements": [],
+              "techCenterLevel": 14,
+              "researchTime": "2:25:00"
             },
             {
               "level": 6,
               "valor": 100,
-              "requirements": []
+              "requirements": [],
+              "techCenterLevel": 15,
+              "researchTime": "4:50:00"
             },
             {
               "level": 7,
               "valor": 100,
-              "requirements": []
+              "requirements": [],
+              "techCenterLevel": 16,
+              "researchTime": "9:11:00"
             },
             {
               "level": 8,
               "valor": 200,
-              "requirements": []
+              "requirements": [],
+              "techCenterLevel": 17,
+              "researchTime": "16:31:00"
             },
             {
               "level": 9,
               "valor": 200,
-              "requirements": []
+              "requirements": [],
+              "techCenterLevel": 18,
+              "researchTime": "1d 04:05:00"
             },
             {
               "level": 10,
               "valor": 350,
-              "requirements": []
+              "requirements": [],
+              "techCenterLevel": 19,
+              "researchTime": "1d 20:55:00"
             }
           ]
         },
@@ -133,52 +173,72 @@
             {
               "level": 1,
               "valor": 50,
-              "requirements": []
+              "requirements": [],
+              "techCenterLevel": 10,
+              "researchTime": "0:23:00"
             },
             {
               "level": 2,
               "valor": 50,
-              "requirements": []
+              "requirements": [],
+              "techCenterLevel": 11,
+              "researchTime": "0:34:00"
             },
             {
               "level": 3,
               "valor": 50,
-              "requirements": []
+              "requirements": [],
+              "techCenterLevel": 12,
+              "researchTime": "0:51:00"
             },
             {
               "level": 4,
               "valor": 50,
-              "requirements": []
+              "requirements": [],
+              "techCenterLevel": 13,
+              "researchTime": "1:17:00"
             },
             {
               "level": 5,
               "valor": 50,
-              "requirements": []
+              "requirements": [],
+              "techCenterLevel": 14,
+              "researchTime": "2:25:00"
             },
             {
               "level": 6,
               "valor": 100,
-              "requirements": []
+              "requirements": [],
+              "techCenterLevel": 15,
+              "researchTime": "4:50:00"
             },
             {
               "level": 7,
               "valor": 100,
-              "requirements": []
+              "requirements": [],
+              "techCenterLevel": 16,
+              "researchTime": "9:11:00"
             },
             {
               "level": 8,
               "valor": 200,
-              "requirements": []
+              "requirements": [],
+              "techCenterLevel": 17,
+              "researchTime": "16:31:00"
             },
             {
               "level": 9,
               "valor": 200,
-              "requirements": []
+              "requirements": [],
+              "techCenterLevel": 18,
+              "researchTime": "1d 04:05:00"
             },
             {
               "level": 10,
               "valor": 350,
-              "requirements": []
+              "requirements": [],
+              "techCenterLevel": 19,
+              "researchTime": "1d 20:55:00"
             }
           ]
         }
@@ -221,8 +281,18 @@
                 {
                   "elementId": "incentive-radar",
                   "minLevel": 6
+                },
+                {
+                  "elementId": "incentive-speed-up",
+                  "minLevel": 6
+                },
+                {
+                  "elementId": "incentive-recruitment",
+                  "minLevel": 6
                 }
-              ]
+              ],
+              "techCenterLevel": 15,
+              "researchTime": "4:50:00"
             }
           ]
         }
@@ -254,102 +324,142 @@
                   "elementId": "advanced-rewards",
                   "minLevel": 1
                 }
-              ]
+              ],
+              "techCenterLevel": 15,
+              "researchTime": "4:50:00"
             },
             {
               "level": 2,
               "valor": 100,
-              "requirements": []
+              "requirements": [],
+              "techCenterLevel": 15,
+              "researchTime": "4:50:00"
             },
             {
               "level": 3,
               "valor": 100,
-              "requirements": []
+              "requirements": [],
+              "techCenterLevel": 15,
+              "researchTime": "4:50:00"
             },
             {
               "level": 4,
               "valor": 100,
-              "requirements": []
+              "requirements": [],
+              "techCenterLevel": 15,
+              "researchTime": "4:50:00"
             },
             {
               "level": 5,
               "valor": 100,
-              "requirements": []
+              "requirements": [],
+              "techCenterLevel": 16,
+              "researchTime": "9:11:00"
             },
             {
               "level": 6,
               "valor": 100,
-              "requirements": []
+              "requirements": [],
+              "techCenterLevel": 16,
+              "researchTime": "9:11:00"
             },
             {
               "level": 7,
               "valor": 100,
-              "requirements": []
+              "requirements": [],
+              "techCenterLevel": 16,
+              "researchTime": "9:11:00"
             },
             {
               "level": 8,
               "valor": 100,
-              "requirements": []
+              "requirements": [],
+              "techCenterLevel": 16,
+              "researchTime": "9:11:00"
             },
             {
               "level": 9,
               "valor": 200,
-              "requirements": []
+              "requirements": [],
+              "techCenterLevel": 17,
+              "researchTime": "16:31:00"
             },
             {
               "level": 10,
               "valor": 200,
-              "requirements": []
+              "requirements": [],
+              "techCenterLevel": 17,
+              "researchTime": "16:31:00"
             },
             {
               "level": 11,
               "valor": 200,
-              "requirements": []
+              "requirements": [],
+              "techCenterLevel": 17,
+              "researchTime": "16:31:00"
             },
             {
               "level": 12,
               "valor": 200,
-              "requirements": []
+              "requirements": [],
+              "techCenterLevel": 17,
+              "researchTime": "16:31:00"
             },
             {
               "level": 13,
               "valor": 200,
-              "requirements": []
+              "requirements": [],
+              "techCenterLevel": 18,
+              "researchTime": "1d 04:05:00"
             },
             {
               "level": 14,
               "valor": 200,
-              "requirements": []
+              "requirements": [],
+              "techCenterLevel": 18,
+              "researchTime": "1d 04:05:00"
             },
             {
               "level": 15,
               "valor": 200,
-              "requirements": []
+              "requirements": [],
+              "techCenterLevel": 18,
+              "researchTime": "1d 04:05:00"
             },
             {
               "level": 16,
               "valor": 200,
-              "requirements": []
+              "requirements": [],
+              "techCenterLevel": 18,
+              "researchTime": "1d 04:05:00"
             },
             {
               "level": 17,
               "valor": 350,
-              "requirements": []
+              "requirements": [],
+              "techCenterLevel": 19,
+              "researchTime": "1d 20:55:00"
             },
             {
               "level": 18,
               "valor": 350,
-              "requirements": []
+              "requirements": [],
+              "techCenterLevel": 19,
+              "researchTime": "1d 20:55:00"
             },
             {
               "level": 19,
               "valor": 350,
-              "requirements": []
+              "requirements": [],
+              "techCenterLevel": 19,
+              "researchTime": "1d 20:55:00"
             },
             {
               "level": 20,
               "valor": 350,
-              "requirements": []
+              "requirements": [],
+              "techCenterLevel": 19,
+              "researchTime": "1d 20:55:00"
             }
           ]
         }
@@ -382,52 +492,72 @@
                   "elementId": "duel-expert",
                   "minLevel": 1
                 }
-              ]
+              ],
+              "techCenterLevel": 15,
+              "researchTime": "4:50:00"
             },
             {
               "level": 2,
               "valor": 100,
-              "requirements": []
+              "requirements": [],
+              "techCenterLevel": 16,
+              "researchTime": "9:11:00"
             },
             {
               "level": 3,
               "valor": 200,
-              "requirements": []
+              "requirements": [],
+              "techCenterLevel": 17,
+              "researchTime": "16:31:00"
             },
             {
               "level": 4,
               "valor": 200,
-              "requirements": []
+              "requirements": [],
+              "techCenterLevel": 18,
+              "researchTime": "1d 04:05:00"
             },
             {
               "level": 5,
               "valor": 350,
-              "requirements": []
+              "requirements": [],
+              "techCenterLevel": 19,
+              "researchTime": "1d 20:55:00"
             },
             {
               "level": 6,
               "valor": 450,
-              "requirements": []
+              "requirements": [],
+              "techCenterLevel": 20,
+              "researchTime": "2d 19:23:00"
             },
             {
               "level": 7,
               "valor": 750,
-              "requirements": []
+              "requirements": [],
+              "techCenterLevel": 21,
+              "researchTime": "3d 22:20:00"
             },
             {
               "level": 8,
               "valor": 1050,
-              "requirements": []
+              "requirements": [],
+              "techCenterLevel": 22,
+              "researchTime": "5d 12:04:00"
             },
             {
               "level": 9,
               "valor": 1400,
-              "requirements": []
+              "requirements": [],
+              "techCenterLevel": 23,
+              "researchTime": "7d 03:41:00"
             },
             {
               "level": 10,
               "valor": 1750,
-              "requirements": []
+              "requirements": [],
+              "techCenterLevel": 24,
+              "researchTime": "9d 07:11:00"
             }
           ]
         },
@@ -446,52 +576,72 @@
                   "elementId": "duel-expert",
                   "minLevel": 1
                 }
-              ]
+              ],
+              "techCenterLevel": 15,
+              "researchTime": "4:50:00"
             },
             {
               "level": 2,
               "valor": 100,
-              "requirements": []
+              "requirements": [],
+              "techCenterLevel": 16,
+              "researchTime": "9:11:00"
             },
             {
               "level": 3,
               "valor": 200,
-              "requirements": []
+              "requirements": [],
+              "techCenterLevel": 17,
+              "researchTime": "16:31:00"
             },
             {
               "level": 4,
               "valor": 200,
-              "requirements": []
+              "requirements": [],
+              "techCenterLevel": 18,
+              "researchTime": "1d 04:05:00"
             },
             {
               "level": 5,
               "valor": 350,
-              "requirements": []
+              "requirements": [],
+              "techCenterLevel": 19,
+              "researchTime": "1d 20:55:00"
             },
             {
               "level": 6,
               "valor": 450,
-              "requirements": []
+              "requirements": [],
+              "techCenterLevel": 20,
+              "researchTime": "2d 19:23:00"
             },
             {
               "level": 7,
               "valor": 750,
-              "requirements": []
+              "requirements": [],
+              "techCenterLevel": 21,
+              "researchTime": "3d 22:20:00"
             },
             {
               "level": 8,
               "valor": 1050,
-              "requirements": []
+              "requirements": [],
+              "techCenterLevel": 22,
+              "researchTime": "5d 12:04:00"
             },
             {
               "level": 9,
               "valor": 1400,
-              "requirements": []
+              "requirements": [],
+              "techCenterLevel": 23,
+              "researchTime": "7d 03:41:00"
             },
             {
               "level": 10,
               "valor": 1750,
-              "requirements": []
+              "requirements": [],
+              "techCenterLevel": 24,
+              "researchTime": "9d 07:11:00"
             }
           ]
         }
@@ -529,52 +679,72 @@
                   "elementId": "incentive-building",
                   "minLevel": 1
                 }
-              ]
+              ],
+              "techCenterLevel": 15,
+              "researchTime": "4:50:00"
             },
             {
               "level": 2,
               "valor": 100,
-              "requirements": []
+              "requirements": [],
+              "techCenterLevel": 16,
+              "researchTime": "9:11:00"
             },
             {
               "level": 3,
               "valor": 200,
-              "requirements": []
+              "requirements": [],
+              "techCenterLevel": 17,
+              "researchTime": "16:31:00"
             },
             {
               "level": 4,
               "valor": 200,
-              "requirements": []
+              "requirements": [],
+              "techCenterLevel": 18,
+              "researchTime": "1d 04:05:00"
             },
             {
               "level": 5,
               "valor": 350,
-              "requirements": []
+              "requirements": [],
+              "techCenterLevel": 19,
+              "researchTime": "1d 20:55:00"
             },
             {
               "level": 6,
               "valor": 450,
-              "requirements": []
+              "requirements": [],
+              "techCenterLevel": 20,
+              "researchTime": "2d 19:23:00"
             },
             {
               "level": 7,
               "valor": 750,
-              "requirements": []
+              "requirements": [],
+              "techCenterLevel": 21,
+              "researchTime": "3d 22:20:00"
             },
             {
               "level": 8,
               "valor": 1050,
-              "requirements": []
+              "requirements": [],
+              "techCenterLevel": 22,
+              "researchTime": "5d 12:04:00"
             },
             {
               "level": 9,
               "valor": 1400,
-              "requirements": []
+              "requirements": [],
+              "techCenterLevel": 23,
+              "researchTime": "7d 03:41:00"
             },
             {
               "level": 10,
               "valor": 1750,
-              "requirements": []
+              "requirements": [],
+              "techCenterLevel": 24,
+              "researchTime": "9d 07:11:00"
             }
           ]
         },
@@ -593,52 +763,72 @@
                   "elementId": "incentive-research",
                   "minLevel": 1
                 }
-              ]
+              ],
+              "techCenterLevel": 15,
+              "researchTime": "4:50:00"
             },
             {
               "level": 2,
               "valor": 100,
-              "requirements": []
+              "requirements": [],
+              "techCenterLevel": 16,
+              "researchTime": "9:11:00"
             },
             {
               "level": 3,
               "valor": 200,
-              "requirements": []
+              "requirements": [],
+              "techCenterLevel": 17,
+              "researchTime": "16:31:00"
             },
             {
               "level": 4,
               "valor": 200,
-              "requirements": []
+              "requirements": [],
+              "techCenterLevel": 18,
+              "researchTime": "1d 04:05:00"
             },
             {
               "level": 5,
               "valor": 350,
-              "requirements": []
+              "requirements": [],
+              "techCenterLevel": 19,
+              "researchTime": "1d 20:55:00"
             },
             {
               "level": 6,
               "valor": 450,
-              "requirements": []
+              "requirements": [],
+              "techCenterLevel": 20,
+              "researchTime": "2d 19:23:00"
             },
             {
               "level": 7,
               "valor": 750,
-              "requirements": []
+              "requirements": [],
+              "techCenterLevel": 21,
+              "researchTime": "3d 22:20:00"
             },
             {
               "level": 8,
               "valor": 1050,
-              "requirements": []
+              "requirements": [],
+              "techCenterLevel": 22,
+              "researchTime": "5d 12:04:00"
             },
             {
               "level": 9,
               "valor": 1400,
-              "requirements": []
+              "requirements": [],
+              "techCenterLevel": 23,
+              "researchTime": "7d 03:41:00"
             },
             {
               "level": 10,
               "valor": 1750,
-              "requirements": []
+              "requirements": [],
+              "techCenterLevel": 24,
+              "researchTime": "9d 07:11:00"
             }
           ]
         }
@@ -690,7 +880,9 @@
                   "elementId": "incentive-enemy-kills",
                   "minLevel": 6
                 }
-              ]
+              ],
+              "techCenterLevel": 20,
+              "researchTime": "2d 19:23:00"
             }
           ]
         }
@@ -722,54 +914,74 @@
               "requirements": [
                 {
                   "elementId": "super-bonus",
-                  "minLevel": 2
+                  "minLevel": 1
                 }
-              ]
+              ],
+              "techCenterLevel": 15,
+              "researchTime": "4:50:00"
             },
             {
               "level": 2,
               "valor": 100,
-              "requirements": []
+              "requirements": [],
+              "techCenterLevel": 16,
+              "researchTime": "9:11:00"
             },
             {
               "level": 3,
               "valor": 200,
-              "requirements": []
+              "requirements": [],
+              "techCenterLevel": 17,
+              "researchTime": "16:31:00"
             },
             {
               "level": 4,
               "valor": 200,
-              "requirements": []
+              "requirements": [],
+              "techCenterLevel": 18,
+              "researchTime": "1d 04:05:00"
             },
             {
               "level": 5,
               "valor": 350,
-              "requirements": []
+              "requirements": [],
+              "techCenterLevel": 19,
+              "researchTime": "1d 20:55:00"
             },
             {
               "level": 6,
               "valor": 450,
-              "requirements": []
+              "requirements": [],
+              "techCenterLevel": 20,
+              "researchTime": "2d 19:23:00"
             },
             {
               "level": 7,
               "valor": 600,
-              "requirements": []
+              "requirements": [],
+              "techCenterLevel": 21,
+              "researchTime": "3d 22:20:00"
             },
             {
               "level": 8,
               "valor": 720,
-              "requirements": []
+              "requirements": [],
+              "techCenterLevel": 22,
+              "researchTime": "5d 12:04:00"
             },
             {
               "level": 9,
               "valor": 840,
-              "requirements": []
+              "requirements": [],
+              "techCenterLevel": 23,
+              "researchTime": "7d 03:41:00"
             },
             {
               "level": 10,
               "valor": 960,
-              "requirements": []
+              "requirements": [],
+              "techCenterLevel": 24,
+              "researchTime": "9d 07:11:00"
             }
           ]
         },
@@ -786,54 +998,74 @@
               "requirements": [
                 {
                   "elementId": "super-bonus",
-                  "minLevel": 2
+                  "minLevel": 1
                 }
-              ]
+              ],
+              "techCenterLevel": 15,
+              "researchTime": "4:50:00"
             },
             {
               "level": 2,
               "valor": 100,
-              "requirements": []
+              "requirements": [],
+              "techCenterLevel": 16,
+              "researchTime": "9:11:00"
             },
             {
               "level": 3,
               "valor": 200,
-              "requirements": []
+              "requirements": [],
+              "techCenterLevel": 17,
+              "researchTime": "16:31:00"
             },
             {
               "level": 4,
               "valor": 200,
-              "requirements": []
+              "requirements": [],
+              "techCenterLevel": 18,
+              "researchTime": "1d 04:05:00"
             },
             {
               "level": 5,
               "valor": 350,
-              "requirements": []
+              "requirements": [],
+              "techCenterLevel": 19,
+              "researchTime": "1d 20:55:00"
             },
             {
               "level": 6,
               "valor": 450,
-              "requirements": []
+              "requirements": [],
+              "techCenterLevel": 20,
+              "researchTime": "2d 19:23:00"
             },
             {
               "level": 7,
               "valor": 600,
-              "requirements": []
+              "requirements": [],
+              "techCenterLevel": 21,
+              "researchTime": "3d 22:20:00"
             },
             {
               "level": 8,
               "valor": 720,
-              "requirements": []
+              "requirements": [],
+              "techCenterLevel": 22,
+              "researchTime": "5d 12:04:00"
             },
             {
               "level": 9,
               "valor": 840,
-              "requirements": []
+              "requirements": [],
+              "techCenterLevel": 23,
+              "researchTime": "7d 03:41:00"
             },
             {
               "level": 10,
               "valor": 960,
-              "requirements": []
+              "requirements": [],
+              "techCenterLevel": 24,
+              "researchTime": "9d 07:11:00"
             }
           ]
         },
@@ -850,54 +1082,74 @@
               "requirements": [
                 {
                   "elementId": "super-bonus",
-                  "minLevel": 2
+                  "minLevel": 1
                 }
-              ]
+              ],
+              "techCenterLevel": 15,
+              "researchTime": "4:50:00"
             },
             {
               "level": 2,
               "valor": 100,
-              "requirements": []
+              "requirements": [],
+              "techCenterLevel": 16,
+              "researchTime": "9:11:00"
             },
             {
               "level": 3,
               "valor": 200,
-              "requirements": []
+              "requirements": [],
+              "techCenterLevel": 17,
+              "researchTime": "16:31:00"
             },
             {
               "level": 4,
               "valor": 200,
-              "requirements": []
+              "requirements": [],
+              "techCenterLevel": 18,
+              "researchTime": "1d 04:05:00"
             },
             {
               "level": 5,
               "valor": 350,
-              "requirements": []
+              "requirements": [],
+              "techCenterLevel": 19,
+              "researchTime": "1d 20:55:00"
             },
             {
               "level": 6,
               "valor": 450,
-              "requirements": []
+              "requirements": [],
+              "techCenterLevel": 20,
+              "researchTime": "2d 19:23:00"
             },
             {
               "level": 7,
               "valor": 600,
-              "requirements": []
+              "requirements": [],
+              "techCenterLevel": 21,
+              "researchTime": "3d 22:20:00"
             },
             {
               "level": 8,
               "valor": 720,
-              "requirements": []
+              "requirements": [],
+              "techCenterLevel": 22,
+              "researchTime": "5d 12:04:00"
             },
             {
               "level": 9,
               "valor": 840,
-              "requirements": []
+              "requirements": [],
+              "techCenterLevel": 23,
+              "researchTime": "7d 03:41:00"
             },
             {
               "level": 10,
               "valor": 960,
-              "requirements": []
+              "requirements": [],
+              "techCenterLevel": 24,
+              "researchTime": "9d 07:11:00"
             }
           ]
         }
@@ -940,8 +1192,18 @@
                 {
                   "elementId": "incentive-intercity-trade",
                   "minLevel": 1
+                },
+                {
+                  "elementId": "incentive-secret-mobile-squad",
+                  "minLevel": 1
+                },
+                {
+                  "elementId": "incentive-survivor-recruit",
+                  "minLevel": 1
                 }
-              ]
+              ],
+              "techCenterLevel": 20,
+              "researchTime": "2d 19:23:00"
             },
             {
               "level": 2,
@@ -950,8 +1212,18 @@
                 {
                   "elementId": "incentive-intercity-trade",
                   "minLevel": 2
+                },
+                {
+                  "elementId": "incentive-secret-mobile-squad",
+                  "minLevel": 2
+                },
+                {
+                  "elementId": "incentive-survivor-recruit",
+                  "minLevel": 2
                 }
-              ]
+              ],
+              "techCenterLevel": 20,
+              "researchTime": "2d 19:23:00"
             },
             {
               "level": 3,
@@ -960,8 +1232,18 @@
                 {
                   "elementId": "incentive-intercity-trade",
                   "minLevel": 3
+                },
+                {
+                  "elementId": "incentive-secret-mobile-squad",
+                  "minLevel": 3
+                },
+                {
+                  "elementId": "incentive-survivor-recruit",
+                  "minLevel": 3
                 }
-              ]
+              ],
+              "techCenterLevel": 21,
+              "researchTime": "3d 22:20:00"
             },
             {
               "level": 4,
@@ -970,8 +1252,18 @@
                 {
                   "elementId": "incentive-intercity-trade",
                   "minLevel": 4
+                },
+                {
+                  "elementId": "incentive-secret-mobile-squad",
+                  "minLevel": 4
+                },
+                {
+                  "elementId": "incentive-survivor-recruit",
+                  "minLevel": 4
                 }
-              ]
+              ],
+              "techCenterLevel": 21,
+              "researchTime": "3d 22:20:00"
             },
             {
               "level": 5,
@@ -980,8 +1272,18 @@
                 {
                   "elementId": "incentive-intercity-trade",
                   "minLevel": 5
+                },
+                {
+                  "elementId": "incentive-secret-mobile-squad",
+                  "minLevel": 5
+                },
+                {
+                  "elementId": "incentive-survivor-recruit",
+                  "minLevel": 5
                 }
-              ]
+              ],
+              "techCenterLevel": 22,
+              "researchTime": "5d 12:04:00"
             },
             {
               "level": 6,
@@ -990,8 +1292,18 @@
                 {
                   "elementId": "incentive-intercity-trade",
                   "minLevel": 6
+                },
+                {
+                  "elementId": "incentive-secret-mobile-squad",
+                  "minLevel": 6
+                },
+                {
+                  "elementId": "incentive-survivor-recruit",
+                  "minLevel": 6
                 }
-              ]
+              ],
+              "techCenterLevel": 22,
+              "researchTime": "5d 12:04:00"
             },
             {
               "level": 7,
@@ -1000,8 +1312,18 @@
                 {
                   "elementId": "incentive-intercity-trade",
                   "minLevel": 7
+                },
+                {
+                  "elementId": "incentive-secret-mobile-squad",
+                  "minLevel": 7
+                },
+                {
+                  "elementId": "incentive-survivor-recruit",
+                  "minLevel": 7
                 }
-              ]
+              ],
+              "techCenterLevel": 23,
+              "researchTime": "7d 03:41:00"
             },
             {
               "level": 8,
@@ -1010,8 +1332,18 @@
                 {
                   "elementId": "incentive-intercity-trade",
                   "minLevel": 8
+                },
+                {
+                  "elementId": "incentive-secret-mobile-squad",
+                  "minLevel": 8
+                },
+                {
+                  "elementId": "incentive-survivor-recruit",
+                  "minLevel": 8
                 }
-              ]
+              ],
+              "techCenterLevel": 23,
+              "researchTime": "7d 03:41:00"
             },
             {
               "level": 9,
@@ -1020,8 +1352,18 @@
                 {
                   "elementId": "incentive-intercity-trade",
                   "minLevel": 9
+                },
+                {
+                  "elementId": "incentive-secret-mobile-squad",
+                  "minLevel": 9
+                },
+                {
+                  "elementId": "incentive-survivor-recruit",
+                  "minLevel": 9
                 }
-              ]
+              ],
+              "techCenterLevel": 24,
+              "researchTime": "9d 07:11:00"
             },
             {
               "level": 10,
@@ -1030,8 +1372,18 @@
                 {
                   "elementId": "incentive-intercity-trade",
                   "minLevel": 10
+                },
+                {
+                  "elementId": "incentive-secret-mobile-squad",
+                  "minLevel": 10
+                },
+                {
+                  "elementId": "incentive-survivor-recruit",
+                  "minLevel": 10
                 }
-              ]
+              ],
+              "techCenterLevel": 24,
+              "researchTime": "9d 07:11:00"
             }
           ]
         }
@@ -1057,21 +1409,18 @@
           "levels": [
             {
               "level": 1,
-              "valor": 77,
-              "gold": 7777,
-              "food": 7777,
               "iron": 7777,
+              "food": 7777,
+              "gold": 7777,
+              "valor": 77,
               "requirements": [
                 {
                   "elementId": "duel-master-2",
                   "minLevel": 10
-                },
-                {
-                  "elementId": "Becomes available later in the game",
-                  "minLevel": 0,
-                  "external": true
                 }
-              ]
+              ],
+              "techCenterLevel": 25,
+              "researchTime": "9d 07:11:00"
             }
           ]
         }
