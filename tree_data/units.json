@@ -1,0 +1,1698 @@
+{
+  "name": "Units",
+  "isComplete": true,
+  "rows": [
+    {
+      "id": "row-1",
+      "elements": [
+        {
+          "id": "weapon-training-1",
+          "name": "Weapon Training I",
+          "image": "/images/tech/units/weapon-training.png",
+          "maxLevel": 5,
+          "currentLevel": 0,
+          "levels": [
+            {
+              "level": 1,
+              "iron": 10100,
+              "food": 10100,
+              "gold": 30400,
+              "requirements": [],
+              "techCenterLevel": 6,
+              "researchTime": "0:32:00"
+            },
+            {
+              "level": 2,
+              "iron": 30400,
+              "food": 30400,
+              "gold": 91100,
+              "requirements": [],
+              "techCenterLevel": 7,
+              "researchTime": "0:42:00"
+            },
+            {
+              "level": 3,
+              "iron": 60800,
+              "food": 60800,
+              "gold": 182300,
+              "requirements": [],
+              "techCenterLevel": 8,
+              "researchTime": "0:54:00"
+            },
+            {
+              "level": 4,
+              "iron": 97200,
+              "food": 97200,
+              "gold": 291600,
+              "requirements": [],
+              "techCenterLevel": 9,
+              "researchTime": "1:10:00"
+            },
+            {
+              "level": 5,
+              "iron": 155500,
+              "food": 155500,
+              "gold": 466600,
+              "requirements": [],
+              "techCenterLevel": 10,
+              "researchTime": "1:31:00"
+            }
+          ]
+        },
+        {
+          "id": "defense-training-1",
+          "name": "Defense Training I",
+          "image": "/images/tech/units/defense-training.png",
+          "maxLevel": 5,
+          "currentLevel": 0,
+          "levels": [
+            {
+              "level": 1,
+              "iron": 10100,
+              "food": 10100,
+              "gold": 30400,
+              "requirements": [],
+              "techCenterLevel": 6,
+              "researchTime": "0:32:00"
+            },
+            {
+              "level": 2,
+              "iron": 30400,
+              "food": 30400,
+              "gold": 91100,
+              "requirements": [],
+              "techCenterLevel": 7,
+              "researchTime": "0:42:00"
+            },
+            {
+              "level": 3,
+              "iron": 60800,
+              "food": 60800,
+              "gold": 182300,
+              "requirements": [],
+              "techCenterLevel": 8,
+              "researchTime": "0:54:00"
+            },
+            {
+              "level": 4,
+              "iron": 97200,
+              "food": 97200,
+              "gold": 291600,
+              "requirements": [],
+              "techCenterLevel": 9,
+              "researchTime": "1:10:00"
+            },
+            {
+              "level": 5,
+              "iron": 155500,
+              "food": 155500,
+              "gold": 466600,
+              "requirements": [],
+              "techCenterLevel": 10,
+              "researchTime": "1:31:00"
+            }
+          ]
+        }
+      ],
+      "connections": [
+        {
+          "from": "weapon-training-1",
+          "to": [
+            "advanced-armor-1"
+          ]
+        },
+        {
+          "from": "defense-training-1",
+          "to": [
+            "advanced-armor-1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "row-2",
+      "elements": [
+        {
+          "id": "advanced-armor-1",
+          "name": "Advanced Armor I",
+          "image": "/images/tech/units/advanced-armor.png",
+          "maxLevel": 5,
+          "currentLevel": 0,
+          "levels": [
+            {
+              "level": 1,
+              "iron": 10100,
+              "food": 10100,
+              "gold": 30400,
+              "requirements": [
+                {
+                  "elementId": "weapon-training-1",
+                  "minLevel": 1
+                },
+                {
+                  "elementId": "defense-training-1",
+                  "minLevel": 1
+                }
+              ],
+              "techCenterLevel": 6,
+              "researchTime": "0:32:00"
+            },
+            {
+              "level": 2,
+              "iron": 30400,
+              "food": 30400,
+              "gold": 91100,
+              "requirements": [
+                {
+                  "elementId": "weapon-training-1",
+                  "minLevel": 2
+                },
+                {
+                  "elementId": "defense-training-1",
+                  "minLevel": 2
+                }
+              ],
+              "techCenterLevel": 7,
+              "researchTime": "0:42:00"
+            },
+            {
+              "level": 3,
+              "iron": 60800,
+              "food": 60800,
+              "gold": 182300,
+              "requirements": [
+                {
+                  "elementId": "weapon-training-1",
+                  "minLevel": 3
+                },
+                {
+                  "elementId": "defense-training-1",
+                  "minLevel": 3
+                }
+              ],
+              "techCenterLevel": 8,
+              "researchTime": "0:54:00"
+            },
+            {
+              "level": 4,
+              "iron": 97200,
+              "food": 97200,
+              "gold": 291600,
+              "requirements": [
+                {
+                  "elementId": "weapon-training-1",
+                  "minLevel": 4
+                },
+                {
+                  "elementId": "defense-training-1",
+                  "minLevel": 4
+                }
+              ],
+              "techCenterLevel": 9,
+              "researchTime": "1:10:00"
+            },
+            {
+              "level": 5,
+              "iron": 155500,
+              "food": 155500,
+              "gold": 466600,
+              "requirements": [
+                {
+                  "elementId": "weapon-training-1",
+                  "minLevel": 5
+                },
+                {
+                  "elementId": "defense-training-1",
+                  "minLevel": 5
+                }
+              ],
+              "techCenterLevel": 10,
+              "researchTime": "1:31:00"
+            }
+          ]
+        }
+      ],
+      "connections": [
+        {
+          "from": "advanced-armor-1",
+          "to": [
+            "load-training-1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "row-3",
+      "elements": [
+        {
+          "id": "load-training-1",
+          "name": "Load Training I",
+          "image": "/images/tech/units/load-training.png",
+          "maxLevel": 5,
+          "currentLevel": 0,
+          "levels": [
+            {
+              "level": 1,
+              "iron": 10100,
+              "food": 10100,
+              "gold": 30400,
+              "requirements": [
+                {
+                  "elementId": "advanced-armor-1",
+                  "minLevel": 1
+                }
+              ],
+              "techCenterLevel": 6,
+              "researchTime": "0:32:00"
+            },
+            {
+              "level": 2,
+              "iron": 30400,
+              "food": 30400,
+              "gold": 91100,
+              "requirements": [
+                {
+                  "elementId": "advanced-armor-1",
+                  "minLevel": 2
+                }
+              ],
+              "techCenterLevel": 7,
+              "researchTime": "0:42:00"
+            },
+            {
+              "level": 3,
+              "iron": 60800,
+              "food": 60800,
+              "gold": 182300,
+              "requirements": [
+                {
+                  "elementId": "advanced-armor-1",
+                  "minLevel": 3
+                }
+              ],
+              "techCenterLevel": 8,
+              "researchTime": "0:54:00"
+            },
+            {
+              "level": 4,
+              "iron": 97200,
+              "food": 97200,
+              "gold": 291600,
+              "requirements": [
+                {
+                  "elementId": "advanced-armor-1",
+                  "minLevel": 4
+                }
+              ],
+              "techCenterLevel": 9,
+              "researchTime": "1:10:00"
+            },
+            {
+              "level": 5,
+              "iron": 155500,
+              "food": 155500,
+              "gold": 466600,
+              "requirements": [
+                {
+                  "elementId": "advanced-armor-1",
+                  "minLevel": 5
+                }
+              ],
+              "techCenterLevel": 10,
+              "researchTime": "1:31:00"
+            }
+          ]
+        }
+      ],
+      "connections": [
+        {
+          "from": "load-training-1",
+          "to": [
+            "weapon-training-2",
+            "defense-training-2"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "row-4",
+      "elements": [
+        {
+          "id": "weapon-training-2",
+          "name": "Weapon Training II",
+          "image": "/images/tech/units/weapon-training.png",
+          "maxLevel": 5,
+          "currentLevel": 0,
+          "levels": [
+            {
+              "level": 1,
+              "iron": 155500,
+              "food": 155500,
+              "gold": 466600,
+              "requirements": [
+                {
+                  "elementId": "load-training-1",
+                  "minLevel": 5
+                }
+              ],
+              "techCenterLevel": 10,
+              "researchTime": "1:31:00"
+            },
+            {
+              "level": 2,
+              "iron": 186600,
+              "food": 186600,
+              "gold": 559900,
+              "requirements": [],
+              "techCenterLevel": 11,
+              "researchTime": "2:16:00"
+            },
+            {
+              "level": 3,
+              "iron": 466600,
+              "food": 466600,
+              "gold": 1399700,
+              "requirements": [],
+              "techCenterLevel": 12,
+              "researchTime": "3:24:00"
+            },
+            {
+              "level": 4,
+              "iron": 793200,
+              "food": 793200,
+              "gold": 2379500,
+              "requirements": [],
+              "techCenterLevel": 13,
+              "researchTime": "5:05:00"
+            },
+            {
+              "level": 5,
+              "iron": 872500,
+              "food": 872500,
+              "gold": 2617400,
+              "requirements": [],
+              "techCenterLevel": 14,
+              "researchTime": "9:40:00"
+            }
+          ]
+        },
+        {
+          "id": "defense-training-2",
+          "name": "Defense Training II",
+          "image": "/images/tech/units/defense-training.png",
+          "maxLevel": 5,
+          "currentLevel": 0,
+          "levels": [
+            {
+              "level": 1,
+              "iron": 155500,
+              "food": 155500,
+              "gold": 466600,
+              "requirements": [
+                {
+                  "elementId": "load-training-1",
+                  "minLevel": 5
+                }
+              ],
+              "techCenterLevel": 10,
+              "researchTime": "1:31:00"
+            },
+            {
+              "level": 2,
+              "iron": 186600,
+              "food": 186600,
+              "gold": 559900,
+              "requirements": [],
+              "techCenterLevel": 11,
+              "researchTime": "2:16:00"
+            },
+            {
+              "level": 3,
+              "iron": 466600,
+              "food": 466600,
+              "gold": 1399700,
+              "requirements": [],
+              "techCenterLevel": 12,
+              "researchTime": "3:24:00"
+            },
+            {
+              "level": 4,
+              "iron": 793200,
+              "food": 793200,
+              "gold": 2379500,
+              "requirements": [],
+              "techCenterLevel": 13,
+              "researchTime": "5:05:00"
+            },
+            {
+              "level": 5,
+              "iron": 872500,
+              "food": 872500,
+              "gold": 2617400,
+              "requirements": [],
+              "techCenterLevel": 14,
+              "researchTime": "9:40:00"
+            }
+          ]
+        }
+      ],
+      "connections": [
+        {
+          "from": "weapon-training-2",
+          "to": [
+            "advanced-armor-2"
+          ]
+        },
+        {
+          "from": "defense-training-2",
+          "to": [
+            "advanced-armor-2"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "row-5",
+      "elements": [
+        {
+          "id": "advanced-armor-2",
+          "name": "Advanced Armor II",
+          "image": "/images/tech/units/advanced-armor.png",
+          "maxLevel": 5,
+          "currentLevel": 0,
+          "levels": [
+            {
+              "level": 1,
+              "iron": 155500,
+              "food": 155500,
+              "gold": 466600,
+              "requirements": [
+                {
+                  "elementId": "weapon-training-2",
+                  "minLevel": 1
+                },
+                {
+                  "elementId": "defense-training-2",
+                  "minLevel": 1
+                }
+              ],
+              "techCenterLevel": 10,
+              "researchTime": "1:31:00"
+            },
+            {
+              "level": 2,
+              "iron": 186600,
+              "food": 186600,
+              "gold": 559900,
+              "requirements": [
+                {
+                  "elementId": "weapon-training-2",
+                  "minLevel": 2
+                },
+                {
+                  "elementId": "defense-training-2",
+                  "minLevel": 2
+                }
+              ],
+              "techCenterLevel": 11,
+              "researchTime": "2:16:00"
+            },
+            {
+              "level": 3,
+              "iron": 466600,
+              "food": 466600,
+              "gold": 1399700,
+              "requirements": [
+                {
+                  "elementId": "weapon-training-2",
+                  "minLevel": 3
+                },
+                {
+                  "elementId": "defense-training-2",
+                  "minLevel": 3
+                }
+              ],
+              "techCenterLevel": 12,
+              "researchTime": "3:24:00"
+            },
+            {
+              "level": 4,
+              "iron": 793200,
+              "food": 793200,
+              "gold": 2379500,
+              "requirements": [
+                {
+                  "elementId": "weapon-training-2",
+                  "minLevel": 4
+                },
+                {
+                  "elementId": "defense-training-2",
+                  "minLevel": 4
+                }
+              ],
+              "techCenterLevel": 13,
+              "researchTime": "5:05:00"
+            },
+            {
+              "level": 5,
+              "iron": 872500,
+              "food": 872500,
+              "gold": 2617400,
+              "requirements": [
+                {
+                  "elementId": "weapon-training-2",
+                  "minLevel": 5
+                },
+                {
+                  "elementId": "defense-training-2",
+                  "minLevel": 5
+                }
+              ],
+              "techCenterLevel": 14,
+              "researchTime": "9:40:00"
+            }
+          ]
+        }
+      ],
+      "connections": [
+        {
+          "from": "advanced-armor-2",
+          "to": [
+            "load-training-2"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "row-6",
+      "elements": [
+        {
+          "id": "load-training-2",
+          "name": "Load Training II",
+          "image": "/images/tech/units/load-training.png",
+          "maxLevel": 5,
+          "currentLevel": 0,
+          "levels": [
+            {
+              "level": 1,
+              "iron": 155500,
+              "food": 155500,
+              "gold": 466600,
+              "requirements": [
+                {
+                  "elementId": "advanced-armor-2",
+                  "minLevel": 1
+                }
+              ],
+              "techCenterLevel": 10,
+              "researchTime": "1:31:00"
+            },
+            {
+              "level": 2,
+              "iron": 186600,
+              "food": 186600,
+              "gold": 559900,
+              "requirements": [
+                {
+                  "elementId": "advanced-armor-2",
+                  "minLevel": 2
+                }
+              ],
+              "techCenterLevel": 11,
+              "researchTime": "2:16:00"
+            },
+            {
+              "level": 3,
+              "iron": 466600,
+              "food": 466600,
+              "gold": 1399700,
+              "requirements": [
+                {
+                  "elementId": "advanced-armor-2",
+                  "minLevel": 3
+                }
+              ],
+              "techCenterLevel": 12,
+              "researchTime": "3:24:00"
+            },
+            {
+              "level": 4,
+              "iron": 793200,
+              "food": 793200,
+              "gold": 2379500,
+              "requirements": [
+                {
+                  "elementId": "advanced-armor-2",
+                  "minLevel": 4
+                }
+              ],
+              "techCenterLevel": 13,
+              "researchTime": "5:05:00"
+            },
+            {
+              "level": 5,
+              "iron": 872500,
+              "food": 872500,
+              "gold": 2617400,
+              "requirements": [
+                {
+                  "elementId": "advanced-armor-2",
+                  "minLevel": 5
+                }
+              ],
+              "techCenterLevel": 14,
+              "researchTime": "9:40:00"
+            }
+          ]
+        }
+      ],
+      "connections": [
+        {
+          "from": "load-training-2",
+          "to": [
+            "weapon-training-3",
+            "defense-training-3"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "row-7",
+      "elements": [
+        {
+          "id": "weapon-training-3",
+          "name": "Weapon Training III",
+          "image": "/images/tech/units/weapon-training.png",
+          "maxLevel": 5,
+          "currentLevel": 0,
+          "levels": [
+            {
+              "level": 1,
+              "iron": 872500,
+              "food": 872500,
+              "gold": 2617400,
+              "requirements": [
+                {
+                  "elementId": "load-training-2",
+                  "minLevel": 5
+                }
+              ],
+              "techCenterLevel": 14,
+              "researchTime": "9:40:00"
+            },
+            {
+              "level": 2,
+              "iron": 1221500,
+              "food": 1221500,
+              "gold": 3664400,
+              "requirements": [],
+              "techCenterLevel": 15,
+              "researchTime": "19:19:00"
+            },
+            {
+              "level": 3,
+              "iron": 1710000,
+              "food": 1710000,
+              "gold": 5130100,
+              "requirements": [],
+              "techCenterLevel": 16,
+              "researchTime": "1d 12:42:00"
+            },
+            {
+              "level": 4,
+              "iron": 1710000,
+              "food": 1710000,
+              "gold": 5130100,
+              "requirements": [],
+              "techCenterLevel": 16,
+              "researchTime": "1d 12:42:00"
+            },
+            {
+              "level": 5,
+              "iron": 3043900,
+              "food": 3043900,
+              "gold": 9131600,
+              "requirements": [],
+              "techCenterLevel": 17,
+              "researchTime": "2d 18:04:00"
+            }
+          ]
+        },
+        {
+          "id": "defense-training-3",
+          "name": "Defense Training III",
+          "image": "/images/tech/units/defense-training.png",
+          "maxLevel": 5,
+          "currentLevel": 0,
+          "levels": [
+            {
+              "level": 1,
+              "iron": 872500,
+              "food": 872500,
+              "gold": 2617400,
+              "requirements": [
+                {
+                  "elementId": "load-training-2",
+                  "minLevel": 5
+                }
+              ],
+              "techCenterLevel": 14,
+              "researchTime": "9:40:00"
+            },
+            {
+              "level": 2,
+              "iron": 1221500,
+              "food": 1221500,
+              "gold": 3664400,
+              "requirements": [],
+              "techCenterLevel": 15,
+              "researchTime": "19:19:00"
+            },
+            {
+              "level": 3,
+              "iron": 1710000,
+              "food": 1710000,
+              "gold": 5130100,
+              "requirements": [],
+              "techCenterLevel": 16,
+              "researchTime": "1d 12:42:00"
+            },
+            {
+              "level": 4,
+              "iron": 1710000,
+              "food": 1710000,
+              "gold": 5130100,
+              "requirements": [],
+              "techCenterLevel": 16,
+              "researchTime": "1d 12:42:00"
+            },
+            {
+              "level": 5,
+              "iron": 3043900,
+              "food": 3043900,
+              "gold": 9131600,
+              "requirements": [],
+              "techCenterLevel": 17,
+              "researchTime": "2d 18:04:00"
+            }
+          ]
+        }
+      ],
+      "connections": [
+        {
+          "from": "weapon-training-3",
+          "to": [
+            "advanced-armor-3"
+          ]
+        },
+        {
+          "from": "defense-training-3",
+          "to": [
+            "advanced-armor-3"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "row-8",
+      "elements": [
+        {
+          "id": "advanced-armor-3",
+          "name": "Advanced Armor III",
+          "image": "/images/tech/units/advanced-armor.png",
+          "maxLevel": 5,
+          "currentLevel": 0,
+          "levels": [
+            {
+              "level": 1,
+              "iron": 872500,
+              "food": 872500,
+              "gold": 2617400,
+              "requirements": [
+                {
+                  "elementId": "weapon-training-3",
+                  "minLevel": 1
+                },
+                {
+                  "elementId": "defense-training-3",
+                  "minLevel": 1
+                }
+              ],
+              "techCenterLevel": 14,
+              "researchTime": "9:40:00"
+            },
+            {
+              "level": 2,
+              "iron": 1221500,
+              "food": 1221500,
+              "gold": 3664400,
+              "requirements": [
+                {
+                  "elementId": "weapon-training-3",
+                  "minLevel": 2
+                },
+                {
+                  "elementId": "defense-training-3",
+                  "minLevel": 2
+                }
+              ],
+              "techCenterLevel": 15,
+              "researchTime": "19:19:00"
+            },
+            {
+              "level": 3,
+              "iron": 1710000,
+              "food": 1710000,
+              "gold": 5130100,
+              "requirements": [
+                {
+                  "elementId": "weapon-training-3",
+                  "minLevel": 3
+                },
+                {
+                  "elementId": "defense-training-3",
+                  "minLevel": 3
+                }
+              ],
+              "techCenterLevel": 16,
+              "researchTime": "1d 12:42:00"
+            },
+            {
+              "level": 4,
+              "iron": 1710000,
+              "food": 1710000,
+              "gold": 5130100,
+              "requirements": [
+                {
+                  "elementId": "weapon-training-3",
+                  "minLevel": 4
+                },
+                {
+                  "elementId": "defense-training-3",
+                  "minLevel": 4
+                }
+              ],
+              "techCenterLevel": 16,
+              "researchTime": "1d 12:42:00"
+            },
+            {
+              "level": 5,
+              "iron": 3043900,
+              "food": 3043900,
+              "gold": 9131600,
+              "requirements": [
+                {
+                  "elementId": "weapon-training-3",
+                  "minLevel": 5
+                },
+                {
+                  "elementId": "defense-training-3",
+                  "minLevel": 5
+                }
+              ],
+              "techCenterLevel": 17,
+              "researchTime": "2d 18:04:00"
+            }
+          ]
+        }
+      ],
+      "connections": [
+        {
+          "from": "advanced-armor-3",
+          "to": [
+            "load-training-3"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "row-9",
+      "elements": [
+        {
+          "id": "load-training-3",
+          "name": "Load Training III",
+          "image": "/images/tech/units/load-training.png",
+          "maxLevel": 5,
+          "currentLevel": 0,
+          "levels": [
+            {
+              "level": 1,
+              "iron": 872500,
+              "food": 872500,
+              "gold": 2617400,
+              "requirements": [
+                {
+                  "elementId": "advanced-armor-3",
+                  "minLevel": 1
+                }
+              ],
+              "techCenterLevel": 14,
+              "researchTime": "9:40:00"
+            },
+            {
+              "level": 2,
+              "iron": 1221500,
+              "food": 1221500,
+              "gold": 3664400,
+              "requirements": [
+                {
+                  "elementId": "advanced-armor-3",
+                  "minLevel": 2
+                }
+              ],
+              "techCenterLevel": 15,
+              "researchTime": "19:19:00"
+            },
+            {
+              "level": 3,
+              "iron": 1710000,
+              "food": 1710000,
+              "gold": 5130100,
+              "requirements": [
+                {
+                  "elementId": "advanced-armor-3",
+                  "minLevel": 3
+                }
+              ],
+              "techCenterLevel": 16,
+              "researchTime": "1d 12:42:00"
+            },
+            {
+              "level": 4,
+              "iron": 1710000,
+              "food": 1710000,
+              "gold": 5130100,
+              "requirements": [
+                {
+                  "elementId": "advanced-armor-3",
+                  "minLevel": 4
+                }
+              ],
+              "techCenterLevel": 16,
+              "researchTime": "1d 12:42:00"
+            },
+            {
+              "level": 5,
+              "iron": 3043900,
+              "food": 3043900,
+              "gold": 9131600,
+              "requirements": [
+                {
+                  "elementId": "advanced-armor-3",
+                  "minLevel": 5
+                }
+              ],
+              "techCenterLevel": 17,
+              "researchTime": "2d 18:04:00"
+            }
+          ]
+        }
+      ],
+      "connections": [
+        {
+          "from": "load-training-3",
+          "to": [
+            "weapon-training-4",
+            "defense-training-4"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "row-10",
+      "elements": [
+        {
+          "id": "weapon-training-4",
+          "name": "Weapon Training IV",
+          "image": "/images/tech/units/weapon-training.png",
+          "maxLevel": 5,
+          "currentLevel": 0,
+          "levels": [
+            {
+              "level": 1,
+              "iron": 3043900,
+              "food": 3043900,
+              "gold": 9131600,
+              "requirements": [
+                {
+                  "elementId": "load-training-3",
+                  "minLevel": 5
+                }
+              ],
+              "techCenterLevel": 17,
+              "researchTime": "2d 18:04:00"
+            },
+            {
+              "level": 2,
+              "iron": 3957000,
+              "food": 3957000,
+              "gold": 11871100,
+              "requirements": [],
+              "techCenterLevel": 18,
+              "researchTime": "4d 16:18:00"
+            },
+            {
+              "level": 3,
+              "iron": 6924800,
+              "food": 6924800,
+              "gold": 20774400,
+              "requirements": [],
+              "techCenterLevel": 19,
+              "researchTime": "7d 11:40:00"
+            },
+            {
+              "level": 4,
+              "iron": 6924800,
+              "food": 6924800,
+              "gold": 20774400,
+              "requirements": [],
+              "techCenterLevel": 19,
+              "researchTime": "7d 11:40:00"
+            },
+            {
+              "level": 5,
+              "iron": 8309700,
+              "food": 8309700,
+              "gold": 24929200,
+              "requirements": [],
+              "techCenterLevel": 20,
+              "researchTime": "11d 05:30:00"
+            }
+          ]
+        },
+        {
+          "id": "defense-training-4",
+          "name": "Defense Training IV",
+          "image": "/images/tech/units/defense-training.png",
+          "maxLevel": 5,
+          "currentLevel": 0,
+          "levels": [
+            {
+              "level": 1,
+              "iron": 3043900,
+              "food": 3043900,
+              "gold": 9131600,
+              "requirements": [
+                {
+                  "elementId": "load-training-3",
+                  "minLevel": 5
+                }
+              ],
+              "techCenterLevel": 17,
+              "researchTime": "2d 18:04:00"
+            },
+            {
+              "level": 2,
+              "iron": 3957000,
+              "food": 3957000,
+              "gold": 11871100,
+              "requirements": [],
+              "techCenterLevel": 18,
+              "researchTime": "4d 16:18:00"
+            },
+            {
+              "level": 3,
+              "iron": 6924800,
+              "food": 6924800,
+              "gold": 20774400,
+              "requirements": [],
+              "techCenterLevel": 19,
+              "researchTime": "7d 11:40:00"
+            },
+            {
+              "level": 4,
+              "iron": 6924800,
+              "food": 6924800,
+              "gold": 20774400,
+              "requirements": [],
+              "techCenterLevel": 19,
+              "researchTime": "7d 11:40:00"
+            },
+            {
+              "level": 5,
+              "iron": 8309700,
+              "food": 8309700,
+              "gold": 24929200,
+              "requirements": [],
+              "techCenterLevel": 20,
+              "researchTime": "11d 05:30:00"
+            }
+          ]
+        }
+      ],
+      "connections": [
+        {
+          "from": "weapon-training-4",
+          "to": [
+            "advanced-armor-4"
+          ]
+        },
+        {
+          "from": "defense-training-4",
+          "to": [
+            "advanced-armor-4"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "row-11",
+      "elements": [
+        {
+          "id": "advanced-armor-4",
+          "name": "Advanced Armor IV",
+          "image": "/images/tech/units/advanced-armor.png",
+          "maxLevel": 5,
+          "currentLevel": 0,
+          "levels": [
+            {
+              "level": 1,
+              "iron": 3043900,
+              "food": 3043900,
+              "gold": 9131600,
+              "requirements": [
+                {
+                  "elementId": "weapon-training-4",
+                  "minLevel": 1
+                },
+                {
+                  "elementId": "defense-training-4",
+                  "minLevel": 1
+                }
+              ],
+              "techCenterLevel": 17,
+              "researchTime": "2d 18:04:00"
+            },
+            {
+              "level": 2,
+              "iron": 3957000,
+              "food": 3957000,
+              "gold": 11871100,
+              "requirements": [
+                {
+                  "elementId": "weapon-training-4",
+                  "minLevel": 2
+                },
+                {
+                  "elementId": "defense-training-4",
+                  "minLevel": 2
+                }
+              ],
+              "techCenterLevel": 18,
+              "researchTime": "4d 16:18:00"
+            },
+            {
+              "level": 3,
+              "iron": 6924800,
+              "food": 6924800,
+              "gold": 20774400,
+              "requirements": [
+                {
+                  "elementId": "weapon-training-4",
+                  "minLevel": 3
+                },
+                {
+                  "elementId": "defense-training-4",
+                  "minLevel": 3
+                }
+              ],
+              "techCenterLevel": 19,
+              "researchTime": "7d 11:40:00"
+            },
+            {
+              "level": 4,
+              "iron": 6924800,
+              "food": 6924800,
+              "gold": 20774400,
+              "requirements": [
+                {
+                  "elementId": "weapon-training-4",
+                  "minLevel": 4
+                },
+                {
+                  "elementId": "defense-training-4",
+                  "minLevel": 4
+                }
+              ],
+              "techCenterLevel": 19,
+              "researchTime": "7d 11:40:00"
+            },
+            {
+              "level": 5,
+              "iron": 8309700,
+              "food": 8309700,
+              "gold": 24929200,
+              "requirements": [
+                {
+                  "elementId": "weapon-training-4",
+                  "minLevel": 5
+                },
+                {
+                  "elementId": "defense-training-4",
+                  "minLevel": 5
+                }
+              ],
+              "techCenterLevel": 20,
+              "researchTime": "11d 05:30:00"
+            }
+          ]
+        }
+      ],
+      "connections": [
+        {
+          "from": "advanced-armor-4",
+          "to": [
+            "load-training-4"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "row-12",
+      "elements": [
+        {
+          "id": "load-training-4",
+          "name": "Load Training IV",
+          "image": "/images/tech/units/load-training.png",
+          "maxLevel": 5,
+          "currentLevel": 0,
+          "levels": [
+            {
+              "level": 1,
+              "iron": 3043900,
+              "food": 3043900,
+              "gold": 9131600,
+              "requirements": [
+                {
+                  "elementId": "advanced-armor-4",
+                  "minLevel": 1
+                }
+              ],
+              "techCenterLevel": 17,
+              "researchTime": "2d 18:04:00"
+            },
+            {
+              "level": 2,
+              "iron": 3957000,
+              "food": 3957000,
+              "gold": 11871100,
+              "requirements": [
+                {
+                  "elementId": "advanced-armor-4",
+                  "minLevel": 2
+                }
+              ],
+              "techCenterLevel": 18,
+              "researchTime": "4d 16:18:00"
+            },
+            {
+              "level": 3,
+              "iron": 6924800,
+              "food": 6924800,
+              "gold": 20774400,
+              "requirements": [
+                {
+                  "elementId": "advanced-armor-4",
+                  "minLevel": 3
+                }
+              ],
+              "techCenterLevel": 19,
+              "researchTime": "7d 11:40:00"
+            },
+            {
+              "level": 4,
+              "iron": 6924800,
+              "food": 6924800,
+              "gold": 20774400,
+              "requirements": [
+                {
+                  "elementId": "advanced-armor-4",
+                  "minLevel": 4
+                }
+              ],
+              "techCenterLevel": 19,
+              "researchTime": "7d 11:40:00"
+            },
+            {
+              "level": 5,
+              "iron": 8309700,
+              "food": 8309700,
+              "gold": 24929200,
+              "requirements": [
+                {
+                  "elementId": "advanced-armor-4",
+                  "minLevel": 5
+                }
+              ],
+              "techCenterLevel": 20,
+              "researchTime": "11d 05:30:00"
+            }
+          ]
+        }
+      ],
+      "connections": [
+        {
+          "from": "load-training-4",
+          "to": [
+            "weapon-training-5",
+            "defense-training-5"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "row-13",
+      "elements": [
+        {
+          "id": "weapon-training-5",
+          "name": "Weapon Training V",
+          "image": "/images/tech/units/weapon-training.png",
+          "maxLevel": 5,
+          "currentLevel": 0,
+          "levels": [
+            {
+              "level": 1,
+              "iron": 8309700,
+              "food": 8309700,
+              "gold": 24929200,
+              "requirements": [
+                {
+                  "elementId": "load-training-4",
+                  "minLevel": 5
+                }
+              ],
+              "techCenterLevel": 20,
+              "researchTime": "11d 05:30:00"
+            },
+            {
+              "level": 2,
+              "iron": 20940600,
+              "food": 20940600,
+              "gold": 62821700,
+              "requirements": [],
+              "techCenterLevel": 22,
+              "researchTime": "22d 00:14:00"
+            },
+            {
+              "level": 3,
+              "iron": 34028400,
+              "food": 34028400,
+              "gold": 102085200,
+              "requirements": [],
+              "techCenterLevel": 24,
+              "researchTime": "37d 04:42:00"
+            },
+            {
+              "level": 4,
+              "iron": 72310400,
+              "food": 72310400,
+              "gold": 216931200,
+              "requirements": [],
+              "techCenterLevel": 26,
+              "researchTime": "53d 13:29:00"
+            },
+            {
+              "level": 5,
+              "iron": 131604900,
+              "food": 131604900,
+              "gold": 394814700,
+              "requirements": [],
+              "techCenterLevel": 28,
+              "researchTime": "77d 03:06:00"
+            }
+          ]
+        },
+        {
+          "id": "defense-training-5",
+          "name": "Defense Training V",
+          "image": "/images/tech/units/defense-training.png",
+          "maxLevel": 5,
+          "currentLevel": 0,
+          "levels": [
+            {
+              "level": 1,
+              "iron": 8309700,
+              "food": 8309700,
+              "gold": 24929200,
+              "requirements": [
+                {
+                  "elementId": "load-training-4",
+                  "minLevel": 5
+                }
+              ],
+              "techCenterLevel": 20,
+              "researchTime": "11d 05:30:00"
+            },
+            {
+              "level": 2,
+              "iron": 20940600,
+              "food": 20940600,
+              "gold": 62821700,
+              "requirements": [],
+              "techCenterLevel": 22,
+              "researchTime": "22d 00:14:00"
+            },
+            {
+              "level": 3,
+              "iron": 34028400,
+              "food": 34028400,
+              "gold": 102085200,
+              "requirements": [],
+              "techCenterLevel": 24,
+              "researchTime": "37d 04:42:00"
+            },
+            {
+              "level": 4,
+              "iron": 72310400,
+              "food": 72310400,
+              "gold": 216931200,
+              "requirements": [],
+              "techCenterLevel": 26,
+              "researchTime": "53d 13:29:00"
+            },
+            {
+              "level": 5,
+              "iron": 131604900,
+              "food": 131604900,
+              "gold": 394814700,
+              "requirements": [],
+              "techCenterLevel": 28,
+              "researchTime": "77d 03:06:00"
+            }
+          ]
+        }
+      ],
+      "connections": [
+        {
+          "from": "weapon-training-5",
+          "to": [
+            "advanced-armor-5"
+          ]
+        },
+        {
+          "from": "defense-training-5",
+          "to": [
+            "advanced-armor-5"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "row-14",
+      "elements": [
+        {
+          "id": "advanced-armor-5",
+          "name": "Advanced Armor V",
+          "image": "/images/tech/units/advanced-armor.png",
+          "maxLevel": 5,
+          "currentLevel": 0,
+          "levels": [
+            {
+              "level": 1,
+              "iron": 14957500,
+              "food": 14957500,
+              "gold": 44872600,
+              "requirements": [
+                {
+                  "elementId": "weapon-training-5",
+                  "minLevel": 1
+                },
+                {
+                  "elementId": "defense-training-5",
+                  "minLevel": 1
+                }
+              ],
+              "techCenterLevel": 21,
+              "researchTime": "15d 17:18:00"
+            },
+            {
+              "level": 2,
+              "iron": 27222700,
+              "food": 27222700,
+              "gold": 81668200,
+              "requirements": [
+                {
+                  "elementId": "weapon-training-5",
+                  "minLevel": 2
+                },
+                {
+                  "elementId": "defense-training-5",
+                  "minLevel": 2
+                }
+              ],
+              "techCenterLevel": 23,
+              "researchTime": "28d 14:42:00"
+            },
+            {
+              "level": 3,
+              "iron": 42535500,
+              "food": 42535500,
+              "gold": 127606600,
+              "requirements": [
+                {
+                  "elementId": "weapon-training-5",
+                  "minLevel": 3
+                },
+                {
+                  "elementId": "defense-training-5",
+                  "minLevel": 3
+                }
+              ],
+              "techCenterLevel": 25,
+              "researchTime": "44d 15:14:00"
+            },
+            {
+              "level": 4,
+              "iron": 101234500,
+              "food": 101234500,
+              "gold": 303703600,
+              "requirements": [
+                {
+                  "elementId": "weapon-training-5",
+                  "minLevel": 4
+                },
+                {
+                  "elementId": "defense-training-5",
+                  "minLevel": 4
+                }
+              ],
+              "techCenterLevel": 27,
+              "researchTime": "64d 06:35:00"
+            },
+            {
+              "level": 5,
+              "iron": 184246900,
+              "food": 184246900,
+              "gold": 552740600,
+              "requirements": [
+                {
+                  "elementId": "weapon-training-5",
+                  "minLevel": 5
+                },
+                {
+                  "elementId": "defense-training-5",
+                  "minLevel": 5
+                }
+              ],
+              "techCenterLevel": 29,
+              "researchTime": "92d 13:19:00"
+            }
+          ]
+        }
+      ],
+      "connections": [
+        {
+          "from": "advanced-armor-5",
+          "to": [
+            "load-training-5"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "row-15",
+      "elements": [
+        {
+          "id": "load-training-5",
+          "name": "Load Training V",
+          "image": "/images/tech/units/load-training.png",
+          "maxLevel": 5,
+          "currentLevel": 0,
+          "levels": [
+            {
+              "level": 1,
+              "iron": 20940600,
+              "food": 20940600,
+              "gold": 62821700,
+              "requirements": [
+                {
+                  "elementId": "advanced-armor-5",
+                  "minLevel": 1
+                }
+              ],
+              "techCenterLevel": 22,
+              "researchTime": "22d 00:14:00"
+            },
+            {
+              "level": 2,
+              "iron": 34028400,
+              "food": 34028400,
+              "gold": 102085200,
+              "requirements": [
+                {
+                  "elementId": "advanced-armor-5",
+                  "minLevel": 2
+                }
+              ],
+              "techCenterLevel": 24,
+              "researchTime": "37d 04:42:00"
+            },
+            {
+              "level": 3,
+              "iron": 72310400,
+              "food": 72310400,
+              "gold": 216931200,
+              "requirements": [
+                {
+                  "elementId": "advanced-armor-5",
+                  "minLevel": 3
+                }
+              ],
+              "techCenterLevel": 26,
+              "researchTime": "53d 13:29:00"
+            },
+            {
+              "level": 4,
+              "iron": 131604900,
+              "food": 131604900,
+              "gold": 394814700,
+              "requirements": [
+                {
+                  "elementId": "advanced-armor-5",
+                  "minLevel": 4
+                }
+              ],
+              "techCenterLevel": 28,
+              "researchTime": "77d 03:06:00"
+            },
+            {
+              "level": 5,
+              "iron": 257945600,
+              "food": 257945600,
+              "gold": 773836800,
+              "requirements": [
+                {
+                  "elementId": "advanced-armor-5",
+                  "minLevel": 5
+                }
+              ],
+              "techCenterLevel": 30,
+              "researchTime": "111d 01:34:00"
+            }
+          ]
+        }
+      ],
+      "connections": []
+    }
+  ]
+}

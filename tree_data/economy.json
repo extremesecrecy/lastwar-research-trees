@@ -1,0 +1,2022 @@
+{
+  "name": "Economy",
+  "isComplete": true,
+  "rows": [
+    {
+      "id": "row-1",
+      "elements": [
+        {
+          "id": "food-output-1",
+          "name": "Food Output I",
+          "image": "/images/tech/economy/food-output.png",
+          "maxLevel": 5,
+          "currentLevel": 0,
+          "levels": [
+            {
+              "level": 1,
+              "iron": 500,
+              "food": 500,
+              "gold": 1500,
+              "requirements": [],
+              "techCenterLevel": 1,
+              "researchTime": "0:05:00"
+            },
+            {
+              "level": 2,
+              "iron": 1100,
+              "food": 1100,
+              "gold": 3400,
+              "requirements": [],
+              "techCenterLevel": 3,
+              "researchTime": "0:08:00"
+            },
+            {
+              "level": 3,
+              "iron": 2500,
+              "food": 2500,
+              "gold": 7600,
+              "requirements": [],
+              "techCenterLevel": 5,
+              "researchTime": "0:13:00"
+            },
+            {
+              "level": 4,
+              "iron": 15200,
+              "food": 15200,
+              "gold": 45600,
+              "requirements": [],
+              "techCenterLevel": 7,
+              "researchTime": "0:21:00"
+            },
+            {
+              "level": 5,
+              "iron": 48600,
+              "food": 48600,
+              "gold": 145800,
+              "requirements": [],
+              "techCenterLevel": 9,
+              "researchTime": "0:35:00"
+            }
+          ]
+        },
+        {
+          "id": "iron-output-1",
+          "name": "Iron Output I",
+          "image": "/images/tech/economy/iron-output.png",
+          "maxLevel": 5,
+          "currentLevel": 0,
+          "levels": [
+            {
+              "level": 1,
+              "iron": 500,
+              "food": 500,
+              "gold": 1500,
+              "requirements": [],
+              "techCenterLevel": 1,
+              "researchTime": "0:05:00"
+            },
+            {
+              "level": 2,
+              "iron": 1100,
+              "food": 1100,
+              "gold": 3400,
+              "requirements": [],
+              "techCenterLevel": 3,
+              "researchTime": "0:08:00"
+            },
+            {
+              "level": 3,
+              "iron": 2500,
+              "food": 2500,
+              "gold": 7600,
+              "requirements": [],
+              "techCenterLevel": 5,
+              "researchTime": "0:13:00"
+            },
+            {
+              "level": 4,
+              "iron": 15200,
+              "food": 15200,
+              "gold": 45600,
+              "requirements": [],
+              "techCenterLevel": 7,
+              "researchTime": "0:21:00"
+            },
+            {
+              "level": 5,
+              "iron": 48600,
+              "food": 48600,
+              "gold": 145800,
+              "requirements": [],
+              "techCenterLevel": 9,
+              "researchTime": "0:35:00"
+            }
+          ]
+        }
+      ],
+      "connections": [
+        {
+          "from": "food-output-1",
+          "to": [
+            "coin-output-1"
+          ]
+        },
+        {
+          "from": "iron-output-1",
+          "to": [
+            "coin-output-1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "row-2",
+      "elements": [
+        {
+          "id": "coin-output-1",
+          "name": "Coin Output I",
+          "image": "/images/tech/economy/coin-output.png",
+          "maxLevel": 5,
+          "currentLevel": 0,
+          "levels": [
+            {
+              "level": 1,
+              "iron": 1100,
+              "food": 1100,
+              "gold": 3400,
+              "requirements": [
+                {
+                  "elementId": "food-output-1",
+                  "minLevel": 2
+                },
+                {
+                  "elementId": "iron-output-1",
+                  "minLevel": 2
+                }
+              ],
+              "techCenterLevel": 3,
+              "researchTime": "0:08:00"
+            },
+            {
+              "level": 2,
+              "iron": 2500,
+              "food": 2500,
+              "gold": 7600,
+              "requirements": [],
+              "techCenterLevel": 5,
+              "researchTime": "0:13:00"
+            },
+            {
+              "level": 3,
+              "iron": 15200,
+              "food": 15200,
+              "gold": 45600,
+              "requirements": [],
+              "techCenterLevel": 7,
+              "researchTime": "0:21:00"
+            },
+            {
+              "level": 4,
+              "iron": 48600,
+              "food": 48600,
+              "gold": 145800,
+              "requirements": [],
+              "techCenterLevel": 9,
+              "researchTime": "0:35:00"
+            },
+            {
+              "level": 5,
+              "iron": 93300,
+              "food": 93300,
+              "gold": 279900,
+              "requirements": [],
+              "techCenterLevel": 11,
+              "researchTime": "1:08:00"
+            }
+          ]
+        }
+      ],
+      "connections": [
+        {
+          "from": "coin-output-1",
+          "to": [
+            "gathering-food-1",
+            "gathering-iron-1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "row-3",
+      "elements": [
+        {
+          "id": "gathering-food-1",
+          "name": "Gathering Food I",
+          "image": "/images/tech/economy/gathering-food.png",
+          "maxLevel": 5,
+          "currentLevel": 0,
+          "levels": [
+            {
+              "level": 1,
+              "iron": 2500,
+              "food": 2500,
+              "gold": 7600,
+              "requirements": [
+                {
+                  "elementId": "coin-output-1",
+                  "minLevel": 2
+                }
+              ],
+              "techCenterLevel": 5,
+              "researchTime": "0:13:00"
+            },
+            {
+              "level": 2,
+              "iron": 15200,
+              "food": 15200,
+              "gold": 45600,
+              "requirements": [],
+              "techCenterLevel": 7,
+              "researchTime": "0:21:00"
+            },
+            {
+              "level": 3,
+              "iron": 48600,
+              "food": 48600,
+              "gold": 145800,
+              "requirements": [],
+              "techCenterLevel": 9,
+              "researchTime": "0:35:00"
+            },
+            {
+              "level": 4,
+              "iron": 93300,
+              "food": 93300,
+              "gold": 279900,
+              "requirements": [],
+              "techCenterLevel": 11,
+              "researchTime": "1:08:00"
+            },
+            {
+              "level": 5,
+              "iron": 396600,
+              "food": 396600,
+              "gold": 1189700,
+              "requirements": [],
+              "techCenterLevel": 13,
+              "researchTime": "2:33:00"
+            }
+          ]
+        },
+        {
+          "id": "gathering-iron-1",
+          "name": "Gathering Iron I",
+          "image": "/images/tech/economy/gathering-iron.png",
+          "maxLevel": 5,
+          "currentLevel": 0,
+          "levels": [
+            {
+              "level": 1,
+              "iron": 2500,
+              "food": 2500,
+              "gold": 7600,
+              "requirements": [
+                {
+                  "elementId": "coin-output-1",
+                  "minLevel": 2
+                }
+              ],
+              "techCenterLevel": 5,
+              "researchTime": "0:13:00"
+            },
+            {
+              "level": 2,
+              "iron": 15200,
+              "food": 15200,
+              "gold": 45600,
+              "requirements": [],
+              "techCenterLevel": 7,
+              "researchTime": "0:21:00"
+            },
+            {
+              "level": 3,
+              "iron": 48600,
+              "food": 48600,
+              "gold": 145800,
+              "requirements": [],
+              "techCenterLevel": 9,
+              "researchTime": "0:35:00"
+            },
+            {
+              "level": 4,
+              "iron": 93300,
+              "food": 93300,
+              "gold": 279900,
+              "requirements": [],
+              "techCenterLevel": 11,
+              "researchTime": "1:08:00"
+            },
+            {
+              "level": 5,
+              "iron": 396600,
+              "food": 396600,
+              "gold": 1189700,
+              "requirements": [],
+              "techCenterLevel": 13,
+              "researchTime": "2:33:00"
+            }
+          ]
+        }
+      ],
+      "connections": [
+        {
+          "from": "gathering-food-1",
+          "to": [
+            "gathering-coins-1"
+          ]
+        },
+        {
+          "from": "gathering-iron-1",
+          "to": [
+            "gathering-coins-1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "row-4",
+      "elements": [
+        {
+          "id": "gathering-coins-1",
+          "name": "Gathering Coins I",
+          "image": "/images/tech/economy/gathering-coins.png",
+          "maxLevel": 5,
+          "currentLevel": 0,
+          "levels": [
+            {
+              "level": 1,
+              "iron": 15200,
+              "food": 15200,
+              "gold": 45600,
+              "requirements": [
+                {
+                  "elementId": "gathering-food-1",
+                  "minLevel": 2
+                },
+                {
+                  "elementId": "gathering-iron-1",
+                  "minLevel": 2
+                }
+              ],
+              "techCenterLevel": 7,
+              "researchTime": "0:21:00"
+            },
+            {
+              "level": 2,
+              "iron": 48600,
+              "food": 48600,
+              "gold": 145800,
+              "requirements": [],
+              "techCenterLevel": 9,
+              "researchTime": "0:35:00"
+            },
+            {
+              "level": 3,
+              "iron": 93300,
+              "food": 93300,
+              "gold": 279900,
+              "requirements": [],
+              "techCenterLevel": 11,
+              "researchTime": "1:08:00"
+            },
+            {
+              "level": 4,
+              "iron": 396600,
+              "food": 396600,
+              "gold": 1189700,
+              "requirements": [],
+              "techCenterLevel": 13,
+              "researchTime": "2:33:00"
+            },
+            {
+              "level": 5,
+              "iron": 610700,
+              "food": 610700,
+              "gold": 1832200,
+              "requirements": [],
+              "techCenterLevel": 15,
+              "researchTime": "9:40:00"
+            }
+          ]
+        }
+      ],
+      "connections": [
+        {
+          "from": "gathering-coins-1",
+          "to": [
+            "more-farmlands"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "row-5",
+      "elements": [
+        {
+          "id": "more-farmlands",
+          "name": "More Farmlands",
+          "image": "/images/buildings/farmland.png",
+          "maxLevel": 1,
+          "currentLevel": 0,
+          "levels": [
+            {
+              "level": 1,
+              "iron": 48600,
+              "food": 48600,
+              "gold": 145800,
+              "requirements": [
+                {
+                  "elementId": "gathering-coins-1",
+                  "minLevel": 2
+                }
+              ],
+              "techCenterLevel": 9,
+              "researchTime": "0:35:00"
+            }
+          ]
+        }
+      ],
+      "connections": [
+        {
+          "from": "more-farmlands",
+          "to": [
+            "food-output-2",
+            "iron-output-2"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "row-6",
+      "elements": [
+        {
+          "id": "food-output-2",
+          "name": "Food Output II",
+          "image": "/images/tech/economy/food-output.png",
+          "maxLevel": 5,
+          "currentLevel": 0,
+          "levels": [
+            {
+              "level": 1,
+              "iron": 48600,
+              "food": 48600,
+              "gold": 145800,
+              "requirements": [
+                {
+                  "elementId": "more-farmlands",
+                  "minLevel": 1
+                }
+              ],
+              "techCenterLevel": 9,
+              "researchTime": "0:35:00"
+            },
+            {
+              "level": 2,
+              "iron": 93300,
+              "food": 93300,
+              "gold": 279900,
+              "requirements": [],
+              "techCenterLevel": 11,
+              "researchTime": "1:08:00"
+            },
+            {
+              "level": 3,
+              "iron": 396600,
+              "food": 396600,
+              "gold": 1189700,
+              "requirements": [],
+              "techCenterLevel": 13,
+              "researchTime": "2:33:00"
+            },
+            {
+              "level": 4,
+              "iron": 610700,
+              "food": 610700,
+              "gold": 1832200,
+              "requirements": [],
+              "techCenterLevel": 15,
+              "researchTime": "9:40:00"
+            },
+            {
+              "level": 5,
+              "iron": 1521900,
+              "food": 1521900,
+              "gold": 4565800,
+              "requirements": [],
+              "techCenterLevel": 17,
+              "researchTime": "1d 09:02:00"
+            }
+          ]
+        },
+        {
+          "id": "iron-output-2",
+          "name": "Iron Output II",
+          "image": "/images/tech/economy/iron-output.png",
+          "maxLevel": 5,
+          "currentLevel": 0,
+          "levels": [
+            {
+              "level": 1,
+              "iron": 48600,
+              "food": 48600,
+              "gold": 145800,
+              "requirements": [
+                {
+                  "elementId": "more-farmlands",
+                  "minLevel": 1
+                }
+              ],
+              "techCenterLevel": 9,
+              "researchTime": "0:35:00"
+            },
+            {
+              "level": 2,
+              "iron": 93300,
+              "food": 93300,
+              "gold": 279900,
+              "requirements": [],
+              "techCenterLevel": 11,
+              "researchTime": "1:08:00"
+            },
+            {
+              "level": 3,
+              "iron": 396600,
+              "food": 396600,
+              "gold": 1189700,
+              "requirements": [],
+              "techCenterLevel": 13,
+              "researchTime": "2:33:00"
+            },
+            {
+              "level": 4,
+              "iron": 610700,
+              "food": 610700,
+              "gold": 1832200,
+              "requirements": [],
+              "techCenterLevel": 15,
+              "researchTime": "9:40:00"
+            },
+            {
+              "level": 5,
+              "iron": 1521900,
+              "food": 1521900,
+              "gold": 4565800,
+              "requirements": [],
+              "techCenterLevel": 17,
+              "researchTime": "1d 09:02:00"
+            }
+          ]
+        }
+      ],
+      "connections": [
+        {
+          "from": "food-output-2",
+          "to": [
+            "coin-output-2"
+          ]
+        },
+        {
+          "from": "iron-output-2",
+          "to": [
+            "coin-output-2"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "row-7",
+      "elements": [
+        {
+          "id": "coin-output-2",
+          "name": "Coin Output II",
+          "image": "/images/tech/economy/coin-output.png",
+          "maxLevel": 5,
+          "currentLevel": 0,
+          "levels": [
+            {
+              "level": 1,
+              "iron": 77800,
+              "food": 77800,
+              "gold": 233300,
+              "requirements": [
+                {
+                  "elementId": "food-output-2",
+                  "minLevel": 1
+                },
+                {
+                  "elementId": "iron-output-2",
+                  "minLevel": 1
+                }
+              ],
+              "techCenterLevel": 10,
+              "researchTime": "0:46:00"
+            },
+            {
+              "level": 2,
+              "iron": 233300,
+              "food": 233300,
+              "gold": 699800,
+              "requirements": [],
+              "techCenterLevel": 12,
+              "researchTime": "1:42:00"
+            },
+            {
+              "level": 3,
+              "iron": 436200,
+              "food": 436200,
+              "gold": 1308700,
+              "requirements": [],
+              "techCenterLevel": 14,
+              "researchTime": "4:50:00"
+            },
+            {
+              "level": 4,
+              "iron": 855000,
+              "food": 855000,
+              "gold": 2565100,
+              "requirements": [],
+              "techCenterLevel": 16,
+              "researchTime": "18:21:00"
+            },
+            {
+              "level": 5,
+              "iron": 1978500,
+              "food": 1978500,
+              "gold": 5935500,
+              "requirements": [],
+              "techCenterLevel": 18,
+              "researchTime": "2d 08:09:00"
+            }
+          ]
+        }
+      ],
+      "connections": [
+        {
+          "from": "coin-output-2",
+          "to": [
+            "gathering-food-2",
+            "gathering-iron-2"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "row-8",
+      "elements": [
+        {
+          "id": "gathering-food-2",
+          "name": "Gathering Food II",
+          "image": "/images/tech/economy/gathering-food.png",
+          "maxLevel": 5,
+          "currentLevel": 0,
+          "levels": [
+            {
+              "level": 1,
+              "iron": 77800,
+              "food": 77800,
+              "gold": 233300,
+              "requirements": [
+                {
+                  "elementId": "coin-output-2",
+                  "minLevel": 1
+                }
+              ],
+              "techCenterLevel": 10,
+              "researchTime": "0:46:00"
+            },
+            {
+              "level": 2,
+              "iron": 233300,
+              "food": 233300,
+              "gold": 699800,
+              "requirements": [],
+              "techCenterLevel": 12,
+              "researchTime": "1:42:00"
+            },
+            {
+              "level": 3,
+              "iron": 436200,
+              "food": 436200,
+              "gold": 1308700,
+              "requirements": [],
+              "techCenterLevel": 14,
+              "researchTime": "4:50:00"
+            },
+            {
+              "level": 4,
+              "iron": 855000,
+              "food": 855000,
+              "gold": 2565100,
+              "requirements": [],
+              "techCenterLevel": 16,
+              "researchTime": "18:21:00"
+            },
+            {
+              "level": 5,
+              "iron": 1978500,
+              "food": 1978500,
+              "gold": 5935500,
+              "requirements": [],
+              "techCenterLevel": 18,
+              "researchTime": "2d 08:09:00"
+            }
+          ]
+        },
+        {
+          "id": "gathering-iron-2",
+          "name": "Gathering Iron II",
+          "image": "/images/tech/economy/gathering-iron.png",
+          "maxLevel": 5,
+          "currentLevel": 0,
+          "levels": [
+            {
+              "level": 1,
+              "iron": 77800,
+              "food": 77800,
+              "gold": 233300,
+              "requirements": [
+                {
+                  "elementId": "coin-output-2",
+                  "minLevel": 1
+                }
+              ],
+              "techCenterLevel": 10,
+              "researchTime": "0:46:00"
+            },
+            {
+              "level": 2,
+              "iron": 233300,
+              "food": 233300,
+              "gold": 699800,
+              "requirements": [],
+              "techCenterLevel": 12,
+              "researchTime": "1:42:00"
+            },
+            {
+              "level": 3,
+              "iron": 436200,
+              "food": 436200,
+              "gold": 1308700,
+              "requirements": [],
+              "techCenterLevel": 14,
+              "researchTime": "4:50:00"
+            },
+            {
+              "level": 4,
+              "iron": 855000,
+              "food": 855000,
+              "gold": 2565100,
+              "requirements": [],
+              "techCenterLevel": 16,
+              "researchTime": "18:21:00"
+            },
+            {
+              "level": 5,
+              "iron": 1978500,
+              "food": 1978500,
+              "gold": 5935500,
+              "requirements": [],
+              "techCenterLevel": 18,
+              "researchTime": "2d 08:09:00"
+            }
+          ]
+        }
+      ],
+      "connections": [
+        {
+          "from": "gathering-food-2",
+          "to": [
+            "gathering-coins-2"
+          ]
+        },
+        {
+          "from": "gathering-iron-2",
+          "to": [
+            "gathering-coins-2"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "row-9",
+      "elements": [
+        {
+          "id": "gathering-coins-2",
+          "name": "Gathering Coins II",
+          "image": "/images/tech/economy/gathering-coins.png",
+          "maxLevel": 5,
+          "currentLevel": 0,
+          "levels": [
+            {
+              "level": 1,
+              "iron": 93300,
+              "food": 93300,
+              "gold": 279900,
+              "requirements": [
+                {
+                  "elementId": "gathering-food-2",
+                  "minLevel": 1
+                },
+                {
+                  "elementId": "gathering-iron-2",
+                  "minLevel": 1
+                }
+              ],
+              "techCenterLevel": 11,
+              "researchTime": "1:08:00"
+            },
+            {
+              "level": 2,
+              "iron": 396600,
+              "food": 396600,
+              "gold": 1189700,
+              "requirements": [],
+              "techCenterLevel": 13,
+              "researchTime": "2:33:00"
+            },
+            {
+              "level": 3,
+              "iron": 610700,
+              "food": 610700,
+              "gold": 1832200,
+              "requirements": [],
+              "techCenterLevel": 15,
+              "researchTime": "9:40:00"
+            },
+            {
+              "level": 4,
+              "iron": 1521900,
+              "food": 1521900,
+              "gold": 4565800,
+              "requirements": [],
+              "techCenterLevel": 17,
+              "researchTime": "1d 09:02:00"
+            },
+            {
+              "level": 5,
+              "iron": 3462400,
+              "food": 3462400,
+              "gold": 10387200,
+              "requirements": [],
+              "techCenterLevel": 19,
+              "researchTime": "3d 17:50:00"
+            }
+          ]
+        }
+      ],
+      "connections": [
+        {
+          "from": "gathering-coins-2",
+          "to": [
+            "more-iron-mines"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "row-10",
+      "elements": [
+        {
+          "id": "more-iron-mines",
+          "name": "More Iron Mines",
+          "image": "/images/buildings/iron-mine.png",
+          "maxLevel": 1,
+          "currentLevel": 0,
+          "levels": [
+            {
+              "level": 1,
+              "iron": 233300,
+              "food": 233300,
+              "gold": 699800,
+              "requirements": [
+                {
+                  "elementId": "gathering-coins-2",
+                  "minLevel": 1
+                }
+              ],
+              "techCenterLevel": 12,
+              "researchTime": "1:42:00"
+            }
+          ]
+        }
+      ],
+      "connections": [
+        {
+          "from": "more-iron-mines",
+          "to": [
+            "food-output-3",
+            "iron-output-3"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "row-11",
+      "elements": [
+        {
+          "id": "food-output-3",
+          "name": "Food Output III",
+          "image": "/images/tech/economy/food-output.png",
+          "maxLevel": 5,
+          "currentLevel": 0,
+          "levels": [
+            {
+              "level": 1,
+              "iron": 233300,
+              "food": 233300,
+              "gold": 699800,
+              "requirements": [
+                {
+                  "elementId": "more-iron-mines",
+                  "minLevel": 1
+                }
+              ],
+              "techCenterLevel": 12,
+              "researchTime": "1:42:00"
+            },
+            {
+              "level": 2,
+              "iron": 436200,
+              "food": 436200,
+              "gold": 1308700,
+              "requirements": [],
+              "techCenterLevel": 14,
+              "researchTime": "4:50:00"
+            },
+            {
+              "level": 3,
+              "iron": 855000,
+              "food": 855000,
+              "gold": 2565100,
+              "requirements": [],
+              "techCenterLevel": 16,
+              "researchTime": "18:21:00"
+            },
+            {
+              "level": 4,
+              "iron": 1978500,
+              "food": 1978500,
+              "gold": 5935500,
+              "requirements": [],
+              "techCenterLevel": 18,
+              "researchTime": "2d 08:09:00"
+            },
+            {
+              "level": 5,
+              "iron": 4154900,
+              "food": 4154900,
+              "gold": 12464600,
+              "requirements": [],
+              "techCenterLevel": 20,
+              "researchTime": "5d 14:45:00"
+            }
+          ]
+        },
+        {
+          "id": "iron-output-3",
+          "name": "Iron Output III",
+          "image": "/images/tech/economy/iron-output.png",
+          "maxLevel": 5,
+          "currentLevel": 0,
+          "levels": [
+            {
+              "level": 1,
+              "iron": 233300,
+              "food": 233300,
+              "gold": 699800,
+              "requirements": [
+                {
+                  "elementId": "more-iron-mines",
+                  "minLevel": 1
+                }
+              ],
+              "techCenterLevel": 12,
+              "researchTime": "1:42:00"
+            },
+            {
+              "level": 2,
+              "iron": 436200,
+              "food": 436200,
+              "gold": 1308700,
+              "requirements": [],
+              "techCenterLevel": 14,
+              "researchTime": "4:50:00"
+            },
+            {
+              "level": 3,
+              "iron": 855000,
+              "food": 855000,
+              "gold": 2565100,
+              "requirements": [],
+              "techCenterLevel": 16,
+              "researchTime": "18:21:00"
+            },
+            {
+              "level": 4,
+              "iron": 1978500,
+              "food": 1978500,
+              "gold": 5935500,
+              "requirements": [],
+              "techCenterLevel": 18,
+              "researchTime": "2d 08:09:00"
+            },
+            {
+              "level": 5,
+              "iron": 4154900,
+              "food": 4154900,
+              "gold": 12464600,
+              "requirements": [],
+              "techCenterLevel": 20,
+              "researchTime": "5d 14:45:00"
+            }
+          ]
+        }
+      ],
+      "connections": [
+        {
+          "from": "food-output-3",
+          "to": [
+            "coin-output-3"
+          ]
+        },
+        {
+          "from": "iron-output-3",
+          "to": [
+            "coin-output-3"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "row-12",
+      "elements": [
+        {
+          "id": "coin-output-3",
+          "name": "Coin Output III",
+          "image": "/images/tech/economy/coin-output.png",
+          "maxLevel": 5,
+          "currentLevel": 0,
+          "levels": [
+            {
+              "level": 1,
+              "iron": 396600,
+              "food": 396600,
+              "gold": 1189700,
+              "requirements": [
+                {
+                  "elementId": "food-output-3",
+                  "minLevel": 1
+                },
+                {
+                  "elementId": "iron-output-3",
+                  "minLevel": 1
+                }
+              ],
+              "techCenterLevel": 13,
+              "researchTime": "2:33:00"
+            },
+            {
+              "level": 2,
+              "iron": 610700,
+              "food": 610700,
+              "gold": 1832200,
+              "requirements": [],
+              "techCenterLevel": 15,
+              "researchTime": "9:40:00"
+            },
+            {
+              "level": 3,
+              "iron": 1521900,
+              "food": 1521900,
+              "gold": 4565800,
+              "requirements": [],
+              "techCenterLevel": 17,
+              "researchTime": "1d 09:02:00"
+            },
+            {
+              "level": 4,
+              "iron": 3462400,
+              "food": 3462400,
+              "gold": 10387200,
+              "requirements": [],
+              "techCenterLevel": 19,
+              "researchTime": "3d 17:50:00"
+            },
+            {
+              "level": 5,
+              "iron": 7478800,
+              "food": 7478800,
+              "gold": 22436300,
+              "requirements": [],
+              "techCenterLevel": 21,
+              "researchTime": "7d 20:39:00"
+            }
+          ]
+        }
+      ],
+      "connections": [
+        {
+          "from": "coin-output-3",
+          "to": [
+            "gathering-food-3",
+            "gathering-iron-3"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "row-13",
+      "elements": [
+        {
+          "id": "gathering-food-3",
+          "name": "Gathering Food III",
+          "image": "/images/tech/economy/gathering-food.png",
+          "maxLevel": 5,
+          "currentLevel": 0,
+          "levels": [
+            {
+              "level": 1,
+              "iron": 396600,
+              "food": 396600,
+              "gold": 1189700,
+              "requirements": [
+                {
+                  "elementId": "coin-output-3",
+                  "minLevel": 1
+                }
+              ],
+              "techCenterLevel": 13,
+              "researchTime": "2:33:00"
+            },
+            {
+              "level": 2,
+              "iron": 610700,
+              "food": 610700,
+              "gold": 1832200,
+              "requirements": [],
+              "techCenterLevel": 15,
+              "researchTime": "9:40:00"
+            },
+            {
+              "level": 3,
+              "iron": 1521900,
+              "food": 1521900,
+              "gold": 4565800,
+              "requirements": [],
+              "techCenterLevel": 17,
+              "researchTime": "1d 09:02:00"
+            },
+            {
+              "level": 4,
+              "iron": 3462400,
+              "food": 3462400,
+              "gold": 10387200,
+              "requirements": [],
+              "techCenterLevel": 19,
+              "researchTime": "3d 17:50:00"
+            },
+            {
+              "level": 5,
+              "iron": 7478800,
+              "food": 7478800,
+              "gold": 22436300,
+              "requirements": [],
+              "techCenterLevel": 21,
+              "researchTime": "7d 20:39:00"
+            }
+          ]
+        },
+        {
+          "id": "gathering-iron-3",
+          "name": "Gathering Iron III",
+          "image": "/images/tech/economy/gathering-iron.png",
+          "maxLevel": 5,
+          "currentLevel": 0,
+          "levels": [
+            {
+              "level": 1,
+              "iron": 396600,
+              "food": 396600,
+              "gold": 1189700,
+              "requirements": [
+                {
+                  "elementId": "coin-output-3",
+                  "minLevel": 1
+                }
+              ],
+              "techCenterLevel": 13,
+              "researchTime": "2:33:00"
+            },
+            {
+              "level": 2,
+              "iron": 610700,
+              "food": 610700,
+              "gold": 1832200,
+              "requirements": [],
+              "techCenterLevel": 15,
+              "researchTime": "9:40:00"
+            },
+            {
+              "level": 3,
+              "iron": 1521900,
+              "food": 1521900,
+              "gold": 4565800,
+              "requirements": [],
+              "techCenterLevel": 17,
+              "researchTime": "1d 09:02:00"
+            },
+            {
+              "level": 4,
+              "iron": 3462400,
+              "food": 3462400,
+              "gold": 10387200,
+              "requirements": [],
+              "techCenterLevel": 19,
+              "researchTime": "3d 17:50:00"
+            },
+            {
+              "level": 5,
+              "iron": 7478800,
+              "food": 7478800,
+              "gold": 22436300,
+              "requirements": [],
+              "techCenterLevel": 21,
+              "researchTime": "7d 20:39:00"
+            }
+          ]
+        }
+      ],
+      "connections": [
+        {
+          "from": "gathering-food-3",
+          "to": [
+            "gathering-coins-3"
+          ]
+        },
+        {
+          "from": "gathering-iron-3",
+          "to": [
+            "gathering-coins-3"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "row-14",
+      "elements": [
+        {
+          "id": "gathering-coins-3",
+          "name": "Gathering Coins III",
+          "image": "/images/tech/economy/gathering-coins.png",
+          "maxLevel": 5,
+          "currentLevel": 0,
+          "levels": [
+            {
+              "level": 1,
+              "iron": 436200,
+              "food": 436200,
+              "gold": 1308700,
+              "requirements": [
+                {
+                  "elementId": "gathering-food-3",
+                  "minLevel": 1
+                },
+                {
+                  "elementId": "gathering-iron-3",
+                  "minLevel": 1
+                }
+              ],
+              "techCenterLevel": 14,
+              "researchTime": "4:50:00"
+            },
+            {
+              "level": 2,
+              "iron": 855000,
+              "food": 855000,
+              "gold": 2565100,
+              "requirements": [],
+              "techCenterLevel": 16,
+              "researchTime": "18:21:00"
+            },
+            {
+              "level": 3,
+              "iron": 1978500,
+              "food": 1978500,
+              "gold": 5935500,
+              "requirements": [],
+              "techCenterLevel": 18,
+              "researchTime": "2d 08:09:00"
+            },
+            {
+              "level": 4,
+              "iron": 4154900,
+              "food": 4154900,
+              "gold": 12464600,
+              "requirements": [],
+              "techCenterLevel": 20,
+              "researchTime": "5d 14:45:00"
+            },
+            {
+              "level": 5,
+              "iron": 10470300,
+              "food": 10470300,
+              "gold": 31410800,
+              "requirements": [],
+              "techCenterLevel": 22,
+              "researchTime": "11d 00:07:00"
+            }
+          ]
+        }
+      ],
+      "connections": [
+        {
+          "from": "gathering-coins-3",
+          "to": [
+            "more-gold-mines"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "row-15",
+      "elements": [
+        {
+          "id": "more-gold-mines",
+          "name": "More Gold Mines",
+          "image": "/images/buildings/gold-mine.png",
+          "maxLevel": 1,
+          "currentLevel": 0,
+          "levels": [
+            {
+              "level": 1,
+              "iron": 610700,
+              "food": 610700,
+              "gold": 1832200,
+              "requirements": [
+                {
+                  "elementId": "gathering-coins-3",
+                  "minLevel": 1
+                }
+              ],
+              "techCenterLevel": 15,
+              "researchTime": "9:40:00"
+            }
+          ]
+        }
+      ],
+      "connections": [
+        {
+          "from": "more-gold-mines",
+          "to": [
+            "food-output-4",
+            "iron-output-4"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "row-16",
+      "elements": [
+        {
+          "id": "food-output-4",
+          "name": "Food Output IV",
+          "image": "/images/tech/economy/food-output.png",
+          "maxLevel": 5,
+          "currentLevel": 0,
+          "levels": [
+            {
+              "level": 1,
+              "iron": 610700,
+              "food": 610700,
+              "gold": 1832200,
+              "requirements": [
+                {
+                  "elementId": "more-gold-mines",
+                  "minLevel": 1
+                }
+              ],
+              "techCenterLevel": 15,
+              "researchTime": "9:40:00"
+            },
+            {
+              "level": 2,
+              "iron": 1521900,
+              "food": 1521900,
+              "gold": 4565800,
+              "requirements": [],
+              "techCenterLevel": 17,
+              "researchTime": "1d 09:02:00"
+            },
+            {
+              "level": 3,
+              "iron": 3462400,
+              "food": 3462400,
+              "gold": 10387200,
+              "requirements": [],
+              "techCenterLevel": 19,
+              "researchTime": "3d 17:50:00"
+            },
+            {
+              "level": 4,
+              "iron": 7478800,
+              "food": 7478800,
+              "gold": 22436300,
+              "requirements": [],
+              "techCenterLevel": 21,
+              "researchTime": "7d 20:39:00"
+            },
+            {
+              "level": 5,
+              "iron": 13611400,
+              "food": 13611400,
+              "gold": 40834100,
+              "requirements": [],
+              "techCenterLevel": 23,
+              "researchTime": "14d 07:21:00"
+            }
+          ]
+        },
+        {
+          "id": "iron-output-4",
+          "name": "Iron Output IV",
+          "image": "/images/tech/economy/iron-output.png",
+          "maxLevel": 5,
+          "currentLevel": 0,
+          "levels": [
+            {
+              "level": 1,
+              "iron": 610700,
+              "food": 610700,
+              "gold": 1832200,
+              "requirements": [
+                {
+                  "elementId": "more-gold-mines",
+                  "minLevel": 1
+                }
+              ],
+              "techCenterLevel": 15,
+              "researchTime": "9:40:00"
+            },
+            {
+              "level": 2,
+              "iron": 1521900,
+              "food": 1521900,
+              "gold": 4565800,
+              "requirements": [],
+              "techCenterLevel": 17,
+              "researchTime": "1d 09:02:00"
+            },
+            {
+              "level": 3,
+              "iron": 3462400,
+              "food": 3462400,
+              "gold": 10387200,
+              "requirements": [],
+              "techCenterLevel": 19,
+              "researchTime": "3d 17:50:00"
+            },
+            {
+              "level": 4,
+              "iron": 7478800,
+              "food": 7478800,
+              "gold": 22436300,
+              "requirements": [],
+              "techCenterLevel": 21,
+              "researchTime": "7d 20:39:00"
+            },
+            {
+              "level": 5,
+              "iron": 13611400,
+              "food": 13611400,
+              "gold": 40834100,
+              "requirements": [],
+              "techCenterLevel": 23,
+              "researchTime": "14d 07:21:00"
+            }
+          ]
+        }
+      ],
+      "connections": [
+        {
+          "from": "food-output-4",
+          "to": [
+            "coin-output-4"
+          ]
+        },
+        {
+          "from": "iron-output-4",
+          "to": [
+            "coin-output-4"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "row-17",
+      "elements": [
+        {
+          "id": "coin-output-4",
+          "name": "Coin Output IV",
+          "image": "/images/tech/economy/coin-output.png",
+          "maxLevel": 5,
+          "currentLevel": 0,
+          "levels": [
+            {
+              "level": 1,
+              "iron": 855000,
+              "food": 855000,
+              "gold": 2565100,
+              "requirements": [
+                {
+                  "elementId": "food-output-4",
+                  "minLevel": 1
+                },
+                {
+                  "elementId": "iron-output-4",
+                  "minLevel": 1
+                }
+              ],
+              "techCenterLevel": 16,
+              "researchTime": "18:21:00"
+            },
+            {
+              "level": 2,
+              "iron": 1978500,
+              "food": 1978500,
+              "gold": 5935500,
+              "requirements": [],
+              "techCenterLevel": 18,
+              "researchTime": "2d 08:09:00"
+            },
+            {
+              "level": 3,
+              "iron": 4154900,
+              "food": 4154900,
+              "gold": 12464600,
+              "requirements": [],
+              "techCenterLevel": 20,
+              "researchTime": "5d 14:45:00"
+            },
+            {
+              "level": 4,
+              "iron": 10470300,
+              "food": 10470300,
+              "gold": 31410800,
+              "requirements": [],
+              "techCenterLevel": 22,
+              "researchTime": "11d 00:07:00"
+            },
+            {
+              "level": 5,
+              "iron": 17014200,
+              "food": 17014200,
+              "gold": 51042600,
+              "requirements": [],
+              "techCenterLevel": 24,
+              "researchTime": "18d 14:21:00"
+            }
+          ]
+        }
+      ],
+      "connections": [
+        {
+          "from": "coin-output-4",
+          "to": [
+            "gathering-food-4",
+            "gathering-iron-4"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "row-18",
+      "elements": [
+        {
+          "id": "gathering-food-4",
+          "name": "Gathering Food IV",
+          "image": "/images/tech/economy/gathering-food.png",
+          "maxLevel": 5,
+          "currentLevel": 0,
+          "levels": [
+            {
+              "level": 1,
+              "iron": 855000,
+              "food": 855000,
+              "gold": 2565100,
+              "requirements": [
+                {
+                  "elementId": "coin-output-4",
+                  "minLevel": 1
+                }
+              ],
+              "techCenterLevel": 16,
+              "researchTime": "18:21:00"
+            },
+            {
+              "level": 2,
+              "iron": 1978500,
+              "food": 1978500,
+              "gold": 5935500,
+              "requirements": [],
+              "techCenterLevel": 18,
+              "researchTime": "2d 08:09:00"
+            },
+            {
+              "level": 3,
+              "iron": 4154900,
+              "food": 4154900,
+              "gold": 12464600,
+              "requirements": [],
+              "techCenterLevel": 20,
+              "researchTime": "5d 14:45:00"
+            },
+            {
+              "level": 4,
+              "iron": 10470300,
+              "food": 10470300,
+              "gold": 31410800,
+              "requirements": [],
+              "techCenterLevel": 22,
+              "researchTime": "11d 00:07:00"
+            },
+            {
+              "level": 5,
+              "iron": 17014200,
+              "food": 17014200,
+              "gold": 51042600,
+              "requirements": [],
+              "techCenterLevel": 24,
+              "researchTime": "18d 14:21:00"
+            }
+          ]
+        },
+        {
+          "id": "gathering-iron-4",
+          "name": "Gathering Iron IV",
+          "image": "/images/tech/economy/gathering-iron.png",
+          "maxLevel": 5,
+          "currentLevel": 0,
+          "levels": [
+            {
+              "level": 1,
+              "iron": 855000,
+              "food": 855000,
+              "gold": 2565100,
+              "requirements": [
+                {
+                  "elementId": "coin-output-4",
+                  "minLevel": 1
+                }
+              ],
+              "techCenterLevel": 16,
+              "researchTime": "18:21:00"
+            },
+            {
+              "level": 2,
+              "iron": 1978500,
+              "food": 1978500,
+              "gold": 5935500,
+              "requirements": [],
+              "techCenterLevel": 18,
+              "researchTime": "2d 08:09:00"
+            },
+            {
+              "level": 3,
+              "iron": 4154900,
+              "food": 4154900,
+              "gold": 12464600,
+              "requirements": [],
+              "techCenterLevel": 20,
+              "researchTime": "5d 14:45:00"
+            },
+            {
+              "level": 4,
+              "iron": 10470300,
+              "food": 10470300,
+              "gold": 31410800,
+              "requirements": [],
+              "techCenterLevel": 22,
+              "researchTime": "11d 00:07:00"
+            },
+            {
+              "level": 5,
+              "iron": 17014200,
+              "food": 17014200,
+              "gold": 51042600,
+              "requirements": [],
+              "techCenterLevel": 24,
+              "researchTime": "18d 14:21:00"
+            }
+          ]
+        }
+      ],
+      "connections": [
+        {
+          "from": "gathering-food-4",
+          "to": [
+            "gathering-coins-4"
+          ]
+        },
+        {
+          "from": "gathering-iron-4",
+          "to": [
+            "gathering-coins-4"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "row-19",
+      "elements": [
+        {
+          "id": "gathering-coins-4",
+          "name": "Gathering Coins IV",
+          "image": "/images/tech/economy/gathering-coins.png",
+          "maxLevel": 5,
+          "currentLevel": 0,
+          "levels": [
+            {
+              "level": 1,
+              "iron": 1521900,
+              "food": 1521900,
+              "gold": 4565800,
+              "requirements": [
+                {
+                  "elementId": "gathering-food-4",
+                  "minLevel": 1
+                },
+                {
+                  "elementId": "gathering-iron-4",
+                  "minLevel": 1
+                }
+              ],
+              "techCenterLevel": 17,
+              "researchTime": "1d 09:02:00"
+            },
+            {
+              "level": 2,
+              "iron": 3462400,
+              "food": 3462400,
+              "gold": 10387200,
+              "requirements": [],
+              "techCenterLevel": 19,
+              "researchTime": "3d 17:50:00"
+            },
+            {
+              "level": 3,
+              "iron": 7478800,
+              "food": 7478800,
+              "gold": 22436300,
+              "requirements": [],
+              "techCenterLevel": 21,
+              "researchTime": "7d 20:39:00"
+            },
+            {
+              "level": 4,
+              "iron": 13611400,
+              "food": 13611400,
+              "gold": 40834100,
+              "requirements": [],
+              "techCenterLevel": 23,
+              "researchTime": "14d 07:21:00"
+            },
+            {
+              "level": 5,
+              "iron": 21267800,
+              "food": 21267800,
+              "gold": 63803300,
+              "requirements": [],
+              "techCenterLevel": 25,
+              "researchTime": "22d 07:37:00"
+            }
+          ]
+        }
+      ],
+      "connections": [
+        {
+          "from": "gathering-coins-4",
+          "to": [
+            "food-protection",
+            "iron-protection"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "row-20",
+      "elements": [
+        {
+          "id": "food-protection",
+          "name": "Food Protection",
+          "image": "/images/buildings/food-warehouse.png",
+          "maxLevel": 5,
+          "currentLevel": 0,
+          "levels": [
+            {
+              "level": 1,
+              "iron": 1978500,
+              "food": 1978500,
+              "gold": 5935500,
+              "requirements": [
+                {
+                  "elementId": "gathering-coins-4",
+                  "minLevel": 1
+                }
+              ],
+              "techCenterLevel": 18,
+              "researchTime": "2d 08:09:00"
+            },
+            {
+              "level": 2,
+              "iron": 4154900,
+              "food": 4154900,
+              "gold": 12464600,
+              "requirements": [],
+              "techCenterLevel": 20,
+              "researchTime": "5d 14:45:00"
+            },
+            {
+              "level": 3,
+              "iron": 10470300,
+              "food": 10470300,
+              "gold": 31410800,
+              "requirements": [],
+              "techCenterLevel": 22,
+              "researchTime": "11d 00:07:00"
+            },
+            {
+              "level": 4,
+              "iron": 17014200,
+              "food": 17014200,
+              "gold": 51042600,
+              "requirements": [],
+              "techCenterLevel": 24,
+              "researchTime": "18d 14:21:00"
+            },
+            {
+              "level": 5,
+              "iron": 36155200,
+              "food": 36155200,
+              "gold": 108465600,
+              "requirements": [],
+              "techCenterLevel": 26,
+              "researchTime": "26d 18:45:00"
+            }
+          ]
+        },
+        {
+          "id": "iron-protection",
+          "name": "Iron Protection",
+          "image": "/images/buildings/iron-warehouse.png",
+          "maxLevel": 5,
+          "currentLevel": 0,
+          "levels": [
+            {
+              "level": 1,
+              "iron": 1978500,
+              "food": 1978500,
+              "gold": 5935500,
+              "requirements": [
+                {
+                  "elementId": "gathering-coins-4",
+                  "minLevel": 1
+                }
+              ],
+              "techCenterLevel": 18,
+              "researchTime": "2d 08:09:00"
+            },
+            {
+              "level": 2,
+              "iron": 4154900,
+              "food": 4154900,
+              "gold": 12464600,
+              "requirements": [],
+              "techCenterLevel": 20,
+              "researchTime": "5d 14:45:00"
+            },
+            {
+              "level": 3,
+              "iron": 10470300,
+              "food": 10470300,
+              "gold": 31410800,
+              "requirements": [],
+              "techCenterLevel": 22,
+              "researchTime": "11d 00:07:00"
+            },
+            {
+              "level": 4,
+              "iron": 17014200,
+              "food": 17014200,
+              "gold": 51042600,
+              "requirements": [],
+              "techCenterLevel": 24,
+              "researchTime": "18d 14:21:00"
+            },
+            {
+              "level": 5,
+              "iron": 36155200,
+              "food": 36155200,
+              "gold": 108465600,
+              "requirements": [],
+              "techCenterLevel": 26,
+              "researchTime": "26d 18:45:00"
+            }
+          ]
+        }
+      ],
+      "connections": [
+        {
+          "from": "food-protection",
+          "to": [
+            "coin-protection"
+          ]
+        },
+        {
+          "from": "iron-protection",
+          "to": [
+            "coin-protection"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "row-21",
+      "elements": [
+        {
+          "id": "coin-protection",
+          "name": "Coin Protection",
+          "image": "/images/buildings/coin-vault.png",
+          "maxLevel": 5,
+          "currentLevel": 0,
+          "levels": [
+            {
+              "level": 1,
+              "iron": 3462400,
+              "food": 3462400,
+              "gold": 10387200,
+              "requirements": [
+                {
+                  "elementId": "food-protection",
+                  "minLevel": 1
+                },
+                {
+                  "elementId": "iron-protection",
+                  "minLevel": 1
+                }
+              ],
+              "techCenterLevel": 19,
+              "researchTime": "3d 17:50:00"
+            },
+            {
+              "level": 2,
+              "iron": 7478800,
+              "food": 7478800,
+              "gold": 22436300,
+              "requirements": [],
+              "techCenterLevel": 21,
+              "researchTime": "7d 20:39:00"
+            },
+            {
+              "level": 3,
+              "iron": 13611400,
+              "food": 13611400,
+              "gold": 40834100,
+              "requirements": [],
+              "techCenterLevel": 23,
+              "researchTime": "14d 07:21:00"
+            },
+            {
+              "level": 4,
+              "iron": 21267800,
+              "food": 21267800,
+              "gold": 63803300,
+              "requirements": [],
+              "techCenterLevel": 25,
+              "researchTime": "22d 07:37:00"
+            },
+            {
+              "level": 5,
+              "iron": 50617300,
+              "food": 50617300,
+              "gold": 151851800,
+              "requirements": [],
+              "techCenterLevel": 27,
+              "researchTime": "32d 03:18:00"
+            }
+          ]
+        }
+      ],
+      "connections": []
+    }
+  ]
+}

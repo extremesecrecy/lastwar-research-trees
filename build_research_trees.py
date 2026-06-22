@@ -21,8 +21,8 @@ OUTPUT = os.path.join(SCRIPT_DIR, 'research_trees_visual.html')
 RECOMMENDED_PATH_FILE = os.path.join(SCRIPT_DIR, 'recommended_path.json')
 
 BAND1 = ['alliance-duel', 'defense-fortifications', 'siege-to-seize',
-         'intercity-truck', 'special-forces']
-BAND2 = ['development', 'hero', 'squad-1', 'squad-2', 'squad-3', 'squad-4']
+         'intercity-truck', 'special-forces', 'economy']
+BAND2 = ['development', 'units', 'hero', 'squad-1', 'squad-2', 'squad-3', 'squad-4']
 BAND3 = ['tank-mastery', 'aircraft-mastery', 'missile-mastery',
          'age-of-oil', 'tactical-weapon']
 
@@ -43,6 +43,8 @@ DISPLAY_NAMES = {
     'missile-mastery': 'Missile Mastery',
     'age-of-oil': 'The Age of Oil',
     'tactical-weapon': 'Tactical Weapon',
+    'units': 'Units',
+    'economy': 'Economy',
 }
 
 # === TRANSLATIONS (ES) ===
@@ -73,6 +75,8 @@ TRANSLATIONS_ES = {
     'tree_missile-mastery': 'Maestria de Misil',
     'tree_age-of-oil': 'La Era del Petroleo',
     'tree_tactical-weapon': 'Arma Tactica',
+    'tree_units': 'Unidades',
+    'tree_economy': 'Economia',
 
     # Dashboard
     'btn_dashboard': 'Panel General',
