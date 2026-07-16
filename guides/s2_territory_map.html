@@ -2146,6 +2146,9 @@ async function loadState() {
     console.log('[Storage] Loaded from localStorage');
   }
   if (data) applyStateData(data);
+  // Blank first visit: still initialize the day timeline (Day 1 + '+ New Day')
+  ensureDays();
+  if (typeof rebuildDayDropdown === 'function') rebuildDayDropdown();
   updatePhaseLabel();
   updateStatusBar();
 }
