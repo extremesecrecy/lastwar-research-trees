@@ -1,0 +1,2793 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <link rel="icon" href="../crayon.png">
+  <title>S2 Territory Map Builder — Polar Storm</title>
+  <style>
+/* Navigation Bar (standard RGBB nav — required by ../nav.js) */
+.guide-nav { display: flex; flex-wrap: wrap; gap: 4px 12px; padding: 6px 16px;
+  background: #eef6f3; border-bottom: 2px solid #7fb3a8; font-size: 13px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+.guide-nav a { color: #5a6a6a; text-decoration: none; padding: 2px 6px;
+  border-radius: 3px; white-space: nowrap; }
+.guide-nav a:hover { color: #f4a261; background: #fff; }
+.guide-nav a.current { color: #fff; background: #7fb3a8; font-weight: 600; }
+
+@import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&display=swap');
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+/* User bar */
+.user-bar {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 4px 12px;
+  background: #5a6a6a;
+  color: #ccc;
+  font-size: 12px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+.user-bar .role-tag {
+  background: #7fb3a8;
+  color: #fff;
+  padding: 1px 7px;
+  border-radius: 10px;
+  font-size: 10px;
+  text-transform: uppercase;
+}
+.user-bar .role-tag.owner { background: #f4a261; }
+.user-bar .role-tag.admin { background: #f4d35e; color: #333; }
+.user-bar .role-tag.editor { background: #5bc0de; }
+.user-bar a { color: #fc5c65; text-decoration: none; font-size: 11px; }
+.user-bar a:hover { text-decoration: underline; }
+.user-bar .spacer { flex: 1; }
+.user-bar .admin-link { color: #f4a261; margin-right: 8px; }
+@media (max-width: 480px) {
+  .user-bar { font-size: 11px; padding: 3px 8px; }
+}
+
+:root {
+  --orange: #f4a261;
+  --cyan: #5bc0de;
+  --yellow: #f4d35e;
+  --teal: #7fb3a8;
+  --dark: #5a6a6a;
+  --text: #333;
+  --watermelon: #fc5c65;
+  --green: #43a047;
+  --red: #e53935;
+  --gray: #ccc;
+  --light-bg: #fafafa;
+}
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: #fff;
+  color: var(--text);
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+  overflow: hidden;
+  overflow-y: auto;
+}
+
+/* Top bar */
+.top-bar {
+  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+  color: white;
+  padding: 10px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+  min-height: 52px;
+}
+.top-bar h1 {
+  font-family: 'Fredoka', sans-serif;
+  font-size: 20px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+.top-bar h1 span.tag { color: var(--teal); }
+.top-bar .timeline-controls {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+}
+.top-bar .timeline-controls label { color: #aab; font-weight: 500; }
+.top-bar .timeline-controls select {
+  background: #2a2a4e;
+  color: white;
+  border: 1px solid #444;
+  border-radius: 4px;
+  padding: 3px 6px;
+  font-size: 13px;
+}
+.top-bar .timeline-controls .phase-label {
+  padding: 3px 10px;
+  border-radius: 12px;
+  font-weight: 600;
+  font-size: 12px;
+}
+.top-bar .io-buttons {
+  display: flex;
+  gap: 6px;
+}
+.top-bar .io-buttons button {
+  background: #2a2a4e;
+  color: white;
+  border: 1px solid #555;
+  border-radius: 4px;
+  padding: 4px 10px;
+  font-size: 12px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.top-bar .io-buttons button:hover { background: #3a3a6e; }
+.top-bar .io-buttons .history-btn { background: #5a6a6a; border-color: #4a5a5a; }
+
+/* History Panel */
+#historyPanel {
+  display: none;
+  position: fixed;
+  top: 60px;
+  right: 20px;
+  width: 360px;
+  max-height: 70vh;
+  background: #fff;
+  border: 2px solid #7fb3a8;
+  border-radius: 10px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+  z-index: 1000;
+  overflow: hidden;
+}
+#historyPanel .hp-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 16px;
+  background: #5a6a6a;
+  color: #fff;
+  font-weight: 600;
+  font-size: 14px;
+}
+#historyPanel .hp-close {
+  cursor: pointer;
+  font-size: 18px;
+  color: #fc5c65;
+  background: none;
+  border: none;
+}
+#historyPanel .hp-list {
+  overflow-y: auto;
+  max-height: calc(70vh - 50px);
+  padding: 8px 0;
+}
+#historyPanel .hp-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 16px;
+  border-bottom: 1px solid #f0f0f0;
+  font-size: 12px;
+}
+#historyPanel .hp-item:hover { background: #f9f9f9; }
+#historyPanel .hp-user {
+  font-weight: 600;
+  color: #5a6a6a;
+  min-width: 90px;
+}
+#historyPanel .hp-time {
+  color: #999;
+  flex: 1;
+}
+#historyPanel .hp-version {
+  background: #7fb3a8;
+  color: #fff;
+  padding: 1px 7px;
+  border-radius: 10px;
+  font-size: 10px;
+  font-weight: 600;
+}
+#historyPanel .hp-empty {
+  text-align: center;
+  padding: 30px;
+  color: #999;
+}
+
+/* Main layout */
+.main-layout {
+  display: flex;
+  height: calc(100vh - 52px - 40px);
+  overflow: hidden;
+}
+
+/* Panels */
+.panel-left, .panel-right {
+  background: #fafafa;
+  border-right: 1px solid #e0e0e0;
+  overflow-y: auto;
+  flex-shrink: 0;
+  font-size: 13px;
+}
+.panel-left { width: 240px; border-right: 1px solid #ddd; }
+.panel-right { width: 260px; border-left: 1px solid #ddd; }
+
+.panel-section {
+  padding: 10px 12px;
+  border-bottom: 1px solid #e8e8e8;
+}
+.panel-section h3 {
+  font-family: 'Fredoka', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--dark);
+  margin-bottom: 8px;
+}
+
+/* Alliance list */
+.alliance-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 6px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background 0.15s;
+  margin-bottom: 3px;
+}
+.alliance-item:hover { background: #eee; }
+.alliance-item.selected { background: #e0f0e8; outline: 2px solid var(--teal); }
+.alliance-item.locked { opacity: 0.5; cursor: default; }
+.alliance-swatch {
+  width: 16px;
+  height: 16px;
+  border-radius: 3px;
+  flex-shrink: 0;
+  border: 1px solid rgba(0,0,0,0.15);
+}
+.alliance-name {
+  flex: 1;
+  font-weight: 500;
+  font-size: 13px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.alliance-enemy { color: var(--red); font-size: 11px; margin-left: 2px; }
+.alliance-btn {
+  background: none;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  padding: 1px 6px;
+  font-size: 11px;
+  cursor: pointer;
+  color: var(--text);
+}
+.alliance-btn:hover { background: #ddd; }
+.alliance-btn.del { color: var(--watermelon); border-color: var(--watermelon); }
+.alliance-btn.del:hover { background: #fee; }
+
+/* Add alliance row */
+.add-alliance-row {
+  display: flex;
+  gap: 4px;
+  margin-top: 6px;
+}
+.add-alliance-row input {
+  flex: 1;
+  padding: 4px 6px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 12px;
+}
+.add-alliance-row button {
+  background: var(--teal);
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 4px 10px;
+  font-size: 12px;
+  cursor: pointer;
+  font-weight: 600;
+}
+.add-alliance-row button:hover { background: #6a9e93; }
+
+/* Influence summary */
+.influence-summary {
+  font-size: 12px;
+  line-height: 1.8;
+}
+.influence-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.influence-row .inf-swatch {
+  width: 10px;
+  height: 10px;
+  border-radius: 2px;
+  flex-shrink: 0;
+}
+.influence-row .inf-name { flex: 1; font-weight: 500; }
+.influence-row .inf-val { font-weight: 600; color: var(--dark); }
+
+/* Limits tracker */
+.limits-tracker {
+  font-size: 12px;
+  line-height: 1.6;
+}
+.limits-tracker .limit-row {
+  display: flex;
+  justify-content: space-between;
+}
+.limits-tracker .limit-label { color: #666; }
+.limits-tracker .limit-val { font-weight: 600; }
+
+/* Right panel info */
+.area-info-card {
+  background: white;
+  border: 1px solid #e0e0e0;
+  border-radius: 6px;
+  padding: 10px;
+  margin-bottom: 8px;
+}
+.area-info-card .aic-name {
+  font-family: 'Fredoka', sans-serif;
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--dark);
+}
+.area-info-card .aic-detail {
+  font-size: 12px;
+  color: #555;
+  line-height: 1.6;
+  margin-top: 4px;
+}
+.area-info-card .aic-owner {
+  font-size: 12px;
+  margin-top: 4px;
+  padding: 3px 8px;
+  border-radius: 4px;
+  display: inline-block;
+}
+
+/* Capture advisor list */
+.capture-list {
+  max-height: 320px;
+  overflow-y: auto;
+}
+.capture-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 6px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 12px;
+  transition: background 0.15s;
+  border-bottom: 1px solid #f0f0f0;
+}
+.capture-item:hover { background: #eef6ff; }
+.capture-item .ci-rank {
+  font-weight: 700;
+  color: var(--orange);
+  width: 18px;
+  text-align: center;
+}
+.capture-item .ci-name { flex: 1; font-weight: 500; }
+.capture-item .ci-inf { color: var(--dark); font-weight: 600; font-size: 11px; }
+
+/* Path mode */
+.path-btn {
+  width: 100%;
+  padding: 6px;
+  border-radius: 4px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  border: 2px solid var(--cyan);
+  background: white;
+  color: var(--cyan);
+  transition: all 0.2s;
+}
+.path-btn.active {
+  background: var(--cyan);
+  color: white;
+}
+.path-btn:hover { opacity: 0.85; }
+.path-details {
+  font-size: 12px;
+  line-height: 1.6;
+  margin-top: 6px;
+  color: #555;
+}
+
+/* Canvas wrapper */
+.canvas-wrapper {
+  flex: 1;
+  position: relative;
+  overflow: hidden;
+  background: #f0f0f0;
+  cursor: grab;
+}
+.canvas-wrapper.dragging { cursor: grabbing; }
+.canvas-wrapper canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+/* Tooltip */
+#tooltip {
+  position: fixed;
+  display: none;
+  background: #1a1a2e;
+  color: white;
+  padding: 8px 12px;
+  border-radius: 6px;
+  font-size: 13px;
+  pointer-events: none;
+  z-index: 1000;
+  border: 1px solid #333;
+  max-width: 240px;
+  line-height: 1.5;
+}
+#tooltip .tt-name {
+  font-family: 'Fredoka', sans-serif;
+  font-weight: 600;
+  font-size: 14px;
+  margin-bottom: 2px;
+}
+#tooltip .tt-buff { color: var(--yellow); font-size: 12px; }
+#tooltip .tt-inf { color: var(--cyan); font-size: 12px; }
+#tooltip .tt-owner { font-size: 11px; margin-top: 2px; }
+
+/* Bottom legend */
+.bottom-bar {
+  background: #1a1a2e;
+  color: #ccc;
+  padding: 8px 16px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  font-size: 11px;
+  flex-wrap: wrap;
+  min-height: 40px;
+}
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  white-space: nowrap;
+}
+.legend-swatch {
+  width: 14px;
+  height: 14px;
+  border-radius: 2px;
+  border: 1px solid rgba(255,255,255,0.2);
+}
+.legend-gradient {
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  margin-left: 8px;
+}
+.legend-gradient .lg-swatch {
+  width: 16px;
+  height: 12px;
+  border-radius: 1px;
+}
+.legend-gradient .lg-label { font-size: 10px; color: #888; }
+.bottom-credit {
+  margin-left: auto;
+  color: #777;
+  font-size: 11px;
+}
+.bottom-credit a { color: var(--cyan); text-decoration: none; }
+.bottom-credit a:hover { text-decoration: underline; }
+
+/* Scrollbar styling */
+.panel-left::-webkit-scrollbar, .panel-right::-webkit-scrollbar { width: 6px; }
+.panel-left::-webkit-scrollbar-thumb, .panel-right::-webkit-scrollbar-thumb { background: #ccc; border-radius: 3px; }
+
+/* Color input */
+input[type="color"] {
+  width: 22px;
+  height: 22px;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  border-radius: 3px;
+}
+
+/* Checkbox toggle */
+.toggle-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  margin-bottom: 4px;
+}
+.toggle-row input[type="checkbox"] { accent-color: var(--teal); }
+
+/* ========== MOBILE RESPONSIVE ========== */
+
+/* Mobile toggle buttons (hidden on desktop) */
+.mobile-panel-toggle {
+  display: none;
+  position: fixed;
+  z-index: 900;
+  background: var(--dark);
+  color: #fff;
+  border: 2px solid var(--teal);
+  border-radius: 50%;
+  width: 44px;
+  height: 44px;
+  font-size: 18px;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+  align-items: center;
+  justify-content: center;
+}
+.mobile-panel-toggle.left-toggle { bottom: 80px; left: 12px; }
+.mobile-panel-toggle.right-toggle { bottom: 80px; right: 12px; }
+
+@media (max-width: 900px) {
+  /* Show toggle buttons on mobile */
+  .mobile-panel-toggle { display: flex; }
+
+  /* Main layout: map takes full screen */
+  .main-layout {
+    flex-direction: row;
+    height: calc(100vh - 80px);
+    position: relative;
+  }
+
+  /* Panels become slide-over overlays */
+  .panel-left, .panel-right {
+    position: fixed !important;
+    top: 0;
+    bottom: 0;
+    width: 280px !important;
+    min-width: 0 !important;
+    max-height: none;
+    z-index: 950;
+    background: #fff;
+    overflow-y: auto;
+    transition: transform 0.25s ease;
+    box-shadow: 0 0 20px rgba(0,0,0,0.3);
+    border: none !important;
+  }
+  .panel-left {
+    left: 0;
+    transform: translateX(-100%);
+    border-right: 2px solid var(--teal) !important;
+  }
+  .panel-left.mobile-open { transform: translateX(0); }
+  .panel-right {
+    right: 0;
+    transform: translateX(100%);
+    border-left: 2px solid var(--teal) !important;
+  }
+  .panel-right.mobile-open { transform: translateX(0); }
+
+  /* Map gets full width */
+  .map-wrapper {
+    min-height: 0;
+    height: 100%;
+    flex: 1;
+  }
+
+  /* Top bar compact */
+  .top-bar {
+    flex-wrap: wrap;
+    gap: 6px;
+    padding: 6px 10px;
+    min-height: 36px;
+  }
+  .top-bar h1 { font-size: 14px; }
+  .top-bar .io-buttons { flex-wrap: wrap; gap: 4px; }
+  .top-bar .io-buttons button { padding: 3px 7px; font-size: 11px; }
+  .timeline-controls { flex-wrap: wrap; gap: 4px; font-size: 12px; }
+
+  /* Legend compact */
+  .legend-bar {
+    flex-wrap: wrap;
+    padding: 4px 8px;
+    gap: 4px;
+    font-size: 10px;
+  }
+
+  /* Backdrop when panel is open */
+  .mobile-backdrop {
+    display: none;
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(0,0,0,0.4);
+    z-index: 940;
+  }
+  .mobile-backdrop.active { display: block; }
+}
+
+@media (max-width: 600px) {
+  .top-bar h1 { font-size: 12px; }
+  .user-bar { font-size: 10px; padding: 2px 6px; }
+  .panel-left, .panel-right { width: 260px !important; }
+  .top-bar .timeline-controls select { padding: 2px 4px; font-size: 11px; }
+}
+
+/* Mobile action bar (hidden on desktop) */
+#mobileActionBar {
+  display: none;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: #1a1a2e;
+  border-top: 2px solid var(--teal);
+  padding: 8px 12px;
+  z-index: 950;
+  box-shadow: 0 -2px 10px rgba(0,0,0,0.3);
+}
+#mobileActionBar .mab-info {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 8px;
+  color: #ccc;
+  font-size: 12px;
+}
+#mobileActionBar .mab-info .mab-name {
+  font-weight: 600;
+  color: #fff;
+  font-size: 14px;
+}
+#mobileActionBar .mab-info .mab-buff {
+  color: var(--yellow);
+  font-size: 11px;
+}
+#mobileActionBar .mab-info .mab-owner {
+  margin-left: auto;
+  font-size: 11px;
+}
+#mobileActionBar .mab-buttons {
+  display: flex;
+  gap: 8px;
+}
+#mobileActionBar .mab-buttons button {
+  flex: 1;
+  padding: 10px;
+  border: none;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  color: #fff;
+}
+#mobileActionBar .mab-btn-claim { background: var(--teal); }
+#mobileActionBar .mab-btn-free { background: var(--watermelon); }
+#mobileActionBar .mab-btn-close { background: #444; }
+#mobileActionBar .mab-btn-disabled { background: #666; opacity: 0.5; }
+#mobileActionBar .mab-hint {
+  text-align: center;
+  color: #888;
+  font-size: 10px;
+  margin-top: 4px;
+}
+
+@media (max-width: 900px) {
+  #mobileActionBar { display: none; } /* shown via JS when territory tapped */
+  #mobileActionBar.active { display: block; }
+  .mobile-panel-toggle { bottom: 90px; } /* push toggles above action bar */
+}
+
+/* ===== PRINT / PDF EXPORT ===== */
+#printExport { display: none; }
+#printExport .pe-head { text-align: center; margin: 0 0 0.35in; }
+#printExport .pe-head h1 { font-family: 'Fredoka', sans-serif; margin: 0 0 4px; font-size: 22pt; color: #2a2a4a; }
+#printExport .pe-head .pe-sub { color: #555; font-size: 11pt; }
+/* shared legend (repeated on every page) */
+#printExport .pe-legend { display: flex; flex-wrap: wrap; justify-content: center; gap: 5px 12px; margin: 6px 0 0; }
+#printExport .pe-legend span { display: inline-flex; align-items: center; gap: 5px; font-size: 8.5pt; color: #222; }
+#printExport .pe-legend i { width: 12px; height: 12px; border-radius: 3px; border: 1px solid #0003; display: inline-block; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+#printExport .pe-legend .bloc-note { font-weight: 700; color: #6a1b9a; }
+/* cover page */
+#printExport .pe-cover { text-align: center; page-break-after: always; padding-top: 0.6in; }
+#printExport .pe-cover h1 { font-family: 'Fredoka', sans-serif; font-size: 30pt; color: #1b5e20; margin: 0 0 6px; }
+#printExport .pe-cover .pe-sub { color: #555; font-size: 12pt; margin-bottom: 0.35in; }
+#printExport .pe-msg { max-width: 6.3in; margin: 0.2in auto; padding: 16px 22px; border: 2px solid #2e7d32; border-radius: 12px; background: #f1f8f1; font-size: 13.5pt; line-height: 1.5; color: #1b3a1b; font-weight: 600; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+#printExport .pe-how { max-width: 6.3in; margin: 0.25in auto 0; text-align: left; font-size: 10.5pt; color: #333; }
+#printExport .pe-how li { margin: 4px 0; }
+/* one day per page */
+#printExport .print-day { break-inside: avoid; page-break-inside: avoid; page-break-after: always; text-align: center; }
+#printExport .print-day h2 { font-family: 'Fredoka', sans-serif; font-size: 16pt; margin: 0 0 2px; color: #1b5e20; }
+#printExport .print-day img { width: 4.3in; height: 4.3in; object-fit: contain; border: 1px solid #ccc; margin-top: 2px; }
+#printExport .pe-lands { margin: 6px auto 0; max-width: 6.9in; column-count: 2; column-gap: 0.28in; text-align: left; }
+#printExport .pe-al { break-inside: avoid; page-break-inside: avoid; margin: 0 0 6px; font-size: 8pt; color: #222; line-height: 1.32; }
+#printExport .pe-al .tag { font-weight: 800; color: #1b5e20; font-size: 9pt; }
+#printExport .pe-al .inf { font-weight: 700; color: #c62828; }
+#printExport .pe-al .cum { font-weight: 600; color: #1b5e20; }
+#printExport .pe-al .lands { color: #333; }
+#printExport .pe-al .wait { color: #888; font-style: italic; }
+/* rules page */
+#printExport .pe-rules { page-break-before: always; max-width: 6.6in; margin: 0 auto; }
+#printExport .pe-rules h1 { font-family: 'Fredoka', sans-serif; font-size: 20pt; color: #1b5e20; text-align: center; margin: 0 0 10px; }
+#printExport .pe-rules h3 { font-size: 12pt; color: #2a2a4a; margin: 12px 0 3px; border-bottom: 2px solid #2e7d32; padding-bottom: 2px; }
+#printExport .pe-rules ul { margin: 3px 0 8px; padding-left: 20px; }
+#printExport .pe-rules li { font-size: 10.5pt; margin: 3px 0; color: #222; line-height: 1.4; }
+#printExport .pe-rules .pe-msg { font-size: 12pt; margin-top: 14px; }
+#printExport .pe-rules table { border-collapse: collapse; margin: 4px 0; font-size: 10pt; }
+#printExport .pe-rules td, #printExport .pe-rules th { border: 1px solid #bbb; padding: 3px 9px; text-align: center; }
+#printExport .pe-rules th { background: #e8f5e9; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+
+@media print {
+  @page { margin: 0.5in; }
+  body > *:not(#printExport) { display: none !important; }
+  #printExport { display: block !important; position: static; }
+  #printExport, #printExport * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
+}
+</style>
+</head>
+<body>
+
+<!-- Mobile panel toggles + backdrop (hidden on desktop via CSS) -->
+<button class="mobile-panel-toggle left-toggle" onclick="toggleMobilePanel('left')" title="Alliances">&#9776;</button>
+<button class="mobile-panel-toggle right-toggle" onclick="toggleMobilePanel('right')" title="Info">&#9432;</button>
+<div class="mobile-backdrop" id="mobileBackdrop" onclick="closeMobilePanels()"></div>
+
+<!-- USER BAR (not used in the public builder) -->
+<div class="user-bar" id="userBar" style="display:none">
+  <span id="userBarName"></span>
+  <span id="userBarRole" class="role-tag"></span>
+</div>
+
+<!-- TOP BAR -->
+<div class="top-bar">
+  <h1>&#9876; S2 Territory Map Builder &mdash; <span class="tag">Polar Storm</span></h1>
+  <div class="timeline-controls">
+    <label id="planDayLabel" style="display:none">Day:</label>
+    <select id="planDaySelect" style="display:none" title="Select which day to view/edit"></select>
+    <button id="pullPrevBtn" onclick="pullFromPrevious()" title="Fill this day with a copy of the previous day as a starting point" style="display:none;margin-left:4px;padding:2px 7px;background:#5bc0de;color:#fff;border:none;border-radius:4px;cursor:pointer;font-size:12px">&#11015; Pull Prev</button>
+    <button id="deleteDayBtn" onclick="deleteDay()" title="Delete the selected day" style="display:none;margin-left:4px;padding:2px 7px;background:#e53935;color:#fff;border:none;border-radius:4px;cursor:pointer;font-size:12px">&#128465; Delete</button>
+    <span id="phaseLabel" class="phase-label" style="background:#f4a261;color:#fff">Strongholds Open</span>
+    <span id="crossWarzone" style="display:none;background:#e53935;color:#fff;padding:3px 8px;border-radius:12px;font-size:11px;font-weight:600" title="Cross-warzone captures enabled">&#9876; X-Zone</span>
+  </div>
+  <div class="io-buttons">
+    <button onclick="printAllDays()" title="Generate a printable / PDF sheet of every day" style="background:#2e7d32;border-color:#1b5e20">&#128424; Print / PDF</button>
+    <button onclick="exportState()" title="Download territory state">&#128190; Export</button>
+    <button onclick="importState()" title="Import a file into the selected day">&#128194; Import</button>
+    <button onclick="fitAll(); draw();" title="Reset zoom to fit all">&#128269; Fit All</button>
+    <button onclick="resetAllData()" title="Erase EVERYTHING saved in this browser and start from scratch" style="background:#6a1b9a;color:#fff;border-color:#4a148c">&#128260; Start Fresh</button>
+    <button onclick="resetState()" title="Clear only the selected day's tiles (other days unaffected)" style="background:#e53935;color:#fff;border-color:#c62828">&#9888; Clear Day</button>
+  </div>
+</div>
+
+<!-- MAIN LAYOUT -->
+<div class="main-layout">
+
+  <!-- LEFT PANEL -->
+  <div class="panel-left">
+    <div class="panel-section">
+      <h3>&#9873; Alliances</h3>
+      <div id="allianceList"></div>
+      <div class="add-alliance-row">
+        <input id="newAllianceName" type="text" placeholder="Alliance name..." maxlength="20"
+          onkeydown="if(event.key==='Enter')addAlliance()">
+        <button onclick="addAlliance()">+ Add</button>
+      </div>
+    </div>
+
+    <div class="panel-section">
+      <h3>&#128200; Rare Soil /hr</h3>
+      <div id="influenceSummary" class="influence-summary"></div>
+    </div>
+
+    <div class="panel-section">
+      <h3>&#128203; Territory Limits</h3>
+      <div id="limitsTracker" class="limits-tracker">
+        <em>Select an alliance</em>
+      </div>
+    </div>
+
+    <div class="panel-section">
+      <h3>&#128161; Instructions</h3>
+      <div style="font-size:11px;color:#777;line-height:1.5">
+        <div>&#8226; Select your alliance, click open tiles to claim</div>
+        <div>&#8226; Right-click or Ctrl+click your own tiles to free them</div>
+        <div>&#8226; Select "None (View Mode)" to browse without editing</div>
+        <div>&#8226; Scroll to zoom, drag to pan</div>
+        <div>&#8226; Double-click to reset view</div>
+        <div>&#8226; Hover for area details</div>
+      </div>
+      <div style="font-size:10px;color:#fc5c65;margin-top:6px;line-height:1.4;border-left:3px solid #fc5c65;padding-left:6px;">
+        &#9888; You can only edit your own alliance's territories. Other alliances' tiles are protected — no stealing!
+      </div>
+    </div>
+  </div>
+
+  <!-- CENTER CANVAS -->
+  <div class="canvas-wrapper">
+    <canvas id="mapCanvas"></canvas>
+  </div>
+
+  <!-- RIGHT PANEL -->
+  <div class="panel-right">
+    <div class="panel-section">
+      <h3>&#128197; Level Unlock Schedule</h3>
+      <table style="width:100%;border-collapse:collapse;font-size:11px">
+        <tr style="color:#888;text-align:left"><th style="padding:2px 4px">Lvl</th><th style="padding:2px 4px">Tile</th><th style="padding:2px 4px">From day</th></tr>
+        <tr><td style="padding:2px 4px">1</td><td style="padding:2px 4px">Village</td><td style="padding:2px 4px">Day 3</td></tr>
+        <tr style="background:#f5f5f5"><td style="padding:2px 4px">2</td><td style="padding:2px 4px">Town</td><td style="padding:2px 4px">Day 6</td></tr>
+        <tr><td style="padding:2px 4px">3</td><td style="padding:2px 4px">Factory</td><td style="padding:2px 4px">Day 10</td></tr>
+        <tr style="background:#f5f5f5"><td style="padding:2px 4px">4</td><td style="padding:2px 4px">Train Station</td><td style="padding:2px 4px">Day 13</td></tr>
+        <tr><td style="padding:2px 4px">5</td><td style="padding:2px 4px">Launch Site</td><td style="padding:2px 4px">Day 17</td></tr>
+        <tr style="background:#f5f5f5"><td style="padding:2px 4px">6</td><td style="padding:2px 4px">War Palace</td><td style="padding:2px 4px">Day 20</td></tr>
+      </table>
+      <div style="font-size:10px;color:#999;margin-top:5px;line-height:1.4">Two levels open each 7-day week (day 3 &amp; 6); Days 1&ndash;2 are digs-only. Digs aren't time-locked &mdash; grab any level if you're touching land.</div>
+    </div>
+
+    <div class="panel-section">
+      <h3>&#128204; Area Details</h3>
+      <div id="areaInfo">
+        <em style="color:#999">Click an area on the map to view details.</em>
+      </div>
+    </div>
+
+    <div class="panel-section">
+      <h3>&#127919; Recommended Captures</h3>
+      <div id="captureList" class="capture-list">
+        <em style="color:#999">Select an alliance and assign territories first.</em>
+      </div>
+    </div>
+
+    <div class="panel-section">
+      <h3>&#128739; Capture Path</h3>
+      <button id="pathBtn" class="path-btn" onclick="togglePathMode()">Path Mode: OFF</button>
+      <div id="pathDetails" class="path-details">
+        <em style="color:#999">Toggle path mode and click two areas.</em>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- BOTTOM LEGEND -->
+<!-- STATUS BAR -->
+<div id="statusBar" style="background:#1a1a2e;color:#aaa;padding:4px 16px;font-size:11px;text-align:center;border-bottom:1px solid #333;"></div>
+
+<div class="bottom-bar">
+  <div class="legend-bar"></div>
+  <div class="legend-gradient"><span class="lg-label">Lv1</span><div class="lg-swatch" style="background:#D9A77C"></div><div class="lg-swatch" style="background:#d39968"></div><div class="lg-swatch" style="background:#cd8c54"></div><div class="lg-swatch" style="background:#c77f40"></div><div class="lg-swatch" style="background:#b97235"></div><div class="lg-swatch" style="background:#a5662f"></div><div class="lg-swatch" style="background:#91592a"></div><div class="lg-swatch" style="background:#7d4d24"></div><div class="lg-swatch" style="background:#69411e"></div><div class="lg-swatch" style="background:#553518"></div><span class="lg-label">Lv10</span></div>
+  <div class="bottom-credit">
+    Map data sourced from <a href="https://cpt-hedge.com" target="_blank">cpt-hedge.com</a> &mdash; Season 2: The Polar Storm &mdash; saves locally in your browser
+  </div>
+</div>
+
+<!-- TOOLTIP -->
+<div id="tooltip"></div>
+
+<!-- History Panel -->
+<div id="historyPanel">
+  <div class="hp-header">
+    <span>&#128240; Change History</span>
+    <button class="hp-close" onclick="toggleHistory()">&times;</button>
+  </div>
+  <div class="hp-list" id="historyList">
+    <div class="hp-empty">Loading...</div>
+  </div>
+</div>
+
+<script>
+// ========== SERVER-INJECTED CONTEXT ==========
+const MAP_USER = { username: "local", displayName: "Local Commander", role: "owner" };
+let MAP_VERSION = 0;
+const MAP_API_PREFIX = null; // public builder: no server — localStorage/IndexedDB only
+
+// Populate user bar
+document.getElementById('userBarName').textContent = MAP_USER.displayName;
+const roleEl = document.getElementById('userBarRole');
+roleEl.textContent = MAP_USER.role;
+roleEl.classList.add(MAP_USER.role);
+
+// ========== EMBEDDED DATA ==========
+const MAP_AREAS = [{"id":"1","name":"Stronghold","level":1,"buff":{"item":"food","percentage":2},"coordinates":{"x":0,"y":0,"width":75,"height":75},"resources":{"coal":2736,"rareSoil":100,"influence":2736},"isCapitol":false},{"id":"2","name":"Village","level":1,"buff":{"item":"iron","percentage":5},"coordinates":{"x":0,"y":75,"width":75,"height":75},"resources":{"coal":0,"rareSoil":350,"influence":0},"isCapitol":false},{"id":"3","name":"Stronghold","level":1,"buff":{"item":"iron","percentage":2},"coordinates":{"x":0,"y":150,"width":75,"height":75},"resources":{"coal":2736,"rareSoil":100,"influence":2736},"isCapitol":false},{"id":"4","name":"Village","level":1,"buff":{"item":"iron","percentage":5},"coordinates":{"x":0,"y":225,"width":75,"height":75},"resources":{"coal":0,"rareSoil":350,"influence":0},"isCapitol":false},{"id":"5","name":"Stronghold","level":1,"buff":{"item":"food","percentage":2},"coordinates":{"x":0,"y":300,"width":75,"height":75},"resources":{"coal":2736,"rareSoil":100,"influence":2736},"isCapitol":false},{"id":"6","name":"Village","level":1,"buff":{"item":"iron","percentage":5},"coordinates":{"x":0,"y":375,"width":75,"height":75},"resources":{"coal":0,"rareSoil":350,"influence":0},"isCapitol":false},{"id":"7","name":"Stronghold","level":1,"buff":{"item":"coin","percentage":2},"coordinates":{"x":0,"y":450,"width":75,"height":100},"resources":{"coal":2736,"rareSoil":100,"influence":2736},"isCapitol":false},{"id":"8","name":"Village","level":1,"buff":{"item":"iron","percentage":5},"coordinates":{"x":0,"y":550,"width":75,"height":75},"resources":{"coal":0,"rareSoil":350,"influence":0},"isCapitol":false},{"id":"9","name":"Stronghold","level":1,"buff":{"item":"iron","percentage":2},"coordinates":{"x":0,"y":625,"width":75,"height":75},"resources":{"coal":2736,"rareSoil":100,"influence":2736},"isCapitol":false},{"id":"10","name":"Village","level":1,"buff":{"item":"iron","percentage":5},"coordinates":{"x":0,"y":700,"width":75,"height":75},"resources":{"coal":0,"rareSoil":350,"influence":0},"isCapitol":false},{"id":"11","name":"Stronghold","level":1,"buff":{"item":"food","percentage":2},"coordinates":{"x":0,"y":775,"width":75,"height":75},"resources":{"coal":2736,"rareSoil":100,"influence":2736},"isCapitol":false},{"id":"12","name":"Village","level":1,"buff":{"item":"iron","percentage":5},"coordinates":{"x":0,"y":850,"width":75,"height":75},"resources":{"coal":0,"rareSoil":350,"influence":0},"isCapitol":false},{"id":"13","name":"Stronghold","level":1,"buff":{"item":"coin","percentage":2},"coordinates":{"x":0,"y":925,"width":75,"height":75},"resources":{"coal":2736,"rareSoil":100,"influence":2736},"isCapitol":false},{"id":"14","name":"Village","level":1,"buff":{"item":"iron","percentage":5},"coordinates":{"x":75,"y":0,"width":75,"height":75},"resources":{"coal":0,"rareSoil":350,"influence":0},"isCapitol":false},{"id":"15","name":"Stronghold","level":2,"buff":{"item":"food","percentage":3},"coordinates":{"x":75,"y":75,"width":75,"height":75},"resources":{"coal":2880,"rareSoil":110,"influence":2880},"isCapitol":false},{"id":"16","name":"Town","level":2,"buff":{"item":"gathering","percentage":5},"coordinates":{"x":75,"y":150,"width":75,"height":75},"resources":{"coal":0,"rareSoil":400,"influence":0},"isCapitol":false},{"id":"17","name":"Stronghold","level":2,"buff":{"item":"food","percentage":3},"coordinates":{"x":75,"y":225,"width":75,"height":75},"resources":{"coal":2880,"rareSoil":110,"influence":2880},"isCapitol":false},{"id":"18","name":"Town","level":2,"buff":{"item":"gathering","percentage":5},"coordinates":{"x":75,"y":300,"width":75,"height":75},"resources":{"coal":0,"rareSoil":400,"influence":0},"isCapitol":false},{"id":"19","name":"Stronghold","level":2,"buff":{"item":"coin","percentage":3},"coordinates":{"x":75,"y":375,"width":75,"height":75},"resources":{"coal":2880,"rareSoil":110,"influence":2880},"isCapitol":false},{"id":"20","name":"Town","level":2,"buff":{"item":"gathering","percentage":5},"coordinates":{"x":75,"y":450,"width":75,"height":100},"resources":{"coal":0,"rareSoil":400,"influence":0},"isCapitol":false},{"id":"21","name":"Stronghold","level":2,"buff":{"item":"iron","percentage":3},"coordinates":{"x":75,"y":550,"width":75,"height":75},"resources":{"coal":2880,"rareSoil":110,"influence":2880},"isCapitol":false},{"id":"22","name":"Town","level":2,"buff":{"item":"gathering","percentage":5},"coordinates":{"x":75,"y":625,"width":75,"height":75},"resources":{"coal":0,"rareSoil":400,"influence":0},"isCapitol":false},{"id":"23","name":"Stronghold","level":2,"buff":{"item":"food","percentage":3},"coordinates":{"x":75,"y":700,"width":75,"height":75},"resources":{"coal":2880,"rareSoil":110,"influence":2880},"isCapitol":false},{"id":"24","name":"Town","level":2,"buff":{"item":"gathering","percentage":5},"coordinates":{"x":75,"y":775,"width":75,"height":75},"resources":{"coal":0,"rareSoil":400,"influence":0},"isCapitol":false},{"id":"25","name":"Stronghold","level":2,"buff":{"item":"coin","percentage":3},"coordinates":{"x":75,"y":850,"width":75,"height":75},"resources":{"coal":2880,"rareSoil":110,"influence":2880},"isCapitol":false},{"id":"26","name":"Village","level":1,"buff":{"item":"iron","percentage":5},"coordinates":{"x":75,"y":925,"width":75,"height":75},"resources":{"coal":0,"rareSoil":350,"influence":0},"isCapitol":false},{"id":"27","name":"Stronghold","level":1,"buff":{"item":"iron","percentage":2},"coordinates":{"x":150,"y":0,"width":75,"height":75},"resources":{"coal":2736,"rareSoil":100,"influence":2736},"isCapitol":false},{"id":"28","name":"Town","level":2,"buff":{"item":"coin","percentage":5},"coordinates":{"x":150,"y":75,"width":75,"height":75},"resources":{"coal":0,"rareSoil":400,"influence":0},"isCapitol":false},{"id":"29","name":"Stronghold","level":3,"buff":{"item":"food","percentage":4},"coordinates":{"x":150,"y":150,"width":75,"height":75},"resources":{"coal":3024,"rareSoil":120,"influence":3024},"isCapitol":false},{"id":"30","name":"Factory","level":3,"buff":{"item":"iron","percentage":10},"coordinates":{"x":150,"y":225,"width":75,"height":75},"resources":{"coal":0,"rareSoil":450,"influence":0},"isCapitol":false},{"id":"31","name":"Stronghold","level":3,"buff":{"item":"coin","percentage":4},"coordinates":{"x":150,"y":300,"width":75,"height":75},"resources":{"coal":3024,"rareSoil":120,"influence":3024},"isCapitol":false},{"id":"32","name":"Factory","level":3,"buff":{"item":"food","percentage":10},"coordinates":{"x":150,"y":375,"width":75,"height":75},"resources":{"coal":0,"rareSoil":450,"influence":0},"isCapitol":false},{"id":"33","name":"Stronghold","level":3,"buff":{"item":"iron","percentage":4},"coordinates":{"x":150,"y":450,"width":75,"height":100},"resources":{"coal":3024,"rareSoil":120,"influence":3024},"isCapitol":false},{"id":"34","name":"Factory","level":3,"buff":{"item":"coin","percentage":10},"coordinates":{"x":150,"y":550,"width":75,"height":75},"resources":{"coal":0,"rareSoil":450,"influence":0},"isCapitol":false},{"id":"35","name":"Stronghold","level":3,"buff":{"item":"food","percentage":4},"coordinates":{"x":150,"y":625,"width":75,"height":75},"resources":{"coal":3024,"rareSoil":120,"influence":3024},"isCapitol":false},{"id":"36","name":"Factory","level":3,"buff":{"item":"iron","percentage":10},"coordinates":{"x":150,"y":700,"width":75,"height":75},"resources":{"coal":0,"rareSoil":450,"influence":0},"isCapitol":false},{"id":"37","name":"Stronghold","level":3,"buff":{"item":"coin","percentage":4},"coordinates":{"x":150,"y":775,"width":75,"height":75},"resources":{"coal":3024,"rareSoil":120,"influence":3024},"isCapitol":false},{"id":"38","name":"Town","level":2,"buff":{"item":"gathering","percentage":5},"coordinates":{"x":150,"y":850,"width":75,"height":75},"resources":{"coal":0,"rareSoil":400,"influence":0},"isCapitol":false},{"id":"39","name":"Stronghold","level":1,"buff":{"item":"food","percentage":2},"coordinates":{"x":150,"y":925,"width":75,"height":75},"resources":{"coal":2736,"rareSoil":100,"influence":2736},"isCapitol":false},{"id":"40","name":"Village","level":1,"buff":{"item":"food","percentage":5},"coordinates":{"x":225,"y":0,"width":75,"height":75},"resources":{"coal":0,"rareSoil":350,"influence":0},"isCapitol":false},{"id":"41","name":"Stronghold","level":2,"buff":{"item":"iron","percentage":3},"coordinates":{"x":225,"y":75,"width":75,"height":75},"resources":{"coal":2880,"rareSoil":110,"influence":2880},"isCapitol":false},{"id":"42","name":"Factory","level":3,"buff":{"item":"food","percentage":10},"coordinates":{"x":225,"y":150,"width":75,"height":75},"resources":{"coal":0,"rareSoil":450,"influence":0},"isCapitol":false},{"id":"43","name":"Stronghold","level":4,"buff":{"item":"food","percentage":6},"coordinates":{"x":225,"y":225,"width":75,"height":75},"resources":{"coal":3168,"rareSoil":130,"influence":3168},"isCapitol":false},{"id":"44","name":"Train Station","level":4,"buff":{"item":"iron","percentage":15},"coordinates":{"x":225,"y":300,"width":75,"height":75},"resources":{"coal":0,"rareSoil":800,"influence":0},"isCapitol":false},{"id":"45","name":"Stronghold","level":4,"buff":{"item":"iron","percentage":6},"coordinates":{"x":225,"y":375,"width":75,"height":75},"resources":{"coal":3168,"rareSoil":130,"influence":3168},"isCapitol":false},{"id":"46","name":"Train Station","level":4,"buff":{"item":"food","percentage":15},"coordinates":{"x":225,"y":450,"width":75,"height":100},"resources":{"coal":0,"rareSoil":800,"influence":0},"isCapitol":false},{"id":"47","name":"Stronghold","level":4,"buff":{"item":"food","percentage":6},"coordinates":{"x":225,"y":550,"width":75,"height":75},"resources":{"coal":3168,"rareSoil":130,"influence":3168},"isCapitol":false},{"id":"48","name":"Train Station","level":4,"buff":{"item":"coin","percentage":15},"coordinates":{"x":225,"y":625,"width":75,"height":75},"resources":{"coal":0,"rareSoil":800,"influence":0},"isCapitol":false},{"id":"49","name":"Stronghold","level":4,"buff":{"item":"coin","percentage":6},"coordinates":{"x":225,"y":700,"width":75,"height":75},"resources":{"coal":3168,"rareSoil":130,"influence":3168},"isCapitol":false},{"id":"50","name":"Factory","level":3,"buff":{"item":"food","percentage":10},"coordinates":{"x":225,"y":775,"width":75,"height":75},"resources":{"coal":0,"rareSoil":450,"influence":0},"isCapitol":false},{"id":"51","name":"Stronghold","level":2,"buff":{"item":"food","percentage":3},"coordinates":{"x":225,"y":850,"width":75,"height":75},"resources":{"coal":2880,"rareSoil":110,"influence":2880},"isCapitol":false},{"id":"52","name":"Village","level":1,"buff":{"item":"food","percentage":5},"coordinates":{"x":225,"y":925,"width":75,"height":75},"resources":{"coal":0,"rareSoil":350,"influence":0},"isCapitol":false},{"id":"53","name":"Stronghold","level":1,"buff":{"item":"coin","percentage":2},"coordinates":{"x":300,"y":0,"width":75,"height":75},"resources":{"coal":2736,"rareSoil":100,"influence":2736},"isCapitol":false},{"id":"54","name":"Town","level":2,"buff":{"item":"gathering","percentage":5},"coordinates":{"x":300,"y":75,"width":75,"height":75},"resources":{"coal":0,"rareSoil":400,"influence":0},"isCapitol":false},{"id":"55","name":"Stronghold","level":3,"buff":{"item":"iron","percentage":4},"coordinates":{"x":300,"y":150,"width":75,"height":75},"resources":{"coal":3024,"rareSoil":120,"influence":3024},"isCapitol":false},{"id":"56","name":"Train Station","level":4,"buff":{"item":"food","percentage":15},"coordinates":{"x":300,"y":225,"width":75,"height":75},"resources":{"coal":0,"rareSoil":800,"influence":0},"isCapitol":false},{"id":"57","name":"Stronghold","level":5,"buff":{"item":"food","percentage":8},"coordinates":{"x":300,"y":300,"width":75,"height":75},"resources":{"coal":3312,"rareSoil":140,"influence":3312},"isCapitol":false},{"id":"58","name":"Launch Site","level":5,"buff":{"item":"coin","percentage":20},"coordinates":{"x":300,"y":375,"width":75,"height":75},"resources":{"coal":0,"rareSoil":900,"influence":0},"isCapitol":false},{"id":"59","name":"Stronghold","level":5,"buff":{"item":"food","percentage":8},"coordinates":{"x":300,"y":450,"width":75,"height":100},"resources":{"coal":3312,"rareSoil":140,"influence":3312},"isCapitol":false},{"id":"60","name":"Launch Site","level":5,"buff":{"item":"iron","percentage":20},"coordinates":{"x":300,"y":550,"width":75,"height":75},"resources":{"coal":0,"rareSoil":900,"influence":0},"isCapitol":false},{"id":"61","name":"Stronghold","level":5,"buff":{"item":"coin","percentage":8},"coordinates":{"x":300,"y":625,"width":75,"height":75},"resources":{"coal":3312,"rareSoil":140,"influence":3312},"isCapitol":false},{"id":"62","name":"Train Station","level":4,"buff":{"item":"gathering","percentage":15},"coordinates":{"x":300,"y":700,"width":75,"height":75},"resources":{"coal":0,"rareSoil":800,"influence":0},"isCapitol":false},{"id":"63","name":"Stronghold","level":3,"buff":{"item":"food","percentage":4},"coordinates":{"x":300,"y":775,"width":75,"height":75},"resources":{"coal":3024,"rareSoil":120,"influence":3024},"isCapitol":false},{"id":"64","name":"Town","level":2,"buff":{"item":"coin","percentage":5},"coordinates":{"x":300,"y":850,"width":75,"height":75},"resources":{"coal":0,"rareSoil":400,"influence":0},"isCapitol":false},{"id":"65","name":"Stronghold","level":1,"buff":{"item":"iron","percentage":2},"coordinates":{"x":300,"y":925,"width":75,"height":75},"resources":{"coal":2736,"rareSoil":100,"influence":2736},"isCapitol":false},{"id":"66","name":"Village","level":1,"buff":{"item":"iron","percentage":5},"coordinates":{"x":375,"y":0,"width":75,"height":75},"resources":{"coal":0,"rareSoil":350,"influence":0},"isCapitol":false},{"id":"67","name":"Stronghold","level":2,"buff":{"item":"coin","percentage":3},"coordinates":{"x":375,"y":75,"width":75,"height":75},"resources":{"coal":2880,"rareSoil":110,"influence":2880},"isCapitol":false},{"id":"68","name":"Factory","level":3,"buff":{"item":"iron","percentage":10},"coordinates":{"x":375,"y":150,"width":75,"height":75},"resources":{"coal":0,"rareSoil":450,"influence":0},"isCapitol":false},{"id":"69","name":"Stronghold","level":4,"buff":{"item":"iron","percentage":6},"coordinates":{"x":375,"y":225,"width":75,"height":75},"resources":{"coal":3168,"rareSoil":130,"influence":3168},"isCapitol":false},{"id":"70","name":"Launch Site","level":5,"buff":{"item":"iron","percentage":20},"coordinates":{"x":375,"y":300,"width":75,"height":75},"resources":{"coal":0,"rareSoil":900,"influence":0},"isCapitol":false},{"id":"71","name":"Stronghold","level":6,"buff":{"item":"food","percentage":10},"coordinates":{"x":375,"y":375,"width":75,"height":75},"resources":{"coal":3456,"rareSoil":150,"influence":3456},"isCapitol":false},{"id":"72","name":"War Palace","level":6,"buff":{"item":"construction","percentage":20},"coordinates":{"x":375,"y":450,"width":75,"height":100},"resources":{"coal":0,"rareSoil":1000,"influence":0},"isCapitol":false},{"id":"73","name":"Stronghold","level":6,"buff":{"item":"iron","percentage":10},"coordinates":{"x":375,"y":550,"width":75,"height":75},"resources":{"coal":3456,"rareSoil":150,"influence":3456},"isCapitol":false},{"id":"74","name":"Launch Site","level":5,"buff":{"item":"coin","percentage":20},"coordinates":{"x":375,"y":625,"width":75,"height":75},"resources":{"coal":0,"rareSoil":900,"influence":0},"isCapitol":false},{"id":"75","name":"Stronghold","level":4,"buff":{"item":"food","percentage":6},"coordinates":{"x":375,"y":700,"width":75,"height":75},"resources":{"coal":3168,"rareSoil":130,"influence":3168},"isCapitol":false},{"id":"76","name":"Factory","level":3,"buff":{"item":"iron","percentage":10},"coordinates":{"x":375,"y":775,"width":75,"height":75},"resources":{"coal":0,"rareSoil":450,"influence":0},"isCapitol":false},{"id":"77","name":"Stronghold","level":2,"buff":{"item":"iron","percentage":3},"coordinates":{"x":375,"y":850,"width":75,"height":75},"resources":{"coal":2880,"rareSoil":110,"influence":2880},"isCapitol":false},{"id":"78","name":"Village","level":1,"buff":{"item":"iron","percentage":5},"coordinates":{"x":375,"y":925,"width":75,"height":75},"resources":{"coal":0,"rareSoil":350,"influence":0},"isCapitol":false},{"id":"79","name":"Stronghold","level":1,"buff":{"item":"food","percentage":2},"coordinates":{"x":450,"y":0,"width":100,"height":75},"resources":{"coal":2736,"rareSoil":100,"influence":2736},"isCapitol":false},{"id":"80","name":"Town","level":2,"buff":{"item":"coin","percentage":5},"coordinates":{"x":450,"y":75,"width":100,"height":75},"resources":{"coal":0,"rareSoil":400,"influence":0},"isCapitol":false},{"id":"81","name":"Stronghold","level":3,"buff":{"item":"coin","percentage":4},"coordinates":{"x":450,"y":150,"width":100,"height":75},"resources":{"coal":3024,"rareSoil":120,"influence":3024},"isCapitol":false},{"id":"82","name":"Train Station","level":4,"buff":{"item":"gathering","percentage":15},"coordinates":{"x":450,"y":225,"width":100,"height":75},"resources":{"coal":0,"rareSoil":800,"influence":0},"isCapitol":false},{"id":"83","name":"Stronghold","level":5,"buff":{"item":"iron","percentage":8},"coordinates":{"x":450,"y":300,"width":100,"height":75},"resources":{"coal":3312,"rareSoil":140,"influence":3312},"isCapitol":false},{"id":"84","name":"War Palace","level":6,"buff":{"item":"research","percentage":20},"coordinates":{"x":450,"y":375,"width":100,"height":75},"resources":{"coal":0,"rareSoil":1000,"influence":0},"isCapitol":false},{"id":"85","name":"Nuclear Furnace","level":7,"isCapitol":true,"buff":{"item":"march","percentage":10},"coordinates":{"x":450,"y":450,"width":100,"height":100},"resources":{"influence":0}},{"id":"86","name":"War Palace","level":6,"buff":{"item":"healing","percentage":10},"coordinates":{"x":450,"y":550,"width":100,"height":75},"resources":{"coal":0,"rareSoil":1000,"influence":0},"isCapitol":false},{"id":"87","name":"Stronghold","level":5,"buff":{"item":"food","percentage":8},"coordinates":{"x":450,"y":625,"width":100,"height":75},"resources":{"coal":3312,"rareSoil":140,"influence":3312},"isCapitol":false},{"id":"88","name":"Train Station","level":4,"buff":{"item":"iron","percentage":15},"coordinates":{"x":450,"y":700,"width":100,"height":75},"resources":{"coal":0,"rareSoil":800,"influence":0},"isCapitol":false},{"id":"89","name":"Stronghold","level":3,"buff":{"item":"iron","percentage":4},"coordinates":{"x":450,"y":775,"width":100,"height":75},"resources":{"coal":3024,"rareSoil":120,"influence":3024},"isCapitol":false},{"id":"90","name":"Town","level":2,"buff":{"item":"gathering","percentage":5},"coordinates":{"x":450,"y":850,"width":100,"height":75},"resources":{"coal":0,"rareSoil":400,"influence":0},"isCapitol":false},{"id":"91","name":"Stronghold","level":1,"buff":{"item":"coin","percentage":2},"coordinates":{"x":450,"y":925,"width":100,"height":75},"resources":{"coal":2736,"rareSoil":100,"influence":2736},"isCapitol":false},{"id":"92","name":"Village","level":1,"buff":{"item":"food","percentage":5},"coordinates":{"x":550,"y":0,"width":75,"height":75},"resources":{"coal":0,"rareSoil":350,"influence":0},"isCapitol":false},{"id":"93","name":"Stronghold","level":2,"buff":{"item":"food","percentage":3},"coordinates":{"x":550,"y":75,"width":75,"height":75},"resources":{"coal":2880,"rareSoil":110,"influence":2880},"isCapitol":false},{"id":"94","name":"Factory","level":3,"buff":{"item":"coin","percentage":10},"coordinates":{"x":550,"y":150,"width":75,"height":75},"resources":{"coal":0,"rareSoil":450,"influence":0},"isCapitol":false},{"id":"95","name":"Stronghold","level":4,"buff":{"item":"coin","percentage":6},"coordinates":{"x":550,"y":225,"width":75,"height":75},"resources":{"coal":3168,"rareSoil":130,"influence":3168},"isCapitol":false},{"id":"96","name":"Launch Site","level":5,"buff":{"item":"food","percentage":20},"coordinates":{"x":550,"y":300,"width":75,"height":75},"resources":{"coal":0,"rareSoil":900,"influence":0},"isCapitol":false},{"id":"97","name":"Stronghold","level":6,"buff":{"item":"coin","percentage":10},"coordinates":{"x":550,"y":375,"width":75,"height":75},"resources":{"coal":3456,"rareSoil":150,"influence":3456},"isCapitol":false},{"id":"98","name":"War Palace","level":6,"buff":{"item":"training","percentage":5},"coordinates":{"x":550,"y":450,"width":75,"height":100},"resources":{"coal":0,"rareSoil":1000,"influence":0},"isCapitol":false},{"id":"99","name":"Stronghold","level":6,"buff":{"item":"coin","percentage":10},"coordinates":{"x":550,"y":550,"width":75,"height":75},"resources":{"coal":3456,"rareSoil":150,"influence":3456},"isCapitol":false},{"id":"100","name":"Launch Site","level":5,"buff":{"item":"gathering","percentage":20},"coordinates":{"x":550,"y":625,"width":75,"height":75},"resources":{"coal":0,"rareSoil":900,"influence":0},"isCapitol":false},{"id":"101","name":"Stronghold","level":4,"buff":{"item":"iron","percentage":6},"coordinates":{"x":550,"y":700,"width":75,"height":75},"resources":{"coal":3168,"rareSoil":130,"influence":3168},"isCapitol":false},{"id":"102","name":"Factory","level":3,"buff":{"item":"coin","percentage":10},"coordinates":{"x":550,"y":775,"width":75,"height":75},"resources":{"coal":0,"rareSoil":450,"influence":0},"isCapitol":false},{"id":"103","name":"Stronghold","level":2,"buff":{"item":"coin","percentage":3},"coordinates":{"x":550,"y":850,"width":75,"height":75},"resources":{"coal":2880,"rareSoil":110,"influence":2880},"isCapitol":false},{"id":"104","name":"Village","level":1,"buff":{"item":"food","percentage":5},"coordinates":{"x":550,"y":925,"width":75,"height":75},"resources":{"coal":0,"rareSoil":350,"influence":0},"isCapitol":false},{"id":"105","name":"Stronghold","level":1,"buff":{"item":"iron","percentage":2},"coordinates":{"x":625,"y":0,"width":75,"height":75},"resources":{"coal":2736,"rareSoil":100,"influence":2736},"isCapitol":false},{"id":"106","name":"Town","level":2,"buff":{"item":"gathering","percentage":5},"coordinates":{"x":625,"y":75,"width":75,"height":75},"resources":{"coal":0,"rareSoil":400,"influence":0},"isCapitol":false},{"id":"107","name":"Stronghold","level":3,"buff":{"item":"food","percentage":4},"coordinates":{"x":625,"y":150,"width":75,"height":75},"resources":{"coal":3024,"rareSoil":120,"influence":3024},"isCapitol":false},{"id":"108","name":"Train Station","level":4,"buff":{"item":"gathering","percentage":15},"coordinates":{"x":625,"y":225,"width":75,"height":75},"resources":{"coal":0,"rareSoil":800,"influence":0},"isCapitol":false},{"id":"109","name":"Stronghold","level":5,"buff":{"item":"coin","percentage":8},"coordinates":{"x":625,"y":300,"width":75,"height":75},"resources":{"coal":3312,"rareSoil":140,"influence":3312},"isCapitol":false},{"id":"110","name":"Launch Site","level":5,"buff":{"item":"gathering","percentage":20},"coordinates":{"x":625,"y":375,"width":75,"height":75},"resources":{"coal":0,"rareSoil":900,"influence":0},"isCapitol":false},{"id":"111","name":"Stronghold","level":5,"buff":{"item":"iron","percentage":8},"coordinates":{"x":625,"y":450,"width":75,"height":100},"resources":{"coal":3312,"rareSoil":140,"influence":3312},"isCapitol":false},{"id":"112","name":"Launch Site","level":5,"buff":{"item":"food","percentage":20},"coordinates":{"x":625,"y":550,"width":75,"height":75},"resources":{"coal":0,"rareSoil":900,"influence":0},"isCapitol":false},{"id":"113","name":"Stronghold","level":5,"buff":{"item":"iron","percentage":8},"coordinates":{"x":625,"y":625,"width":75,"height":75},"resources":{"coal":3312,"rareSoil":140,"influence":3312},"isCapitol":false},{"id":"114","name":"Train Station","level":4,"buff":{"item":"coin","percentage":15},"coordinates":{"x":625,"y":700,"width":75,"height":75},"resources":{"coal":0,"rareSoil":800,"influence":0},"isCapitol":false},{"id":"115","name":"Stronghold","level":3,"buff":{"item":"coin","percentage":4},"coordinates":{"x":625,"y":775,"width":75,"height":75},"resources":{"coal":3024,"rareSoil":120,"influence":3024},"isCapitol":false},{"id":"116","name":"Town","level":2,"buff":{"item":"coin","percentage":5},"coordinates":{"x":625,"y":850,"width":75,"height":75},"resources":{"coal":0,"rareSoil":400,"influence":0},"isCapitol":false},{"id":"117","name":"Stronghold","level":1,"buff":{"item":"food","percentage":2},"coordinates":{"x":625,"y":925,"width":75,"height":75},"resources":{"coal":2736,"rareSoil":100,"influence":2736},"isCapitol":false},{"id":"118","name":"Village","level":1,"buff":{"item":"iron","percentage":5},"coordinates":{"x":700,"y":0,"width":75,"height":75},"resources":{"coal":0,"rareSoil":350,"influence":0},"isCapitol":false},{"id":"119","name":"Stronghold","level":2,"buff":{"item":"iron","percentage":3},"coordinates":{"x":700,"y":75,"width":75,"height":75},"resources":{"coal":2880,"rareSoil":110,"influence":2880},"isCapitol":false},{"id":"120","name":"Factory","level":3,"buff":{"item":"food","percentage":10},"coordinates":{"x":700,"y":150,"width":75,"height":75},"resources":{"coal":0,"rareSoil":450,"influence":0},"isCapitol":false},{"id":"121","name":"Stronghold","level":4,"buff":{"item":"food","percentage":6},"coordinates":{"x":700,"y":225,"width":75,"height":75},"resources":{"coal":3168,"rareSoil":130,"influence":3168},"isCapitol":false},{"id":"122","name":"Train Station","level":4,"buff":{"item":"coin","percentage":15},"coordinates":{"x":700,"y":300,"width":75,"height":75},"resources":{"coal":0,"rareSoil":800,"influence":0},"isCapitol":false},{"id":"123","name":"Stronghold","level":4,"buff":{"item":"coin","percentage":6},"coordinates":{"x":700,"y":375,"width":75,"height":75},"resources":{"coal":3168,"rareSoil":130,"influence":3168},"isCapitol":false},{"id":"124","name":"Train Station","level":4,"buff":{"item":"iron","percentage":15},"coordinates":{"x":700,"y":450,"width":75,"height":100},"resources":{"coal":0,"rareSoil":800,"influence":0},"isCapitol":false},{"id":"125","name":"Stronghold","level":4,"buff":{"item":"iron","percentage":6},"coordinates":{"x":700,"y":550,"width":75,"height":75},"resources":{"coal":3168,"rareSoil":130,"influence":3168},"isCapitol":false},{"id":"126","name":"Train Station","level":4,"buff":{"item":"food","percentage":15},"coordinates":{"x":700,"y":625,"width":75,"height":75},"resources":{"coal":0,"rareSoil":800,"influence":0},"isCapitol":false},{"id":"127","name":"Stronghold","level":4,"buff":{"item":"coin","percentage":6},"coordinates":{"x":700,"y":700,"width":75,"height":75},"resources":{"coal":3168,"rareSoil":130,"influence":3168},"isCapitol":false},{"id":"128","name":"Factory","level":3,"buff":{"item":"food","percentage":10},"coordinates":{"x":700,"y":775,"width":75,"height":75},"resources":{"coal":0,"rareSoil":450,"influence":0},"isCapitol":false},{"id":"129","name":"Stronghold","level":2,"buff":{"item":"food","percentage":3},"coordinates":{"x":700,"y":850,"width":75,"height":75},"resources":{"coal":2880,"rareSoil":110,"influence":2880},"isCapitol":false},{"id":"130","name":"Village","level":1,"buff":{"item":"iron","percentage":5},"coordinates":{"x":700,"y":925,"width":75,"height":75},"resources":{"coal":0,"rareSoil":350,"influence":0},"isCapitol":false},{"id":"131","name":"Stronghold","level":1,"buff":{"item":"coin","percentage":2},"coordinates":{"x":775,"y":0,"width":75,"height":75},"resources":{"coal":2736,"rareSoil":100,"influence":2736},"isCapitol":false},{"id":"132","name":"Town","level":2,"buff":{"item":"coin","percentage":5},"coordinates":{"x":775,"y":75,"width":75,"height":75},"resources":{"coal":0,"rareSoil":400,"influence":0},"isCapitol":false},{"id":"133","name":"Stronghold","level":3,"buff":{"item":"iron","percentage":4},"coordinates":{"x":775,"y":150,"width":75,"height":75},"resources":{"coal":3024,"rareSoil":120,"influence":3024},"isCapitol":false},{"id":"134","name":"Factory","level":3,"buff":{"item":"coin","percentage":10},"coordinates":{"x":775,"y":225,"width":75,"height":75},"resources":{"coal":0,"rareSoil":450,"influence":0},"isCapitol":false},{"id":"135","name":"Stronghold","level":3,"buff":{"item":"food","percentage":4},"coordinates":{"x":775,"y":300,"width":75,"height":75},"resources":{"coal":3024,"rareSoil":120,"influence":3024},"isCapitol":false},{"id":"136","name":"Factory","level":3,"buff":{"item":"iron","percentage":10},"coordinates":{"x":775,"y":375,"width":75,"height":75},"resources":{"coal":0,"rareSoil":450,"influence":0},"isCapitol":false},{"id":"137","name":"Stronghold","level":3,"buff":{"item":"coin","percentage":4},"coordinates":{"x":775,"y":450,"width":75,"height":100},"resources":{"coal":3024,"rareSoil":120,"influence":3024},"isCapitol":false},{"id":"138","name":"Factory","level":3,"buff":{"item":"food","percentage":10},"coordinates":{"x":775,"y":550,"width":75,"height":75},"resources":{"coal":0,"rareSoil":450,"influence":0},"isCapitol":false},{"id":"139","name":"Stronghold","level":3,"buff":{"item":"iron","percentage":4},"coordinates":{"x":775,"y":625,"width":75,"height":75},"resources":{"coal":3024,"rareSoil":120,"influence":3024},"isCapitol":false},{"id":"140","name":"Factory","level":3,"buff":{"item":"coin","percentage":10},"coordinates":{"x":775,"y":700,"width":75,"height":75},"resources":{"coal":0,"rareSoil":450,"influence":0},"isCapitol":false},{"id":"141","name":"Stronghold","level":3,"buff":{"item":"food","percentage":4},"coordinates":{"x":775,"y":775,"width":75,"height":75},"resources":{"coal":3024,"rareSoil":120,"influence":3024},"isCapitol":false},{"id":"142","name":"Town","level":2,"buff":{"item":"gathering","percentage":5},"coordinates":{"x":775,"y":850,"width":75,"height":75},"resources":{"coal":0,"rareSoil":400,"influence":0},"isCapitol":false},{"id":"143","name":"Stronghold","level":1,"buff":{"item":"iron","percentage":2},"coordinates":{"x":775,"y":925,"width":75,"height":75},"resources":{"coal":2736,"rareSoil":100,"influence":2736},"isCapitol":false},{"id":"144","name":"Village","level":1,"buff":{"item":"food","percentage":5},"coordinates":{"x":850,"y":0,"width":75,"height":75},"resources":{"coal":0,"rareSoil":350,"influence":0},"isCapitol":false},{"id":"145","name":"Stronghold","level":2,"buff":{"item":"coin","percentage":3},"coordinates":{"x":850,"y":75,"width":75,"height":75},"resources":{"coal":2880,"rareSoil":110,"influence":2880},"isCapitol":false},{"id":"146","name":"Town","level":2,"buff":{"item":"coin","percentage":5},"coordinates":{"x":850,"y":150,"width":75,"height":75},"resources":{"coal":0,"rareSoil":400,"influence":0},"isCapitol":false},{"id":"147","name":"Stronghold","level":2,"buff":{"item":"iron","percentage":3},"coordinates":{"x":850,"y":225,"width":75,"height":75},"resources":{"coal":2880,"rareSoil":110,"influence":2880},"isCapitol":false},{"id":"148","name":"Town","level":2,"buff":{"item":"coin","percentage":5},"coordinates":{"x":850,"y":300,"width":75,"height":75},"resources":{"coal":0,"rareSoil":400,"influence":0},"isCapitol":false},{"id":"149","name":"Stronghold","level":2,"buff":{"item":"food","percentage":3},"coordinates":{"x":850,"y":375,"width":75,"height":75},"resources":{"coal":2880,"rareSoil":110,"influence":2880},"isCapitol":false},{"id":"150","name":"Town","level":2,"buff":{"item":"coin","percentage":5},"coordinates":{"x":850,"y":450,"width":75,"height":100},"resources":{"coal":0,"rareSoil":400,"influence":0},"isCapitol":false},{"id":"151","name":"Stronghold","level":2,"buff":{"item":"coin","percentage":3},"coordinates":{"x":850,"y":550,"width":75,"height":75},"resources":{"coal":2880,"rareSoil":110,"influence":2880},"isCapitol":false},{"id":"152","name":"Town","level":2,"buff":{"item":"coin","percentage":5},"coordinates":{"x":850,"y":625,"width":75,"height":75},"resources":{"coal":0,"rareSoil":400,"influence":0},"isCapitol":false},{"id":"153","name":"Stronghold","level":2,"buff":{"item":"iron","percentage":3},"coordinates":{"x":850,"y":700,"width":75,"height":75},"resources":{"coal":2880,"rareSoil":110,"influence":2880},"isCapitol":false},{"id":"154","name":"Town","level":2,"buff":{"item":"coin","percentage":5},"coordinates":{"x":850,"y":775,"width":75,"height":75},"resources":{"coal":0,"rareSoil":400,"influence":0},"isCapitol":false},{"id":"155","name":"Stronghold","level":2,"buff":{"item":"iron","percentage":3},"coordinates":{"x":850,"y":850,"width":75,"height":75},"resources":{"coal":2880,"rareSoil":110,"influence":2880},"isCapitol":false},{"id":"156","name":"Village","level":1,"buff":{"item":"food","percentage":5},"coordinates":{"x":850,"y":925,"width":75,"height":75},"resources":{"coal":0,"rareSoil":350,"influence":0},"isCapitol":false},{"id":"157","name":"Stronghold","level":1,"buff":{"item":"food","percentage":2},"coordinates":{"x":925,"y":0,"width":75,"height":75},"resources":{"coal":2736,"rareSoil":100,"influence":2736},"isCapitol":false},{"id":"158","name":"Village","level":1,"buff":{"item":"food","percentage":5},"coordinates":{"x":925,"y":75,"width":75,"height":75},"resources":{"coal":0,"rareSoil":350,"influence":0},"isCapitol":false},{"id":"159","name":"Stronghold","level":1,"buff":{"item":"coin","percentage":2},"coordinates":{"x":925,"y":150,"width":75,"height":75},"resources":{"coal":2736,"rareSoil":100,"influence":2736},"isCapitol":false},{"id":"160","name":"Village","level":1,"buff":{"item":"food","percentage":5},"coordinates":{"x":925,"y":225,"width":75,"height":75},"resources":{"coal":0,"rareSoil":350,"influence":0},"isCapitol":false},{"id":"161","name":"Stronghold","level":1,"buff":{"item":"iron","percentage":2},"coordinates":{"x":925,"y":300,"width":75,"height":75},"resources":{"coal":2736,"rareSoil":100,"influence":2736},"isCapitol":false},{"id":"162","name":"Village","level":1,"buff":{"item":"food","percentage":5},"coordinates":{"x":925,"y":375,"width":75,"height":75},"resources":{"coal":0,"rareSoil":350,"influence":0},"isCapitol":false},{"id":"163","name":"Stronghold","level":1,"buff":{"item":"food","percentage":2},"coordinates":{"x":925,"y":450,"width":75,"height":100},"resources":{"coal":2736,"rareSoil":100,"influence":2736},"isCapitol":false},{"id":"164","name":"Village","level":1,"buff":{"item":"food","percentage":5},"coordinates":{"x":925,"y":550,"width":75,"height":75},"resources":{"coal":0,"rareSoil":350,"influence":0},"isCapitol":false},{"id":"165","name":"Stronghold","level":1,"buff":{"item":"coin","percentage":2},"coordinates":{"x":925,"y":625,"width":75,"height":75},"resources":{"coal":2736,"rareSoil":100,"influence":2736},"isCapitol":false},{"id":"166","name":"Village","level":1,"buff":{"item":"food","percentage":5},"coordinates":{"x":925,"y":700,"width":75,"height":75},"resources":{"coal":0,"rareSoil":350,"influence":0},"isCapitol":false},{"id":"167","name":"Stronghold","level":1,"buff":{"item":"iron","percentage":2},"coordinates":{"x":925,"y":775,"width":75,"height":75},"resources":{"coal":2736,"rareSoil":100,"influence":2736},"isCapitol":false},{"id":"168","name":"Village","level":1,"buff":{"item":"food","percentage":5},"coordinates":{"x":925,"y":850,"width":75,"height":75},"resources":{"coal":0,"rareSoil":350,"influence":0},"isCapitol":false},{"id":"169","name":"Stronghold","level":1,"buff":{"item":"coin","percentage":2},"coordinates":{"x":925,"y":925,"width":75,"height":75},"resources":{"coal":2736,"rareSoil":100,"influence":2736},"isCapitol":false}];
+const ADJACENCY = {"1":["2","14"],"2":["1","3","15"],"3":["2","4","16"],"4":["3","5","17"],"5":["4","6","18"],"6":["5","7","19"],"7":["6","8","20"],"8":["7","9","21"],"9":["8","10","22"],"10":["9","11","23"],"11":["10","12","24"],"12":["11","13","25"],"13":["12","26"],"14":["1","15","27"],"15":["2","14","16","28"],"16":["3","15","17","29"],"17":["4","16","18","30"],"18":["5","17","19","31"],"19":["6","18","20","32"],"20":["7","19","21","33"],"21":["8","20","22","34"],"22":["9","21","23","35"],"23":["10","22","24","36"],"24":["11","23","25","37"],"25":["12","24","26","38"],"26":["13","25","39"],"27":["14","28","40"],"28":["15","27","29","41"],"29":["16","28","30","42"],"30":["17","29","31","43"],"31":["18","30","32","44"],"32":["19","31","33","45"],"33":["20","32","34","46"],"34":["21","33","35","47"],"35":["22","34","36","48"],"36":["23","35","37","49"],"37":["24","36","38","50"],"38":["25","37","39","51"],"39":["26","38","52"],"40":["27","41","53"],"41":["28","40","42","54"],"42":["29","41","43","55"],"43":["30","42","44","56"],"44":["31","43","45","57"],"45":["32","44","46","58"],"46":["33","45","47","59"],"47":["34","46","48","60"],"48":["35","47","49","61"],"49":["36","48","50","62"],"50":["37","49","51","63"],"51":["38","50","52","64"],"52":["39","51","65"],"53":["40","54","66"],"54":["41","53","55","67"],"55":["42","54","56","68"],"56":["43","55","57","69"],"57":["44","56","58","70"],"58":["45","57","59","71"],"59":["46","58","60","72"],"60":["47","59","61","73"],"61":["48","60","62","74"],"62":["49","61","63","75"],"63":["50","62","64","76"],"64":["51","63","65","77"],"65":["52","64","78"],"66":["53","67","79"],"67":["54","66","68","80"],"68":["55","67","69","81"],"69":["56","68","70","82"],"70":["57","69","71","83"],"71":["58","70","72","84"],"72":["59","71","73","85"],"73":["60","72","74","86"],"74":["61","73","75","87"],"75":["62","74","76","88"],"76":["63","75","77","89"],"77":["64","76","78","90"],"78":["65","77","91"],"79":["66","80","92"],"80":["67","79","81","93"],"81":["68","80","82","94"],"82":["69","81","83","95"],"83":["70","82","84","96"],"84":["71","83","85","97"],"85":["72","84","86","98"],"86":["73","85","87","99"],"87":["74","86","88","100"],"88":["75","87","89","101"],"89":["76","88","90","102"],"90":["77","89","91","103"],"91":["78","90","104"],"92":["79","93","105"],"93":["80","92","94","106"],"94":["81","93","95","107"],"95":["82","94","96","108"],"96":["83","95","97","109"],"97":["84","96","98","110"],"98":["85","97","99","111"],"99":["86","98","100","112"],"100":["87","99","101","113"],"101":["88","100","102","114"],"102":["89","101","103","115"],"103":["90","102","104","116"],"104":["91","103","117"],"105":["92","106","118"],"106":["93","105","107","119"],"107":["94","106","108","120"],"108":["95","107","109","121"],"109":["96","108","110","122"],"110":["97","109","111","123"],"111":["98","110","112","124"],"112":["99","111","113","125"],"113":["100","112","114","126"],"114":["101","113","115","127"],"115":["102","114","116","128"],"116":["103","115","117","129"],"117":["104","116","130"],"118":["105","119","131"],"119":["106","118","120","132"],"120":["107","119","121","133"],"121":["108","120","122","134"],"122":["109","121","123","135"],"123":["110","122","124","136"],"124":["111","123","125","137"],"125":["112","124","126","138"],"126":["113","125","127","139"],"127":["114","126","128","140"],"128":["115","127","129","141"],"129":["116","128","130","142"],"130":["117","129","143"],"131":["118","132","144"],"132":["119","131","133","145"],"133":["120","132","134","146"],"134":["121","133","135","147"],"135":["122","134","136","148"],"136":["123","135","137","149"],"137":["124","136","138","150"],"138":["125","137","139","151"],"139":["126","138","140","152"],"140":["127","139","141","153"],"141":["128","140","142","154"],"142":["129","141","143","155"],"143":["130","142","156"],"144":["131","145","157"],"145":["132","144","146","158"],"146":["133","145","147","159"],"147":["134","146","148","160"],"148":["135","147","149","161"],"149":["136","148","150","162"],"150":["137","149","151","163"],"151":["138","150","152","164"],"152":["139","151","153","165"],"153":["140","152","154","166"],"154":["141","153","155","167"],"155":["142","154","156","168"],"156":["143","155","169"],"157":["144","158"],"158":["145","157","159"],"159":["146","158","160"],"160":["147","159","161"],"161":["148","160","162"],"162":["149","161","163"],"163":["150","162","164"],"164":["151","163","165"],"165":["152","164","166"],"166":["153","165","167"],"167":["154","166","168"],"168":["155","167","169"],"169":["156","168"]};
+
+const SEASON_CONFIG = {
+  maxCities: 6,
+  maxStrongholds: 4,
+  baseCities: 6,
+  baseStrongholds: 4,
+  strongholdsPerCity: 0,
+  strongholdsPerLevel6City: 0
+};
+
+const LEVEL_COLORS = [
+  '#D9A77C','#d39968','#cd8c54','#c77f40','#b97235',
+  '#a5662f','#91592a','#7d4d24','#69411e','#553518'
+];
+
+const ABBREV = {"Stronghold": "SH", "Village": "VL", "Town": "TN", "Factory": "FC", "Nuclear Furnace": "NF", "War Palace": "WP", "Train Station": "TS", "Launch Site": "LS"};
+
+const BUILDING_COLORS = {
+  'Stronghold': null,
+  'Village': '#27ae60',
+  'Town': '#2980b9',
+  'Factory': '#d35400',
+  'Nuclear Furnace': '#c0392b',
+  'War Palace': '#e74c3c',
+  'Train Station': '#8e44ad',
+  'Launch Site': '#f39c12'
+};
+
+const BUFF_PRIORITY = {
+  'research': 10, 'training': 9, 'construction': 8, 'march': 8,
+  'gathering': 5, 'food': 2, 'iron': 2, 'coin': 2
+};
+
+const CITY_TYPES = new Set(['Village', 'Town', 'Factory', 'Nuclear Furnace', 'War Palace', 'Train Station', 'Launch Site']);
+
+// Y-axis flip to match cpt-hedge's Leaflet rendering (y=0 at bottom)
+const MAP_H = 1000; // max y extent
+function flipY(c) { return { x: c.x, y: MAP_H - c.y - c.height, w: c.width, h: c.height }; }
+
+// ========== STATE ==========
+let state = {
+  alliances: [],
+  assignments: {},
+  days: {},              // per-day map configs keyed by day number "1","2",... -> {week, day, assignments}
+  currentDay: null,      // the day currently selected for viewing/editing
+  selectedAlliance: null,
+  pathMode: false,
+  pathStart: null,
+  pathEnd: null,
+  pathResult: [],
+  seasonWeek: 1,
+  seasonDay: 3,
+  hoveredArea: null,
+  selectedArea: null,
+  lastImport: null,
+  lastModified: null
+};
+
+// ========== CANVAS STATE ==========
+let canvas, ctx;
+let scale = 1.0, offsetX = 0, offsetY = 0;
+let isDragging = false, dragStartX = 0, dragStartY = 0, dragOffsetX = 0, dragOffsetY = 0;
+const WORLD_SIZE = 1000;
+let lastTouchDist = 0;
+
+// ========== INDEX AREAS BY GRID FOR FAST HIT TEST ==========
+// Pre-compute flipped coordinates for each area
+MAP_AREAS.forEach(a => { a._f = flipY(a.coordinates); });
+
+const areaIndex = {};
+MAP_AREAS.forEach(a => {
+  const f = a._f;
+  // Index by 50px grid cells using FLIPPED coordinates
+  for (let gx = Math.floor(f.x / 50); gx <= Math.floor((f.x + f.w - 1) / 50); gx++) {
+    for (let gy = Math.floor(f.y / 50); gy <= Math.floor((f.y + f.h - 1) / 50); gy++) {
+      const key = gx + ',' + gy;
+      if (!areaIndex[key]) areaIndex[key] = [];
+      areaIndex[key].push(a);
+    }
+  }
+});
+
+// ========== INIT ==========
+document.addEventListener('DOMContentLoaded', async () => {
+  canvas = document.getElementById('mapCanvas');
+  ctx = canvas.getContext('2d');
+  await loadState();  // async — loads from server, falls back to localStorage
+  resizeCanvas();
+  fitAll();
+  setupEvents();
+  renderAlliances();
+  renderInfluence();
+  renderLimits();
+  renderCaptureAdvisor();
+  draw();
+  window.addEventListener('resize', () => { resizeCanvas(); draw(); });
+  setupMobileTouchSnap();
+
+  // Auto-select user's alliance if they have one assigned
+  if (MAP_USER.allianceId && state.alliances.some(a => a.id === MAP_USER.allianceId)) {
+    state.selectedAlliance = MAP_USER.allianceId;
+    renderAlliances();
+  }
+
+  // Lock down UI for viewers
+  if (MAP_USER.role === 'viewer') {
+    document.querySelectorAll('.io-buttons button').forEach(btn => {
+      const text = btn.textContent;
+      if (text.includes('Export') || text.includes('Import') || text.includes('Reset') || text.includes('History')) {
+        btn.style.display = 'none';
+      }
+    });
+    // Hide alliance add/remove/color controls
+    const addBtn = document.querySelector('.add-alliance-btn');
+    if (addBtn) addBtn.style.display = 'none';
+    document.querySelectorAll('.alliance-remove, .alliance-color, .alliance-enemy-toggle').forEach(el => {
+      el.style.display = 'none';
+    });
+  }
+});
+
+function resizeCanvas() {
+  const wrapper = canvas.parentElement;
+  canvas.width = wrapper.clientWidth;
+  canvas.height = wrapper.clientHeight;
+}
+
+function fitAll() {
+  // First pass: compute scale with current canvas size
+  const padding = 30;
+  let sx = (canvas.width - padding * 2) / WORLD_SIZE;
+  let sy = (canvas.height - padding * 2) / WORLD_SIZE;
+  let s = Math.min(sx, sy);
+
+  // Shrink main-layout if the map is much shorter than the canvas
+  const neededH = Math.ceil(WORLD_SIZE * s + padding * 2);
+  const wrapper = canvas.parentElement;
+  const mainLayout = document.querySelector('.main-layout');
+  if (mainLayout && neededH < wrapper.offsetHeight * 0.85) {
+    mainLayout.style.height = neededH + 'px';
+    // Let flex reflow, then re-sync canvas to new wrapper size
+    canvas.width = wrapper.clientWidth;
+    canvas.height = neededH;
+    // Recompute scale with new canvas dimensions
+    sx = (canvas.width - padding * 2) / WORLD_SIZE;
+    sy = (canvas.height - padding * 2) / WORLD_SIZE;
+    s = Math.min(sx, sy);
+  }
+
+  scale = s;
+  offsetX = (canvas.width - WORLD_SIZE * scale) / 2;
+  offsetY = padding;
+}
+
+// ========== DRAWING ==========
+function draw() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+  // Background
+  ctx.fillStyle = '#e8e0d4';
+  ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+  ctx.save();
+  ctx.setTransform(scale, 0, 0, scale, offsetX, offsetY);
+
+  const phase = getPhase();
+  const fontSize = 10 / scale;
+  // Show labels at all zoom-in levels; only hide them when zoomed very far OUT
+  // (tiles too small on screen for text). The old gate (fontSize 6..30) also
+  // hid text past ~1.67x zoom-in, which is why labels vanished on zoom-in.
+  const showText = scale > 0.333;
+
+  MAP_AREAS.forEach(area => {
+    const c = area.coordinates;
+    const x = c.x, y = 1000 - c.y - c.height, w = c.width, h = c.height;
+    const isCapitol = area.isCapitol || area.name === 'Royal Palace';
+    const isCity = CITY_TYPES.has(area.name);
+    const isDimmed = shouldDim(area, phase);
+    const owner = state.assignments[area.id];
+    const alliance = owner ? state.alliances.find(a => a.id === owner) : null;
+
+    // Fill color
+    //  - Unclaimed: pure white, no building tint, just a gridline border
+    //  - Capitol:   keep saturated brown base + level tint (special tile)
+    //  - Claimed:   PAINT THE PURE ALLIANCE COLOR (no brown base muddying it)
+    if (isCapitol) {
+      // Capitol keeps its level palette
+      ctx.fillStyle = LEVEL_COLORS[Math.min(area.level - 1, 9)];
+      ctx.fillRect(x, y, w, h);
+      if (BUILDING_COLORS[area.name]) {
+        ctx.fillStyle = BUILDING_COLORS[area.name];
+        ctx.globalAlpha = 0.25;
+        ctx.fillRect(x, y, w, h);
+        ctx.globalAlpha = 1.0;
+      }
+    } else if (alliance) {
+      // Claimed: full-saturation alliance color (no brown wash)
+      ctx.fillStyle = alliance.color;
+      ctx.fillRect(x, y, w, h);
+      // Bright/dark border same color for sharp edge separation
+      ctx.strokeStyle = alliance.color;
+      ctx.lineWidth = 3 / scale;
+      ctx.strokeRect(x + 1 / scale, y + 1 / scale, w - 2 / scale, h - 2 / scale);
+    } else {
+      // Unclaimed: pure white + subtle gray gridline so empty tiles read as discrete cells
+      ctx.fillStyle = '#ffffff';
+      ctx.fillRect(x, y, w, h);
+      ctx.strokeStyle = '#d1d5db';
+      ctx.lineWidth = 1 / scale;
+      ctx.strokeRect(x + 0.5 / scale, y + 0.5 / scale, w - 1 / scale, h - 1 / scale);
+    }
+
+    // Dim overlay for timeline — but ONLY on unclaimed tiles.
+    // Claimed alliance tiles always render at full saturation regardless of phase.
+    if (isDimmed && !alliance) {
+      ctx.fillStyle = 'rgba(200,200,200,0.55)';
+      ctx.fillRect(x, y, w, h);
+    }
+
+    // Border — black for tile separation; Capitol keeps gold accent
+    if (isCapitol) {
+      ctx.strokeStyle = '#FFD700';
+      ctx.lineWidth = 3 / scale;
+      ctx.strokeRect(x, y, w, h);
+    } else {
+      ctx.strokeStyle = '#000000';
+      ctx.lineWidth = 1.2 / scale;
+      ctx.strokeRect(x, y, w, h);
+    }
+
+    // Text
+    if (showText) {
+      const abbr = ABBREV[area.name] || '??';
+      const cx = x + w / 2, cy = y + h / 2;
+
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+
+      if (window._printMode && alliance) {
+        // PRINT: alliance TAG on top (who holds it), tile type+level in the middle (its value),
+        // and the tile ID # at the bottom so it can be matched to the land list.
+        ctx.fillStyle = '#fff';
+        ctx.shadowColor = 'rgba(0,0,0,0.9)';
+        ctx.shadowBlur = 3 / scale;
+        ctx.font = `bold ${Math.max(11 / scale, 1.4)}px Segoe UI, sans-serif`;
+        ctx.fillText(alliance.tag, cx, cy - 11 / scale);
+        ctx.font = `bold ${Math.max(8 / scale, 1)}px Segoe UI, sans-serif`;
+        ctx.fillText(abbr + area.level, cx, cy + 2 / scale);
+        ctx.font = `${Math.max(7 / scale, 0.8)}px Segoe UI, sans-serif`;
+        ctx.fillText('#' + area.id, cx, y + h - 5 / scale);
+        ctx.shadowBlur = 0;
+      } else if (w >= 80) {
+        // Royal Palace: bigger text
+        ctx.font = `bold ${Math.max(14 / scale, 2)}px Fredoka, sans-serif`;
+        ctx.fillStyle = '#fff';
+        ctx.shadowColor = 'rgba(0,0,0,0.5)';
+        ctx.shadowBlur = 3 / scale;
+        ctx.fillText(abbr, cx, cy - 6 / scale);
+        ctx.font = `${Math.max(10 / scale, 1.5)}px Fredoka, sans-serif`;
+        ctx.fillText('Lv' + area.level, cx, cy + 8 / scale);
+        ctx.shadowBlur = 0;
+      } else {
+        // Label color: white over dark alliance overlay or Capitol; dark over white unclaimed
+        const isDark = !!alliance || area.level >= 7;
+        ctx.font = `bold ${Math.max(9 / scale, 1)}px Segoe UI, sans-serif`;
+        ctx.fillStyle = isDark ? '#fff' : '#1a1a1a';
+        ctx.shadowColor = isDark ? 'rgba(0,0,0,0.4)' : 'rgba(255,255,255,0.6)';
+        ctx.shadowBlur = 2 / scale;
+        ctx.fillText(abbr, cx, cy - 3 / scale);
+        ctx.font = `${Math.max(7 / scale, 0.8)}px Segoe UI, sans-serif`;
+        ctx.fillText(area.level, cx, cy + 7 / scale);
+        ctx.shadowBlur = 0;
+      }
+
+      // Owner tag (live view only — print mode already shows the tag prominently above)
+      if (!window._printMode && alliance && w >= 50) {
+        ctx.font = `bold ${Math.max(6 / scale, 0.7)}px Segoe UI, sans-serif`;
+        ctx.fillStyle = '#fff';
+        ctx.shadowColor = 'rgba(0,0,0,0.7)';
+        ctx.shadowBlur = 2 / scale;
+        ctx.fillText(alliance.tag, cx, y + h - 5 / scale);
+        ctx.shadowBlur = 0;
+      }
+    }
+  });
+
+  // Draw path
+  if (state.pathResult.length > 1) {
+    ctx.strokeStyle = '#5bc0de';
+    ctx.lineWidth = 3 / scale;
+    ctx.setLineDash([6 / scale, 4 / scale]);
+    ctx.beginPath();
+    for (let i = 0; i < state.pathResult.length; i++) {
+      const a = MAP_AREAS.find(m => m.id === state.pathResult[i]);
+      if (!a) continue;
+      const _f = flipY(a.coordinates);
+      const cx = _f.x + _f.w / 2;
+      const cy = _f.y + _f.h / 2;
+      if (i === 0) ctx.moveTo(cx, cy);
+      else ctx.lineTo(cx, cy);
+    }
+    ctx.stroke();
+    ctx.setLineDash([]);
+
+    // Numbered circles
+    state.pathResult.forEach((pid, idx) => {
+      const a = MAP_AREAS.find(m => m.id === pid);
+      if (!a) return;
+      const _f = flipY(a.coordinates);
+      const cx = _f.x + _f.w / 2;
+      const cy = _f.y + _f.h / 2;
+      const r = 10 / scale;
+      ctx.beginPath();
+      ctx.arc(cx, cy - 14 / scale, r, 0, Math.PI * 2);
+      ctx.fillStyle = idx === 0 ? '#43a047' : idx === state.pathResult.length - 1 ? '#e53935' : '#5bc0de';
+      ctx.fill();
+      ctx.strokeStyle = '#fff';
+      ctx.lineWidth = 1.5 / scale;
+      ctx.stroke();
+      ctx.fillStyle = '#fff';
+      ctx.font = `bold ${Math.max(8 / scale, 1)}px sans-serif`;
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+      ctx.fillText(idx + 1, cx, cy - 14 / scale);
+    });
+  }
+
+  // Highlight hovered area
+  if (state.hoveredArea) {
+    const f = state.hoveredArea._f;
+    ctx.strokeStyle = '#fff';
+    ctx.lineWidth = 2.5 / scale;
+    ctx.strokeRect(f.x, f.y, f.w, f.h);
+  }
+
+  // Highlight selected area
+  if (state.selectedArea) {
+    const c = state.selectedArea.coordinates;
+    ctx.strokeStyle = '#5bc0de';
+    ctx.lineWidth = 2.5 / scale;
+    ctx.setLineDash([4 / scale, 3 / scale]);
+    ctx.strokeRect(c.x - 1 / scale, c.y - 1 / scale, c.width + 2 / scale, c.height + 2 / scale);
+    ctx.setLineDash([]);
+  }
+
+  ctx.restore();
+}
+
+function shouldDim(area, phase) {
+  if (phase === 'none') return true;
+  if (phase === 'strongholds') return CITY_TYPES.has(area.name);
+  return false; // 'all' = nothing dimmed
+}
+
+function getPhase() {
+  if (window._printMode) return 'all';   // clean per-day snapshots for PDF export (no dimming)
+  const w = state.seasonWeek, d = state.seasonDay;
+  const totalDay = (w - 1) * 7 + d;
+  if (totalDay < 3) return 'none';
+  if (totalDay < 4) return 'strongholds';
+  return 'all';
+}
+
+// ========== EVENTS ==========
+function setupEvents() {
+  const wrapper = canvas.parentElement;
+
+  // Mouse wheel zoom
+  wrapper.addEventListener('wheel', e => {
+    e.preventDefault();
+    const rect = canvas.getBoundingClientRect();
+    const mx = e.clientX - rect.left;
+    const my = e.clientY - rect.top;
+    const worldX = (mx - offsetX) / scale;
+    const worldY = (my - offsetY) / scale;
+
+    const factor = e.deltaY < 0 ? 1.1 : 1 / 1.1;
+    const newScale = Math.max(0.5, Math.min(5.0, scale * factor));
+    offsetX = mx - worldX * newScale;
+    offsetY = my - worldY * newScale;
+    scale = newScale;
+    draw();
+  }, { passive: false });
+
+  // Mouse drag + click
+  wrapper.addEventListener('mousedown', e => {
+    if (e.button === 0) {
+      isDragging = true;
+      dragStartX = e.clientX;
+      dragStartY = e.clientY;
+      dragOffsetX = offsetX;
+      dragOffsetY = offsetY;
+      if (!state.pathMode) wrapper.classList.add('dragging');
+    }
+  });
+  window.addEventListener('mousemove', e => {
+    if (isDragging && !state.pathMode) {
+      offsetX = dragOffsetX + (e.clientX - dragStartX);
+      offsetY = dragOffsetY + (e.clientY - dragStartY);
+      draw();
+    }
+    // Hover detection
+    const rect = canvas.getBoundingClientRect();
+    const mx = e.clientX - rect.left;
+    const my = e.clientY - rect.top;
+    const area = hitTest(mx, my);
+    if (area !== state.hoveredArea) {
+      state.hoveredArea = area;
+      draw();
+    }
+    updateTooltip(e.clientX, e.clientY, area);
+  });
+  window.addEventListener('mouseup', e => {
+    if (isDragging) {
+      const dx = Math.abs(e.clientX - dragStartX);
+      const dy = Math.abs(e.clientY - dragStartY);
+      isDragging = false;
+      wrapper.classList.remove('dragging');
+      // If it was a click (not drag), handle click logic
+      if (dx < 4 && dy < 4) {
+        const rect = canvas.getBoundingClientRect();
+        const mx = e.clientX - rect.left;
+        const my = e.clientY - rect.top;
+        handleClick(mx, my, e);
+      } else if (!state.pathMode) {
+        // Only apply pan if not in path mode
+        offsetX = dragOffsetX + (e.clientX - dragStartX);
+        offsetY = dragOffsetY + (e.clientY - dragStartY);
+        draw();
+      }
+    }
+  });
+
+  // Right-click to unassign (editors/masters only, respects alliance restrictions)
+  wrapper.addEventListener('contextmenu', e => {
+    e.preventDefault();
+    if (MAP_USER.role === 'viewer') return;
+    const rect = canvas.getBoundingClientRect();
+    const mx = e.clientX - rect.left;
+    const my = e.clientY - rect.top;
+    const area = hitTest(mx, my);
+    if (area && state.assignments[area.id]) {
+      const isAdminOrOwner = (MAP_USER.role === 'owner' || MAP_USER.role === 'admin');
+      const currentOwner = state.assignments[area.id];
+      const userAlliance = MAP_USER.allianceId || null;
+      // Only unassign your own alliance's territory (unless admin/owner)
+      if (!isAdminOrOwner && currentOwner !== userAlliance) return;
+      delete state.assignments[area.id];
+      saveState();
+      renderInfluence();
+      renderLimits();
+      renderCaptureAdvisor();
+      updateAreaInfo(area);
+      draw();
+    }
+  });
+
+  // Double-click to fit all
+  wrapper.addEventListener('dblclick', e => {
+    e.preventDefault();
+    fitAll();
+    draw();
+  });
+
+  // Touch events
+  wrapper.addEventListener('touchstart', handleTouchStart, { passive: false });
+  wrapper.addEventListener('touchmove', handleTouchMove, { passive: false });
+  wrapper.addEventListener('touchend', handleTouchEnd, { passive: false });
+
+  // Timeline controls
+  const _ws0 = document.getElementById('weekSelect');
+  if (_ws0) _ws0.addEventListener('change', e => {
+    state.seasonWeek = parseInt(e.target.value);
+    updatePhaseLabel();
+    saveState();
+    draw();
+  });
+  const _ds0 = document.getElementById('daySelect');
+  if (_ds0) _ds0.addEventListener('change', e => {
+    state.seasonDay = parseInt(e.target.value);
+    updatePhaseLabel();
+    saveState();
+    draw();
+  });
+  const _pds = document.getElementById('planDaySelect');
+  if (_pds) _pds.addEventListener('change', e => { selectDay(e.target.value); });
+}
+
+// ========== TOUCH ==========
+let touchStartX = 0, touchStartY = 0;
+function handleTouchStart(e) {
+  e.preventDefault();
+  if (e.touches.length === 1) {
+    isDragging = true;
+    dragStartX = e.touches[0].clientX;
+    dragStartY = e.touches[0].clientY;
+    touchStartX = e.touches[0].clientX;
+    touchStartY = e.touches[0].clientY;
+    dragOffsetX = offsetX;
+    dragOffsetY = offsetY;
+  } else if (e.touches.length === 2) {
+    isDragging = false;
+    lastTouchDist = Math.hypot(
+      e.touches[0].clientX - e.touches[1].clientX,
+      e.touches[0].clientY - e.touches[1].clientY
+    );
+  }
+}
+function handleTouchMove(e) {
+  e.preventDefault();
+  if (e.touches.length === 1 && isDragging) {
+    offsetX = dragOffsetX + (e.touches[0].clientX - dragStartX);
+    offsetY = dragOffsetY + (e.touches[0].clientY - dragStartY);
+    draw();
+  } else if (e.touches.length === 2) {
+    const dist = Math.hypot(
+      e.touches[0].clientX - e.touches[1].clientX,
+      e.touches[0].clientY - e.touches[1].clientY
+    );
+    if (lastTouchDist > 0) {
+      const factor = dist / lastTouchDist;
+      const midX = (e.touches[0].clientX + e.touches[1].clientX) / 2;
+      const midY = (e.touches[0].clientY + e.touches[1].clientY) / 2;
+      const rect = canvas.getBoundingClientRect();
+      const mx = midX - rect.left;
+      const my = midY - rect.top;
+      const worldX = (mx - offsetX) / scale;
+      const worldY = (my - offsetY) / scale;
+      const newScale = Math.max(0.5, Math.min(5.0, scale * factor));
+      offsetX = mx - worldX * newScale;
+      offsetY = my - worldY * newScale;
+      scale = newScale;
+      draw();
+    }
+    lastTouchDist = dist;
+  }
+}
+function handleTouchEnd(e) {
+  if (e.touches.length < 2) lastTouchDist = 0;
+  if (e.touches.length === 0) {
+    // Detect tap (minimal movement) and trigger click
+    if (isDragging) {
+      const dx = Math.abs(touchStartX - (e.changedTouches[0]?.clientX || touchStartX));
+      const dy = Math.abs(touchStartY - (e.changedTouches[0]?.clientY || touchStartY));
+      if (dx < 8 && dy < 8) {
+        const rect = canvas.getBoundingClientRect();
+        const mx = touchStartX - rect.left;
+        const my = touchStartY - rect.top;
+        handleClick(mx, my, e);
+      }
+    }
+    isDragging = false;
+  }
+}
+
+// ========== HIT TEST ==========
+function hitTest(screenX, screenY) {
+  const worldX = (screenX - offsetX) / scale;
+  const worldY = (screenY - offsetY) / scale;
+  const gx = Math.floor(worldX / 50);
+  const gy = Math.floor(worldY / 50);
+  const candidates = areaIndex[gx + ',' + gy] || [];
+  for (const a of candidates) {
+    const f = a._f;
+    if (worldX >= f.x && worldX < f.x + f.w && worldY >= f.y && worldY < f.y + f.h) {
+      return a;
+    }
+  }
+  return null;
+}
+
+// ========== TOOLTIP ==========
+function updateTooltip(clientX, clientY, area) {
+  const tooltip = document.getElementById('tooltip');
+  if (!area) {
+    tooltip.style.display = 'none';
+    return;
+  }
+  const owner = state.assignments[area.id];
+  const alliance = owner ? state.alliances.find(a => a.id === owner) : null;
+  const neighbors = ADJACENCY[area.id] || [];
+
+  let html = `<div class="tt-name">${area.name} (Lv.${area.level})</div>`;
+  html += `<div style="font-size:11px;color:#888;margin:-2px 0 2px 0">Tile ID: <strong style="color:#5bc0de">${area.id}</strong></div>`;
+  html += `<div class="tt-buff">+${area.buff.percentage}% ${area.buff.item}</div>`;
+  html += `<div class="tt-inf">${((area.resources&&area.resources.rareSoil)||0).toLocaleString()} soil/hr${((area.resources&&area.resources.coal)||0) ? ' · ' + area.resources.coal.toLocaleString() + ' coal/hr' : ''}</div>`;
+  html += `<div style="font-size:11px;color:#aaa">Neighbors: ${neighbors.length}</div>`;
+  if (alliance) {
+    html += `<div class="tt-owner" style="color:${alliance.color}">Owner: [${alliance.tag}]</div>`;
+  }
+  tooltip.innerHTML = html;
+  tooltip.style.display = 'block';
+
+  // Position tooltip near cursor
+  const tx = clientX + 16;
+  const ty = clientY + 16;
+  const tw = tooltip.offsetWidth;
+  const th = tooltip.offsetHeight;
+  tooltip.style.left = (tx + tw > window.innerWidth ? clientX - tw - 8 : tx) + 'px';
+  tooltip.style.top = (ty + th > window.innerHeight ? clientY - th - 8 : ty) + 'px';
+}
+
+// ========== CLICK HANDLING ==========
+function handleClick(mx, my, event) {
+  const area = hitTest(mx, my);
+  if (!area) {
+    state.selectedArea = null;
+    updateAreaInfo(null);
+    draw();
+    return;
+  }
+
+  state.selectedArea = area;
+  updateAreaInfo(area);
+
+  // On mobile: show action bar instead of direct assign
+  if (isMobile()) {
+    showMobileActionBar(area);
+    draw();
+    return;
+  }
+
+  if (state.pathMode) {
+    if (!state.pathStart) {
+      state.pathStart = area.id;
+      state.pathEnd = null;
+      state.pathResult = [];
+    } else if (!state.pathEnd) {
+      state.pathEnd = area.id;
+      state.pathResult = bfs(state.pathStart, state.pathEnd);
+      renderPathDetails();
+    } else {
+      // Reset path
+      state.pathStart = area.id;
+      state.pathEnd = null;
+      state.pathResult = [];
+      renderPathDetails();
+    }
+    draw();
+    return;
+  }
+
+  // Assign/unassign territory (editors+ only, with alliance restrictions)
+  if (state.selectedAlliance && MAP_USER.role !== 'viewer') {
+    const isAdminOrOwner = (MAP_USER.role === 'owner' || MAP_USER.role === 'admin');
+    const currentOwner = state.assignments[area.id] || null;
+    const userAlliance = MAP_USER.allianceId || null;
+
+    if (event.ctrlKey || event.metaKey) {
+      // Unassign: only if it belongs to YOUR alliance (or you're admin/owner)
+      if (!isAdminOrOwner && currentOwner && currentOwner !== userAlliance) {
+        // Can't unassign another alliance's territory
+        return;
+      }
+      delete state.assignments[area.id];
+    } else {
+      // Assign: only if tile is open OR belongs to your alliance (or you're admin/owner)
+      if (!isAdminOrOwner && currentOwner && currentOwner !== userAlliance) {
+        // Can't override another alliance's territory
+        return;
+      }
+      state.assignments[area.id] = state.selectedAlliance;
+    }
+    saveState();
+    renderInfluence();
+    renderLimits();
+    renderCaptureAdvisor();
+    updateAreaInfo(area);
+    draw();
+  }
+}
+
+// ========== BFS PATH ==========
+function bfs(startId, endId) {
+  if (startId === endId) return [startId];
+  const visited = new Set([startId]);
+  const queue = [[startId]];
+  while (queue.length > 0) {
+    const path = queue.shift();
+    const current = path[path.length - 1];
+    const neighbors = ADJACENCY[current] || [];
+    for (const n of neighbors) {
+      if (visited.has(n)) continue;
+      const newPath = [...path, n];
+      if (n === endId) return newPath;
+      visited.add(n);
+      queue.push(newPath);
+    }
+  }
+  return []; // No path found
+}
+
+// ========== ALLIANCE MANAGEMENT ==========
+// Derive the short tag shown on map cells + the influence list.
+// Preserves a trailing number so e.g. RANK1..RANK10 stay distinct
+// (a plain slice(0,4) collapsed them all to "RANK").
+function deriveTag(name) {
+  const up = (name || '').trim().toUpperCase();
+  const m = up.match(/^(.*?)(\d+)$/);
+  if (m) {
+    const alpha = m[1].replace(/[^A-Z0-9]/g, '').slice(0, 4);
+    return alpha + m[2];
+  }
+  return up.replace(/[^A-Z0-9]/g, '').slice(0, 4);
+}
+
+function renderAlliances() {
+  const container = document.getElementById('allianceList');
+  container.innerHTML = '';
+
+  // "None" option — view mode, no assignment on click
+  const noneItem = document.createElement('div');
+  noneItem.className = 'alliance-item none-mode' + (state.selectedAlliance === null ? ' selected' : '');
+  noneItem.innerHTML = `<span style="color:#888;font-style:italic;">&#128065; None (View Mode)</span>`;
+  noneItem.addEventListener('click', () => {
+    state.selectedAlliance = null;
+    renderAlliances();
+    renderLimits();
+    renderCaptureAdvisor();
+  });
+  container.appendChild(noneItem);
+
+  const isAdminOrOwner = (MAP_USER.role === 'owner' || MAP_USER.role === 'admin');
+  const userAlliance = MAP_USER.allianceId || null;
+
+  state.alliances.forEach(al => {
+    const item = document.createElement('div');
+    const isMyAlliance = (al.id === userAlliance);
+    const canSelect = isAdminOrOwner || isMyAlliance;
+    item.className = 'alliance-item' + (state.selectedAlliance === al.id ? ' selected' : '') + (!canSelect ? ' locked' : '');
+    item.innerHTML = `
+      <div class="alliance-swatch" style="background:${al.color}"></div>
+      <span class="alliance-name">${al.name}</span>
+      ${isMyAlliance ? '<span style="font-size:10px;color:var(--teal);" title="Your alliance">&#9733;</span>' : ''}
+      ${al.isEnemy ? '<span class="alliance-enemy" title="Enemy">&#9760;</span>' : ''}
+      ${isAdminOrOwner ? `<input type="color" value="${al.color}" title="Change color"
+        onclick="event.stopPropagation()"
+        onchange="changeAllianceColor('${al.id}', this.value)">
+      <button class="alliance-btn" onclick="event.stopPropagation(); renameAlliance('${al.id}')"
+        title="Rename">&#9999;</button>
+      <button class="alliance-btn" onclick="event.stopPropagation(); toggleEnemy('${al.id}')"
+        title="Toggle enemy">
+        ${al.isEnemy ? '&#9774;' : '&#9760;'}
+      </button>
+      <button class="alliance-btn del" onclick="event.stopPropagation(); deleteAlliance('${al.id}')"
+        title="Delete">&times;</button>` : ''}
+    `;
+    if (canSelect) {
+      item.addEventListener('click', () => {
+        state.selectedAlliance = al.id;
+        renderAlliances();
+        renderLimits();
+        renderCaptureAdvisor();
+      });
+    }
+    container.appendChild(item);
+  });
+}
+
+function addAlliance() {
+  const input = document.getElementById('newAllianceName');
+  const name = input.value.trim();
+  if (!name) return;
+  const id = name.toLowerCase().replace(/[^a-z0-9]/g, '') + '_' + Date.now();
+  const hue = Math.floor(Math.random() * 360);
+  const color = `hsl(${hue}, 55%, 50%)`;
+  // Convert HSL to hex
+  const el = document.createElement('div');
+  el.style.color = color;
+  document.body.appendChild(el);
+  const rgb = getComputedStyle(el).color;
+  document.body.removeChild(el);
+  const match = rgb.match(/\d+/g);
+  const hex = match ? '#' + match.slice(0, 3).map(c => parseInt(c).toString(16).padStart(2, '0')).join('') : '#888888';
+
+  state.alliances.push({ id, name, color: hex, tag: deriveTag(name), isEnemy: false });
+  input.value = '';
+  saveState();
+  renderAlliances();
+  renderInfluence();
+}
+
+function deleteAlliance(id) {
+  const isAdmin = (MAP_USER.role === 'owner' || MAP_USER.role === 'admin');
+  const hasAssignments = Object.values(state.assignments).some(v => v === id);
+
+  if (hasAssignments && !isAdmin) {
+    alert('This alliance has territories assigned. Only admins can delete alliances that are in use.\n\nTo delete it yourself, unassign all its territories first.');
+    return;
+  }
+  if (hasAssignments && isAdmin) {
+    const count = Object.values(state.assignments).filter(v => v === id).length;
+    if (!confirm(`This alliance has ${count} territories assigned. Delete it and remove all assignments?`)) return;
+  }
+
+  state.alliances = state.alliances.filter(a => a.id !== id);
+  Object.keys(state.assignments).forEach(k => {
+    if (state.assignments[k] === id) delete state.assignments[k];
+  });
+  if (state.selectedAlliance === id) {
+    state.selectedAlliance = state.alliances.length > 0 ? state.alliances[0].id : null;
+  }
+  saveState();
+  renderAlliances();
+  renderInfluence();
+  renderLimits();
+  renderCaptureAdvisor();
+  draw();
+}
+
+function renameAlliance(id) {
+  const al = state.alliances.find(a => a.id === id);
+  if (!al) return;
+  const newName = prompt('Rename alliance:', al.name);
+  if (newName === null) return; // cancelled
+  const trimmed = newName.trim();
+  if (!trimmed) { alert('Alliance name cannot be empty.'); return; }
+  if (trimmed === al.name) return; // no change
+  // Keep the id stable so existing territory assignments stay intact.
+  al.name = trimmed;
+  al.tag = deriveTag(trimmed);
+  saveState();
+  renderAlliances();
+  renderInfluence();
+  renderLimits();
+  draw();
+}
+
+function toggleEnemy(id) {
+  const al = state.alliances.find(a => a.id === id);
+  if (al) al.isEnemy = !al.isEnemy;
+  saveState();
+  renderAlliances();
+}
+
+function changeAllianceColor(id, color) {
+  const al = state.alliances.find(a => a.id === id);
+  if (al) al.color = color;
+  saveState();
+  renderAlliances();
+  renderInfluence();
+  draw();
+}
+
+// ========== INFLUENCE ==========
+function renderInfluence() {
+  const container = document.getElementById('influenceSummary');
+  const totals = {}, coals = {};
+  state.alliances.forEach(al => { totals[al.id] = 0; coals[al.id] = 0; });
+  Object.entries(state.assignments).forEach(([areaId, alId]) => {
+    const area = MAP_AREAS.find(a => a.id === areaId);
+    if (area) {
+      totals[alId] = (totals[alId] || 0) + ((area.resources && area.resources.rareSoil) || 0);
+      coals[alId] = (coals[alId] || 0) + ((area.resources && area.resources.coal) || 0);
+    }
+  });
+  container.innerHTML = state.alliances.map(al => `
+    <div class="influence-row">
+      <div class="inf-swatch" style="background:${al.color}"></div>
+      <span class="inf-name">[${al.tag}]</span>
+      <span class="inf-val">${(totals[al.id] || 0).toLocaleString()}<small style="color:#999"> soil</small> <span style="color:#bbb">&middot;</span> ${(coals[al.id] || 0).toLocaleString()}<small style="color:#999"> coal</small></span>
+    </div>
+  `).join('') + renderDayMoves();
+}
+
+// ========== DAY MOVES (why every capture & drop happens — same reasons as the printout) ==========
+function renderDayMoves() {
+  const dnum = Number(state.currentDay);
+  if (!dnum || !state.days || !state.days[String(dnum - 1)]) return '';
+  const prevA = state.days[String(dnum - 1)].assignments || {};
+  const curA = (state.days[String(dnum)] && state.days[String(dnum)].assignments) || state.assignments || {};
+  const nums = Object.keys(state.days).map(Number).filter(n => !isNaN(n)).sort((a, b) => a - b);
+  const last = nums[nums.length - 1];
+  const byId = id => state.alliances.find(a => a.id === id);
+  const isBloc = a => a && (/^bloc/i.test(a.tag || '') || /^block?$/i.test(a.name || ''));
+  const lines = [];
+  state.alliances.forEach(al => {
+    if (isBloc(al)) return;
+    const ups = [], downs = [];
+    Object.entries(curA).forEach(([t, aid]) => {
+      if (aid === al.id && prevA[t] !== al.id) ups.push('#' + t);
+    });
+    Object.entries(prevA).forEach(([t, aid]) => {
+      if (aid !== al.id || curA[t] === al.id) return;
+      let why = 'cap swap';
+      for (let k = dnum + 1; k <= last; k++) {
+        const ow = ((state.days[String(k)] || {}).assignments || {})[t];
+        if (!ow) continue;
+        const rec = byId(ow);
+        if (isBloc(rec)) continue;
+        why = (ow === al.id) ? 'retakes d' + k : '→ ' + ((rec && rec.tag) || '?') + ' d' + k;
+        break;
+      }
+      downs.push('#' + t + ' <i>' + why + '</i>');
+    });
+    if (ups.length || downs.length) {
+      lines.push('<div class="influence-row" style="font-size:11px;align-items:flex-start"><div class="inf-swatch" style="background:' + al.color + '"></div><span class="inf-name">[' + al.tag + ']</span><span style="flex:1;line-height:1.5">' +
+        (ups.length ? '<span style="color:#2e7d32">↑ ' + ups.join(', ') + '</span>' : '') +
+        (ups.length && downs.length ? '<br>' : '') +
+        (downs.length ? '<span style="color:#c62828">↓ ' + downs.join('; ') + '</span>' : '') + '</span></div>');
+    }
+  });
+  const head = '<div style="margin-top:8px;border-top:1px solid #ddd;padding-top:6px"><b style="font-size:12px">Day ' + dnum + ' moves</b><div style="font-size:10px;color:#888;margin:2px 0 4px">Every ↓ has a reason: → = handed to that alliance on that day · cap swap = 4-dig/6-city limit forced it</div>';
+  return head + (lines.length ? lines.join('') : '<div style="font-size:11px;color:#999">No moves — everyone holds &amp; farms.</div>') + '</div>';
+}
+
+// ========== LIMITS TRACKER ==========
+function renderLimits() {
+  const container = document.getElementById('limitsTracker');
+  const al = state.alliances.find(a => a.id === state.selectedAlliance);
+  if (!al) { container.innerHTML = '<em>Select an alliance</em>'; return; }
+
+  let cities = 0, strongholds = 0, lv6Cities = 0;
+  Object.entries(state.assignments).forEach(([areaId, alId]) => {
+    if (alId !== al.id) return;
+    const area = MAP_AREAS.find(a => a.id === areaId);
+    if (!area) return;
+    if (CITY_TYPES.has(area.name)) {
+      cities++;
+      if (area.level >= 6) lv6Cities++;
+    } else {
+      strongholds++;
+    }
+  });
+
+  const maxSH = Math.min(SEASON_CONFIG.maxStrongholds,
+    SEASON_CONFIG.baseStrongholds +
+    (cities - lv6Cities) * SEASON_CONFIG.strongholdsPerCity +
+    lv6Cities * SEASON_CONFIG.strongholdsPerLevel6City
+  );
+
+  container.innerHTML = `
+    <div class="limit-row"><span class="limit-label">Strongholds:</span><span class="limit-val">${strongholds} / ${maxSH}</span></div>
+    <div class="limit-row"><span class="limit-label">Cities:</span><span class="limit-val">${cities} / ${SEASON_CONFIG.maxCities}</span></div>
+    <div class="limit-row"><span class="limit-label">Lv6+ Cities:</span><span class="limit-val">${lv6Cities}</span></div>
+  `;
+}
+
+// ========== CAPTURE ADVISOR ==========
+function renderCaptureAdvisor() {
+  const container = document.getElementById('captureList');
+  const al = state.alliances.find(a => a.id === state.selectedAlliance);
+  if (!al) { container.innerHTML = '<em>Select an alliance</em>'; return; }
+
+  // Get owned area IDs
+  const owned = new Set(
+    Object.entries(state.assignments)
+      .filter(([_, v]) => v === al.id)
+      .map(([k, _]) => k)
+  );
+
+  if (owned.size === 0) {
+    container.innerHTML = '<em style="color:#999">Assign territories first to see recommendations.</em>';
+    return;
+  }
+
+  // Find unclaimed neighbors
+  const candidates = new Map();
+  owned.forEach(areaId => {
+    const neighbors = ADJACENCY[areaId] || [];
+    neighbors.forEach(nId => {
+      if (!state.assignments[nId] && !candidates.has(nId)) {
+        const area = MAP_AREAS.find(a => a.id === nId);
+        if (area) candidates.set(nId, area);
+      }
+    });
+  });
+
+  // Rank
+  const ranked = [...candidates.values()].sort((a, b) => {
+    // 1. Influence desc
+    var sA=(a.resources&&a.resources.rareSoil)||0, sB=(b.resources&&b.resources.rareSoil)||0; if (sB !== sA) return sB - sA;
+    // 2. Buff rarity
+    const bp = (BUFF_PRIORITY[b.buff.item] || 0) - (BUFF_PRIORITY[a.buff.item] || 0);
+    if (bp !== 0) return bp;
+    // 3. Level desc
+    return b.level - a.level;
+  }).slice(0, 10);
+
+  container.innerHTML = ranked.map((area, idx) => `
+    <div class="capture-item" onclick="centerOnArea('${area.id}')">
+      <span class="ci-rank">${idx + 1}</span>
+      <span class="ci-name">${area.name} Lv.${area.level}</span>
+      <span style="color:#888;font-size:10px">+${area.buff.percentage}% ${area.buff.item}</span>
+      <span class="ci-inf">${((area.resources&&area.resources.rareSoil)||0).toLocaleString()}</span>
+    </div>
+  `).join('');
+}
+
+function centerOnArea(areaId) {
+  const area = MAP_AREAS.find(a => a.id === areaId);
+  if (!area) return;
+  const f = area._f;
+  const cx = f.x + f.w / 2;
+  const cy = f.y + f.h / 2;
+  offsetX = canvas.width / 2 - cx * scale;
+  offsetY = canvas.height / 2 - cy * scale;
+  state.selectedArea = area;
+  updateAreaInfo(area);
+  draw();
+}
+
+// ========== AREA INFO PANEL ==========
+function updateAreaInfo(area) {
+  const container = document.getElementById('areaInfo');
+  if (!area) {
+    container.innerHTML = '<em style="color:#999">Click an area on the map to view details.</em>';
+    return;
+  }
+  const neighbors = ADJACENCY[area.id] || [];
+  const owner = state.assignments[area.id];
+  const alliance = owner ? state.alliances.find(a => a.id === owner) : null;
+
+  let neighborList = neighbors.slice(0, 8).map(nId => {
+    const n = MAP_AREAS.find(a => a.id === nId);
+    if (!n) return '';
+    const nOwner = state.assignments[nId];
+    const nAlliance = nOwner ? state.alliances.find(a => a.id === nOwner) : null;
+    return `<div style="font-size:11px;padding:1px 0">
+      ${n.name} Lv.${n.level}
+      ${nAlliance ? '<span style="color:' + nAlliance.color + '">[' + nAlliance.tag + ']</span>' : '<span style="color:#aaa">unclaimed</span>'}
+    </div>`;
+  }).join('');
+  if (neighbors.length > 8) neighborList += `<div style="font-size:10px;color:#aaa">+${neighbors.length - 8} more</div>`;
+
+  container.innerHTML = `
+    <div class="area-info-card">
+      <div class="aic-name">${area.name} <span style="font-size:12px;color:#888">#${area.id}</span></div>
+      <div class="aic-detail">
+        <div>Level: ${area.level}</div>
+        <div>Buff: <strong style="color:var(--orange)">+${area.buff.percentage}% ${area.buff.item}</strong></div>
+        <div>Rare Soil/hr: <strong style="color:var(--cyan)">${((area.resources&&area.resources.rareSoil)||0).toLocaleString()}</strong>${((area.resources&&area.resources.coal)||0) ? ` &middot; Coal/hr: <strong style="color:var(--cyan)">${area.resources.coal.toLocaleString()}</strong>` : ''}</div>
+        ${area.isCapitol ? '<div style="color:#FFD700;font-weight:600">&#9813; Royal Palace</div>' : ''}
+      </div>
+      <div class="aic-owner" style="background:${alliance ? alliance.color + '22' : '#f0f0f0'};color:${alliance ? alliance.color : '#999'}">
+        ${alliance ? '&#9873; [' + alliance.tag + '] ' + alliance.name : 'Unclaimed'}
+      </div>
+    </div>
+    <div style="font-size:12px;font-weight:600;margin:6px 0 4px;color:var(--dark)">
+      Neighbors (${neighbors.length}):
+    </div>
+    ${neighborList || '<em style="color:#ccc">None</em>'}
+  `;
+}
+
+// ========== PATH MODE ==========
+function togglePathMode() {
+  state.pathMode = !state.pathMode;
+  state.pathStart = null;
+  state.pathEnd = null;
+  state.pathResult = [];
+  const btn = document.getElementById('pathBtn');
+  btn.className = 'path-btn' + (state.pathMode ? ' active' : '');
+  btn.textContent = state.pathMode ? 'Path Mode: ON (click start, then end)' : 'Path Mode: OFF';
+  renderPathDetails();
+  draw();
+}
+
+function renderPathDetails() {
+  const container = document.getElementById('pathDetails');
+  if (!state.pathResult.length) {
+    if (state.pathStart && !state.pathEnd) {
+      const a = MAP_AREAS.find(m => m.id === state.pathStart);
+      container.innerHTML = `<div>Start: ${a ? a.name + ' #' + a.id : '?'}</div><div style="color:var(--cyan)">Click destination area...</div>`;
+    } else {
+      container.innerHTML = '<em style="color:#999">Toggle path mode and click two areas.</em>';
+    }
+    return;
+  }
+  let totalInf = 0;
+  state.pathResult.forEach(pid => {
+    const a = MAP_AREAS.find(m => m.id === pid);
+    if (a) totalInf += ((a.resources && a.resources.rareSoil) || 0);
+  });
+  container.innerHTML = `
+    <div><strong>Steps:</strong> ${state.pathResult.length}</div>
+    <div><strong>Total Influence:</strong> ${totalInf.toLocaleString()}</div>
+    <div style="margin-top:4px;font-size:11px;color:#888">
+      ${state.pathResult.map((pid, i) => {
+        const a = MAP_AREAS.find(m => m.id === pid);
+        return `${i + 1}. ${a ? a.name + ' Lv.' + a.level : '?'}`;
+      }).join('<br>')}
+    </div>
+  `;
+}
+
+// ========== TIMELINE ==========
+function updatePhaseLabel() {
+  const label = document.getElementById('phaseLabel');
+  const phase = getPhase();
+  const phaseText = {
+    'none': 'Pre-War',
+    'strongholds': 'Strongholds Open',
+    'all': 'Full Capture'
+  };
+  const phaseColors = {
+    'none': '#888',
+    'strongholds': '#f4a261',
+    'all': '#43a047'
+  };
+  label.textContent = phaseText[phase];
+  label.style.background = phaseColors[phase];
+  label.style.color = '#fff';
+
+  // Cross-warzone indicator
+  const cw = document.getElementById('crossWarzone');
+  const totalDay = (state.seasonWeek - 1) * 7 + state.seasonDay;
+  cw.style.display = totalDay >= 16 ? 'inline' : 'none'; // W3D2 = day 16
+}
+
+// ========== PERSISTENCE (Multi-layer: localStorage + IndexedDB) ==========
+// iOS Safari can wipe localStorage after 7 days inactivity or on low storage.
+// We save to both localStorage (fast) and IndexedDB (more durable) and load
+// from whichever has the most recent data.
+const STORAGE_KEY = 'lastwar-s2-map-builder';
+const IDB_NAME = 'lastwar-s2-map-builder-db';
+const IDB_STORE = 'state';
+const IDB_KEY = 'current';
+
+// Detect iOS/Safari for extra precautions
+const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
+
+function getStateData() {
+  ensureDays();
+  syncCurrentDay();
+  return {
+    alliances: state.alliances,
+    assignments: state.assignments,
+    seasonWeek: state.seasonWeek,
+    seasonDay: state.seasonDay,
+    lastImport: state.lastImport || null,
+    days: state.days || {},
+    currentDay: state.currentDay || null,
+    lastModified: new Date().toISOString(),
+    _v: 2  // schema version for future migrations
+  };
+}
+
+function applyStateData(data) {
+  if (data.alliances) {
+    state.alliances = data.alliances;
+    // Backfill: re-derive tags so older saves (where RANK1..RANK10 all
+    // collapsed to "RANK") display distinctly. Idempotent; persists on next save.
+    state.alliances.forEach(al => { al.tag = deriveTag(al.name); });
+  }
+  if (data.assignments) state.assignments = data.assignments;
+  if (data.days) state.days = data.days;
+  if (data.currentDay) state.currentDay = data.currentDay;
+  if (data.seasonWeek != null) {
+    state.seasonWeek = data.seasonWeek;
+    const el = document.getElementById('weekSelect');
+    if (el) el.value = data.seasonWeek;
+  }
+  if (data.seasonDay != null) {
+    state.seasonDay = data.seasonDay;
+    const el = document.getElementById('daySelect');
+    if (el) el.value = data.seasonDay;
+  }
+  if (data.lastImport) state.lastImport = data.lastImport;
+  if (data.lastModified) state.lastModified = data.lastModified;
+  ensureDays();
+  const _cd = state.days[state.currentDay];
+  if (_cd) {
+    state.assignments = JSON.parse(JSON.stringify(_cd.assignments || {}));
+    state.seasonWeek = _cd.week; state.seasonDay = _cd.day;
+    const _ws = document.getElementById('weekSelect'); if (_ws) _ws.value = _cd.week;
+    const _ds = document.getElementById('daySelect'); if (_ds) _ds.value = _cd.day;
+  }
+  if (typeof rebuildDayDropdown === 'function') rebuildDayDropdown();
+}
+
+// --- localStorage layer ---
+function saveToLS(data) {
+  try {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+  } catch (e) {
+    // QuotaExceededError on iOS — try to clear old entries
+    console.warn('[Storage] localStorage save failed:', e.message);
+  }
+}
+
+function loadFromLS() {
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY);
+    return raw ? JSON.parse(raw) : null;
+  } catch (e) { return null; }
+}
+
+// --- IndexedDB layer (more durable, survives iOS eviction better) ---
+function openIDB() {
+  return new Promise((resolve, reject) => {
+    try {
+      const req = indexedDB.open(IDB_NAME, 1);
+      req.onupgradeneeded = (e) => {
+        const db = e.target.result;
+        if (!db.objectStoreNames.contains(IDB_STORE)) {
+          db.createObjectStore(IDB_STORE);
+        }
+      };
+      req.onsuccess = () => resolve(req.result);
+      req.onerror = () => reject(req.error);
+    } catch (e) { reject(e); }
+  });
+}
+
+function saveToIDB(data) {
+  openIDB().then(db => {
+    const tx = db.transaction(IDB_STORE, 'readwrite');
+    tx.objectStore(IDB_STORE).put(data, IDB_KEY);
+    tx.oncomplete = () => db.close();
+  }).catch(e => console.warn('[Storage] IDB save failed:', e));
+}
+
+function loadFromIDB() {
+  return openIDB().then(db => {
+    return new Promise((resolve, reject) => {
+      const tx = db.transaction(IDB_STORE, 'readonly');
+      const req = tx.objectStore(IDB_STORE).get(IDB_KEY);
+      req.onsuccess = () => { db.close(); resolve(req.result || null); };
+      req.onerror = () => { db.close(); resolve(null); };
+    });
+  }).catch(() => null);
+}
+
+// --- Combined save (writes to both layers) ---
+function saveState() {
+  if (MAP_USER.role === 'viewer') return;
+
+  const data = getStateData();
+  _doSave(data, 0);
+  updateStatusBar();
+}
+
+function _doSave(data) {
+  try { saveToLS(data); } catch(e) {}
+  saveToIDB(data);
+}
+
+// --- Load (localStorage first, IndexedDB fallback) ---
+async function loadState() {
+  let data = loadFromLS();
+  if (!data) {
+    try { data = await loadFromIDB(); } catch (e) { data = null; }
+    if (data) console.log('[Storage] Loaded from IndexedDB fallback');
+  } else {
+    console.log('[Storage] Loaded from localStorage');
+  }
+  if (data) applyStateData(data);
+  updatePhaseLabel();
+  updateStatusBar();
+}
+
+// ========== START FRESH (wipe all local data) ==========
+function resetAllData() {
+  if (!confirm('Erase ALL alliances, days, and captures saved in this browser and start from scratch?')) return;
+  try { localStorage.removeItem(STORAGE_KEY); } catch (e) {}
+  try { indexedDB.deleteDatabase(IDB_NAME); } catch (e) {}
+  location.reload();
+}
+
+// ========== EXPORT / IMPORT ==========
+// ===== PRINT / PDF: render every day as an image and open the browser print dialog =====
+function printAllDays() {
+  ensureDays();
+  syncCurrentDay();                       // persist the day we're on
+  const nums = _dayNums();
+  if (!nums.length) { alert('No days to print yet.'); return; }
+
+  // Save live view so we can restore it exactly after export.
+  const savedDay = state.currentDay;
+  const savedAssign = JSON.parse(JSON.stringify(state.assignments));
+  const savedWeek = state.seasonWeek, savedDayNum = state.seasonDay;
+  const realCanvas = canvas, realCtx = ctx, realScale = scale, realOX = offsetX, realOY = offsetY;
+
+  // Render off-screen at a fixed high resolution so the PDF is crisp.
+  const SIZE = 1100;
+  const tmp = document.createElement('canvas');
+  tmp.width = SIZE; tmp.height = SIZE;
+  canvas = tmp; ctx = tmp.getContext('2d');
+  window._printMode = true;               // getPhase() -> 'all' (no timeline dimming)
+
+  const cityTypes = (typeof CITY_TYPES !== 'undefined') ? CITY_TYPES : new Set();
+  const areaById = {};
+  MAP_AREAS.forEach(a => { areaById[a.id] = a; });
+  const isCityTile = ar => cityTypes.has(ar.name);
+  // BLOC is a reservation marker, not a real alliance — pull it out of the point tallies.
+  const blocAlliance = state.alliances.find(a => /^bloc/i.test(a.tag || '') || /^block?$/i.test(a.name || ''));
+  const blocId = blocAlliance ? blocAlliance.id : null;
+  // The tag auto-truncates to 4 chars ("Bloc"); show the full word BLOCK on the printed tiles.
+  const _blocTagSaved = blocAlliance ? blocAlliance.tag : null;
+  if (blocAlliance) blocAlliance.tag = 'BLOCK';
+  // Real alliances sorted ALPHABETICALLY so the printout never implies a ranking/priority order.
+  const realAll = state.alliances.filter(a => a.id !== blocId)
+                    .slice().sort((x, y) => (x.tag || x.name).localeCompare(y.tag || y.name));
+
+  const cumPts = {}, cumCoal = {};         // running soil (ranking) and coal (heat) per alliance
+  const pages = [];
+  nums.forEach(n => {
+    const dd = state.days[String(n)];
+    if (!dd) return;
+    state.assignments = dd.assignments || {};
+    state.seasonWeek = dd.week; state.seasonDay = dd.day;
+    // Fit the whole world into the off-screen square manually (fitAll() needs a DOM parent).
+    const pad = 30;
+    scale = (SIZE - pad * 2) / WORLD_SIZE;
+    offsetX = (SIZE - WORLD_SIZE * scale) / 2;
+    offsetY = pad;
+    draw();
+    // Per-alliance land list + soil/coal rates for THIS day's holdings.
+    const cur = state.assignments;
+    const prevA = (state.days[String(n - 1)] && state.days[String(n - 1)].assignments) || {};
+    const allianceList = [];
+    realAll.forEach(a => {
+      const lands = []; let inf = 0, coal = 0;
+      for (const [tid, aid] of Object.entries(cur)) {
+        if (aid !== a.id) continue;
+        const ar = areaById[tid]; if (!ar) continue;
+        inf += (ar.resources && ar.resources.rareSoil) || 0;   // S2 ranking = RARE SOIL (cities 350-1000/hr, digs 100-150/hr)
+        coal += (ar.resources && ar.resources.coal) || 0;      // coal = heat/survival (digs only)
+        lands.push({ ab: (ABBREV[ar.name] || '??'), lvl: ar.level, id: tid, mark: (prevA[tid] !== a.id) ? 'up' : '' });
+      }
+      // lands DROPPED this day (held yesterday, not today) — shown with a down arrow
+      for (const [tid, aid] of Object.entries(prevA)) {
+        if (aid !== a.id || cur[tid] === a.id) continue;
+        const ar = areaById[tid]; if (!ar) continue;
+        // WHY is it dropped? look ahead: handoff (someone captures it), temp-drop (we retake), or cap swap
+        let why = '(swap)';
+        for (let k2 = n + 1; k2 <= nums[nums.length - 1]; k2++) {
+          const as2 = (state.days[String(k2)] || {}).assignments || {};
+          if (!as2[tid]) continue;
+          if (as2[tid] === a.id) { why = '(temp — retaken d' + k2 + ')'; }
+          else { const rec = state.alliances.find(x => x.id === as2[tid]); why = '→ ' + ((rec && (rec.tag || rec.name)) || '?') + ' d' + k2; }
+          break;
+        }
+        lands.push({ ab: (ABBREV[ar.name] || '??'), lvl: ar.level, id: tid, mark: 'down', why });
+      }
+      // Points accumulate WHILE HELD: soil/hr x 24h for every day a land is held. The number shown
+      // on day N is CUMULATIVE THROUGH day N: all previous days PLUS day N's own 24h of holding.
+      // (Capture day earns its full day; drop day earns nothing — the two cancel on handoffs.)
+      cumPts[a.id] = (cumPts[a.id] || 0) + inf * 24;
+      cumCoal[a.id] = (cumCoal[a.id] || 0) + coal * 24;
+      if (lands.length) {
+        lands.sort((x, y) => Number(x.id) - Number(y.id));
+        allianceList.push({ tag: (a.tag || a.name), inf, coal, cum: cumPts[a.id], cumC: cumCoal[a.id], lands });
+      }
+    });
+    pages.push({ day: n, img: tmp.toDataURL('image/png'), allianceList });
+  });
+
+  // Restore the live view.
+  window._printMode = false;
+  if (blocAlliance) blocAlliance.tag = _blocTagSaved;   // restore truncated tag for the live app
+  canvas = realCanvas; ctx = realCtx; scale = realScale; offsetX = realOX; offsetY = realOY;
+  state.currentDay = savedDay;
+  state.assignments = savedAssign;
+  state.seasonWeek = savedWeek; state.seasonDay = savedDayNum;
+  draw();
+
+  // ---- Legend (repeated on EVERY page). BLOC = reserved land, flagged clearly. ----
+  const legend = realAll.map(a =>
+    '<span><i style="background:' + a.color + '"></i>' + (a.tag || a.name) + '</span>'
+  ).join('') + (blocAlliance
+    ? '<span><i style="background:' + blocAlliance.color + '"></i><span class="bloc-note">BLOCK = reserved &mdash; don\'t take</span></span>'
+    : '');
+
+  const fmtP = x => x >= 1e6 ? (x / 1e6).toFixed(1) + 'M' : Math.round(x).toLocaleString();
+  // ---- One page per day: legend + map + each alliance's influence, est. points & land list ----
+  const dayBlocks = pages.map(p =>
+    '<div class="print-day"><h2>Day ' + p.day + '</h2>' +
+    '<div class="pe-legend">' + legend + '</div>' +
+    '<img src="' + p.img + '" alt="Day ' + p.day + '">' +
+    '<div class="pe-lands">' + (p.allianceList.length
+      ? p.allianceList.map(al =>
+          '<div class="pe-al"><span class="tag">' + al.tag + '</span> &mdash; <span class="inf">&asymp;' +
+          al.inf.toLocaleString() + ' soil/hr &middot; ' + al.coal.toLocaleString() + ' coal/hr</span> <span class="cum">&asymp;' + fmtP(al.cum) + ' soil &middot; ' + fmtP(al.cumC) + ' coal accumulated through this day (all prior days + this day\'s 24h, est.)</span>' +
+          '<div class="lands">' + al.lands.map(l => { var arr = l.mark === 'up' ? ' <b style="color:#2e7d32">&uarr;</b>' : l.mark === 'down' ? ' <b style="color:#c62828">&darr;</b>' + (l.why ? '<span style="font-size:8pt;color:#c62828"> ' + l.why + '</span>' : '') : ''; return l.ab + ' lvl ' + l.lvl + ' ID ' + l.id + arr; }).join(', ') + '</div></div>'
+        ).join('')
+      : '<div class="pe-al wait">No land held yet on this day.</div>') +
+    '</div></div>'
+  ).join('');
+
+  const COOP = 'The best outcome for each and all is to work together and reach the state where everyone maximizes the points they can defend &mdash; as an alliance, and as a server.';
+
+  // ---- Cover page ----
+  const cover =
+    '<div class="pe-cover"><h1>&#9876; Season 2 Territory Plan</h1>' +
+    '<div class="pe-sub">Server #2013 &nbsp;&middot;&nbsp; ' + pages.length + '-day movement guide &nbsp;&middot;&nbsp; ' +
+    new Date().toLocaleDateString() + '</div>' +
+    '<div class="pe-msg">' + COOP + '</div>' +
+    '<div class="pe-legend" style="margin-top:0.3in">' + legend + '</div>' +
+    '<ul class="pe-how">' +
+    '<li><b>Every tile shows the alliance holding it</b> (big tag) and its type + level (e.g. <b>TN2</b> = a level-2 Town, <b>SH1</b> = a level-1 Stronghold).</li>' +
+    '<li><b>Below each day\'s map</b> every alliance is listed with its <b>total influence</b> and <b>every land it holds that day</b> &mdash; e.g. <i>TN lvl 2 ID 106, SH lvl 1 ID 40</i>. Find your tag and match your tiles.</li>' +
+    '<li><b style="color:#2e7d32">&uarr;</b> next to a land = <b>take it that day</b>; <b style="color:#c62828">&darr;</b> = <b>drop it that day</b> (no arrow = keep holding). A <b style="color:#f4a261">&#9733;</b> marks the season\'s <b>first capture</b> of that tile &mdash; first capture earns bonus points, and the plan routes first captures to the top alliances.</li>' +
+    '<li><b>Follow your tag, day by day.</b> Only take the land shown for your alliance on that day.</li>' +
+    '<li><b>You can only capture land touching land you already hold</b>, and only after it has unlocked.</li>' +
+    '<li><b>BLOCK tiles are reserved</b> for an upcoming move &mdash; leave them until the plan hands them over.</li>' +
+    '<li>Full rules, unlock schedule and the lock timing are on the last page.</li></ul></div>';
+
+  // ---- Rules page (NO rankings — just the shared rules) ----
+  const rules =
+    '<div class="pe-rules"><h1>Map Rules &amp; Timing</h1>' +
+    '<h3>How land is taken</h3><ul>' +
+    '<li><b>Adjacency:</b> you can only capture a tile directly next to one you already hold. On Day 1 you place a single starting stronghold; you grow outward from there.</li>' +
+    '<li><b>Checkerboard:</b> strongholds are never next to strongholds &mdash; you reach the next stronghold by first taking the city between them. <b>Cities are the main Rare Soil producers</b> (Village 350/h &middot; Town 400 &middot; Factory 450 &middot; Train Station 800 &middot; Launch Site 900 &middot; War Palace 1000). Dig sites produce coal for heat plus a little soil (100&ndash;150/h). The season is ranked on TOTAL rare soil accumulated while held.</li><li><b>Why lands get dropped (&darr;):</b> every drop is planned &mdash; either a <b>swap</b> (the 4-dig / 6-city cap forces releasing a lesser land to take a better one, so dig income never goes down) or a <b>scheduled handoff</b> (land is released so its capture-lock finishes exactly when the next alliance is due to take it). Every handoff is timed so the receiving alliance can take the land the moment its capture-lock allows.</li>' +
+    '<li><b>Your cap:</b> up to <b>6 cities + 4 strongholds = 10 blocks</b> total, taking at most <b>2 cities and 2 strongholds per day</b>.</li>' +
+    '</ul>' +
+    '<h3>The 36-hour &amp; 6-day locks (read this!)</h3><ul>' +
+    '<li>After <b>anyone</b> captures a <b>stronghold</b>, that tile is locked for <b>36 hours</b> &mdash; it can\'t change hands again until the lock clears.</li>' +
+    '<li>After <b>anyone</b> captures a <b>city</b>, that tile is locked for <b>6 days</b>.</li>' +
+    '<li>This is why the plan sometimes tells you to <b>wait</b>: grabbing a tile too soon after it was released simply fails. Take it on the day it is marked for you and it works cleanly.</li>' +
+    '</ul>' +
+    '<h3>When each land level unlocks</h3>' +
+    '<table><tr><th>Level</th><th>1</th><th>2</th><th>3</th><th>4</th><th>5</th><th>6</th></tr>' +
+    '<tr><th>City opens Day</th><td>3</td><td>6</td><td>10</td><td>13</td><td>17</td><td>20</td></tr></table>' +
+    '<div style="font-size:9.5pt;color:#555;margin-top:4px">Higher-level land opens later. Each day&rsquo;s page lists every alliance&rsquo;s total <b>influence</b> and the exact lands it should hold &mdash; capture the land marked for you, on the day it is marked.</div>' +
+    '<div class="pe-msg">' + COOP + '</div></div>';
+
+  let host = document.getElementById('printExport');
+  if (host) host.remove();
+  host = document.createElement('div');
+  host.id = 'printExport';
+  host.innerHTML = cover + dayBlocks + rules;
+  document.body.appendChild(host);
+
+  const cleanup = () => { const h = document.getElementById('printExport'); if (h) h.remove();
+                          window.removeEventListener('afterprint', cleanup); };
+  window.addEventListener('afterprint', cleanup);
+  setTimeout(() => window.print(), 200);  // let the images paint before printing
+}
+
+function exportState() {
+  ensureDays();
+  syncCurrentDay();
+  const data = {
+    alliances: state.alliances,
+    assignments: state.assignments,   // current day (back-compat)
+    days: state.days,                 // ALL days — full backup
+    currentDay: state.currentDay,
+    seasonWeek: state.seasonWeek,
+    seasonDay: state.seasonDay,
+    exportDate: new Date().toISOString()
+  };
+  const nDays = Object.keys(state.days || {}).length;
+  const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = 'owow_map_' + nDays + 'days_' + new Date().toISOString().slice(0, 10) + '.json';
+  a.click();
+  URL.revokeObjectURL(url);
+}
+
+function importState() {
+  const input = document.createElement('input');
+  input.type = 'file';
+  input.accept = '.json';
+  input.onchange = e => {
+    const file = e.target.files[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = ev => {
+      try {
+        const data = JSON.parse(ev.target.result);
+
+        // Full-backup restore: file contains multiple days
+        const fileDays = data.days && Object.keys(data.days).length;
+        if (fileDays) {
+          if (confirm('This file is a full ' + fileDays + '-day plan.\n\nOK = RESTORE ALL ' + fileDays + ' days (replaces your entire plan)\nCancel = import only into the day you currently have selected')) {
+            if (data.alliances) state.alliances = data.alliances;
+            state.days = data.days;
+            const sorted = Object.keys(data.days).sort((a, b) => Number(a) - Number(b));
+            state.currentDay = (data.currentDay && data.days[data.currentDay]) ? data.currentDay : sorted[0];
+            ensureDays();
+            const cd = state.days[state.currentDay];
+            state.assignments = JSON.parse(JSON.stringify(cd.assignments || {}));
+            state.seasonWeek = cd.week; state.seasonDay = cd.day;
+            saveState();
+            rebuildDayDropdown();
+            renderAlliances(); renderInfluence(); renderLimits(); renderCaptureAdvisor(); updatePhaseLabel(); draw();
+            alert('✅ Restored all ' + fileDays + ' days.');
+            return;
+          }
+          // otherwise fall through and import data.assignments into the selected day
+        }
+
+        // Count what's in the file
+        const fileAlliances = data.alliances ? data.alliances.length : 0;
+        const fileAssignments = data.assignments ? Object.keys(data.assignments).length : 0;
+        const currentAssignments = Object.keys(state.assignments).length;
+        const exportDate = data.exportDate ? new Date(data.exportDate).toLocaleDateString() : 'unknown';
+
+        // Show import options
+        let msg = '📂 Import File Summary:\n';
+        msg += '━━━━━━━━━━━━━━━━━━━━━━\n';
+        msg += 'Exported: ' + exportDate + '\n';
+        msg += 'Alliances: ' + fileAlliances + '\n';
+        msg += 'Territory assignments: ' + fileAssignments + '\n';
+        msg += '━━━━━━━━━━━━━━━━━━━━━━\n';
+        msg += 'You currently have ' + currentAssignments + ' assignments.\n\n';
+        msg += 'How do you want to import?\n';
+        msg += '• OK = REPLACE ALL (overwrites your current data)\n';
+        msg += '• Cancel = MERGE (adds new data, keeps your existing)';
+
+        const replaceAll = confirm(msg);
+
+        if (replaceAll) {
+          // Replace mode — overwrite everything
+          if (data.alliances) state.alliances = data.alliances;
+          if (data.assignments) state.assignments = data.assignments;
+        } else {
+          // Merge mode — add new alliances and assignments without removing existing
+          if (data.alliances) {
+            data.alliances.forEach(a => {
+              if (!state.alliances.find(x => x.id === a.id)) {
+                state.alliances.push(a);
+              }
+            });
+          }
+          if (data.assignments) {
+            Object.entries(data.assignments).forEach(([areaId, allianceId]) => {
+              if (!state.assignments[areaId]) {
+                state.assignments[areaId] = allianceId;
+              }
+            });
+          }
+        }
+
+        if (data.seasonWeek != null) {
+          state.seasonWeek = data.seasonWeek;
+          const _iw = document.getElementById('weekSelect'); if (_iw) _iw.value = data.seasonWeek;
+        }
+        if (data.seasonDay != null) {
+          state.seasonDay = data.seasonDay;
+          const _id = document.getElementById('daySelect'); if (_id) _id.value = data.seasonDay;
+        }
+
+        state.lastImport = {
+          date: new Date().toISOString(),
+          fileName: file.name,
+          mode: replaceAll ? 'replace' : 'merge',
+          source: data.exportDate || null
+        };
+
+        saveState();
+        renderAlliances();
+        renderInfluence();
+        renderLimits();
+        renderCaptureAdvisor();
+        updatePhaseLabel();
+        draw();
+        if (typeof rebuildDayDropdown === 'function') rebuildDayDropdown();
+
+        alert(replaceAll ? '✅ Imported into the selected day (replaced)' : '✅ Imported into the selected day (merged)');
+      } catch (err) {
+        alert('❌ Invalid file: ' + err.message);
+      }
+    };
+    reader.readAsText(file);
+  };
+  input.click();
+}
+
+// ========== DAY PLANS (each day = its own editable map config) ==========
+const CAN_EDIT = (typeof MAP_USER !== 'undefined' && MAP_USER && MAP_USER.role && MAP_USER.role !== 'viewer');
+
+function _dayNums() {
+  return Object.keys(state.days || {}).map(Number).filter(n => !isNaN(n)).sort((a, b) => a - b);
+}
+
+// Make sure there's always at least a "Day 1"; migrate a legacy single map into it.
+function ensureDays() {
+  if (!state.days) state.days = {};
+  if (Object.keys(state.days).length === 0) {
+    state.days['1'] = { week: state.seasonWeek, day: state.seasonDay,
+                        assignments: JSON.parse(JSON.stringify(state.assignments || {})) };
+    state.currentDay = '1';
+  }
+  if (!state.currentDay || !state.days[state.currentDay]) {
+    state.currentDay = String(_dayNums()[0] || 1);
+    if (!state.days[state.currentDay])
+      state.days[state.currentDay] = { week: state.seasonWeek, day: state.seasonDay, assignments: {} };
+  }
+}
+
+// Write the working map back into the currently-selected day slot.
+function syncCurrentDay() {
+  if (state.currentDay && state.days && state.days[state.currentDay]) {
+    state.days[state.currentDay].assignments = state.assignments;
+    state.days[state.currentDay].week = state.seasonWeek;
+    state.days[state.currentDay].day = state.seasonDay;
+  }
+}
+
+function _renderDay() {
+  ['updatePhaseLabel','renderAlliances','renderInfluence','renderLimits','renderCaptureAdvisor','draw']
+    .forEach(fn => { if (typeof window[fn] === 'function') window[fn](); });
+}
+
+function rebuildDayDropdown() {
+  const sel = document.getElementById('planDaySelect');
+  const lbl = document.getElementById('planDayLabel');
+  if (!sel) return;
+  ensureDays();
+  const nums = _dayNums();
+  let html = nums.map(n =>
+    '<option value="' + n + '"' + (String(n) === String(state.currentDay) ? ' selected' : '') + '>' + n + '</option>'
+  ).join('');
+  if (CAN_EDIT) html += '<option value="__new__">➕ New Day</option>';
+  sel.innerHTML = html;
+  sel.style.display = ''; if (lbl) lbl.style.display = '';
+  const del = document.getElementById('deleteDayBtn');
+  if (del) del.style.display = (CAN_EDIT && nums.length > 1) ? '' : 'none';
+  const pull = document.getElementById('pullPrevBtn');
+  if (pull) pull.style.display = (CAN_EDIT && Number(state.currentDay) > 1) ? '' : 'none';
+}
+
+function selectDay(key) {
+  if (key === '__new__') { addDay(); return; }
+  if (!state.days || !state.days[key]) return;
+  syncCurrentDay();                 // save the day we're leaving
+  state.currentDay = String(key);
+  const dd = state.days[key];
+  state.assignments = JSON.parse(JSON.stringify(dd.assignments || {}));
+  state.seasonWeek = dd.week; state.seasonDay = dd.day;
+  const ws = document.getElementById('weekSelect'); if (ws) ws.value = dd.week;
+  const ds = document.getElementById('daySelect'); if (ds) ds.value = dd.day;
+  _renderDay();
+  rebuildDayDropdown();
+}
+
+function addDay() {
+  if (!CAN_EDIT) return;
+  syncCurrentDay();
+  const nums = _dayNums();
+  const last = nums.length ? state.days[nums[nums.length - 1]] : null;
+  const n = String((nums.length ? nums[nums.length - 1] : 0) + 1);
+  state.days[n] = { week: last ? last.week : state.seasonWeek,
+                    day: last ? last.day : state.seasonDay, assignments: {} };
+  state.currentDay = n;
+  state.assignments = {};
+  _renderDay();
+  rebuildDayDropdown();
+  saveState();
+}
+
+function pullFromPrevious() {
+  if (!CAN_EDIT) return;
+  const cur = Number(state.currentDay);
+  const prevKey = String(cur - 1);
+  if (!state.days || !state.days[prevKey]) { alert('No previous day (Day ' + (cur - 1) + ') to pull from.'); return; }
+  // MERGE, don't wipe: overlay the previous day's assigned tiles onto this day.
+  // Tiles this day already has that the previous day doesn't touch are KEPT,
+  // so other members' additions are never erased.
+  const prev = state.days[prevKey].assignments || {};
+  let added = 0, updated = 0;
+  Object.keys(prev).forEach(tile => {
+    if (!(tile in state.assignments)) added++;
+    else if (state.assignments[tile] !== prev[tile]) updated++;
+    state.assignments[tile] = prev[tile];
+  });
+  syncCurrentDay();
+  _renderDay();
+  saveState();
+  alert('⬇️ Pulled Day ' + (cur - 1) + ' into Day ' + cur + ' — ' + added + ' added, ' + updated + ' updated. Tiles not in Day ' + (cur - 1) + ' were kept.');
+}
+
+function deleteDay() {
+  if (!CAN_EDIT) return;
+  ensureDays();
+  const nums = _dayNums();
+  if (nums.length <= 1) { alert('You must keep at least one day. Edit or import into this one instead.'); return; }
+  const delNum = Number(state.currentDay);
+  if (!confirm('Delete Day ' + delNum + '? This removes its map and renumbers the rest. This cannot be undone.')) return;
+  delete state.days[String(delNum)];
+  // renumber remaining days contiguously 1..N (preserving order)
+  const ordered = _dayNums().map(n => state.days[n]);
+  state.days = {};
+  ordered.forEach((dd, i) => { state.days[String(i + 1)] = dd; });
+  state.currentDay = String(Math.min(delNum, ordered.length));
+  const cd = state.days[state.currentDay];
+  state.assignments = JSON.parse(JSON.stringify(cd.assignments || {}));
+  state.seasonWeek = cd.week; state.seasonDay = cd.day;
+  _renderDay();
+  rebuildDayDropdown();
+  saveState();
+}
+
+function resetState() {
+  if (MAP_USER.role === 'viewer') { alert('View-only mode.'); return; }
+  ensureDays();
+  const cur = state.currentDay;
+  const count = Object.keys(state.assignments).length;
+  if (count === 0) { alert('Day ' + cur + ' is already empty.'); return; }
+  if (!confirm('⚠️ Clear all ' + count + ' tiles on Day ' + cur + '?\n\nOnly THIS day is cleared — other days and the alliance list are NOT affected.\nThis cannot be undone.')) return;
+
+  state.assignments = {};
+  state.pathStart = null;
+  state.pathEnd = null;
+  state.pathResult = [];
+  syncCurrentDay();
+  saveState();
+  rebuildDayDropdown();
+  renderAlliances();
+  renderInfluence();
+  renderLimits();
+  renderCaptureAdvisor();
+  updatePhaseLabel();
+  draw();
+  alert('🔄 Day ' + cur + ' cleared. Other days untouched.');
+}
+
+// ========== HISTORY PANEL ==========
+function toggleHistory() {
+  const panel = document.getElementById('historyPanel');
+  if (panel.style.display === 'block') {
+    panel.style.display = 'none';
+    return;
+  }
+  panel.style.display = 'block';
+  loadHistory();
+}
+
+function loadHistory() {
+  document.getElementById('historyList').innerHTML = '<div class="hp-empty">Not available in the public builder.</div>';
+}
+
+// ========== MOBILE PANEL TOGGLES ==========
+function toggleMobilePanel(side) {
+  const left = document.querySelector('.panel-left');
+  const right = document.querySelector('.panel-right');
+  const backdrop = document.getElementById('mobileBackdrop');
+
+  if (side === 'left') {
+    const isOpen = left.classList.toggle('mobile-open');
+    right.classList.remove('mobile-open');
+    backdrop.classList.toggle('active', isOpen);
+  } else {
+    const isOpen = right.classList.toggle('mobile-open');
+    left.classList.remove('mobile-open');
+    backdrop.classList.toggle('active', isOpen);
+  }
+}
+
+function closeMobilePanels() {
+  document.querySelector('.panel-left')?.classList.remove('mobile-open');
+  document.querySelector('.panel-right')?.classList.remove('mobile-open');
+  document.getElementById('mobileBackdrop')?.classList.remove('active');
+}
+
+// ========== MOBILE ACTION BAR ==========
+const isMobile = () => window.innerWidth <= 900 && ('ontouchstart' in window);
+
+function showMobileActionBar(area) {
+  if (!isMobile()) return;
+  const bar = document.getElementById('mobileActionBar');
+  const nameEl = document.getElementById('mabName');
+  const buffEl = document.getElementById('mabBuff');
+  const ownerEl = document.getElementById('mabOwner');
+  const btnsEl = document.getElementById('mabButtons');
+
+  nameEl.textContent = area.name + ' Lv.' + area.level;
+  buffEl.textContent = area.buff ? area.buff.item + ' +' + area.buff.percentage + '%' : '';
+
+  const currentOwner = state.assignments[area.id] || null;
+  const ownerAlliance = currentOwner ? state.alliances.find(a => a.id === currentOwner) : null;
+  ownerEl.textContent = ownerAlliance ? '⚑ ' + ownerAlliance.name : 'Unclaimed';
+  ownerEl.style.color = ownerAlliance ? ownerAlliance.color : '#888';
+
+  const isAdminOrOwner = (MAP_USER.role === 'owner' || MAP_USER.role === 'admin');
+  const userAlliance = MAP_USER.allianceId || null;
+  const isMyTile = currentOwner === userAlliance;
+  const isOpen = !currentOwner;
+  const canClaim = isAdminOrOwner || isOpen || isMyTile;
+  const canFree = isAdminOrOwner || isMyTile;
+
+  let buttons = '';
+  if (MAP_USER.role !== 'viewer' && state.selectedAlliance) {
+    if (isOpen) {
+      buttons += `<button class="mab-btn-claim" onclick="mobileAssign('${area.id}')">&#9873; Claim for ${state.alliances.find(a=>a.id===state.selectedAlliance)?.name || 'alliance'}</button>`;
+    } else if (isMyTile && canFree) {
+      buttons += `<button class="mab-btn-free" onclick="mobileFree('${area.id}')">&#10005; Free this tile</button>`;
+    } else if (canClaim && !isOpen) {
+      buttons += `<button class="mab-btn-claim" onclick="mobileAssign('${area.id}')">&#9873; Reassign</button>`;
+      buttons += `<button class="mab-btn-free" onclick="mobileFree('${area.id}')">&#10005; Free</button>`;
+    } else {
+      buttons += `<button class="mab-btn-disabled" disabled>&#128274; Protected — ${ownerAlliance?.name || 'other'} territory</button>`;
+    }
+  } else if (MAP_USER.role === 'viewer') {
+    buttons += `<button class="mab-btn-disabled" disabled>View only</button>`;
+  } else {
+    buttons += `<button class="mab-btn-disabled" disabled>Select an alliance first</button>`;
+  }
+  buttons += `<button class="mab-btn-close" onclick="hideMobileActionBar()">&#10005;</button>`;
+
+  btnsEl.innerHTML = buttons;
+  bar.classList.add('active');
+}
+
+function hideMobileActionBar() {
+  document.getElementById('mobileActionBar')?.classList.remove('active');
+}
+
+function mobileAssign(areaId) {
+  if (!state.selectedAlliance) return;
+  state.assignments[areaId] = state.selectedAlliance;
+  saveState();
+  renderInfluence();
+  renderLimits();
+  renderCaptureAdvisor();
+  draw();
+  // Update the bar to show new state
+  const area = MAP_AREAS.find(a => a.id === areaId);
+  if (area) showMobileActionBar(area);
+}
+
+function mobileFree(areaId) {
+  delete state.assignments[areaId];
+  saveState();
+  renderInfluence();
+  renderLimits();
+  renderCaptureAdvisor();
+  draw();
+  const area = MAP_AREAS.find(a => a.id === areaId);
+  if (area) showMobileActionBar(area);
+}
+
+// ========== MOBILE TOUCH SNAP ==========
+// On mobile, snap tap to nearest territory center for easier selection
+function setupMobileTouchSnap() {
+  if (!('ontouchstart' in window) || window.innerWidth > 900) return;
+
+  // Override hitTest to use nearest-center matching when tap is close but not exact
+  const originalHitTest = hitTest;
+  hitTest = function(screenX, screenY) {
+    let result = originalHitTest(screenX, screenY);
+    if (result) return result;
+
+    // No exact hit — find nearest territory within 30px
+    const worldX = (screenX - offsetX) / scale;
+    const worldY = (screenY - offsetY) / scale;
+    let nearest = null;
+    let nearestDist = 30; // max snap distance in world coords
+    MAP_AREAS.forEach(a => {
+      const f = a._f;
+      const cx = f.x + f.w / 2;
+      const cy = f.y + f.h / 2;
+      const dist = Math.sqrt((worldX - cx) ** 2 + (worldY - cy) ** 2);
+      if (dist < nearestDist) {
+        nearestDist = dist;
+        nearest = a;
+      }
+    });
+    return nearest;
+  };
+}
+
+function updateStatusBar() {
+  const bar = document.getElementById('statusBar');
+  if (!bar) return;
+
+  const parts = [];
+  const assignments = Object.keys(state.assignments).length;
+  parts.push('📍 ' + assignments + ' territories assigned');
+
+  if (state.lastModified) {
+    const d = new Date(state.lastModified);
+    parts.push('💾 Last saved: ' + d.toLocaleDateString() + ' ' + d.toLocaleTimeString([], {hour:'2-digit',minute:'2-digit'}));
+  }
+
+  if (state.lastImport) {
+    const d = new Date(state.lastImport.date);
+    const mode = state.lastImport.mode === 'replace' ? 'replaced' : 'merged';
+    parts.push('📂 Imported: ' + d.toLocaleDateString() + ' (' + mode + ' from ' + (state.lastImport.fileName || 'file') + ')');
+  }
+
+  bar.innerHTML = parts.join(' &nbsp;|&nbsp; ');
+}
+</script>
+
+<!-- Mobile Action Bar -->
+<div id="mobileActionBar">
+  <div class="mab-info">
+    <span class="mab-name" id="mabName">—</span>
+    <span class="mab-buff" id="mabBuff"></span>
+    <span class="mab-owner" id="mabOwner"></span>
+  </div>
+  <div class="mab-buttons" id="mabButtons"></div>
+  <div class="mab-hint">Tap a territory on the map to see options</div>
+</div>
+<script src="../nav.js"></script>
+</body>
+</html>
