@@ -1052,8 +1052,47 @@ function fitAll() {
 }
 
 // ========== DRAWING ==========
+
+// ===== CAPTURE-LOCK MARKERS (Gabriel, Jul 17) =====
+// Lock timer runs from CAPTURE only: dig (Stronghold) = 2 days (36h), city = 6 days.
+// For the selected day D: red x + day number = locked until that day; green o = lock expired.
+// Tiles never captured get no marker (trivially open).
+function computeLockMap() {
+  const D = Number(state.currentDay || 1);
+  const res = {};
+  if (!state.days) return res;
+  const blocIds = new Set((state.alliances || []).filter(a => /^bloc/i.test(a.tag || a.name || '')).map(a => a.id));
+  const lastCap = {};
+  let prev = {};
+  const nums = Object.keys(state.days).map(Number).filter(n => n < D).sort((a, b) => a - b);
+  nums.forEach(n => {
+    const asg = (state.days[String(n)] || {}).assignments || {};
+    const cur = {};
+    for (const t in asg) { if (!blocIds.has(asg[t])) cur[t] = asg[t]; }
+    for (const t in cur) { if (prev[t] !== cur[t]) lastCap[t] = n; }
+    prev = cur;
+  });
+  // The day being viewed/edited lives in state.assignments (working copy)
+  const curD = {};
+  for (const t in (state.assignments || {})) {
+    const o = state.assignments[t];
+    if (!blocIds.has(o)) curD[t] = o;
+  }
+  for (const t in curD) { if (prev[t] !== curD[t]) lastCap[t] = D; }
+  MAP_AREAS.forEach(a => {
+    const ld = lastCap[a.id];
+    if (ld == null) return;
+    const lk = (a.name === 'Stronghold') ? 2 : 6;
+    const opens = ld + lk;
+    res[a.id] = { locked: D < opens, opensDay: opens, capDay: ld };
+  });
+  return res;
+}
+let _lockMap = {};
+
 function draw() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
+  _lockMap = computeLockMap();
 
   // Background
   ctx.fillStyle = '#e8e0d4';
@@ -1182,6 +1221,28 @@ function draw() {
       }
     }
   });
+
+
+  // ===== Capture-lock marker pass (drawn above all tiles; covers FREE-but-locked tiles too) =====
+  if (showText) {
+    ctx.save();
+    ctx.textAlign = 'left';
+    ctx.textBaseline = 'top';
+    const _mfs = Math.max(8.5 / scale, 1);
+    ctx.font = `bold ${_mfs}px Segoe UI, sans-serif`;
+    MAP_AREAS.forEach(_a => {
+      const _li = _lockMap[_a.id];
+      if (!_li) return;
+      const _f = _a._f;
+      const _txt = _li.locked ? ('x' + _li.opensDay) : 'o';
+      const _tw = ctx.measureText(_txt).width;
+      ctx.fillStyle = _li.locked ? 'rgba(255,235,235,0.92)' : 'rgba(235,255,235,0.85)';
+      ctx.fillRect(_f.x + 1.5 / scale, _f.y + 1.5 / scale, _tw + 5 / scale, _mfs + 3.5 / scale);
+      ctx.fillStyle = _li.locked ? '#c62828' : '#2e7d32';
+      ctx.fillText(_txt, _f.x + 4 / scale, _f.y + 3 / scale);
+    });
+    ctx.restore();
+  }
 
   // Draw path
   if (state.pathResult.length > 1) {
@@ -1487,6 +1548,10 @@ function updateTooltip(clientX, clientY, area) {
   if (alliance) {
     html += `<div class="tt-owner" style="color:${alliance.color}">Owner: [${alliance.tag}]</div>`;
   }
+    const _lt = _lockMap[area.id];
+  if (_lt) html += _lt.locked
+    ? `<div style="color:#e57373;font-size:11px">&#128274; Capture-locked until <b>day ${_lt.opensDay}</b> (captured d${_lt.capDay})</div>`
+    : `<div style="color:#81c784;font-size:11px">&#128275; Open to capture (lock ended d${_lt.opensDay})</div>`;
   tooltip.innerHTML = html;
   tooltip.style.display = 'block';
 
