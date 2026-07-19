@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-07-12",
+  "lastUpdated": "2026-07-19",
   "sources": {
     "playerStats": "https://activeplayer.io/last-war-survival/",
     "serverData": "https://cpt-hedge.com/servers"
@@ -21,28 +21,28 @@
   },
   "monthlyTrend": [
     {
+      "month": "July 2026",
+      "players": "5.3M",
+      "change": "-22.5%",
+      "direction": "down"
+    },
+    {
+      "month": "June 2026",
+      "players": "6.8M",
+      "change": "-19.4%",
+      "direction": "down"
+    },
+    {
       "month": "May 2026",
-      "players": "9.0M",
-      "change": "-5.1%",
+      "players": "8.4M",
+      "change": "-4.9%",
       "direction": "down"
     },
     {
       "month": "April 2026",
-      "players": "9.5M",
-      "change": "+3.4%",
+      "players": "8.9M",
+      "change": "+0.3%",
       "direction": "up"
-    },
-    {
-      "month": "March 2026",
-      "players": "9.2M",
-      "change": "-6.8%",
-      "direction": "down"
-    },
-    {
-      "month": "February 2026",
-      "players": "9.8M",
-      "change": "-14.6%",
-      "direction": "down"
     }
   ],
   "serverLandscape": {
