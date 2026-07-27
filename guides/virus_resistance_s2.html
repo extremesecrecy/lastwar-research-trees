@@ -1,0 +1,2124 @@
+<!DOCTYPE html>
+<html lang="en" id="htmlRoot">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>S2 Virus Resistance Calculator - OWOW</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&display=swap');
+  /* HCI Brand: Orange #f4a261, Cyan #5bc0de, Yellow #f4d35e, Teal #7fb3a8, Dark #5a6a6a, Text #333, Watermelon #fc5c65 */
+  :root {
+    --orange: #f4a261;
+    --cyan: #5bc0de;
+    --yellow: #f4d35e;
+    --teal: #7fb3a8;
+    --dark: #5a6a6a;
+    --watermelon: #fc5c65;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: 'Fredoka', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: #fff;
+    color: #333;
+    padding: 12px 16px;
+    min-height: 100vh;
+  }
+
+  h1, h2, h3 { font-family: 'Fredoka', sans-serif; }
+
+  /* Navigation Bar */
+  .guide-nav {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px 12px;
+    align-items: center;
+    padding: 6px 16px;
+    background: #f0f5f4;
+    border-bottom: 2px solid #7fb3a8;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 12px;
+    margin: -12px -16px 12px -16px;
+  }
+  .guide-nav a {
+    color: #5a6a6a;
+    text-decoration: none;
+    padding: 2px 6px;
+    border-radius: 3px;
+    white-space: nowrap;
+  }
+  .guide-nav a:hover { color: #f4a261; background: #fff; }
+  .guide-nav a.current { color: #f4a261; font-weight: bold; background: #fff; border: 1px solid #f4a261; }
+  .guide-nav .nav-home { font-weight: bold; margin-right: 8px; padding-right: 12px; border-right: 1px solid #7fb3a8; }
+
+  /* Header */
+  .top-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+  .top-bar h1 {
+    font-size: 26px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: #5a6a6a;
+  }
+  .top-bar .sub { font-size: 13px; color: #888; }
+  .top-bar .right {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .top-bar .right img { height: 60px; }
+  .alliance-tag {
+    background: #e8f4f1;
+    border: 1px solid #7fb3a8;
+    border-radius: 5px;
+    padding: 3px 10px;
+    font-size: 13px;
+    color: #5a6a6a;
+    font-weight: bold;
+  }
+
+  /* Input Section */
+  .input-section {
+    background: #f0f5f4;
+    border: 2px solid #7fb3a8;
+    border-radius: 8px;
+    padding: 14px 18px;
+    margin-bottom: 14px;
+  }
+  .input-section h2 {
+    font-size: 20px;
+    color: #5a6a6a;
+    margin-bottom: 10px;
+  }
+  .slider-row {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    flex-wrap: wrap;
+  }
+  .slider-row input[type="range"] {
+    flex: 1;
+    min-width: 180px;
+    height: 8px;
+    -webkit-appearance: none;
+    appearance: none;
+    background: linear-gradient(to right, #43a047 0%, #f4d35e 40%, #f4a261 70%, #fc5c65 100%);
+    border-radius: 4px;
+    outline: none;
+  }
+  .slider-row input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 22px; height: 22px;
+    border-radius: 50%;
+    background: #5a6a6a;
+    border: 3px solid #fff;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.3);
+    cursor: pointer;
+  }
+  .slider-row input[type="range"]::-moz-range-thumb {
+    width: 22px; height: 22px;
+    border-radius: 50%;
+    background: #5a6a6a;
+    border: 3px solid #fff;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.3);
+    cursor: pointer;
+  }
+  .vr-value {
+    font-size: 28px;
+    font-weight: 700;
+    color: #5a6a6a;
+    min-width: 80px;
+    text-align: center;
+    font-family: 'Fredoka', sans-serif;
+  }
+  .slider-row input[type="number"] {
+    width: 90px;
+    font-size: 16px;
+    padding: 4px 8px;
+    border: 2px solid #7fb3a8;
+    border-radius: 5px;
+    text-align: center;
+    font-family: 'Fredoka', sans-serif;
+  }
+  .slider-row input[type="number"]:focus { outline: none; border-color: #f4a261; }
+
+  /* Summary Cards */
+  .summary-cards {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    margin-bottom: 14px;
+  }
+  .summary-card {
+    border-radius: 8px;
+    padding: 10px 12px;
+    text-align: center;
+    border: 2px solid #ccc;
+    background: #fafafa;
+  }
+  .summary-card.ok { border-color: #43a047; background: #e8f5e9; }
+  .summary-card.warn { border-color: #f4a261; background: #fef3e2; }
+  .summary-card.bad { border-color: #fc5c65; background: #fce4ec; }
+  .summary-card .card-label {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: #888;
+    margin-bottom: 2px;
+  }
+  .summary-card .card-level {
+    font-size: 26px;
+    font-weight: 700;
+    font-family: 'Fredoka', sans-serif;
+  }
+  .summary-card.ok .card-level { color: #2e7d32; }
+  .summary-card.warn .card-level { color: #c47a30; }
+  .summary-card.bad .card-level { color: #c62828; }
+  .summary-card .card-info {
+    font-size: 11px;
+    color: #666;
+    margin-top: 2px;
+  }
+
+  /* Data Note / Insight Box */
+  .insight-box {
+    border: 3px solid #fc5c65;
+    border-radius: 8px;
+    padding: 12px 16px;
+    margin-bottom: 14px;
+    background: #fff5f5;
+  }
+  .insight-box h3 {
+    color: #fc5c65;
+    font-size: 16px;
+    margin-bottom: 6px;
+  }
+  .insight-box p {
+    font-size: 13px;
+    line-height: 1.5;
+    margin-bottom: 4px;
+  }
+
+  /* Tab Bar */
+  .tab-bar {
+    display: flex;
+    gap: 4px;
+    border-bottom: 2px solid var(--teal);
+    margin-bottom: 16px;
+    flex-wrap: wrap;
+  }
+  .tab-btn {
+    background: #f5f5f5;
+    border: none;
+    padding: 10px 16px;
+    cursor: pointer;
+    font-size: 14px;
+    font-family: 'Fredoka', sans-serif;
+    border-radius: 6px 6px 0 0;
+    color: #5a6a6a;
+    font-weight: 500;
+    transition: background 0.15s, color 0.15s;
+  }
+  .tab-btn:hover { background: #e0eceb; }
+  .tab-btn.active { background: var(--teal); color: #fff; font-weight: 600; }
+  .tab-content { display: none; }
+  .tab-content.active { display: block; }
+
+  /* Tab Panel Card */
+  .tab-panel {
+    background: #fff;
+    border: 2px solid var(--teal);
+    border-radius: 12px;
+    padding: 16px 18px;
+    margin-bottom: 14px;
+  }
+  .tab-panel h2 {
+    font-size: 20px;
+    color: var(--dark);
+    margin: 0 0 4px;
+  }
+  .tab-panel .panel-sub {
+    font-size: 12px;
+    color: #888;
+    margin-bottom: 12px;
+  }
+
+  /* Form grid inside tabs */
+  .form-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 10px;
+    margin-bottom: 12px;
+  }
+  .form-grid label {
+    font-size: 11px;
+    color: #666;
+    display: block;
+    margin-bottom: 3px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  .form-grid select, .form-grid input {
+    width: 100%;
+    padding: 7px 8px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 13px;
+    font-family: 'Fredoka', sans-serif;
+  }
+  .form-grid select:focus, .form-grid input:focus {
+    outline: none;
+    border-color: var(--orange);
+  }
+
+  /* Verdict Card */
+  .verdict-card {
+    padding: 20px;
+    border-radius: 12px;
+    text-align: center;
+    margin: 16px 0;
+  }
+  .verdict-card.safe { background: #e8f5e9; border: 3px solid #2e7d32; }
+  .verdict-card.risky { background: #fff3e0; border: 3px solid #f4a261; }
+  .verdict-card.danger { background: #ffeaea; border: 3px solid #fc5c65; }
+  .verdict-card.neutral { background: #f5f5f5; border: 3px solid #ccc; }
+  .verdict-card .verdict-headline {
+    font-size: 24px;
+    font-weight: 700;
+    margin-bottom: 8px;
+    font-family: 'Fredoka', sans-serif;
+  }
+  .verdict-card.safe .verdict-headline { color: #2e7d32; }
+  .verdict-card.risky .verdict-headline { color: #c47a30; }
+  .verdict-card.danger .verdict-headline { color: #c62828; }
+  .verdict-card.neutral .verdict-headline { color: #888; }
+  .verdict-card .verdict-detail {
+    font-size: 14px;
+    color: #555;
+    line-height: 1.5;
+  }
+  .verdict-card .breakdown {
+    margin-top: 12px;
+    padding-top: 12px;
+    border-top: 1px dashed rgba(0,0,0,0.15);
+    font-size: 13px;
+    color: #444;
+  }
+  .verdict-card .breakdown .row {
+    display: flex;
+    justify-content: space-between;
+    padding: 2px 20px;
+    max-width: 380px;
+    margin: 0 auto;
+  }
+  .verdict-card .breakdown .row strong { color: #333; }
+
+  /* Troop Loss Band */
+  .loss-bar-wrap {
+    margin-top: 14px;
+    max-width: 500px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .loss-bar-label {
+    font-size: 11px;
+    color: #666;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 4px;
+    text-align: left;
+  }
+  .loss-bar-track {
+    position: relative;
+    height: 22px;
+    background: linear-gradient(to right, #43a047 0%, #f4d35e 25%, #f4a261 55%, #fc5c65 100%);
+    border-radius: 11px;
+    overflow: hidden;
+    border: 1px solid #bbb;
+  }
+  .loss-bar-marker {
+    position: absolute;
+    top: -4px;
+    bottom: -4px;
+    width: 4px;
+    background: #333;
+    border-radius: 2px;
+    box-shadow: 0 0 4px rgba(0,0,0,0.5);
+    transform: translateX(-2px);
+    transition: left 0.3s;
+  }
+  .loss-bar-ticks {
+    display: flex;
+    justify-content: space-between;
+    font-size: 10px;
+    color: #666;
+    margin-top: 4px;
+    padding: 0 2px;
+  }
+
+  /* Rally Member Rows */
+  .rally-member-row {
+    display: grid;
+    grid-template-columns: 140px 1fr 110px 1fr 1.5fr;
+    gap: 8px;
+    align-items: center;
+    padding: 8px 10px;
+    border: 1px solid #eee;
+    border-radius: 6px;
+    margin-bottom: 6px;
+    font-size: 12px;
+    background: #fafafa;
+  }
+  .rally-member-row.initiator {
+    background: #fffde7;
+    border-color: var(--yellow);
+    border-width: 2px;
+  }
+  .rally-member-row .member-label {
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--dark);
+    text-transform: uppercase;
+  }
+  .rally-member-row.initiator .member-label { color: #c47a30; }
+  .rally-member-row input {
+    padding: 6px 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 12px;
+    width: 100%;
+    font-family: 'Fredoka', sans-serif;
+  }
+  .rally-member-row input:focus { outline: none; border-color: var(--orange); }
+  .rally-member-row .status-cell {
+    font-size: 11px;
+    color: #555;
+    line-height: 1.3;
+  }
+  .rally-flag {
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: 10px;
+    font-size: 10px;
+    font-weight: 700;
+    color: #fff;
+    margin-right: 4px;
+  }
+  .rally-flag.go { background: #66bb6a; }
+  .rally-flag.caution { background: #f4a261; }
+  .rally-flag.stop { background: #fc5c65; }
+
+  .rally-bar-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin: 4px 0;
+    font-size: 12px;
+  }
+  .rally-bar-label {
+    width: 90px;
+    text-align: right;
+    color: #5a6a6a;
+    font-weight: 600;
+  }
+  .rally-bar {
+    height: 22px;
+    border-radius: 4px;
+    min-width: 2px;
+    transition: width 0.3s;
+    display: flex;
+    align-items: center;
+    padding-left: 8px;
+    color: #fff;
+    font-size: 11px;
+    font-weight: 600;
+  }
+
+  /* Tables Grid */
+  .tables-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+    margin-bottom: 16px;
+  }
+  @media (min-width: 1100px) { .tables-grid { grid-template-columns: repeat(4, 1fr); } }
+  .table-wrapper {
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    overflow: hidden;
+  }
+  .table-wrapper h3 {
+    font-size: 14px;
+    text-align: center;
+    padding: 6px 8px;
+    color: #fff;
+    margin: 0;
+  }
+  .table-wrapper.boss h3 { background: #c62828; }
+  .table-wrapper.elite h3 { background: #f4a261; }
+  .table-wrapper.zombie h3 { background: #5a6a6a; }
+  .table-wrapper.walker h3 { background: #6a4c93; }
+  .table-scroll { max-height: 400px; overflow-y: auto; }
+  table { width: 100%; border-collapse: collapse; font-size: 12px; }
+  thead th {
+    position: sticky;
+    top: 0;
+    background: #f0f5f4;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: #5a6a6a;
+    padding: 5px 4px;
+    border-bottom: 2px solid #7fb3a8;
+    text-align: center;
+    z-index: 1;
+  }
+  tbody td {
+    padding: 3px 4px;
+    text-align: center;
+    border-bottom: 1px solid #eee;
+  }
+  tbody tr.row-green { background: #e8f5e9; }
+  tbody tr.row-yellow { background: #fff8e1; }
+  tbody tr.row-orange { background: #fff3e0; }
+  tbody tr.row-red { background: #fce4ec; }
+  tbody tr.row-red td { color: #c62828; font-weight: 600; }
+  .status-tag {
+    display: inline-block;
+    font-size: 10px;
+    font-weight: 700;
+    padding: 1px 5px;
+    border-radius: 3px;
+    white-space: nowrap;
+  }
+  .tag-ok { background: #43a047; color: #fff; }
+  .tag-low { background: #f4d35e; color: #5a5000; }
+  .tag-med { background: #f4a261; color: #fff; }
+  .tag-bad { background: #fc5c65; color: #fff; }
+
+  /* Type matchup mini display */
+  .type-cycle {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    align-items: center;
+    margin: 8px 0 4px;
+    font-size: 11px;
+  }
+  .type-cycle .type-chip {
+    padding: 4px 10px;
+    border-radius: 20px;
+    font-weight: 600;
+    background: #f0f5f4;
+    border: 1px solid var(--teal);
+  }
+  .type-cycle .arrow { color: var(--teal); font-weight: 700; }
+
+  /* Toggle button for "Show all tables" */
+  .toggle-btn {
+    background: var(--teal);
+    color: #fff;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 13px;
+    font-family: 'Fredoka', sans-serif;
+    font-weight: 600;
+    margin-bottom: 10px;
+  }
+  .toggle-btn:hover { background: #6aa19a; }
+
+  .small-btn {
+    background: var(--orange);
+    color: #fff;
+    border: none;
+    padding: 6px 12px;
+    border-radius: 4px;
+    font-size: 11px;
+    font-weight: 600;
+    cursor: pointer;
+    font-family: 'Fredoka', sans-serif;
+  }
+  .small-btn:hover { background: #e08d4e; }
+  .small-btn.saved { background: #66bb6a; }
+
+  /* Footer */
+  .footer {
+    text-align: center;
+    padding: 14px 0;
+    font-size: 12px;
+    color: #888;
+    border-top: 1px solid #eee;
+    margin-top: 16px;
+  }
+  .source-credit {
+    font-size: 11px;
+    color: #999;
+    text-align: center;
+    margin-top: 4px;
+  }
+
+  /* Mobile */
+  @media (max-width: 700px) {
+    .tab-btn { padding: 8px 10px; font-size: 12px; flex: 1; min-width: 140px; }
+    .rally-member-row { grid-template-columns: 1fr 1fr; }
+    .rally-member-row .member-label { grid-column: 1 / -1; text-align: center; }
+    .rally-member-row .status-cell { grid-column: 1 / -1; }
+    .rally-header-row { display: none; } /* labels are inline on each row on mobile */
+    .tables-grid { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 500px) {
+    body { padding: 8px 10px; }
+    .top-bar { flex-direction: column; text-align: center; gap: 6px; }
+    .top-bar .right { justify-content: center; }
+    .top-bar h1 { font-size: 20px; }
+    .summary-cards { grid-template-columns: 1fr 1fr 1fr; gap: 6px; }
+    .summary-card { padding: 8px 6px; }
+    .summary-card .card-level { font-size: 22px; }
+    .vr-value { font-size: 22px; min-width: 60px; }
+    .slider-row input[type="number"] { width: 70px; }
+    .guide-nav {
+      padding: 4px 10px;
+      gap: 3px 8px;
+      font-size: 11px;
+      margin: -8px -10px 8px -10px;
+    }
+    table { font-size: 11px; }
+    thead th { font-size: 10px; padding: 4px 2px; }
+    tbody td { padding: 2px 2px; }
+    .verdict-card .verdict-headline { font-size: 18px; }
+    .verdict-card .verdict-detail { font-size: 13px; }
+  }
+</style>
+</head>
+<body>
+
+<nav class="guide-nav" id="guide-nav"></nav>
+<script src="../nav.js"></script>
+
+<!-- Header -->
+<div class="top-bar">
+  <div class="left">
+    <h1>Virus Resistance Calculator</h1>
+    <div class="sub">Season 2 &mdash; Polar Storm</div>
+  </div>
+  <div class="right">
+    <img src="skynet_logo.png" alt="OWOW">
+    <div class="alliance-tag">[OWOW] Old World Order</div>
+  </div>
+</div>
+
+<!-- Input Section (always visible) -->
+<div class="input-section">
+  <h2>Your Virus Resistance</h2>
+  <div class="slider-row">
+    <input type="range" id="vrSlider" min="0" max="30000" step="50" value="0">
+    <span class="vr-value" id="vrDisplay">0</span>
+    <input type="number" id="vrInput" min="0" max="30000" step="50" value="0">
+  </div>
+</div>
+
+<!-- Summary Cards -->
+<div class="summary-cards">
+  <div class="summary-card" id="card-boss">
+    <div class="card-label">Stronghold Boss</div>
+    <div class="card-level" id="boss-level">--</div>
+    <div class="card-info" id="boss-info">--</div>
+  </div>
+  <div class="summary-card" id="card-elite">
+    <div class="card-label">Doom Elite</div>
+    <div class="card-level" id="elite-level">--</div>
+    <div class="card-info" id="elite-info">--</div>
+  </div>
+  <div class="summary-card" id="card-zombie">
+    <div class="card-label">Zombie</div>
+    <div class="card-level" id="zombie-level">--</div>
+    <div class="card-info" id="zombie-info">--</div>
+  </div>
+</div>
+
+<!-- Data Source Notice -->
+<div class="insight-box" style="border-color:#f4a261; background:#fff8ec;">
+  <h3 style="color:#f4a261;">&#9432; DATA NOTE &mdash; Season 2 Polar Storm</h3>
+  <p><strong>Stronghold / dig-site bosses are OWOW-confirmed</strong> (Gabriel, Jul 2026). Doom Elite &amp; Zombie tables are <strong>cpt-hedge placeholders and NOT yet verified</strong> &mdash; treat them as rough until we capture in-game numbers (cpt-hedge was wrong by 1,000+ VR in S1).</p>
+  <ul style="margin:6px 0 0 20px; font-size:12px; color:#666;">
+    <li><strong>Dig-site bosses CONFIRMED &mdash; 6 tiers.</strong> SH Tier N spawns a <strong>Level 10&times;N</strong> mutated beast. VR: SH1=3,500 &middot; SH2=6,000 &middot; SH3=8,000 &middot; SH4=9,500 &middot; SH5=10,000 &middot; SH6=10,500.</li>
+    <li><strong>Three mutated beasts, each spawnable at every tier &mdash; the name tells you the type:</strong> <strong>Mutated Mammoth = Tank</strong>, <strong>Mutant Gorilla = Aircraft</strong>, <strong>Mutated Bear = Missile</strong>. Bring the counter squad (&plusmn;20%).</li>
+    <li><strong>Boss power</strong> (for the rally simulator): SH1=11.83M &middot; SH2=14.30M &middot; SH3=17.91M &middot; SH4=23.04M &middot; SH5=25.96M &middot; SH6=28.83M. Matches cpt-hedge S2 exactly.</li>
+    <li style="color:#c0392b;"><strong>Doom Elite &amp; Zombie = PLACEHOLDER</strong> (cpt-hedge S2 Lv1-10; Lv11+ extrapolated at +250/lv). Awaiting OWOW in-game verification &mdash; do not trust for tight calls yet.</li>
+  </ul>
+  <p style="margin-top:6px; font-size:12px;"><strong>Doom Walkers do NOT require Virus Resistance</strong> &mdash; confirmed in-game Apr 14 2026 (the Walker info panel shows only "Suggested Power", no VR line). They are strength-gated only. <strong>Walker power table rebuilt from OWOW in-game screenshots:</strong> Lv110 = 3.40M, Lv130 = 8.99M, Lv150 = 16.98M, Lv160 = 21.45M, Lv170 = 26.40M, Lv180 = 29.97M, Lv190 = 34.31M. The CIG guide was off by up to <strong>+74% at Lv180</strong> (said 17.25M, actual 29.97M), so we scrapped those numbers entirely. Unverified levels are linearly interpolated between our anchors; the calculator marks verified levels with a green check and interpolated ones with a tilde.</p>
+</div>
+
+<!-- S1 Timeline -->
+<details class="insight-box" style="border-color:#7fb3a8; background:#f0f8f6; margin-bottom:20px;">
+  <summary style="cursor:pointer; font-weight:600; color:#5a6a6a; padding:4px 0; list-style:none;">
+    <span style="color:#7fb3a8; font-size:16px;">&#128197; S1 Map Conquest Timeline</span>
+    <span style="font-size:11px; color:#888; font-weight:400;"> &mdash; click to expand</span>
+  </summary>
+  <p style="margin-top:8px;">Full schedule of when strongholds, cities, warzone events, and the Capitol unlock in Season 1 (from in-game S1 Map Conquest guide by <em>#1210 Aethernis</em>):</p>
+
+  <table style="width:100%; border-collapse:collapse; margin-top:8px; font-size:13px;">
+    <thead>
+      <tr style="background:#e0f0e8; border-bottom:2px solid #7fb3a8;">
+        <th style="padding:6px 8px; text-align:left; color:#5a6a6a;">When</th>
+        <th style="padding:6px 8px; text-align:left; color:#5a6a6a;">What opens</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr style="border-bottom:1px solid #ddd;"><td style="padding:4px 8px;"><strong>Week 1 &mdash; Day 1</strong></td><td style="padding:4px 8px;">Strongholds open (fight Corruptors)</td></tr>
+      <tr style="border-bottom:1px solid #ddd;"><td style="padding:4px 8px;">Week 1 &mdash; Day 3</td><td style="padding:4px 8px;">Lv 1 Cities open</td></tr>
+      <tr style="border-bottom:1px solid #ddd;"><td style="padding:4px 8px;">Week 1 &mdash; Day 7</td><td style="padding:4px 8px;">Lv 2 Cities open</td></tr>
+      <tr style="border-bottom:1px solid #ddd;"><td style="padding:4px 8px;">Week 2 &mdash; Day 3</td><td style="padding:4px 8px;">Lv 3 Cities open</td></tr>
+      <tr style="border-bottom:1px solid #ddd;"><td style="padding:4px 8px;">Week 2 &mdash; Day 7</td><td style="padding:4px 8px;">Lv 4 Cities open</td></tr>
+      <tr style="border-bottom:1px solid #ddd; background:#fff9e6;"><td style="padding:4px 8px;"><strong>Week 3 &mdash; Day 1</strong></td><td style="padding:4px 8px;">&#9889; <strong>Cross-server Outposts begin</strong> &mdash; capture strongholds on other servers</td></tr>
+      <tr style="border-bottom:1px solid #ddd;"><td style="padding:4px 8px;">Week 3 &mdash; Day 3</td><td style="padding:4px 8px;">Lv 5 Cities open</td></tr>
+      <tr style="border-bottom:1px solid #ddd;"><td style="padding:4px 8px;">Week 3 &mdash; Day 7</td><td style="padding:4px 8px;">Lv 6 Cities open</td></tr>
+      <tr style="border-bottom:1px solid #ddd; background:#fff9e6;"><td style="padding:4px 8px;"><strong>Week 4 &mdash; Day 3</strong></td><td style="padding:4px 8px;">&#9889; <strong>Warzone Duel starts</strong> &mdash; attack cities on other servers. War days = Wednesday &amp; Saturday.</td></tr>
+      <tr style="background:#ffeaea;"><td style="padding:4px 8px;"><strong>Week 4 &mdash; Day 7</strong></td><td style="padding:4px 8px;"><strong>&#127884; Capitol opens (City of Apocalypse)</strong></td></tr>
+    </tbody>
+  </table>
+
+  <h4 style="margin-top:14px; color:#5a6a6a; font-size:14px;">Capture Limits</h4>
+  <ul style="margin:6px 0 0 20px; font-size:12px; color:#555; line-height:1.6;">
+    <li><strong>Max 2 Strongholds AND 2 Cities captured per day</strong></li>
+    <li>Base stronghold limit: <strong>3</strong>. Each city captured adds +1 slot (+2 for Lv6 cities)</li>
+    <li>City hold limit: <strong>4 on home server + 4 across other servers = 8 total</strong></li>
+    <li>Only <strong>adjacent</strong> strongholds/cities can be captured (territory must be connected)</li>
+    <li>Capture protection: <strong>36 hours</strong> for strongholds, <strong>7 days</strong> for cities</li>
+  </ul>
+
+  <h4 style="margin-top:14px; color:#5a6a6a; font-size:14px;">Corruptor Boss Mechanic</h4>
+  <p style="font-size:12px; color:#555; margin-top:4px;">
+    In Season 2, dig sites are guarded by <strong>mutated polar beasts</strong>. Bring the counter squad for the beast you're facing (the name = the type). Same VR damage rules as S1 apply.
+  </p>
+
+  <h4 style="margin-top:18px; color:#5a6a6a; font-size:14px;">Dig-Site Boss Table &mdash; OWOW CONFIRMED (6 tiers, Jul 2026)</h4>
+  <p style="font-size:12px; color:#555; margin-top:4px;">
+    SH dig <strong>Tier N</strong> spawns a <strong>Level (10&times;N)</strong> mutated beast &mdash; any of three, and the name tells you its type: <strong>Mutated Mammoth = Tank</strong>, <strong>Mutant Gorilla = Aircraft</strong>, <strong>Mutated Bear = Missile</strong>. VR requirement: SH1=3,500, then +2,500 to SH2, +2,000 to SH3, +1,500 to SH4, then +500/tier, capping at <strong>10,500 VR</strong> at SH6.
+  </p>
+  <div style="overflow-x:auto; margin-top:8px;">
+  <table style="width:100%; border-collapse:collapse; font-size:12px;">
+    <thead>
+      <tr style="background:#fff3e0; color:#5a6a6a;">
+        <th style="padding:6px 8px; text-align:left; border-bottom:2px solid #f4a261;">SH Tier</th>
+        <th style="padding:6px 8px; text-align:left; border-bottom:2px solid #f4a261;">Monster Lv</th>
+        <th style="padding:6px 8px; text-align:right; border-bottom:2px solid #f4a261;">VR Required</th>
+        <th style="padding:6px 8px; text-align:right; border-bottom:2px solid #f4a261;">Power</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td style="padding:4px 8px;">SH 1</td><td style="padding:4px 8px;">Lv 10</td><td style="padding:4px 8px; text-align:right;">3,500</td><td style="padding:4px 8px; text-align:right;">11.83M</td></tr>
+      <tr style="background:#fafafa;"><td style="padding:4px 8px;">SH 2</td><td style="padding:4px 8px;">Lv 20</td><td style="padding:4px 8px; text-align:right;">6,000</td><td style="padding:4px 8px; text-align:right;">14.30M</td></tr>
+      <tr><td style="padding:4px 8px;">SH 3</td><td style="padding:4px 8px;">Lv 30</td><td style="padding:4px 8px; text-align:right;">8,000</td><td style="padding:4px 8px; text-align:right;">17.91M</td></tr>
+      <tr style="background:#fafafa;"><td style="padding:4px 8px;">SH 4</td><td style="padding:4px 8px;">Lv 40</td><td style="padding:4px 8px; text-align:right;">9,500</td><td style="padding:4px 8px; text-align:right;">23.04M</td></tr>
+      <tr><td style="padding:4px 8px;">SH 5</td><td style="padding:4px 8px;">Lv 50</td><td style="padding:4px 8px; text-align:right;">10,000</td><td style="padding:4px 8px; text-align:right;">25.96M</td></tr>
+      <tr style="background:#fafafa;"><td style="padding:4px 8px;"><strong>SH 6 &ndash; cap</strong></td><td style="padding:4px 8px;">Lv 60</td><td style="padding:4px 8px; text-align:right;"><strong>10,500</strong></td><td style="padding:4px 8px; text-align:right;">28.83M</td></tr>
+    </tbody>
+  </table>
+  </div>
+  <p style="font-size:12px; color:#555; margin-top:8px;"><strong>Beast &rarr; type:</strong> &#9968;&#65039; Mutated Mammoth = <strong>Tank</strong> &nbsp;&middot;&nbsp; &#9992;&#65039; Mutant Gorilla = <strong>Aircraft</strong> &nbsp;&middot;&nbsp; &#128640; Mutated Bear = <strong>Missile</strong>. All three can appear at any tier.</p>
+
+  <p style="font-size:11px; color:#888; margin-top:8px;">Source: OWOW in-game observation (Gabriel, Jul 2026), cross-checked vs <a href="https://cpt-hedge.com/calculators/virus-resistance" style="color:#5bc0de;">cpt-hedge S2</a> (VR &amp; power match exactly).</p>
+</details>
+
+<!-- Tab Bar -->
+<div class="tab-bar" role="tablist">
+  <button class="tab-btn active" data-tab="zombies">&#128123; Zombies (Solo)</button>
+  <button class="tab-btn" data-tab="rally">&#9876; Rally: Boss / Elite</button>
+  <button class="tab-btn" data-tab="walker">&#128694; Rally: Doom Walker</button>
+  <button class="tab-btn" data-tab="tables">&#128202; All Tables</button>
+</div>
+
+<!-- ================= TAB 1: ZOMBIES (SOLO) ================= -->
+<div class="tab-content active" id="tab-zombies">
+  <div class="tab-panel">
+    <h2>&#128123; Zombie Solo Fight</h2>
+    <div class="panel-sub">Zombies are SOLO attacks. Both VR and type matchup affect damage. Counter = +20%, countered = -20%.</div>
+
+    <div class="type-cycle">
+      <span class="type-chip">&#9992; Aircraft beats Tank</span>
+      <span class="arrow">&#8594;</span>
+      <span class="type-chip">&#9968; Tank beats Missile</span>
+      <span class="arrow">&#8594;</span>
+      <span class="type-chip">&#128640; Missile beats Aircraft</span>
+      <span class="arrow">&#8635;</span>
+    </div>
+
+    <div class="form-grid">
+      <div>
+        <label>Zombie Level</label>
+        <select id="zSoloLevel"></select>
+      </div>
+      <div>
+        <label>Zombie Type</label>
+        <select id="zSoloZombieType">
+          <option value="none">Unknown / Skip</option>
+          <option value="aircraft">&#9992; Aircraft</option>
+          <option value="tank">&#9968; Tank</option>
+          <option value="missile">&#128640; Missile</option>
+        </select>
+      </div>
+      <div>
+        <label>Your Squad Type</label>
+        <select id="zSoloSquadType">
+          <option value="aircraft">&#9992; Aircraft</option>
+          <option value="tank">&#9968; Tank</option>
+          <option value="missile">&#128640; Missile</option>
+        </select>
+      </div>
+      <div>
+        <label>Your Squad Power <span style="color:#f4a261; font-weight:600;">(in Millions)</span></label>
+        <input type="number" id="zSoloPower" placeholder="e.g. 17.8 = 17.8M" min="0" step="any" inputmode="decimal">
+        <div style="font-size:10px; color:#888; margin-top:2px;">Type <code>17.8</code> and we read it as 17,800,000.</div>
+      </div>
+      <div>
+        <label>Your VR</label>
+        <input type="number" id="zSoloVR" placeholder="Synced w/ top slider" min="0" max="30000" title="This field is bidirectionally synced with the top VR slider. Changing either updates both.">
+      </div>
+    </div>
+
+    <div id="zSoloResult" class="verdict-card neutral">
+      <div class="verdict-headline">Fill in the fields above</div>
+      <div class="verdict-detail">Pick a zombie level and enter your squad power to see your verdict.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ================= TAB 2: RALLY: BOSS / DOOM ELITE ================= -->
+<div class="tab-content" id="tab-rally">
+  <div class="tab-panel">
+    <h2>&#9876; Rally: Stronghold Boss &amp; Doom Elite</h2>
+    <div class="panel-sub"><strong>Stronghold Bosses HAVE troop types</strong> (Aircraft/Tank/Missile &plusmn;20%). Doom Elites do NOT &mdash; only VR matters for them.</div>
+    <div class="panel-sub" style="background:#fff3cd;border-left:3px solid #f4a261;padding:6px 10px;margin-top:4px;"><strong>&#9888; Rally rule (Last War wiki):</strong> The <strong>rally leader's VR applies to the whole rally</strong> &mdash; every member uses the leader's VR regardless of their own. <strong>The highest-VR player should always lead.</strong> <a href="https://wiki.lastwar.com/en/show/40" target="_blank" style="color:#f4a261;">[wiki source]</a></div>
+
+    <div class="form-grid" style="grid-template-columns:repeat(auto-fit, minmax(180px, 1fr));">
+      <div>
+        <label>Enemy Type</label>
+        <select id="rallyEnemyType">
+          <option value="boss">Stronghold Boss</option>
+          <option value="elite">Doom Elite</option>
+        </select>
+      </div>
+      <div>
+        <label>Enemy Level</label>
+        <select id="rallyEnemyLevel"></select>
+      </div>
+      <div id="rallyBossTypeWrap">
+        <label>Boss Troop Type</label>
+        <select id="rallyBossType">
+          <option value="none">Unknown / Skip</option>
+          <option value="aircraft">&#9992; Aircraft</option>
+          <option value="tank">&#9968; Tank</option>
+          <option value="missile">&#128640; Missile</option>
+        </select>
+      </div>
+    </div>
+
+    <div style="background:#fffde7; border:1px solid #f4d35e; border-radius:6px; padding:8px 12px; margin:10px 0; font-size:12px; color:#5a6a6a;">
+      &#127942; <strong>Slot 1 is YOU (the Initiator)</strong> &mdash; Slot 1's VR is <strong>bidirectionally synced</strong> with the top VR slider: change either and both update. Your VR becomes the floor for joiners (slots 2-5): they fight at MAX(their VR, your VR). If a joiner has higher VR, they keep their own.
+    </div>
+
+    <div style="background:#e8f4fb; border:1px solid #5bc0de; border-radius:6px; padding:8px 12px; margin:10px 0; font-size:12px; color:#5a6a6a;">
+      &#128161; <strong>Squad Power is entered in Millions.</strong> Just type <code>17.8</code> and we read it as <strong>17,800,000</strong>. No zeros to count &mdash; faster than typing the full number, and the total power shown below the rally grid will echo the exact value so you can verify.
+    </div>
+
+    <div id="rallyMembers"></div>
+
+    <div id="rallyVerdict" class="verdict-card neutral" style="margin:16px 0 0;"></div>
+
+    <h3 style="margin:16px 0 6px; color:#5a6a6a; font-size:16px;">Effective Power</h3>
+    <div id="rallyChart"></div>
+    <div id="rallySummary" style="margin-top:8px; font-size:12px; color:#888; text-align:center;"></div>
+
+    <div id="rallySimulatorSection"></div>
+
+    <div id="rallyLogSection" style="margin-top:20px;"></div>
+  </div>
+</div>
+
+<!-- ================= TAB 3: RALLY: DOOM WALKER ================= -->
+<div class="tab-content" id="tab-walker">
+  <div class="tab-panel">
+    <h2>&#128694; Rally: Doom Walker</h2>
+    <div class="panel-sub"><strong>Doom Walkers are strength-gated only</strong> &mdash; they do <strong>NOT</strong> require Virus Resistance. Each member just needs enough squad power to clear the suggested strength threshold. <span style="color:#888; font-size:11px;">(Confirmed in-game Apr 14 2026: the Walker info panel shows "Suggested Power" but no VR line.)</span></div>
+
+    <div class="form-grid" style="grid-template-columns:repeat(auto-fit, minmax(200px, 1fr));">
+      <div>
+        <label>Walker Level (100-180)</label>
+        <select id="walkerLevel"></select>
+      </div>
+      <div>
+        <label>Suggested Power</label>
+        <input type="text" id="walkerStrength" readonly style="background:#f5f5f5; font-weight:600;">
+      </div>
+    </div>
+
+    <div style="background:#e8f4fb; border:1px solid #5bc0de; border-radius:6px; padding:8px 12px; margin:10px 0; font-size:12px; color:#5a6a6a;">
+      &#128161; <strong>Squad Power is entered in Millions.</strong> Type <code>17.8</code> for 17.8M (= 17,800,000). No zeros to count.
+    </div>
+
+    <div id="walkerMembers"></div>
+
+    <div id="walkerVerdict" class="verdict-card neutral" style="margin:16px 0 0;"></div>
+
+    <h3 style="margin:16px 0 6px; color:#5a6a6a; font-size:16px;">Effective Power</h3>
+    <div id="walkerChart"></div>
+    <div id="walkerSummary" style="margin-top:8px; font-size:12px; color:#888; text-align:center;"></div>
+  </div>
+</div>
+
+<!-- ================= TAB 4: ALL TABLES ================= -->
+<div class="tab-content" id="tab-tables">
+  <div class="tab-panel">
+    <h2>&#128202; All VR Tables</h2>
+    <div class="panel-sub">Rows color-coded based on your current VR: green = safe, yellow = minor penalty, orange = heavy penalty, red = do not attack.</div>
+
+    <button class="toggle-btn" id="tablesToggle">Show Tables</button>
+
+    <div id="tablesContent" style="display:none;">
+      <div class="tables-grid">
+        <div class="table-wrapper boss">
+          <h3>Stronghold Boss</h3>
+          <div class="table-scroll" id="table-boss"></div>
+        </div>
+        <div class="table-wrapper elite">
+          <h3>Doom Elite</h3>
+          <div class="table-scroll" id="table-elite"></div>
+        </div>
+        <div class="table-wrapper zombie">
+          <h3>Zombie</h3>
+          <div class="table-scroll" id="table-zombie"></div>
+        </div>
+        <div class="table-wrapper walker">
+          <h3>Doom Walker</h3>
+          <div class="table-scroll" id="table-walker"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="source-credit">Damage formula from Soulphalanx #409 via cpt-hedge.com. Doom Elite &amp; Zombie VR values verified in-game by OWOW members (cpt-hedge's Season 1 numbers were inaccurate). Doom Walker VR is user-collected; contribute in OWOW Discord.</div>
+
+<div class="footer">
+  [OWOW] Old World Order &bull; Virus Resistance Calculator &bull; Last War: Survival &bull; Kristen OWOW SKYNET
+</div>
+
+<script>
+// ===================================================================
+// Enemy Data
+// ===================================================================
+const ENEMIES = {
+  boss: {
+    name: 'Mutated Stronghold Monster',
+    // OWOW VERIFIED (Gabriel, S2 Polar Storm, Jul 2026): 6 dig-site tiers. Each tier can spawn any of
+    // 3 mutated beasts, and the beast NAME tells you its type (pick your counter squad accordingly):
+    //   Mutated Mammoth = TANK  |  Mutant Gorilla = AIRCRAFT  |  Mutated Bear = MISSILE
+    // VR requirement per tier: SH1=3500, SH2=6000, SH3=8000, SH4=9500, SH5=10000, SH6=10500 (matches cpt-hedge S2).
+    // NOTE: S2 dig bosses cap at TIER 6 (S1 went to SH10). 'levels' is keyed by SH TIER (1-6), not monster level.
+    levels: {1:3500, 2:6000, 3:8000, 4:9500, 5:10000, 6:10500}
+  },
+  // Per-SH-level power & monster name reference (observed in-game, Apr 2026)
+  // S2 Polar Storm — Gabriel-confirmed (Mutated SH Monsters.csv, Jul 2026). Keyed by SH dig TIER.
+  // Tier N spawns a Level (10*N) monster (cpt-hedge levels 10-60). Every tier spawns any of the 3
+  // beasts; name=>type: Mammoth=Tank, Gorilla=Aircraft, Bear=Missile.
+  _bossBySH: {
+    1: { tier: 1, monsterLv: 10, vr: 3500,  power: 11829500, names: ['Mutated Mammoth','Mutant Gorilla','Mutated Bear'], types: ['Tank','Aircraft','Missile'] },
+    2: { tier: 2, monsterLv: 20, vr: 6000,  power: 14304500, names: ['Mutated Mammoth','Mutant Gorilla','Mutated Bear'], types: ['Tank','Aircraft','Missile'] },
+    3: { tier: 3, monsterLv: 30, vr: 8000,  power: 17913000, names: ['Mutated Mammoth','Mutant Gorilla','Mutated Bear'], types: ['Tank','Aircraft','Missile'] },
+    4: { tier: 4, monsterLv: 40, vr: 9500,  power: 23044500, names: ['Mutated Mammoth','Mutant Gorilla','Mutated Bear'], types: ['Tank','Aircraft','Missile'] },
+    5: { tier: 5, monsterLv: 50, vr: 10000, power: 25957500, names: ['Mutated Mammoth','Mutant Gorilla','Mutated Bear'], types: ['Tank','Aircraft','Missile'] },
+    6: { tier: 6, monsterLv: 60, vr: 10500, power: 28834500, names: ['Mutated Mammoth','Mutant Gorilla','Mutated Bear'], types: ['Tank','Aircraft','Missile'] }
+  },
+  elite: {
+    name: 'Doom Elite',
+    // S2 PLACEHOLDER from cpt-hedge (Jul 2026) — UNVERIFIED. Lv1-10 are cpt-hedge S2 values;
+    // Lv11+ extrapolated at +250/lv (cap 10500). REPLACE with in-game numbers when captured.
+    levels: {1:200,2:400,3:600,4:800,5:1000,6:1250,7:1500,8:1750,9:2000,10:2250,11:2500,12:2750,13:3000,14:3250,15:3500,16:3750,17:4000,18:4250,19:4500,20:4750,21:5000,22:5250,23:5500,24:5750,25:6000,26:6250,27:6500,28:6750,29:7000,30:7250,31:7500,32:7750,33:8000,34:8250,35:8500,36:8750,37:9000,38:9250,39:9500,40:9750,41:10000,42:10250,43:10500,44:10500,45:10500,46:10500,47:10500,48:10500,49:10500,50:10500,51:10500,52:10500,53:10500,54:10500,55:10500,56:10500,57:10500,58:10500,59:10500,60:10500},
+    confirmed: new Set([]),
+    placeholder: true
+  },
+  zombie: {
+    name: 'Zombie',
+    // S2 PLACEHOLDER from cpt-hedge (Jul 2026) — UNVERIFIED. Lv1-10 are cpt-hedge S2 values;
+    // Lv11+ extrapolated at +250/lv (cap 10500). REPLACE with in-game numbers when captured.
+    levels: {1:0,2:0,3:0,4:500,5:600,6:750,7:1000,8:1250,9:1500,10:1750,11:2000,12:2250,13:2500,14:2750,15:3000,16:3250,17:3500,18:3750,19:4000,20:4250,21:4500,22:4750,23:5000,24:5250,25:5500,26:5750,27:6000,28:6250,29:6500,30:6750,31:7000,32:7250,33:7500,34:7750,35:8000,36:8250,37:8500,38:8750,39:9000,40:9250,41:9500,42:9750,43:10000,44:10250,45:10500,46:10500,47:10500,48:10500,49:10500,50:10500,51:10500,52:10500,53:10500,54:10500,55:10500,56:10500,57:10500,58:10500,59:10500,60:10500},
+    confirmed: new Set([]),
+    placeholder: true
+  }
+};
+// Stronghold Boss is fully verified across Lv15, 20, 25, 30, 35, 40, 45, 50, 55, 60
+ENEMIES.boss.confirmed = new Set([1,2,3,4,5,6]);
+
+// Doom Walker Suggested Power -- OWOW VERIFIED in-game (Apr 14 2026, Extremesecrecy).
+// Anchors come from actual Walker info panels. Non-anchor levels are linear interpolation.
+// The old CIG guide values were off by up to +74% at high levels (CIG Lv180 = 17.25M,
+// actual in-game = 29.97M) so we rebuilt the table entirely from verified screenshots.
+//   Lv110 = 3,399,500   [CONFIRMED]
+//   Lv130 = 8,995,500   [CONFIRMED]
+//   Lv150 = 16,980,000  [CONFIRMED]
+//   Lv160 = 21,450,000  [CONFIRMED]
+//   Lv170 = 26,400,000  [CONFIRMED]
+//   Lv180 = 29,968,500  [CONFIRMED]
+//   Lv190 = 34,310,000  [CONFIRMED]
+//   Lv100 is extrapolated backward (no screenshot yet).
+const DOOM_WALKER_STRENGTH = {100:1400000, 110:3399500, 130:8995500, 150:16980000, 160:21450000, 170:26400000, 180:29968500, 190:34310000};
+const DOOM_WALKER_CONFIRMED = new Set([110, 130, 150, 160, 170, 180, 190]);
+const DOOM_WALKER_MIN = 100;
+const DOOM_WALKER_MAX = 190;
+
+function getDoomWalkerStrength(level) {
+  if (level < DOOM_WALKER_MIN || level > DOOM_WALKER_MAX) return null;
+  if (DOOM_WALKER_STRENGTH[level] != null) return DOOM_WALKER_STRENGTH[level];
+  const anchors = Object.keys(DOOM_WALKER_STRENGTH).map(Number).sort((a,b) => a - b);
+  let lower = anchors[0], upper = anchors[anchors.length - 1];
+  for (let i = 0; i < anchors.length - 1; i++) {
+    if (level > anchors[i] && level < anchors[i+1]) {
+      lower = anchors[i]; upper = anchors[i+1]; break;
+    }
+  }
+  const fraction = (level - lower) / (upper - lower);
+  return Math.round(DOOM_WALKER_STRENGTH[lower] + fraction * (DOOM_WALKER_STRENGTH[upper] - DOOM_WALKER_STRENGTH[lower]));
+}
+
+function isDoomWalkerConfirmed(level) {
+  return DOOM_WALKER_CONFIRMED.has(level);
+}
+
+// (Doom Walker VR helpers removed Apr 14 2026 -- Walkers are strength-gated only, no VR requirement.)
+
+// ===================================================================
+// Damage Reduction Formula (Soulphalanx #409 via cpt-hedge) -- DO NOT CHANGE
+// ===================================================================
+// Squad power is entered by the user in millions (e.g. "17.8" means 17,800,000).
+// This keeps the form quick to fill -- no counting zeros -- while we store real numbers internally.
+function parsePowerMillions(value) {
+  if (value == null || value === '') return 0;
+  const n = parseFloat(value);
+  if (isNaN(n) || n < 0) return 0;
+  return Math.round(n * 1000000);
+}
+
+function calcDamageReduction(required, current) {
+  if (required <= 0) return 0;
+  if (current >= required) return 0;
+  let reduction = 100 - 2 * Math.ceil((required - current) / required * 100);
+  if (reduction > 0) return Math.max(100 - reduction, 0);
+  return 100 - Math.max(0.1, reduction / 20 + 1);
+}
+
+// Type counter
+const TYPE_COUNTER = { aircraft: 'tank', tank: 'missile', missile: 'aircraft' };
+function getTypeModifier(squadType, enemyType) {
+  if (!enemyType || enemyType === 'none' || !squadType) return 1.0;
+  // Normalize to lowercase — boss data uses 'Tank'/'Missile'/'Aircraft' but TYPE_COUNTER keys are lowercase
+  const sq = String(squadType).toLowerCase();
+  const en = String(enemyType).toLowerCase();
+  if (TYPE_COUNTER[sq] === en) return 1.2;
+  if (TYPE_COUNTER[en] === sq) return 0.8;
+  return 1.0;
+}
+
+// Boss power lookup: monster level → power from _bossBySH. Lv15=SH1, Lv20=SH2, ... Lv60=SH10.
+function getBossPower(enemyTierOrLevel) {
+  // S2: boss 'levels' are SH tiers (1-6), used directly as the _bossBySH key.
+  const entry = ENEMIES._bossBySH && ENEMIES._bossBySH[enemyTierOrLevel];
+  return entry ? entry.power : 0;
+}
+
+// Estimate expected troop loss % for a slot in a rally.
+// Heuristic calibrated from OWOW rally data: combined effective vs boss power drives base loss,
+// slot's effective power relative to team average scales it up/down (weaker slots lose more).
+// Honest limits: this is a guidance estimate, not a physics model. Real combat is nonlinear
+// (round survival, skill RNG, per-round boss damage). Use as directional signal, not exact %.
+function estimateSlotLoss(slotEffective, combinedEffective, bossPower, activeSlots) {
+  if (!slotEffective || !combinedEffective || !bossPower || activeSlots < 1) return null;
+  const powerRatio = combinedEffective / bossPower;
+  let baseLoss;
+  if (powerRatio >= 2.0)      baseLoss = 5;
+  else if (powerRatio >= 1.5) baseLoss = 15;
+  else if (powerRatio >= 1.2) baseLoss = 30;
+  else if (powerRatio >= 1.0) baseLoss = 50;
+  else if (powerRatio >= 0.8) baseLoss = 75;
+  else                        baseLoss = 90;
+  const avgEffective = combinedEffective / activeSlots;
+  const slotFactor = avgEffective / slotEffective;
+  const slotLoss = Math.min(95, baseLoss * slotFactor);
+  return Math.max(2, slotLoss);
+}
+
+// ===================================================================
+// simulateRally — physics-based round simulator
+// ===================================================================
+// Tuned 2026-04-24 against 14 saved rallies in battle_reports/reports.json via grid search.
+// Best outcome accuracy: 78.6%. Parameters: damage_coef=0.15, attrition_coef=0.05, wipe_threshold=0.05.
+// Mechanics (confirmed from in-game battle reports):
+//   1. Each round, all 5 alive slots attack boss 1v1 in sequence.
+//   2. Boss HP persists across slots and rounds.
+//   3. Per-slot damage = squad_power × (1 - vr_penalty/100) × type_counter × DAMAGE_COEF.
+//      VR inherits from rally initiator (slot 1).
+//   4. Slot takes attrition damage per turn: boss_force / active_slots × ATTRITION_COEF × counter_inverse.
+//   5. Slot wiped when hp < WIPE_THRESHOLD × initial_power. Wiped slots skip next rounds.
+//   6. Rally wins when boss HP ≤ 0. Loses when all 5 slots wiped.
+const RALLY_SIM_COEFS = { damage: 0.15, attrition: 0.05, wipeThreshold: 0.05 };
+
+function simulateRally(slots, bossForce, initiatorVR, bossRequiredVR, bossType, maxRounds = 10) {
+  if (!slots || slots.length === 0 || !bossForce) return null;
+  const vrPenPct = calcDamageReductionPenalty(bossRequiredVR, initiatorVR);
+  const vrMult = 1 - vrPenPct / 100;
+  const active = slots.map((s, i) => ({
+    idx: i,
+    name: s.name || `Slot ${i+1}`,
+    power: s.power || 0,
+    type: s.squadType || null,
+    hp: s.power || 0,
+    alive: (s.power || 0) > 0,
+    damageDealt: 0
+  }));
+  let bossHP = bossForce;
+  let roundsUsed = 0;
+  const log = [];
+
+  for (let r = 1; r <= maxRounds; r++) {
+    if (bossHP <= 0) break;
+    let anyActed = false;
+    const aliveCount = active.filter(s => s.alive).length;
+    if (aliveCount === 0) break;
+    for (const slot of active) {
+      if (!slot.alive || bossHP <= 0) continue;
+      const tc = getTypeModifier(slot.type, bossType);
+      const dmgToBoss = slot.power * vrMult * tc * RALLY_SIM_COEFS.damage;
+      const counterInverse = tc > 0 ? 1 / tc : 1;
+      const dmgToSlot = bossForce * RALLY_SIM_COEFS.attrition * counterInverse / Math.max(1, aliveCount);
+      bossHP -= dmgToBoss;
+      slot.hp -= dmgToSlot;
+      slot.damageDealt += dmgToBoss;
+      if (slot.hp < slot.power * RALLY_SIM_COEFS.wipeThreshold) slot.alive = false;
+      log.push({round: r, slot: slot.idx + 1, dmgToBoss, dmgToSlot, bossHP: Math.max(0, bossHP)});
+      anyActed = true;
+    }
+    roundsUsed = r;
+    if (!anyActed) break;
+  }
+
+  const won = bossHP <= 0;
+  const slotOutcomes = active.map(s => ({
+    idx: s.idx,
+    name: s.name,
+    alive: s.alive,
+    lossPct: Math.max(0, Math.min(100, 100 * (1 - Math.max(0, s.hp) / Math.max(1, s.power)))),
+    damageDealt: s.damageDealt
+  }));
+
+  // Identify bottleneck
+  let bottleneck = null;
+  if (!won) {
+    if (vrPenPct >= 30) bottleneck = `VR gap: ${vrPenPct.toFixed(0)}% damage reduction (need VR ${bossRequiredVR}+)`;
+    else if (active.some(s => getTypeModifier(s.type, bossType) < 1))
+      bottleneck = `Type counter disadvantage on some slots (boss ${bossType || '?'})`;
+    else {
+      const ratio = active.reduce((sum, s) => sum + s.power, 0) / bossForce;
+      if (ratio < 1.1) bottleneck = `Insufficient team power (${ratio.toFixed(2)}× boss force)`;
+      else bottleneck = 'Close fight — higher VR or more coordinated type counters could flip it';
+    }
+  }
+
+  return {
+    won,
+    roundsUsed,
+    bossHpRemainingPct: Math.max(0, bossHP) / bossForce * 100,
+    vrPenaltyPct: vrPenPct,
+    slotOutcomes,
+    bottleneck,
+    log
+  };
+}
+
+// Helper: VR penalty as positive percent (for simulator math).
+// calcDamageReduction returns damage percent (e.g. 84 = 84% damage applied, 16% penalty).
+// We need the penalty directly.
+function calcDamageReductionPenalty(required, current) {
+  if (required <= 0) return 0;
+  if (current >= required) return 0;
+  const penalty = 2 * Math.ceil((required - current) / required * 100);
+  return Math.min(100, penalty);
+}
+
+// ===================================================================
+// Global VR slider
+// ===================================================================
+const slider = document.getElementById('vrSlider');
+const numInput = document.getElementById('vrInput');
+const vrDisplay = document.getElementById('vrDisplay');
+
+function getVR() { return parseInt(slider.value) || 0; }
+
+// Guard to prevent infinite update loops when fields sync to each other.
+let _vrSyncing = false;
+
+function setVR(val) {
+  if (_vrSyncing) return;
+  _vrSyncing = true;
+  val = Math.max(0, Math.min(30000, parseInt(val) || 0));
+  slider.value = val;
+  numInput.value = val;
+  vrDisplay.textContent = val.toLocaleString();
+  // Bidirectional sync: top slider and the "YOU" (Slot 1) VR fields are one source of truth.
+  // Changing any of them updates ALL of them so the UI never gets out of sync.
+  const rm = document.getElementById('rm_vr_0');    if (rm) rm.value = val;
+  const zs = document.getElementById('zSoloVR');    if (zs) zs.value = val;
+  // Note: Doom Walker tab has no VR input (Walkers are strength-only).
+  updateAll();
+  updateRally();
+  updateWalker();
+  updateZombieSolo();
+  _vrSyncing = false;
+}
+
+slider.addEventListener('input', () => setVR(slider.value));
+numInput.addEventListener('input', () => setVR(numInput.value));
+numInput.addEventListener('change', () => setVR(numInput.value));
+
+// ===================================================================
+// Summary cards
+// ===================================================================
+function getHighestSafeLevel(type) {
+  const data = ENEMIES[type];
+  const vr = getVR();
+  const levels = Object.keys(data.levels).map(Number).sort((a,b) => a - b);
+  let best = null;
+  for (const lv of levels) {
+    const req = data.levels[lv];
+    if (calcDamageReduction(req, vr) === 0) best = { level: lv, req: req };
+  }
+  return best;
+}
+
+function updateCard(type, cardId, levelId, infoId) {
+  const card = document.getElementById(cardId);
+  const levelEl = document.getElementById(levelId);
+  const infoEl = document.getElementById(infoId);
+  const best = getHighestSafeLevel(type);
+
+  if (best) {
+    card.className = 'summary-card ok';
+    levelEl.textContent = 'Lv ' + best.level;
+    infoEl.textContent = 'Needs ' + best.req.toLocaleString() + ' VR';
+  } else {
+    const data = ENEMIES[type];
+    const levels = Object.keys(data.levels).map(Number).sort((a,b) => a - b);
+    const firstReq = data.levels[levels[0]];
+    if (firstReq === 0) {
+      card.className = 'summary-card ok';
+      levelEl.textContent = 'Lv ' + levels[0];
+      infoEl.textContent = 'No VR needed';
+    } else {
+      card.className = 'summary-card bad';
+      levelEl.textContent = 'NONE';
+      infoEl.textContent = 'Need ' + firstReq.toLocaleString() + '+ VR';
+    }
+  }
+}
+
+// ===================================================================
+// Tables (Tab 4)
+// ===================================================================
+function getRowClass(reduction) {
+  if (reduction === 0) return 'row-green';
+  if (reduction <= 50) return 'row-yellow';
+  if (reduction <= 90) return 'row-orange';
+  return 'row-red';
+}
+function getStatusTag(reduction) {
+  if (reduction === 0) return '<span class="status-tag tag-ok">FULL DMG</span>';
+  if (reduction <= 50) return '<span class="status-tag tag-low">-' + reduction.toFixed(1) + '%</span>';
+  if (reduction <= 90) return '<span class="status-tag tag-med">-' + reduction.toFixed(1) + '%</span>';
+  return '<span class="status-tag tag-bad">DO NOT ATTACK</span>';
+}
+
+function buildTable(type) {
+  const data = ENEMIES[type];
+  const vr = getVR();
+  const levels = Object.keys(data.levels).map(Number).sort((a,b) => a - b);
+  const confirmed = data.confirmed || new Set();
+  let html = '<table><thead><tr><th>Lv</th><th>Req</th><th title="OWOW in-game verified vs linear extrapolation">Src</th><th>Reduction</th><th>Status</th></tr></thead><tbody>';
+  for (const lv of levels) {
+    const req = data.levels[lv];
+    const red = calcDamageReduction(req, vr);
+    const cls = getRowClass(red);
+    const isConfirmed = confirmed.has(lv);
+    const srcCell = isConfirmed
+      ? '<span title="OWOW in-game verified" style="color:#2e7d32; font-weight:600;">&#10003;</span>'
+      : '<span title="Linear extrapolation, not in-game verified" style="color:#888;">~</span>';
+    html += '<tr class="' + cls + '">';
+    html += '<td>' + lv + '</td>';
+    html += '<td>' + req.toLocaleString() + '</td>';
+    html += '<td style="text-align:center;">' + srcCell + '</td>';
+    html += '<td>' + (red === 0 ? '0%' : '-' + red.toFixed(1) + '%') + '</td>';
+    html += '<td>' + getStatusTag(red) + '</td>';
+    html += '</tr>';
+  }
+  html += '</tbody></table>';
+  html += '<div style="font-size:11px; color:#888; margin-top:6px; padding:4px 8px;"><span style="color:#2e7d32; font-weight:600;">&#10003;</span> = OWOW in-game verified &nbsp;&middot;&nbsp; <span style="color:#888;">~</span> = linear extrapolation</div>';
+  return html;
+}
+
+function buildWalkerTable() {
+  // Doom Walkers are strength-gated only (no VR requirement in-game, confirmed Apr 14 2026).
+  // OWOW-verified anchors at Lv110, 130, 160, 170, 180, 190; all others linearly interpolated.
+  let html = '<table><thead><tr><th>Lv</th><th>Suggested Power</th><th title="OWOW in-game verified vs linear interpolation">Src</th></tr></thead><tbody>';
+  for (let lv = DOOM_WALKER_MIN; lv <= DOOM_WALKER_MAX; lv += 5) {
+    const strength = getDoomWalkerStrength(lv);
+    const strengthLbl = strength >= 1000000 ? (strength / 1000000).toFixed(2) + 'M' : (strength / 1000).toFixed(0) + 'K';
+    const confirmed = isDoomWalkerConfirmed(lv);
+    const srcCell = confirmed
+      ? '<span title="OWOW in-game verified" style="color:#2e7d32; font-weight:600;">&#10003;</span>'
+      : '<span title="Linear interpolation between verified anchors" style="color:#888;">~</span>';
+    html += '<tr><td>' + lv + '</td><td>' + strengthLbl + ' (' + strength.toLocaleString() + ')</td><td style="text-align:center;">' + srcCell + '</td></tr>';
+  }
+  html += '</tbody></table>';
+  html += '<div style="font-size:11px; color:#888; padding:6px 8px;"><span style="color:#2e7d32; font-weight:600;">&#10003;</span> = OWOW in-game verified (Apr 14 2026) &nbsp;&middot;&nbsp; <span style="color:#888;">~</span> = linear interpolation between verified anchors. Lv100 extrapolated backward -- no in-game screenshot yet.</div>';
+  return html;
+}
+
+// ===================================================================
+// Tab 1: Zombie Solo Fight
+// ===================================================================
+function populateZombieSoloLevels() {
+  const sel = document.getElementById('zSoloLevel');
+  const levels = Object.keys(ENEMIES.zombie.levels).map(Number).sort((a,b) => a - b);
+  sel.innerHTML = levels.map(lv => `<option value="${lv}">Lv ${lv} &mdash; needs ${ENEMIES.zombie.levels[lv].toLocaleString()} VR</option>`).join('');
+}
+
+function fmtPower(p) {
+  if (p >= 1000000) return (p / 1000000).toFixed(2) + 'M';
+  if (p >= 1000) return (p / 1000).toFixed(0) + 'K';
+  return p.toFixed(0);
+}
+
+// Loss band based on EFFECTIVE damage % (not just VR penalty)
+// This accounts for type modifier too — a 0% VR penalty but countered (×0.8) = 80% damage = Moderate
+function getLossBand(damagePct) {
+  if (damagePct >= 90) return { label: 'Minimal Losses (<10%)', pct: 5 };
+  if (damagePct >= 75) return { label: 'Moderate Losses (10-25%)', pct: 20 };
+  if (damagePct >= 40) return { label: 'Heavy Losses (25-60%)', pct: 45 };
+  return { label: 'Catastrophic (>60%)', pct: 85 };
+}
+
+function updateZombieSolo() {
+  const levelEl = document.getElementById('zSoloLevel');
+  if (!levelEl) return;
+  const level = parseInt(levelEl.value) || 1;
+  const zombieType = document.getElementById('zSoloZombieType').value;
+  const squadType = document.getElementById('zSoloSquadType').value;
+  const power = parsePowerMillions(document.getElementById('zSoloPower').value);
+  const vr = parseInt(document.getElementById('zSoloVR').value) || 0;
+  const resultEl = document.getElementById('zSoloResult');
+
+  const requiredVR = ENEMIES.zombie.levels[level] || 0;
+
+  if (power === 0) {
+    resultEl.className = 'verdict-card neutral';
+    resultEl.innerHTML = `
+      <div class="verdict-headline">Enter your squad power</div>
+      <div class="verdict-detail">Required VR for Lv ${level}: <strong>${requiredVR.toLocaleString()}</strong>. Your VR: <strong>${vr.toLocaleString()}</strong>.</div>
+    `;
+    return;
+  }
+
+  const vrPenalty = calcDamageReduction(requiredVR, vr);
+  const typeMod = zombieType === 'none' ? 1.0 : getTypeModifier(squadType, zombieType);
+  const damageFactor = (1 - vrPenalty / 100) * typeMod;
+  const effectivePower = power * damageFactor;
+  const damagePct = damageFactor * 100;
+
+  let klass, headline, detail;
+  if (vrPenalty > 50) {
+    klass = 'danger';
+    headline = '&#10007; DO NOT ATTACK';
+    detail = `You deal only <strong>${damagePct.toFixed(1)}%</strong> of your normal damage. You are wasting troops and speedups.`;
+  } else if (vrPenalty > 10 || typeMod < 1) {
+    klass = 'risky';
+    headline = '&#9888; RISKY';
+    detail = `You deal <strong>${damagePct.toFixed(1)}%</strong> of your normal damage. Expect troop losses.`;
+  } else {
+    klass = 'safe';
+    headline = '&#10003; SAFE TO SOLO';
+    detail = `You deal <strong>${damagePct.toFixed(1)}%</strong> of your normal damage. Minimal troop losses expected.`;
+  }
+
+  const typeModLabel = zombieType === 'none'
+    ? `&times;1.00 <span style="color:#999;">(unknown zombie type &mdash; pick one for +/-20%)</span>`
+    : `&times;${typeMod.toFixed(2)}` + (typeMod > 1 ? ' <span style="color:#2e7d32;font-weight:600;">(&#9733; counter!)</span>' : typeMod < 1 ? ' <span style="color:#c62828;font-weight:600;">(countered!)</span>' : ' <span style="color:#888;">(neutral)</span>');
+
+  const loss = getLossBand(damagePct);
+
+  resultEl.className = 'verdict-card ' + klass;
+  resultEl.innerHTML = `
+    <div class="verdict-headline">${headline}</div>
+    <div class="verdict-detail">${detail}</div>
+    <div class="breakdown">
+      <div class="row"><span>Raw Power:</span> <strong>${fmtPower(power)}</strong></div>
+      <div class="row"><span>VR Penalty:</span> <strong>-${vrPenalty.toFixed(1)}%</strong></div>
+      <div class="row"><span>Type Modifier:</span> <strong>${typeModLabel}</strong></div>
+      <div class="row"><span>Effective Damage:</span> <strong>${fmtPower(effectivePower)}</strong></div>
+    </div>
+    <div class="loss-bar-wrap">
+      <div class="loss-bar-label">Troop Loss Estimate: <strong>${loss.label}</strong></div>
+      <div class="loss-bar-track"><div class="loss-bar-marker" style="left:${loss.pct}%;"></div></div>
+      <div class="loss-bar-ticks"><span>Minimal</span><span>Moderate</span><span>Heavy</span><span>Catastrophic</span></div>
+    </div>
+  `;
+}
+
+// ===================================================================
+// Tab 2: Rally (Boss / Doom Elite)
+// ===================================================================
+function initRallyMembers() {
+  const container = document.getElementById('rallyMembers');
+  let html = '';
+  // Header row
+  html += `<div class="rally-member-row rally-header-row" style="background:#f0f5f4; border:1px solid #ccc; font-weight:700;">
+    <div class="member-label">Member</div>
+    <div style="font-size:11px; color:#666;">Squad Power <span style="color:#f4a261;">(Millions)</span></div>
+    <div style="font-size:11px; color:#666;">Squad Type</div>
+    <div style="font-size:11px; color:#666;">Their Own VR</div>
+    <div style="font-size:11px; color:#666;">Effective VR &amp; Status</div>
+  </div>`;
+  for (let i = 0; i < 5; i++) {
+    const isInitiator = i === 0;
+    const label = isInitiator ? '&#127942; Slot 1 (YOU)' : `Slot ${i+1}`;
+    const powerPh = isInitiator ? 'e.g. 17.8' : `e.g. ${(10 + i * 2).toFixed(1)}`;
+    const vrPh = isInitiator ? 'Auto-filled' : 'Their VR';
+    const rowClass = isInitiator ? 'rally-member-row initiator' : 'rally-member-row';
+    html += `<div class="${rowClass}">
+      <div class="member-label">${label}</div>
+      <input type="number" id="rm_power_${i}" placeholder="${powerPh}" min="0" step="any" inputmode="decimal" title="Enter squad power in MILLIONS. Example: type 17.8 for 17.8M (= 17,800,000).">
+      <select id="rm_stype_${i}">
+        <option value="aircraft">&#9992; Aircraft</option>
+        <option value="tank">&#9968; Tank</option>
+        <option value="missile">&#128640; Missile</option>
+      </select>
+      <input type="number" id="rm_vr_${i}" placeholder="${vrPh}" min="0" max="30000">
+      <div class="status-cell" id="rm_flag_${i}"></div>
+    </div>`;
+  }
+  container.innerHTML = html;
+
+  // Wire inputs
+  for (let i = 0; i < 5; i++) {
+    document.getElementById(`rm_power_${i}`).addEventListener('input', updateRally);
+    document.getElementById(`rm_vr_${i}`).addEventListener('input', updateRally);
+    document.getElementById(`rm_stype_${i}`).addEventListener('change', updateRally);
+  }
+  // Slot 1 VR is bidirectionally bound to the top VR slider.
+  const rm_vr_0 = document.getElementById('rm_vr_0');
+  rm_vr_0.value = getVR();
+  rm_vr_0.addEventListener('input', () => { if (!_vrSyncing) setVR(rm_vr_0.value); });
+}
+
+function populateRallyLevels() {
+  const type = document.getElementById('rallyEnemyType').value;
+  const sel = document.getElementById('rallyEnemyLevel');
+  const levels = Object.keys(ENEMIES[type].levels).map(Number).sort((a,b) => a - b);
+  const isBoss = (type === 'boss');
+  sel.innerHTML = levels.map(lv => {
+    const label = isBoss ? `SH Tier ${lv} — Monster Lv ${lv*10}` : `Lv ${lv}`;
+    return `<option value="${lv}">${label} (${ENEMIES[type].levels[lv].toLocaleString()} VR)</option>`;
+  }).join('');
+}
+
+function updateRally() {
+  if (!document.getElementById('rallyEnemyType')) return;
+  const enemyType = document.getElementById('rallyEnemyType').value;
+  const enemyLevel = parseInt(document.getElementById('rallyEnemyLevel').value) || 1;
+  const requiredVR = ENEMIES[enemyType].levels[enemyLevel] || 0;
+  const initiatorVR = parseInt(document.getElementById('rm_vr_0').value) || 0;
+
+  // Boss has troop types (Aircraft/Tank/Missile). Doom Elite does not.
+  const isBoss = enemyType === 'boss';
+  const bossType = isBoss ? document.getElementById('rallyBossType').value : 'none';
+  const wrap = document.getElementById('rallyBossTypeWrap');
+  if (wrap) wrap.style.display = isBoss ? '' : 'none';
+  // Also toggle squad type column visibility
+  document.querySelectorAll('#rallyMembers [id^="rm_stype_"]').forEach(el => {
+    el.style.visibility = isBoss ? 'visible' : 'hidden';
+  });
+  const typeHeader = document.querySelector('#rallyMembers .rally-header-row');
+  if (typeHeader) {
+    typeHeader.style.gridTemplateColumns = '';
+  }
+
+  const members = [];
+  let maxPower = 0;
+
+  for (let i = 0; i < 5; i++) {
+    const name = i === 0 ? 'Slot 1 (YOU)' : `Slot ${i+1}`;
+    const power = parsePowerMillions(document.getElementById(`rm_power_${i}`).value);
+    const ownVR = parseInt(document.getElementById(`rm_vr_${i}`).value) || 0;
+    const squadType = document.getElementById(`rm_stype_${i}`).value;
+    // Per official Last War wiki (S1: Resistance):
+    // "The rally leader's resistance applies to the whole rally."
+    // Every member uses the leader's VR regardless of their own — that's why
+    // the highest-VR player should lead.
+    const effectiveVR = initiatorVR;
+    const usingInitiatorVR = i !== 0;
+    const ownVRWasted = i !== 0 && ownVR > initiatorVR;
+
+    const vrPenalty = calcDamageReduction(requiredVR, effectiveVR);
+    // Type modifier only applies to Boss (not Doom Elite)
+    const typeMod = isBoss ? getTypeModifier(squadType, bossType) : 1.0;
+    const effectivePower = power * (1 - vrPenalty / 100) * typeMod;
+
+    // Combined penalty for flag decision (VR + type)
+    const totalDamageLost = 100 - ((1 - vrPenalty/100) * typeMod * 100);
+
+    let flag = 'go', flagText = '&#10003; GO';
+    if (totalDamageLost > 50) { flag = 'stop'; flagText = '&#10007; NO-GO'; }
+    else if (totalDamageLost > 25) { flag = 'caution'; flagText = '&#9888; CAUTION'; }
+
+    if (power === 0) {
+      document.getElementById(`rm_flag_${i}`).innerHTML = '<span style="color:#bbb;">&mdash;</span>';
+    } else {
+      let sourceNote = '';
+      if (ownVRWasted) {
+        sourceNote = ` <span style="color:#c62828;font-weight:600;" title="Your own VR is ${ownVR.toLocaleString()} but the leader's VR caps you at ${initiatorVR.toLocaleString()}. You should be the rally leader instead!">(capped from ${ownVR.toLocaleString()} &mdash; SHOULD LEAD)</span>`;
+      } else if (usingInitiatorVR) {
+        sourceNote = ' <span style="color:#f4a261;">(using leader\'s VR)</span>';
+      }
+      let typeNote = '';
+      if (isBoss && bossType !== 'none') {
+        if (typeMod > 1) typeNote = ' <span style="color:#2e7d32;font-weight:600;">&bull; &#9733;+20%</span>';
+        else if (typeMod < 1) typeNote = ' <span style="color:#c62828;font-weight:600;">&bull; -20%</span>';
+      }
+      document.getElementById(`rm_flag_${i}`).innerHTML = `<span class="rally-flag ${flag}">${flagText}</span>` +
+        `<span>VR ${effectiveVR.toLocaleString()}${sourceNote} &bull; -${vrPenalty.toFixed(1)}%${typeNote}</span>`;
+    }
+
+    if (effectivePower > maxPower) maxPower = effectivePower;
+    members.push({ name, power, effectivePower, vrPenalty, flag, ownVR, slotIndex: i });
+  }
+
+  // Boss power for per-slot loss estimate (only for Stronghold Boss, not Doom Elite)
+  const bossPower = isBoss ? getBossPower(enemyLevel) : 0;
+
+  renderRallyVerdict('rallyVerdict', members, requiredVR, initiatorVR);
+  renderRallyChart('rallyChart', 'rallySummary', members, maxPower, bossPower);
+
+  // Physics-based simulator (rounds-aware, tuned 2026-04-24 against 14 saved rallies, 78.6% outcome accuracy)
+  if (isBoss && bossPower > 0 && members.some(m => m.power > 0)) {
+    const simSlots = [];
+    for (let i = 0; i < 5; i++) {
+      const power = parsePowerMillions(document.getElementById(`rm_power_${i}`).value);
+      const squadType = document.getElementById(`rm_stype_${i}`).value;
+      simSlots.push({
+        name: i === 0 ? 'Slot 1 (YOU)' : `Slot ${i+1}`,
+        power,
+        squadType: squadType && squadType !== 'none' ? squadType : null
+      });
+    }
+    const simResult = simulateRally(simSlots, bossPower, initiatorVR, requiredVR, bossType);
+    renderRallySimulator('rallySimulatorSection', simResult, bossPower, bossType);
+  } else {
+    const simEl = document.getElementById('rallySimulatorSection');
+    if (simEl) simEl.innerHTML = '';
+  }
+
+  renderRallyLog('rallyLogSection', { enemyType, enemyLevel, bossType, initiatorVR, members, bossPower });
+}
+
+// Render the physics simulator verdict: outcome, rounds, per-slot survival, bottleneck
+function renderRallySimulator(containerId, sim, bossPower, bossType) {
+  const el = document.getElementById(containerId);
+  if (!el || !sim) return;
+  const verdict = sim.won ? 'WIN' : 'LOSS';
+  const verdictColor = sim.won ? '#2e7d32' : '#c62828';
+  const verdictBg = sim.won ? '#e8f5e9' : '#ffebee';
+  const bossHpLeft = sim.bossHpRemainingPct.toFixed(0);
+  const vrPenText = sim.vrPenaltyPct > 0 ? `-${sim.vrPenaltyPct.toFixed(0)}%` : 'sufficient';
+
+  let slotHtml = '';
+  sim.slotOutcomes.filter(s => s.lossPct > 0 || s.damageDealt > 0).forEach(s => {
+    const lossColor = s.lossPct >= 75 ? '#c62828' : s.lossPct >= 40 ? '#e65100' : s.lossPct >= 20 ? '#f4a261' : '#2e7d32';
+    const statusIcon = s.alive ? '&#10003;' : '&#10007;';
+    slotHtml += `<div style="display:flex;align-items:center;gap:8px;padding:2px 0;font-size:12px;">
+      <span style="color:${s.alive ? '#2e7d32' : '#c62828'};font-weight:700;">${statusIcon}</span>
+      <span style="flex:1;">${s.name}</span>
+      <span style="color:${lossColor};font-weight:600;">${s.lossPct.toFixed(0)}% losses</span>
+    </div>`;
+  });
+
+  const bottleneckHtml = sim.bottleneck
+    ? `<div style="margin-top:8px;padding:8px;background:#fff8e1;border-left:3px solid #f4a261;font-size:12px;"><strong>Bottleneck:</strong> ${sim.bottleneck}</div>`
+    : '';
+
+  el.innerHTML = `
+    <div style="background:${verdictBg}; border:2px solid ${verdictColor}; border-radius:8px; padding:12px; margin-top:12px;">
+      <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px;">
+        <h3 style="margin:0; color:${verdictColor}; font-size:16px;">&#127942; Simulator: ${verdict}</h3>
+        <div style="font-size:12px; color:#5a6a6a;">
+          Rounds: <strong>${sim.roundsUsed}</strong> &bull;
+          Boss HP left: <strong style="color:${bossHpLeft == 0 ? '#2e7d32' : '#c62828'};">${bossHpLeft}%</strong> &bull;
+          VR: <strong>${vrPenText}</strong>
+        </div>
+      </div>
+      ${slotHtml ? `<div style="margin-top:8px;">${slotHtml}</div>` : ''}
+      ${bottleneckHtml}
+      <div style="margin-top:8px; font-size:10px; color:#aaa;">
+        Physics-based round simulator &bull; Tuned against 14 real OWOW/DOc rally outcomes (78.6% outcome accuracy) &bull;
+        Each slot attacks boss 1v1 per round with own type counter &bull; VR inherits from initiator
+      </div>
+    </div>
+  `;
+}
+
+// Rally Verdict Rollup — summarizes 5 members into a single decision
+function renderRallyVerdict(verdictId, members, requiredVR, initiatorVR) {
+  const el = document.getElementById(verdictId);
+  if (!el) return;
+  const active = members.filter(m => m.power > 0);
+  if (active.length === 0) {
+    el.className = 'verdict-card neutral';
+    el.innerHTML = `<div class="verdict-headline">Enter rally member info above</div><div class="verdict-detail">Required VR: <strong>${requiredVR.toLocaleString()}</strong>. Add at least 1 member with squad power.</div>`;
+    return;
+  }
+
+  // Per Last War wiki: leader's VR caps everyone. Warn if a member has higher VR than leader.
+  const wrongLeader = active.find(m => m.slotIndex !== 0 && m.ownVR > initiatorVR);
+  const dead = active.filter(m => m.flag === 'stop').length;
+  const caution = active.filter(m => m.flag === 'caution').length;
+  const go = active.filter(m => m.flag === 'go').length;
+  const totalRaw = active.reduce((s,m) => s + m.power, 0);
+  const totalEff = active.reduce((s,m) => s + m.effectivePower, 0);
+  // Rally Damage % = how much of your total raw power actually translates to damage dealt,
+  // after VR penalties and type counter modifiers are applied per-member.
+  // Worst member drags the rally down, best member lifts it up; this is the weighted average.
+  const damagePct = totalRaw > 0 ? (totalEff / totalRaw) * 100 : 0;
+  // Color the big stat based on how good it is.
+  const statColor = damagePct >= 90 ? '#2e7d32'
+                   : damagePct >= 70 ? '#7fb3a8'
+                   : damagePct >= 40 ? '#f4a261'
+                   :                   '#c62828';
+
+  // Boss HP Damage estimate — REMOVED the overconfident logistic model.
+  //
+  // OWOW calibration data (Apr 14-18 2026) showed the logistic wildly overpredicts
+  // above 50% Rally Output (e.g., predicted ~100% at 76% output, actual was ~10%).
+  //
+  // Confirmed data points (boss HP bar observed):
+  //   22.9% Output -> 4%   boss damage  (Lv20 SH2)
+  //   26.4% Output -> 4%   boss damage  (Lv20 SH2)
+  //   36.0% Output -> 7%   boss damage  (Lv30 SH4, Scratches07)
+  //   48.0% Output -> 49%  boss damage  (Lv30 SH4, Gabriel 5250 VR)
+  //   76.0% Output -> 10%  boss damage  (Lv30 SH4, boss was at 96%, dropped to 85.71%)
+  //
+  // Point 5 (76% -> 10%) DESTROYS any simple monotonic model. Type matchup, enemy
+  // defense, and round-based combat mechanics dominate at mid-high outputs. The only
+  // honest answer: we can estimate low-output damage reasonably but NOT predict
+  // high-output outcomes from Rally Output alone.
+  //
+  // New approach: show the OUTPUT % as the main stat (which IS accurately computed
+  // from VR + type), drop the fake "boss HP damage" prediction, and use conservative
+  // outcome language that never promises a kill.
+  const bossDamagePct = null; // deliberately removed — too unreliable
+
+  // Outcome bands: VERY conservative. Even high Rally Output doesn't guarantee a kill.
+  let outcomeLabel, outcomeDetail, outcomeColor;
+  if (damagePct < 30) {
+    outcomeLabel = '&#10007; DO NOT RALLY';
+    outcomeDetail = 'You will bounce off. Expect 4-7% boss damage and catastrophic troop losses.';
+    outcomeColor = '#c62828';
+  } else if (damagePct < 50) {
+    outcomeLabel = '&#9888; HIGH RISK';
+    outcomeDetail = 'Likely defeat. Boss takes some damage (7-15%) but survives. Heavy troop losses.';
+    outcomeColor = '#e65100';
+  } else if (damagePct < 70) {
+    outcomeLabel = '&#9888; RISKY';
+    outcomeDetail = 'Outcome depends heavily on type matchup and member composition. May still lose.';
+    outcomeColor = '#f4a261';
+  } else if (damagePct < 90) {
+    outcomeLabel = '&#128260; POSSIBLE VICTORY';
+    outcomeDetail = 'Viable rally IF type matchup is favorable. Counter bonus (+20%) can make the difference.';
+    outcomeColor = '#7fb3a8';
+  } else {
+    outcomeLabel = '&#128260; GOOD ODDS';
+    outcomeDetail = 'Strong rally on paper. Still not guaranteed — type disadvantage can turn a win into a loss.';
+    outcomeColor = '#2e7d32';
+  }
+
+  let klass, headline, detail;
+  if (dead >= 2 || (dead >= 1 && active.length <= 2)) {
+    klass = 'danger';
+    headline = `&#10007; CALL OFF RALLY &mdash; ${dead}/${active.length} members below threshold`;
+    detail = `Wasting troops at this VR. Get a higher-VR initiator or skip this enemy.`;
+  } else if (dead >= 1 || caution >= 2) {
+    klass = 'risky';
+    headline = `&#9888; RISKY RALLY &mdash; ${go}/${active.length} fully effective`;
+    detail = `${dead} dead weight, ${caution} taking penalties.`;
+  } else if (caution >= 1) {
+    klass = 'risky';
+    headline = `&#9888; PROCEED WITH CAUTION`;
+    detail = `${caution} member(s) taking penalties.`;
+  } else {
+    klass = 'safe';
+    headline = `&#10003; GO &mdash; All ${active.length} members at full power`;
+    detail = `Send it!`;
+  }
+
+  // Stat block: Rally Output + Effective/Raw + Outcome prediction.
+  // Boss HP Damage prediction REMOVED — it was consistently overestimating.
+  const statBlock = `
+    <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-top:10px; padding-top:10px; border-top:1px dashed rgba(0,0,0,0.15);">
+      <div style="text-align:center;">
+        <div style="font-size:11px; color:#666; text-transform:uppercase; letter-spacing:0.5px;">Rally Output %</div>
+        <div style="font-size:30px; font-weight:800; color:${statColor}; line-height:1.1;">${damagePct.toFixed(1)}%</div>
+        <div style="font-size:10px; color:#888;" title="How much of your total raw squad power actually lands after VR penalties and type counters. Higher is better. This is NOT the % of boss HP you deal — actual boss damage depends on type matchup, enemy defense, and round-based combat mechanics.">of your raw power lands <span style="color:#bbb; cursor:help;">(?)</span></div>
+      </div>
+      <div style="text-align:center;">
+        <div style="font-size:11px; color:#666; text-transform:uppercase; letter-spacing:0.5px;">Effective / Raw</div>
+        <div style="font-size:18px; font-weight:700; color:#5a6a6a; line-height:1.2; margin-top:6px;">
+          <strong>${fmtPower(totalEff)}</strong><br><span style="color:#aaa; font-weight:400;">of</span> ${fmtPower(totalRaw)}
+        </div>
+        <div style="font-size:10px; color:#888;">${active.length} member(s)</div>
+      </div>
+    </div>
+    <div style="margin-top:10px; padding:10px 12px; background:${outcomeColor}15; border:1px solid ${outcomeColor}55; border-radius:6px; text-align:center;">
+      <div style="font-size:11px; color:#666; text-transform:uppercase; letter-spacing:0.5px;">Rally Outlook</div>
+      <div style="font-size:20px; font-weight:800; color:${outcomeColor}; line-height:1.2; margin-top:2px;">${outcomeLabel}</div>
+      <div style="font-size:12px; color:#555; margin-top:4px;">${outcomeDetail}</div>
+    </div>
+    <div style="margin-top:8px; font-size:10px; color:#999; text-align:center;">
+      Rally Output measures your squad efficiency after VR &amp; type penalties. Actual boss damage depends on many factors (type matchup, enemy defense, round survival). Output &ne; boss HP damage.
+    </div>`;
+
+  // Wrong-leader warning: per Last War wiki, the highest-VR player should lead
+  let leaderWarning = '';
+  if (wrongLeader) {
+    const slotName = wrongLeader.slotIndex === 0 ? 'Slot 1 (YOU)' : `Slot ${wrongLeader.slotIndex + 1}`;
+    leaderWarning = `<div style="margin-top:10px; padding:10px 12px; background:#fff3cd; border:2px solid #f4a261; border-radius:6px;">
+      <div style="font-size:13px; font-weight:700; color:#c62828;">&#9888; WRONG LEADER!</div>
+      <div style="font-size:12px; color:#444; margin-top:4px;">
+        <strong>${slotName}</strong> has VR <strong>${wrongLeader.ownVR.toLocaleString()}</strong>, higher than the leader's <strong>${initiatorVR.toLocaleString()}</strong>.
+        Per Last War wiki: <em>"the rally leader's resistance applies to the whole rally"</em> &mdash; the highest-VR player must launch.
+        Have <strong>${slotName}</strong> initiate the rally instead.
+      </div>
+    </div>`;
+  }
+
+  el.className = 'verdict-card ' + klass;
+  el.innerHTML = `<div class="verdict-headline">${headline}</div><div class="verdict-detail">${detail}</div>${leaderWarning}${statBlock}`;
+}
+
+function renderRallyChart(chartId, summaryId, members, maxPower, bossPower) {
+  const chartEl = document.getElementById(chartId);
+  const activeMems = members.filter(m => m.power > 0);
+  if (activeMems.length === 0) {
+    chartEl.innerHTML = '<div style="text-align:center;color:#999;padding:20px;">Enter squad power for members above</div>';
+    document.getElementById(summaryId).innerHTML = '';
+    return;
+  }
+  const combinedEffective = activeMems.reduce((s, m) => s + m.effectivePower, 0);
+  const barMax = maxPower > 0 ? maxPower : 1;
+  const showLoss = bossPower && bossPower > 0;
+  let chartHtml = '';
+  for (const m of activeMems) {
+    const pct = (m.effectivePower / barMax * 100).toFixed(0);
+    const color = m.flag === 'stop' ? '#fc5c65' : m.flag === 'caution' ? '#f4a261' : '#7fb3a8';
+    let lossTag = '';
+    if (showLoss) {
+      const lossPct = estimateSlotLoss(m.effectivePower, combinedEffective, bossPower, activeMems.length);
+      if (lossPct !== null) {
+        const lossColor = lossPct >= 75 ? '#c62828' : lossPct >= 40 ? '#e65100' : lossPct >= 20 ? '#f4a261' : '#2e7d32';
+        lossTag = `<span style="margin-left:8px; font-size:11px; font-weight:700; color:${lossColor};" title="Estimated troop losses for this slot given combined rally power vs boss power. Weaker slots lose more. This is guidance, not a prediction.">~${lossPct.toFixed(0)}% losses</span>`;
+      }
+    }
+    chartHtml += `<div class="rally-bar-row">
+      <div class="rally-bar-label">${m.name}</div>
+      <div class="rally-bar" style="width:${Math.max(pct, 3)}%;background:${color};">${fmtPower(m.effectivePower)}</div>
+      ${lossTag}
+    </div>`;
+  }
+  chartEl.innerHTML = chartHtml;
+
+  const totalEffective = combinedEffective;
+  const totalRaw = activeMems.reduce((s, m) => s + m.power, 0);
+  const deadWeight = activeMems.filter(m => m.flag === 'stop').length;
+
+  let summary = `Total effective: <strong>${fmtPower(totalEffective)}</strong> (raw: ${fmtPower(totalRaw)})`;
+  if (showLoss) {
+    const ratio = (combinedEffective / bossPower);
+    const ratioColor = ratio >= 1.5 ? '#2e7d32' : ratio >= 1.2 ? '#7fb3a8' : ratio >= 1.0 ? '#f4a261' : '#c62828';
+    summary += ` &bull; Boss: <strong>${fmtPower(bossPower)}</strong> &bull; Ratio: <strong style="color:${ratioColor};">${ratio.toFixed(2)}&times;</strong>`;
+  }
+  if (deadWeight > 0) summary += ` &mdash; <span style="color:#fc5c65;font-weight:600;">${deadWeight} member(s) wasting troops!</span>`;
+  summary += '<br><span style="font-size:10px;color:#aaa;">Combat is rounds-based, not additive &mdash; actual results depend on individual squad survival per round.</span>';
+  document.getElementById(summaryId).innerHTML = summary;
+}
+
+// ===================================================================
+// Rally Log — save predictions, log actual results, track accuracy
+// ===================================================================
+const RALLY_LOG_KEY = 'owow-vr-rally-log';
+let _lastRallyContext = null;
+
+function loadRallyLog() {
+  try {
+    const raw = localStorage.getItem(RALLY_LOG_KEY);
+    return raw ? JSON.parse(raw) : [];
+  } catch (e) { return []; }
+}
+
+function saveRallyLog(entries) {
+  try { localStorage.setItem(RALLY_LOG_KEY, JSON.stringify(entries)); } catch (e) {}
+}
+
+function getOutcomeBand(pct) {
+  if (pct < 30) return 'DO NOT RALLY';
+  if (pct < 50) return 'HIGH RISK';
+  if (pct < 70) return 'RISKY';
+  if (pct < 90) return 'POSSIBLE VICTORY';
+  return 'GOOD ODDS';
+}
+
+function renderRallyLog(containerId, context) {
+  const el = document.getElementById(containerId);
+  if (!el) return;
+  _lastRallyContext = context;
+  const log = loadRallyLog();
+
+  const activeMems = context.members.filter(m => m.power > 0);
+  const totalRaw = activeMems.reduce((s, m) => s + m.power, 0);
+  const totalEff = activeMems.reduce((s, m) => s + m.effectivePower, 0);
+  const outputPct = totalRaw > 0 ? (totalEff / totalRaw) * 100 : 0;
+  const canSave = activeMems.length > 0;
+
+  // Accuracy stat: % of logged rallies where prediction band matched actual outcome
+  const logged = log.filter(e => e.actual);
+  let accuracyHtml = '';
+  if (logged.length > 0) {
+    const matches = logged.filter(e => {
+      const predWon = e.predicted.outputPct >= 70; // "Possible Victory" or better predicted win
+      return predWon === !!e.actual.won;
+    }).length;
+    const pct = ((matches / logged.length) * 100).toFixed(0);
+    accuracyHtml = `<div style="font-size:11px; color:#5a6a6a;">Prediction accuracy: <strong>${matches}/${logged.length}</strong> (${pct}%) &mdash; win/loss correctly predicted by Rally Output &ge; 70%</div>`;
+  }
+
+  let html = `<div style="background:#f0f5f4; border:1px solid #7fb3a8; border-radius:6px; padding:12px;">
+    <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px;">
+      <h3 style="margin:0; color:#5a6a6a; font-size:15px;">&#128221; Rally Log &amp; Calibration</h3>
+      <button id="rallyLogSaveBtn" ${canSave ? '' : 'disabled'} style="background:${canSave ? '#7fb3a8' : '#ccc'}; color:white; border:none; padding:6px 14px; border-radius:4px; font-weight:600; cursor:${canSave ? 'pointer' : 'not-allowed'}; font-size:12px;">&#128190; Save this rally prediction</button>
+    </div>
+    <div style="font-size:11px; color:#888; margin-top:4px;">Save before you rally, then come back and enter the actual result. Tracks how well predictions match reality &mdash; calibrates the calculator with YOUR data.</div>
+    ${accuracyHtml}`;
+
+  if (log.length === 0) {
+    html += `<div style="margin-top:10px; font-size:12px; color:#aaa; text-align:center; padding:10px;">No rallies logged yet. Save your first one above.</div>`;
+  } else {
+    html += `<div style="overflow-x:auto; margin-top:10px;"><table style="width:100%; border-collapse:collapse; font-size:11px;">
+      <thead><tr style="background:#e8efee; border-bottom:2px solid #7fb3a8;">
+        <th style="padding:6px; text-align:left;">Date</th>
+        <th style="padding:6px; text-align:left;">Boss</th>
+        <th style="padding:6px; text-align:right;">Predicted Output</th>
+        <th style="padding:6px; text-align:left;">Actual Result</th>
+        <th style="padding:6px; text-align:center;">Match?</th>
+        <th style="padding:6px;"></th>
+      </tr></thead><tbody>`;
+    const sorted = [...log].sort((a, b) => b.id - a.id);
+    for (const e of sorted) {
+      const d = new Date(e.id);
+      const dateStr = `${d.getMonth()+1}/${d.getDate()} ${String(d.getHours()).padStart(2,'0')}:${String(d.getMinutes()).padStart(2,'0')}`;
+      const bossLabel = e.enemyType === 'boss'
+        ? `SH${e.enemyLevel} ${e.bossType !== 'none' ? `(${e.bossType})` : ''}`
+        : `Elite Lv${e.enemyLevel}`;
+      const predOutcome = getOutcomeBand(e.predicted.outputPct);
+      let actualCell, matchCell;
+      if (e.actual) {
+        const parts = [];
+        parts.push(`<strong style="color:${e.actual.won ? '#2e7d32' : '#c62828'};">${e.actual.won ? 'WON' : 'LOST'}</strong>`);
+        if (e.actual.bossHpDealtPct != null) parts.push(`${e.actual.bossHpDealtPct}% boss HP`);
+        if (e.actual.yourTroopsLostPct != null) parts.push(`${e.actual.yourTroopsLostPct}% troops`);
+        actualCell = parts.join(' &bull; ');
+        const predWon = e.predicted.outputPct >= 70;
+        const matched = predWon === !!e.actual.won;
+        matchCell = matched ? '<span style="color:#2e7d32; font-weight:700;">&#10003;</span>' : '<span style="color:#c62828; font-weight:700;">&#10007;</span>';
+      } else {
+        actualCell = `<button onclick="openRallyActualDialog(${e.id})" style="background:#f4a261; color:white; border:none; padding:3px 8px; border-radius:3px; font-size:10px; cursor:pointer;">Enter result</button>`;
+        matchCell = '<span style="color:#bbb;">&mdash;</span>';
+      }
+      html += `<tr style="border-bottom:1px solid #e0e5e4;">
+        <td style="padding:6px;">${dateStr}</td>
+        <td style="padding:6px;">${bossLabel}</td>
+        <td style="padding:6px; text-align:right;"><strong>${e.predicted.outputPct.toFixed(1)}%</strong><br><span style="color:#888; font-size:10px;">${predOutcome}</span></td>
+        <td style="padding:6px;">${actualCell}</td>
+        <td style="padding:6px; text-align:center;">${matchCell}</td>
+        <td style="padding:6px;"><button onclick="deleteRallyLogEntry(${e.id})" title="Delete" style="background:#fc5c65; color:white; border:none; padding:2px 6px; border-radius:3px; font-size:10px; cursor:pointer;">&#10007;</button></td>
+      </tr>`;
+    }
+    html += `</tbody></table></div>`;
+  }
+  html += `</div>`;
+  el.innerHTML = html;
+
+  const btn = document.getElementById('rallyLogSaveBtn');
+  if (btn && canSave) {
+    btn.addEventListener('click', () => {
+      const ctx = _lastRallyContext;
+      if (!ctx) return;
+      const activeM = ctx.members.filter(m => m.power > 0);
+      const tr = activeM.reduce((s, m) => s + m.power, 0);
+      const te = activeM.reduce((s, m) => s + m.effectivePower, 0);
+      const outputPct = tr > 0 ? (te / tr) * 100 : 0;
+      const entry = {
+        id: Date.now(),
+        enemyType: ctx.enemyType,
+        enemyLevel: ctx.enemyLevel,
+        bossType: ctx.bossType,
+        initiatorVR: ctx.initiatorVR,
+        bossPower: ctx.bossPower,
+        members: ctx.members.map(m => ({ power: m.power, vr: m.ownVR, effectivePower: m.effectivePower, slotIndex: m.slotIndex })),
+        predicted: { outputPct, outcomeBand: getOutcomeBand(outputPct) },
+        actual: null
+      };
+      const list = loadRallyLog();
+      list.push(entry);
+      saveRallyLog(list);
+      renderRallyLog(containerId, ctx);
+    });
+  }
+}
+
+function deleteRallyLogEntry(id) {
+  if (!confirm('Delete this rally log entry?')) return;
+  const list = loadRallyLog().filter(e => e.id !== id);
+  saveRallyLog(list);
+  if (_lastRallyContext) renderRallyLog('rallyLogSection', _lastRallyContext);
+}
+
+function openRallyActualDialog(id) {
+  const list = loadRallyLog();
+  const entry = list.find(e => e.id === id);
+  if (!entry) return;
+  const wonRaw = prompt('Did you WIN the rally? (y/n)');
+  if (wonRaw === null) return;
+  const won = /^y/i.test(wonRaw.trim());
+  const hpRaw = prompt('Approx % of boss HP you dealt? (0-100, or blank to skip)');
+  const troopsRaw = prompt('Approx % of YOUR troops lost? (0-100, or blank to skip)');
+  const hp = hpRaw && hpRaw.trim() !== '' ? Math.max(0, Math.min(100, parseFloat(hpRaw))) : null;
+  const troops = troopsRaw && troopsRaw.trim() !== '' ? Math.max(0, Math.min(100, parseFloat(troopsRaw))) : null;
+  entry.actual = { won, bossHpDealtPct: hp, yourTroopsLostPct: troops };
+  saveRallyLog(list);
+  if (_lastRallyContext) renderRallyLog('rallyLogSection', _lastRallyContext);
+}
+
+// ===================================================================
+// Tab 3: Doom Walker
+// ===================================================================
+// Doom Walkers are strength-gated only (no VR) -- so the walker grid is 3 columns wide.
+const WALKER_GRID_STYLE = 'grid-template-columns: 140px 1fr 2fr;';
+
+function initWalkerMembers() {
+  const container = document.getElementById('walkerMembers');
+  let html = '';
+  html += `<div class="rally-member-row" style="${WALKER_GRID_STYLE} background:#f0f5f4; border:1px solid #ccc; font-weight:700;">
+    <div class="member-label">Member</div>
+    <div style="font-size:11px; color:#666;">Squad Power <span style="color:#f4a261;">(Millions)</span></div>
+    <div style="font-size:11px; color:#666;">Strength Status</div>
+  </div>`;
+  for (let i = 0; i < 5; i++) {
+    const isInitiator = i === 0;
+    const label = isInitiator ? '&#127942; Slot 1 (YOU)' : `Slot ${i+1}`;
+    const powerPh = isInitiator ? 'e.g. 17.8' : `e.g. ${(10 + i * 2).toFixed(1)}`;
+    const rowClass = isInitiator ? 'rally-member-row initiator' : 'rally-member-row';
+    html += `<div class="${rowClass}" style="${WALKER_GRID_STYLE}">
+      <div class="member-label">${label}</div>
+      <input type="number" id="wm_power_${i}" placeholder="${powerPh}" min="0" step="any" inputmode="decimal" title="Enter squad power in MILLIONS. Example: type 17.8 for 17.8M (= 17,800,000).">
+      <div class="status-cell" id="wm_flag_${i}"></div>
+    </div>`;
+  }
+  container.innerHTML = html;
+
+  for (let i = 0; i < 5; i++) {
+    document.getElementById(`wm_power_${i}`).addEventListener('input', updateWalker);
+  }
+}
+
+function populateWalkerLevels() {
+  const sel = document.getElementById('walkerLevel');
+  let html = '';
+  for (let lv = DOOM_WALKER_MIN; lv <= DOOM_WALKER_MAX; lv++) {
+    const mark = isDoomWalkerConfirmed(lv) ? ' \u2713' : '';
+    html += `<option value="${lv}">Lv ${lv}${mark}</option>`;
+  }
+  sel.innerHTML = html;
+}
+
+function refreshWalkerRequirements() {
+  const level = parseInt(document.getElementById('walkerLevel').value) || 100;
+  const strength = getDoomWalkerStrength(level);
+  const srcTag = isDoomWalkerConfirmed(level) ? ' \u2713 verified' : ' ~ estimated';
+  document.getElementById('walkerStrength').value = fmtPower(strength) + ' (' + strength.toLocaleString() + ')' + srcTag;
+}
+
+function updateWalker() {
+  if (!document.getElementById('walkerLevel')) return;
+  const level = parseInt(document.getElementById('walkerLevel').value) || 100;
+  const requiredStrength = getDoomWalkerStrength(level);
+
+  const members = [];
+  let maxPower = 0;
+  let passCount = 0;
+  let failCount = 0;
+  let activeCount = 0;
+
+  for (let i = 0; i < 5; i++) {
+    const name = i === 0 ? 'Slot 1 (YOU)' : `Slot ${i+1}`;
+    const power = parsePowerMillions(document.getElementById(`wm_power_${i}`).value);
+    const strengthOK = power >= requiredStrength;
+
+    let flag, flagText;
+    if (power === 0) {
+      flag = ''; flagText = '';
+    } else if (strengthOK) {
+      flag = 'go'; flagText = '&#10003; GO';
+    } else {
+      flag = 'stop'; flagText = '&#10007; STR FAIL';
+    }
+
+    if (power === 0) {
+      document.getElementById(`wm_flag_${i}`).innerHTML = '<span style="color:#bbb;">&mdash;</span>';
+    } else {
+      activeCount++;
+      if (strengthOK) passCount++; else failCount++;
+      const strengthLabel = strengthOK
+        ? `<span style="color:#2e7d32;">${fmtPower(power)} &#10003; (need ${fmtPower(requiredStrength)})</span>`
+        : `<span style="color:#c62828;">${fmtPower(power)} &lt; ${fmtPower(requiredStrength)} needed</span>`;
+      document.getElementById(`wm_flag_${i}`).innerHTML =
+        `<span class="rally-flag ${flag}">${flagText}</span><br>${strengthLabel}`;
+    }
+
+    // effectivePower === power since there's no VR penalty on Walkers
+    if (power > maxPower) maxPower = power;
+    members.push({ name, power, effectivePower: power, vrPenalty: 0, flag });
+  }
+
+  // Strength-only verdict card for Doom Walkers.
+  const el = document.getElementById('walkerVerdict');
+  if (el) {
+    if (activeCount === 0) {
+      el.className = 'verdict-card neutral';
+      el.innerHTML = `<div class="verdict-headline">Enter rally member info above</div><div class="verdict-detail">Each member needs at least <strong>${fmtPower(requiredStrength)}</strong> squad power for Lv ${level}.</div>`;
+    } else if (failCount === 0) {
+      el.className = 'verdict-card safe';
+      el.innerHTML = `<div class="verdict-headline">&#10003; GO &mdash; All ${activeCount} members clear the threshold</div><div class="verdict-detail">Total raw power: <strong>${fmtPower(members.reduce((s,m)=>s+m.power,0))}</strong>. Send it!</div>`;
+    } else if (failCount >= activeCount - 1) {
+      el.className = 'verdict-card danger';
+      el.innerHTML = `<div class="verdict-headline">&#10007; CALL OFF RALLY &mdash; ${failCount}/${activeCount} below strength threshold</div><div class="verdict-detail">Each member needs <strong>${fmtPower(requiredStrength)}</strong>. Find stronger members or pick a lower Walker level.</div>`;
+    } else {
+      el.className = 'verdict-card risky';
+      el.innerHTML = `<div class="verdict-headline">&#9888; RISKY RALLY &mdash; ${failCount}/${activeCount} below threshold</div><div class="verdict-detail">Under-strength members may die. Threshold: <strong>${fmtPower(requiredStrength)}</strong>.</div>`;
+    }
+  }
+
+  renderRallyChart('walkerChart', 'walkerSummary', members, maxPower);
+}
+
+// ===================================================================
+// Tabs
+// ===================================================================
+function initTabs() {
+  const btns = document.querySelectorAll('.tab-btn');
+  btns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      btns.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+      const id = 'tab-' + btn.dataset.tab;
+      document.getElementById(id).classList.add('active');
+    });
+  });
+}
+
+// Show/Hide Tables
+function initTablesToggle() {
+  const toggle = document.getElementById('tablesToggle');
+  const content = document.getElementById('tablesContent');
+  toggle.addEventListener('click', () => {
+    if (content.style.display === 'none') {
+      content.style.display = 'block';
+      toggle.textContent = 'Hide Tables';
+    } else {
+      content.style.display = 'none';
+      toggle.textContent = 'Show Tables';
+    }
+  });
+}
+
+// ===================================================================
+// Master updater
+// ===================================================================
+function updateAll() {
+  updateCard('boss', 'card-boss', 'boss-level', 'boss-info');
+  updateCard('elite', 'card-elite', 'elite-level', 'elite-info');
+  updateCard('zombie', 'card-zombie', 'zombie-level', 'zombie-info');
+  document.getElementById('table-boss').innerHTML = buildTable('boss');
+  document.getElementById('table-elite').innerHTML = buildTable('elite');
+  document.getElementById('table-zombie').innerHTML = buildTable('zombie');
+  document.getElementById('table-walker').innerHTML = buildWalkerTable();
+  updateZombieSolo();
+  updateRally();
+  updateWalker();
+}
+
+// ===================================================================
+// Init
+// ===================================================================
+initTabs();
+initTablesToggle();
+
+// Tab 1: Zombie Solo
+populateZombieSoloLevels();
+['zSoloLevel','zSoloZombieType','zSoloSquadType','zSoloPower','zSoloVR'].forEach(id => {
+  const el = document.getElementById(id);
+  if (el) {
+    el.addEventListener('input', updateZombieSolo);
+    el.addEventListener('change', updateZombieSolo);
+  }
+});
+// Zombie-solo VR is bidirectionally bound to the top VR slider.
+document.getElementById('zSoloVR').value = getVR();
+document.getElementById('zSoloVR').addEventListener('input', (e) => {
+  if (!_vrSyncing) setVR(e.target.value);
+});
+
+// Tab 2: Rally
+initRallyMembers();
+populateRallyLevels();
+document.getElementById('rallyEnemyType').addEventListener('change', () => {
+  populateRallyLevels();
+  updateRally();
+});
+document.getElementById('rallyEnemyLevel').addEventListener('change', updateRally);
+document.getElementById('rallyBossType').addEventListener('change', updateRally);
+
+// Tab 3: Doom Walker (strength-only, no VR)
+populateWalkerLevels();
+initWalkerMembers();
+document.getElementById('walkerLevel').addEventListener('change', () => {
+  refreshWalkerRequirements();
+  updateWalker();
+});
+refreshWalkerRequirements();
+
+// Initial render
+setVR(0);
+</script>
+
+</body>
+</html>
