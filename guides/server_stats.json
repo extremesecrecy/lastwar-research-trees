@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-08-02",
+  "lastUpdated": "2026-08-09",
   "sources": {
     "playerStats": "https://activeplayer.io/last-war-survival/",
     "serverData": "https://cpt-hedge.com/servers"
@@ -15,9 +15,9 @@
     "androidShare": "1.0x more"
   },
   "downloads": {
-    "googlePlay": "53.4M+",
-    "appStore": "53.4M+",
-    "total": "~107M+"
+    "googlePlay": "193.5M+",
+    "appStore": "193.5M+",
+    "total": "~387M+"
   },
   "monthlyTrend": [
     {
