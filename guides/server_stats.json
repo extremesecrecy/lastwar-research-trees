@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-08-16",
+  "lastUpdated": "2026-08-23",
   "sources": {
     "playerStats": "https://activeplayer.io/last-war-survival/",
     "serverData": "https://cpt-hedge.com/servers"
@@ -54,6 +54,6 @@
     "androidRate": "16.7%",
     "iosRate": "16.7%",
     "yoyGrowth": "+18.2%",
-    "vsPeak": "2.5%"
+    "vsPeak": "1.8%"
   }
 }
