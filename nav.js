@@ -23,6 +23,7 @@
     { href: 'guides/s1_territory_map.html', label: 'S1 Map' },
     { href: 'guides/s2_territory_map.html', label: 'S2 Map' },
     { href: 'guides/s2_polar_storm.html', label: 'S2 Polar Storm' },
+    { href: 'guides/s3_golden_kingdom.html', label: 'S3 Golden Kingdom' },
     { href: 'guides/server_dashboard.html', label: 'Server' },
     { href: 'guides/virus_resistance.html', label: 'Virus Resist' },
     { href: 'guides/virus_resistance_s2.html', label: 'S2 Virus Resist' },
