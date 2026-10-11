@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-10-04",
+  "lastUpdated": "2026-10-11",
   "sources": {
     "playerStats": "https://activeplayer.io/last-war-survival/",
     "serverData": "https://cpt-hedge.com/servers"
@@ -21,27 +21,27 @@
   },
   "monthlyTrend": [
     {
+      "month": "October 2026",
+      "players": "6.3M",
+      "change": "-18.3%",
+      "direction": "down"
+    },
+    {
+      "month": "September 2026",
+      "players": "7.7M",
+      "change": "+49.6%",
+      "direction": "up"
+    },
+    {
       "month": "August 2026",
-      "players": "3.8M",
-      "change": "+83.7%",
+      "players": "5.1M",
+      "change": "+146.5%",
       "direction": "up"
     },
     {
       "month": "July 2026",
       "players": "2.1M",
       "change": "-69.5%",
-      "direction": "down"
-    },
-    {
-      "month": "June 2026",
-      "players": "6.8M",
-      "change": "-19.4%",
-      "direction": "down"
-    },
-    {
-      "month": "May 2026",
-      "players": "8.4M",
-      "change": "-4.9%",
       "direction": "down"
     }
   ],
@@ -54,6 +54,6 @@
     "androidRate": "16.7%",
     "iosRate": "16.7%",
     "yoyGrowth": "+18.2%",
-    "vsPeak": "1.8%"
+    "vsPeak": "7.9%"
   }
 }
