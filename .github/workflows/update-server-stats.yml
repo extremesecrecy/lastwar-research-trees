@@ -1,9 +1,9 @@
-name: Update Server Stats
+name: Update Server Stats & Calendar
 
 on:
   schedule:
-    # Every Sunday at 12:00 UTC
-    - cron: '0 12 * * 0'
+    # Daily at 03:15 UTC (just after the 02:00 UTC server reset, so cpt-hedge's day has rolled over)
+    - cron: '15 3 * * *'
   workflow_dispatch: # Allow manual trigger
 
 permissions:
@@ -23,19 +23,20 @@ jobs:
         with:
           python-version: '3.12'
 
-      - name: Run stats scraper
+      - name: Refresh stats, season dates and #2013 calendar
         run: python update_server_stats.py
 
       - name: Check for changes
         id: changes
         run: |
-          git diff --quiet guides/server_stats.json && echo "changed=false" >> $GITHUB_OUTPUT || echo "changed=true" >> $GITHUB_OUTPUT
+          git add -N guides/server_seasons.json 2>/dev/null || true
+          git diff --quiet -- guides/server_stats.json guides/server_seasons.json guides/lastwar_calendar.ics             && echo "changed=false" >> $GITHUB_OUTPUT || echo "changed=true" >> $GITHUB_OUTPUT
 
       - name: Commit and push to main
         if: steps.changes.outputs.changed == 'true'
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add guides/server_stats.json
-          git commit -m "chore: update server stats ($(date -u +%Y-%m-%d))"
+          git add guides/server_stats.json guides/server_seasons.json guides/lastwar_calendar.ics
+          git commit -m "chore: daily server stats + season dates ($(date -u +%Y-%m-%d))"
           git push origin main

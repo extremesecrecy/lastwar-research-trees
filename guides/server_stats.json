@@ -1,23 +1,23 @@
 {
-  "lastUpdated": "2026-10-11",
+  "lastUpdated": "2026-10-14",
   "sources": {
     "playerStats": "https://activeplayer.io/last-war-survival/",
     "serverData": "https://cpt-hedge.com/servers"
   },
   "monthlyActivePlayers": {
-    "combined": "~24.0M",
+    "combined": "~19.2M",
     "android": "9.0M - 15.0M",
-    "ios": "9.0M - 15.0M"
+    "ios": "5.3M - 9.1M"
   },
   "dailyActivePlayers": {
-    "android": "310.0K - 760.0K",
-    "ios": "310.0K - 760.0K",
-    "androidShare": "1.0x more"
+    "android": "1.5M - 2.5M",
+    "ios": "1.4M - 2.2M",
+    "androidShare": "1.1x"
   },
   "downloads": {
-    "googlePlay": "75.7M+",
+    "googlePlay": "100,000,000+",
     "appStore": "75.7M+",
-    "total": "~151M+"
+    "total": "~175.7M+"
   },
   "monthlyTrend": [
     {
@@ -46,14 +46,31 @@
     }
   ],
   "serverLandscape": {
-    "totalServers": "2,194",
-    "newest": "#2198 (Day 4)",
-    "oldest": "#3 (Day 992)"
+    "totalServers": "2,304",
+    "newest": "#2308 (Day 69)",
+    "oldest": "#3 (Day 1212)"
   },
   "engagement": {
     "androidRate": "16.7%",
-    "iosRate": "16.7%",
-    "yoyGrowth": "+18.2%",
-    "vsPeak": "7.9%"
+    "iosRate": "25.0%",
+    "avgMonthlyGrowth": "7.9%",
+    "peak": "11.0M (January 2026)",
+    "pctOfPeak": "57.0%"
+  },
+  "playerStatsAsOf": "October 3, 2026",
+  "currentPlayers": {
+    "android": "310.0K - 760.0K",
+    "ios": "113.5K - 264.8K"
+  },
+  "trackedServer": {
+    "id": "2013",
+    "season": 2,
+    "seasonDay": 80,
+    "serverDay": 305,
+    "postSeason": true,
+    "week": 4,
+    "nextSeason": 3,
+    "nextSeasonStart": "2026-11-16",
+    "nextSeasonEstimated": true
   }
 }
