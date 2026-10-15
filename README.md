@@ -23,7 +23,7 @@ A complete suite of free tools and guides for Last War: Survival players. Track 
 | [Server Dashboard](https://extremesecrecy.github.io/lastwar-research-trees/guides/server_dashboard.html) | Live server stats and game metrics |
 | [S1 Territory Map](https://extremesecrecy.github.io/lastwar-research-trees/guides/s1_territory_map.html) | Season 1 territory map visualization |
 | [S2 Map Builder](https://extremesecrecy.github.io/lastwar-research-trees/guides/s2_territory_map.html) | Polar Storm territory planner — day-by-day captures, print sheets, saves in your browser |
-| [S3 Curse Resistance](https://extremesecrecy.github.io/lastwar-research-trees/guides/curse_resistance_s3.html) | Season 3 stronghold resistance: damage check per SH level, Curse Research Lab + Blessing Fountain planner, tentative schedule for ranks 1-11, how to push resistance fast |
+| [S3 Curse Resistance](https://extremesecrecy.github.io/lastwar-research-trees/guides/curse_resistance_s3.html) | Season 3 stronghold resistance: damage check per SH level, Curse Research Lab + Blessing Fountain planner, tentative schedule by alliance tier, how to push resistance fast |
 | [S3 Map Builder](https://extremesecrecy.github.io/lastwar-research-trees/guides/s3_territory_map.html) | Golden Kingdom territory planner — 8 cities + 8 strongholds, level unlocks, Curse Resistance schedule, capture locks, day-by-day moves, print/PDF in 4 languages, saves in your browser |
 
 ## Guides

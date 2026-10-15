@@ -157,12 +157,12 @@
 
 <!-- SCHEDULE -->
 <div class="tab-content active" id="tab-schedule">
-  <h2>Tentative Digging Stronghold schedule &mdash; ranks 1&ndash;11 <span class="tag est">ESTIMATE</span></h2>
+  <h2>Tentative Digging Stronghold schedule by alliance tier <span class="tag est">ESTIMATE</span></h2>
   <p>"Push hard" = every task knocked out right away, first kills climbed one level at a time, Individual Goals claimed after every Lab level, Weekly Pass, all Mithril into Blessing Fountains, all Sacred Water into the Lab. Season day on which the alliance's <b>best rally leader</b> reaches each threshold.</p>
   <div class="table-scroll" style="max-height:none"><table class="data" id="schedTable"></table></div>
-  <p style="font-size:12px;color:#777;margin-top:6px;">Tiers assume the leader's daily Mithril (top 300k &middot; ranks 4&ndash;8 150k &middot; ranks 9&ndash;11 50k) and that tasks/goals/first-kills give a top-3 leader ~1.0M Sacred Water/day (mid 60%, low 35%). Protectors +250 counted from day 8. No starting resistance assumed.</p>
+  <p style="font-size:12px;color:#777;margin-top:6px;">Tiers are defined by how hard the alliance's rally leader pushes, not by server: leader's daily Mithril (top 300k &middot; mid 150k &middot; lower 50k) and Sacred Water from tasks/goals/first kills (top ~1.0M/day, mid 60% of that, lower 35%). Protectors +250 counted from day 8. No starting resistance assumed. Not sure where you fit? Use the Lab Planner tab with your own numbers.</p>
 
-  <h3>How much do tasks &amp; goals matter? (top-3 leader reaching 80% of requirement)</h3>
+  <h3>How much do tasks &amp; goals matter? (top-tier leader reaching 80% of requirement)</h3>
   <div class="table-scroll" style="max-height:none"><table class="data" id="sensTable"></table></div>
 
   <div class="insight-box" style="margin-top:14px;">
@@ -170,7 +170,7 @@
     <ul>
       <li><b>Big rallies can win below the requirement.</b> At 80% you deal 40% less damage, but a 5-squad rally usually has far more power than a stronghold guardian &mdash; that's why alliances capture strongholds before they "should".</li>
       <li><b>SH4&ndash;SH6 are close together</b> (+1,500, +500, +500): once you can take SH3, the rest come fast.</li>
-      <li><b>Ranks 9&ndash;11</b> climb slowly on their own &mdash; borrow an allied high-resistance rally leader for SH3+ captures.</li>
+      <li><b>Lower-tier alliances</b> climb slowly on their own &mdash; borrow an allied high-resistance rally leader for SH3+ captures.</li>
     </ul>
   </div>
 </div>
@@ -181,9 +181,9 @@
   <p>Enter where your leader is today and what they earn per day. The planner spends Mithril on the lowest Blessing Fountain (Fountain II unlocks when I reaches Lv15, III when II reaches Lv15, IV = Weekly Pass) and Sacred Water on the next Lab level, one upgrade at a time, using real costs &amp; build times.</p>
   <div class="preset-row">
     <span style="font-size:13px;color:#666;align-self:center;">Presets:</span>
-    <button data-preset="top">Top-3 push</button>
-    <button data-preset="mid">Ranks 4&ndash;8 push</button>
-    <button data-preset="low">Ranks 9&ndash;11 push</button>
+    <button data-preset="top">Top-tier push</button>
+    <button data-preset="mid">Mid-tier push</button>
+    <button data-preset="low">Lower-tier push</button>
     <button data-preset="f2p">Fountains only (no tasks)</button>
   </div>
   <div class="form-grid">
@@ -284,7 +284,7 @@
   <a href="https://www.lastwartutorial.com/season-3-week-1/" target="_blank">LastWarTutorial S3 Week 1</a> &middot;
   <a href="https://lastwarhandbook.com/guides/season-3-guide" target="_blank">Last War Handbook S3</a> &middot;
   <a href="https://lastwar-guide.org/season-3/last-war-season-3-week-1-guide" target="_blank">lastwar-guide.org Week 1</a>.
-  Damage formula verified in-game in S2 by RGBB. Schedule = RGBB model (estimate).
+  Damage formula verified in-game in Season 2 rallies. Schedule = model estimate.
 </div>
 <div class="footer">[RGBB] Raging Black Bulls &bull; Curse Resistance Calculator &bull; Last War: Survival &bull; Kristen RGBB SKYNET</div>
 
@@ -299,7 +299,7 @@ const S2_REQ = [3500, 6000, 8000, 9500, 10000, 10500];
 const LAB_RES = l => l > 0 ? LAB[l - 1][1] : 0;
 const FOUNT_OUT = l => l > 0 ? FOUNTAIN[l - 1][1] : 0;
 
-// Precomputed push-hard schedule (RGBB model; see tab text). [SH1..SH6] season day, null = not reachable
+// Precomputed push-hard schedule (model estimate; see tab text). [SH1..SH6] season day, null = not reachable
 const SCHED = {"top_100":[5,9,13,17,19,null],"mid_100":[7,12,18,24,27,null],"low_100":[8,18,27,37,41,null],"top_90":[4,8,11,14,16,17],"mid_90":[6,11,15,20,22,24],"low_90":[8,16,22,30,34,37],"top_80":[3,7,10,12,13,14],"mid_80":[4,9,14,16,18,20],"low_80":[6,13,20,25,27,30]};
 const SENS = [["0 (Fountains only)",[8,13,18,20,22,24]],["0.5M / day",[5,9,12,15,16,18]],["1.0M / day (calibrated)",[3,7,10,12,13,14]],["2.0M / day",[3,6,8,10,11,12]]];
 
@@ -346,9 +346,11 @@ document.getElementById('addProt').addEventListener('change', renderCards);
 
 // ===== Schedule tables =====
 function renderSchedule() {
-  const tiers = [['1&ndash;3', 'RGBB &middot; PNXX &middot; DOC', 'top'], ['4&ndash;8', 'WW26 &middot; STWB &middot; OFNA &middot; 12AM &middot; BKD', 'mid'], ['9&ndash;11', 'DDI &middot; FAKR &middot; TA24', 'low']];
+  const tiers = [['Top tier', 'Top alliances on a server (typically ranks 1&ndash;3) &mdash; leader buys the Weekly Pass + Mithril packs (~300k Mithril/day)', 'top'],
+                 ['Mid tier', 'Mid-ranked alliances (typically ranks 4&ndash;8) &mdash; Weekly Pass, moderate spending (~150k Mithril/day)', 'mid'],
+                 ['Lower tier', 'Lower-ranked alliances (typically rank 9+) &mdash; Weekly Pass, light spending (~50k Mithril/day)', 'low']];
   const lvls = [['80', '80% of requirement (&minus;40% dmg, strong rally)'], ['90', '90% (&minus;20% dmg)'], ['100', '100% (full damage)']];
-  let h = '<tr><th>Rank</th><th>Alliances</th><th>Leader at</th>' + SH_REQ.map((r, i) => '<th>SH' + (i + 1) + '<br><span style="font-weight:400;font-size:11px">' + fmt(r) + '</span></th>').join('') + '</tr>';
+  let h = '<tr><th>Tier</th><th>Who it fits</th><th>Leader at</th>' + SH_REQ.map((r, i) => '<th>SH' + (i + 1) + '<br><span style="font-weight:400;font-size:11px">' + fmt(r) + '</span></th>').join('') + '</tr>';
   tiers.forEach(([rk, names, key]) => {
     lvls.forEach(([p, lab], j) => {
       const row = SCHED[key + '_' + p];
