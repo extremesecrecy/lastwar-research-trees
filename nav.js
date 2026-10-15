@@ -28,6 +28,7 @@
     { href: 'guides/server_dashboard.html', label: 'Server' },
     { href: 'guides/virus_resistance.html', label: 'Virus Resist' },
     { href: 'guides/virus_resistance_s2.html', label: 'S2 Virus Resist' },
+    { href: 'guides/curse_resistance_s3.html', label: 'S3 Curse Resist' },
     { href: 'guides/vs_weekly_planner.html', label: 'VS Planner' },
     { href: 'guides/interior_test_report.html', label: 'Interior Test' },
     { href: 'guides/training_optimization.html', label: 'Training' },

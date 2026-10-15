@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" href="../crayon.png">
+<title>S3 Curse Resistance Calculator - RGBB</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&display=swap');
+  /* HCI Brand: Orange #f4a261, Cyan #5bc0de, Yellow #f4d35e, Teal #7fb3a8, Dark #5a6a6a, Text #333, Watermelon #fc5c65 */
+  :root { --orange:#f4a261; --cyan:#5bc0de; --yellow:#f4d35e; --teal:#7fb3a8; --dark:#5a6a6a; --watermelon:#fc5c65; --sand:#c9a227; }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { font-family:'Fredoka','Segoe UI',Tahoma,Geneva,Verdana,sans-serif; background:#fff; color:#333; padding:12px 16px; min-height:100vh; font-size:14px; }
+  h1,h2,h3 { font-family:'Fredoka',sans-serif; }
+  .guide-nav { display:flex; flex-wrap:wrap; gap:4px 12px; align-items:center; padding:6px 16px; background:#f0f5f4; border-bottom:2px solid #7fb3a8;
+    font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif; font-size:12px; margin:-12px -16px 12px -16px; }
+  .guide-nav a { color:#5a6a6a; text-decoration:none; padding:2px 6px; border-radius:3px; white-space:nowrap; }
+  .guide-nav a:hover { color:#f4a261; background:#fff; }
+  .guide-nav a.current { color:#f4a261; font-weight:bold; background:#fff; border:1px solid #f4a261; }
+  .guide-nav .nav-home { font-weight:bold; margin-right:8px; padding-right:12px; border-right:1px solid #7fb3a8; }
+
+  .top-bar { display:flex; justify-content:space-between; align-items:center; margin-bottom:10px; gap:10px; flex-wrap:wrap; }
+  .top-bar h1 { font-size:26px; letter-spacing:1px; text-transform:uppercase; color:#5a6a6a; }
+  .top-bar .sub { font-size:13px; color:#888; }
+  .top-bar .right { display:flex; align-items:center; gap:10px; }
+  .top-bar .right img { height:60px; }
+  .alliance-tag { background:#e8f4f1; border:1px solid #7fb3a8; border-radius:5px; padding:3px 10px; font-size:13px; color:#5a6a6a; font-weight:bold; }
+
+  .input-section { background:#fbf6e9; border:2px solid var(--sand); border-radius:8px; padding:14px 18px; margin-bottom:14px; }
+  .input-section h2 { font-size:20px; color:#5a6a6a; margin-bottom:4px; }
+  .input-section .hint { font-size:13px; color:#777; margin-bottom:10px; }
+  .slider-row { display:flex; align-items:center; gap:14px; flex-wrap:wrap; }
+  .slider-row input[type="range"] { flex:1; min-width:180px; height:8px; -webkit-appearance:none; appearance:none;
+    background:linear-gradient(to right,#fc5c65 0%,#f4a261 35%,#f4d35e 60%,#43a047 100%); border-radius:4px; outline:none; }
+  .slider-row input[type="range"]::-webkit-slider-thumb { -webkit-appearance:none; width:22px; height:22px; border-radius:50%; background:#5a6a6a; border:3px solid #fff; box-shadow:0 1px 4px rgba(0,0,0,.3); cursor:pointer; }
+  .cr-value { font-size:28px; font-weight:700; color:#5a6a6a; min-width:90px; text-align:center; }
+  .slider-row input[type="number"] { width:110px; padding:6px 8px; border:1px solid #ccc; border-radius:5px; font-size:15px; font-family:inherit; }
+  .bonus-row { display:flex; gap:16px; flex-wrap:wrap; margin-top:10px; font-size:13px; color:#555; }
+  .bonus-row label { display:flex; gap:6px; align-items:center; cursor:pointer; }
+  .eff-line { margin-top:8px; font-size:14px; color:#5a6a6a; }
+  .eff-line b { color:#333; }
+
+  .sh-cards { display:grid; grid-template-columns:repeat(6,1fr); gap:10px; margin-bottom:14px; }
+  .sh-card { border:2px solid #ddd; border-radius:8px; padding:10px; text-align:center; background:#fafafa; }
+  .sh-card .lbl { font-size:13px; color:#888; text-transform:uppercase; letter-spacing:.5px; }
+  .sh-card .req { font-size:13px; color:#666; margin:2px 0 6px; }
+  .sh-card .dmg { font-size:24px; font-weight:700; }
+  .sh-card .st { font-size:12px; margin-top:4px; }
+  .sh-card.ok { border-color:#43a047; background:#eef8ef; } .sh-card.ok .dmg { color:#2e7d32; }
+  .sh-card.warn { border-color:#f4d35e; background:#fffbea; } .sh-card.warn .dmg { color:#b58a00; }
+  .sh-card.hard { border-color:#f4a261; background:#fff4ea; } .sh-card.hard .dmg { color:#d9731f; }
+  .sh-card.bad { border-color:#fc5c65; background:#fff0f1; } .sh-card.bad .dmg { color:#c62828; }
+
+  .insight-box { border:2px solid var(--teal); border-radius:8px; padding:12px 16px; margin-bottom:14px; background:#f4faf8; }
+  .insight-box h3 { font-size:16px; margin-bottom:6px; color:#5a6a6a; }
+  .insight-box p, .insight-box li { font-size:13px; line-height:1.5; }
+  .insight-box ul { margin:6px 0 0 20px; }
+  .tag { display:inline-block; font-size:11px; font-weight:700; padding:1px 6px; border-radius:3px; margin-left:4px; vertical-align:middle; }
+  .tag.conf { background:#e3f4e5; color:#2e7d32; } .tag.calc { background:#e5f3fa; color:#1f77a8; } .tag.est { background:#fff1e0; color:#c86b10; } .tag.unk { background:#fde8ea; color:#c62828; }
+
+  .tabs { display:flex; gap:6px; flex-wrap:wrap; margin-bottom:0; border-bottom:2px solid var(--teal); }
+  .tab-btn { padding:9px 16px; border:1px solid #cfe1dd; border-bottom:none; border-radius:6px 6px 0 0; background:#f0f5f4; color:#5a6a6a;
+    font-family:inherit; font-size:14px; cursor:pointer; }
+  .tab-btn:hover { background:#e0eceb; }
+  .tab-btn.active { background:var(--teal); color:#fff; font-weight:600; }
+  .tab-content { display:none; border:1px solid #cfe1dd; border-top:none; border-radius:0 0 8px 8px; padding:16px; margin-bottom:16px; }
+  .tab-content.active { display:block; }
+  .tab-content h2 { font-size:19px; color:#5a6a6a; margin-bottom:8px; }
+  .tab-content h3 { font-size:16px; color:#5a6a6a; margin:14px 0 6px; }
+  .tab-content p { font-size:14px; line-height:1.5; margin-bottom:8px; }
+
+  .form-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(190px,1fr)); gap:10px 14px; margin-bottom:12px; }
+  .form-grid label { display:block; font-size:12px; color:#666; text-transform:uppercase; letter-spacing:.4px; margin-bottom:3px; }
+  .form-grid input, .form-grid select { width:100%; padding:6px 8px; border:1px solid #ccc; border-radius:5px; font-size:14px; font-family:inherit; }
+  .preset-row { display:flex; gap:8px; flex-wrap:wrap; margin-bottom:12px; }
+  .preset-row button, .btn { padding:6px 12px; border-radius:5px; border:1px solid var(--teal); background:#fff; color:#5a6a6a; cursor:pointer; font-family:inherit; font-size:13px; }
+  .preset-row button:hover, .btn:hover { background:#e8f4f1; }
+
+  table.data { border-collapse:collapse; width:100%; font-size:13px; }
+  table.data th { background:#5a6a6a; color:#fff; padding:6px 8px; text-align:center; font-weight:600; position:sticky; top:0; }
+  table.data td { padding:5px 8px; border-bottom:1px solid #eee; text-align:center; }
+  table.data tr:nth-child(even) td { background:#fafafa; }
+  table.data td.l { text-align:left; }
+  table.data tr.hl td { background:#fff4d6 !important; font-weight:600; }
+  .table-scroll { overflow-x:auto; max-height:560px; overflow-y:auto; border:1px solid #eee; border-radius:6px; }
+  .two-col { display:grid; grid-template-columns:1fr 1fr; gap:16px; }
+  .chart { display:flex; align-items:flex-end; gap:2px; height:170px; padding:6px 4px 0; border:1px solid #eee; border-radius:6px; background:#fcfcfc; position:relative; overflow-x:auto; }
+  .chart .bar { flex:1 0 12px; background:var(--teal); border-radius:2px 2px 0 0; position:relative; min-width:10px; }
+  .chart .bar span { position:absolute; bottom:-18px; left:50%; transform:translateX(-50%); font-size:10px; color:#888; }
+  .chart .line { position:absolute; left:0; right:0; border-top:1px dashed; font-size:10px; }
+  .result-box { background:#f4faf8; border:1px solid var(--teal); border-radius:8px; padding:10px 14px; margin-top:10px; }
+  .checklist li { margin:6px 0 6px 20px; font-size:14px; line-height:1.45; }
+  .phase { border-left:4px solid var(--orange); padding:6px 12px; margin:10px 0; background:#fffaf4; border-radius:0 6px 6px 0; }
+  .phase h3 { margin-top:0; }
+  .footer { text-align:center; color:#999; font-size:12px; margin:20px 0 8px; }
+  .source-credit { font-size:12px; color:#888; line-height:1.6; }
+  .source-credit a { color:#1f77a8; }
+  @media (max-width:760px) {
+    .sh-cards { grid-template-columns:repeat(3,1fr); }
+    .two-col { grid-template-columns:1fr; }
+    .top-bar h1 { font-size:21px; }
+    .tab-btn { flex:1; min-width:140px; padding:8px 10px; font-size:13px; }
+  }
+</style>
+</head>
+<body>
+
+<nav class="guide-nav" id="guide-nav"></nav>
+<script src="../nav.js"></script>
+
+<div class="top-bar">
+  <div class="left">
+    <h1>Curse Resistance Calculator</h1>
+    <div class="sub">Season 3 &mdash; Golden Kingdom &middot; Digging Strongholds, Curse Research Lab, Blessing Fountains &amp; a push-hard schedule</div>
+  </div>
+  <div class="right">
+    <img src="skynet_logo.png" alt="RGBB SKYNET">
+    <div class="alliance-tag">[RGBB] Raging Black Bulls</div>
+  </div>
+</div>
+
+<!-- Input -->
+<div class="input-section">
+  <h2>Rally leader's Curse Resistance</h2>
+  <div class="hint">In a rally the <b>leader's</b> resistance applies to everyone (unless a member's own is higher) &mdash; enter your best rally leader's number from the Curse Research Lab screen.</div>
+  <div class="slider-row">
+    <input type="range" id="crSlider" min="0" max="11000" step="50" value="3000">
+    <span class="cr-value" id="crDisplay">3,000</span>
+    <input type="number" id="crInput" min="0" max="20000" step="50" value="3000">
+  </div>
+  <div class="bonus-row">
+    <label><input type="checkbox" id="addPass"> add Weekly Pass +250 (if not already in the number)</label>
+    <label><input type="checkbox" id="addProt"> add Protectors "Power of Adaptation" +250 (500+ stationed)</label>
+  </div>
+  <div class="eff-line" id="effLine"></div>
+</div>
+
+<div class="sh-cards" id="shCards"></div>
+
+<div class="insight-box" style="border-color:#f4a261;background:#fff8ec;">
+  <h3 style="color:#d9731f;">&#9432; How sure is this? (read once)</h3>
+  <ul>
+    <li><b>Stronghold requirements</b> 3,750 / 6,250 / 8,250 / 9,750 / 10,250 / 10,750 <span class="tag conf">CONFIRMED</span> &mdash; every guide agrees; each is exactly +250 over S2's dig-site bosses (3,500 &hellip; 10,500).</li>
+    <li><b>Lab &amp; Fountain tables</b> (cost, build time, resistance, Sacred Water/hr) <span class="tag conf">CONFIRMED</span> &mdash; cpt-hedge building data.</li>
+    <li><b>Damage penalty</b> <span class="tag est">ASSUMED</span> &mdash; uses the S2 formula we verified in-game: <b>damage lost = 2 &times; (% you are short, rounded up)</b>. 10% short = &minus;20% damage, 20% short = &minus;40%.</li>
+    <li><b>Lab max = 10,000.</b> Even with Weekly Pass + Protectors you top out at <b>10,500 &lt; 10,750</b> &rarr; SH6 is always fought at about &minus;6% damage unless the game has a source the guides don't list. <span class="tag calc">CALCULATED</span></li>
+    <li><b>Schedule</b> <span class="tag est">ESTIMATE</span> &mdash; task / goal / first-kill amounts are not published anywhere (the official article is login-only). Calibrated so top alliances reach SH6 around day 14, when the 13-day Digging Stronghold Clash ends. Replace with real numbers on day 1 using the Planner tab.</li>
+  </ul>
+</div>
+
+<div class="tabs">
+  <button class="tab-btn active" data-tab="tab-schedule">&#128197; Tentative Schedule</button>
+  <button class="tab-btn" data-tab="tab-planner">&#129518; Lab Planner</button>
+  <button class="tab-btn" data-tab="tab-push">&#128640; How to Push</button>
+  <button class="tab-btn" data-tab="tab-tables">&#128202; Lab &amp; Fountain Tables</button>
+</div>
+
+<!-- SCHEDULE -->
+<div class="tab-content active" id="tab-schedule">
+  <h2>Tentative Digging Stronghold schedule &mdash; ranks 1&ndash;11 <span class="tag est">ESTIMATE</span></h2>
+  <p>"Push hard" = every task knocked out right away, first kills climbed one level at a time, Individual Goals claimed after every Lab level, Weekly Pass, all Mithril into Blessing Fountains, all Sacred Water into the Lab. Season day on which the alliance's <b>best rally leader</b> reaches each threshold.</p>
+  <div class="table-scroll" style="max-height:none"><table class="data" id="schedTable"></table></div>
+  <p style="font-size:12px;color:#777;margin-top:6px;">Tiers assume the leader's daily Mithril (top 300k &middot; ranks 4&ndash;8 150k &middot; ranks 9&ndash;11 50k) and that tasks/goals/first-kills give a top-3 leader ~1.0M Sacred Water/day (mid 60%, low 35%). Protectors +250 counted from day 8. No starting resistance assumed.</p>
+
+  <h3>How much do tasks &amp; goals matter? (top-3 leader reaching 80% of requirement)</h3>
+  <div class="table-scroll" style="max-height:none"><table class="data" id="sensTable"></table></div>
+
+  <div class="insight-box" style="margin-top:14px;">
+    <h3>Reading it</h3>
+    <ul>
+      <li><b>Big rallies can win below the requirement.</b> At 80% you deal 40% less damage, but a 5-squad rally usually has far more power than a stronghold guardian &mdash; that's why alliances capture strongholds before they "should".</li>
+      <li><b>SH4&ndash;SH6 are close together</b> (+1,500, +500, +500): once you can take SH3, the rest come fast.</li>
+      <li><b>Ranks 9&ndash;11</b> climb slowly on their own &mdash; borrow an allied high-resistance rally leader for SH3+ captures.</li>
+    </ul>
+  </div>
+</div>
+
+<!-- PLANNER -->
+<div class="tab-content" id="tab-planner">
+  <h2>Lab Planner &mdash; when will <i>your</i> leader hit each stronghold? <span class="tag calc">CALCULATED</span></h2>
+  <p>Enter where your leader is today and what they earn per day. The planner spends Mithril on the lowest Blessing Fountain (Fountain II unlocks when I reaches Lv15, III when II reaches Lv15, IV = Weekly Pass) and Sacred Water on the next Lab level, one upgrade at a time, using real costs &amp; build times.</p>
+  <div class="preset-row">
+    <span style="font-size:13px;color:#666;align-self:center;">Presets:</span>
+    <button data-preset="top">Top-3 push</button>
+    <button data-preset="mid">Ranks 4&ndash;8 push</button>
+    <button data-preset="low">Ranks 9&ndash;11 push</button>
+    <button data-preset="f2p">Fountains only (no tasks)</button>
+  </div>
+  <div class="form-grid">
+    <div><label>Season day today</label><input type="number" id="pDay" min="1" value="1"></div>
+    <div><label>Lab level now</label><input type="number" id="pLab" min="0" max="30" value="0"></div>
+    <div><label>Starting / base resistance</label><input type="number" id="pBase" min="0" value="0" title="Any resistance not from the Lab (unknown in guides; read it on day 1)"></div>
+    <div><label>Fountain I level</label><input type="number" id="pF1" min="0" max="30" value="0"></div>
+    <div><label>Fountain II level</label><input type="number" id="pF2" min="0" max="30" value="0"></div>
+    <div><label>Fountain III level</label><input type="number" id="pF3" min="0" max="30" value="0"></div>
+    <div><label>Weekly Pass fountain level</label><input type="number" id="pF4" min="0" max="30" value="0"></div>
+    <div><label>Weekly Pass?</label><select id="pPass"><option value="1">Yes (+250, 4th fountain, 20k Mithril)</option><option value="0">No</option></select></div>
+    <div><label>500+ Protectors from day</label><input type="number" id="pProt" min="0" value="8" title="0 = never"></div>
+    <div><label>Mithril per day (all sources)</label><input type="number" id="pMi" min="0" step="10000" value="300000"></div>
+    <div><label>Extra Sacred Water / day (tasks, goals, first kills, bazaar)</label><input type="number" id="pSw" min="0" step="50000" value="1000000"></div>
+    <div><label>Sacred Water on hand</label><input type="number" id="pSwBank" min="0" step="10000" value="0"></div>
+    <div><label>Mithril on hand</label><input type="number" id="pMiBank" min="0" step="10000" value="0"></div>
+  </div>
+  <div class="result-box" id="planResult"></div>
+  <h3>Resistance by day</h3>
+  <div class="chart" id="planChart"></div>
+  <div style="height:20px"></div>
+  <div class="table-scroll"><table class="data" id="planTable"></table></div>
+</div>
+
+<!-- PUSH -->
+<div class="tab-content" id="tab-push">
+  <h2>How to push Curse Resistance fast</h2>
+  <p>Only three things raise Curse Resistance: the <b>Curse Research Lab</b> (Sacred Water), the <b>Weekly Pass</b> (+250) and the Desert Protector skill <b>Power of Adaptation</b> (+250 at 500+ Protectors). Everything below feeds those.</p>
+  <div class="phase">
+    <h3>Before / at season start (alliance)</h3>
+    <ul class="checklist">
+      <li><b>Pick 1&ndash;2 "resistance leaders"</b> (most active, willing to buy the Weekly Pass / Mithril packs). They lead every stronghold rally &mdash; their resistance covers the whole rally.</li>
+      <li>Route <b>Mithril &amp; Sacred Water alliance resource tiles</b> to the leaders.</li>
+      <li>Push the <b>Alliance Center</b>: Lv5 unlocks the Mithril Plant (34,560 Mithril/h), Lv15 the Sacred Water Hut (8,640 Sacred Water/h).</li>
+    </ul>
+  </div>
+  <div class="phase">
+    <h3>Day 1 (leader)</h3>
+    <ul class="checklist">
+      <li>Buy the <b>Weekly Pass</b>: +250 resistance, a 4th Blessing Fountain, 20k Mithril, 50 Protector Horns/day.</li>
+      <li>Build/upgrade <b>Blessing Fountain I</b> with every bit of Mithril (Lv1&ndash;10 costs 243k total; output 720 Sacred Water/h per level). Fountain II unlocks when I hits <b>Lv15</b>.</li>
+      <li>Kill <b>zombies Lv1&ndash;3</b> (no resistance needed) for first-kill Mithril &amp; Sacred Water, then go up <b>one level at a time</b> &mdash; every new level is a fresh first-kill reward.</li>
+      <li>Hunt <b>Wandering Mummy Warlords</b> (no resistance needed) &mdash; best early Mithril.</li>
+      <li>Knock out every <b>daily task / target task / season quest</b> the moment it's available (S2 had instant ones like "kill 200 zombies").</li>
+      <li>Upgrade the <b>Curse Research Lab</b> as soon as Sacred Water allows, then <b>claim Individual Goals after every Lab level</b> (Season 3 &rarr; Goals &rarr; Individual) &mdash; they pay Mithril &amp; Sacred Water back.</li>
+    </ul>
+  </div>
+  <div class="phase">
+    <h3>Every day after</h3>
+    <ul class="checklist">
+      <li><b>Collect Fountains at least once every 24h</b> &mdash; they stop producing when full (1 day of storage).</li>
+      <li><b>Doom Walker first kills</b>, level by level (Mithril scales up &mdash; ~207k at Lv190).</li>
+      <li><b>Sandworm Crisis</b> daily tasks &rarr; Sandworm Scales &rarr; Desert Bazaar (Mithril, Sacred Water, Protector Horns; weekly reset).</li>
+      <li>Gather <b>Sacred Water fields</b>; first capture of each city also pays Sacred Water.</li>
+      <li>Station Protectors until you reach <b>500</b> (+250 resistance on marches carrying them).</li>
+      <li>Keep rallying strongholds <b>just below</b> the requirement when the rally is strong &mdash; use the cards at the top to see the damage you'll lose.</li>
+    </ul>
+  </div>
+  <div class="insight-box">
+    <h3>Capture these on day 1 so we can lock the schedule</h3>
+    <ul>
+      <li>Leader's Curse Resistance <b>before any Lab upgrade</b> (is there a starting value?).</li>
+      <li>Sacred Water &amp; Mithril from the day-1 quests, Season Pass and first kills (screenshots of the reward popups).</li>
+      <li>One test rally on SH1/SH2: leader resistance, damage %, win or loss.</li>
+    </ul>
+  </div>
+</div>
+
+<!-- TABLES -->
+<div class="tab-content" id="tab-tables">
+  <h2>Curse Research Lab &amp; Blessing Fountain <span class="tag conf">CONFIRMED</span></h2>
+  <p style="font-size:12px;color:#777;">Source: cpt-hedge building data. Lab Lv5 shows 400 resistance in the source (same as Lv4) &mdash; probably 500. Highlighted rows = first Lab level that covers a stronghold with Weekly Pass (+250).</p>
+  <div class="two-col">
+    <div><h3>Curse Research Lab (Sacred Water)</h3><div class="table-scroll"><table class="data" id="labTable"></table></div></div>
+    <div><h3>Blessing Fountain (Mithril)</h3><div class="table-scroll"><table class="data" id="fountainTable"></table></div></div>
+  </div>
+  <h3>Where Sacred Water &amp; Mithril come from</h3>
+  <div class="table-scroll" style="max-height:none"><table class="data">
+    <tr><th>Source</th><th>Gives</th><th>Amount</th></tr>
+    <tr><td class="l">Blessing Fountain (3 free + 1 Weekly Pass)</td><td>Sacred Water</td><td>720/h per level (Lv10 = 172.8k/day)</td></tr>
+    <tr><td class="l">Alliance Center Lv15 &mdash; Sacred Water Hut</td><td>Sacred Water</td><td>8,640/h</td></tr>
+    <tr><td class="l">Alliance Center Lv5 &mdash; Mithril Plant</td><td>Mithril</td><td>34,560/h</td></tr>
+    <tr><td class="l">Digging Strongholds held</td><td>Mithril</td><td>100&ndash;200/h by level (claim manually)</td></tr>
+    <tr><td class="l">Weekly Pass</td><td>Mithril + resistance</td><td>20k Mithril &middot; +250 resistance &middot; 4th Fountain</td></tr>
+    <tr><td class="l">Doom Walker first kill</td><td>Mithril</td><td>scales by level (~207k at Lv190)</td></tr>
+    <tr><td class="l">Zombie &amp; Elite first kills, Mummy Warlords</td><td>Mithril, Sacred Water</td><td>one-time per level <span class="tag unk">NOT PUBLISHED</span></td></tr>
+    <tr><td class="l">Individual Goals (after each Lab level), season quests, daily &amp; target tasks</td><td>Mithril, Sacred Water</td><td><span class="tag unk">NOT PUBLISHED</span></td></tr>
+    <tr><td class="l">Desert Bazaar (Sandworm Scales)</td><td>Mithril, Sacred Water</td><td>weekly reset <span class="tag unk">NOT PUBLISHED</span></td></tr>
+    <tr><td class="l">Sacred Water fields, city first capture, Hero Return tickets</td><td>Sacred Water</td><td><span class="tag unk">NOT PUBLISHED</span></td></tr>
+  </table></div>
+</div>
+
+<div class="source-credit">
+  Sources: <a href="https://cpt-hedge.com/buildings/curse-research-lab" target="_blank">cpt-hedge Curse Research Lab</a> &middot;
+  <a href="https://cpt-hedge.com/buildings/blessing-fountain" target="_blank">cpt-hedge Blessing Fountain</a> &middot;
+  <a href="https://lastwarsurvival.com/guides/season-3-curse-resistance-guide" target="_blank">LastWarSurvival Curse Resistance</a> &middot;
+  <a href="https://www.lastwartutorial.com/season-3-golden-kingdom/" target="_blank">LastWarTutorial S3</a> &middot;
+  <a href="https://www.lastwartutorial.com/season-3-week-1/" target="_blank">LastWarTutorial S3 Week 1</a> &middot;
+  <a href="https://lastwarhandbook.com/guides/season-3-guide" target="_blank">Last War Handbook S3</a> &middot;
+  <a href="https://lastwar-guide.org/season-3/last-war-season-3-week-1-guide" target="_blank">lastwar-guide.org Week 1</a>.
+  Damage formula verified in-game in S2 by RGBB. Schedule = RGBB model (estimate).
+</div>
+<div class="footer">[RGBB] Raging Black Bulls &bull; Curse Resistance Calculator &bull; Last War: Survival &bull; Kristen RGBB SKYNET</div>
+
+<script>
+// ===== DATA (cpt-hedge) =====
+// [level, curse resistance, sacred water cost, build seconds]
+const LAB = [[1,100,700,4],[2,200,11200,750],[3,300,22400,1125],[4,400,44800,1688],[5,400,89600,2532],[6,750,125400,3797],[7,1000,163100,5696],[8,1250,195700,8543],[9,1500,234800,12815],[10,1750,281800,19222],[11,2000,338100,21144],[12,2250,405800,23259],[13,2500,486900,25585],[14,2750,584300,28143],[15,3000,701200,30957],[16,3400,771300,34053],[17,3800,848400,37458],[18,4200,933300,41204],[19,4600,1026600,45324],[20,5000,1129300,49857],[21,5500,1242200,54842],[22,6000,1366400,60326],[23,6500,1503000,66359],[24,7000,1653300,72995],[25,7500,1818700,80294],[26,8000,2159600,88324],[27,8500,2505100,97156],[28,9000,2855300,106871],[29,9500,3460600,117559],[30,10000,4321100,129314]];
+// [level, sacred water per hour, mithril cost, build seconds]
+const FOUNTAIN = [[1,720,700,2],[2,1440,1400,375],[3,2160,2800,563],[4,2880,5600,844],[5,3600,11200,1266],[6,4320,16800,1899],[7,5040,25200,2848],[8,5760,37800,4272],[9,6480,56700,6408],[10,7200,85100,9611],[11,7920,93600,10572],[12,8640,102900,11630],[13,9360,113200,12793],[14,10080,124500,14072],[15,10800,137000,15479],[16,11520,150700,17027],[17,12240,165700,18729],[18,12960,182300,20602],[19,13680,200500,22662],[20,14400,220600,24929],[21,15120,231600,27421],[22,15840,243200,30163],[23,16560,255400,33180],[24,17280,268100,36498],[25,18000,281500,40147],[26,18720,295600,44162],[27,19440,310400,48578],[28,20160,325900,53436],[29,20880,342200,58780],[30,21600,359300,64657]];
+const SH_REQ = [3750, 6250, 8250, 9750, 10250, 10750];
+const S2_REQ = [3500, 6000, 8000, 9500, 10000, 10500];
+const LAB_RES = l => l > 0 ? LAB[l - 1][1] : 0;
+const FOUNT_OUT = l => l > 0 ? FOUNTAIN[l - 1][1] : 0;
+
+// Precomputed push-hard schedule (RGBB model; see tab text). [SH1..SH6] season day, null = not reachable
+const SCHED = {"top_100":[5,9,13,17,19,null],"mid_100":[7,12,18,24,27,null],"low_100":[8,18,27,37,41,null],"top_90":[4,8,11,14,16,17],"mid_90":[6,11,15,20,22,24],"low_90":[8,16,22,30,34,37],"top_80":[3,7,10,12,13,14],"mid_80":[4,9,14,16,18,20],"low_80":[6,13,20,25,27,30]};
+const SENS = [["0 (Fountains only)",[8,13,18,20,22,24]],["0.5M / day",[5,9,12,15,16,18]],["1.0M / day (calibrated)",[3,7,10,12,13,14]],["2.0M / day",[3,6,8,10,11,12]]];
+
+const fmt = n => Math.round(n).toLocaleString('en-US');
+const fmtK = n => n >= 1e6 ? (n / 1e6).toFixed(2).replace(/\.?0+$/, '') + 'M' : n >= 1e3 ? (n / 1e3).toFixed(1).replace(/\.0$/, '') + 'k' : String(n);
+const hms = s => { const d = Math.floor(s / 86400), h = Math.floor(s % 86400 / 3600), m = Math.floor(s % 3600 / 60); return (d ? d + 'd ' : '') + (h ? h + 'h ' : '') + m + 'm'; };
+
+// S2 formula (verified in-game in S2): damage lost = 2 x ceil(% short)
+function damageLost(req, cur) {
+  if (cur >= req) return 0;
+  return Math.min(100, 2 * Math.ceil((req - cur) / req * 100));
+}
+
+// ===== Top calculator =====
+function effectiveCR() {
+  let v = +document.getElementById('crInput').value || 0;
+  if (document.getElementById('addPass').checked) v += 250;
+  if (document.getElementById('addProt').checked) v += 250;
+  return v;
+}
+function renderCards() {
+  const cr = effectiveCR();
+  document.getElementById('effLine').innerHTML = 'Effective rally resistance: <b>' + fmt(cr) + '</b>';
+  document.getElementById('shCards').innerHTML = SH_REQ.map((req, i) => {
+    const lost = damageLost(req, cr), dmg = 100 - lost;
+    const cls = lost === 0 ? 'ok' : lost <= 20 ? 'warn' : lost <= 50 ? 'hard' : 'bad';
+    const st = lost === 0 ? 'Full damage' : lost <= 20 ? 'Rally OK' : lost <= 50 ? 'Big rally only' : 'Too weak';
+    return '<div class="sh-card ' + cls + '"><div class="lbl">Stronghold ' + (i + 1) + '</div><div class="req">needs ' + fmt(req) + '</div>' +
+      '<div class="dmg">' + dmg + '%</div><div class="st">damage &middot; ' + st + '</div></div>';
+  }).join('');
+}
+function syncCR(v) {
+  v = Math.max(0, Math.round(+v || 0));
+  document.getElementById('crInput').value = v;
+  document.getElementById('crSlider').value = Math.min(11000, v);
+  document.getElementById('crDisplay').textContent = fmt(v);
+  try { localStorage.setItem('rgbb-s3-cr', v); } catch (e) {}
+  renderCards();
+}
+document.getElementById('crSlider').addEventListener('input', e => syncCR(e.target.value));
+document.getElementById('crInput').addEventListener('input', e => syncCR(e.target.value));
+document.getElementById('addPass').addEventListener('change', renderCards);
+document.getElementById('addProt').addEventListener('change', renderCards);
+
+// ===== Schedule tables =====
+function renderSchedule() {
+  const tiers = [['1&ndash;3', 'RGBB &middot; PNXX &middot; DOC', 'top'], ['4&ndash;8', 'WW26 &middot; STWB &middot; OFNA &middot; 12AM &middot; BKD', 'mid'], ['9&ndash;11', 'DDI &middot; FAKR &middot; TA24', 'low']];
+  const lvls = [['80', '80% of requirement (&minus;40% dmg, strong rally)'], ['90', '90% (&minus;20% dmg)'], ['100', '100% (full damage)']];
+  let h = '<tr><th>Rank</th><th>Alliances</th><th>Leader at</th>' + SH_REQ.map((r, i) => '<th>SH' + (i + 1) + '<br><span style="font-weight:400;font-size:11px">' + fmt(r) + '</span></th>').join('') + '</tr>';
+  tiers.forEach(([rk, names, key]) => {
+    lvls.forEach(([p, lab], j) => {
+      const row = SCHED[key + '_' + p];
+      h += '<tr' + (p === '80' ? ' class="hl"' : '') + '>' + (j === 0 ? '<td rowspan="3"><b>' + rk + '</b></td><td rowspan="3" class="l">' + names + '</td>' : '') +
+        '<td class="l">' + lab + '</td>' + row.map(d => '<td>' + (d ? 'Day ' + d : '&mdash;') + '</td>').join('') + '</tr>';
+    });
+  });
+  document.getElementById('schedTable').innerHTML = h;
+  let s = '<tr><th>Extra Sacred Water from tasks / goals / first kills</th>' + SH_REQ.map((r, i) => '<th>SH' + (i + 1) + '</th>').join('') + '</tr>';
+  SENS.forEach(([lab, row]) => { s += '<tr' + (lab.indexOf('calibrated') >= 0 ? ' class="hl"' : '') + '><td class="l">' + lab + '</td>' + row.map(d => '<td>' + (d ? 'Day ' + d : '&mdash;') + '</td>').join('') + '</tr>'; });
+  document.getElementById('sensTable').innerHTML = s;
+}
+
+// ===== Planner (hour-by-hour simulation) =====
+function simulate(o) {
+  let mi = o.miBank + (o.pass && o.day0 <= 1 ? 20000 : 0), sw = o.swBank;
+  const F = [o.F[0], o.F[1], o.F[2], o.pass ? o.F[3] : 0];
+  let lab = o.lab, fPend = null, fDone = 0, lPend = null, lDone = 0;
+  const days = 45, daily = [], hit100 = {}, hit90 = {}, hit80 = {};
+  for (let h = 0; h < days * 24; h++) {
+    const day = o.day0 + Math.floor(h / 24);
+    mi += o.miDay / 24;
+    sw += F.reduce((a, l) => a + FOUNT_OUT(l), 0) + o.swDay / 24;
+    if (fPend && h >= fDone) { F[fPend[0]] = fPend[1]; fPend = null; }
+    if (lPend && h >= lDone) { lab = lPend; lPend = null; }
+    if (!fPend) {
+      const avail = [0];
+      if (F[0] >= 15 || F[1] > 0) avail.push(1);
+      if (F[1] >= 15 || F[2] > 0) avail.push(2);
+      if (o.pass) avail.push(3);
+      const c = avail.filter(i => F[i] < 30);
+      if (c.length) {
+        const i = c.reduce((a, b) => F[b] < F[a] ? b : a);
+        const [, , cost, secs] = FOUNTAIN[F[i]];
+        if (mi >= cost) { mi -= cost; fPend = [i, F[i] + 1]; fDone = h + Math.max(secs / 3600, 1 / 60); }
+      }
+    }
+    if (!lPend && lab < 30) {
+      const [, , cost, secs] = LAB[lab];
+      if (sw >= cost) { sw -= cost; lPend = lab + 1; lDone = h + Math.max(secs / 3600, 1 / 60); }
+    }
+    const res = o.base + LAB_RES(lab) + (o.pass ? 250 : 0) + (o.prot > 0 && day >= o.prot ? 250 : 0);
+    SH_REQ.forEach((r, i) => {
+      if (!(i in hit100) && res >= r) hit100[i] = day;
+      if (!(i in hit90) && res >= r * 0.9) hit90[i] = day;
+      if (!(i in hit80) && res >= r * 0.8) hit80[i] = day;
+    });
+    if (h % 24 === 23) daily.push({ day, res, lab, F: F.slice(), sw: F.reduce((a, l) => a + FOUNT_OUT(l), 0) * 24 + o.swDay });
+  }
+  return { daily, hit100, hit90, hit80 };
+}
+const PRESETS = {
+  top: { pMi: 300000, pSw: 1000000, pPass: '1', pProt: 8 },
+  mid: { pMi: 150000, pSw: 600000, pPass: '1', pProt: 8 },
+  low: { pMi: 50000, pSw: 350000, pPass: '1', pProt: 8 },
+  f2p: { pMi: 300000, pSw: 0, pPass: '1', pProt: 8 }
+};
+const PF = ['pDay', 'pLab', 'pBase', 'pF1', 'pF2', 'pF3', 'pF4', 'pPass', 'pProt', 'pMi', 'pSw', 'pSwBank', 'pMiBank'];
+function readPlan() {
+  const g = id => +document.getElementById(id).value || 0;
+  return { day0: Math.max(1, g('pDay')), lab: Math.min(30, g('pLab')), base: g('pBase'), F: [g('pF1'), g('pF2'), g('pF3'), g('pF4')].map(x => Math.min(30, x)),
+           pass: document.getElementById('pPass').value === '1', prot: g('pProt'), miDay: g('pMi'), swDay: g('pSw'), swBank: g('pSwBank'), miBank: g('pMiBank') };
+}
+function renderPlan() {
+  const o = readPlan();
+  try { localStorage.setItem('rgbb-s3-planner', JSON.stringify(PF.reduce((a, k) => (a[k] = document.getElementById(k).value, a), {}))); } catch (e) {}
+  const r = simulate(o);
+  const cell = (m, i) => (i in m) ? 'Day ' + m[i] : '&gt;' + (o.day0 + 44);
+  document.getElementById('planResult').innerHTML =
+    '<table class="data"><tr><th>Leader reaches</th>' + SH_REQ.map((x, i) => '<th>SH' + (i + 1) + '</th>').join('') + '</tr>' +
+    '<tr class="hl"><td class="l">80% (&minus;40% dmg)</td>' + SH_REQ.map((x, i) => '<td>' + cell(r.hit80, i) + '</td>').join('') + '</tr>' +
+    '<tr><td class="l">90% (&minus;20% dmg)</td>' + SH_REQ.map((x, i) => '<td>' + cell(r.hit90, i) + '</td>').join('') + '</tr>' +
+    '<tr><td class="l">100% (full)</td>' + SH_REQ.map((x, i) => '<td>' + cell(r.hit100, i) + '</td>').join('') + '</tr></table>';
+  const max = 11000, H = 150;
+  let c = SH_REQ.map((req, i) => '<div class="line" style="bottom:' + (req / max * H + 6) + 'px;border-color:' + ['#43a047', '#7fb3a8', '#5bc0de', '#f4a261', '#fc5c65', '#8e44ad'][i] + ';color:#999"><span style="position:absolute;right:4px;top:-12px;background:#fcfcfc">SH' + (i + 1) + '</span></div>').join('');
+  c += r.daily.map(d => '<div class="bar" title="Day ' + d.day + ': ' + fmt(d.res) + ' (Lab ' + d.lab + ')" style="height:' + Math.max(1, d.res / max * H) + 'px"><span>' + (d.day % 5 === 0 || d.day === o.day0 ? d.day : '') + '</span></div>').join('');
+  document.getElementById('planChart').innerHTML = c;
+  let t = '<tr><th>End of day</th><th>Resistance</th><th>Lab</th><th>Fountains I / II / III / Pass</th><th>Sacred Water / day</th><th>Best SH at &ge;80%</th></tr>';
+  r.daily.forEach(d => {
+    let best = 0; SH_REQ.forEach((req, i) => { if (d.res >= req * 0.8) best = i + 1; });
+    t += '<tr><td>' + d.day + '</td><td><b>' + fmt(d.res) + '</b></td><td>' + d.lab + '</td><td>' + d.F.join(' / ') + '</td><td>' + fmtK(d.sw) + '</td><td>' + (best ? 'SH' + best : '&mdash;') + '</td></tr>';
+  });
+  document.getElementById('planTable').innerHTML = t;
+}
+document.querySelectorAll('[data-preset]').forEach(b => b.addEventListener('click', () => {
+  const p = PRESETS[b.dataset.preset]; Object.keys(p).forEach(k => document.getElementById(k).value = p[k]); renderPlan();
+}));
+PF.forEach(id => document.getElementById(id).addEventListener('input', renderPlan));
+
+// ===== Tables =====
+function renderTables() {
+  const firstFor = SH_REQ.map(req => LAB.findIndex(r => r[1] + 250 >= req) + 1);
+  let cum = 0, ct = 0, h = '<tr><th>Lv</th><th>Resistance</th><th>Sacred Water</th><th>Cumulative</th><th>Build</th><th>Covers (+Pass)</th></tr>';
+  LAB.forEach(([l, res, cost, s]) => {
+    cum += cost; ct += s;
+    const sh = firstFor.map((f, i) => f === l ? 'SH' + (i + 1) : '').filter(Boolean).join(' ');
+    h += '<tr' + (sh ? ' class="hl"' : '') + '><td>' + l + '</td><td>' + fmt(res) + (l === 5 ? '*' : '') + '</td><td>' + fmtK(cost) + '</td><td>' + fmtK(cum) + '</td><td>' + hms(s) + '</td><td>' + sh + '</td></tr>';
+  });
+  document.getElementById('labTable').innerHTML = h;
+  cum = 0; let f = '<tr><th>Lv</th><th>Sacred Water/h</th><th>per day</th><th>Mithril</th><th>Cumulative</th><th>Build</th></tr>';
+  FOUNTAIN.forEach(([l, out, cost, s]) => {
+    cum += cost;
+    f += '<tr' + (l === 15 ? ' class="hl" title="Unlocks the next Blessing Fountain"' : '') + '><td>' + l + '</td><td>' + fmt(out) + '</td><td>' + fmtK(out * 24) + '</td><td>' + fmtK(cost) + '</td><td>' + fmtK(cum) + '</td><td>' + hms(s) + '</td></tr>';
+  });
+  document.getElementById('fountainTable').innerHTML = f;
+}
+
+// ===== Tabs =====
+document.querySelectorAll('.tab-btn').forEach(b => b.addEventListener('click', () => {
+  document.querySelectorAll('.tab-btn').forEach(x => x.classList.toggle('active', x === b));
+  document.querySelectorAll('.tab-content').forEach(x => x.classList.toggle('active', x.id === b.dataset.tab));
+  try { localStorage.setItem('rgbb-s3-cr-tab', b.dataset.tab); } catch (e) {}
+}));
+
+// ===== Init =====
+(function init() {
+  try {
+    const v = localStorage.getItem('rgbb-s3-cr'); if (v !== null) document.getElementById('crInput').value = v;
+    const p = JSON.parse(localStorage.getItem('rgbb-s3-planner') || 'null'); if (p) PF.forEach(k => { if (p[k] !== undefined) document.getElementById(k).value = p[k]; });
+    const t = localStorage.getItem('rgbb-s3-cr-tab'); if (t) { const b = document.querySelector('.tab-btn[data-tab="' + t + '"]'); if (b) b.click(); }
+  } catch (e) {}
+  syncCR(document.getElementById('crInput').value);
+  renderSchedule(); renderTables(); renderPlan();
+})();
+</script>
+</body>
+</html>
