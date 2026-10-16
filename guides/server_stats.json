@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-10-15",
+  "lastUpdated": "2026-10-16",
   "sources": {
     "playerStats": "https://activeplayer.io/last-war-survival/",
     "serverData": "https://cpt-hedge.com/servers"
@@ -47,8 +47,8 @@
   ],
   "serverLandscape": {
     "totalServers": "2,304",
-    "newest": "#2308 (Day 70)",
-    "oldest": "#3 (Day 1213)"
+    "newest": "#2308 (Day 71)",
+    "oldest": "#3 (Day 1214)"
   },
   "engagement": {
     "androidRate": "16.7%",
@@ -65,8 +65,8 @@
   "trackedServer": {
     "id": "2013",
     "season": 2,
-    "seasonDay": 81,
-    "serverDay": 306,
+    "seasonDay": 82,
+    "serverDay": 307,
     "postSeason": true,
     "week": 4,
     "nextSeason": 3,
