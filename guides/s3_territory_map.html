@@ -217,6 +217,33 @@ body {
 .panel-left { width: 240px; border-right: 1px solid #ddd; }
 .panel-right { width: 260px; border-left: 1px solid #ddd; }
 
+/* Right-panel collapse (desktop only — mobile keeps its slide-over toggles) */
+.right-panel-toggle {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  z-index: 20;
+  width: 26px;
+  height: 26px;
+  background: #fff;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  color: #666;
+  font-size: 13px;
+  line-height: 1;
+  cursor: pointer;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.15);
+}
+.right-panel-toggle .exp { display: none; }
+.main-layout.rpanel-collapsed .right-panel-toggle .exp { display: inline; }
+.main-layout.rpanel-collapsed .right-panel-toggle .col { display: none; }
+@media (min-width: 901px) {
+  .main-layout.rpanel-collapsed .panel-right { display: none; }
+}
+@media (max-width: 900px) {
+  .right-panel-toggle { display: none; }
+}
+
 .panel-section {
   padding: 10px 12px;
   border-bottom: 1px solid #e8e8e8;
@@ -816,6 +843,7 @@ input[type="color"] {
 
   <!-- CENTER CANVAS -->
   <div class="canvas-wrapper">
+    <button class="right-panel-toggle" id="rightPanelToggle" onclick="toggleRightPanel()" title="Collapse / expand the right info panel"><span class="col">&#9654;</span><span class="exp">&#9664;</span></button>
     <canvas id="mapCanvas"></canvas>
   </div>
 
@@ -1029,6 +1057,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   ctx = canvas.getContext('2d');
   applySeasonLabels();  // season-aware resource header + level-unlock schedule
   await loadState();  // async — loads from server, falls back to localStorage
+  applyRightPanelPref();  // restore collapse preference before sizing the canvas
   resizeCanvas();
   fitAll();
   setupEvents();
@@ -1076,6 +1105,29 @@ function resizeCanvas() {
   const wrapper = canvas.parentElement;
   canvas.width = wrapper.clientWidth;
   canvas.height = wrapper.clientHeight;
+}
+
+// ========== RIGHT-PANEL COLLAPSE (desktop) ==========
+// UI preference only: stored in its own localStorage key, deliberately NOT part of
+// getStateData()/applyStateData() so plan exports/imports keep their file contract.
+const RIGHT_PANEL_PREF_KEY = 'lastwar-s3-map-builder.rightCollapsed';
+function applyRightPanelPref() {
+  let collapsed = false;
+  try { collapsed = localStorage.getItem(RIGHT_PANEL_PREF_KEY) === '1'; } catch (e) {}
+  const layout = document.querySelector('.main-layout');
+  if (layout) layout.classList.toggle('rpanel-collapsed', collapsed);
+  return collapsed;
+}
+function toggleRightPanel() {
+  const layout = document.querySelector('.main-layout');
+  if (!layout) return;
+  const oldW = canvas ? canvas.width : 0;
+  const collapsed = layout.classList.toggle('rpanel-collapsed');
+  try { localStorage.setItem(RIGHT_PANEL_PREF_KEY, collapsed ? '1' : '0'); } catch (e) {}
+  resizeCanvas();
+  // Re-anchor horizontal centering so the map stays centered after the width change
+  if (canvas && oldW) offsetX += (canvas.width - oldW) / 2;
+  draw();
 }
 
 function fitAll() {
@@ -1390,6 +1442,7 @@ function setupEvents() {
 
   // Mouse wheel zoom
   wrapper.addEventListener('wheel', e => {
+    if (e.target !== canvas) return; // ignore wheel over canvas-child UI (e.g. panel-toggle button)
     e.preventDefault();
     const rect = canvas.getBoundingClientRect();
     const mx = e.clientX - rect.left;
@@ -1407,6 +1460,7 @@ function setupEvents() {
 
   // Mouse drag + click
   wrapper.addEventListener('mousedown', e => {
+    if (e.target !== canvas) return; // never treat clicks on canvas-child UI (e.g. panel-toggle button) as map edits
     if (e.button === 0) {
       isDragging = true;
       dragStartX = e.clientX;
@@ -1619,6 +1673,17 @@ function updateTooltip(clientX, clientY, area) {
   if (_lt) html += _lt.locked
     ? `<div style="color:#e57373;font-size:11px">&#128274; Capture-locked until <b>day ${_lt.opensDay}</b> (captured d${_lt.capDay})</div>`
     : `<div style="color:#81c784;font-size:11px">&#128275; Open to capture (lock ended d${_lt.opensDay})</div>`;
+  // Capture-schedule hints — advisory only: a strong alliance with enough Curse
+  // Resistance can capture ahead of the calendar day (see Curse Resistance panel).
+  // (Trade Post deliberately excluded: no verified unlock schedule for TPs —
+  // level-keyed city entries would only coincide, e.g. TP1 showing Day 3.)
+  if (CITY_TYPES.has(area.name) && area.name !== 'Trade Post' && SEASON_CONFIG.unlockSchedule) {
+    const _u = SEASON_CONFIG.unlockSchedule.find(r => r[0] === area.level);
+    if (_u) html += `<div style="font-size:11px;color:#888">&#128337; Capture from <b style="color:#555">${_u[2]}</b> <span style="font-size:10px;color:#a67c00">(advisory &mdash; power may let you go earlier)</span></div>`;
+  } else if (area.name === 'Stronghold' && SEASON_CONFIG.curseSchedule) {
+    const _c = SEASON_CONFIG.curseSchedule.find(r => r[0] === area.level);
+    if (_c) html += `<div style="font-size:11px;color:#888">&#9763; Curse Res <b style="color:#555">${_c[1].toLocaleString()}</b> &middot; capture from <b style="color:#555">Day ${_c[2]}</b> <span style="font-size:10px;color:#a67c00">(advisory &mdash; power + resistance may let you go earlier)</span></div>`;
+  }
   tooltip.innerHTML = html;
   tooltip.style.display = 'block';
 
