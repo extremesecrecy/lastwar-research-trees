@@ -1121,24 +1121,29 @@ function applyRightPanelPref() {
 function toggleRightPanel() {
   const layout = document.querySelector('.main-layout');
   if (!layout) return;
-  const oldW = canvas ? canvas.width : 0;
   const collapsed = layout.classList.toggle('rpanel-collapsed');
   try { localStorage.setItem(RIGHT_PANEL_PREF_KEY, collapsed ? '1' : '0'); } catch (e) {}
+  // The canvas width changes sharply — re-fit the whole map into the new size
+  // (keeps tiles from clipping under the panel edge / toggle button; same
+  // view-reset semantics as double-click / Fit All).
   resizeCanvas();
-  // Re-anchor horizontal centering so the map stays centered after the width change
-  if (canvas && oldW) offsetX += (canvas.width - oldW) / 2;
+  fitAll();
   draw();
 }
 
 function fitAll() {
   // First pass: compute scale with current canvas size
   const padding = 30;
+  // On desktop the panel-toggle button floats over the canvas top-right corner
+  // (top 8px + 26px tall) — reserve clearance so no tile renders underneath it.
+  const isDesktop = window.matchMedia('(min-width: 901px)').matches;
+  const padTop = padding + (isDesktop ? 34 : 0);
   let sx = (canvas.width - padding * 2) / WORLD_SIZE;
-  let sy = (canvas.height - padding * 2) / WORLD_SIZE;
+  let sy = (canvas.height - padTop - padding) / WORLD_SIZE;
   let s = Math.min(sx, sy);
 
   // Shrink main-layout if the map is much shorter than the canvas
-  const neededH = Math.ceil(WORLD_SIZE * s + padding * 2);
+  const neededH = Math.ceil(WORLD_SIZE * s + padTop + padding);
   const wrapper = canvas.parentElement;
   const mainLayout = document.querySelector('.main-layout');
   if (mainLayout && neededH < wrapper.offsetHeight * 0.85) {
@@ -1148,13 +1153,13 @@ function fitAll() {
     canvas.height = neededH;
     // Recompute scale with new canvas dimensions
     sx = (canvas.width - padding * 2) / WORLD_SIZE;
-    sy = (canvas.height - padding * 2) / WORLD_SIZE;
+    sy = (canvas.height - padTop - padding) / WORLD_SIZE;
     s = Math.min(sx, sy);
   }
 
   scale = s;
   offsetX = (canvas.width - WORLD_SIZE * scale) / 2;
-  offsetY = padding;
+  offsetY = padTop;
 }
 
 // ========== DRAWING ==========
@@ -1673,16 +1678,19 @@ function updateTooltip(clientX, clientY, area) {
   if (_lt) html += _lt.locked
     ? `<div style="color:#e57373;font-size:11px">&#128274; Capture-locked until <b>day ${_lt.opensDay}</b> (captured d${_lt.capDay})</div>`
     : `<div style="color:#81c784;font-size:11px">&#128275; Open to capture (lock ended d${_lt.opensDay})</div>`;
-  // Capture-schedule hints — advisory only: a strong alliance with enough Curse
-  // Resistance can capture ahead of the calendar day (see Curse Resistance panel).
-  // (Trade Post deliberately excluded: no verified unlock schedule for TPs —
-  // level-keyed city entries would only coincide, e.g. TP1 showing Day 3.)
+  // Capture-schedule hints:
+  //  - Cities ARE day-gated: they open on the ladder days below (no Curse/virus
+  //    Resistance involved, no power override).
+  //  - Strongholds are NOT day-gated: nothing stops you on Day 1 except the
+  //    touching (adjacency) rules and your alliance's own Curse Resistance.
+  //  (Trade Post deliberately excluded: no verified unlock schedule for TPs —
+  //  level-keyed city entries would only coincide, e.g. TP1 showing Day 3.)
   if (CITY_TYPES.has(area.name) && area.name !== 'Trade Post' && SEASON_CONFIG.unlockSchedule) {
     const _u = SEASON_CONFIG.unlockSchedule.find(r => r[0] === area.level);
-    if (_u) html += `<div style="font-size:11px;color:#888">&#128337; Capture from <b style="color:#555">${_u[2]}</b> <span style="font-size:10px;color:#a67c00">(advisory &mdash; power may let you go earlier)</span></div>`;
+    if (_u) html += `<div style="font-size:11px;color:#888">&#128337; Opens for capture: <b style="color:#555">${_u[2]}</b></div>`;
   } else if (area.name === 'Stronghold' && SEASON_CONFIG.curseSchedule) {
     const _c = SEASON_CONFIG.curseSchedule.find(r => r[0] === area.level);
-    if (_c) html += `<div style="font-size:11px;color:#888">&#9763; Curse Res <b style="color:#555">${_c[1].toLocaleString()}</b> &middot; capture from <b style="color:#555">Day ${_c[2]}</b> <span style="font-size:10px;color:#a67c00">(advisory &mdash; power + resistance may let you go earlier)</span></div>`;
+    if (_c) html += `<div style="font-size:11px;color:#888">&#9763; Needs Curse Resistance <b style="color:#555">${_c[1].toLocaleString()}</b></div><div style="font-size:10px;color:#aaa">no day gate &mdash; adjacency + your Resistance decide</div>`;
   }
   tooltip.innerHTML = html;
   tooltip.style.display = 'block';
