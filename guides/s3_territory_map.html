@@ -1136,7 +1136,7 @@ function fitAll() {
   const padding = 30;
   // On desktop the panel-toggle button floats over the canvas top-right corner
   // (top 8px + 26px tall) — reserve clearance so no tile renders underneath it.
-  const isDesktop = window.matchMedia('(min-width: 901px)').matches;
+  const isDesktop = !window.matchMedia('(max-width: 900px)').matches;
   const padTop = padding + (isDesktop ? 34 : 0);
   let sx = (canvas.width - padding * 2) / WORLD_SIZE;
   let sy = (canvas.height - padTop - padding) / WORLD_SIZE;
@@ -1539,6 +1539,7 @@ function setupEvents() {
 
   // Double-click to fit all
   wrapper.addEventListener('dblclick', e => {
+    if (e.target !== canvas) return; // ignore canvas-child UI (e.g. panel-toggle button)
     e.preventDefault();
     fitAll();
     draw();
