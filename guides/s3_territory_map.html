@@ -1919,9 +1919,11 @@ function computeAllianceHealth() {
           progressed = false;
           const still = [];
           for (const x of pending) {
-            if (x.isCity) { grown.add(x.t); progressed = true; continue; } // cities: no own check, but extend reach
             const ns = ADJACENCY[x.t] || [];
-            if (ns.some(n => grown.has(n))) { grown.add(x.t); progressed = true; }
+            // Cities with no modeled neighbors pass automatically; tiles WITH
+            // data (Great Pyramid) are checked like anything else.
+            const ok = !ns.length || ns.some(n => grown.has(n));
+            if (ok) { grown.add(x.t); progressed = true; }
             else still.push(x);
           }
           pending = still;
@@ -2077,7 +2079,7 @@ function closeAllianceConfig() {
   const pop = document.getElementById('allianceConfigPop');
   if (pop) pop.remove();
   if (_acpDocClose) {
-    document.removeEventListener('click', _acpDocClose, true);
+    document.removeEventListener('click', _acpDocClose); // same (bubble) phase as registration
     _acpDocClose = null;
   }
 }
