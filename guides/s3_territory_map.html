@@ -1054,6 +1054,10 @@ let isDragging = false, dragStartX = 0, dragStartY = 0, dragOffsetX = 0, dragOff
 const WORLD_SIZE = 1000;
 let lastTouchDist = 0;
 
+// Fast id→area lookup for per-assignment scans (id keys, not grid cells)
+const AREA_BY_ID = {};
+MAP_AREAS.forEach(a => { AREA_BY_ID[a.id] = a; });
+
 // ========== INDEX AREAS BY GRID FOR FAST HIT TEST ==========
 // Pre-compute flipped coordinates for each area
 MAP_AREAS.forEach(a => { a._f = flipY(a.coordinates); });
@@ -1817,12 +1821,21 @@ function deriveTag(name) {
 //    early CITY capture is an ADVISORY (they are "earliest typical" days).
 //  - Strongholds are NOT day-gated: only adjacency + the alliance's own Curse
 //    Resistance decide. Early-sh capture is deliberately never flagged.
+//  - Adjacency follows the app's own model (ADJACENCY table): it covers
+//    strongholds only, so the adjacency check applies to stronghold captures
+//    only and City tiles grant/consume no adjacency here. Same-day chains
+//    resolve by fixpoint (spatial growth order, not tile-id order).
+//  - Bloc-tagged alliances (reserved BLOCK rows) are excluded entirely, same
+//    rule computeLockMap uses.
 let ALLIANCE_HEALTH = {};
 
 function computeAllianceHealth() {
   const D = Number(state.currentDay || 1);
   const res = {};
-  state.alliances.forEach(al => { res[al.id] = { hardDays: new Set(), advDays: new Set(), reasons: [] }; });
+  state.alliances.forEach(al => {
+    if (/^bloc/i.test(al.tag || al.name || '')) return; // reserved BLOCK rows never flag
+    res[al.id] = { hardDays: new Set(), advDays: new Set(), reasons: [] };
+  });
   const _ladder = {};
   (SEASON_CONFIG.unlockSchedule || []).forEach(r => {
     const m = String(r[2] || '').match(/\d+/);
@@ -1839,21 +1852,18 @@ function computeAllianceHealth() {
 
     // Per-alliance held counts + captures on this day
     const held = {};    // alId -> {cityCt, shCt, lv6}
-    const caps = {};    // alId -> [{t, area, isCity, opens}]
+    const caps = {};    // alId -> [{t, area, isCity}]
     for (const t in cur) {
       const al = cur[t];
-      if (!res[al]) continue;
-      const area = MAP_AREAS.find(m => m.id === t);
+      if (!res[al]) continue; // unknown/bloc ids ignored
+      const area = AREA_BY_ID[t];
       if (!area) continue;
-      const isTP = area.name === 'Trade Post';
-      const isCity = CITY_TYPES.has(area.name) && !isTP;
+      if (area.name === 'Trade Post') continue; // personal captures: count toward nothing
+      const isCity = CITY_TYPES.has(area.name);
       const h = held[al] || (held[al] = { cityCt: 0, shCt: 0, lv6: 0 });
       if (isCity) { h.cityCt++; if (area.level >= 6) h.lv6++; }
       else h.shCt++;
       if (prev[t] !== al) {
-        // Trade Posts: personal Governor captures — exclude from ALL alliance
-        // rules (caps already skipped above; also pace, adjacency, ladder).
-        if (isTP) continue;
         const n = caps[al] || (caps[al] = []);
         n.push({ t, area, isCity, opens: isCity ? _ladder[area.level] : null });
       }
@@ -1895,21 +1905,34 @@ function computeAllianceHealth() {
         H.hardDays.add(d);
         H.reasons.push({ sev: 'hard', day: d, text: 'captured ' + shN + ' strongholds in one day (limit 2)' });
       }
-      // Adjacency: a capture must touch land the alliance held (or took earlier
-      // same day). Fresh spawns (no prior land) are allowed anywhere.
+      // Adjacency: modeled for strongholds (ADJACENCY; city tiles carry no
+      // neighbor lists, and are not flagged themselves, but a same-day legal
+      // city capture still must *grant* adjacency to strongholds it enables,
+      // incl. the rare stronghold→city neighbor refs). Same-day chains resolve
+      // by fixpoint (spatial growth, not tile-id order); leftovers flagged.
+      // A fresh spawn (no prior land at all) may drop anywhere.
       const grown = new Set(prevHeld[al] || []);
-      list.forEach(x => {
-        const ns = ADJACENCY[x.t] || [];
-        const ok = ns.some(n => grown.has(n));
-        if (ok) {
-          grown.add(x.t);
-        } else if (d > 1 && grown.size) {
+      if (d > 1 && grown.size) {
+        let pending = list.slice();
+        let progressed = true;
+        while (progressed && pending.length) {
+          progressed = false;
+          const still = [];
+          for (const x of pending) {
+            if (x.isCity) { grown.add(x.t); progressed = true; continue; } // cities: no own check, but extend reach
+            const ns = ADJACENCY[x.t] || [];
+            if (ns.some(n => grown.has(n))) { grown.add(x.t); progressed = true; }
+            else still.push(x);
+          }
+          pending = still;
+        }
+        pending.forEach(x => {
           H.hardDays.add(d);
           H.reasons.push({ sev: 'hard', day: d, text: 'captured ' + x.area.name + ' #' + x.t + ' not adjacent to held land' });
-        } else {
-          grown.add(x.t);
-        }
-      });
+        });
+      } else {
+        list.forEach(x => grown.add(x.t));
+      }
       // Ladder advisory: city captured before its unlock day (power may override)
       if (d > 1) list.forEach(x => {
         if (x.isCity && x.opens && d < x.opens) {
@@ -1962,7 +1985,7 @@ function renderAlliances() {
     } else if (_hh && _hh.advDays.size) {
       _status = `<span class="alliance-status adv" title="${_chipTitle(al, _hh).replace(/"/g,'&quot;')}">${_hh.advDays.size}</span>`;
     } else {
-      _status = `<span class="alliance-status ok" title="No issues detected through Day ${String(state.currentDay || 1)}">&#10003;</span>`;
+      _status = `<span class="alliance-status ok" title="No issues detected through Day ${Number(state.currentDay || 1)}">&#10003;</span>`;
     }
     item.innerHTML = `
       <div class="alliance-swatch" style="background:${al.color}"></div>
@@ -2016,6 +2039,7 @@ function addAlliance() {
 }
 
 function deleteAlliance(id) {
+  closeAllianceConfig();
   const isAdmin = (MAP_USER.role === 'owner' || MAP_USER.role === 'admin');
   const hasAssignments = Object.values(state.assignments).some(v => v === id);
 
@@ -2096,7 +2120,9 @@ function openAllianceConfig(id, btn) {
   });
   btn.parentElement.appendChild(pop);
   _acpDocClose = () => closeAllianceConfig();
-  document.addEventListener('click', _acpDocClose, true);
+  // Bubble phase: the pop's own stopPropagation must run first so clicks
+  // inside the popover (name field, swatches, color input) don't close it.
+  document.addEventListener('click', _acpDocClose);
 }
 
 function saveAllianceConfig(id, pop) {
