@@ -1762,6 +1762,7 @@ function handleClick(mx, my, event) {
       state.assignments[area.id] = state.selectedAlliance;
     }
     saveState();
+    renderAlliances(); // refresh chips (assignment may flip health flags)
     renderInfluence();
     renderLimits();
     renderCaptureAdvisor();
