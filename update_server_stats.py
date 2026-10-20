@@ -61,7 +61,8 @@ def scrape_activeplayer():
     out = {}
 
     def block(store):
-        m = re.search(store + r" Player Statistics \| Current Players \| (.*?) \| Daily Active Users \| (.*?) \| "
+        # layout-tolerant: "Google Play Player Statistics | Current Players | ..." (old) or "Google Play | Current Players | ..." (Oct 2026)
+        m = re.search(store + r"(?: Player Statistics)? \| Current Players \| (.*?) \| Daily Active Users \| (.*?) \| "
                       r"Monthly Active Users \| (.*?) \| Downloads \| (.*?) \|", j)
         return m.groups() if m else None
 
@@ -139,6 +140,18 @@ def build_seasons(servers, now_ms):
             gaps.setdefault(k, []).append((int(v) - prev) / DAY_MS)
             prev = int(v)
     cadence = {str(k): round(statistics.median(v)) for k, v in sorted(gaps.items()) if len(v) >= 20}
+    # Conditional cadence: servers move in cohorts, and a cohort's previous gap predicts its next one
+    # (e.g. every server with S1->S2 = 105 days had S2->S3 = 119; 98-day servers had 105/112).
+    pairs = {}
+    for d in servers:
+        t = d.get("seasonStartTimestamps") or {}
+        starts = [int(d["timestamp"])] + [int(t["s%d" % k]) for k in range(1, 10) if t.get("s%d" % k)]
+        for k in range(2, len(starts)):
+            prev_gap = round((starts[k - 1] - starts[k - 2]) / DAY_MS)
+            pairs.setdefault(k, {}).setdefault(prev_gap, []).append(round((starts[k] - starts[k - 1]) / DAY_MS))
+    cadence_cond = {str(k): {str(pg): round(statistics.median(v)) for pg, v in m.items() if len(v) >= 20}
+                    for k, m in pairs.items()}
+    cadence_cond = {k: v for k, v in cadence_cond.items() if v}
 
     compact = {}
     for d in servers:
@@ -165,21 +178,29 @@ def build_seasons(servers, now_ms):
         "sourceUpdatedAt": max(int(d.get("updatedAt") or 0) for d in servers),
         "resetUtcHour": RESET_UTC_HOUR,
         "cadenceDays": cadence,   # "k": median days from season k-1 start (or creation) to season k start
+        "cadenceByPrevGap": cadence_cond,  # "k": {"previous gap": typical next gap} - preferred when it matches
         "servers": compact,
     }
     return seasons, landscape
 
 
-def season_starts(entry, cadence, upto=8):
-    """Game-day index of each season start: real where known, else estimated from cadence.
-    Returns {season: (dayIndex, estimated_bool)}; season 0 = server creation."""
+def season_starts(entry, cadence, upto=8, cond=None):
+    """Game-day index of each season start: real where known, else estimated - first from servers with the
+    same previous gap (cohort pattern), then the overall median. {season: (dayIndex, estimated_bool)}."""
+    cond = cond or {}
     out = {0: (game_day_index(entry["c"]), False)}
     for k in range(1, upto + 1):
         real = entry["s"].get(str(k))
         if real:
             out[k] = (game_day_index(real), False)
-        else:
-            out[k] = (out[k - 1][0] + int(cadence.get(str(k), cadence.get(str(k - 1), 112))), True)
+            continue
+        gap = None
+        if k >= 2:
+            prev_gap = out[k - 1][0] - out[k - 2][0]
+            gap = (cond.get(str(k)) or {}).get(str(prev_gap))
+        if gap is None:
+            gap = cadence.get(str(k), cadence.get(str(k - 1), 112))
+        out[k] = (out[k - 1][0] + int(gap), True)
     return out
 
 
@@ -297,7 +318,7 @@ def main():
         result["serverLandscape"] = landscape
     if seasons and TRACKED_SERVER in seasons["servers"]:
         e = seasons["servers"][TRACKED_SERVER]
-        st = season_starts(e, seasons["cadenceDays"])
+        st = season_starts(e, seasons["cadenceDays"], cond=seasons.get("cadenceByPrevGap"))
         today = game_day_index(now_ms)
         cur = max(k for k in st if not st[k][1] and st[k][0] <= today)
         nxt = cur + 1
