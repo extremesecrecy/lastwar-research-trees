@@ -53,9 +53,9 @@
   "engagement": {
     "androidRate": "16.7%",
     "iosRate": "25.0%",
-    "avgMonthlyGrowth": "--",
-    "peak": "--",
-    "pctOfPeak": "--"
+    "avgMonthlyGrowth": "7.9%",
+    "peak": "11.0M (January 2026)",
+    "pctOfPeak": "57.0%"
   },
   "playerStatsAsOf": "October 3, 2026",
   "currentPlayers": {
@@ -70,7 +70,7 @@
     "postSeason": true,
     "week": 5,
     "nextSeason": 3,
-    "nextSeasonStart": "2026-11-16",
+    "nextSeasonStart": "2026-11-23",
     "nextSeasonEstimated": true
   }
 }

@@ -664,8 +664,16 @@ function computeSeasonStarts() {
   seasonStarts = { 0: { date: new Date(serverCreation), est: false } };
   for (let k = 1; k <= 8; k++) {
     const real = serverEntry && serverEntry.s && serverEntry.s[String(k)];
-    if (real) seasonStarts[k] = { date: gameDate(real), est: false };
-    else seasonStarts[k] = { date: addDays(seasonStarts[k - 1].date, +(cad[String(k)] || cad[String(k - 1)] || 112)), est: true };
+    if (real) { seasonStarts[k] = { date: gameDate(real), est: false }; continue; }
+    // estimate: servers with the same previous gap (cohort pattern) first, then the overall median
+    let gap = null;
+    if (k >= 2) {
+      const prevGap = Math.round((seasonStarts[k - 1].date - seasonStarts[k - 2].date) / 86400000);
+      const cond = (SEASONS_DB && SEASONS_DB.cadenceByPrevGap && SEASONS_DB.cadenceByPrevGap[String(k)]) || {};
+      if (cond[String(prevGap)]) gap = +cond[String(prevGap)];
+    }
+    if (!gap) gap = +(cad[String(k)] || cad[String(k - 1)] || 112);
+    seasonStarts[k] = { date: addDays(seasonStarts[k - 1].date, gap), est: true };
   }
 }
 
