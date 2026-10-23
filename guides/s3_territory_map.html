@@ -272,6 +272,75 @@ body {
 .alliance-btn.del { color: var(--watermelon); border-color: var(--watermelon); }
 .alliance-btn.del:hover { background: #fee; }
 
+/* Alliance status chip (Plan Health scan) — one status glyph per row, every row */
+.alliance-item { position: relative; }
+.alliance-status {
+  flex-shrink: 0;
+  min-width: 18px;
+  height: 16px;
+  border-radius: 9px;
+  font-size: 9px;
+  font-weight: 700;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 4px;
+}
+.alliance-status.ok {
+  min-width: 16px;
+  background: transparent;
+  border: 1.5px dashed #b7c3cd;
+  color: #9aa6b1;
+  font-weight: 400;
+}
+.alliance-status.hard { background: #e74c3c; color: #fff; box-shadow: 0 1px 3px rgba(0,0,0,0.25); }
+.alliance-status.adv { background: #e67e22; color: #fff; }
+
+/* Alliance configure popover (name + color behind the ✎ button) */
+.alliance-config-pop {
+  position: absolute;
+  top: calc(100% + 3px);
+  left: 4px;
+  z-index: 40;
+  width: 202px;
+  background: #fff;
+  border: 1px solid #d4dae1;
+  border-radius: 10px;
+  box-shadow: 0 10px 26px rgba(20,30,50,0.25);
+  padding: 10px 12px;
+  cursor: default;
+}
+.alliance-config-pop h5 { margin: 0 0 8px; font-size: 12px; color: #557; font-weight: 600; }
+.alliance-config-pop input[type="text"] {
+  width: 100%;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  padding: 5px 8px;
+  font-size: 12px;
+  box-sizing: border-box;
+  font-family: inherit;
+}
+.alliance-config-pop .pall { display: flex; gap: 5px; flex-wrap: wrap; margin: 9px 0 4px; }
+.alliance-config-pop .pal {
+  width: 20px;
+  height: 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  border: 1px solid rgba(0,0,0,0.15);
+}
+.alliance-config-pop .pal.self { outline: 2px solid var(--teal); outline-offset: 1px; }
+.alliance-config-pop .pcustom { display: flex; align-items: center; gap: 7px; margin-top: 7px; font-size: 11px; color: #667; }
+.alliance-config-pop input[type="color"] {
+  width: 30px;
+  height: 22px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 0 1px;
+  background: #fff;
+  cursor: pointer;
+}
+.alliance-config-pop .prow { display: flex; gap: 6px; justify-content: flex-end; margin-top: 11px; }
+
 /* Add alliance row */
 .add-alliance-row {
   display: flex;
@@ -985,6 +1054,10 @@ let isDragging = false, dragStartX = 0, dragStartY = 0, dragOffsetX = 0, dragOff
 const WORLD_SIZE = 1000;
 let lastTouchDist = 0;
 
+// Fast id→area lookup for per-assignment scans (id keys, not grid cells)
+const AREA_BY_ID = {};
+MAP_AREAS.forEach(a => { AREA_BY_ID[a.id] = a; });
+
 // ========== INDEX AREAS BY GRID FOR FAST HIT TEST ==========
 // Pre-compute flipped coordinates for each area
 MAP_AREAS.forEach(a => { a._f = flipY(a.coordinates); });
@@ -1066,7 +1139,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     // Hide alliance add/remove/color controls
     const addBtn = document.querySelector('.add-alliance-btn');
     if (addBtn) addBtn.style.display = 'none';
-    document.querySelectorAll('.alliance-remove, .alliance-color, .alliance-enemy-toggle').forEach(el => {
+    document.querySelectorAll('.alliance-remove, .alliance-color, .alliance-enemy-toggle, .alliance-config').forEach(el => {
       el.style.display = 'none';
     });
   }
@@ -1693,6 +1766,7 @@ function handleClick(mx, my, event) {
       state.assignments[area.id] = state.selectedAlliance;
     }
     saveState();
+    renderAlliances(); // refresh chips (assignment may flip health flags)
     renderInfluence();
     renderLimits();
     renderCaptureAdvisor();
@@ -1735,9 +1809,156 @@ function deriveTag(name) {
   return up.replace(/[^A-Z0-9]/g, '').slice(0, 4);
 }
 
+// ========== PLAN HEALTH SCAN (MR1a) ==========
+// Per-alliance × per-day checks for days up to the viewed day. Consumed today
+// by the alliance-list status chips; the Plan Health panel (next MR) reuses it.
+// Encoded rules (user-verified on live server, Oct 2026):
+//  - Caps: 8 cities + 8 strongholds per alliance. Trade Posts are individual
+//    Governor (personal) captures and NEVER count toward either cap.
+//  - Pace: at most 2 city captures + 2 stronghold captures per day.
+//  - Cities are day-gated by the unlock ladder (Village 3 · Altar 6 · Town 10 ·
+//    Temple of the Sun 13 · Ancient Tombs 17 · Square of Judgement 20) —
+//    early CITY capture is an ADVISORY (they are "earliest typical" days).
+//  - Strongholds are NOT day-gated: only adjacency + the alliance's own Curse
+//    Resistance decide. Early-sh capture is deliberately never flagged.
+//  - Adjacency follows the app's own model (ADJACENCY table): it covers
+//    strongholds only, so the adjacency check applies to stronghold captures
+//    only and City tiles grant/consume no adjacency here. Same-day chains
+//    resolve by fixpoint (spatial growth order, not tile-id order).
+//  - Bloc-tagged alliances (reserved BLOCK rows) are excluded entirely, same
+//    rule computeLockMap uses.
+let ALLIANCE_HEALTH = {};
+
+function computeAllianceHealth() {
+  const D = Number(state.currentDay || 1);
+  const res = {};
+  state.alliances.forEach(al => {
+    if (/^bloc/i.test(al.tag || al.name || '')) return; // reserved BLOCK rows never flag
+    res[al.id] = { hardDays: new Set(), advDays: new Set(), reasons: [] };
+  });
+  const _ladder = {};
+  (SEASON_CONFIG.unlockSchedule || []).forEach(r => {
+    const m = String(r[2] || '').match(/\d+/);
+    if (m) _ladder[r[0]] = Number(m[0]);
+  });
+  if (!state.days || !D || D < 1) { ALLIANCE_HEALTH = res; return; }
+
+  let prev = {};
+  for (let d = 1; d <= D; d++) {
+    const dd = state.days[String(d)];
+    const asg = dd ? (dd.assignments || {}) : (d === D ? (state.assignments || {}) : {});
+    const cur = {};
+    for (const t in asg) cur[t] = asg[t];
+
+    // Per-alliance held counts + captures on this day
+    const held = {};    // alId -> {cityCt, shCt, lv6}
+    const caps = {};    // alId -> [{t, area, isCity}]
+    for (const t in cur) {
+      const al = cur[t];
+      if (!res[al]) continue; // unknown/bloc ids ignored
+      const area = AREA_BY_ID[t];
+      if (!area) continue;
+      if (area.name === 'Trade Post') continue; // personal captures: count toward nothing
+      const isCity = CITY_TYPES.has(area.name);
+      const h = held[al] || (held[al] = { cityCt: 0, shCt: 0, lv6: 0 });
+      if (isCity) { h.cityCt++; if (area.level >= 6) h.lv6++; }
+      else h.shCt++;
+      if (prev[t] !== al) {
+        const n = caps[al] || (caps[al] = []);
+        n.push({ t, area, isCity, opens: isCity ? _ladder[area.level] : null });
+      }
+    }
+
+    // Lands held by each alliance on the PREVIOUS day (for adjacency checks)
+    const prevHeld = {};
+    for (const t in prev) {
+      const al = prev[t];
+      (prevHeld[al] || (prevHeld[al] = new Set())).add(t);
+    }
+
+    // Cap checks (every day, including day 1 starting placement)
+    for (const al in held) {
+      const H = res[al]; if (!H) continue;
+      const c = held[al].cityCt, s = held[al].shCt, l6 = held[al].lv6;
+      const mSH = Math.min(SEASON_CONFIG.maxStrongholds,
+        SEASON_CONFIG.baseStrongholds + (c - l6) * SEASON_CONFIG.strongholdsPerCity + l6 * SEASON_CONFIG.strongholdsPerLevel6City);
+      if (c > SEASON_CONFIG.maxCities) {
+        H.hardDays.add(d);
+        H.reasons.push({ sev: 'hard', day: d, text: 'city cap exceeded (' + c + '/' + SEASON_CONFIG.maxCities + ')' });
+      }
+      if (s > mSH) {
+        H.hardDays.add(d);
+        H.reasons.push({ sev: 'hard', day: d, text: 'stronghold cap exceeded (' + s + '/' + mSH + ')' });
+      }
+    }
+
+    // Pace / adjacency / ladder-day checks (day 1 = starting placement, exempt)
+    for (const al in caps) {
+      const H = res[al]; if (!H) continue;
+      const list = caps[al];
+      const cityN = list.filter(x => x.isCity).length, shN = list.length - cityN;
+      if (d > 1 && cityN > 2) {
+        H.hardDays.add(d);
+        H.reasons.push({ sev: 'hard', day: d, text: 'captured ' + cityN + ' cities in one day (limit 2)' });
+      }
+      if (d > 1 && shN > 2) {
+        H.hardDays.add(d);
+        H.reasons.push({ sev: 'hard', day: d, text: 'captured ' + shN + ' strongholds in one day (limit 2)' });
+      }
+      // Adjacency: modeled for strongholds (ADJACENCY; city tiles carry no
+      // neighbor lists, and are not flagged themselves, but a same-day legal
+      // city capture still must *grant* adjacency to strongholds it enables,
+      // incl. the rare stronghold→city neighbor refs). Same-day chains resolve
+      // by fixpoint (spatial growth, not tile-id order); leftovers flagged.
+      // A fresh spawn (no prior land at all) may drop anywhere.
+      const grown = new Set(prevHeld[al] || []);
+      if (d > 1 && grown.size) {
+        let pending = list.slice();
+        let progressed = true;
+        while (progressed && pending.length) {
+          progressed = false;
+          const still = [];
+          for (const x of pending) {
+            const ns = ADJACENCY[x.t] || [];
+            // Cities with no modeled neighbors pass automatically; tiles WITH
+            // data (Great Pyramid) are checked like anything else.
+            const ok = !ns.length || ns.some(n => grown.has(n));
+            if (ok) { grown.add(x.t); progressed = true; }
+            else still.push(x);
+          }
+          pending = still;
+        }
+        pending.forEach(x => {
+          H.hardDays.add(d);
+          H.reasons.push({ sev: 'hard', day: d, text: 'captured ' + x.area.name + ' #' + x.t + ' not adjacent to held land' });
+        });
+      } else {
+        list.forEach(x => grown.add(x.t));
+      }
+      // Ladder advisory: city captured before its unlock day (power may override)
+      if (d > 1) list.forEach(x => {
+        if (x.isCity && x.opens && d < x.opens) {
+          H.advDays.add(d);
+          H.reasons.push({ sev: 'adv', day: d, text: x.area.name + ' captured before ladder day (opens Day ' + x.opens + ') — advisory, power may override' });
+        }
+      });
+    }
+    prev = cur;
+  }
+  ALLIANCE_HEALTH = res;
+}
+
+function _chipTitle(al, hh) {
+  const lines = hh.reasons.slice(0, 3).map(r =>
+    (r.sev === 'hard' ? '\u26D4 ' : '\u26A0 ') + 'd' + r.day + ' — ' + r.text);
+  if (hh.reasons.length > 3) lines.push('+' + (hh.reasons.length - 3) + ' more (Plan Health panel)');
+  return al.name + ' — ' + hh.reasons.length + ' issue(s)\n' + lines.join('\n');
+}
+
 function renderAlliances() {
   const container = document.getElementById('allianceList');
   container.innerHTML = '';
+  computeAllianceHealth();
 
   // "None" option — view mode, no assignment on click
   const noneItem = document.createElement('div');
@@ -1759,22 +1980,30 @@ function renderAlliances() {
     const isMyAlliance = (al.id === userAlliance);
     const canSelect = isAdminOrOwner || isMyAlliance;
     item.className = 'alliance-item' + (state.selectedAlliance === al.id ? ' selected' : '') + (!canSelect ? ' locked' : '');
+    const _hh = ALLIANCE_HEALTH[al.id];
+    let _status;
+    if (_hh && _hh.hardDays.size) {
+      _status = `<span class="alliance-status hard" title="${_chipTitle(al, _hh).replace(/"/g,'&quot;')}">${_hh.hardDays.size}</span>`;
+    } else if (_hh && _hh.advDays.size) {
+      _status = `<span class="alliance-status adv" title="${_chipTitle(al, _hh).replace(/"/g,'&quot;')}">${_hh.advDays.size}</span>`;
+    } else {
+      _status = `<span class="alliance-status ok" title="No issues detected through Day ${Number(state.currentDay || 1)}">&#10003;</span>`;
+    }
     item.innerHTML = `
       <div class="alliance-swatch" style="background:${al.color}"></div>
       <span class="alliance-name">${al.name}</span>
       ${isMyAlliance ? '<span style="font-size:10px;color:var(--teal);" title="Your alliance">&#9733;</span>' : ''}
       ${al.isEnemy ? '<span class="alliance-enemy" title="Enemy">&#9760;</span>' : ''}
-      ${isAdminOrOwner ? `<input type="color" value="${al.color}" title="Change color"
-        onclick="event.stopPropagation()"
-        onchange="changeAllianceColor('${al.id}', this.value)">
-      <button class="alliance-btn" onclick="event.stopPropagation(); renameAlliance('${al.id}')"
-        title="Rename">&#9999;</button>
+      ${isAdminOrOwner ? `
+      <button class="alliance-btn alliance-config" onclick="event.stopPropagation(); openAllianceConfig('${al.id}', this)"
+        title="Edit name &amp; color">&#9998;</button>
       <button class="alliance-btn" onclick="event.stopPropagation(); toggleEnemy('${al.id}')"
         title="Toggle enemy">
         ${al.isEnemy ? '&#9774;' : '&#9760;'}
       </button>
       <button class="alliance-btn del" onclick="event.stopPropagation(); deleteAlliance('${al.id}')"
         title="Delete">&times;</button>` : ''}
+      ${_status}
     `;
     if (canSelect) {
       item.addEventListener('click', () => {
@@ -1812,6 +2041,7 @@ function addAlliance() {
 }
 
 function deleteAlliance(id) {
+  closeAllianceConfig();
   const isAdmin = (MAP_USER.role === 'owner' || MAP_USER.role === 'admin');
   const hasAssignments = Object.values(state.assignments).some(v => v === id);
 
@@ -1839,17 +2069,80 @@ function deleteAlliance(id) {
   draw();
 }
 
-function renameAlliance(id) {
+// Alliance configure popover: name + color in one small popup behind ✎.
+// Reuses the same change path the old inline rename/color controls hit
+// (alliance record -> saveState -> render -> map repaint), so nothing
+// downstream behaves differently.
+let _acpDocClose = null;
+
+function closeAllianceConfig() {
+  const pop = document.getElementById('allianceConfigPop');
+  if (pop) pop.remove();
+  if (_acpDocClose) {
+    document.removeEventListener('click', _acpDocClose); // same (bubble) phase as registration
+    _acpDocClose = null;
+  }
+}
+
+function openAllianceConfig(id, btn) {
+  closeAllianceConfig();
   const al = state.alliances.find(a => a.id === id);
   if (!al) return;
-  const newName = prompt('Rename alliance:', al.name);
-  if (newName === null) return; // cancelled
-  const trimmed = newName.trim();
-  if (!trimmed) { alert('Alliance name cannot be empty.'); return; }
-  if (trimmed === al.name) return; // no change
-  // Keep the id stable so existing territory assignments stay intact.
-  al.name = trimmed;
-  al.tag = deriveTag(trimmed);
+  const pop = document.createElement('div');
+  pop.className = 'alliance-config-pop';
+  pop.id = 'allianceConfigPop';
+  const palette = ['#16a085','#27ae60','#2980b9','#3f51b5','#8e44ad','#9b59b6','#e67e22','#f39c12','#e74c3c','#c0392b'];
+  const esc = s => String(s).replace(/"/g, '&quot;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+  pop.innerHTML = `
+    <h5>Configure alliance</h5>
+    <input type="text" id="acpName" maxlength="20" value="${esc(al.name)}">
+    <div class="pall">${palette.map(c =>
+      `<span class="pal${c === al.color ? ' self' : ''}" style="background:${c}" data-c="${c}" title="${c}"></span>`).join('')}</div>
+    <div class="pcustom">Custom: <input type="color" id="acpColor" value="${/^#[0-9a-fA-F]{6}$/.test(al.color) ? al.color : '#888888'}"></div>
+    <div class="prow">
+      <button class="alliance-btn" title="Cancel">Cancel</button>
+      <button class="alliance-btn" style="border-color:var(--teal-dk);color:#fff;background:var(--teal)" title="Save">Save</button>
+    </div>
+  `;
+  // Keep clicks inside the popover from row-select or outside-close
+  pop.addEventListener('click', e => e.stopPropagation());
+  const swatchPicked = c => {
+    pop.querySelectorAll('.pal').forEach(el => el.classList.toggle('self', el.dataset.c === c));
+    pop.querySelector('#acpColor').value = c;
+  };
+  pop.querySelectorAll('.pal').forEach(el => {
+    el.addEventListener('click', () => swatchPicked(el.dataset.c));
+  });
+  pop.querySelector('#acpColor').addEventListener('input', () => {
+    pop.querySelectorAll('.pal').forEach(el => el.classList.remove('self'));
+  });
+  pop.querySelector('[title="Cancel"]').addEventListener('click', closeAllianceConfig);
+  pop.querySelector('[title="Save"]').addEventListener('click', () => {
+    saveAllianceConfig(id, pop);
+  });
+  btn.parentElement.appendChild(pop);
+  _acpDocClose = () => closeAllianceConfig();
+  // Bubble phase: the pop's own stopPropagation must run first so clicks
+  // inside the popover (name field, swatches, color input) don't close it.
+  document.addEventListener('click', _acpDocClose);
+}
+
+function saveAllianceConfig(id, pop) {
+  const al = state.alliances.find(a => a.id === id);
+  if (!al) return;
+  const newName = (pop.querySelector('#acpName').value || '').trim();
+  if (!newName) { alert('Alliance name cannot be empty.'); return; }
+  const newColor = pop.querySelector('#acpColor').value;
+  const nameChanged = newName !== al.name;
+  const colorChanged = newColor !== al.color;
+  if (!nameChanged && !colorChanged) { closeAllianceConfig(); return; }
+  if (nameChanged) {
+    // Keep the id stable so existing territory assignments stay intact.
+    al.name = newName;
+    al.tag = deriveTag(newName);
+  }
+  if (colorChanged) al.color = newColor;
+  closeAllianceConfig();
   saveState();
   renderAlliances();
   renderInfluence();
@@ -1864,14 +2157,7 @@ function toggleEnemy(id) {
   renderAlliances();
 }
 
-function changeAllianceColor(id, color) {
-  const al = state.alliances.find(a => a.id === id);
-  if (al) al.color = color;
-  saveState();
-  renderAlliances();
-  renderInfluence();
-  draw();
-}
+
 
 // ========== INFLUENCE ==========
 function renderInfluence() {
