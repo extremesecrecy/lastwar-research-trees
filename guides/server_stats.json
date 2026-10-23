@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-10-22",
+  "lastUpdated": "2026-10-23",
   "sources": {
     "playerStats": "https://activeplayer.io/last-war-survival/",
     "serverData": "https://cpt-hedge.com/servers"
@@ -22,40 +22,40 @@
   "monthlyTrend": [
     {
       "month": "October 2026",
-      "players": "6.3M",
-      "change": "-18.3%",
+      "players": "5.6M",
+      "change": "-5.1%",
       "direction": "down"
     },
     {
       "month": "September 2026",
-      "players": "7.7M",
-      "change": "+49.6%",
-      "direction": "up"
+      "players": "5.9M",
+      "change": "-7.0%",
+      "direction": "down"
     },
     {
       "month": "August 2026",
-      "players": "5.1M",
-      "change": "+146.5%",
-      "direction": "up"
+      "players": "6.4M",
+      "change": "-12.4%",
+      "direction": "down"
     },
     {
       "month": "July 2026",
-      "players": "2.1M",
-      "change": "-69.5%",
-      "direction": "down"
+      "players": "7.3M",
+      "change": "+0.4%",
+      "direction": "up"
     }
   ],
   "serverLandscape": {
     "totalServers": "2,304",
-    "newest": "#2308 (Day 77)",
-    "oldest": "#3 (Day 1220)"
+    "newest": "#2308 (Day 78)",
+    "oldest": "#3 (Day 1221)"
   },
   "engagement": {
     "androidRate": "16.7%",
     "iosRate": "25.0%",
-    "avgMonthlyGrowth": "7.9%",
-    "peak": "11.0M (January 2026)",
-    "pctOfPeak": "57.0%"
+    "avgMonthlyGrowth": "-3.7%",
+    "peak": "11.5M (January 2026)",
+    "pctOfPeak": "49.1%"
   },
   "playerStatsAsOf": "October 3, 2026",
   "currentPlayers": {
@@ -65,8 +65,8 @@
   "trackedServer": {
     "id": "2013",
     "season": 2,
-    "seasonDay": 88,
-    "serverDay": 313,
+    "seasonDay": 89,
+    "serverDay": 314,
     "postSeason": true,
     "week": 5,
     "nextSeason": 3,
