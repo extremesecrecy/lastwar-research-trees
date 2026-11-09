@@ -1731,6 +1731,8 @@ function handleClick(mx, my, event) {
       }
       delete state.assignments[area.id];
     } else {
+      // Trade Posts / Great Pyramid are not part of land planning
+      if (!isPlannable(area)) { draw(); return; }
       // Assign: only if tile is open OR belongs to your alliance (or you're admin/owner)
       if (!isAdminOrOwner && currentOwner && currentOwner !== userAlliance) {
         // Can't override another alliance's territory
@@ -1748,8 +1750,15 @@ function handleClick(mx, my, event) {
 }
 
 // ========== BFS PATH ==========
+// Trade Posts (one player wins them as Governor by fighting) and the Great Pyramid are never part of
+// the planned alliance land captures: they can't be painted, routed through, recommended or counted.
+const NOT_PLANNABLE = new Set(['Trade Post', 'Great Pyramid']);
+function isPlannable(area) { return !!area && !NOT_PLANNABLE.has(area.name); }
+function isPlannableId(id) { return isPlannable(MAP_AREAS.find(a => a.id === id)); }
+
 function bfs(startId, endId) {
   if (startId === endId) return [startId];
+  if (!isPlannableId(startId) || !isPlannableId(endId)) return [];
   const visited = new Set([startId]);
   const queue = [[startId]];
   while (queue.length > 0) {
@@ -1757,7 +1766,7 @@ function bfs(startId, endId) {
     const current = path[path.length - 1];
     const neighbors = ADJACENCY[current] || [];
     for (const n of neighbors) {
-      if (visited.has(n)) continue;
+      if (visited.has(n) || !isPlannableId(n)) continue;
       const newPath = [...path, n];
       if (n === endId) return newPath;
       visited.add(n);
@@ -1926,10 +1935,9 @@ function renderInfluence() {
   state.alliances.forEach(al => { totals[al.id] = 0; coals[al.id] = 0; cityCt[al.id] = 0; shCt[al.id] = 0; lv6Ct[al.id] = 0; });
   Object.entries(state.assignments).forEach(([areaId, alId]) => {
     const area = MAP_AREAS.find(a => a.id === areaId);
-    if (area) {
+    if (isPlannable(area)) {
       totals[alId] = (totals[alId] || 0) + ((area.resources && area.resources[RES_PRI.key]) || 0);
       coals[alId] = (coals[alId] || 0) + ((area.resources && area.resources[RES_SEC.key]) || 0);
-      if (area.name === 'Trade Post') return;   // TP = individual (Governor) capture, never counts vs the 8+8 alliance cap
       if (CITY_TYPES.has(area.name)) { cityCt[alId] = (cityCt[alId] || 0) + 1; if (area.level >= 6) lv6Ct[alId] = (lv6Ct[alId] || 0) + 1; }
       else { shCt[alId] = (shCt[alId] || 0) + 1; }
     }
@@ -1990,12 +1998,11 @@ function renderLimits() {
   const al = state.alliances.find(a => a.id === state.selectedAlliance);
   if (!al) { container.innerHTML = '<em>Select an alliance</em>'; return; }
 
-  let cities = 0, strongholds = 0, lv6Cities = 0, tposts = 0;
+  let cities = 0, strongholds = 0, lv6Cities = 0;
   Object.entries(state.assignments).forEach(([areaId, alId]) => {
     if (alId !== al.id) return;
     const area = MAP_AREAS.find(a => a.id === areaId);
-    if (!area) return;
-    if (area.name === 'Trade Post') { tposts++; return; }   // TP = individual capture, not vs the 8+8 cap
+    if (!isPlannable(area)) return;
     if (CITY_TYPES.has(area.name)) {
       cities++;
       if (area.level >= 6) lv6Cities++;
@@ -2016,7 +2023,6 @@ function renderLimits() {
   container.innerHTML = `
     <div class="limit-row"><span class="limit-label">Strongholds:</span><span class="limit-val"${shOver?_oc:''}>${strongholds} / ${maxSH}${shOver?' &#9888;':''}</span></div>
     <div class="limit-row"><span class="limit-label">Cities:</span><span class="limit-val"${cityOver?_oc:''}>${cities} / ${SEASON_CONFIG.maxCities}${cityOver?' &#9888;':''}</span></div>
-    <div class="limit-row"><span class="limit-label">Trade Posts:</span><span class="limit-val">${tposts} <small style="color:#888">(personal)</small></span></div>
     <div class="limit-row"><span class="limit-label">Lv6+ Cities:</span><span class="limit-val">${lv6Cities}</span></div>
     ${(shOver||cityOver)?'<div style="margin-top:5px;color:#c62828;font-size:11px;font-weight:600">&#9888; Over cap &mdash; holding more than the limit</div>':''}
   `;
@@ -2047,7 +2053,7 @@ function renderCaptureAdvisor() {
     neighbors.forEach(nId => {
       if (!state.assignments[nId] && !candidates.has(nId)) {
         const area = MAP_AREAS.find(a => a.id === nId);
-        if (area) candidates.set(nId, area);
+        if (isPlannable(area)) candidates.set(nId, area);
       }
     });
   });
@@ -2790,7 +2796,7 @@ function importState() {
           }
           if (data.assignments) {
             Object.entries(data.assignments).forEach(([areaId, allianceId]) => {
-              if (!state.assignments[areaId]) {
+              if (!state.assignments[areaId] && isPlannableId(areaId)) {
                 state.assignments[areaId] = allianceId;
               }
             });
@@ -2926,6 +2932,7 @@ function pullFromPrevious() {
   const prev = state.days[prevKey].assignments || {};
   let added = 0, updated = 0;
   Object.keys(prev).forEach(tile => {
+    if (!isPlannableId(tile)) return;
     if (!(tile in state.assignments)) added++;
     else if (state.assignments[tile] !== prev[tile]) updated++;
     state.assignments[tile] = prev[tile];
@@ -3046,8 +3053,10 @@ function showMobileActionBar(area) {
   const canFree = isAdminOrOwner || isMyTile;
 
   let buttons = '';
-  if (MAP_USER.role !== 'viewer' && state.selectedAlliance) {
-    if (isOpen) {
+  if (!isPlannable(area) && !currentOwner) {
+    buttons += `<button class="mab-btn-disabled" disabled>Not part of land planning (${area.name})</button>`;
+  } else if (MAP_USER.role !== 'viewer' && state.selectedAlliance) {
+    if (isOpen && isPlannable(area)) {
       buttons += `<button class="mab-btn-claim" onclick="mobileAssign('${area.id}')">&#9873; Claim for ${state.alliances.find(a=>a.id===state.selectedAlliance)?.name || 'alliance'}</button>`;
     } else if (isMyTile && canFree) {
       buttons += `<button class="mab-btn-free" onclick="mobileFree('${area.id}')">&#10005; Free this tile</button>`;
@@ -3073,7 +3082,7 @@ function hideMobileActionBar() {
 }
 
 function mobileAssign(areaId) {
-  if (!state.selectedAlliance) return;
+  if (!state.selectedAlliance || !isPlannableId(areaId)) return;
   state.assignments[areaId] = state.selectedAlliance;
   saveState();
   renderInfluence();
