@@ -1883,6 +1883,7 @@ function renderInfluence() {
     if (area) {
       totals[alId] = (totals[alId] || 0) + ((area.resources && area.resources[RES_PRI.key]) || 0);
       coals[alId] = (coals[alId] || 0) + ((area.resources && area.resources[RES_SEC.key]) || 0);
+      if (area.name === 'Trade Post') return;   // TP = individual (Governor) capture — never counts vs the 8 cities + 8 strongholds alliance cap
       if (CITY_TYPES.has(area.name)) { cityCt[alId] = (cityCt[alId] || 0) + 1; if (area.level >= 6) lv6Ct[alId] = (lv6Ct[alId] || 0) + 1; }
       else { shCt[alId] = (shCt[alId] || 0) + 1; }
     }
@@ -1957,11 +1958,12 @@ function renderLimits() {
   const al = state.alliances.find(a => a.id === state.selectedAlliance);
   if (!al) { container.innerHTML = '<em>Select an alliance</em>'; return; }
 
-  let cities = 0, strongholds = 0, lv6Cities = 0;
+  let cities = 0, strongholds = 0, lv6Cities = 0, tposts = 0;
   Object.entries(state.assignments).forEach(([areaId, alId]) => {
     if (alId !== al.id) return;
     const area = MAP_AREAS.find(a => a.id === areaId);
     if (!area) return;
+    if (area.name === 'Trade Post') { tposts++; return; }   // TP = individual (Governor) capture — not vs the alliance 8+8 cap
     if (CITY_TYPES.has(area.name)) {
       cities++;
       if (area.level >= 6) lv6Cities++;
@@ -1982,6 +1984,7 @@ function renderLimits() {
   container.innerHTML = `
     <div class="limit-row"><span class="limit-label">Strongholds:</span><span class="limit-val"${shOver?_oc:''}>${strongholds} / ${maxSH}${shOver?' &#9888;':''}</span></div>
     <div class="limit-row"><span class="limit-label">Cities:</span><span class="limit-val"${cityOver?_oc:''}>${cities} / ${SEASON_CONFIG.maxCities}${cityOver?' &#9888;':''}</span></div>
+    <div class="limit-row"><span class="limit-label">Trade Posts:</span><span class="limit-val">${tposts} <small style="color:#888">(personal)</small></span></div>
     <div class="limit-row"><span class="limit-label">Lv6+ Cities:</span><span class="limit-val">${lv6Cities}</span></div>
     ${(shOver||cityOver)?'<div style="margin-top:5px;color:#c62828;font-size:11px;font-weight:600">&#9888; Over cap &mdash; holding more than the limit</div>':''}
   `;
