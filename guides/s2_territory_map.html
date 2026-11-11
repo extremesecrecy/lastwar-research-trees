@@ -697,12 +697,16 @@ input[type="color"] {
 #printExport .pe-legend i { width: 12px; height: 12px; border-radius: 3px; border: 1px solid #0003; display: inline-block; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
 #printExport .pe-legend .bloc-note { font-weight: 700; color: #6a1b9a; }
 /* cover page */
-#printExport .pe-cover { text-align: center; page-break-after: always; padding-top: 0.6in; }
+#printExport .pe-cover { text-align: center; page-break-after: always; padding-top: 0.25in; }
 #printExport .pe-cover h1 { font-family: 'Fredoka', sans-serif; font-size: 30pt; color: #1b5e20; margin: 0 0 6px; }
-#printExport .pe-cover .pe-sub { color: #555; font-size: 12pt; margin-bottom: 0.35in; }
-#printExport .pe-msg { max-width: 6.3in; margin: 0.2in auto; padding: 16px 22px; border: 2px solid #2e7d32; border-radius: 12px; background: #f1f8f1; font-size: 13.5pt; line-height: 1.5; color: #1b3a1b; font-weight: 600; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
-#printExport .pe-how { max-width: 6.3in; margin: 0.25in auto 0; text-align: left; font-size: 10.5pt; color: #333; }
-#printExport .pe-how li { margin: 4px 0; }
+#printExport .pe-cover .pe-sub { color: #555; font-size: 12pt; margin-bottom: 0.2in; }
+#printExport .pe-msg { max-width: 6.3in; margin: 0.12in auto; padding: 11px 20px; border: 2px solid #2e7d32; border-radius: 12px; background: #f1f8f1; font-size: 13.5pt; line-height: 1.5; color: #1b3a1b; font-weight: 600; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+#printExport .pe-how { max-width: 6.3in; margin: 0.15in auto 0; text-align: left; font-size: 10pt; color: #333; }
+#printExport .pe-how li { margin: 3px 0; }
+#printExport .pe-tiers { max-width: 6.5in; margin: 0.1in auto 0; font-size: 9.5pt; color: #222; }
+#printExport .pe-tiers .tier { display: inline-block; margin: 3px 6px 0; padding: 2px 10px; border: 1px solid #bbb; border-radius: 10px; background: #f7f7f7; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+#printExport .pe-struct { max-width: 6.5in; margin: 0.08in auto 0; font-size: 9pt; color: #444; }
+#printExport .pe-mist { max-width: 6.5in; margin: 0.1in auto 0; font-size: 9pt; color: #7a1f1f; background: #fdf2f2; border: 1px solid #e0b4b4; border-radius: 8px; padding: 6px 10px; text-align: left; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
 /* one day per page */
 #printExport .print-day { break-inside: avoid; page-break-inside: avoid; page-break-after: always; text-align: center; }
 #printExport .print-day h2 { font-family: 'Fredoka', sans-serif; font-size: 16pt; margin: 0 0 2px; color: #1b5e20; }
@@ -714,6 +718,22 @@ input[type="color"] {
 #printExport .pe-al .cum { font-weight: 600; color: #1b5e20; }
 #printExport .pe-al .lands { color: #333; }
 #printExport .pe-al .wait { color: #888; font-style: italic; }
+#printExport .pe-al .mv-take { color: #1b5e20; }
+#printExport .pe-al .mv-drop { color: #b71c1c; }
+#printExport .pe-al .mv-note { font-size: 7.5pt; font-style: italic; color: #555; }
+#printExport .pe-pts { margin: 5px auto 0; border-collapse: collapse; font-size: 6.8pt; color: #222; }
+#printExport .pe-pts caption { font-size: 8pt; font-weight: 800; color: #1b5e20; padding-bottom: 1px; }
+#printExport .pe-pts th, #printExport .pe-pts td { border: 1px solid #ddd; padding: 1px 3px; text-align: right; white-space: nowrap; }
+#printExport .pe-pts th { background: #f1f8e9; color: #1b5e20; text-align: center; }
+#printExport .pe-pts td.rl { text-align: left; font-weight: 700; background: #fafafa; }
+#printExport .pe-pts tr.tot td { font-weight: 700; }
+#printExport .pe-power { margin: 0.08in auto 0; border-collapse: collapse; font-size: 8pt; }
+#printExport .pe-power caption { font-weight: 800; color: #1b5e20; font-size: 10pt; padding-bottom: 2px; }
+#printExport .pe-power th, #printExport .pe-power td { border: 1px solid #ddd; padding: 1px 8px; }
+#printExport .pe-power th { background: #f1f8e9; color: #1b5e20; }
+#printExport .pe-power td.n { text-align: right; font-variant-numeric: tabular-nums; }
+#printExport .pe-power .gap { border: none; background: none; width: 0.15in; padding: 0; }
+#printExport .pe-pts-note { font-size: 6.3pt; color: #666; margin: 2px auto 0; max-width: 6.9in; }
 /* rules page */
 #printExport .pe-rules { page-break-before: always; max-width: 6.6in; margin: 0 auto; }
 #printExport .pe-rules h1 { font-family: 'Fredoka', sans-serif; font-size: 20pt; color: #1b5e20; text-align: center; margin: 0 0 10px; }
@@ -758,7 +778,7 @@ input[type="color"] {
     <span id="crossWarzone" style="display:none;background:#e53935;color:#fff;padding:3px 8px;border-radius:12px;font-size:11px;font-weight:600" title="Cross-warzone captures enabled">&#9876; X-Zone</span>
   </div>
   <div class="io-buttons">
-    <button onclick="printAllDays()" title="Generate a printable / PDF sheet of every day" style="background:#2e7d32;border-color:#1b5e20">&#128424; Print / PDF</button>
+    <select id="printLang" title="Print language" style="background:#1b5e20;color:#fff;border:1px solid #0d3d12;border-radius:4px;padding:2px 4px;font-size:12px;margin-right:2px"><option value="en">English</option><option value="es">Español</option><option value="ko">한국어</option><option value="pt">Português</option></select><button onclick="printAllDays(document.getElementById('printLang').value)" title="Generate a printable / PDF sheet of every day in the selected language" style="background:#2e7d32;border-color:#1b5e20">&#128424; Print / PDF</button>
     <button onclick="exportState()" title="Download territory state">&#128190; Export</button>
     <button onclick="importState()" title="Import a file into the selected day">&#128194; Import</button>
     <button onclick="fitAll(); draw();" title="Reset zoom to fit all">&#128269; Fit All</button>
@@ -783,7 +803,7 @@ input[type="color"] {
     </div>
 
     <div class="panel-section">
-      <h3>&#128200; Rare Soil /hr</h3>
+      <h3>&#128200; <span id="primaryResLabel">Rare Soil</span> /hr</h3>
       <div id="influenceSummary" class="influence-summary"></div>
     </div>
 
@@ -821,14 +841,26 @@ input[type="color"] {
       <h3>&#128197; Level Unlock Schedule</h3>
       <table style="width:100%;border-collapse:collapse;font-size:11px">
         <tr style="color:#888;text-align:left"><th style="padding:2px 4px">Lvl</th><th style="padding:2px 4px">Tile</th><th style="padding:2px 4px">From day</th></tr>
-        <tr><td style="padding:2px 4px">1</td><td style="padding:2px 4px">Village</td><td style="padding:2px 4px">Day 3</td></tr>
-        <tr style="background:#f5f5f5"><td style="padding:2px 4px">2</td><td style="padding:2px 4px">Town</td><td style="padding:2px 4px">Day 6</td></tr>
-        <tr><td style="padding:2px 4px">3</td><td style="padding:2px 4px">Factory</td><td style="padding:2px 4px">Day 10</td></tr>
-        <tr style="background:#f5f5f5"><td style="padding:2px 4px">4</td><td style="padding:2px 4px">Train Station</td><td style="padding:2px 4px">Day 13</td></tr>
-        <tr><td style="padding:2px 4px">5</td><td style="padding:2px 4px">Launch Site</td><td style="padding:2px 4px">Day 17</td></tr>
-        <tr style="background:#f5f5f5"><td style="padding:2px 4px">6</td><td style="padding:2px 4px">War Palace</td><td style="padding:2px 4px">Day 20</td></tr>
+        <tbody id="unlockScheduleBody"></tbody>
       </table>
       <div style="font-size:10px;color:#999;margin-top:5px;line-height:1.4">Two levels open each 7-day week (day 3 &amp; 6); Days 1&ndash;2 are digs-only. Digs aren't time-locked &mdash; grab any level if you're touching land.</div>
+    </div>
+
+    <div class="panel-section" id="curseSchedulePanel" style="display:none">
+      <h3>&#9763; Curse Resistance <span style="font-size:10px;color:#c62828;font-weight:600">(tentative)</span></h3>
+      <table style="width:100%;border-collapse:collapse;font-size:11px">
+        <tr style="color:#888;text-align:left"><th style="padding:2px 4px">SH</th><th style="padding:2px 4px">CR needed</th><th style="padding:2px 4px">80%</th><th style="padding:2px 4px">Target day</th></tr>
+        <tbody id="curseScheduleBody"></tbody>
+      </table>
+      <div style="font-size:10px;color:#999;margin-top:5px;line-height:1.4"><b>Target day</b> = first day the rally leader&rsquo;s projected Curse Resistance reaches <b>80%</b> of what the stronghold needs &mdash; close enough to kill it with a strong rally (it deals 40% less damage). Below 80%, wait for more CR.</div>
+      <details id="curseProjWrap" style="margin-top:6px">
+        <summary style="cursor:pointer;font-size:11px;color:#5a6a6a;font-weight:600">&#128200; Projected CR by day (model)</summary>
+        <table style="width:100%;border-collapse:collapse;font-size:10.5px;margin-top:4px">
+          <tr style="color:#888;text-align:left"><th style="padding:1px 3px">Day</th><th style="padding:1px 3px">Projected CR</th><th style="padding:1px 3px">Lab</th><th style="padding:1px 3px">Can kill (&ge;80%)</th></tr>
+          <tbody id="curseProjBody"></tbody>
+        </table>
+        <div style="font-size:10px;color:#999;margin-top:4px;line-height:1.4">Projected rally-leader CR at end of day, calibrated to our actual Season 2 pace (same Lab and Fountain costs: the top 3 held SH2 by day 3, SH3 day 7, SH4 day 10, SH5 day 13, SH6 day 17). <b>Can kill</b> = highest stronghold where CR is &ge;80% of its requirement. Highlighted = day on the map. Estimate &mdash; replace with real numbers on day 1.</div>
+      </details>
     </div>
 
     <div class="panel-section">
@@ -932,6 +964,15 @@ const BUFF_PRIORITY = {
 
 const CITY_TYPES = new Set(['Village', 'Town', 'Factory', 'Nuclear Furnace', 'War Palace', 'Train Station', 'Launch Site']);
 
+SEASON_CONFIG.resources = {"primary": {"key": "rareSoil", "label": "Rare Soil", "short": "soil"}, "secondary": {"key": "coal", "label": "Coal", "short": "coal"}};
+SEASON_CONFIG.unlockSchedule = [[1, "Village", "Day 3"], [2, "Town", "Day 6"], [3, "Factory", "Day 10"], [4, "Train Station", "Day 13"], [5, "Launch Site", "Day 17"], [6, "War Palace", "Day 20"]];
+SEASON_CONFIG.curseSchedule = null;
+SEASON_CONFIG.curseProjection = null;
+SEASON_CONFIG.alliancePower = null;
+SEASON_CONFIG.alliancePowerDate = null;
+const RES_PRI = SEASON_CONFIG.resources.primary;
+const RES_SEC = SEASON_CONFIG.resources.secondary;
+
 // Y-axis flip to match cpt-hedge's Leaflet rendering (y=0 at bottom)
 const MAP_H = 1000; // max y extent
 function flipY(c) { return { x: c.x, y: MAP_H - c.y - c.height, w: c.width, h: c.height }; }
@@ -979,10 +1020,51 @@ MAP_AREAS.forEach(a => {
   }
 });
 
+// Projected Curse Resistance by season day (S3 only; SEASON_CONFIG.curseProjection)
+function renderCurseProjection() {
+  var b = document.getElementById('curseProjBody');
+  if (!b || !SEASON_CONFIG.curseProjection) return;
+  var cur = Number(state && state.currentDay) || 0;
+  b.innerHTML = SEASON_CONFIG.curseProjection.map(function(r) {
+    var hl = r[0] === cur ? ' style="background:#fff4d6;font-weight:700"' : '';
+    var sh = function(n) { return n ? 'SH' + n : '&mdash;'; };
+    return '<tr' + hl + '><td style="padding:1px 3px">' + r[0] + '</td><td style="padding:1px 3px">' + r[1].toLocaleString() +
+      '</td><td style="padding:1px 3px">' + r[2] + '</td><td style="padding:1px 3px">' + sh(r[3]) + '</td></tr>';
+  }).join('');
+}
+
 // ========== INIT ==========
+function applySeasonLabels() {
+  var pl = document.getElementById('primaryResLabel'); if (pl) pl.textContent = RES_PRI.label;
+  var csb = document.getElementById('curseScheduleBody');
+  if (csb && SEASON_CONFIG.curseSchedule) {
+    document.getElementById('curseSchedulePanel').style.display = '';
+    csb.innerHTML = SEASON_CONFIG.curseSchedule.map(function(r, i){
+      return '<tr' + (i % 2 ? ' style="background:#f5f5f5"' : '') +
+        '><td style="padding:2px 4px">SH' + r[0] + '</td><td style="padding:2px 4px">' + r[1].toLocaleString() +
+        '</td><td style="padding:2px 4px">' + Math.round(r[1] * 0.8).toLocaleString() + '</td><td style="padding:2px 4px"><b>Day ' + r[2] + '</b></td></tr>';
+    }).join('');
+  }
+  renderCurseProjection();
+  if (typeof updatePhaseLabel === 'function' && !updatePhaseLabel._cp) {
+    var _upl = updatePhaseLabel;
+    updatePhaseLabel = function() { var r = _upl.apply(this, arguments); renderCurseProjection(); return r; };
+    updatePhaseLabel._cp = true;
+  }
+  var usb = document.getElementById('unlockScheduleBody');
+  if (usb && SEASON_CONFIG.unlockSchedule) {
+    usb.innerHTML = SEASON_CONFIG.unlockSchedule.map(function(r, i){
+      return '<tr' + (i % 2 ? ' style="background:#f5f5f5"' : '') +
+        '><td style="padding:2px 4px">' + r[0] + '</td><td style="padding:2px 4px">' + r[1] +
+        '</td><td style="padding:2px 4px">' + r[2] + '</td></tr>';
+    }).join('');
+  }
+}
+
 document.addEventListener('DOMContentLoaded', async () => {
   canvas = document.getElementById('mapCanvas');
   ctx = canvas.getContext('2d');
+  applySeasonLabels();  // season-aware resource header + level-unlock schedule
   await loadState();  // async — loads from server, falls back to localStorage
   resizeCanvas();
   fitAll();
@@ -992,6 +1074,15 @@ document.addEventListener('DOMContentLoaded', async () => {
   renderLimits();
   renderCaptureAdvisor();
   draw();
+  // First paint can run before the canvas has its final size / layout settles,
+  // which intermittently leaves tiles (notably strongholds) unpainted and gray
+  // even though state.assignments is correct. Re-sync the working set to the
+  // loaded day and force one more paint on the next frame to guarantee a clean render.
+  requestAnimationFrame(() => {
+    const _cd = (state.days && state.currentDay) ? state.days[state.currentDay] : null;
+    if (_cd && _cd.assignments) state.assignments = JSON.parse(JSON.stringify(_cd.assignments));
+    resizeCanvas(); fitAll(); draw();
+  });
   window.addEventListener('resize', () => { resizeCanvas(); draw(); });
   setupMobileTouchSnap();
 
@@ -1139,6 +1230,14 @@ function draw() {
       ctx.strokeStyle = alliance.color;
       ctx.lineWidth = 3 / scale;
       ctx.strokeRect(x + 1 / scale, y + 1 / scale, w - 2 / scale, h - 2 / scale);
+    } else if (area.name === 'Trade Post') {
+      // Neutral special tile (captured individually, never alliance-held) — distinct
+      // warm brown so it never reads as an empty/unclaimed stronghold.
+      ctx.fillStyle = '#a9743b';
+      ctx.fillRect(x, y, w, h);
+      ctx.strokeStyle = '#6e4a24';
+      ctx.lineWidth = 2 / scale;
+      ctx.strokeRect(x + 1 / scale, y + 1 / scale, w - 2 / scale, h - 2 / scale);
     } else {
       // Unclaimed: pure white + subtle gray gridline so empty tiles read as discrete cells
       ctx.fillStyle = '#ffffff';
@@ -1148,9 +1247,9 @@ function draw() {
       ctx.strokeRect(x + 0.5 / scale, y + 0.5 / scale, w - 1 / scale, h - 1 / scale);
     }
 
-    // Dim overlay for timeline — but ONLY on unclaimed tiles.
+    // Dim overlay for timeline — but ONLY on unclaimed tiles (Trade Posts keep their color).
     // Claimed alliance tiles always render at full saturation regardless of phase.
-    if (isDimmed && !alliance) {
+    if (isDimmed && !alliance && area.name !== 'Trade Post') {
       ctx.fillStyle = 'rgba(200,200,200,0.55)';
       ctx.fillRect(x, y, w, h);
     }
@@ -1199,7 +1298,7 @@ function draw() {
         ctx.shadowBlur = 0;
       } else {
         // Label color: white over dark alliance overlay or Capitol; dark over white unclaimed
-        const isDark = !!alliance || area.level >= 7;
+        const isDark = !!alliance || area.level >= 7 || area.name === 'Trade Post';
         ctx.font = `bold ${Math.max(9 / scale, 1)}px Segoe UI, sans-serif`;
         ctx.fillStyle = isDark ? '#fff' : '#1a1a1a';
         ctx.shadowColor = isDark ? 'rgba(0,0,0,0.4)' : 'rgba(255,255,255,0.6)';
@@ -1223,8 +1322,9 @@ function draw() {
   });
 
 
-  // ===== Capture-lock marker pass (drawn above all tiles; covers FREE-but-locked tiles too) =====
-  if (showText) {
+  // ===== Capture-lock marker pass — HIDDEN for static final-division plans =====
+  // (x3/x7 badges only matter for a day-by-day crawl; flip to `showText` to re-enable.)
+  if (false) {
     ctx.save();
     ctx.textAlign = 'left';
     ctx.textBaseline = 'top';
@@ -1520,13 +1620,17 @@ function hitTest(screenX, screenY) {
   const gx = Math.floor(worldX / 50);
   const gy = Math.floor(worldY / 50);
   const candidates = areaIndex[gx + ',' + gy] || [];
+  // When tiles overlap (S3 checkerboard: 50x50 cities sit inside 75x75 stronghold rects),
+  // return the SMALLEST containing tile so cities win the click instead of the stronghold behind them.
+  let best = null, bestArea = Infinity;
   for (const a of candidates) {
     const f = a._f;
     if (worldX >= f.x && worldX < f.x + f.w && worldY >= f.y && worldY < f.y + f.h) {
-      return a;
+      const area = f.w * f.h;
+      if (area < bestArea) { best = a; bestArea = area; }
     }
   }
-  return null;
+  return best;
 }
 
 // ========== TOOLTIP ==========
@@ -1542,8 +1646,8 @@ function updateTooltip(clientX, clientY, area) {
 
   let html = `<div class="tt-name">${area.name} (Lv.${area.level})</div>`;
   html += `<div style="font-size:11px;color:#888;margin:-2px 0 2px 0">Tile ID: <strong style="color:#5bc0de">${area.id}</strong></div>`;
-  html += `<div class="tt-buff">+${area.buff.percentage}% ${area.buff.item}</div>`;
-  html += `<div class="tt-inf">${((area.resources&&area.resources.rareSoil)||0).toLocaleString()} soil/hr${((area.resources&&area.resources.coal)||0) ? ' · ' + area.resources.coal.toLocaleString() + ' coal/hr' : ''}</div>`;
+  if (area.buff) html += `<div class="tt-buff">+${area.buff.percentage}% ${area.buff.item}</div>`;
+  html += `<div class="tt-inf">${((area.resources&&area.resources[RES_PRI.key])||0).toLocaleString()} ${RES_PRI.short}/hr${((area.resources&&area.resources[RES_SEC.key])||0) ? ' · ' + area.resources[RES_SEC.key].toLocaleString() + ' ' + RES_SEC.short + '/hr' : ''}</div>`;
   html += `<div style="font-size:11px;color:#aaa">Neighbors: ${neighbors.length}</div>`;
   if (alliance) {
     html += `<div class="tt-owner" style="color:${alliance.color}">Owner: [${alliance.tag}]</div>`;
@@ -1618,6 +1722,8 @@ function handleClick(mx, my, event) {
       }
       delete state.assignments[area.id];
     } else {
+      // Trade Posts / Great Pyramid are not part of land planning
+      if (!isPlannable(area)) { draw(); return; }
       // Assign: only if tile is open OR belongs to your alliance (or you're admin/owner)
       if (!isAdminOrOwner && currentOwner && currentOwner !== userAlliance) {
         // Can't override another alliance's territory
@@ -1635,8 +1741,15 @@ function handleClick(mx, my, event) {
 }
 
 // ========== BFS PATH ==========
+// Trade Posts (one player wins them as Governor by fighting) and the Great Pyramid are never part of
+// the planned alliance land captures: they can't be painted, routed through, recommended or counted.
+const NOT_PLANNABLE = new Set(['Trade Post', 'Great Pyramid']);
+function isPlannable(area) { return !!area && !NOT_PLANNABLE.has(area.name); }
+function isPlannableId(id) { return isPlannable(MAP_AREAS.find(a => a.id === id)); }
+
 function bfs(startId, endId) {
   if (startId === endId) return [startId];
+  if (!isPlannableId(startId) || !isPlannableId(endId)) return [];
   const visited = new Set([startId]);
   const queue = [[startId]];
   while (queue.length > 0) {
@@ -1644,7 +1757,7 @@ function bfs(startId, endId) {
     const current = path[path.length - 1];
     const neighbors = ADJACENCY[current] || [];
     for (const n of neighbors) {
-      if (visited.has(n)) continue;
+      if (visited.has(n) || !isPlannableId(n)) continue;
       const newPath = [...path, n];
       if (n === endId) return newPath;
       visited.add(n);
@@ -1809,20 +1922,27 @@ function changeAllianceColor(id, color) {
 // ========== INFLUENCE ==========
 function renderInfluence() {
   const container = document.getElementById('influenceSummary');
-  const totals = {}, coals = {};
-  state.alliances.forEach(al => { totals[al.id] = 0; coals[al.id] = 0; });
+  const totals = {}, coals = {}, cityCt = {}, shCt = {}, lv6Ct = {};
+  state.alliances.forEach(al => { totals[al.id] = 0; coals[al.id] = 0; cityCt[al.id] = 0; shCt[al.id] = 0; lv6Ct[al.id] = 0; });
   Object.entries(state.assignments).forEach(([areaId, alId]) => {
     const area = MAP_AREAS.find(a => a.id === areaId);
-    if (area) {
-      totals[alId] = (totals[alId] || 0) + ((area.resources && area.resources.rareSoil) || 0);
-      coals[alId] = (coals[alId] || 0) + ((area.resources && area.resources.coal) || 0);
+    if (isPlannable(area)) {
+      totals[alId] = (totals[alId] || 0) + ((area.resources && area.resources[RES_PRI.key]) || 0);
+      coals[alId] = (coals[alId] || 0) + ((area.resources && area.resources[RES_SEC.key]) || 0);
+      if (CITY_TYPES.has(area.name)) { cityCt[alId] = (cityCt[alId] || 0) + 1; if (area.level >= 6) lv6Ct[alId] = (lv6Ct[alId] || 0) + 1; }
+      else { shCt[alId] = (shCt[alId] || 0) + 1; }
     }
   });
+  const _overCap = (id) => {
+    const c = cityCt[id] || 0, s = shCt[id] || 0, l = lv6Ct[id] || 0;
+    const mSH = Math.min(SEASON_CONFIG.maxStrongholds, SEASON_CONFIG.baseStrongholds + (c - l) * SEASON_CONFIG.strongholdsPerCity + l * SEASON_CONFIG.strongholdsPerLevel6City);
+    return c > SEASON_CONFIG.maxCities || s > mSH;
+  };
   container.innerHTML = state.alliances.map(al => `
     <div class="influence-row">
       <div class="inf-swatch" style="background:${al.color}"></div>
-      <span class="inf-name">[${al.tag}]</span>
-      <span class="inf-val">${(totals[al.id] || 0).toLocaleString()}<small style="color:#999"> soil</small> <span style="color:#bbb">&middot;</span> ${(coals[al.id] || 0).toLocaleString()}<small style="color:#999"> coal</small></span>
+      <span class="inf-name">[${al.tag}]${_overCap(al.id) ? ' <span title="Over cap: too many cities or strongholds" style="color:#c62828">&#9888;</span>' : ''}</span>
+      <span class="inf-val">${(totals[al.id] || 0).toLocaleString()}<small style="color:#999"> ${RES_PRI.short}</small> <span style="color:#bbb">&middot;</span> ${(coals[al.id] || 0).toLocaleString()}<small style="color:#999"> ${RES_SEC.short}</small></span>
     </div>
   `).join('') + renderDayMoves();
 }
@@ -1830,42 +1950,37 @@ function renderInfluence() {
 // ========== DAY MOVES (why every capture & drop happens — same reasons as the printout) ==========
 function renderDayMoves() {
   const dnum = Number(state.currentDay);
-  if (!dnum || !state.days || !state.days[String(dnum - 1)]) return '';
-  const prevA = state.days[String(dnum - 1)].assignments || {};
+  if (!dnum || !state.days) return '';
+  const prevA = (state.days[String(dnum - 1)] && state.days[String(dnum - 1)].assignments) || {};
   const curA = (state.days[String(dnum)] && state.days[String(dnum)].assignments) || state.assignments || {};
-  const nums = Object.keys(state.days).map(Number).filter(n => !isNaN(n)).sort((a, b) => a - b);
-  const last = nums[nums.length - 1];
   const byId = id => state.alliances.find(a => a.id === id);
   const isBloc = a => a && (/^bloc/i.test(a.tag || '') || /^block?$/i.test(a.name || ''));
+  const area = id => MAP_AREAS.find(a => a.id === id);
+  const lab = id => { const a = area(id); return a ? (ABBREV[a.name] || '??') + a.level + ' #' + id : '#' + id; };
   const lines = [];
   state.alliances.forEach(al => {
     if (isBloc(al)) return;
     const ups = [], downs = [];
     Object.entries(curA).forEach(([t, aid]) => {
-      if (aid === al.id && prevA[t] !== al.id) ups.push('#' + t);
+      if (aid === al.id && prevA[t] !== al.id) {
+        const fr = prevA[t] ? byId(prevA[t]) : null;
+        ups.push(lab(t) + (fr && !isBloc(fr) ? ' <i>from ' + (fr.tag || fr.name) + '</i>' : ''));
+      }
     });
     Object.entries(prevA).forEach(([t, aid]) => {
       if (aid !== al.id || curA[t] === al.id) return;
-      let why = 'cap swap';
-      for (let k = dnum + 1; k <= last; k++) {
-        const ow = ((state.days[String(k)] || {}).assignments || {})[t];
-        if (!ow) continue;
-        const rec = byId(ow);
-        if (isBloc(rec)) continue;
-        why = (ow === al.id) ? 'retakes d' + k : '→ ' + ((rec && rec.tag) || '?') + ' d' + k;
-        break;
-      }
-      downs.push('#' + t + ' <i>' + why + '</i>');
+      const now = curA[t] ? byId(curA[t]) : null;
+      downs.push(lab(t) + (now && !isBloc(now) ? ' <i>&rarr; ' + (now.tag || now.name) + '</i>' : ''));
     });
     if (ups.length || downs.length) {
       lines.push('<div class="influence-row" style="font-size:11px;align-items:flex-start"><div class="inf-swatch" style="background:' + al.color + '"></div><span class="inf-name">[' + al.tag + ']</span><span style="flex:1;line-height:1.5">' +
-        (ups.length ? '<span style="color:#2e7d32">↑ ' + ups.join(', ') + '</span>' : '') +
+        (ups.length ? '<span style="color:#2e7d32"><b>&uarr; Take:</b> ' + ups.join(', ') + '</span>' : '') +
         (ups.length && downs.length ? '<br>' : '') +
-        (downs.length ? '<span style="color:#c62828">↓ ' + downs.join('; ') + '</span>' : '') + '</span></div>');
+        (downs.length ? '<span style="color:#c62828"><b>&darr; Drop:</b> ' + downs.join(', ') + '</span>' : '') + '</span></div>');
     }
   });
-  const head = '<div style="margin-top:8px;border-top:1px solid #ddd;padding-top:6px"><b style="font-size:12px">Day ' + dnum + ' moves</b><div style="font-size:10px;color:#888;margin:2px 0 4px">Every ↓ has a reason: → = handed to that alliance on that day · cap swap = 4-dig/6-city limit forced it</div>';
-  return head + (lines.length ? lines.join('') : '<div style="font-size:11px;color:#999">No moves — everyone holds &amp; farms.</div>') + '</div>';
+  const head = '<div style="margin-top:8px;border-top:1px solid #ddd;padding-top:6px"><b style="font-size:12px">Day ' + dnum + ' moves</b><div style="font-size:10px;color:#888;margin:2px 0 4px">Only what changes today: &uarr; take &middot; &darr; drop (&rarr; = another alliance takes it the same day)</div>';
+  return head + (lines.length ? lines.join('') : '<div style="font-size:11px;color:#999">No moves &mdash; everyone holds.</div>') + '</div>';
 }
 
 // ========== LIMITS TRACKER ==========
@@ -1878,7 +1993,7 @@ function renderLimits() {
   Object.entries(state.assignments).forEach(([areaId, alId]) => {
     if (alId !== al.id) return;
     const area = MAP_AREAS.find(a => a.id === areaId);
-    if (!area) return;
+    if (!isPlannable(area)) return;
     if (CITY_TYPES.has(area.name)) {
       cities++;
       if (area.level >= 6) lv6Cities++;
@@ -1893,10 +2008,14 @@ function renderLimits() {
     lv6Cities * SEASON_CONFIG.strongholdsPerLevel6City
   );
 
+  const shOver = strongholds > maxSH;
+  const cityOver = cities > SEASON_CONFIG.maxCities;
+  const _oc = ' style="color:#c62828;font-weight:700"';
   container.innerHTML = `
-    <div class="limit-row"><span class="limit-label">Strongholds:</span><span class="limit-val">${strongholds} / ${maxSH}</span></div>
-    <div class="limit-row"><span class="limit-label">Cities:</span><span class="limit-val">${cities} / ${SEASON_CONFIG.maxCities}</span></div>
+    <div class="limit-row"><span class="limit-label">Strongholds:</span><span class="limit-val"${shOver?_oc:''}>${strongholds} / ${maxSH}${shOver?' &#9888;':''}</span></div>
+    <div class="limit-row"><span class="limit-label">Cities:</span><span class="limit-val"${cityOver?_oc:''}>${cities} / ${SEASON_CONFIG.maxCities}${cityOver?' &#9888;':''}</span></div>
     <div class="limit-row"><span class="limit-label">Lv6+ Cities:</span><span class="limit-val">${lv6Cities}</span></div>
+    ${(shOver||cityOver)?'<div style="margin-top:5px;color:#c62828;font-size:11px;font-weight:600">&#9888; Over cap &mdash; holding more than the limit</div>':''}
   `;
 }
 
@@ -1925,7 +2044,7 @@ function renderCaptureAdvisor() {
     neighbors.forEach(nId => {
       if (!state.assignments[nId] && !candidates.has(nId)) {
         const area = MAP_AREAS.find(a => a.id === nId);
-        if (area) candidates.set(nId, area);
+        if (isPlannable(area)) candidates.set(nId, area);
       }
     });
   });
@@ -1933,9 +2052,9 @@ function renderCaptureAdvisor() {
   // Rank
   const ranked = [...candidates.values()].sort((a, b) => {
     // 1. Influence desc
-    var sA=(a.resources&&a.resources.rareSoil)||0, sB=(b.resources&&b.resources.rareSoil)||0; if (sB !== sA) return sB - sA;
+    var sA=(a.resources&&a.resources[RES_PRI.key])||0, sB=(b.resources&&b.resources[RES_PRI.key])||0; if (sB !== sA) return sB - sA;
     // 2. Buff rarity
-    const bp = (BUFF_PRIORITY[b.buff.item] || 0) - (BUFF_PRIORITY[a.buff.item] || 0);
+    const bp = (BUFF_PRIORITY[b.buff && b.buff.item] || 0) - (BUFF_PRIORITY[a.buff && a.buff.item] || 0);
     if (bp !== 0) return bp;
     // 3. Level desc
     return b.level - a.level;
@@ -1945,8 +2064,8 @@ function renderCaptureAdvisor() {
     <div class="capture-item" onclick="centerOnArea('${area.id}')">
       <span class="ci-rank">${idx + 1}</span>
       <span class="ci-name">${area.name} Lv.${area.level}</span>
-      <span style="color:#888;font-size:10px">+${area.buff.percentage}% ${area.buff.item}</span>
-      <span class="ci-inf">${((area.resources&&area.resources.rareSoil)||0).toLocaleString()}</span>
+      <span style="color:#888;font-size:10px">${area.buff ? '+' + area.buff.percentage + '% ' + area.buff.item : ''}</span>
+      <span class="ci-inf">${((area.resources&&area.resources[RES_PRI.key])||0).toLocaleString()}</span>
     </div>
   `).join('');
 }
@@ -1992,8 +2111,8 @@ function updateAreaInfo(area) {
       <div class="aic-name">${area.name} <span style="font-size:12px;color:#888">#${area.id}</span></div>
       <div class="aic-detail">
         <div>Level: ${area.level}</div>
-        <div>Buff: <strong style="color:var(--orange)">+${area.buff.percentage}% ${area.buff.item}</strong></div>
-        <div>Rare Soil/hr: <strong style="color:var(--cyan)">${((area.resources&&area.resources.rareSoil)||0).toLocaleString()}</strong>${((area.resources&&area.resources.coal)||0) ? ` &middot; Coal/hr: <strong style="color:var(--cyan)">${area.resources.coal.toLocaleString()}</strong>` : ''}</div>
+        ${area.buff ? `<div>Buff: <strong style="color:var(--orange)">+${area.buff.percentage}% ${area.buff.item}</strong></div>` : ''}
+        <div>${RES_PRI.label}/hr: <strong style="color:var(--cyan)">${((area.resources&&area.resources[RES_PRI.key])||0).toLocaleString()}</strong>${((area.resources&&area.resources[RES_SEC.key])||0) ? ` &middot; ${RES_SEC.label}/hr: <strong style="color:var(--cyan)">${area.resources[RES_SEC.key].toLocaleString()}</strong>` : ''}</div>
         ${area.isCapitol ? '<div style="color:#FFD700;font-weight:600">&#9813; Royal Palace</div>' : ''}
       </div>
       <div class="aic-owner" style="background:${alliance ? alliance.color + '22' : '#f0f0f0'};color:${alliance ? alliance.color : '#999'}">
@@ -2034,7 +2153,7 @@ function renderPathDetails() {
   let totalInf = 0;
   state.pathResult.forEach(pid => {
     const a = MAP_AREAS.find(m => m.id === pid);
-    if (a) totalInf += ((a.resources && a.resources.rareSoil) || 0);
+    if (a) totalInf += ((a.resources && a.resources[RES_PRI.key]) || 0);
   });
   container.innerHTML = `
     <div><strong>Steps:</strong> ${state.pathResult.length}</div>
@@ -2228,11 +2347,154 @@ function resetAllData() {
 
 // ========== EXPORT / IMPORT ==========
 // ===== PRINT / PDF: render every day as an image and open the browser print dialog =====
-function printAllDays() {
+
+// ===== PRINT/PDF TRANSLATIONS (Gabriel, Jul 21) =====
+const PRINT_I18N = {
+  en: {
+    powTitle:'Alliance Power &mdash; in-game leaderboard', powRank:'Rank', powAl:'Alliance', powPow:'Power', powLoc:'en-US',
+    ptsTitle:'Points so far (estimate)', ptsSpiceHr:'Spice /h', ptsSpiceTot:'Spice total', ptsMithHr:'Mithril /h', ptsMithTot:'Mithril total', ptsNote:'Every land earns its hourly rate &times; 24h for each day it is held. Totals = all days up to and including this one (the capture day counts a full day; a dropped land stops counting that day).',
+    noDays:'No days to print yet.', dropSwap:'(swap)', dropTemp:'(temp — retaken d', h3curse:'Curse Resistance &mdash; tentative stronghold schedule', curseLvl:'Stronghold level', curseNeed:'Resistance needed', curseFrom:'Capture from day', h3proj:'Projected Curse Resistance by day (estimate)', colDay:'Day', colLab:'Lab lv', colSH:'Can kill (&ge;80%)', projNote:'Rally leader&rsquo;s projected resistance at the end of each day, calibrated to what the top 3 actually did in Season 2 on the same economy (S2 Furnace and Titanium factories had identical costs): SH2 by day 3, SH3 day 7, SH4 day 10, SH5 day 13, SH6 day 17. Assumes everything goes to the rally leader: Battle Pass task Mithril into the Fountains, all Sacred Water into the Curse Research Lab, Weekly Pass and Protectors. Check your real Curse Resistance on day 1 &mdash; if it starts much lower than shown, these days will slip.', curseNote:'<b>Target day</b> = the first day the rally leader&rsquo;s projected Curse Resistance reaches <b>80%</b> of what the stronghold needs. With almost all the CR needed, a strong rally can kill it (it deals 40% less damage at 80%). Below 80%, wait for more CR. Raise it in the Curse Research Lab with Sacred Water. In a rally, the leader&rsquo;s resistance covers everyone.', curse80:'80% of CR needed', curseDay:'Target day (80% reached)', colCR:'Projected CR', top3Sh2:'<b>Top 3 ({T}) will push to Level-2 strongholds as fast as they can</b>, so more Level-1 spots open up for the rest of the server.', sameDay:'same day', fromLbl:'from',
+    blocReserved:"BLOCK = reserved — don't take",
+    day:'Day', soilHr:' spice/hr', coalHr:' mithril/hr',
+    accumMid:' spice &middot; ', accumEnd:' mithril accumulated through this day (all prior days + this day’s 24h, est.)',
+    noLand:'No land held yet on this day.', lvl:'lvl', id:'ID',
+    coverTitle:'Season 3 Territory Plan',
+    coverSubA:'Server #2013 &nbsp;&middot;&nbsp; ', coverSubB:'-day movement guide &nbsp;&middot;&nbsp; ',
+    coop:'The best outcome for each and all is to work together and reach the state where everyone maximizes the points they can defend &mdash; as an alliance, and as a server.',
+    phased:'Phased progression &mdash; Top advances first, Mid fills behind, Lower follows:',
+    top:'TOP', mid:'MID', low:'LOWER',
+    struct:'Map rings, outer &rarr; center: <b>VL1/SH1 &rarr; AL2/SH2 &rarr; TN3/SH3 &rarr; TS4/SH4 &rarr; AT5/SH5 &rarr; SJ6/SH6 &rarr; GP7</b> (Great Pyramid centre &mdash; untouchable). Strongholds form a grid; every city sits on the corner where 4 strongholds meet. Season 3 caps: <b>8 cities + 8 strongholds per alliance</b>.',
+    how1:'<b>Every tile shows the alliance holding it</b> (big tag) and its type + level (e.g. <b>AL2</b> = a level-2 Altar, <b>SH1</b> = a level-1 Digging Stronghold).',
+    how2:'<b>Below each day&rsquo;s map</b> each alliance lists <b>only its moves for that day</b>: the lands to <b>take</b> and the lands to <b>drop</b>. No line for your tag = no moves, keep holding.', take:'Take', drop:'Drop', noMoves:'No moves today &mdash; everyone holds.',
+    how3:'<b style="color:#2e7d32">&uarr;</b> next to a land = <b>take it that day</b>; <b style="color:#c62828">&darr;</b> = <b>drop it that day</b> (no arrow = keep holding).',
+    how4:'<b>Follow your tag, day by day.</b> You can only capture land touching land you already hold, after it has unlocked, at most <b>2 cities + 2 strongholds per day</b>.',
+    how5:'<b style="color:#c62828">Never capture unless you are certain it is part of the plan and it is open for you to take</b> &mdash; empty land may already be allocated to another alliance&rsquo;s progression.',
+    how6:'<b>BLOCK tiles are reserved</b> for an upcoming move &mdash; leave them until the plan hands them over. Full rules, unlock schedule and lock timing are on the last page.',
+    mistakes:'<b>Common mistakes to avoid:</b> racing ahead of the planned phases &middot; taking tiles assigned to another alliance &middot; capturing without checking the plan first &middot; wasting your daily captures on unplanned objectives &middot; chasing individual gains over server success. <b>Know your points of contact</b> in the alliances ahead, beside, and behind you before you move.',
+    rulesTitle:'Map Rules &amp; Timing', h3how:'How land is taken',
+    rAdj:'<b>Adjacency:</b> you can only capture a tile that <b>touches</b> land you held yesterday, or a tile you captured earlier the same day. <b>Touching = sharing an edge or overlapping:</b> every city overlaps the 4 strongholds around its corner and touches all 4; strongholds touch strongholds they share a side with. <b>Two strongholds that meet only at a corner do NOT touch</b> &mdash; take the city on that corner first. Trade Posts and the Great Pyramid cannot be captured. On Day 1 every alliance starts with its <b>2 Level-1 strongholds</b>.',
+    rCheck:'<b>Layout:</b> strongholds form a grid and every city sits on the corner where 4 strongholds meet &mdash; you grow by taking land that touches what you already hold. <b>Cities are the Spice producers</b> (Village 100/h &middot; Altar 200 &middot; Town 300 &middot; Temple of the Sun 400 &middot; Ancient Tombs 500 &middot; Square of Judgement 600). Digging strongholds produce <b>Mithril</b> (100&ndash;200/h). The season is ranked on TOTAL spice accumulated while held.',
+    rDrop:'<b>Why lands get dropped (&darr;):</b> every drop is planned &mdash; either a <b>swap</b> (the 8-stronghold / 8-city cap forces releasing a lesser land to take a better one, so income never goes down) or a <b>scheduled handoff</b> (land is released so its capture-lock finishes exactly when the next alliance is due to take it). <b>Handoffs:</b> the giving alliance drops first and posts the time; the receiving alliance attacks only after that post. On days you are level with the alliance ranked above you, capture only after it has posted its capture.',
+    rCap:'<b>Your cap:</b> up to <b>8 cities + 8 strongholds = 16 blocks</b> total, taking at most <b>2 cities and 2 strongholds per day</b>.',
+    h3lock:'The 36-hour &amp; 6-day locks (read this!)',
+    lock1:"After <b>anyone</b> captures a <b>stronghold</b>, that tile is locked for <b>36 hours</b> (the plan allows 2 full days) &mdash; it can't change hands again until the lock clears.",
+    lock2:'After <b>anyone</b> captures a <b>city</b>, that tile is locked for <b>6 days</b> (the plan assumes 6 days; screenshot the timer on your first city to confirm).',
+    lock3:'This is why the plan sometimes tells you to <b>wait</b>: grabbing a tile too soon after it was released simply fails. Take it on the day it is marked for you and it works cleanly.',
+    h3unlock:'When each land level unlocks', tblLevel:'Level', tblOpens:'City opens Day',
+    unlockNote:'Higher-level land opens later. Each day&rsquo;s page lists every alliance&rsquo;s <b>moves for that day</b> (take / drop) &mdash; capture the land marked for you, on the day it is marked. Ranks 4&ndash;11 plan their strongholds one day behind the top 3&rsquo;s Curse Resistance schedule.',
+    rotationNote:'<b>Final rotation (agreed):</b> on this day the top 3 switch Squares of Judgement &mdash; each drops one Square and takes another. The Squares were taken on day 20, so their 6-day capture-lock has cleared. Drop first, post, then take.'
+  },
+  es: {
+    powTitle:'Poder de Alianza &mdash; clasificación del juego', powRank:'Rango', powAl:'Alianza', powPow:'Poder', powLoc:'es-ES',
+    ptsTitle:'Puntos acumulados (estimación)', ptsSpiceHr:'Especia /h', ptsSpiceTot:'Especia total', ptsMithHr:'Mithril /h', ptsMithTot:'Mithril total', ptsNote:'Cada tierra gana su tasa por hora &times; 24h por cada día que se posee. Totales = todos los días hasta este incluido (el día de captura cuenta completo; una tierra soltada deja de contar ese día).',
+    noDays:'Aún no hay días para imprimir.', dropSwap:'(intercambio)', dropTemp:'(temporal — retomado día ', h3curse:'Resistencia a la Maldición &mdash; calendario tentativo de fortalezas', curseLvl:'Nivel de fortaleza', curseNeed:'Resistencia necesaria', curseFrom:'Capturar desde el día', h3proj:'Resistencia a la Maldición proyectada por día (estimación)', colDay:'Día', colLab:'Lab', colSH:'Puede matar (&ge;80%)', projNote:'Resistencia proyectada del líder del rally al final de cada día, calibrada con lo que el top 3 logró en la Temporada 2 con la misma economía (Horno y fábricas de Titanio de T2 tenían los mismos costos): SH2 para el día 3, SH3 día 7, SH4 día 10, SH5 día 13, SH6 día 17. Supone que todo va al líder del rally: Mithril de las tareas del Pase a las Fuentes, toda el Agua Sagrada al Laboratorio, Pase Semanal y Protectores. Revisa tu Resistencia a la Maldición real el día 1 &mdash; si empieza mucho más baja, estos días se atrasarán.', curseNote:'<b>Día objetivo</b> = el primer día en que la Resistencia a la Maldición proyectada del líder del rally llega al <b>80%</b> de lo que necesita la fortaleza. Con casi toda la resistencia, un rally fuerte puede matarla (hace 40% menos daño al 80%). Por debajo del 80%, espera más resistencia. Súbela en el Laboratorio de Maldición con Agua Sagrada. En un rally, la resistencia del líder cubre a todos.', curse80:'80% de la resistencia', curseDay:'Día objetivo (80% alcanzado)', colCR:'Resistencia proyectada', top3Sh2:'<b>El top 3 ({T}) avanzará a fortalezas de Nivel 2 lo más rápido posible</b>, para que queden más espacios de Nivel 1 para el resto del servidor.', sameDay:'mismo día', fromLbl:'de',
+    blocReserved:'BLOCK = reservado — no lo tomes',
+    day:'Día', soilHr:' especia/h', coalHr:' mithril/h',
+    accumMid:' especia &middot; ', accumEnd:' mithril acumulado hasta este día (todos los días previos + las 24h de este día, aprox.)',
+    noLand:'Aún no posee tierra en este día.', lvl:'niv', id:'ID',
+    coverTitle:'Plan de Territorio Temporada 3',
+    coverSubA:'Servidor #2013 &nbsp;&middot;&nbsp; ', coverSubB:' días de guía de movimientos &nbsp;&middot;&nbsp; ',
+    coop:'El mejor resultado para todos es trabajar juntos y llegar al estado donde cada uno maximiza los puntos que puede defender &mdash; como alianza y como servidor.',
+    phased:'Progresión por fases &mdash; el Nivel Alto avanza primero, el Medio llena detrás, el Bajo sigue:',
+    top:'ALTO', mid:'MEDIO', low:'BAJO',
+    struct:'Anillos del mapa, exterior &rarr; centro: <b>VL1/SH1 &rarr; AL2/SH2 &rarr; TN3/SH3 &rarr; TS4/SH4 &rarr; AT5/SH5 &rarr; SJ6/SH6 &rarr; GP7</b> (Gran Pirámide en el centro &mdash; intocable). Las fortalezas forman una cuadrícula; cada ciudad está en la esquina donde se juntan 4 fortalezas. Límites de la T3: <b>8 ciudades + 8 fortalezas por alianza</b>.',
+    how1:'<b>Cada casilla muestra la alianza que la posee</b> (etiqueta grande) y su tipo + nivel (ej. <b>AL2</b> = un Altar nivel 2, <b>SH1</b> = una Fortaleza nivel 1).',
+    how2:'<b>Debajo del mapa de cada día</b> cada alianza muestra <b>solo sus movimientos de ese día</b>: las tierras a <b>tomar</b> y las tierras a <b>soltar</b>. Si tu etiqueta no aparece, no hay movimientos: sigue manteniendo.', take:'Tomar', drop:'Soltar', noMoves:'Sin movimientos hoy &mdash; todos mantienen.',
+    how3:'<b style="color:#2e7d32">&uarr;</b> junto a una tierra = <b>tómala ese día</b>; <b style="color:#c62828">&darr;</b> = <b>suéltala ese día</b> (sin flecha = sigue conservando).',
+    how4:'<b>Sigue tu etiqueta, día a día.</b> Solo puedes capturar tierra que toque tierra que ya posees, después de que se desbloquee, máximo <b>2 ciudades + 2 fortalezas por día</b>.',
+    how5:'<b style="color:#c62828">Nunca captures a menos que estés seguro de que es parte del plan y está abierto para ti</b> &mdash; la tierra vacía puede estar ya asignada a la progresión de otra alianza.',
+    how6:'<b>Las casillas BLOCK están reservadas</b> para un movimiento próximo &mdash; déjalas hasta que el plan las entregue. Las reglas completas, el calendario de desbloqueo y el tiempo de bloqueo están en la última página.',
+    mistakes:'<b>Errores comunes a evitar:</b> adelantarte a las fases planeadas &middot; tomar casillas asignadas a otra alianza &middot; capturar sin revisar el plan primero &middot; malgastar tus capturas diarias en objetivos no planeados &middot; buscar ganancias individuales sobre el éxito del servidor. <b>Conoce tus puntos de contacto</b> en las alianzas de adelante, al lado y detrás de ti antes de moverte.',
+    rulesTitle:'Reglas del Mapa y Tiempos', h3how:'Cómo se toma la tierra',
+    rAdj:'<b>Adyacencia:</b> solo puedes capturar una casilla que <b>toque</b> tierra que tenías ayer, o una casilla que capturaste antes el mismo día. <b>Tocar = compartir un lado o superponerse:</b> cada ciudad se superpone con las 4 fortalezas de su esquina y toca las 4; una fortaleza toca a las fortalezas con las que comparte un lado. <b>Dos fortalezas que solo se juntan en una esquina NO se tocan</b> &mdash; toma primero la ciudad de esa esquina. Los Puestos de Comercio y la Gran Pirámide no se pueden capturar. En el Día 1 cada alianza empieza con sus <b>2 fortalezas de Nivel 1</b>.',
+    rCheck:'<b>Distribución:</b> creces tomando tierra junto a la que ya tienes. <b>Las ciudades producen Especia</b> (Aldea 100/h &middot; Altar 200 &middot; Pueblo 300 &middot; Templo del Sol 400 &middot; Tumbas Antiguas 500 &middot; Plaza del Juicio 600). Las fortalezas producen Mithril (100&ndash;200/h). La temporada se clasifica por el TOTAL de Especia acumulada mientras se posee.',
+    rDrop:'<b>Por qué se sueltan tierras (&darr;):</b> cada entrega es planeada &mdash; ya sea un <b>intercambio</b> (el límite de 8 fortalezas / 8 ciudades obliga a soltar una tierra menor para tomar una mejor, así el ingreso nunca baja) o una <b>entrega programada</b> (la tierra se suelta para que su bloqueo termine justo cuando la siguiente alianza deba tomarla). <b>Entregas:</b> la alianza que entrega suelta primero y publica la hora; la que recibe ataca solo después. Los días en que estás al mismo nivel que la alianza del rango de arriba, captura solo después de que ella publique su captura.',
+    rCap:'<b>Tu límite:</b> hasta <b>8 ciudades + 8 fortalezas = 16 bloques</b> en total, tomando como máximo <b>2 ciudades y 2 fortalezas por día</b>.',
+    h3lock:'Los bloqueos de 36 horas y 6 días (¡léelo!)',
+    lock1:'Después de que <b>cualquiera</b> captura una <b>fortaleza</b>, esa casilla queda bloqueada por <b>36 horas</b> (el plan deja 2 días completos) &mdash; no puede cambiar de manos hasta que el bloqueo termine.',
+    lock2:'Después de que <b>cualquiera</b> captura una <b>ciudad</b>, esa casilla queda bloqueada por <b>6 días</b> (el plan asume 6 días; toma captura del temporizador en tu primera ciudad para confirmarlo).',
+    lock3:'Por esto el plan a veces te dice que <b>esperes</b>: tomar una casilla demasiado pronto tras soltarla simplemente falla. Tómala el día que está marcado para ti y funciona sin problema.',
+    h3unlock:'Cuándo se desbloquea cada nivel', tblLevel:'Nivel', tblOpens:'Ciudad abre Día',
+    unlockNote:'La tierra de mayor nivel abre más tarde. La página de cada día lista los <b>movimientos de cada alianza ese día</b> (tomar / soltar) &mdash; captura la tierra marcada para ti, el día en que está marcada. Los rangos 4&ndash;11 planean sus fortalezas un día detrás del calendario de Resistencia del top 3.',
+    rotationNote:'<b>Rotación final (acordada):</b> este día el top 3 intercambia las Plazas del Juicio &mdash; cada uno suelta una Plaza y toma otra. Las Plazas se tomaron el día 20, así que su bloqueo de 6 días ya terminó. Suelta primero, publica, luego toma.'
+  },
+  ko: {
+    powTitle:'연맹 전투력 &mdash; 게임 내 순위', powRank:'순위', powAl:'연맹', powPow:'전투력', powLoc:'ko-KR',
+    ptsTitle:'누적 점수 (추정)', ptsSpiceHr:'향신료 /h', ptsSpiceTot:'향신료 합계', ptsMithHr:'미스릴 /h', ptsMithTot:'미스릴 합계', ptsNote:'각 땅은 보유한 하루마다 시간당 생산량 &times; 24시간을 얻습니다. 합계 = 이 날까지(포함) 모든 날 (점령한 날은 하루 전체로 계산, 포기한 땅은 그 날부터 제외).',
+    noDays:'아직 인쇄할 날짜가 없습니다.', dropSwap:'(교체)', dropTemp:'(임시 — d', h3curse:'저주 저항 &mdash; 요새 잠정 일정', curseLvl:'요새 레벨', curseNeed:'필요 저항', curseFrom:'점령 가능 일', h3proj:'일별 예상 저주 저항 (추정)', colDay:'일', colLab:'연구소', colSH:'처치 가능 (&ge;80%)', projNote:'각 날 마지막의 집결장 예상 저항. 같은 경제 구조였던 시즌 2에서 상위 3개 연맹이 실제로 달성한 속도로 보정 (S2 용광로와 티타늄 공장은 비용이 동일): SH2 3일차, SH3 7일차, SH4 10일차, SH5 13일차, SH6 17일차. 모든 자원을 집결장에게: 배틀패스 미스릴은 축복의 샘에, 모든 성수는 저주 연구소에, 주간 패스와 수호자. 1일차에 실제 저주 저항을 확인하세요 &mdash; 표시보다 많이 낮으면 일정이 늦어집니다.', curseNote:'<b>목표 일</b> = 집결장의 예상 저주 저항이 요새 요구치의 <b>80%</b>에 처음 도달하는 날. 거의 필요한 만큼의 저항이면 강한 집결로 처치할 수 있습니다 (80%에서 피해 40% 감소). 80% 미만이면 저항이 더 오를 때까지 기다리세요. 성수로 저주 연구소를 업그레이드하세요. 집결에서는 집결장의 저항이 모두에게 적용됩니다.', curse80:'필요 저항의 80%', curseDay:'목표 일 (80% 도달)', colCR:'예상 저항', top3Sh2:'<b>상위 3개 연맹({T})은 최대한 빨리 2레벨 요새로 이동합니다</b> &mdash; 서버의 다른 연맹을 위해 1레벨 자리를 더 비워 둡니다.', sameDay:'당일', fromLbl:'←',
+    blocReserved:'BLOCK = 예약됨 — 가져가지 마세요',
+    day:'일차', dayNumFirst:true, soilHr:' 향신료/h', coalHr:' 미스릴/h',
+    accumMid:' 향신료 &middot; ', accumEnd:' 미스릴 (이 날까지 누적: 이전 모든 날 + 이 날 24시간, 추정)',
+    noLand:'이날은 아직 보유한 땅이 없음.', lvl:'레벨', id:'ID',
+    coverTitle:'시즌 3 영토 계획',
+    coverSubA:'서버 #2013 &nbsp;&middot;&nbsp; ', coverSubB:'일 이동 가이드 &nbsp;&middot;&nbsp; ',
+    coop:'모두에게 최선의 결과는 함께 협력하여 각자가 방어할 수 있는 점수를 극대화하는 것입니다 &mdash; 연맹으로서, 그리고 서버로서.',
+    phased:'단계별 진행 &mdash; 상위가 먼저 진격, 중위가 뒤를 채움, 하위가 따릅니다:',
+    top:'상위', mid:'중위', low:'하위',
+    struct:'지도 고리, 바깥 &rarr; 중심: <b>VL1/SH1 &rarr; AL2/SH2 &rarr; TN3/SH3 &rarr; TS4/SH4 &rarr; AT5/SH5 &rarr; SJ6/SH6 &rarr; GP7</b> (중앙 대피라미드 &mdash; 점령 불가). 요새는 격자를 이루고, 모든 도시는 요새 4개가 만나는 모서리에 있습니다. 시즌 3 상한: <b>연맹당 도시 8 + 요새 8</b>.',
+    how1:'<b>각 타일은 보유 연맹</b>(큰 태그)과 종류 + 레벨을 표시합니다 (예: <b>AL2</b> = 레벨 2 제단, <b>SH1</b> = 레벨 1 요새).',
+    how2:'<b>각 날의 지도 아래</b>에는 각 연맹의 <b>그날 이동만</b> 표시됩니다: <b>점령</b>할 땅과 <b>포기</b>할 땅. 태그가 없으면 이동 없음, 계속 보유하세요.', take:'점령', drop:'포기', noMoves:'오늘은 이동 없음 &mdash; 모두 보유.',
+    how3:'<b style="color:#2e7d32">&uarr;</b> 땅 옆 = <b>그날 가져오기</b>; <b style="color:#c62828">&darr;</b> = <b>그날 놓기</b> (화살표 없음 = 계속 보유).',
+    how4:'<b>매일 자기 태그를 따라가세요.</b> 이미 보유한 땅에 닿아 있고 해제된 땅만, 하루 최대 <b>도시 2 + 요새 2</b>까지 점령할 수 있습니다.',
+    how5:'<b style="color:#c62828">계획의 일부이고 당신이 가져갈 수 있음을 확신하지 못하면 절대 점령하지 마세요</b> &mdash; 빈 땅은 이미 다른 연맹의 진행에 배정되었을 수 있습니다.',
+    how6:'<b>BLOCK 타일은 예정된 이동을 위해 예약</b>되어 있습니다 &mdash; 계획이 넘겨줄 때까지 그대로 두세요. 전체 규칙, 해제 일정, 잠금 타이밍은 마지막 페이지에 있습니다.',
+    mistakes:'<b>피해야 할 흔한 실수:</b> 계획된 단계보다 앞서가기 &middot; 다른 연맹에 배정된 타일 가져가기 &middot; 계획을 확인하지 않고 점령 &middot; 계획에 없는 목표에 하루 점령 낭비 &middot; 서버 성공보다 개인 이익 추구. 이동 전에 앞, 옆, 뒤 연맹의 <b>연락 담당자</b>를 알아두세요.',
+    rulesTitle:'지도 규칙 및 타이밍', h3how:'땅을 점령하는 방법',
+    rAdj:'<b>인접:</b> 어제 보유한 땅, 또는 같은 날 먼저 점령한 땅에 <b>닿아 있는</b> 타일만 점령할 수 있습니다. <b>닿음 = 변을 공유하거나 겹침:</b> 모든 도시는 모서리 주변 요새 4개와 겹쳐 4개 모두에 닿고, 요새는 변을 공유하는 요새에 닿습니다. <b>모서리만 맞닿은 두 요새는 닿지 않습니다</b> &mdash; 그 모서리의 도시를 먼저 점령하세요. 교역소와 대피라미드는 점령할 수 없습니다. 1일차에 모든 연맹은 <b>레벨 1 요새 2개</b>로 시작합니다.',
+    rCheck:'<b>배치:</b> 이미 보유한 땅 옆을 점령하며 성장합니다. <b>도시는 향신료를 생산</b>합니다 (마을 100/h &middot; 제단 200 &middot; 읍 300 &middot; 태양 신전 400 &middot; 고대 무덤 500 &middot; 심판의 광장 600). 요새는 미스릴을 생산합니다 (100&ndash;200/h). 시즌 순위는 보유 중 누적된 총 향신료로 결정됩니다.',
+    rDrop:'<b>땅을 놓는 이유 (&darr;):</b> 모든 해제는 계획된 것입니다 &mdash; <b>교체</b>(요새 8 / 도시 8 상한 때문에 더 좋은 땅을 위해 낮은 땅을 놓음, 수입은 줄지 않음) 또는 <b>예정된 인계</b>(다음 연맹이 가져갈 때 잠금이 끝나도록 미리 놓음)입니다. <b>인계:</b> 주는 연맹이 먼저 놓고 시간을 공지하며, 받는 연맹은 그 공지 후에만 공격합니다. 바로 위 순위 연맹과 같은 수준인 날에는 그 연맹이 점령을 공지한 뒤에만 점령하세요.',
+    rCap:'<b>상한:</b> 최대 <b>도시 8 + 요새 8 = 16칸</b>, 하루 최대 <b>도시 2개와 요새 2개</b>.',
+    h3lock:'36시간 및 6일 잠금 (꼭 읽으세요!)',
+    lock1:'누군가 <b>요새</b>를 점령하면 그 타일은 <b>36시간</b> 잠깁니다 (계획은 이틀을 둡니다) &mdash; 잠금이 풀릴 때까지 주인이 바뀔 수 없습니다.',
+    lock2:'누군가 <b>도시</b>를 점령하면 그 타일은 <b>6일</b> 잠깁니다 (계획은 6일로 가정합니다; 첫 도시에서 타이머를 캡처해 확인하세요).',
+    lock3:'이 때문에 계획이 때로 <b>기다리라</b>고 합니다: 해제 직후 너무 빨리 가져오려 하면 실패합니다. 당신을 위해 표시된 날에 가져오면 깔끔하게 됩니다.',
+    h3unlock:'각 레벨이 열리는 시점', tblLevel:'레벨', tblOpens:'도시 열림(일)',
+    unlockNote:'높은 레벨의 땅은 나중에 열립니다. 각 날의 페이지에는 그날 <b>각 연맹의 이동</b>(점령 / 포기)이 나옵니다 &mdash; 표시된 날에 표시된 땅을 점령하세요. 4&ndash;11위는 상위 3개 연맹의 저주 저항 일정보다 하루 늦게 요새를 계획합니다.',
+    rotationNote:'<b>최종 교대 (합의됨):</b> 이 날 상위 3개 연맹이 심판의 광장을 교대합니다 &mdash; 각자 광장 하나를 놓고 다른 광장을 점령합니다. 광장은 20일차에 점령했으므로 6일 잠금은 이미 풀렸습니다. 먼저 놓고, 공지한 뒤, 점령하세요.'
+  },
+  pt: {
+    powTitle:'Poder da Aliança &mdash; ranking do jogo', powRank:'Rank', powAl:'Aliança', powPow:'Poder', powLoc:'pt-BR',
+    ptsTitle:'Pontos acumulados (estimativa)', ptsSpiceHr:'Especiaria /h', ptsSpiceTot:'Especiaria total', ptsMithHr:'Mithril /h', ptsMithTot:'Mithril total', ptsNote:'Cada terra ganha sua taxa por hora &times; 24h por cada dia em que é mantida. Totais = todos os dias até este, inclusive (o dia da captura conta inteiro; uma terra solta para de contar naquele dia).',
+    noDays:'Ainda não há dias para imprimir.', dropSwap:'(troca)', dropTemp:'(temporário — retomado d', h3curse:'Resistência à Maldição &mdash; cronograma provisório de fortalezas', curseLvl:'Nível da fortaleza', curseNeed:'Resistência necessária', curseFrom:'Capturar a partir do dia', h3proj:'Resistência à Maldição projetada por dia (estimativa)', colDay:'Dia', colLab:'Lab', colSH:'Pode matar (&ge;80%)', projNote:'Resistência projetada do líder do rally no fim de cada dia, calibrada pelo que o top 3 realmente fez na Temporada 2 com a mesma economia (Fornalha e fábricas de Titânio da T2 tinham os mesmos custos): SH2 até o dia 3, SH3 dia 7, SH4 dia 10, SH5 dia 13, SH6 dia 17. Supõe que tudo vai para o líder do rally: Mithril das tarefas do Passe nas Fontes, toda a Água Sagrada no Laboratório, Passe Semanal e Protetores. Confira sua Resistência à Maldição real no dia 1 &mdash; se começar bem mais baixa, estes dias vão atrasar.', curseNote:'<b>Dia alvo</b> = o primeiro dia em que a Resistência à Maldição projetada do líder do rally atinge <b>80%</b> do que a fortaleza exige. Com quase toda a resistência, um rally forte consegue matar (causa 40% menos dano a 80%). Abaixo de 80%, espere mais resistência. Aumente no Laboratório da Maldição com Água Sagrada. Num rally, a resistência do líder cobre todos.', curse80:'80% da resistência', curseDay:'Dia alvo (80% atingido)', colCR:'Resistência projetada', top3Sh2:'<b>O top 3 ({T}) vai avançar para fortalezas de Nível 2 o mais rápido possível</b>, para abrir mais espaços de Nível 1 para o resto do servidor.', sameDay:'mesmo dia', fromLbl:'de',
+    blocReserved:'BLOCK = reservado — não pegue',
+    day:'Dia', soilHr:' especiaria/h', coalHr:' mithril/h',
+    accumMid:' especiaria &middot; ', accumEnd:' mithril acumulado até este dia (todos os dias anteriores + as 24h deste dia, aprox.)',
+    noLand:'Ainda não possui terra neste dia.', lvl:'nív', id:'ID',
+    coverTitle:'Plano de Território Temporada 3',
+    coverSubA:'Servidor #2013 &nbsp;&middot;&nbsp; ', coverSubB:' dias de guia de movimentação &nbsp;&middot;&nbsp; ',
+    coop:'O melhor resultado para todos é trabalhar juntos e alcançar o estado em que cada um maximiza os pontos que consegue defender &mdash; como aliança e como servidor.',
+    phased:'Progressão em fases &mdash; o Nível Alto avança primeiro, o Médio preenche atrás, o Baixo segue:',
+    top:'ALTO', mid:'MÉDIO', low:'BAIXO',
+    struct:'Anéis do mapa, de fora &rarr; para o centro: <b>VL1/SH1 &rarr; AL2/SH2 &rarr; TN3/SH3 &rarr; TS4/SH4 &rarr; AT5/SH5 &rarr; SJ6/SH6 &rarr; GP7</b> (Grande Pirâmide no centro &mdash; intocável). As fortalezas formam uma grade; cada cidade fica no canto onde 4 fortalezas se encontram. Limites da T3: <b>8 cidades + 8 fortalezas por aliança</b>.',
+    how1:'<b>Cada casa mostra a aliança que a possui</b> (etiqueta grande) e seu tipo + nível (ex. <b>AL2</b> = um Altar nível 2, <b>SH1</b> = uma Fortaleza nível 1).',
+    how2:'<b>Abaixo do mapa de cada dia</b> cada aliança mostra <b>só os movimentos daquele dia</b>: as terras a <b>tomar</b> e as terras a <b>soltar</b>. Sem linha para sua etiqueta = sem movimentos, continue segurando.', take:'Tomar', drop:'Soltar', noMoves:'Sem movimentos hoje &mdash; todos seguram.',
+    how3:'<b style="color:#2e7d32">&uarr;</b> ao lado de uma terra = <b>pegue-a naquele dia</b>; <b style="color:#c62828">&darr;</b> = <b>solte-a naquele dia</b> (sem seta = continue segurando).',
+    how4:'<b>Siga sua etiqueta, dia a dia.</b> Só pode capturar terra que toque terra que já possui, depois que ela desbloquear, no máximo <b>2 cidades + 2 fortalezas por dia</b>.',
+    how5:'<b style="color:#c62828">Nunca capture a menos que tenha certeza de que faz parte do plano e está aberto para você</b> &mdash; terra vazia pode já estar destinada à progressão de outra aliança.',
+    how6:'<b>As casas BLOCK estão reservadas</b> para um movimento futuro &mdash; deixe-as até o plano entregá-las. As regras completas, o calendário de desbloqueio e o tempo de bloqueio estão na última página.',
+    mistakes:'<b>Erros comuns a evitar:</b> avançar à frente das fases planejadas &middot; pegar casas destinadas a outra aliança &middot; capturar sem checar o plano primeiro &middot; desperdiçar suas capturas diárias em objetivos não planejados &middot; buscar ganhos individuais acima do sucesso do servidor. <b>Conheça seus pontos de contato</b> nas alianças à frente, ao lado e atrás de você antes de se mover.',
+    rulesTitle:'Regras do Mapa e Tempos', h3how:'Como a terra é tomada',
+    rAdj:'<b>Adjacência:</b> só pode capturar uma casa que <b>toque</b> terra que você tinha ontem, ou uma casa que capturou antes no mesmo dia. <b>Tocar = compartilhar um lado ou se sobrepor:</b> cada cidade se sobrepõe às 4 fortalezas do seu canto e toca as 4; uma fortaleza toca as fortalezas com quem divide um lado. <b>Duas fortalezas que só se encontram num canto NÃO se tocam</b> &mdash; tome primeiro a cidade desse canto. Postos de Comércio e a Grande Pirâmide não podem ser capturados. No Dia 1 cada aliança começa com suas <b>2 fortalezas de Nível 1</b>.',
+    rCheck:'<b>Distribuição:</b> você cresce tomando terra ao lado da que já possui. <b>As cidades produzem Especiaria</b> (Aldeia 100/h &middot; Altar 200 &middot; Vila 300 &middot; Templo do Sol 400 &middot; Tumbas Antigas 500 &middot; Praça do Julgamento 600). As fortalezas produzem Mithril (100&ndash;200/h). A temporada é classificada pelo TOTAL de Especiaria acumulada enquanto mantida.',
+    rDrop:'<b>Por que terras são soltas (&darr;):</b> cada entrega é planejada &mdash; ou uma <b>troca</b> (o limite de 8 fortalezas / 8 cidades obriga a soltar uma terra menor para pegar uma melhor, então a renda nunca cai) ou uma <b>entrega programada</b> (a terra é solta para que seu bloqueio termine exatamente quando a próxima aliança deve pegá-la). <b>Entregas:</b> a aliança que entrega solta primeiro e publica o horário; a que recebe ataca só depois. Nos dias em que você está no mesmo nível da aliança do rank acima, capture só depois que ela publicar a captura dela.',
+    rCap:'<b>Seu limite:</b> até <b>8 cidades + 8 fortalezas = 16 blocos</b> no total, pegando no máximo <b>2 cidades e 2 fortalezas por dia</b>.',
+    h3lock:'Os bloqueios de 36 horas e 6 dias (leia isto!)',
+    lock1:'Depois que <b>qualquer um</b> captura uma <b>fortaleza</b>, essa casa fica bloqueada por <b>36 horas</b> (o plano deixa 2 dias inteiros) &mdash; não pode mudar de dono até o bloqueio acabar.',
+    lock2:'Depois que <b>qualquer um</b> captura uma <b>cidade</b>, essa casa fica bloqueada por <b>6 dias</b> (o plano assume 6 dias; tire print do temporizador na sua primeira cidade para confirmar).',
+    lock3:'Por isso o plano às vezes manda você <b>esperar</b>: pegar uma casa cedo demais depois de solta simplesmente falha. Pegue-a no dia marcado para você e funciona sem problema.',
+    h3unlock:'Quando cada nível desbloqueia', tblLevel:'Nível', tblOpens:'Cidade abre Dia',
+    unlockNote:'Terra de nível mais alto abre depois. A página de cada dia lista os <b>movimentos de cada aliança naquele dia</b> (pegar / soltar) &mdash; capture a terra marcada para você, no dia em que está marcada. Os ranks 4&ndash;11 planejam suas fortalezas um dia atrás do calendário de Resistência do top 3.',
+    rotationNote:'<b>Rotação final (acordada):</b> neste dia o top 3 troca as Praças do Julgamento &mdash; cada um solta uma Praça e pega outra. As Praças foram tomadas no dia 20, então o bloqueio de 6 dias já acabou. Solte primeiro, publique, depois pegue.'
+  }
+};
+
+function printAllDays(lang) {
+  const L = PRINT_I18N[lang] || PRINT_I18N.en;
+  const dayLbl = n => L.dayNumFirst ? (n + L.day) : (L.day + ' ' + n);
   ensureDays();
   syncCurrentDay();                       // persist the day we're on
   const nums = _dayNums();
-  if (!nums.length) { alert('No days to print yet.'); return; }
+  if (!nums.length) { alert(L.noDays); return; }
 
   // Save live view so we can restore it exactly after export.
   const savedDay = state.currentDay;
@@ -2265,7 +2527,7 @@ function printAllDays() {
   const pages = [];
   nums.forEach(n => {
     const dd = state.days[String(n)];
-    if (!dd) return;
+    if (!dd || Object.keys(dd.assignments || {}).length === 0) return;   // skip empty days (no blank pages)
     state.assignments = dd.assignments || {};
     state.seasonWeek = dd.week; state.seasonDay = dd.day;
     // Fit the whole world into the off-screen square manually (fitAll() needs a DOM parent).
@@ -2277,42 +2539,37 @@ function printAllDays() {
     // Per-alliance land list + soil/coal rates for THIS day's holdings.
     const cur = state.assignments;
     const prevA = (state.days[String(n - 1)] && state.days[String(n - 1)].assignments) || {};
-    const allianceList = [];
+    const allianceList = [], snap = [];
     realAll.forEach(a => {
       const lands = []; let inf = 0, coal = 0;
+      // Only the MOVES: lands taken today (not held yesterday) and lands dropped today (held yesterday).
       for (const [tid, aid] of Object.entries(cur)) {
         if (aid !== a.id) continue;
         const ar = areaById[tid]; if (!ar) continue;
-        inf += (ar.resources && ar.resources.rareSoil) || 0;   // S2 ranking = RARE SOIL (cities 350-1000/hr, digs 100-150/hr)
-        coal += (ar.resources && ar.resources.coal) || 0;      // coal = heat/survival (digs only)
-        lands.push({ ab: (ABBREV[ar.name] || '??'), lvl: ar.level, id: tid, mark: (prevA[tid] !== a.id) ? 'up' : '' });
+        inf += (ar.resources && ar.resources[RES_PRI.key]) || 0;   // still tracked for the running totals
+        coal += (ar.resources && ar.resources[RES_SEC.key]) || 0;
+        if (prevA[tid] === a.id) continue;                         // already held - not a move
+        lands.push({ ab: (ABBREV[ar.name] || '??'), lvl: ar.level, id: tid, mark: 'up', from: (prevA[tid] && prevA[tid] !== a.id && prevA[tid] !== blocId) ? prevA[tid] : null });
       }
-      // lands DROPPED this day (held yesterday, not today) — shown with a down arrow
       for (const [tid, aid] of Object.entries(prevA)) {
         if (aid !== a.id || cur[tid] === a.id) continue;
         const ar = areaById[tid]; if (!ar) continue;
-        // WHY is it dropped? look ahead: handoff (someone captures it), temp-drop (we retake), or cap swap
-        let why = '(swap)';
-        for (let k2 = n + 1; k2 <= nums[nums.length - 1]; k2++) {
-          const as2 = (state.days[String(k2)] || {}).assignments || {};
-          if (!as2[tid]) continue;
-          if (as2[tid] === a.id) { why = '(temp — retaken d' + k2 + ')'; }
-          else { const rec = state.alliances.find(x => x.id === as2[tid]); why = '→ ' + ((rec && (rec.tag || rec.name)) || '?') + ' d' + k2; }
-          break;
-        }
-        lands.push({ ab: (ABBREV[ar.name] || '??'), lvl: ar.level, id: tid, mark: 'down', why });
+        // only name the receiver when another alliance takes it the SAME day (coordinate the swap)
+        const _nowRec = (cur[tid] && cur[tid] !== blocId) ? state.alliances.find(x => x.id === cur[tid]) : null;
+        lands.push({ ab: (ABBREV[ar.name] || '??'), lvl: ar.level, id: tid, mark: 'down', why: _nowRec ? '→ ' + (_nowRec.tag || _nowRec.name) : '' });
       }
       // Points accumulate WHILE HELD: soil/hr x 24h for every day a land is held. The number shown
       // on day N is CUMULATIVE THROUGH day N: all previous days PLUS day N's own 24h of holding.
       // (Capture day earns its full day; drop day earns nothing — the two cancel on handoffs.)
       cumPts[a.id] = (cumPts[a.id] || 0) + inf * 24;
       cumCoal[a.id] = (cumCoal[a.id] || 0) + coal * 24;
-      if (lands.length) {
+      snap.push({ id: a.id, tag: (a.tag || a.name), inf, coal, cum: cumPts[a.id], cumC: cumCoal[a.id] });   // all alliances, for the points table
+      if (lands.length) {   // alliances with no take/drop today are left out
         lands.sort((x, y) => Number(x.id) - Number(y.id));
         allianceList.push({ tag: (a.tag || a.name), inf, coal, cum: cumPts[a.id], cumC: cumCoal[a.id], lands });
       }
     });
-    pages.push({ day: n, img: tmp.toDataURL('image/png'), allianceList });
+    pages.push({ day: n, img: tmp.toDataURL('image/png'), allianceList, snap });
   });
 
   // Restore the live view.
@@ -2333,56 +2590,99 @@ function printAllDays() {
 
   const fmtP = x => x >= 1e6 ? (x / 1e6).toFixed(1) + 'M' : Math.round(x).toLocaleString();
   // ---- One page per day: legend + map + each alliance's influence, est. points & land list ----
+  const _rotDay = pages.length ? Math.max.apply(null, pages.map(p => p.day)) : 0;
+  // Cumulative points for ALL alliances (same alphabetical order as the page): hourly rate x 24h per day held.
+  const fmtN = x => Math.round(x).toLocaleString('en-US');
+  const _rk = r => { const m = /^rank(\d+)$/.exec(r.id || ''); return m ? Number(m[1]) : 99; };
+  const ptsTable = s0 => { const s = s0.slice().sort((x, y) => _rk(x) - _rk(y)); return '<table class="pe-pts"><caption>' + L.ptsTitle + '</caption><tr><th></th>' + s.map(r => '<th>' + r.tag + '</th>').join('') + '</tr>' +
+    [[L.ptsSpiceHr, 'inf', ''], [L.ptsSpiceTot, 'cum', 'tot'], [L.ptsMithHr, 'coal', ''], [L.ptsMithTot, 'cumC', 'tot']].map(([lab, k, cls]) =>
+      '<tr class="' + cls + '"><td class="rl">' + lab + '</td>' + s.map(r => '<td>' + fmtN(r[k]) + '</td>').join('') + '</tr>').join('') +
+    '</table><div class="pe-pts-note">' + L.ptsNote + '</div>'; };   // columns in RANK order (1 = RGBB)
   const dayBlocks = pages.map(p =>
-    '<div class="print-day"><h2>Day ' + p.day + '</h2>' +
+    '<div class="print-day"><h2>' + dayLbl(p.day) + '</h2>' +
+    ((p.day === _rotDay && L.rotationNote) ? '<div style="background:#fff8e1;border:1px solid #f4a261;border-radius:4px;padding:5px 9px;margin:3px 0 6px;font-size:10pt;color:#8a5a00">' + L.rotationNote + '</div>' : '') +
     '<div class="pe-legend">' + legend + '</div>' +
-    '<img src="' + p.img + '" alt="Day ' + p.day + '">' +
+    '<img src="' + p.img + '" alt="' + dayLbl(p.day) + '">' +
     '<div class="pe-lands">' + (p.allianceList.length
-      ? p.allianceList.map(al =>
-          '<div class="pe-al"><span class="tag">' + al.tag + '</span> &mdash; <span class="inf">&asymp;' +
-          al.inf.toLocaleString() + ' soil/hr &middot; ' + al.coal.toLocaleString() + ' coal/hr</span> <span class="cum">&asymp;' + fmtP(al.cum) + ' soil &middot; ' + fmtP(al.cumC) + ' coal accumulated through this day (all prior days + this day\'s 24h, est.)</span>' +
-          '<div class="lands">' + al.lands.map(l => { var arr = l.mark === 'up' ? ' <b style="color:#2e7d32">&uarr;</b>' : l.mark === 'down' ? ' <b style="color:#c62828">&darr;</b>' + (l.why ? '<span style="font-size:8pt;color:#c62828"> ' + l.why + '</span>' : '') : ''; return l.ab + ' lvl ' + l.lvl + ' ID ' + l.id + arr; }).join(', ') + '</div></div>'
-        ).join('')
-      : '<div class="pe-al wait">No land held yet on this day.</div>') +
-    '</div></div>'
+      ? p.allianceList.map(al => {
+          const lab = l => l.ab + l.lvl + ' #' + l.id;
+          const tk = al.lands.filter(l => l.mark === 'up').map(l => { const fr = l.from ? state.alliances.find(x => x.id === l.from) : null; return lab(l) + (fr ? ' <span class="mv-note">' + L.fromLbl + ' ' + (fr.tag || fr.name) + '</span>' : ''); });
+          const dp = al.lands.filter(l => l.mark === 'down').map(l => lab(l) + (l.why ? ' <span class="mv-note">' + l.why + '</span>' : ''));
+          return '<div class="pe-al"><span class="tag">' + al.tag + '</span>' +
+            (tk.length ? '<div class="mv-take"><b>&uarr; ' + L.take + ':</b> ' + tk.join(', ') + '</div>' : '') +
+            (dp.length ? '<div class="mv-drop"><b>&darr; ' + L.drop + ':</b> ' + dp.join(', ') + '</div>' : '') + '</div>';
+        }).join('')
+      : '<div class="pe-al wait">' + L.noMoves + '</div>') +
+    '</div>' + ptsTable(p.snap) + '</div>'
   ).join('');
 
-  const COOP = 'The best outcome for each and all is to work together and reach the state where everyone maximizes the points they can defend &mdash; as an alliance, and as a server.';
+  const COOP = L.coop;
 
-  // ---- Cover page ----
+  const _tierTag = n => { const a = state.alliances.find(x => x.id === 'rank' + n); return a ? (a.tag || a.name) : null; };
+  const _tierJoin = arr => arr.map(_tierTag).filter(Boolean).join(' &middot; ');
   const cover =
-    '<div class="pe-cover"><h1>&#9876; Season 2 Territory Plan</h1>' +
-    '<div class="pe-sub">Server #2013 &nbsp;&middot;&nbsp; ' + pages.length + '-day movement guide &nbsp;&middot;&nbsp; ' +
-    new Date().toLocaleDateString() + '</div>' +
+    '<div class="pe-cover"><h1>&#9876; ' + L.coverTitle + '</h1>' +
+    '<div class="pe-sub">' + L.coverSubA + pages.length + L.coverSubB + new Date().toLocaleDateString() + '</div>' +
     '<div class="pe-msg">' + COOP + '</div>' +
-    '<div class="pe-legend" style="margin-top:0.3in">' + legend + '</div>' +
+    '<div class="pe-tiers"><b>' + L.phased + '</b><br>' +
+    '<span class="tier"><b>' + L.top + '</b>&nbsp; ' + _tierJoin([1,2,3]) + '</span>' +
+    '<span class="tier"><b>' + L.mid + '</b>&nbsp; ' + _tierJoin([4,5,6,7,8]) + '</span>' +
+    '<span class="tier"><b>' + L.low + '</b>&nbsp; ' + _tierJoin([9,10,11]) + '</span></div>' +
+    '<div class="pe-struct">' + L.struct + '</div>' +
+    (SEASON_CONFIG.alliancePower ? (() => { const [y, m, dd] = (SEASON_CONFIG.alliancePowerDate || '').split('-').map(Number);
+      const dt = y ? new Date(y, m - 1, dd).toLocaleDateString(L.powLoc || 'en-US', { year: 'numeric', month: 'long', day: 'numeric' }) : '';
+      const P = SEASON_CONFIG.alliancePower, half = Math.ceil(P.length / 2);   // two side-by-side halves keep the cover on one page
+      const cell = r => r ? '<td class="n">' + r[0] + '</td><td><b>[' + r[1] + ']</b> ' + r[2] + '</td><td class="n">' + Number(r[3]).toLocaleString('en-US') + '</td>' : '<td></td><td></td><td></td>';
+      const hd = '<th>' + L.powRank + '</th><th>' + L.powAl + '</th><th>' + L.powPow + '</th>';
+      let rows = ''; for (let k = 0; k < half; k++) rows += '<tr>' + cell(P[k]) + '<td class="gap"></td>' + cell(P[k + half]) + '</tr>';
+      return '<table class="pe-power"><caption>' + L.powTitle + (dt ? ' &middot; ' + dt : '') + '</caption><tr>' + hd + '<th class="gap"></th>' + hd + '</tr>' + rows + '</table>'; })() : '') +
+    ((SEASON_CONFIG.curseSchedule && L.top3Sh2) ? '<div class="pe-struct">' + L.top3Sh2.replace('{T}', _tierJoin([1,2,3])) + '</div>' : '') +
+    '<div class="pe-legend" style="margin-top:0.12in">' + legend + '</div>' +
     '<ul class="pe-how">' +
-    '<li><b>Every tile shows the alliance holding it</b> (big tag) and its type + level (e.g. <b>TN2</b> = a level-2 Town, <b>SH1</b> = a level-1 Stronghold).</li>' +
-    '<li><b>Below each day\'s map</b> every alliance is listed with its <b>total influence</b> and <b>every land it holds that day</b> &mdash; e.g. <i>TN lvl 2 ID 106, SH lvl 1 ID 40</i>. Find your tag and match your tiles.</li>' +
-    '<li><b style="color:#2e7d32">&uarr;</b> next to a land = <b>take it that day</b>; <b style="color:#c62828">&darr;</b> = <b>drop it that day</b> (no arrow = keep holding). A <b style="color:#f4a261">&#9733;</b> marks the season\'s <b>first capture</b> of that tile &mdash; first capture earns bonus points, and the plan routes first captures to the top alliances.</li>' +
-    '<li><b>Follow your tag, day by day.</b> Only take the land shown for your alliance on that day.</li>' +
-    '<li><b>You can only capture land touching land you already hold</b>, and only after it has unlocked.</li>' +
-    '<li><b>BLOCK tiles are reserved</b> for an upcoming move &mdash; leave them until the plan hands them over.</li>' +
-    '<li>Full rules, unlock schedule and the lock timing are on the last page.</li></ul></div>';
+    '<li>' + L.how1 + '</li>' +
+    '<li>' + L.how2 + '</li>' +
+    '<li>' + L.how3 + '</li>' +
+    '<li>' + L.how4 + '</li>' +
+    '<li>' + L.how5 + '</li>' +
+    '<li>' + L.how6 + '</li></ul>' +
+    '<div class="pe-mist">' + L.mistakes + '</div>' +
+    '</div>';
 
-  // ---- Rules page (NO rankings — just the shared rules) ----
+  const _cs = SEASON_CONFIG.curseSchedule;
+  const _top3Note = (_cs && L.top3Sh2) ? '<div class="pe-msg" style="border-left-color:#7fb3a8">' + L.top3Sh2.replace('{T}', _tierJoin([1,2,3])) + '</div>' : '';
+  const _curseBlock = (_cs && L.h3curse)
+    ? '<h3>' + L.h3curse + '</h3>' +
+      '<table><tr><th>' + L.curseLvl + '</th>' + _cs.map(r => '<th>SH' + r[0] + '</th>').join('') + '</tr>' +
+      '<tr><th>' + L.curseNeed + '</th>' + _cs.map(r => '<td>' + r[1].toLocaleString() + '</td>').join('') + '</tr>' +
+      '<tr><th>' + L.curse80 + '</th>' + _cs.map(r => '<td>' + Math.round(r[1] * 0.8).toLocaleString() + '</td>').join('') + '</tr>' +
+      '<tr><th>' + L.curseDay + '</th>' + _cs.map(r => '<td><b>' + r[2] + '</b></td>').join('') + '</tr></table>' +
+      '<div style="font-size:9.5pt;color:#555;margin-top:4px">' + L.curseNote + '</div>' + _top3Note +
+      ((SEASON_CONFIG.curseProjection && L.h3proj) ?
+        '<h3>' + L.h3proj + '</h3>' +
+        '<table style="font-size:8.5pt"><tr><th>' + L.colDay + '</th><th>' + L.colCR + '</th><th>' + L.colLab + '</th><th>' + L.colSH + '</th></tr>' +
+        SEASON_CONFIG.curseProjection.map(r => '<tr><td>' + r[0] + '</td><td>' + r[1].toLocaleString() + '</td><td>' + r[2] + '</td><td>' + (r[3] ? 'SH' + r[3] : '&mdash;') + '</td></tr>').join('') + '</table>' +
+        '<div style="font-size:9pt;color:#555;margin-top:4px">' + L.projNote + '</div>' : '')
+    : '';
   const rules =
-    '<div class="pe-rules"><h1>Map Rules &amp; Timing</h1>' +
-    '<h3>How land is taken</h3><ul>' +
-    '<li><b>Adjacency:</b> you can only capture a tile directly next to one you already hold. On Day 1 you place a single starting stronghold; you grow outward from there.</li>' +
-    '<li><b>Checkerboard:</b> strongholds are never next to strongholds &mdash; you reach the next stronghold by first taking the city between them. <b>Cities are the main Rare Soil producers</b> (Village 350/h &middot; Town 400 &middot; Factory 450 &middot; Train Station 800 &middot; Launch Site 900 &middot; War Palace 1000). Dig sites produce coal for heat plus a little soil (100&ndash;150/h). The season is ranked on TOTAL rare soil accumulated while held.</li><li><b>Why lands get dropped (&darr;):</b> every drop is planned &mdash; either a <b>swap</b> (the 4-dig / 6-city cap forces releasing a lesser land to take a better one, so dig income never goes down) or a <b>scheduled handoff</b> (land is released so its capture-lock finishes exactly when the next alliance is due to take it). Every handoff is timed so the receiving alliance can take the land the moment its capture-lock allows.</li>' +
-    '<li><b>Your cap:</b> up to <b>6 cities + 4 strongholds = 10 blocks</b> total, taking at most <b>2 cities and 2 strongholds per day</b>.</li>' +
+    '<div class="pe-rules"><h1>' + L.rulesTitle + '</h1>' +
+    '<h3>' + L.h3how + '</h3><ul>' +
+    '<li>' + L.rAdj + '</li>' +
+    '<li>' + L.rCheck + '</li>' +
+    '<li>' + L.rDrop + '</li>' +
+    '<li>' + L.rCap + '</li>' +
     '</ul>' +
-    '<h3>The 36-hour &amp; 6-day locks (read this!)</h3><ul>' +
-    '<li>After <b>anyone</b> captures a <b>stronghold</b>, that tile is locked for <b>36 hours</b> &mdash; it can\'t change hands again until the lock clears.</li>' +
-    '<li>After <b>anyone</b> captures a <b>city</b>, that tile is locked for <b>6 days</b>.</li>' +
-    '<li>This is why the plan sometimes tells you to <b>wait</b>: grabbing a tile too soon after it was released simply fails. Take it on the day it is marked for you and it works cleanly.</li>' +
+    '<h3>' + L.h3lock + '</h3><ul>' +
+    '<li>' + L.lock1 + '</li>' +
+    '<li>' + L.lock2 + '</li>' +
+    '<li>' + L.lock3 + '</li>' +
     '</ul>' +
-    '<h3>When each land level unlocks</h3>' +
-    '<table><tr><th>Level</th><th>1</th><th>2</th><th>3</th><th>4</th><th>5</th><th>6</th></tr>' +
-    '<tr><th>City opens Day</th><td>3</td><td>6</td><td>10</td><td>13</td><td>17</td><td>20</td></tr></table>' +
-    '<div style="font-size:9.5pt;color:#555;margin-top:4px">Higher-level land opens later. Each day&rsquo;s page lists every alliance&rsquo;s total <b>influence</b> and the exact lands it should hold &mdash; capture the land marked for you, on the day it is marked.</div>' +
+    '<h3>' + L.h3unlock + '</h3>' +
+    '<table><tr><th>' + L.tblLevel + '</th><th>1</th><th>2</th><th>3</th><th>4</th><th>5</th><th>6</th></tr>' +
+    '<tr><th>' + L.tblOpens + '</th><td>3</td><td>6</td><td>10</td><td>13</td><td>17</td><td>20</td></tr></table>' +
+    '<div style="font-size:9.5pt;color:#555;margin-top:4px">' + L.unlockNote + '</div>' +
+    _curseBlock +
     '<div class="pe-msg">' + COOP + '</div></div>';
+
 
   let host = document.getElementById('printExport');
   if (host) host.remove();
@@ -2487,7 +2787,7 @@ function importState() {
           }
           if (data.assignments) {
             Object.entries(data.assignments).forEach(([areaId, allianceId]) => {
-              if (!state.assignments[areaId]) {
+              if (!state.assignments[areaId] && isPlannableId(areaId)) {
                 state.assignments[areaId] = allianceId;
               }
             });
@@ -2623,6 +2923,7 @@ function pullFromPrevious() {
   const prev = state.days[prevKey].assignments || {};
   let added = 0, updated = 0;
   Object.keys(prev).forEach(tile => {
+    if (!isPlannableId(tile)) return;
     if (!(tile in state.assignments)) added++;
     else if (state.assignments[tile] !== prev[tile]) updated++;
     state.assignments[tile] = prev[tile];
@@ -2743,8 +3044,10 @@ function showMobileActionBar(area) {
   const canFree = isAdminOrOwner || isMyTile;
 
   let buttons = '';
-  if (MAP_USER.role !== 'viewer' && state.selectedAlliance) {
-    if (isOpen) {
+  if (!isPlannable(area) && !currentOwner) {
+    buttons += `<button class="mab-btn-disabled" disabled>Not part of land planning (${area.name})</button>`;
+  } else if (MAP_USER.role !== 'viewer' && state.selectedAlliance) {
+    if (isOpen && isPlannable(area)) {
       buttons += `<button class="mab-btn-claim" onclick="mobileAssign('${area.id}')">&#9873; Claim for ${state.alliances.find(a=>a.id===state.selectedAlliance)?.name || 'alliance'}</button>`;
     } else if (isMyTile && canFree) {
       buttons += `<button class="mab-btn-free" onclick="mobileFree('${area.id}')">&#10005; Free this tile</button>`;
@@ -2770,7 +3073,7 @@ function hideMobileActionBar() {
 }
 
 function mobileAssign(areaId) {
-  if (!state.selectedAlliance) return;
+  if (!state.selectedAlliance || !isPlannableId(areaId)) return;
   state.assignments[areaId] = state.selectedAlliance;
   saveState();
   renderInfluence();
