@@ -13,8 +13,10 @@
     ]},
     { label: 'Season Guides', items: [
       { href: 'guides/s3_golden_kingdom.html', label: 'S3 Golden Kingdom' },
+      { href: 'guides/s2_polar_storm.html', label: 'S2 Polar Storm' }
+    ]},
+    { label: 'Resistance', items: [
       { href: 'guides/curse_resistance_s3.html', label: 'S3 Curse Resist' },
-      { href: 'guides/s2_polar_storm.html', label: 'S2 Polar Storm' },
       { href: 'guides/virus_resistance_s2.html', label: 'S2 Virus Resist' },
       { href: 'guides/virus_resistance.html', label: 'S1 Virus Resist' },
       { href: 'guides/zombie_boss_chart.html', label: 'Zombie Boss' }
